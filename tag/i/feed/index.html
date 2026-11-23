@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>i &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/i/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 29 Nov 2016 20:46:00 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Your Questions #16</title>
+		<link>http://html5doctor.com/your-questions-16/</link>
+		<comments>http://html5doctor.com/your-questions-16/#comments</comments>
+		<pubDate>Tue, 01 Mar 2011 14:30:38 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[b]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[i]]></category>
+		<category><![CDATA[nav]]></category>
+		<category><![CDATA[section]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2748</guid>
+		<description><![CDATA[<p>The clinic is getting busy with more HTML5 ailments! This week, we'll cover the separation of formatting and content, custom elements, using aside for social links, sections with no visible titles, and canvas in the DOM.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is getting busy with more <abbr>HTML</abbr>5 ailments! This week, we&#8217;ll cover the separation of formatting and content, custom elements, using <code>&lt;aside&gt;</code> for social links, sections with no visible titles, and <code>&lt;canvas&gt;</code> in the <abbr>DOM</abbr>.</p>
+<section>
+<h2>Separation of formatting and content</h2>
+<p>Graham asked:</p>
+<blockquote>
+<p>When I first started learning html and <abbr>CSS</abbr> I was constantly told not to use <code>b</code> or <code>i</code> tags as the idea was to completely separate formatting from content. Is this now not the case?</p>
+</blockquote>
+<p>In <abbr>HTML</abbr> 4 (and <abbr>XHTML</abbr> 1.x), the elements <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> (plus some others) were presentational — they only had visual meaning. This doesn’t work so well for blind users, for example.</p>
+<p>In <abbr>HTML</abbr>5, presentational elements have either been cut or, as in the case of <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code>, given semantic meanings to make them media-independent. You can find out more here: <a href="http://html5doctor.com/i-b-em-strong-element/">The <code>&lt;i&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;em&gt;</code>, and <code>&lt;strong&gt;</code> elements</a> and <a href="http://html5doctor.com/small-hr-element/">The <code>&lt;small&gt;</code> and <code>&lt;hr&gt;</code> elements</a>.</p>
+<p>So to directly answer your question, in <abbr>HTML</abbr>5, <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> are now content (semantic), not formatting (presentational).</p>
+<p>peace &#8211; Oli</p>
+</section>
+<section>
+<h2>Custom elements</h2>
+<p>Eric asked:</p>
+<blockquote>
+<p>It is possible to use custom elements in <abbr>HTML</abbr>5 to be more semantic; however, is it ill-advised? For example:</p>
+<p>    <code>
+<pre>&lt;footer id="page-footer"&gt;
+&lt;copyright&gt;Copyright ©...&lt;/copyright&gt;
+&lt;/footer&gt;</pre>
+<p></code></p>
+</blockquote>
+<p>Umm, no, <abbr>HTML</abbr>5 doesn&#8217;t allow &#8220;custom elements&#8221;. While browsers will try to recover gracefully if you do this, making stuff up is definitely ill-advised — something like <code>&lt;copyright&gt;</code> will have no meaning for browsers and could lead to problems in <abbr>IE</abbr>.</p>
+<p>If you want an element for a copyright statement or other short legalese, there’s already a perfectly <a href="http://html5doctor.com/small-hr-element/">good one in <code>&lt;small&gt;</code></a>.</p>
+<p>If you can’t find a more semantically appropriate element, use <code>&lt;span&gt;</code> for phrasing (inline) content, <code>&lt;p&gt;</code> for a block of phrasing content, or <code>&lt;div&gt;</code> for flow (block-level) content, and add a class name that indicates the semantics — e.g. <code>&lt;span class="lorem"&gt;Lorem ipsum&lt;/span&gt;</code>.</p>
+<p>Hope that helps!</p>
+<p>peace &#8211; Oli</p>
+</section>
+<section>
+<h2>Marking up social links</h2>
+<p>A reader asked:</p>
+<blockquote>
+<p>Could a list of share icons (twitter, facebook, etc) be considered a candidate for use of the nav element? and do links in a <code>nav</code> element <strong>have to be</strong> into the same domain name&#8221;?</p>
+</blockquote>
+<p><code>&lt;nav&gt;</code> is for navigation around your content. On my personal site, I have a link to my Flickr photostream marked up in the same container as links to my own contact page, etc. I think the link to Flickr is conceptually no different to navigation within my personal site: it&#8217;s all <em>my</em> content. If my photos were on my own domain (as they used to be), I wouldn&#8217;t hesitate to include them in <code>&lt;nav&gt;</code>, and I wouldn&#8217;t hesitate to include this same content within <code>&lt;nav&gt;</code> today.</p>
+<p>A list of share icons isn&#8217;t <code>&lt;nav&gt;</code> for two separate reasons.</p>
+<p>First, they aren&#8217;t meant to take you somewhere else. They&#8217;re designed to perform an action of tweeting/&#8221;liking&#8221; a link to a page.</p>
+<p>Second, and most importantly, they&#8217;re not navigation around your content. As the <a href="http://dev.w3.org/html5/spec/sections.html#the-nav-element">spec says</a> <q>&#8220;Not all groups of links on a page need to be in a nav element — only sections that consist of major navigation blocks are appropriate for the nav element.&#8221;</q></p>
+<p>As a list of share icons is tangential to your content, I&#8217;d probably use <a href="http://dev.w3.org/html5/spec/sections.html#the-nav-element">the <code>&lt;aside&gt;</code> element</a>: <q>&#8220;The aside element represents a section of a page that consists of content that is tangentially related to the content around the aside element, and which could be considered separate from that content. Such sections are often represented as sidebars in printed typography&#8221;</q>. For more details, check out our <a href="http://html5doctor.com/aside-revisited/"><code>&lt;aside&gt;</code> revisited</a> article.</p>
+<p>Social links are the kind of thing that could be cut from a feed reader without diminishing the value of the content. As an additional note, remember that you can also place an <code>&lt;aside&gt;</code> at the end of an article, like a footer. In spite of its name, <code>&lt;aside&gt;</code> doesn&#8217;t have to be a sidebar.</p>
+<p>Thanks, Bruce and Mike</p>
+</section>
+<section>
+<h2>Sections with no visible titles</h2>
+<p>Francesco asked:</p>
+<blockquote>
+<p>I have some divs, in a page, that semantically would make more sense as sections as there are natural headings for them, but they&#8217;re not written *inside* them, they&#8217;re outside. There are tabs to switch the visibility of these sections, and the tab navigation is on their left&#8230; so the actual title is only there, and not repeated inside of the sections. But besides that they really are sections&#8230; they even had &#8220;class=section&#8221; in the old version. :-)</p>
+<p>What would the best solution be? Put an <code>h1</code> in there with <code>display:none</code>? It would make the outline correct, but it looks like a hack.</p>
+</blockquote>
+<p>You should reorganise your markup to ensure the headings are within the section. Then you can use some <abbr>CSS</abbr> positioning trickery to move them into place. Don&#8217;t use <code>display:none</code>, though, as that&#8217;s invisible to everyone, including assistive technologies like screen readers.</p>
+<p>Cheers, Rich</p>
+</section>
+<section>
+<h2><abbr>HTML</abbr>5 <code>&lt;canvas&gt;</code> and the <abbr>DOM</abbr></h2>
+<p>Elango asked:</p>
+<blockquote>
+<p>Is it possible to get the elements i have drawn into the canvas using some API. Say for eg i draw 2 circle and 2 lines is that possible for me to get these information from Canvas by using DOM API&#8217;s</p>
+</blockquote>
+<p>No. Think of a canvas like a canvas you would physically paint on. If you paint a red stroke and then paint over that in blue, you can&#8217;t get back to the original red stroke. The canvas <abbr>API</abbr> works the same way: once your <strong>pixels</strong> are committed, you can&#8217;t go back.</p>
+<p>You want <abbr>SVG</abbr> (or try out <a href="http://raphaeljs.com">Raphaël</a>).</p>
+<p>Cheers, Remy</p>
+</section>
+<section>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-16/" rel="bookmark">Your Questions #16</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on March 1, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-16/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+		<item>
+		<title>The i, b, em, &#038;amp; strong elements</title>
+		<link>http://html5doctor.com/i-b-em-strong-element/</link>
+		<comments>http://html5doctor.com/i-b-em-strong-element/#comments</comments>
+		<pubDate>Tue, 09 Mar 2010 15:40:01 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[b]]></category>
+		<category><![CDATA[em]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[i]]></category>
+		<category><![CDATA[strong]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1443</guid>
+		<description><![CDATA[<p>While many HTML4 elements have been brought into HTML5 essentially unchanged, several historically presentational ones have been given semantic meanings. Let’s look at <code>&#60;i&#62;</code> and <code>&#60;b&#62;</code> and compare them to the semantic stalwarts <code>&#60;em&#62;</code> and <code>&#60;strong&#62;</code>.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[
+<p>While many HTML4 elements have been brought into HTML5 essentially unchanged, several historically presentational ones have been given semantic meanings.</p>
+
+<span id="more-1443"></span>
+
+<p>Let’s look at <code>&lt;i&gt;</code> and <code>&lt;b&gt;</code> and compare them to the semantic stalwarts <code>&lt;em&gt;</code> and <code>&lt;strong&gt;</code>. In summary:</p>
+
+<ul class="toc-list">
+<li><strong><code>&lt;i&gt;</code></strong> — was italic, now for <em>text in an “alternate voice”</em>, such as <ins datetime="2012-01-30T23:56:26+09:00">transliterated</ins> foreign words, technical terms, and typographically italicized text (<a href="http://dev.w3.org/html5/markup/i.html" title="HTML5: i &#8211; offset text typically styled in italic">W3C:Markup</a>, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-i-element" title="4.6 Text-level semantics — HTML5 (including next generation additions still in development)">WHATWG</a>)</li>
+<li><strong><code>&lt;b&gt;</code></strong> — was bold, now for <em>“stylistically offset” text</em>, such as keywords and typographically emboldened text (<a href="http://dev.w3.org/html5/markup/b.html" title="HTML5: b &#8211; offset text typically styled in bold (CHANGED)">W3C:Markup</a>, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-b-element" title="4.6 Text-level semantics — HTML5 (including next generation additions still in development)">WHATWG</a>)</li>
+<li><strong><code>&lt;em&gt;</code></strong> — was emphasis, now for <em>stress emphasis</em>, i.e., something you’d pronounce differently (<a href="http://dev.w3.org/html5/markup/em.html" title="HTML5: em &#8211; emphatic stress (CHANGED)">W3C:Markup</a>, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-em-element" title="4.6 Text-level semantics — HTML5 (including next generation additions still in development)">WHATWG</a>)</li>
+<li><strong><code>&lt;strong&gt;</code></strong> — was for stronger emphasis, now for <em>strong importance</em>, basically the same thing (stronger emphasis or importance is now indicated by nesting) (<a href="http://dev.w3.org/html5/markup/strong.html" title="HTML5: strong &#8211; strong importance (CHANGED)">W3C:Markup</a>, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-strong-element" title="4.6 Text-level semantics — HTML5 (including next generation additions still in development)">WHATWG</a>)</li>
+</ul>
+
+<section>
+<h2>Giving presentational elements new semantic meanings</h2>
+
+<p><code>&lt;i&gt;</code> and <code>&lt;b&gt;</code> were <a href="http://www.w3.org/TR/html401/present/graphics.html#h-15.2.1" title="Alignment, font styles, and horizontal rules in HTML documents">HTML4 font style elements</a> and are still used presentationally where appropriate to follow typographic conventions. They now have semantic meaning, however, and their style can be changed via CSS, meaning they’re not <em>only</em> presentational — <code>&lt;b&gt;</code>, for example, doesn’t have to be bold. Because of this, <strong>it’s recommended to use classes to indicate meaning</strong> to make it easy to change the style later.</p>
+
+<section id="element-i">
+<h3>The <code>&lt;i&gt;</code> element</h3>
+
+<blockquote class="changed-block" datetime="2012-01-30T23:56:05+09:00">
+<p>The i element represents a span of text in an alternate voice or mood, or otherwise offset from the normal prose in a manner indicating a different quality of text, such as a taxonomic designation, a technical term, an idiomatic phrase from another language, a thought, or a ship name in Western texts.</p>
+<footer><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-i-element" title="4.6 Text-level semantics — HTML Standard">HTML — Living Standard</a></cite>, <dfn><abbr title="Web Hypertext Application Technology Working Group">WHATWG</abbr></dfn></footer>
+</blockquote>
+
+<p>Other things that are typically italicised include <ins datetime="2012-01-30T23:53:18+09:00">transliterated</ins> foreign words (using the attribute <code>lang=""</code>), inline stage directions in a script, some musical notation, and when representing hand-written text inline:</p>
+
+<figure id="deckard"><blockquote cite="http://www.trussel.com/bladerun.htm">
+<ol class="script semantic-list">
+<li><b class="character">Deckard</b>: Move! Get out of the way!</li>
+<li class="action">Deckard fires. Kills Zhora in dramatic slow motion scene.</li>
+<li><b class="character">Deckard</b>: <i class="voiceover">The report would be routine retirement of a replicant which didn&#8217;t make me feel any better about shooting a woman in the back. There it was again. Feeling, in myself. For her, for Rachael.</i></li>
+<li><b class="character">Deckard</b>: Deckard. B-263-54.</li>
+</ol></blockquote>
+<figcaption>Using <code>&lt;i class="voiceover"&gt;</code> to indicate a voiceover (alternate mood)</figcaption></figure>
+
+<figure id="japanese">
+<blockquote>
+<p>We ate <i lang="ja-latn" title="eel">unagi</i>, <i lang="ja-latn" title="seared salmon">aburi-zake</i>, and <i lang="ja-latn" title="octopus">tako</i> sushi last night, but the <i lang="ja-latn" title="fatty bluefin tuna belly—LET’S EAT IT ALL!">toro</i> sushi was all fished out.</p>
+</blockquote>
+<figcaption><ins datetime="2012-01-31T00:05:06+09:00">Using <code>&lt;i lang="ja-latn"&gt;</code> to indicate a transliterated word from a foreign language (with <code>lang="ja-latn"</code> indicating transliterated Japanese).</ins> To check character sets for <code>lang=""</code> values you can use the  (ouch), or the excellent <a href="http://rishida.net/utils/subtags/" title="ishida &gt;&gt; utilities: Language subtag registry search">Language Subtag Lookup tool by Richard Ishida, W3C</a>.</figcaption>
+</figure>
+
+<figure id="nanotyrannus">
+<blockquote cite="http://en.wikipedia.org/wiki/Nanotyrannus">
+<p><i class="taxonomy">Nanotyrannus</i> (&#8220;dwarf tyrant&#8221;) is a genus of tyrannosaurid dinosaur, and is possibly a juvenile specimen of <i class="taxonomy">Tyrannosaurus</i>. It is based on CMN 7541, a skull collected in 1942 and described by Charles W. Gilmore described in 1946, who gave it the new species <i class="taxonomy">Gorgosaurus lancensis</i>.</p>
+</blockquote>
+<figcaption>Using <code>&lt;i class="taxonomy"&gt;</code> for taxonomic names</figcaption>
+</figure>
+
+<p>Only use <code>&lt;i&gt;</code> when nothing more suitable is available — e.g., <code>&lt;em&gt;</code> for text with stress emphasis, <code>&lt;strong&gt;</code> for text with semantic importance, <code>&lt;cite&gt;</code> for titles in a citation or bibliography, <code>&lt;dfn&gt;</code> for the defining instance of a word, and <code>&lt;var&gt;</code> for mathematical variables. Use CSS instead for italicizing blocks of text, such as asides, verse, and (as used here for W3C specification quote) block quotations. Remember to use the <code>class</code> attribute to identify why the element is being used, making it easy to restyle a particular use. You can target <code>lang</code> in CSS using the attribute selector (eg <code>[lang="ja-latn"]</code>). <ins datetime="2012-01-31T00:06:14+09:00">Full sentences of foreign prose should generally be set in quotes in their own paragraph (or blockquote), and should <em>not</em> use <code>&lt;i&gt;</code> (add the <code>lang</code> attribute to the containing element).</ins></p>
+</section>
+
+<section id="element-b">
+<h3>The <code>&lt;b&gt;</code> element</h3>
+
+<blockquote>
+<p>The b element represents a span of text to which attention is being drawn for utilitarian purposes without conveying any extra importance and with no implication of an alternate voice or mood, such as key words in a document abstract, product names in a review, actionable words in interactive text-driven software, or an article lede.</p>
+<footer><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-b-element" title="4.6 Text-level semantics — HTML Standard">HTML — Living Standard</a></cite>, <abbr>WHATWG</abbr></footer>
+</blockquote>
+
+<p>For <code>&lt;b&gt;</code> text that should merely look different, there is no requirement to use <code>font-style: bold;</code> — other styling could include a round-cornered background, larger font size, different color, or formatting such as small caps. For instance, <a href="#deckard">in the script example above</a>, <code>&lt;b class="character"&gt;</code> is used to indicate who’s speaking or narrating.</p>
+
+<p>Text that is bold by typographic convention (and <strong>not</strong> because it’s more important) could include names in a Hollywood gossip column or the initial text on a complex or traditionally designed page:</p>
+
+<figure>
+<a href="http://oli.jp/example/speckled-band/"><img src="http://html5doctor.com/wp-content/uploads/2010/02/opening-phrase.png" alt="Opening versal (drop cap), plus styling of first phrase using b" title="Opening phrase" width="528" height="84" class="alignnone size-full wp-image-1464" srcset="http://html5doctor.com/wp-content/uploads/2010/02/opening-phrase.png 528w, http://html5doctor.com/wp-content/uploads/2010/02/opening-phrase-300x47.png 300w" sizes="(max-width: 528px) 100vw, 528px" /></a>
+<figcaption>Connecting the versal (drop cap) with the text using <code>&lt;b class="opening-phrase"&gt;</code>. The pseudo-element selector <code>:first-letter</code> is used to create the versal. In this case, the opening phrase is bold only for stylistic reasons, but if it was semantically important, <code>&lt;strong&gt;</code> or some other element would be more appropriate. <del datetime="2010-03-10T23:51:21+09:00">Note that <code>:first-letter</code> only applies to block-level elements, so the versal “I” is not inside <code>&lt;b&gt;</code>.</del></figcaption>
+</figure>
+
+<figure>
+<a href="http://oli.jp/example/speckled-band/"><img src="http://html5doctor.com/wp-content/uploads/2010/02/opening-line.png" alt="Using :first-line instead of the b element" title="Opening line" width="528" height="156" class="alignnone size-full wp-image-1463" srcset="http://html5doctor.com/wp-content/uploads/2010/02/opening-line.png 528w, http://html5doctor.com/wp-content/uploads/2010/02/opening-line-300x88.png 300w" sizes="(max-width: 528px) 100vw, 528px" /></a>
+<figcaption>While we can use <code>&lt;b&gt;</code> to apply a traditional typographic style like small-caps to the first word, phrase or sentence, the CSS pseudo-element selector <code>:first-line</code> is more appropriate in this case. For the first paragraph of <a href="http://html5doctor.com/" title="HTML5 Doctor, helping you implement HTML5 today">HTML5Doctor.com</a> articles we use the nifty <code>:first-of-type</code> CSS3 pseudo-class selector.</figcaption>
+</figure>
+
+<p>Only use <code>&lt;b&gt;</code> when there are no other more suitable elements — e.g., <code>&lt;strong&gt;</code> for text with semantic importance, <code>&lt;em&gt;</code> for emphasized text (text with “stress emphasis”), <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> for titles, and <code>&lt;mark&gt;</code> for highlighted or marked text. Use classes on list items for a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#tag-clouds" title="4.12 Links — HTML5 (including next generation additions still in development)">tag cloud</a>. To recreate traditional typographic effects, use <a href="http://www.w3.org/TR/CSS2/selector.html#pseudo-element-selectors" title="Selectors">CSS pseudo-element selectors</a> like <code>:first-line</code> and <code>:first-letter</code> where appropriate. Again, remember to use the <code>class</code> attribute to identify why the element is being used, making it easy to restyle a particular use.</p>
+
+</section>
+</section>
+
+<section>
+<h2>…and for comparison, the <code>&lt;em&gt;</code> and <code>&lt;strong&gt;</code> elements</h2>
+
+<p class="callout highlight-block">While <code>&lt;em&gt;</code> and <code>&lt;strong&gt;</code> have remained pretty much the same, there has been a slight realignment in their meanings. In HTML4 they meant ‘emphasis’ and ‘strong emphasis’. Now their meanings have been differentiated into <code>&lt;em&gt;</code> representing <em>stress emphasis</em> (i.e., something you’d pronounce differently), and <code>&lt;strong&gt;</code> representing <em>importance</em>.</p>
+
+<section>
+<h3 id="element-em">The <code>&lt;em&gt;</code> element</h3>
+<blockquote>
+<p>The em element represents stress emphasis of its contents.</p>
+<footer><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-em-element" title="4.6 Text-level semantics — HTML Standard">HTML — Living Standard</a></cite>, <abbr>WHATWG</abbr></footer>
+</blockquote>
+
+<p>The ‘stress’ being referred to is linguistic. If spoken, this stress would be emphasised pronunciation on a word that can change the nuance of a sentence. For example, “Call a <em>doctor</em> now!” emphasises the importance of calling a doctor, perhaps in reply to someone asking “Should I get a nurse?” In contrast, “Call a doctor <em>now</em>!” emphasises the importance of calling immediately.</p>
+
+<p>Use <code>&lt;strong&gt;</code> instead to indicate importance and <code>&lt;i&gt;</code> when you want italics without implying emphasis. The level of nesting represents the level of emphasis.</p>
+</section>
+
+<section id="element-strong">
+<h3>The <code>&lt;strong&gt;</code> element</h3>
+<blockquote>
+<p>The strong element represents strong importance for its contents.</p>
+<footer><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-strong-element" title="4.6 Text-level semantics — HTML Standard">HTML — Living Standard</a></cite>, <abbr>WHATWG</abbr></footer>
+</blockquote>
+
+<p>Not much more to say really — it’s the <code>&lt;strong&gt;</code> we all know so well. Indicate relative importance by nesting <code>&lt;strong&gt;</code> elements, and use <code>&lt;em&gt;</code> for text with stress emphasis, or <code>&lt;b&gt;</code> for text that is “stylistically offset” or bold without being more important.</p>
+</section>
+</section>
+
+<section>
+<h2>In summation…</h2>
+<p>A final thing to note: these elements (and almost all HTML5 elements) have also been made explicitly <em>media-independent</em>, meaning their semantics are not tied to how they look in a visual browser.</p>
+
+<p>So there you have it — two stray dogs of presentational HTML4 have been transformed into meaningful HTML5 elements, ready to be adopted into your coding once again. Can <em>you</em> resist their semantically shiny puppy-dog eyes? Let us know!</p>
+
+</section>
+
+
+<section id="changes">
+<h2>Changes <a class="permalink" href="#changes">#</a></h2>
+
+<ol class="semantic-list">
+<li><time datetime="2012-01-31T00:09:51+09:00">2012-01-31</time> I’ve updated mentions of using <code>&lt;i&gt;</code> for foreign words to be specifically <em>transliterated</em> foreign words (what I was meaning), based on feedback in the comments. I’ve also updated spec quotes.</li>
+</ol>
+
+<!-- /#changes --></section>
+<p><a href="http://html5doctor.com/i-b-em-strong-element/" rel="bookmark">The i, b, em, &amp;amp; strong elements</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on March 9, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/i-b-em-strong-element/feed/</wfw:commentRss>
+		<slash:comments>82</slash:comments>
+		</item>
+	</channel>
+</rss>

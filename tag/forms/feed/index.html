@@ -1,0 +1,1219 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>forms &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/forms/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 11 Jul 2016 11:54:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The woes of date input</title>
+		<link>http://html5doctor.com/the-woes-of-date-input/</link>
+		<comments>http://html5doctor.com/the-woes-of-date-input/#comments</comments>
+		<pubDate>Tue, 19 Jan 2016 14:39:31 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[date]]></category>
+		<category><![CDATA[datepicker]]></category>
+		<category><![CDATA[input]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5961</guid>
+		<description><![CDATA[One of the many new input types that HTML5 introduced is the date input type which, in theory, should allow a developer to provide the user with a simple, usable, recognisable method of entering a date on a web page. But sadly, this input type has yet to reach its full potential. Briefly, the date [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>One of the many <a href="http://html5doctor.com/html5-forms-input-types/">new input types</a> that <abbr>HTML5</abbr> introduced is the date input type which, in theory, should allow a developer to provide the user with a simple, usable, recognisable method of entering a date on a web page. But sadly, this input type has yet to reach its full potential.</p>
+<section id="introduction">
+<p>Briefly, the date input type is a form element that allows the capture of a date from a user, usually via a datepicker. The implementation of this datepicker is up to the browser vendor, as the <a href="http://www.w3.org/TR/html51/semantics.html#date-state-%28type=date%29"><abbr>HTML5</abbr> specification</a> does not tell vendors how to implement the input&#8217;s <abbr title="User Interface">UI</abbr>.</p>
+<p>The input itself can of course be used without using any of its available attributes:</p>
+<pre><code>&lt;label for="when">Date:&lt;/label>
+&lt;input id="when" name="when" type="date"></code></pre>
+</p>
+<p>Or you can specify minimum and maximum date values via the <code>min</code> and <code>max</code> attributes, ensuring that a user can only choose dates within a specific range:</p>
+<pre><code>&lt;label for="when">Date:&lt;/label>
+&lt;input id="when" name="when" type="date" min="2016-01-01" max="2016-12-01"></code></pre>
+</p>
+<p>You can also use the <code>step</code> attribute to specify, in days, how a date can increment. The default is 1.</p>
+<p>This of course is the theory and a fine reality it would be, if it were so but alas it is not.</p>
+</section>
+<section id="features">
+<h2>Features</h2>
+<p>Rather than talk about <a href="http://caniuse.com/#feat=input-datetime">browser support</a> for the date input type, I will instead talk about the various features that are part of this input type:</p>
+<ul>
+<li><a href="#feature-input-field">the input field</a></li>
+<li><a href="#feature-min-max-attributes">the <code>min</code> and <code>max</code> attributes</a></li>
+<li><a href="#feature-step-attribute">the <code>step</code> attribute</a></li>
+<li><a href="#feature-datepicker">the datepicker</a></li>
+<li><a href="#feature-events">events</a></li>
+</ul>
+<section id="feature-input-field">
+<h3>The <code>input</code> field</h3>
+<p>Neither Firefox nor Safari support this input type; it is treated as a simple text field with no formatting and no special interaction.</p>
+<p>Microsoft Edge has no special interactions and in fact the input field appears to be read-only.</p>
+<p>Chrome and Opera have the same implementations which display a date placeholder (or date value if the input&#8217;s <code>value</code> attribute has been set) using the user&#8217;s system settings&#8217; date format. There are also some controls that allow the user to clear the input field, some arrows to cycle up and down between values, and an arrow that will open a datepicker (see Figure 1). There are some <a href="http://www.tjvantoll.com/2013/04/15/list-of-pseudo-elements-to-style-form-controls/#input_date">WebKit prefixed pseudo selectors</a> available that allow you to change the appearance of the various bits within the input date field.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-date-input.jpg" alt="Screenshot of WebKit's native date input on Chrome"></p>
+<figcaption>Figure 1. &#8211; WebKit&#8217;s date input field as seen on Chrome</figcaption>
+</figure>
+</section>
+<section id="feature-min-max-attributes">
+<h3>The <code>min</code> and <code>max</code> attributes</h3>
+<p>All of those browsers that support the date input type also support the <code>min</code> and <code>max</code> attributes.</p>
+<p>Chrome and Opera both work fine if both the <code>min</code> and <code>max</code> attributes are set, but the <abbr title="User Interface">UI</abbr> is poor when only one of them is set. In these browsers, the date input displays up and down arrows for the user to change each value (day, month, and year). If a date input has a minimum value set at today&#8217;s date, then if the user highlights the year and then clicks the down arrow, the year will change to 275760 as the arrows cycle between the valid values and, since no maximum has been set, the default maximum is used (see Figure 2). This has been <a href="https://code.google.com/p/chromium/issues/detail?id=577680">reported as a bug</a> but has been marked as &#8220;won&#8217;t fix&#8221; as apparently it is the desired behaviour, I disagree.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-date-input-bug.jpg" alt="Screenshot of WebKit's native date input on Chrome showing the year cycling to 275760"></p>
+<figcaption>Figure 2. &#8211; WebKit&#8217;s buggy date input field with a <code>min</code> value set but no <code>max</code></figcaption>
+</figure>
+<p>Something similar happens when only a <code>max</code> value is set in that pressing the up arrow will cycle around to the year 0001, which is the default minimum. Again this leads to a very confusing <abbr title="User Experience">UX</abbr> for the user, so please use both <code>min</code> and <code>max</code> where possible.</p>
+<p>With Android, the setting of these attributes can cause some weird quirks with the <a href="#feature-datepicker">datepicker</a>.</p>
+</section>
+<section id="feature-step-attribute">
+<h3>The <code>step</code> attribute</h3>
+<p>None of the browsers tested support the <code>step</code> attribute.</p>
+</section>
+<section id="feature-datepicker">
+<h3>The datepicker</h3>
+<p>Firefox and Safari do not support the date input type and therefore do not open a datepicker on desktop. But they <em>do</em> open a device&#8217;s native datepicker on mobile devices when the date input field receives focus.</p>
+<p>Microsoft Edge opens a datepicker, but its <abbr>UI</abbr> is very poor (see Figure 3).</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/edge-datepicker.png" alt="Screenshot of the the Edge's datepicker, which displays a list of selectable dates with one highlighted and two buttons at the bottom, once with a tick and the other with an X"></p>
+<figcaption>Figure 3. &#8211; Microsoft Edge&#8217;s native datepicker</figcaption>
+</figure>
+<p>Chrome and Opera open a fairly decent datepicker on desktop but you cannot style it at all. It looks how it looks (see Figure 4), and there&#8217;s nothing that you can do about it, no matter what your designer says. With these browsers you can <a href="http://trac.webkit.org/wiki/Styling%20Form%20Controls#Dateinputtype">disable the native datepicker</a> if you want and implement your own, but this will <em>not</em> work with mobile devices. This gives you the best of both worlds: you can implement a nicer datepicker for desktop and let a device use its own native datepicker.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-datepicker.jpg" alt="Screenshot of WebKit's native datepicker and date input on Chrome"></p>
+<figcaption>Figure 4. &#8211; WebKit&#8217;s native datepicker and date input field as seen on Chrome</figcaption>
+</figure>
+</section>
+<p>All the native datepickers that I tested on Android displayed some sort of confusing display quirks when valid <code>min</code> and <code>max</code> attribute are set. A user is correctly restricted from selecting a date outside of the specified range, but the visual datepickers often display &#8220;previous&#8221;, &#8220;current&#8221;, and &#8220;next&#8221; values for day, month, and year, and the values displayed for &#8220;previous&#8221; are either empty (in the case of the month) or set to 9999 (in the case of the year, see Figure 5).</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/android-4.3-native-datepicker.png" alt="Screenshot of the native datepicker on Android 4.3, with a selected date and the previous year set to 9999"></p>
+<figcaption>Figure 5. &#8211; The native datepicker on Android 4.3</figcaption>
+</figure>
+</section>
+<section id="feature-events">
+<h3>Events</h3>
+<p>Like most of the other input fields, the date input supports the <a href="http://www.w3.org/TR/html51/semantics.html#event-input-input"><code>input</code></a> and <a href="http://www.w3.org/TR/html51/semantics.html#event-input-change"><code>changed</code></a> events. The <code>input</code> event is fired every time a user interacts with the input field, while the <code>change</code> event is usually only fired when the value is committed, i.e. the input field loses focus.</p>
+<p>For those browsers mentioned above that support the native date input field, no specific events are fired that will allow you to determine if the user has done anything &#8220;date specific&#8221; such as opened or closed the datepicker, or cleared the input field. You can work out if the field has been cleared by listening for the <code>input</code> or <code>change</code> events and then checking the input field&#8217;s value.</p>
+<p>If you have an event listener set up for the <code>change</code> event and one for the <code>input</code> event, <code>changed</code> will never actually fire as <code>input</code> takes precendence.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion</h2>
+<p>So, what can we deduce from all this? Should we use the input date type or not? And as usual the answer is &#8220;it depends&#8221; as only you know what you&#8217;re building and how and where it will be used, so it might fit perfectly for your needs or it might not.</p>
+<p>I think in general it&#8217;s safe to use the input date type on occasions where a <code>min</code> and <code>max</code> does not need to be set as the quirks when these attributes are used are too irritating to ignore. Since not all browsers support a datepicker and you will have to get one from somewhere else to support these browsers, I would also recommend turning off the datepicker for all desktop browsers (using the method linked to above) as this will still allow devices to use their own.</p>
+<p>Have fun!</p>
+</section>
+</section>
+<p><a href="http://html5doctor.com/the-woes-of-date-input/" rel="bookmark">The woes of date input</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 19, 2016.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-woes-of-date-input/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 forms input types</title>
+		<link>http://html5doctor.com/html5-forms-input-types/</link>
+		<comments>http://html5doctor.com/html5-forms-input-types/#comments</comments>
+		<pubDate>Thu, 28 Feb 2013 14:00:01 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[color]]></category>
+		<category><![CDATA[date]]></category>
+		<category><![CDATA[email]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[number]]></category>
+		<category><![CDATA[range]]></category>
+		<category><![CDATA[search]]></category>
+		<category><![CDATA[tel]]></category>
+		<category><![CDATA[url]]></category>
+		<category><![CDATA[web forms 2.0]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4993</guid>
+		<description><![CDATA[	<p>In the <a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/">first article in this series</a> we looked at the history of HTML5 forms and many of the new attributes available to us. In this second and final part of the series, we'll look at the new input types available in HTML5. As we'll see, these new features will go a long way toward making your life easier while delivering a delightful user experience. The best thing about all this? You can start using them now.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[	<p>In the <a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/">first article in this series</a> we looked at the history of HTML5 forms and many of the new attributes available to us. In this second and final part of the series, we&#8217;ll look at the new input types available in HTML5. As we&#8217;ll see, these new features will go a long way toward making your life easier while delivering a delightful user experience. The best thing about all this? You can start using them now.</p>
+	
+	<div class="callout highlight-block">
+		
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p>Note: As this article is a book excerpt, browser renderings of attributes and input types may have altered since the screenshots were taken. Additionally, browser support may have increased since publication so please refer to the links at the end of the article for the current state of browser support.</p>
+		
+	</div>
+	
+	<section id="input-types">
+		<h2>New input types</h2>
+		
+		<p>HTML5 introduces no less than a baker&#8217;s dozen (yes, that&#8217;s 13!) new input types for forms. We&#8217;re going to take a brief look at each of them and explain why you should be using them right now. These new input types have dual benefits: using them means less development time and an improved user experience. The new input types we&#8217;ll be looking at are:</p>
+		
+		<ul class="columns">
+			<li><a href="#input-search"><code>search</code></a></li>
+			<li><a href="#input-email"><code>email</code></a></li>
+			<li><a href="#input-url"><code>url</code></a></li>
+			<li><a href="#input-tel"><code>tel</code></a></li>
+			<li><a href="#input-number"><code>number</code></a></li>
+			<li><a href="#input-range"><code>range</code></a></li>
+			<li><a href="#input-date"><code>date</code></a></li>
+			<li><a href="#input-month"><code>month</code></a></li>
+			<li><a href="#input-week"><code>week</code></a></li>
+			<li><a href="#input-time"><code>time</code></a></li>
+			<li><a href="#input-datetime"><code>datetime</code></a></li>
+			<li><a href="#input-datetime-local"><code>datetime-local</code></a></li>
+			<li><a href="#input-color"><code>color</code></a></li>
+		</ul>
+
+		<section id="input-search">
+			<h3>search</h3>
+		
+			<p>Search seems like an appropriate place to start our foray into HTML5 input types. When we talk about search, we&#8217;re not just talking about Google, Bing, or Yahoo. We&#8217;re talking about the search field on that e-commerce site you just made a purchase from, on Wikipedia, and even on your personal blog. It&#8217;s probably the most common action performed on the Web every day, yet it&#8217;s not marked up very semantically, is it? We all tend to write something like this:</p>
+
+			<pre><code>&lt;input type="text" name="search"&gt;</code></pre>
+			
+			<p>Well, what if we could write something like &hellip;</p>
+
+			<pre><code>&lt;input type="search" name="search"&gt;</code></pre>
+
+			<p>With HTML5 we can. Feels much better, doesn&#8217;t it? Desktop browsers will render this in a similar way to a standard text field—until you start typing, that is. At this point, a small cross appears on the right side of the field. Notice the x in Figure 1. This lets you quickly clear the field, just like Safari&#8217;s built-in search field.</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-6.png" alt="Screenshot of a search input box in Safari for Windows with a value of html4.01 and an 'x' appearing in the right of the text box" />
+				<figcaption>Figure 1. <code>type="search"</code> as displayed in Safari for Windows</figcaption>
+			</figure>
+
+			<p>On a mobile device, however, things start to get interesting. Take the example iPhone shown in Figure 2; when you focus on an input using <code>type="search"</code>, notice the keyboard, specifically the action button on the keyboard (bottom right). Did you spot that it says &#8220;Search&#8221; rather than the regular &#8220;Go&#8221;? It&#8217;s a subtle difference that most users won&#8217;t even notice, but those who do will afford themselves a wry smile.</p>
+
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-7.png" alt="Screenshot of an iPhone with dynamic keyboard and the action button saying 'Search'" />
+				<figcaption>Figure 2. <code>type="search"</code> on the iPhone</figcaption>
+			</figure>
+ 
+			<p>As you&#8217;ve seen with the new attributes, browsers that don&#8217;t understand them will simply degrade gracefully. The same applies to all of the new input types discussed here. If a browser doesn&#8217;t understand <code>type="search"</code>, it will default to <code>type="text"</code>. This means you&#8217;re not losing anything. In fact, you&#8217;re using progressive enhancement and helping users to have a better experience. Let&#8217;s face it: filling out web forms isn&#8217;t very fun, so anything you can add to ensure a smoother experience, the better.</p>
+
+		</section>
+		
+		<section id="input-email">
+			<h3>email</h3>
+		
+			<p>In rendering terms, the email input type is no different than a standard text input type and allows for one or more e-mail addresses to be entered. Combined with the <code>required</code> attribute, the browser is then able to look for patterns to ensure a valid e-mail address has been entered. Naturally, this checking is rudimentary, perhaps looking for an @ character or a period (.) and not allowing spaces. Opera 9.5+, Firefox 4+, Internet Explorer 10 and Chrome 5+ have already implemented this basic validation. The browser goes as far as presenting the user with an error message (see Opera in Figure 3) if the e-mail address entered isn’t valid. You can style the field for when an value is entered using the <code>:valid</code>, <code>:invalid</code> or <code>:required</code> pseudo class (assuming you have the required attribute on the input) just like <a href="">Locum Dr. Peter explained</a>.</p>
+			
+			<pre><code>&lt;input type="email" name="email" required&gt;</code></pre>
+
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-8.png" alt="Screenshot of an email input field in Opera with an error message stating 'Please enter a valid email address' with 'gordo' written in the field" />
+				<figcaption>Figure 3. Opera e-mail address error messaging</figcaption>
+			</figure>
+
+			<aside class="sidenote">
+				<p>For more on styling forms using pseudo-classes the &#8220;CSS Ninja&#8221;, Ryan Seddon, has put together a great demonstration on <a href="http://j.mp/alaninja">A List Apart</a>.</p>
+			</aside>
+
+			<p>The specification details that one or more e-mail addresses are allowed. This means that the multiple attribute could be used with <code>type="email"</code> too.</p>
+				
+			<p>Pretty cool, huh? Again, this highlights how HTML5 forms help to cut down the amount of JavaScript that you have to write when carrying out form validation.</p>
+
+			<div class="callout warning-block">
+
+				<p>There&#8217;s always a catch, though, right? At the time of writing, there is an internationalization issue with <code>type="email"</code>. When using it with double-byte internationalized domain names, the browsers invalidate them; so this example</p>
+				
+				<pre><code>&lt;input type="email" name="email" value="gordo@日本.jp"&gt;</code></pre>
+
+				<p>isn’t valid in Firefox, Safari, or Chrome (there is no issue in Opera). However, a workaround has been created by Kyle Barrow that uses <code>type="text"</code> with the <code>pattern</code> attribute, as shown here:</p>
+
+				<pre><code>&lt;input type="text" name="email" value="gordo@日本.jp" pattern="[^ @]*@[^ @]*"&gt;</code></pre>
+				
+				<p>An alternative solution is to continue using <code>type="email"</code> with the <code>formnovalidate</code> attribute on the submit button, as follows. This ensures that no validation will be carried out on form submission, which may or may not be suitable for your needs.</p>
+
+				<pre><code>&lt;form action="process.php"&gt;
+&lt;label for="email"&gt;Email:&lt;/label&gt;
+&lt;input type="email" name="email" value="gordo@日本.jp"&gt;
+&lt;input type="submit" formnovalidate value="Submit"&gt;
+Or you could use the novalidate attribute on your form, like so:
+
+&lt;form action="process.php" novalidate&gt; &lt;label for="email"&gt;Email:&lt;/label&gt;
+&lt;input type="email" name="email" value="gordo@日本.jp"&gt;
+&lt;input type="submit" value="Submit"&gt;</code></pre>
+
+			</div>
+  
+			<p>Internationalization issues aside, remember how we said there are dual benefits to HTML5&#8217;s input types—less development time and better user experience? Let’s go back and look at the iPhone once more, as shown in Figure 4.</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-9.png" alt="Screenshot of an iPhone with dynamic keyboard and the action button saying 'Go' when focussed on the email input field" />
+				<figcaption>Figure 4. The iPhone displays a custom keyboard when using type=&#8221;email&#8221;. </figcaption>
+			</figure>
+ 
+			<p>Did you notice it this time? No? Look at the keyboard again. That&#8217;s right, the keyboard is different. There are dedicated keys for the @ and . characters to help you complete the field more efficiently. As we discussed with <code>type="search"</code>, there is no downside to using <code>type="email"</code> right now. If a browser doesn’t support it, it will degrade to <code>type="text"</code>. And in some browsers, users will get a helping hand.</p>
+
+		</section>
+		
+		<section id="input-url">
+			<h3>url</h3>
+
+			<aside class="sidenote">
+				<p>There is currently some debate about whether the user has to enter http:// into a field
+using <code>input="url"</code>. Browser vendors are discussing the possibility of pre-pending http:// to a URL following a check upon form submission. For up-to-date information, refer to the HTML5 specification.</p>
+			</aside>
+		
+			<p>The <code>url</code> input type, as you might expect, is for web addresses. You can use the <code>multiple</code> attribute to enter more than one URL. Like <code>type="email"</code>, a browser will carry out simple validation on these fields and present an error message on form submission. This is likely to include looking for forward slashes, periods, and spaces, and possibly detecting a valid top-level domain (such as .com or .co.uk). Use the <code>url</code> input type like so:</p>
+			
+			<pre><code>&lt;input type="url" name="url" required&gt;</code></pre>
+			
+			<p>Again, we&#8217;ll take a look at how the iPhone renders <code>type="url"</code>. As you can see in Figure 5, it has again updated the onscreen keyboard to ensure that completing the field is as simple as possible for the user by swapping the default space key for period, forward slash, and .com keys. (To access more endings like .org and .net, tap and hold the .com key.)</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-10.png" alt="Screenshot of an iPhone with dynamic keyboard and the action button saying 'Go' when focussed on the URL input field" />
+				<figcaption>Figure 5. type=&#8221;url&#8221; activates a URL-specific keyboard on the iPhone.</figcaption>
+			</figure>
+
+		</section>
+		
+		<section id="input-tel">
+			<h3>tel</h3>
+		
+			<p><code>tel</code> differs from <code>email</code> and <code>url</code> in that no particular syntax is enforced. Phone numbers differ around the world, making it difficult to guarantee any type of specific notation except for allowing only numbers and perhaps a + symbol to be entered. It’s possible that you can validate specific phone numbers (if you can guarantee the format) using client-side validation. <code>type="tel"</code> is marked up as follows:</p>
+			
+			<pre><code>&lt;input type="tel" name="tel" id="tel" required&gt;</code></pre>
+			
+			<p>Once more, the iPhone recognises <code>type="tel"</code>, only this time it goes one step further and completely changes the keyboard to the standard phone keyboard, as shown on the left in Figure 6. In addition to the iPhone, some Android devices (such as HTC Desire, shown on the right in Figure 6) also display a numeric keyboard for <code>type="tel"</code>. That’s pretty handy, don’t you think? Nice, big keys for entering a phone number help you to get that big, nasty form completed quickly.</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-11.png" alt="Screenshot of an iPhone and Android device with dynamic keyboard changing to a number input when the user is focussed on a tel input field" />
+				<figcaption>Figure 6. <code>type="tel"</code> on the iPhone and some Android devices dynamically changes the keyboard to a numeric keypad. (Android screenshot provided by Stuart Langridge).</figcaption>
+			</figure>
+
+		</section>
+		
+		<section id="input-number">
+			<h3>number</h3>
+		
+			<p><code>number</code>, as you might expect, is used for specifying a numerical value. As with the majority of these new input types, Opera was the first to implement <code>type="number"</code>. It, Safari, and Chrome render the input as a spinbox control (see Figure 7) whereby you can click the arrows to move up or down. Or if you prefer, you can type directly into the field. Firefox, on the other hand, renders the field like a standard text box. Support for type=&#8221;number&#8221; is in IE 10 also, although if you enter a non-numerical character the field empties when focus is lost and no feedback is provided to the user.</p>
+
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-12.png" alt="Screenshot of the Opera browser rendering of a number input field for 'showe size' the value is 9 and there are up and down arrows to the right of the field." />
+				<figcaption>Figure 7. <code>type="number"</code> in Opera</figcaption>
+			</figure>
+
+			<p>With the additional attributes <code>min</code>, <code>max</code>, and <code>step</code> we can change the default step value of this spinbox control as well as set minimum, maximum, and starting values (using the standard HTML <code>value</code> attribute). This example shows how these attributes work:</p>
+			
+			<pre><code>&lt;input type="number" min="5" max="18" step="0.5" value="9" name="shoe-size"&gt;</code></pre>
+			
+			<p>In this example, min represents the minimum value the field will accept, and max represents the maximum value. If we reach the maximum or minimum value, the appropriate arrow on the spinbox control will be greyed out so you can no longer interact with it. step is the increment that the value should adjust up or down, with the default step value being 1. This means we can include negative values or step up in increments of 0.5 or 5. value is that attribute you’re used to from previous versions of HTML. Each of the attributes are optional, with defaults being set if they aren&#8217;t used.</p>
+
+			<p>In contrast to Opera&#8217;s implementation, the iPhone (Figure 8) and some Android devices (such as HTC Desire, shown on the right in Figure 6-13) simply render the field as a standard text box but optimize the keyboard for easy input.</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-13.png" alt="Screenshot of an iPhone and Android device with dynamic keyboard changing to a number input when the user is focussed on a number input field" />
+				<figcaption>Figure 8. <code>type="number"</code> on iPhone and Android HTC Desire (Android screenshot provided by Stuart Langridge)</figcaption>
+			</figure>
+			
+			<p>To make the iPhone render with the standard telephone keypad as we saw for <code>type="text"</code> Chris Coyier, of CSS Tricks devised a little hoax you can use. Rather than using type=&#8221;number&#8221;, use a standard <code>type="text"</code> input and add a pattern attribute that accepts only numbers, as shown below. This solution isn’t ideal but if you think it could be useful, <a href="http://j.mp/numbertrick">Chris has put a short video together showing it in action</a>.</p>
+
+			<pre><code>&lt;input type="text" pattern="[0-9]*" name="shoe-size"&gt;</code></pre>
+			
+			<p>Chris’ technique may soon become absolete though with the introduction of the <code>inputmode</code> attribute. The attribute, recently added to the specification will allow users to specify the type of input mechanism that is most useful for users. When implemented, you will be able to choose between numeric, latin, email, or kana input modes.</p>
+
+		</section>
+		
+		<section id="input-range">
+			<h3>range</h3>
+		
+			<aside class="sidenote">
+				<p>Note: For browsers that don’t support <code>type="range"</code>, Remy Sharp has created a JavaScript polyfill to plug the gaps. You can find out more about it <a href="http://j.mp/rangepolyfill">on his blog</a>.</p>
+			</aside>
+		
+			<p>The <code>range</code> input type is similar to number but more specific. It represents a numerical value within a given range. Why the difference, I hear you cry? Because when you’re using <code>range</code>, the exact value isn’t important. It also allows browsers to offer a simpler control than for <code>number</code>. In Opera, Safari, Internet Explorer 10 and Chrome, <code>type="range"</code> renders as a slider (see Figure 6-14). When moving the slider in IE 10 a tooltip appears showing the current value. Additionally, in Opera, if the CSS defines the height greater than the width, the slider control will be rendered vertically as opposed to the standard horizontal rendering.</p>
+			
+			<p>The following code shows how we might mark up our skill level on a scale of 1 to 100 by setting the <code>min</code> and <code>max</code> attributes (see Figure 9). We can also set the starting point for <code>range</code> using the <code>value</code> attribute.</p>
+			
+			<pre><code>&lt;input id="skill" type="range" min="1" max="100" value="0"&gt;</code></pre>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-14.png" alt="Screenshot of the range input type for Flying Skill level as rendered by Opera." />
+				<figcaption>Figure 9. <code>type="range"</code> in Chrome</figcaption>
+			</figure>
+
+		</section>
+		
+		<section id="dates-and-times">
+			<h3>Dates and times</h3>
+		
+			<aside class="sidenote">
+				<p>You may have noticed that there isn&#8217;t a <code>type="year"</code> input type defined in HTML5. The reason for this is a lack of relevant use cases. All the use cases for a year input type that have been proposed can be achieved using <code>type="number"</code>.</p>
+			</aside>
+
+			<p>If you&#8217;ve ever booked tickets online, you will have come across date pickers to help you quickly and easily choose the date you require. Perhaps you’ve even implemented a date picker on your own website. Generally, this is done using a JavaScript library such as jQuery, Dojo, or YUI. It can be a pain when you need to load a whole library and associated plug-ins just to implement a simple date picker. Well, with HTML5 we get that functionality baked into the browser. Not only that, but we don&#8217;t have to stop at just electing a single date; we can select a week, month, time, date and time, and even date and time with a time zone using the different input types. The markup is pretty straightforward.</p>
+			
+			<pre><code>&lt;input id="dob" name="dob" type="date"&gt;</code></pre>
+			
+			<p>You can go a step further by using the <code>min</code> and <code>max</code> attributes to ensure the user can only choose from a specified date range.</p>
+			
+			<pre><code>&lt;input id="startdate" name="startdate" min="2012-01-01" max="2013-01-01" type="date"&gt;</code></pre>
+			
+			<p>As with many of the other form implementations, Opera leads the way (support in other browsers is varied). Let&#8217;s take a look next at how browsers render these input types.</p>
+
+			<section id="input-date">
+				<h4>date</h4>
+				
+				<p>Figure 10 shows Opera 10.5&#8217;s rendering of <code>type="date"</code>.</p>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-15.png" alt="Screenshot of the date input type rendered by Opera. There is a dropdown for the date and a calendar widget shown." />
+					<figcaption>Figure 10. <code>type="date"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+				<p>These date pickers aren&#8217;t restricted to desktop devices; some Blackberry devices and Chrome for Android render its internal date picker when used with <code>type="date"</code> (see Figure 11).</p>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-16.png" alt="Screenshot of the date input type as rendered on a Blackberry. There are three spinners, one for day, one for month and another for year." />
+					<figcaption>Figure 11. <code>type="date"</code> on Blackberry (screenshot provided by Terence Eden)</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-month">
+				<h4>month</h4>
+				
+				<p>Next up, Figure 12 shows <code>type="month"</code>, which might, for example, be used for a credit card expiry date.</p>
+
+				<pre><code>&lt;input id="expiry" name="expiry" type="month" required&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-17.png" alt="Screenshot of the month input type rendered by Opera. There is a dropdown for the date and a calendar widget shown with the current month highlighted." />
+					<figcaption>Figure 12. <code>type="month"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-week">
+				<h4>week</h4>
+				
+				<p>You can also drill down to <code>type="week"</code>. Notice how Opera highlights a specific week using the same date picker control, as shown in Figure 13.</p>
+				
+				<pre><code>&lt;input id="vacation" name="vacation" type="week"&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-18.png" alt="Screenshot of the week input type rendered by Opera. There is a dropdown for the date and a calendar widget shown with the current week highlighted." />
+					<figcaption>Figure 13. <code>type="week"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-time">
+				<h4>time</h4>
+				
+				<p>You can see in Figure 14 that <code>type="time"</code> renders a spinbox similar to that used earlier for selecting the precise time.</p>
+
+				<pre><code>&lt;input id="exit-time" name="exit-time" type="time"&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-19.png" alt="Screenshot of the time input type rendered by Opera. There is an input with a value of 14:10 and up and down arrows to the right of the input." />
+					<figcaption>Figure 14. <code>type="time"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-datetime">
+				<h4>datetime</h4>
+				
+				<p>We can combine the date and time by using <code>type="datetime"</code> for specifying a precise time on a given day, as shown in Figure 15.</p>
+
+				<pre><code>&lt;input id="entry-day-time" name="entry-day-time" type="datetime"&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-20.png" alt="Screenshot of the datetime input type rendered by Opera. There is a dropdown for the date and a calendar widget shown with the current day highlighted. There is an input with a value of 12:08 and up and down arrows to the right of the input along with the text 'UTC'." />
+					<figcaption>Figure 15. <code>type="datetime"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-datetime-local">
+				<h4>datetime-local</h4>
+				
+				<p>Finally, Figure 16 shows that we can achieve slightly more granular control by selecting a precise time on a given day with a local time zone variation using <code>type="datetime-local"</code>.</p>
+
+				<pre><code>&lt;input id="arrival-time" name="arrival-time " type="datetime-local"&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-21.png" alt="Screenshot of the datetime-local input type rendered by Opera. There is a dropdown for the date and a calendar widget shown with the current day highlighted. There is an input with a value of 17:08 and up and down arrows to the right." />
+					<figcaption>Figure 16. <code>type="datetime-local"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<div class="callout warning-block">
+				<h4>Date and time caveats</h4>
+				
+				<p>There are two caveats with these implementations. First, with the current implementation, it isn&#8217;t possible to type a date into the field (in all browsers). The date picker is keyboard accessible, though. However, we can foresee a potential issue; if implemented on a form that a data entry clerk regularly completes, they are likely to be quicker at typing the date than tabbing through with the keyboard or selecting from a date picker. Second, it isn&#8217;t possible to style the look of the date picker. We tend to think that this is a good thing, as users will receive a common experience across all websites they visit (provided they use the same browser all the time). Undoubtedly, though, corporations will require a branded date picker. Safari 5 and Chrome 5 have implemented these input types, but, unfortunately, they aren’t very user friendly. Dates have to be entered in the same format as the time element that we met earlier in the book. So for dates, the format would be YYYY-MM-DD, and for dates with time, a user would have to enter YYYYMM-DDT00:00Z, which is not very friendly at all.</p>
+
+				<p>As with the other new input types, if a browser doesn&#8217;t recognize them, it will simply default back to <code>type="text"</code> and let the user continue to use your JavaScript date picker.</p>
+			</div>
+
+		</section><!-- end date/time -->
+		
+		<section id="input-color">
+			<h3>color</h3>
+		
+			<p>The color input type is pretty self-explanatory: it allows the user to select a color and returns the hex value for that color. It is anticipated that users will either be able to type the value or select from a color picker, which will either be native to the operating system or a browser’s own implementation. Opera 11 has implemented type=&#8221;color&#8221; with a simple color picker that offers a number of standard color choices or the option to select Other, which brings up the operating system color picker (shown on the right in Figure 17).</p>
+			
+			<pre><code>&lt;input id="color" name="color" type="color"&gt;</code></pre>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-22.png" alt="Screenshot of the color input type as rendered by Opera. There is a colour dropdown which when clicked shows a range of colours with an 'other' button. The right shows the dialog box opened when the user clicks 'Other' which is a standard operating system color dialog." />
+				<figcaption>Figure 17. <code>type="color"</code> in Opera on the left and the result of clicking Other shown on the right</figcaption>
+			</figure>
+			
+			<p>In contrast, certain Blackberry devices have implemented the <code>color</code> input type that renders a color picker, as shown in Figure 18.</p>
+			
+			<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-23.png" alt="Screenshot of the color input type as rendered on a Blackberry. There is a colour spectrum with a hue box and a color preview alongside an 'OK' button." />
+				<figcaption>Figure 18. <code>type="color"</code> on Blackberry (screenshot provided by Terence Eden)</figcaption>
+			</figure>
+
+		</section>
+		
+
+	</section><!--// end input types-->
+	
+	
+	<section>
+		<h2>Input types summary</h2>
+		
+		<p>By using HTML5&#8217;s new form input types right now, we can enhance the user&#8217;s experience, future-proof our site, and make our life as developers easier. Obviously, we can&#8217;t just leave the browsers that don&#8217;t support all these new features hanging, and in Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3</a> we take a look at how to detect support for these form features using JavaScript.</p>
+		
+		<p>You can find a dummy form, using some of the examples we&#8217;ve shown in this article at our <a href="http://html5doctor.com/demos/forms/forms-example.html">HTML5 forms demo page</a>.</p>
+		
+		<p>We&#8217;ve hinted throughout the article at which browsers have support for HTML5 forms input types and attributes. With new versions of browsers being released at an ever-increasing rate, it can be difficult to keep up with what is or isn&#8217;t supported. If you want to keep an eye on the current progress, we suggest visiting When <a href="http://j.mp/caniuse">can I use &#133;</a> or <a href="http://j.mp/findmebyip">FindMeByIP</a> or <a href="http://j.mp/wufooh5">Wufoo&#8217;s HTML5 forms research</a>.</p>
+		
+		<p>If you missed the first article in this series on HTML5 forms, why not read <a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/">a brief History of HTML5 forms and learn all about the new attributes introduced</a>.</p>
+		
+	</section>
+	
+	<div class="callout highlight-block">
+		
+		<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p></p>
+		
+	</div><p><a href="http://html5doctor.com/html5-forms-input-types/" rel="bookmark">HTML5 forms input types</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 28, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-forms-input-types/feed/</wfw:commentRss>
+		<slash:comments>21</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 forms introduction and new attributes</title>
+		<link>http://html5doctor.com/html5-forms-introduction-and-new-attributes/</link>
+		<comments>http://html5doctor.com/html5-forms-introduction-and-new-attributes/#comments</comments>
+		<pubDate>Tue, 26 Feb 2013 14:30:58 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[autocomplete]]></category>
+		<category><![CDATA[autofocus]]></category>
+		<category><![CDATA[datalist]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[list]]></category>
+		<category><![CDATA[multiple]]></category>
+		<category><![CDATA[pattern]]></category>
+		<category><![CDATA[placeholder]]></category>
+		<category><![CDATA[required]]></category>
+		<category><![CDATA[web forms 2.0]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5001</guid>
+		<description><![CDATA[	<p>No doubt you interact with at least one form on the Web every day. Whether you're searching for content or logging in to your e-mail account or Facebook page, using online forms is one of the most common tasks performed on the Web. As designers and developers, creating forms has a certain monotony about it, particularly writing validation scripts for them. HTML5 introduces a number of new attributes, input types, and other elements for your markup toolkit. In this article we'll be focussing on the new attributes with a future article looking at the new input types.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[	<p>No doubt you interact with at least one form on the Web every day. Whether you&#8217;re searching for content or logging in to your e-mail account or Facebook page, using online forms is one of the most common tasks performed on the Web. As designers and developers, creating forms has a certain monotony about it, particularly writing validation scripts for them. HTML5 introduces a number of new attributes, input types, and other elements for your markup toolkit. In this article we&#8217;ll be focussing on the new attributes with <a href="http://html5doctor.com/html5-forms-input-types/">a future article looking at the new input types</a>.</p>
+
+	<p>As we&#8217;ll see, these new features will go a long way toward making your life easier while delivering a delightful user experience. The best thing about all this? You can start using them now. We&#8217;ll start with a (very) brief history of HTML5 forms though.</p> 
+	
+	<div class="callout highlight-block">
+		
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p>Note: As this article is a book excerpt, browser renderings of attributes and input types may have altered since the screenshots were taken. Additionally, browser support may have increased since publication so please refer to the links at the end of the article for the current state of browser support.</p>
+		
+	</div>
+	
+	<section id="history">
+		<h2>A history of HTML5 forms</h2>
+		
+		<p>The forms section of HTML5 was originally a specification titled <a href="http://j.mp/web-forms">Web Forms 2.0</a> that added new types of controls for forms. Started by Opera and edited by then-Opera employee Ian Hickson, it was <a href="http://j.mp/opera-forms">submitted to the W3C in early 2005</a>.  The work was initially carried out under the W3C. It was then combined with the Web Applications 1.0 specification to create the basis of the breakaway Web Hypertext Application Technology Working Group (WHATWG) HTML5 specification.</p>
+
+	</section>
+	
+	<section id="principles">
+		<h2>Using HTML5 design principles</h2>
+		
+		<p>One of the best things about HTML5 forms is that you can use almost all of these new input types and attributes right now. They don’t even need any shivs, hacks, or workarounds. That isn’t to say they&#8217;re all &#8220;supported&#8221; right now, but they do cool things in modern browsers that do support them-and degrade gracefully in browsers that don&#8217;t understand them. This is thanks to <a href="http://j.mp/designprinciples">HTML5&#8217;s design principles</a>. In this instance we’re specifically referring to the principle of graceful degradation. In essence, this means that there’s no excuse for not using these features right now. In fact, it means you&#8217;re ahead of the curve.</p>
+
+	</section>
+	
+	<section id="attributes">
+	
+	<h2>HTML5 form attributes</h2>
+	
+	<p>There are 14 new attributes that we&#8217;ll be looking at in this article.</p>
+	
+	<ul class="columns">
+		<li><a href="#placeholder"><code>placeholder</code></a></li>
+		<li><a href="#autofocus"><code>autofocus</code></a></li>
+		<li><a href="#autocomplete"><code>autocomplete</code></a></li>
+		<li><a href="#required"><code>required</code></a></li>
+		<li><a href="#pattern"><code>pattern</code></a></li>
+		<li><a href="#list-datalist"><code>list</code></a></li>
+		<li><a href="#multiple"><code>multiple</code></a></li>
+		<li><a href="#novalidate"><code>novalidate</code></a></li>
+		<li><a href="#novalidate"><code>formnovalidate</code></a></li>
+		<li><a href="#attr-form"><code>form</code></a></li>
+		<li><a href="#formaction"><code>formaction</code></a></li>
+		<li><a href="#formenctype"><code>formenctype</code></a></li>
+		<li><a href="#formmethod"><code>formmethod</code></a></li>
+		<li><a href="#formtarget"><code>formtarget</code></a></li>
+	</ul>
+	
+	<section id="placeholder">
+		<h3>placeholder</h3>
+		
+		<p>First up is the <code>placeholder</code> attribute, which allows us to set placeholder text as we would currently do in
+HTML4 with the <code>value</code> attribute. It should only be used for short descriptions. For anything longer, use the title attribute. The difference from HTML4 is that the text is only displayed when the field is empty and hasn&#8217;t received focus. Once the field receives focus (e.g., you click or tab to the field), and you begin to type, the text simply disappears. It&#8217;s very similar to the search box you see in Safari (see Figure 1).</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-1.png" alt="Screenshot of the browser search box in Safari with and without focus" />
+			<figcaption>Figure 1. Browser search box in Safari without and with focus</figcaption>
+		</figure>
+		
+		<p>Let&#8217;s have a look at how to implement the <code>placeholder</code> attribute.</p>
+		
+		<pre><code>&lt;input type="text" name="user-name" id="user-name" placeholder="at least 3 characters"&gt;</code></pre>
+		
+		<p>That&#8217;s it! We can hear you thinking, “What&#8217;s so great about that? I&#8217;ve been doing it with JavaScript for years.” Yes, that&#8217;s true. However, with HTML5, it’s part of the browser, meaning less scripting is required for a more accessible, cross-browser solution (even when JavaScript is disabled). Figure 2 shows the <code>placeholder</code> attribute working in Chrome.</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-2.png" alt="Screenshot of an input field in Chrome with and without focus, so showing and not showing the placeholder" />
+			<figcaption>Figure 2. Placeholder attribute support in Chrome, unfocused and focused</figcaption>
+		</figure>
+		
+		<p>Browsers that don&#8217;t support the placeholder attribute ignore it, so it won&#8217;t render. By including it, though, you&#8217;re providing an enhanced user experience for those users who have browser support and you&#8217;re “future proofing” your site. All modern browsers support <code>placeholder</code>.</p>
+		
+		<div class="callout highlight-block">
+			<p>Note: There is no official pseudo-class for styling placeholder text but both Mozilla (makers of Firefox) and WebKit offer vendor prefixed properties for styling (-mozplaceholder and –webkit-input-placeholder). This makes it safe to assume that a pseudo-class will become standard for styling placeholder text. For further detail there is <a href="http://j.mp/pseudoplaceholder">a thread on the WHATWG mailing list about this topic</a>.</p>
+		</div>
+
+	</section>
+	
+	<section id="autofocus">
+		<h3>autofocus</h3>
+		
+		<p><code>autofocus</code> does exactly what it says on the tin. Adding it to an input automatically focuses that field when the page is rendered. As with <code>placeholder</code>, <code>autofocus</code> is something that we used JavaScript for in the past.</p>
+		
+		<p>Traditional JavaScript methods do, though, have some serious usability problems. For example, if a user begins completing the form before the script loads, they will (jarringly) be returned to the first form field when the script is loaded. The <code>autofocus</code> attribute in HTML5 gets around this issue by focusing as soon as the document loads, without having to wait for the JavaScript to be loaded. However, we only recommend using it for pages whose sole purpose is the form (like Google) to prevent the usability issues.</p>
+		
+		<p>It is a Boolean attribute (except if you are writing XHTML5; see the note) and is implemented as follows:</p>
+		
+		<pre><code>&lt;input type="text" name="first-name" id="first-name" autofocus&gt;</code></pre>
+		
+		<p>All modern browsers support the attribute and, like <code>placeholder</code>, browsers that don&#8217;t support the <code>autofocus</code> attribute simply ignore it.</p>
+		
+		<div class="callout highlight-block">
+			<p>Note: Several new HTML5 form attributes are Boolean attributes. This just means they&#8217;re set if they&#8217;re present and not set if they’re absent. They can be written several ways in HTML5.</p>
+			
+			<pre><code>autofocus
+autofocus=""
+autofocus="autofocus"</code></pre>
+
+			<p>However, if you are writing XHTML5, you have to use the <code>autofocus="autofocus"</code> style.</p>
+		</div>
+		
+	</section>
+	
+	<section id="autocomplete">
+		<h3>autocomplete</h3>
+		
+		<p>The <code>autocomplete</code> attribute helps users complete forms based on earlier input. The attribute has been around since IE5.5 but has finally been standardized as part of HTML5. The default state is set to on. This means that generally we won’t have to use it. However, if you want to insist that a form field be entered each time a form is completed (as opposed to the browser autofilling the field), you would implement it like so:</p>
+		
+		<pre><code>&lt;input type="text" name="tracking-code" id="tracking-code" autocomplete="off"&gt;</code></pre>
+		
+		<p>The <code>autocomplete</code> state on a field overrides any <code>autocomplete</code> state set on the containing <code>form</code> element.</p>
+		
+	</section>
+	
+	<section id="required">
+		<h3>required</h3>
+		
+		<p>The <code>required</code> attribute doesn&#8217;t need much introduction; like <code>autofocus</code>, it does exactly what you&#8217;d expect. By adding it to a form field, the browser requires the user to enter data into that field before submitting the form. This replaces the basic form validation currently implemented with JavaScript, making things a little more usable and saving us a little more development time. <code>required</code> is a Boolean attribute, like <code>autofocus</code>. Let’s see it in action.</p>
+		
+		<pre><code>&lt;input type="text" id="given-name" name="given-name" required&gt;</code></pre>
+		
+		<p><code>required</code> is currently implemented only in Opera 9.5+, Firefox 4+, Safari 5+, Internet Explorer 10 and Chrome 5+, so for the
+time being you need to continue writing a script to check that fields are completed on the client side in other browsers (*cough* IE!). Opera, Chrome, and Firefox show the user an error message (see Figure 3) upon form submission. In most browsers, the errors are then localized based on the declared language. Safari doesn’t show an error message on submit, but instead places focus on that field.</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-3.png" alt="Screenshot from Opera showing an error message on an input field" />
+			<figcaption>Figure 3. Form field with required attribute displaying a browser-generated error message in Opera</figcaption>
+		</figure>
+		
+		<aside class="sidenote">
+			<p>Since the book was published, Bruce has <a href="http://www.brucelawson.co.uk/2013/on-the-styling-of-forms/">written a little more on the styling of forms</a> and there is <a href="http://www.broken-links.com/2011/03/28/html5-form-validation/">another post from Peter</a> that is useful reading.</p>
+		</aside>
+		
+		<p>The default rendering of “required” error messages depends on the individual browser; at present the error message bubble can’t be styled with CSS in all browsers. Chrome, however, does have a proprietary property that you can use to style the error bubble. <a href="http://j.mp/stylingformerrors">Peter Gasston has written an article about the syntax</a>. You can also style the input <a href="http://j.mp/pseudoforms">using the :required pseudo-class</a>. An alternative is to override the wording and styling using the <code>setCustomValidity()</code> method in JavaScript. Importantly, don&#8217;t forget that this browser validation is no substitute for validating on the server as well.</p>
+		
+	</section>
+	
+	<section id="pattern">
+		<h3>pattern</h3>
+		
+		<aside class="sidenote">
+			<p>A regular expression (regex or regexp) provides a way to match entered strings of text to particular patterns. A regex might be used to check a particular format for a product or ZIP code. They can be used with a number of programming languages, some of which (Perl, Ruby) have them built into their syntax. Regex is where the <code>pattern</code> attribute originates.</p>
+		</aside>
+		
+		<p>The <code>pattern</code> attribute is likely to get a lot of developers very excited (well, as excited as you can get about form attributes). It specifies a JavaScript regular expression for the field’s value to be checked against. <code>pattern</code> makes it easy for us to implement specific validation for product codes, invoice numbers, and so on. The possibilities for <code>pattern</code> are wide-ranging, and this is just one simple example using a product number.</p>
+		
+		<pre><code>&lt;label&gt;Product Number:
+&lt;input pattern="[0-9][A-Z]{3}" name="product" type="text" title="Single digit followed by three uppercase letters."/&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>This pattern prescribes that the product number should be a single digit [0-9] followed by three uppercase letters [A-Z]{3}. For more examples, the <a href="http://j.mp/html5p">HTML5 Pattern website</a> lists common regex style patterns to help get you started.</p>
+		
+		<p>As with required, Opera 9.5+, Firefox 4+, Safari 5+, Internet Explorer 10 and Chrome 5+ are the only browsers with support for pattern at present. However, with the browser market moving at a fast pace, the others will soon catch up.</p>
+		
+	</section>
+	
+	<section id="list">
+		<h3>list and the datalist element</h3>
+		
+		<p>The <code>list</code> attribute enables the user to associate a list of options with a particular field. The value of the <code>list</code> attribute must be the same as the ID of a <code>datalist</code> element that resides in the same document. The <code>datalist</code> element is new in HTML5 and represents a predefined list of options for form controls. It works in a similar way to the in-browser search boxes that autocomplete as you type (see Figure 4).</p>
+		
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-4.png" alt="Screenshot Google's autosuggest functionality in Safaris search box" />
+			<figcaption>Figure 4. Google search autosuggestions in Safari</figcaption>
+		</figure>
+		
+		<p>The following example shows how <code>list</code> and <code>datalist</code> are combined (see Figure 5):</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+  &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+  &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+  &lt;!-- … --&gt;
+&lt;/datalist&gt;
+If other, please specify:
+  &lt;input type="text" name="fruit" list="fruits"&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>By adding a <code>select</code> element inside the <code>datalist</code> you can provide superior graceful degradation than by simply using an option element. This is an elegant markup pattern <a href="http://j.mp/datalistpattern">designed by Jeremy Keith</a> that adheres perfectly with HTML5&#8217;s principle of degrading gracefully.</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;select name="fruits"&gt;
+    &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+    &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+    &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+    &lt;!-- … --&gt;
+  &lt;/select&gt;
+If other, please specify:
+&lt;/datalist&gt;
+  &lt;input type="text" name="fruit" list="fruits"&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>Browser support for <code>list</code> and <code>datalist</code> is currently limited to Opera 9.5+ (see Figure 5), Chrome 20+, Internet Explorer 10 and Firefox 4+.</p>
+		
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-5.png" alt="Screenshot of the list attribute and datalist element in Opera" />
+			<figcaption>Figure 5. The datalist element rendered in Opera</figcaption>
+		</figure>
+		
+	</section>
+	
+	<section id="multiple">
+		<h3>multiple</h3>
+		
+		<p>We can take our <code>list</code>s and <code>datalist</code>s one step further by applying the Boolean attribute <code>multiple</code> to allow more than one value to be entered from the <code>datalist</code>. Here is an example.</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;select name="fruits"&gt;
+    &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+    &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+    &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+    &lt;!-- … --&gt;
+  &lt;/select&gt;
+If other, please specify:
+&lt;/datalist&gt;
+  &lt;input type="text" name="fruit" list="fruits" multiple&gt;
+&lt;/label&gt;</code></pre>
+
+		<p><code>multiple</code> isn&#8217;t exclusively for use with <code>datalist</code>s, though. A further example for <code>multiple</code> might be for email addresses when sending items to friend or the attachment of files, as shown here:</p>
+		
+		<pre><code>&lt;label&gt;Upload files:
+&lt;input type="file" multiple name="upload"&gt;&lt;/label&gt;</code></pre>
+
+		<p><code>multiple</code> is supported in Firefox 3.6+, Safari 4+, Opera 11.5+, Internet Explorer 10 and Chrome 4+.</p>
+		
+	</section>
+
+	<section id="novalidate">
+		<h3>novalidate and formnovalidate</h3>
+		
+		<p>The <code>novalidate</code> and <code>formnovalidate</code> attributes indicate that the form shouldn&#8217;t be validated when submitted. They are both Boolean attributes. <code>formnovalidate</code> can be applied to submit or image input types. The <code>novalidate</code> attribute can be set only on the <code>form</code> element.</p>
+
+		<p>An example use case for the <code>formnovalidate</code> attribute could be on a &#8220;save draft&#8221; button, where the form has fields that are required for submitting the draft but aren&#8217;t required for saving the draft. <code>novalidate</code> would be used in cases where you don&#8217;t want to validate the form but do want to take advantage of the more useful user interface enhancements that the new input types offer.</p>
+		
+		<p>The following example shows how to use <code>formnovalidate</code>:</p>
+		
+		<pre><code>&lt;form action="process.php"&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="text" name="email" value="gordo@example.com"&gt;
+  &lt;input type="submit" formnovalidate value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+
+		<p>And this example shows how to use <code>novalidate</code>:</p>
+		
+		<pre><code>&lt;form action="process.php" novalidate&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="text" name="email" value="gordo@example.com"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+	
+	</section>
+	
+	<section id="attr-form">
+		<h3>form</h3>
+		
+		<p>The <code>form</code> attribute is used to associate an <code>input</code>, <code>select</code>, or <code>textarea</code> element with a form (known as its <em>form owner</em>). Using <code>form</code> means that the element doesn&#8217;t need to be a child of the associated form and can be moved away from it in the source. The primary use case for this is that input buttons that are placed within tables can now be associated with a form.</p>
+		
+		<pre><code>&lt;input type="button" name="sort-l-h" form="sort"&gt;</code></pre>
+		
+	</section>
+	
+	<section>
+		<h2>formaction, formenctype, formmethod, and formtarget</h2>
+		
+		<p>The <code>formaction</code>, <code>formenctype</code>, <code>formmethod</code>, and <code>formtarget</code> attributes each have a corresponding attribute on the <code>form</code> element, which you&#8217;ll be familiar with from HTML4, so let&#8217;s run through each of them briefly. These new attributes have been introduced primarily because you may require alternative actions for different submit buttons, as opposed to having several forms in a document.</p>
+		
+		<section id="formaction">
+			<h4>formaction</h4>
+			
+			<p><code>formaction</code> specifies the file or application that will submit the form. It has the same effect as the <code>action</code> attribute on the <code>form</code> element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>). When the form is submitted, the browser first checks for a <code>formaction</code> attribute; if that isn&#8217;t present, it proceeds to look for an <code>action</code> attribute on the form.</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formaction="process.php"&gt;</code></pre>
+			
+		</section>
+		
+		<section id="formenctype">
+			<h4>formenctype</h4>
+			
+			<p><code>formenctype</code> details how the form data is encoded with the POST method type. It has the same effect as the <code>enctype</code> attribute on the form element and can only be used with a submit or image button
+(<code>type="submit"</code> or <code>type="image"</code>). The default value if not included is <code>application/x-www-formurlencoded</code>.</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formenctype="application/x-www-form-urlencoded"&gt;</code></pre>
+			
+		</section>
+		
+		<section id="formmethod">
+			<h4>formmethod</h4>
+			
+			<p><code>formmethod</code> specifies which HTTP method (GET, POST, PUT, DELETE) will be used to submit the form data. It has the same effect as the method attribute on the form element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>).</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formmethod="POST"&gt;</code></pre>
+			
+			
+		</section>
+		
+		<section id="formtarget">
+			<h4>formtarget</h4>
+			
+			<p><code>formtarget</code> specifies the target window for the form results. It has the same effect as the target attribute on the <code>form</code> element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>).</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formtarget="_self"&gt;</code></pre>
+			
+		</section>
+		
+	</section>
+	
+	</section>
+	
+	<section id="summary">
+		<h2>Form attributes summary</h2>
+		
+		<p>We&#8217;ve looked at several new form attributes that help improve user experience and save you development time. There are some more new attributes to discuss, which are covered together with <a href="http://html5doctor.com/html5-forms-input-types/">HTML5&#8217;s new input types in the next article in this series</a>.</p>
+		
+		<p>You can find a dummy form, using some of the examples we&#8217;ve shown in this article at our <a href="http://html5doctor.com/demos/forms/forms-example.html">HTML5 forms demo page</a>.</p>
+		
+		<p>We&#8217;ve hinted throughout the article at which browsers have support for HTML5 forms input types and attributes. With new versions of browsers being released at an ever-increasing rate, it can be difficult to keep up with what is or isn&#8217;t supported. If you want to keep an eye on the current progress, we suggest visiting When <a href="http://j.mp/caniuse">can I use &#133;</a> or <a href="http://j.mp/findmebyip">FindMeByIP</a> or <a href="http://j.mp/wufooh5">Wufoo&#8217;s HTML5 forms research</a>.</p>
+		
+	</section>
+		
+	<div class="callout highlight-block">
+		
+		<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p></p>
+		
+	</div><p><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/" rel="bookmark">HTML5 forms introduction and new attributes</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 26, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-forms-introduction-and-new-attributes/feed/</wfw:commentRss>
+		<slash:comments>22</slash:comments>
+		</item>
+		<item>
+		<title>CSS3 Pseudo-Classes and HTML5 Forms</title>
+		<link>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/</link>
+		<comments>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/#comments</comments>
+		<pubDate>Tue, 28 Feb 2012 14:30:47 +0000</pubDate>
+		<dc:creator><![CDATA[Peter Gasston]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[css3]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[readonly]]></category>
+		<category><![CDATA[required]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4483</guid>
+		<description><![CDATA[<p>Guest Doctor Peter Gasston takes a look at how new CSS3 Pseudo-classes align perfectly with HTML5 Forms.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Hello! I’m Doctor Peter and I’m here to treat you with a dose of complementary CSS3. Don’t worry, this won’t hurt a bit.</p>
+
+<p>Contrary to what <a href="http://html5please.com/">HTML5 Please</a> and the W3C would have you believe, CSS3 is not part of HTML5. “But this is HTML5 Doctor,” I imagine you saying. “Why are you talking about CSS3 here?” Well, I want to talk about a very specific part of CSS3, one that works in perfect tandem with HTML5, specifically with the new form functions that are available.</p>
+
+<p>One of the killer features that HTML5 introduces is client-side form validation without using JavaScript. Now, I know the other doctors haven’t discussed this yet, and as I’m just a locum, you might feel as if I’m putting the cart before the horse (#mixedmetaphors), but I’m hoping to explain just enough to let you know how it works, and then your regular doctors can provide the details at a later date.</p>
+
+<section id="pseudo-classes">
+  <h2>A Recap of Pseudo-Classes <a href="#pseudo-classes" class="permalink">#</a></h2>
+
+  <p>A <dfn>pseudo-class</dfn> is information about an element that’s in the document tree but not available through any specified attributes. For example, the <code>:first-child</code> pseudo-class applies to elements which are the first child of their parents. You can get that information from the DOM tree, but there’s no <code>first-child</code> attribute.</p>
+
+  <p>In CSS2.1, there were a handful of pseudo-classes available, notably the link states (<code>:link</code>, <code>:visited</code>) and those of user actions (<code>:active</code>, <code>:hover</code>). In CSS3, that handful becomes a basketful, with pseudo-classes of structure (<code>:nth-child</code>, <code>:nth-of-type</code>), UI element (<code>:enabled</code>, <code>:checked</code>), and the ones we’ll look at now, of form validation.</p>
+</section>
+
+<section id="form-validation">
+  <h2>Form Validation without JavaScript <a href="#form-validation" class="permalink">#</a></h2>
+  
+  <p>So as I mentioned at the beginning, HTML5 introduces client-side form validation without the need for JavaScript. When you attempt to submit a form, your browser will validate all of the fields and return an error if any of the fields is incorrect. This will happen mostly automagically — provided your browser has the capability — and will look something like what’s shown in Figure 1:</p>
+
+  <figure>
+    <img src="http://html5doctor.com/demos/pseudo-classes/figure1.png" alt="Form with an invalid field and associated error message">
+    <figcaption>Figure 1: A form validation error message</figcaption>
+  </figure>
+
+  <p>Those error messages are browser and OS specific, and hard to modify (<a href="http://www.broken-links.com/2011/06/16/styling-html5-form-validation-errors/" title="Styling HTML5 Form Validation Errors">which I documented on my blog</a>), but you can change the way the errors appear on the elements themselves with the new validation pseudo-classes, which are part of the <a href="http://www.w3.org/TR/css3-ui/">CSS3 Basic UI module</a>.</p>
+  
+  <p>I’ll cover current browser support as we go through the article, but in a nutshell:</p>
+  
+  <ul>
+    <li>Firefox and IE10 support some of it.</li>
+    <li>Opera and Chrome support all of it.</li>
+    <li>Safari supports all of it too, but form validation is disabled by default.</li>
+  </ul>
+  
+  <p>That being the case, I’d recommend using Chrome, Opera, or Safari to view the examples I’ll be showing you.</p>
+  
+  <p>If you want to keep up to date with browser support for form validation, I suggest keeping an eye on <a href="http://caniuse.com/#feat=form-validation">When can I use</a>.</p>
+  
+  <p>So with all of the boring technical guff out of the way, let’s get on with the interesting technical guff and take a look at some examples of form validation.</p>
+  
+  <section id="required-and-optional-elements">
+    <h3>Required and Optional Elements <a href="#required-and-optional-elements" class="permalink">#</a></h3>
+    
+    <p>One of the most common patterns of validation is that of mandatory (that is, required) values — the fields that the user must complete in order to progress. To mark a form element as mandatory, you need only add the <code>required</code> attribute to it:</p>
+    
+    <pre><code>&lt;input type="text" required&gt;</code></pre>
+    
+    <p>If you want to apply styles to this in order to show that requirement, you can use the new <code>:required</code> pseudo-class, which applies rules to any matched element which has the <code>required</code> attribute. For example, you may want to put an asterisk after the text of the label:</p>
+    
+    <pre><code>input:required + label::after { content: "*"; }</code></pre>
+    
+    <p>The exact rules you use depends on how you’ve marked up your document. The rule in this example is based on the markup having this structure:</p>
+    
+    <pre><code>&lt;input type="text" required id="foo"&gt;
+&lt;label for="foo"&gt;Foo&lt;/label&gt;</code></pre>
+    
+    <p>The opposite of required is, of course, optional. And wouldn’t you know it, we have a pseudo-class for that too, logically named <code>:optional</code>. It affects any form element that doesn’t have a <code>required</code> attribute. For example, you may want to make those have a lighter border:</p>
+    
+    <pre><code>input:optional { border-color: silver; }</code></pre>
+    
+    <p>You can see this in action in Figure 2, or <a href="http://html5doctor.com/demos/pseudo-classes/example1.html" title="Live Example #1">take a look at a live example</a>.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure2.png" alt="Required and optional form fields">
+      <figcaption>Figure 2: Input fields styled with <code>:required</code> (top) and <code>:optional</code> (bottom)</figcaption>
+    </figure>
+  </section>
+
+  <section id="valid-and-invalid-elements">
+    <h3>Valid and Invalid Elements <a href="#valid-and-invalid-elements" class="permalink">#</a></h3>
+
+    <p>There are other types of validation besides simply “required” or “optional”. You can use pattern matching, such as email address validation:</p>
+    
+    <pre><code>&lt;input type="email"&gt;</code></pre>
+
+    <p>If the user enters anything into the field, it has to match the pattern of an email address, or else it will be marked as invalid. (Of course, if it’s not required, then it can be left blank.)</p>
+    
+    <p>You can style valid or invalid form elements using pseudo-classes called — wait for it — <code>:valid</code> and <code>:invalid</code>. Maybe you want add a symbol depending on the validation status:</p>
+    
+    <pre><code>input:invalid + label::after { content: ' ⨉'; }
+input:valid + label::after { content: ' ✓'; }</code></pre>
+
+    <p>Note that these will take effect as soon as the page loads, so you’ll probably want to use JavaScript to apply them only after submission, perhaps by adding a class to the form with JavaScript:</p>
+    
+    <pre><code>document.forms[].addEventListener('submit', function(e) {
+  e.currentTarget.classList.add('submitted');
+  // Your fallback form validation function
+});</code></pre>
+
+    <p>The exact script you use will vary, but however you do it, you can use that class to style the form elements, like so:</p>
+    
+    <pre><code>.submitted input:invalid + label::after { content: ' ⨉'; }</code></pre>
+    
+    <p>Figure 3 shows the output of this, and you can also <a href="http://html5doctor.com/demos/pseudo-classes/example2.html" title="Live Example #2">see the live example</a>.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure3.png" alt="Valid and invalid form fields">
+      <figcaption>Figure 3: Showing the use of the <code>:valid</code> (top) and <code>:invalid</code> (bottom) pseudo-classes</figcaption>
+    </figure>
+    
+    <p>Two extra things to note about this example: first, in order to use my own JavaScript, I’ve prevented the form from automatically validating by using the <code>novalidate</code> attribute on the submit button; and second, Firefox puts a coloured glow around elements depending on their validation state, which I’ve over-ruled by using their proprietary <code>:-moz-ui-invalid</code> selector. View the source of the demo to see how these are used.</p>
+  </section>
+  
+  <section id="number-ranges">
+    <h3>Number Ranges <a href="#number-ranges" class="permalink">#</a></h3>
+
+    <p>Some of the new input types, such as <code>number</code>, allow a range of values using the <code>min</code> and <code>max</code> attributes, like so:</p>
+    
+    <pre><code>&lt;input type="number" max="10" min="1"&gt;</code></pre>
+    
+    <p>Although form controls will usually prevent the user from entering a value outside of this range, there may be occasions (such as when JavaScript is used to provide values) where the value provided to the input does exceed the range:</p>
+    
+    <pre><code>&lt;input type="number" max="10" min="1" value="11"&gt;</code></pre>
+    
+    <p>When this happens, you can use the <code>:out-of-range</code> pseudo-class for your styling:</p>
+    
+    <pre><code>input[type='number']:out-of-range { border-color: red; }</code></pre>
+
+    <p>And, as you’d expect, there’s a counterpart known by the name of <code>:in-range</code>:</p>
+    
+    <pre><code>input[type='number']:in-range { border-color: green; }</code></pre>
+    
+    <p>In Figure 4 you can see these two pseudo-classes at work, and once more there’s also <a href="http://html5doctor.com/demos/pseudo-classes/example3.html" title="Live Example #3">a live example</a> to view.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure4.png" alt="Out-of-range and in-range form fields">
+      <figcaption>Figure 4: The <code>:out-of-range</code> (top) and <code>:in-range</code> (bottom) pseudo-classes applied to a <code>range</code> input</figcaption>
+    </figure>
+  </section>
+  
+  <section id="reading-and-writing">
+    <h3>Reading and Writing </h3>
+    
+    <p>You may have a form field that’s pre-filled with a value that you don’t want the user to be able to edit, such as terms and conditions in a <code>textarea</code>. If that’s the case, you can add the <code>readonly</code> attribute:</p>
+    
+    <pre><code>&lt;textarea readonly&gt;Lorem ipsum&lt;/textarea&gt;</code></pre>
+    
+    <p>You can style elements which have the <code>readonly</code> attribute applied, using…can you guess? You are correct, imagined reader: the <code>:read-only</code> pseudo-class. You could combine it with the <code>user-select</code> CSS property to prevent the user from being able to select the text (in the example, I’ve also changed the border style to make it more obvious):</p>
+    
+    <pre><code>textarea:read-only { user-select: none; }</code></pre>
+    
+    <p>And if you should need it, there is of course a <code>:read-write</code> pseudo-class for elements which don’t have the attribute applied:</p>
+    
+    <pre><code>textarea:read-write { user-select: text; }</code></pre>
+    
+    <p>You can see the results in Figure 5, and as before there’s <a href="http://html5doctor.com/demos/pseudo-classes/example4.html" title="Live Example #4">a live example</a> too.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure5.png" alt="Read-only and read-write form fields">
+      <figcaption>Figure 5: The textarea on the left is styled using <code>:read-write</code>, and the one on the right, with <code>:read-only</code></figcaption>
+    </figure>
+
+    <p>Firefox and IE10 have actually implemented the <code>readonly</code> attribute, but don’t yet have support for these pseudo-classes.</p>
+  </section>
+</section>
+
+<section id="browser-support">
+  <h2>Browser Support <a href="#browser-support" class="permalink">#</a></h2>
+  
+  <p>This table lists support for HTML5 Form Validation in browsers at the time of writing:</p>
+  
+  <table>
+    <caption>Browser support for HTML5 Form Validation</caption>
+    <thead>
+      <tr>
+        <th>Browser/Attribute</th>
+        <th scope="col">Chrome</th>
+        <th scope="col">Firefox</th>
+        <th scope="col">IE</th>
+        <th scope="col">Opera</th>
+        <th scope="col">Safari</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><code>:optional</code> / <code>:required</code></th>
+        <td>10.0</td>
+        <td>4.0</td>
+        <td>10.0</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:invalid</code> / <code>:valid</code></th>
+        <td>10.0</td>
+        <td>4.0</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:in-range</code> / <code>:out-of-range</code></th>
+        <td>10.0</td>
+        <td>n/a</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:read-only</code> / <code>:read-write</code></th>
+        <td>10.0</td>
+        <td>n/a</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="goodbye">
+  <h2>That’s All from Me <a href="#goodbye" class="permalink">#</a></h2>
+  
+  <p>I hope I’ve given you enough to whet your appetite for finding out more about HTML5 Form Validation. There’s plenty more to it, including a full JavaScript API (you can <a href="http://dev.w3.org/html5/spec-author-view/constraints.html#the-constraint-validation-api" title="4.10.21 Constraints — HTML5: Edition for Web Authors">read about this in the HTML5 spec</a>, but ).</p>
+  
+  <p>Thanks for your time, and thanks to the Doctors for this opportunity.</p>
+</section><p><a href="http://html5doctor.com/css3-pseudo-classes-and-html5-forms/" rel="bookmark">CSS3 Pseudo-Classes and HTML5 Forms</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 28, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/feed/</wfw:commentRss>
+		<slash:comments>38</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered #8</title>
+		<link>http://html5doctor.com/your-questions-answered-8/</link>
+		<comments>http://html5doctor.com/your-questions-answered-8/#comments</comments>
+		<pubDate>Wed, 05 May 2010 13:00:55 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[footer]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[outline]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1775</guid>
+		<description><![CDATA[We're back with more of your questions (and our answers) about <abbr>HTML</abbr>5. In this article, we'll discuss using a <code>&#60;footer&#62;</code> at the top of your markup, how to skip to certain parts of a video, styling form elements and attributes, and more.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> We&#8217;re back with more of your questions (and our answers) about <abbr>HTML</abbr>5. In this article, we&#8217;ll discuss using a <code>&lt;footer&gt;</code> at the top of your markup, how to skip to certain parts of a video, styling form elements and attributes, and more.</p>
+<h2><abbr>HTML</abbr>5 <code>&lt;footer&gt;</code> on top</h2>
+<p>David asked:</p>
+<blockquote><p>Hi!</p>
+<p>I wonder if it possible to put the footer on top such as www.perfectfools.com with <abbr>HTML</abbr>5 and still make the <abbr>HTML</abbr> validate.</p>
+<p>Thanks a lot and best regards!</p>
+<p>David</p>
+</blockquote>
+<p><abbr>HTML</abbr> elements should always describe their content, so if you think that <code>&lt;footer&gt;</code> is most suitable for your content, then you&#8217;re absolutely entitled to use it. Despite its name, <code>&lt;footer&gt;</code>&#8216;s position is in no way restricted — visually or ordinally — within a document.</p>
+<p>Cheers, Rich</p>
+<h2>Skip to certain parts of a video file</h2>
+<p>John Paul asked:</p>
+<blockquote><p>Hello</p>
+<p>supposing I have a very long video file in an accompanying video element, without using the controls, how do I skip to certain time stages through the <abbr>API</abbr>? Much as one would on a <abbr>DVD</abbr> menu, for example.</p>
+<p>Apologies if this has been asked already.</p>
+<p>JP</p>
+</blockquote>
+<p>You can achieve this using JavaScript and <code>data</code> attributes. Check out these articles from Bruce Lawson and Patrick Lauke from Opera. They&#8217;ve used <code>data</code> attributes to add subtitles, but you could just as easily use the attributes to jump to specific parts of a video.</p>
+<ul>
+<li><a href="http://dev.opera.com/articles/view/introduction-html5-video/">Introduction to HTML5 video</a></li>
+<li><a href="http://dev.opera.com/articles/view/accessible-html5-video-with-javascripted-captions/">Accessible <abbr>HTML</abbr>5 video with scripted captions</a></li>
+</ul>
+<p>For example, set <code>data-start</code> and <code>data-end</code> attributes on your <code>&lt;video&gt;</code> element. You can then use JavaScript to read the attribute values, set the current position of the video using the <code>currentTime</code> attribute, start playing the video via the <code>play()</code> method, and even stop playing the video by listening for the <code>timeupdate</code> event and stopping the video with <code>pause()</code> once it&#8217;s reached a specified time. See <a href="http://www.w3.org/TR/html5/video.html#media-elements">the spec for the HTMLMediaElement object</a> for more details.</p>
+<p>Cheers, Rich</p>
+<p><small>In addition to this, the recent addition of <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#the-track-element">the <code>track</code> element</a> will make this more easily achievable. We will cover the <code>track</code> element in more detail soon.</small></p>
+<h2><code>&lt;h1&gt;</code>s within navigation links</h2>
+<p>Benjamin asked:</p>
+<blockquote><p>Hey,</p>
+<p>I&#8217;m currently doing up the new version of my website, and decided to do it in <abbr>HTML</abbr>5.</p>
+<p>One area I&#8217;m confused about is whether or not for navigation links I should be using a h1 or h2 element.</p>
+<p>For example:</p>
+<pre><code>&lt;nav id="nav-actions"&gt;
+    &lt;header&gt;
+        &lt;h1&gt;&lt;span class="title"&gt;Actions&lt;/span&gt;&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;&lt;span class="title"&gt;Sitemap&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;&lt;span class="title"&gt;Login&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li id="action-search"&gt;&lt;a href="#"&gt;&lt;span class="title"&gt;Search&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li id="action-enquire"&gt;&lt;a href="#"&gt;&lt;span class="title"&gt;Enquire&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+<p>Should those span.title elements be wrapped in a h2? My thoughts on why this would be required is for an outline, as navigation should appear in the outline right?</p>
+<p>Thanks a bunch.</p>
+</blockquote>
+<p>In theory, yes, navigation should appear in the outline. I personally don&#8217;t think it <em>should</em> require a heading, and I know there have been requests to the developers of the outline algorithm to make <code>&lt;nav&gt;</code> show as a &#8216;Navigation&#8217; element rather than &#8216;untitled section&#8217;.</p>
+<p>If you want to use a heading within your <code>&lt;nav&gt;</code> element, using an <code>&lt;h1&gt;</code> would be fine. You don&#8217;t really need the <code>&lt;header&gt;</code> element in there too. The outline would be calculated correctly without it. With current browser implementations, however, I don&#8217;t think it would make much difference if you used an <code>&lt;h2&gt;</code>.</p>
+<p>You don&#8217;t need the <code>&lt;span&gt;</code> elements in the <code>&lt;h2&gt;</code>s. They aren&#8217;t required in the outline unless they&#8217;re providing a table of contents for the document.</p>
+<p>I hope that answers your question. We plan to write an article regarding outlining soon.</p>
+<p>Cheers, Rich</p>
+<h2>Styling supported <abbr>HTML</abbr>5 form elements and attributes</h2>
+<p>Mike asked:</p>
+<blockquote><p>First off, I wanted to say I really appreciate the service this site is doing. I have found this site to be a very valuable resource and is always the first place I look when I have a question about implementing <abbr>HTML</abbr>5.</p>
+<p>How do I style/edit/change the <abbr>UI</abbr> generated feedback for the new <abbr>HTML</abbr>5 form elements and attributes. For example, In Opera, is there a standard <abbr>CSS</abbr> notation to style the error message so that it doesn&#8217;t necessarily show up under the field in red? Where in the DOM is it inserted? Is the message for a required field customizable? Finally, is this information specified in the <abbr>HTML</abbr>5 spec or are the implementation details left up to the browsers?</p>
+</blockquote>
+<p>There is currently no way to use <abbr>CSS</abbr> to style error messages. As the <abbr>HTML</abbr>5 spec isn&#8217;t finished yet, it&#8217;s a bit early to start specifying new <abbr>CSS</abbr>.</p>
+<p>The <abbr>HTML</abbr>5 spec defines no <abbr>UI</abbr> requirements regarding how browsers should display messages.</p>
+<p>You <em>can</em> override a browser&#8217;s default behaviour with JavaScript. I&#8217;m not a scripter, but I reckon you would need to attach an event handler to the error event and have the handler cancel the default action and show a custom error message. I think that as long as you call <code>evt.preventDefault()</code> within the event handler, it should prevent showing the default error message. Then you can add an element into the DOM and style it as you wish, with the default error handling as a fallback for those without JavaScript. If anyone gives this a go and gets it working, we&#8217;d be very interested to see the results.</p>
+<p>Ta, Bruce</p>
+<h2>Section headers</h2>
+<p>Tibor asked:</p>
+<blockquote><p>Hi. I would like to know, how to use section&#8217;s headers. Is this code correct?</p>
+<pre><code>&lt;aside&gt;
+	&lt;h1&gt;header 1&lt;/h1&gt;
+&lt;/aside&gt;
+&lt;article&gt;
+	&lt;h1&gt;header 2&lt;/h1&gt;
+&lt;/article&gt;</code></pre>
+<p>or I have to use header element inside every aside, article, section etc.</p>
+<pre><code>&lt;aside&gt;
+	&lt;header&gt;
+    	&lt;h1&gt;header 1&lt;/h1&gt;
+	&lt;/header&gt;
+&lt;/aside&gt;
+&lt;article&gt;
+	&lt;header&gt;
+    	&lt;h1&gt;header 2&lt;/h1&gt;
+	&lt;/header&gt;
+&lt;/article&gt;</code></pre>
+<p>Tibor</p>
+</blockquote>
+<p>Your first example is correct. You only need <code>&lt;header&gt;</code> to group items within a header. If the header contains only a single <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> element, you don&#8217;t need to wrap it in a <code>&lt;header&gt;</code>.</p>
+<p>Thanks, Bruce</p>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions! If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+<p><a href="http://html5doctor.com/your-questions-answered-8/" rel="bookmark">Your Questions Answered #8</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 5, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-8/feed/</wfw:commentRss>
+		<slash:comments>40</slash:comments>
+		</item>
+	</channel>
+</rss>

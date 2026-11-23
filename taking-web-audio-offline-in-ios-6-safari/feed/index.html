@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Taking Web Audio Offline in iOS 6 Safari</title>
+	<atom:link href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 29 Jun 2016 01:58:29 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Corey</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-2110894</link>
+		<dc:creator><![CDATA[Corey]]></dc:creator>
+		<pubDate>Thu, 07 Apr 2016 15:05:09 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-2110894</guid>
+		<description><![CDATA[Great post! I think it&#039;s worth mentioning that openssl needs the `-A` open to create a base64 encoding without line breaks. This way readers wont get confused when they try to wrap their encoding in quotes and run into EOF errors.]]></description>
+		<content:encoded><![CDATA[<p>Great post! I think it&#8217;s worth mentioning that openssl needs the `-A` open to create a base64 encoding without line breaks. This way readers wont get confused when they try to wrap their encoding in quotes and run into EOF errors.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: asquare</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-59291</link>
+		<dc:creator><![CDATA[asquare]]></dc:creator>
+		<pubDate>Thu, 19 Jun 2014 18:35:54 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-59291</guid>
+		<description><![CDATA[Thank you! This article was super useful on a project about a year ago when I got the nasty surprise that audio wouldn&#039;t play offline. 
+
+Revisiting the project again this year (and this article), I wanted to use kirilloid&#039;s suggestion above but was having issues in webkit with the returned value not being a true ArrayBuffer. For whatever reason declaring the Uint8Array and ArrayBuffer separately appears to work in Chrome and Mobile Safari.
+
+Something like the following is still nice and compact:
+
+&lt;code&gt;
+function decodeBase64ToArrayBuffer(base64str) {
+    var l = (base64str.length/4) * 3,
+        s = atob(base64str),
+        a = new ArrayBuffer(l),
+        b = new Uint8Array(a),
+        i;
+
+    for (i = 0; i &#038;lt l; i++) b[i] = s.charCodeAt(i);
+    return a;
+}
+&lt;/code&gt;]]></description>
+		<content:encoded><![CDATA[<p>Thank you! This article was super useful on a project about a year ago when I got the nasty surprise that audio wouldn&#8217;t play offline. </p>
+<p>Revisiting the project again this year (and this article), I wanted to use kirilloid&#8217;s suggestion above but was having issues in webkit with the returned value not being a true ArrayBuffer. For whatever reason declaring the Uint8Array and ArrayBuffer separately appears to work in Chrome and Mobile Safari.</p>
+<p>Something like the following is still nice and compact:</p>
+<p><code><br />
+function decodeBase64ToArrayBuffer(base64str) {<br />
+    var l = (base64str.length/4) * 3,<br />
+        s = atob(base64str),<br />
+        a = new ArrayBuffer(l),<br />
+        b = new Uint8Array(a),<br />
+        i;</code></p>
+<p>    for (i = 0; i &amp;lt l; i++) b[i] = s.charCodeAt(i);<br />
+    return a;<br />
+}<br />
+</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: kirilloid</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-48078</link>
+		<dc:creator><![CDATA[kirilloid]]></dc:creator>
+		<pubDate>Sun, 16 Feb 2014 03:27:51 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-48078</guid>
+		<description><![CDATA[Decoding base64 is much simpler (and possibly faster) with built-in `atob` function + `charCodeAt`:
+&lt;code&gt;function decodeBase64ToArrayBuffer(base64str) {
+    var l = (base64str.length/4) * 3,
+        s = atob(base64str),
+        a = new Uint8Array(new ArrayBuffer(l)),
+        i;
+    for (i = 0; i &#060; l; i++) a[i] = s.charCodeAt(i);
+    return a;
+}&lt;/code&gt;]]></description>
+		<content:encoded><![CDATA[<p>Decoding base64 is much simpler (and possibly faster) with built-in `atob` function + `charCodeAt`:<br />
+<code>function decodeBase64ToArrayBuffer(base64str) {<br />
+    var l = (base64str.length/4) * 3,<br />
+        s = atob(base64str),<br />
+        a = new Uint8Array(new ArrayBuffer(l)),<br />
+        i;<br />
+    for (i = 0; i &lt; l; i++) a[i] = s.charCodeAt(i);<br />
+    return a;<br />
+}</code></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Johnny</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-44484</link>
+		<dc:creator><![CDATA[Johnny]]></dc:creator>
+		<pubDate>Fri, 17 Jan 2014 07:00:44 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-44484</guid>
+		<description><![CDATA[Hi, 
+thanks for reply.
+In a meanwhile I figured out what the problem was. After base64 encoding, you shall append &#039;\n&#039; after every 64 chars.]]></description>
+		<content:encoded><![CDATA[<p>Hi,<br />
+thanks for reply.<br />
+In a meanwhile I figured out what the problem was. After base64 encoding, you shall append &#8216;\n&#8217; after every 64 chars.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Alex Gibson</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-44470</link>
+		<dc:creator><![CDATA[Alex Gibson]]></dc:creator>
+		<pubDate>Thu, 16 Jan 2014 15:01:16 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-44470</guid>
+		<description><![CDATA[Excuse the typo, I meant to say in your JavaScript, not CSS obviously :)]]></description>
+		<content:encoded><![CDATA[<p>Excuse the typo, I meant to say in your JavaScript, not CSS obviously :)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Alex Gibson</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-44469</link>
+		<dc:creator><![CDATA[Alex Gibson]]></dc:creator>
+		<pubDate>Thu, 16 Jan 2014 14:59:21 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-44469</guid>
+		<description><![CDATA[Hi Jonny,
+
+I can&#039;t see your example, but it sounds like you might have answered your own question? Just try using the base64 string on a single line in your CSS, as shown in the demo: https://github.com/alexgibson/offlinewebaudio/blob/master/sounds/ufo.js]]></description>
+		<content:encoded><![CDATA[<p>Hi Jonny,</p>
+<p>I can&#8217;t see your example, but it sounds like you might have answered your own question? Just try using the base64 string on a single line in your CSS, as shown in the demo: <a href="https://github.com/alexgibson/offlinewebaudio/blob/master/sounds/ufo.js" rel="nofollow">https://github.com/alexgibson/offlinewebaudio/blob/master/sounds/ufo.js</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Johnny</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-44420</link>
+		<dc:creator><![CDATA[Johnny]]></dc:creator>
+		<pubDate>Wed, 15 Jan 2014 08:13:05 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-44420</guid>
+		<description><![CDATA[Hey, it does work perfectly under Safari, but I have trouble to encode my own mp3 file and make it work. openssl base64 encoding outputs is a several lines of fixed length, which is recognised by browser as EOF. How exactly did you encode mp3 file to base64? 
+ps. copy pasting that base64 value and decoding this (back into binary file) also is not working for me. Am I missing something?
+
+cheers,
+Johnny]]></description>
+		<content:encoded><![CDATA[<p>Hey, it does work perfectly under Safari, but I have trouble to encode my own mp3 file and make it work. openssl base64 encoding outputs is a several lines of fixed length, which is recognised by browser as EOF. How exactly did you encode mp3 file to base64?<br />
+ps. copy pasting that base64 value and decoding this (back into binary file) also is not working for me. Am I missing something?</p>
+<p>cheers,<br />
+Johnny</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Alex Gibson</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-32094</link>
+		<dc:creator><![CDATA[Alex Gibson]]></dc:creator>
+		<pubDate>Tue, 12 Mar 2013 07:42:47 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-32094</guid>
+		<description><![CDATA[Thanks for sharing, Adrian
+
+Glad you like my home town :)]]></description>
+		<content:encoded><![CDATA[<p>Thanks for sharing, Adrian</p>
+<p>Glad you like my home town :)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Adrian</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-32087</link>
+		<dc:creator><![CDATA[Adrian]]></dc:creator>
+		<pubDate>Tue, 12 Mar 2013 01:18:13 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-32087</guid>
+		<description><![CDATA[I was working on an all purpose in browser audio player recently, and I did something similar with the fileReader api. Using a file input box , I passed the data url into an audio element as source and it played just fine. 
+OpenSSL to do the encoding never occurred to me, great idea.  
+
+Here&#039;s a demo. 
+
+http://fumatica.com/fumatic.html
+
+By the way, I love Newcastle.
+I spent a bunch of time over there 
+with a gorgeous Geordie girl. 
+
+
+Adrian]]></description>
+		<content:encoded><![CDATA[<p>I was working on an all purpose in browser audio player recently, and I did something similar with the fileReader api. Using a file input box , I passed the data url into an audio element as source and it played just fine.<br />
+OpenSSL to do the encoding never occurred to me, great idea.  </p>
+<p>Here&#8217;s a demo. </p>
+<p><a href="http://fumatica.com/fumatic.html" rel="nofollow">http://fumatica.com/fumatic.html</a></p>
+<p>By the way, I love Newcastle.<br />
+I spent a bunch of time over there<br />
+with a gorgeous Geordie girl. </p>
+<p>Adrian</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Peaches</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comment-32022</link>
+		<dc:creator><![CDATA[Peaches]]></dc:creator>
+		<pubDate>Sat, 09 Mar 2013 15:26:32 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812#comment-32022</guid>
+		<description><![CDATA[Great, you&#039;ve just solved my problem. Thanks!  I had spent a few hours banging my head against the wall on this one...
+
+I have a button that sends an ajax request, and the confirmation sound needed to play on a successful response. I just put a false sound on the button click:
+&lt;code&gt;
+onclick=&quot;mySource.noteOn(1);mySource.noteOff();&quot;
+&lt;/code&gt;
+and now can play the sound via javascript in my response function.
+
+Thanks for your help!]]></description>
+		<content:encoded><![CDATA[<p>Great, you&#8217;ve just solved my problem. Thanks!  I had spent a few hours banging my head against the wall on this one&#8230;</p>
+<p>I have a button that sends an ajax request, and the confirmation sound needed to play on a successful response. I just put a false sound on the button click:<br />
+<code><br />
+onclick="mySource.noteOn(1);mySource.noteOff();"<br />
+</code><br />
+and now can play the sound via javascript in my response function.</p>
+<p>Thanks for your help!</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

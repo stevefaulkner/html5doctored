@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; address</title>
+	<atom:link href="http://html5doctor.com/tag/address/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>The Address Element</title>
+		<link>http://html5doctor.com/the-address-element/</link>
+		<comments>http://html5doctor.com/the-address-element/#comments</comments>
+		<pubDate>Tue, 03 Nov 2009 19:34:29 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[address]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1051</guid>
+		<description><![CDATA[The <code>address</code> element has been around since the <abbr>HTML</abbr>3 spec was drafted in 1995, and it continues to survive in the latest drafts of <abbr>HTML</abbr>5. But nearly fifteen years after its creation, it's still causing confusion among developers. So how should we be using <code>address</code> in our documents?<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/"     class="crp_title">HTML5 adaptive images: end of round one</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>address</code> element has been around since the <abbr>HTML</abbr>3 spec was drafted in 1995, and it continues to survive in the latest drafts of <abbr>HTML</abbr>5. But nearly fifteen years after its creation, it's still causing confusion among developers. So how should we be using <code>address</code> in our documents?</p>
+
+<h2>The right way</h2>
+
+<p>Let's take a quick look at the spec:</p>
+
+<blockquote>
+<p>The address element provides contact information for a document or part of a document. Information provided by address may include the names of the document’s maintainers, links to the maintainers’ Web pages, e-mail addresses for feedback, postal addresses, phone numbers, and so on. The address element is not appropriate for all postal and e-mail addresses; it should be reserved for providing such information about the contact people for the document.</p>
+<a href="http://dev.w3.org/html5/spec/sections.html#the-address-element"><cite>W3C HTML5 specification</cite></a></blockquote>
+ 
+<p>If we follow the above advice, we could do something like this:</p>
+
+<pre>
+<code>The HTML5 Doctor is run by the following group of volunteers:
+<mark>&#60;address&#62;</mark>
+&#60;a href="http://html5doctor.com/author/jacko"&#62;Jack Osborne&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/richc"&#62;Rich Clark&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/miker"&#62;Mike Robinson&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/toml"&#62;Tom Leadbetter&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/brucel"&#62;Bruce Lawson&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/remys"&#62;Remy Sharp&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/olib"&#62;Oli Studholme&#60;/a&#62;
+<mark>&#60;/address&#62;</mark></code>
+</pre>
+
+<p>Here's another example that we've implemented on this very site:</p>
+
+<pre>
+<code>&#60;footer&#62;
+&#60;div class="vcard"&#62;by
+ <mark>&#60;address class="author"&#62;</mark>
+&#60;em class="fn"&#62;&#60;a title="Posts by Jack Osborne" href="#"&#62;Jack Osborne&#60;/a&#62;&#60;/em&#62;
+<mark>&#60;/address&#62;</mark> on
+ &#60;time datetime="2009-11-04" class="published updated"&#62;November 4th, 2009&#60;/time&#62;
+&#60;/div&#62;
+&#60;/footer&#62;</code>
+</pre>
+
+<p>If you view the source code on our <a href="http://html5doctor.com" title="HTML5 Doctor Home">home page</a>, you'll see that we've used the <code>address</code> element &#8212; nested within the <code>footer</code> of the articles &#8212; several times throughout the page. This is useful should the information be aggregated.</p>
+
+<h2>The wrong way</h2>
+
+<p>The most common misconception about the <code>address</code> element is that it should be used to mark up any old address. Take a look at the following example:</p>
+
+<pre>
+<code>&#60;!-- This is bad! --&#62;
+<mark>&#60;address&#62;</mark>
+Dr. Jack Osborne&lt;br&gt;
+HTML5 Hospital,&lt;br&gt;
+Doctorville,&lt;br&gt;
+Great Britain&lt;br&gt;
+Tel: +44 (0)XXXX XXXXXX
+<mark>&#60;/address&#62;</mark></code>
+</pre>
+
+<p>Wondering what's wrong with this code? Very simply, the <code>address</code> element was <strong>not</strong> created for postal addresses. To reinforce this, the latest spec stipulates that the <code>address</code> element <strong>must not</strong> be used to represent arbitrary addresses (e.g., postal addresses), <em>unless</em> those addresses are in fact the relevant contact information for a document or section of a document.</p>
+
+<h2>Marking up arbitrary addresses</h2>
+
+<p>So what should we do with addresses that aren't directly related to the document? One solution is to use the <code>p</code> element in combination with the <a href="http://html5doctor.com/microformats/#hcard" title="hCard Microformat">hCard microformat</a>.</p>
+
+<p>Let's rewrite that last example using hCard:</p>
+
+<pre>
+<code>&lt;div class="vcard"&gt;
+&lt;p class="fn"&gt;&lt;a class="url" href="#"&gt;Dr. Jack Osborne&lt;/a&gt;&lt;p&gt;
+&lt;p class="adr"&gt;
+&lt;span class="street-address"&gt;HTML5 Hospital&lt;/span&gt;&lt;br&gt;
+&lt;span class="region"&gt;Doctorville&lt;/span&gt;&lt;br&gt;
+&lt;span class="postal-code"&gt;Postal Code&lt;/span&gt;&lt;br&gt;
+&lt;span class="country-name"&gt;Great Britain&lt;/span&gt;
+&lt;/p&gt;
+&lt;p class="tel"&gt;+44 (0)XXXX XXXXXX&lt;/p&gt;
+&lt;/div&gt;</code>
+</pre>
+
+<p>I’ve introduced hCard here to reinforce that you are <strong>not</strong> supposed to use the <code>address</code> element for arbitrary postal addresses, but rather for providing contact information for a whole document or section of a document. If you want to maximise the semantic value of that information, read our articles on <a href="http://html5doctor.com/microformats">extending HTML5 with microformats</a> or <a href="http://html5doctor.com/microdata">HTML5’s new microdata attributes</a>.</p>
+
+<p>If you don&#8217;t feel comfortable implementing microformats on your own, visit the <a href="http://microformats.org/code/hcard/creator" title="hCard Microformat generator">hCard generator</a>, which will do all of the heavy lifting for you.</p><p><a href="http://html5doctor.com/the-address-element/" rel="bookmark">The Address Element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 3, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/"     class="crp_title">HTML5 adaptive images: end of round one</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-address-element/feed/</wfw:commentRss>
+		<slash:comments>52</slash:comments>
+		</item>
+	</channel>
+</rss>

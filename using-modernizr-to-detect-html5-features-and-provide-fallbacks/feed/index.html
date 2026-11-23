@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Using Modernizr to detect HTML5 features and provide fallbacks</title>
+	<atom:link href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Thu, 28 Jul 2016 17:36:34 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Adrián</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-175521</link>
+		<dc:creator><![CDATA[Adrián]]></dc:creator>
+		<pubDate>Thu, 31 Jul 2014 09:58:02 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-175521</guid>
+		<description><![CDATA[Hello, first sorry for my English,  I&#039;m working on a web application, the case problem is I have a date with the guy in the safari browser. I need to be in date format (dd-mm-yyyy), and tested with the example of your article but I can not move, so I ask for help if you can help me with this. Thanks in advance.]]></description>
+		<content:encoded><![CDATA[<p>Hello, first sorry for my English,  I&#8217;m working on a web application, the case problem is I have a date with the guy in the safari browser. I need to be in date format (dd-mm-yyyy), and tested with the example of your article but I can not move, so I ask for help if you can help me with this. Thanks in advance.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: louie @ Green Box</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-48600</link>
+		<dc:creator><![CDATA[louie @ Green Box]]></dc:creator>
+		<pubDate>Fri, 07 Mar 2014 12:35:07 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-48600</guid>
+		<description><![CDATA[That is handy for detecting html 5 features in the browser. great they included the shiv for old versions of Internet explorer also.]]></description>
+		<content:encoded><![CDATA[<p>That is handy for detecting html 5 features in the browser. great they included the shiv for old versions of Internet explorer also.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Jeffrey Barke</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-36444</link>
+		<dc:creator><![CDATA[Jeffrey Barke]]></dc:creator>
+		<pubDate>Mon, 15 Jul 2013 21:54:16 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-36444</guid>
+		<description><![CDATA[@html5Doctor,
+@bouks,
+
+I just set up a couple of demos to test the example code, and I ran into a problem with Modernizr 2.6.2 and the latest version of Chrome. The &lt;code&gt;complete&lt;/code&gt; callback of &lt;code&gt;Modernizr.load&lt;/code&gt; is called regardless of the test results. This causes an error when jQuery is not loaded, so I have two alternatives to the example you posted:
+
+&lt;code&gt;
+Modernizr.load({
+	test: Modernizr.inputtypes.date,
+	nope: [
+		&#039;js/jquery.min.js&#039;,
+		&#039;js/jquery-ui.min.js&#039;
+	],
+	complete: function () {
+		if (window.jQuery) {
+			jQuery(&#039;input[type=date]&#039;).datepicker({
+				dateFormat: &#039;yy-mm-dd&#039;
+			});
+		}
+	}
+});
+&lt;/code&gt;
+
+In this case, we simply add a test for the presence of jQuery to the complete callback.
+
+&lt;code&gt;
+Modernizr.load({
+	test: Modernizr.inputtypes.date,
+	nope: [
+		&#039;js/jquery.min.js&#039;,
+		&#039;js/jquery-ui.min.js&#039;
+	],
+	callback: {
+		&#039;js/jquery-ui.min.js&#039;: function () {
+			$(&#039;input[type=date]&#039;).datepicker({
+				dateFormat: &#039;yy-mm-dd&#039;
+			});
+		}
+	}
+});
+&lt;/code&gt;
+
+In this case, I use the callback property with the &quot;js/jquery-ui.min.js&quot; key. Since &quot;js/jquery-ui.min.js&quot; is only loaded when the test fails, we don&#039;t need the conditional.
+
+Finally, as bouks mentions, possibly you are certain that jQuery and jQuery UI are already on the page. In that case you don&#039;t need the Modernizr loader a&#039;tall, just the test:
+
+&lt;code&gt;
+if (!Modernizr.inputtypes.date) {
+	jQuery(&#039;input[type=date]&#039;).datepicker({
+		dateFormat: &#039;yy-mm-dd&#039;
+	});
+}
+&lt;/code&gt;
+
+My demos are located at:
+http://jeffreybarke.net/demos/modernizr/date-picker-loader-1.html
+http://jeffreybarke.net/demos/modernizr/date-picker-loader-2.html
+http://jeffreybarke.net/demos/modernizr/date-picker-loader-3.html]]></description>
+		<content:encoded><![CDATA[<p>@html5Doctor,<br />
+@bouks,</p>
+<p>I just set up a couple of demos to test the example code, and I ran into a problem with Modernizr 2.6.2 and the latest version of Chrome. The <code>complete</code> callback of <code>Modernizr.load</code> is called regardless of the test results. This causes an error when jQuery is not loaded, so I have two alternatives to the example you posted:</p>
+<p><code><br />
+Modernizr.load({<br />
+	test: Modernizr.inputtypes.date,<br />
+	nope: [<br />
+		'js/jquery.min.js',<br />
+		'js/jquery-ui.min.js'<br />
+	],<br />
+	complete: function () {<br />
+		if (window.jQuery) {<br />
+			jQuery('input[type=date]').datepicker({<br />
+				dateFormat: 'yy-mm-dd'<br />
+			});<br />
+		}<br />
+	}<br />
+});<br />
+</code></p>
+<p>In this case, we simply add a test for the presence of jQuery to the complete callback.</p>
+<p><code><br />
+Modernizr.load({<br />
+	test: Modernizr.inputtypes.date,<br />
+	nope: [<br />
+		'js/jquery.min.js',<br />
+		'js/jquery-ui.min.js'<br />
+	],<br />
+	callback: {<br />
+		'js/jquery-ui.min.js': function () {<br />
+			$('input[type=date]').datepicker({<br />
+				dateFormat: 'yy-mm-dd'<br />
+			});<br />
+		}<br />
+	}<br />
+});<br />
+</code></p>
+<p>In this case, I use the callback property with the &#8220;js/jquery-ui.min.js&#8221; key. Since &#8220;js/jquery-ui.min.js&#8221; is only loaded when the test fails, we don&#8217;t need the conditional.</p>
+<p>Finally, as bouks mentions, possibly you are certain that jQuery and jQuery UI are already on the page. In that case you don&#8217;t need the Modernizr loader a&#8217;tall, just the test:</p>
+<p><code><br />
+if (!Modernizr.inputtypes.date) {<br />
+	jQuery('input[type=date]').datepicker({<br />
+		dateFormat: 'yy-mm-dd'<br />
+	});<br />
+}<br />
+</code></p>
+<p>My demos are located at:<br />
+<a href="http://jeffreybarke.net/demos/modernizr/date-picker-loader-1.html" rel="nofollow">http://jeffreybarke.net/demos/modernizr/date-picker-loader-1.html</a><br />
+<a href="http://jeffreybarke.net/demos/modernizr/date-picker-loader-2.html" rel="nofollow">http://jeffreybarke.net/demos/modernizr/date-picker-loader-2.html</a><br />
+<a href="http://jeffreybarke.net/demos/modernizr/date-picker-loader-3.html" rel="nofollow">http://jeffreybarke.net/demos/modernizr/date-picker-loader-3.html</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: bouks</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-36170</link>
+		<dc:creator><![CDATA[bouks]]></dc:creator>
+		<pubDate>Wed, 10 Jul 2013 15:11:48 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-36170</guid>
+		<description><![CDATA[Better solution for your example of detecting input type date and datepicker.
+
+Often you have already included jquery and jquery ui for other things in the website.
+In this case, your example will not work and in a capable browser you will have both native and jquery datepicker.
+
+The solution :
+
+&lt;code&gt;
+if (!Modernizr.inputtypes.date) {
+            //optional
+	    Modernizr.load([&#039;/js/jquery.ui.datepicker-yourlangage.js&#039;]);
+
+	    $(&#039;input[type=date]&#039;).datepicker({
+		dateFormat: &#039;yy-mm-dd&#039;,
+		minDate: &quot;-100Y&quot;,
+		maxDate: &quot;-18Y&quot;,
+		changeMonth: true,
+		changeYear: true
+	    });
+	}
+&lt;/code&gt;]]></description>
+		<content:encoded><![CDATA[<p>Better solution for your example of detecting input type date and datepicker.</p>
+<p>Often you have already included jquery and jquery ui for other things in the website.<br />
+In this case, your example will not work and in a capable browser you will have both native and jquery datepicker.</p>
+<p>The solution :</p>
+<p><code><br />
+if (!Modernizr.inputtypes.date) {<br />
+            //optional<br />
+	    Modernizr.load(['/js/jquery.ui.datepicker-yourlangage.js']);</code></p>
+<p>	    $('input[type=date]').datepicker({<br />
+		dateFormat: 'yy-mm-dd',<br />
+		minDate: "-100Y",<br />
+		maxDate: "-18Y",<br />
+		changeMonth: true,<br />
+		changeYear: true<br />
+	    });<br />
+	}<br />
+</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Nitin</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-29448</link>
+		<dc:creator><![CDATA[Nitin]]></dc:creator>
+		<pubDate>Sat, 15 Dec 2012 01:35:49 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-29448</guid>
+		<description><![CDATA[Thanks it was one of the best explainations]]></description>
+		<content:encoded><![CDATA[<p>Thanks it was one of the best explainations</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: cwebba1</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-29310</link>
+		<dc:creator><![CDATA[cwebba1]]></dc:creator>
+		<pubDate>Tue, 20 Nov 2012 19:20:30 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-29310</guid>
+		<description><![CDATA[I&#039;m VERY excited by this article, planning to try your example of loading JQuery within Modernizer after previous failed attempts.
+Please clarify about the &quot;Modernizer is same as Yepnope&quot; statement, which I see oft repeated. Specifically I want to know about your example of yepnope properties – I see the same switch of reference in every tutorial - can I use &quot;modernizer&quot; instead of &quot;yepnope&quot; with those property patterns in Modernizr?
+(Is &quot;modernizr ([{ callback:&quot; OK to use?)
+ Are the two names the same thing within Modernizr? I cannot be sure whether you are saying to load the yepnope program or to use &quot;yepnope&quot; as part of the modernizr syntax? Please nail this down.
+Another thing that I cannot find is an example of combining two javascript polyfills within one &quot;script.js&quot; file. Mr. Doubting Thomas here wants to SEE how it looks. Every tutorial skips ahead to &quot;too hard to do so use a Concatenator / minifier&quot; and skips over this critical bit of information.
+The third big bit of info that I&#039;m wondering about is about the path to polyfills to call within Modernizr. If I combine multiple polyfills into one scripts.js file, do I just call that one scripts.js file for every time I need a polyfill? Wouldn&#039;t that load the entire scripts.js file multiple times? Or should I not combine/minify scripts when using Modernizr and just keep each one separate?]]></description>
+		<content:encoded><![CDATA[<p>I&#8217;m VERY excited by this article, planning to try your example of loading JQuery within Modernizer after previous failed attempts.<br />
+Please clarify about the &#8220;Modernizer is same as Yepnope&#8221; statement, which I see oft repeated. Specifically I want to know about your example of yepnope properties – I see the same switch of reference in every tutorial &#8211; can I use &#8220;modernizer&#8221; instead of &#8220;yepnope&#8221; with those property patterns in Modernizr?<br />
+(Is &#8220;modernizr ([{ callback:&#8221; OK to use?)<br />
+ Are the two names the same thing within Modernizr? I cannot be sure whether you are saying to load the yepnope program or to use &#8220;yepnope&#8221; as part of the modernizr syntax? Please nail this down.<br />
+Another thing that I cannot find is an example of combining two javascript polyfills within one &#8220;script.js&#8221; file. Mr. Doubting Thomas here wants to SEE how it looks. Every tutorial skips ahead to &#8220;too hard to do so use a Concatenator / minifier&#8221; and skips over this critical bit of information.<br />
+The third big bit of info that I&#8217;m wondering about is about the path to polyfills to call within Modernizr. If I combine multiple polyfills into one scripts.js file, do I just call that one scripts.js file for every time I need a polyfill? Wouldn&#8217;t that load the entire scripts.js file multiple times? Or should I not combine/minify scripts when using Modernizr and just keep each one separate?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Alastair</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-28960</link>
+		<dc:creator><![CDATA[Alastair]]></dc:creator>
+		<pubDate>Tue, 25 Sep 2012 08:58:31 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-28960</guid>
+		<description><![CDATA[I think at this point, anyone who deliberately turns off Javascript deserves exactly what they get. My belief is there is not enough tinfoil in the world for the hats of those who browse the internet with Javascript turned off and certainly those people aren&#039;t visiting the websites I develop.]]></description>
+		<content:encoded><![CDATA[<p>I think at this point, anyone who deliberately turns off Javascript deserves exactly what they get. My belief is there is not enough tinfoil in the world for the hats of those who browse the internet with Javascript turned off and certainly those people aren&#8217;t visiting the websites I develop.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Alex</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-28891</link>
+		<dc:creator><![CDATA[Alex]]></dc:creator>
+		<pubDate>Wed, 29 Aug 2012 10:17:33 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-28891</guid>
+		<description><![CDATA[Nice little article - great high level description of some of the really useful features of this tool - thanks.]]></description>
+		<content:encoded><![CDATA[<p>Nice little article &#8211; great high level description of some of the really useful features of this tool &#8211; thanks.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: JeffNunn</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-27876</link>
+		<dc:creator><![CDATA[JeffNunn]]></dc:creator>
+		<pubDate>Mon, 11 Jun 2012 19:30:14 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-27876</guid>
+		<description><![CDATA[The web runs on Javascript and has run on Javascript since the early 2000&#039;s. If someone has their Javascript turned off, they have essentially turned off the web altogether. Might as well turn of CSS and HTML while you&#039;re at it. I don&#039;t waste my time testing for turned off JS. 
+
+While testing for compatibility with SCREENREADERS is related, it is not the same thing as testing for people who have turned off JS]]></description>
+		<content:encoded><![CDATA[<p>The web runs on Javascript and has run on Javascript since the early 2000&#8217;s. If someone has their Javascript turned off, they have essentially turned off the web altogether. Might as well turn of CSS and HTML while you&#8217;re at it. I don&#8217;t waste my time testing for turned off JS. </p>
+<p>While testing for compatibility with SCREENREADERS is related, it is not the same thing as testing for people who have turned off JS</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Nick</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comment-27831</link>
+		<dc:creator><![CDATA[Nick]]></dc:creator>
+		<pubDate>Mon, 11 Jun 2012 09:53:20 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371#comment-27831</guid>
+		<description><![CDATA[Anyone who is browsing the web with a browser capable of javascript, yet with it turned off, is either a retard, or is using that computer for something that would end in them not visiting random websites...
+
+Every device nowadays supports javascript, so you can count on javascript being enabled for your site... or your site is for retards... either way...]]></description>
+		<content:encoded><![CDATA[<p>Anyone who is browsing the web with a browser capable of javascript, yet with it turned off, is either a retard, or is using that computer for something that would end in them not visiting random websites&#8230;</p>
+<p>Every device nowadays supports javascript, so you can count on javascript being enabled for your site&#8230; or your site is for retards&#8230; either way&#8230;</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

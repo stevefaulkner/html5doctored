@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; W3C</title>
+	<atom:link href="http://html5doctor.com/tag/w3c/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>The hgroup hokey cokey</title>
+		<link>http://html5doctor.com/the-hgroup-hokey-cokey/</link>
+		<comments>http://html5doctor.com/the-hgroup-hokey-cokey/#comments</comments>
+		<pubDate>Fri, 06 May 2011 11:34:49 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[W3C]]></category>
+		<category><![CDATA[WHATWG]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3208</guid>
+		<description><![CDATA[<p>As you may well have heard this week, hgroup has been in, out and in the spec again, while members of the W3C and others have truly been shaking it all about. If you've missed this latest merry dance then please head on over to the W3 bug report page to help get a clearer indication.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>As you may well have heard this week, <code>hgroup</code> has been in, out and in the spec again, while members of the W3C and others have truly been shaking it all about. If you&#8217;ve missed this latest merry dance then please head on over to the <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=11828" title="removal of hgroup from the specification">W3 bug report page</a> to help get a clearer indication.</p>
+
+<p>To offer a quick recap, <code>hgroup</code> was <a href="http://html5.org/tools/web-apps-tracker?from=6051&#038;to=6052">removed from the W3C specification</a> only (not the WHATWG spec) by Hixie at the request of <a href="http://twitter.com/stevefaulkner">Steve Faulkner</a>. <a href="http://lists.w3.org/Archives/Public/public-html/2011May/0061.html">The co-chairs requested the issue be reverted</a> following multiple requests from the likes of <a href="http://twitter.com/tabatkins">Tab</a> and <a href="http://twitter.com/t">Tantek</a>. The current status at the time of writing is that <code>hgroup</code> is in the spec.</p>
+
+<p>It seems that the future of <code>hgroup</code> will be decided during the HTML5 spec last call review which is expected to start on or around May 22nd 2011.</p>
+
+<p>One of the main reasons for this element being removed was because some people felt that it was only in the spec was to keep the outline algorithm happy and that it didn&#8217;t really offer much else in the way of semantics. It has also been suggested that people were still struggling to understand how to implement it correctly. If, however, you need your memory jogging then we suggest <a href="http://html5doctor.com/the-hgroup-element/"> reading our post on <code>hgroup</code> from last year</a>.</p>
+
+<p>Far be it from us to get involved in the political wrangling (<a href="http://twitter.com/#!/brucel/status/65757483955781632">and knob waving</a>) of the W3C, therefore when news of this broke we doctors fired a few emails between each other discussing what was going on and what <em>we</em> thought should be the next logical step. The outcome from these emails showed that there was no clear majority. Some of the doctors, myself included, thought that the element was a handy addition to the spec and should be something that we fought to keep. Others, like Bruce, have made no qualms about <a href="http://www.brucelawson.co.uk/2010/on-the-hgroup-element/">their dislike for this particular element</a>.</p>
+
+<p>Regardless, we decided to see if we could solve this issue by offering up alternative solutions. Below are a few of the suggestions (and issues) that came out of the conversation. We understand that some of these suggestions come with their own issues and the consequences maybe haven&#8217;t been fully thought through, but the aim of this is to start a conversion, not provide a final answer.</p>
+
+<figure>
+<pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;hgroup&gt;
+      &lt;h1&gt;Title goes here&lt;/h1&gt;
+      &lt;h2&gt;Subtitle of article&lt;/h2&gt;
+    &lt;/hgroup&gt;
+    &lt;p&gt;&lt;time datetime=&quot;2010-03-20&quot;&gt;20th March, 2010&lt;/time&gt;&lt;/p&gt;
+  &lt;/header&gt;                
+  &lt;p&gt;Lorem Ipsum dolor set amet...&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+<figcaption>How hgroup currently works, for comparison</figcaption>
+</figure>
+
+<h2>Subtitle within header</h2>
+<pre><code>&#60;article&#62;
+  &#60;header&#62;
+    &#60;h1&#62;Title&#60;/h1&#62;
+    <mark>&#60;p&#62;subtitle&#60;/p&#62;</mark>
+  &#60;/header&#62;
+  &#60;p&#62;Lorem Ipsum dolor set amet...&#60;/p&#62;
+&#60;/article&#62;
+</code></pre>
+
+<p>The method suggested above is probably the closest example to what we currently have with regards to <code>hgroup</code>. Within this code example we have an heading level and p tag within the header element.</p>
+<p>Although this might seem fairly straight forward, it does become more complicated if we have further elements within the header; additional p tags, spans etc.</p>
+
+<h2>Highest ranking heading takes precedence</h2>
+<pre><code>&lt;article&gt;
+  &lt;header&gt;
+    <mark>&lt;h4&gt;Intro subtitle&lt;/h1&gt;
+    &lt;h1&gt;Title goes here&lt;/h1&gt;
+    &lt;h3&gt;by John Smith&lt;/h3&gt;</mark>
+    &lt;p&gt;&lt;time datetime=&quot;2010-03-20&quot;&gt;20th March, 2010&lt;/time&gt;&lt;/p&gt;
+    &lt;nav&gt;
+      &lt;h2&gt;Chapters&lt;/h2&gt;
+      &lt;ul&gt;...&lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;                
+  &lt;p&gt;Lorem Ipsum dolor set amet...&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p>Taking the previous example a bit further, here we have multiple headings within <code>header</code> and the machine could recognise that the <code>h1</code> is the highest ranking and should be used in the outline. Other headings are excluded, with the exception of the <code>h2</code> within <code>nav</code> as it is a sectioning content element and therefore still affects outline.</p>
+
+<p>This allows the developer to have multiple subtitles of varying importance without affecting the outline. The drawback of this is the use of headings isn&#8217;t very intuitive when lower ranking headings can appear anywhere within <code>header</code>. Thankfully we still have ideas for other alternatives.</p> 
+
+<h2>Span subtitle within header</h2>
+<pre><code>&#60;article&#62;
+  &#60;header&#62;
+    &#60;h1&#62;Title <mark>&#60;span&#62;<mark>Subtitle</mark>&#60;/span&#62;</mark>&#60;/h1&#62;
+  &#60;/header&#62;
+  &#60;p&#62;Lorem Ipsum dolor set amet...&#60;/p&#62;
+&#60;/article&#62;
+</code></pre>
+
+<p>This next technique is probably similar to something that you might have used before when coding up a page in <code>HTML4</code>, providing something of a natural progression, <a href="http://www.w3.org/TR/html-design-principles/#pave-the-cowpaths">paving the cowpaths</a> if you will. As the span is within the heading element it makes it clear that it is associated with the heading.</p>
+
+<p>Some of the doctors are not convinced this is the correct way to progress and therefore looked for another alternative.</p>
+
+<h2>Introducing the subtitle</h2>
+<pre><code>&#60;article&#62;
+  &#60;header&#62;
+    &#60;h1&#62;Title <mark>&#60;span subtitle&#62;Subtitle&#60;/span&#62;</mark>&#60;/h1&#62;
+  &#60;/header&#62;
+  &#60;p&#62;Lorem Ipsum dolor set amet...&#60;/p&#62;
+&#60;/article&#62;
+</code></pre>
+
+<p>This example is almost identical to the example provided above. The only difference here is that we&#8217;ve added a subtitle attribute to help assistive software make the connection between heading and subtitle. Again, some Doctors are not completely comfortable with nesting a subtitle within a heading element.</p>
+
+<p>It was also suggested combining this example and the first to come up with a better outcome. Whereby a developer would include a heading and p tag, marked up with the subtitle attribute, within the header element.</p>
+
+<h2>For attribute within header</h2>
+<pre><code>&#60;article&#62;
+  &#60;header&#62;
+    &#60;h1 id="title"&#62;Title&#60;/h1&#62;
+    <mark>&#60;p for="title"&#62;Subtitle&#60;/p&#62;</mark>
+  &#60;/header&#62;
+  &#60;p&#62;Lorem Ipsum dolor set amet...&#60;/p&#62;
+&#60;/article&#62;
+</code></pre>
+
+<p>Now for something totally different. The above example borrows an idea from forms using the <code>for</code> attribute. in HTML5, a number of elements which were previously required to be within a form element can now be located anywhere on the page and associated with a form using a <code>form</code> attribute pointing at the <code>id</code> of its form owner. This example extends borrows the idea an applying it to use with another attribute and element.</p>
+
+<p>In our example the p tag is owned by the heading element. The interesting thing with this method, along with the forms, is that the subtitle wouldn&#8217;t necessarily have to be nested within the header, as assistive technology would still be able to associated which heading it belonged too.</p>
+
+<h2>What&#8217;s next and your suggestions</h2>
+<p><a href="http://www.w3.org/html/wg/tracker/issues/164">Issue 164 on the W3C tracker</a> offers some further suggestions to how <code>hgroup</code> could be removed, modified or otherwise changed. Some of those are similar or the same as those we&#8217;ve mentioned above but now you&#8217;ve seen our suggestions and perhaps perused those in issue 164, so why not let us know your suggestions below in the comments.</p> 
+
+<p>This is a fairly big issue and one that a lot of people are still obviously undecided about, so here is your chance to seize an opportunity because, you never know, your suggestion could become standard practice.</p>
+<p><a href="http://html5doctor.com/the-hgroup-hokey-cokey/" rel="bookmark">The hgroup hokey cokey</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 6, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-hgroup-hokey-cokey/feed/</wfw:commentRss>
+		<slash:comments>58</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 for Web Developers</title>
+		<link>http://html5doctor.com/html5-for-web-developers/</link>
+		<comments>http://html5doctor.com/html5-for-web-developers/#comments</comments>
+		<pubDate>Fri, 25 Feb 2011 14:30:09 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[design]]></category>
+		<category><![CDATA[html]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[W3C]]></category>
+		<category><![CDATA[WHATWG]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3061</guid>
+		<description><![CDATA[<p>While they’re essential reading material for our job, W3C specifications tend to make for poor reading material. One intrepid developer set out to change this for himself — “HTML5 for Web Developers” is the fruit of his labours. In addition to introducing this awesome new resource, we make a delicious fruit salad for you by comparing it to the other HTML(5) specs.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<!-- 
+<h1>An HTML5 spec for the rest of us</h1>
+ -->
+
+<p>While they’re essential reading material for our job, the <dfn><abbr title="World Wide Web Consortium">W3C</abbr></dfn> specifications are not exactly <a href="http://www.georgerrmartin.com/" title="George R. R. Martin's Official Website">George R. R. Martin</a>-level reading material. To make matters worse, the often-dry text (written for <em>implementors</em>, not authors) and…colourful illustrations come wrapped in a design straight out of 1999. While the <a href="http://www.w3.org/Help/about-redesign.html" title="About the W3C Site Redesign"><abbr>W3C</abbr> homepage got some lovin’</a> in 2009 from the dynamic duo of <a href="http://www.happycog.com/create/w3c/" title="The World Wide Web Consortium Website Redesign: Happy Cog">Happy Cog</a> and <a href="http://www.airbagindustries.com/archives/airbag/were_actively_w.php" title="Airbag - Completed.">Airbag Industries</a>, the actual specifications are still only slightly above the baseline of browser defaults. So what’s a caring developer to do?</p>
+
+<p><a href="http://twitter.com/benschwarz">Ben Schwarz</a>, a developer in Melbourne, Australia, took matters into his own hands with a <a href="http://germanforblack.com/articles/moving-towards-readable-w3c-specs" title="W3C Design
+— an article by Ben Schwarz">userscript to give <abbr>W3C</abbr> specs some <em>readability</em></a>. Around the same time <a href="http://people.w3.org/mike/" title="W3C &#187; People &#187; Michael[tm] Smith">Mike™ Smith</a> — the <abbr>W3C</abbr> team contact for HTML Working Group amongst other things — was looking for CSS help for <a href="http://dev.w3.org/html5/markup/" title="HTML5: The Markup Language Reference">HTML5: The Markup Language Reference</a>, his cut-down reference version of the HTML5 spec. I was able to introduce Mike™ and Ben, and the result was <a href="http://dev.w3.org/html5/spec-author-view/" title="HTML5 (Edition for Web Authors)">HTML5 Edition for Web Authors</a>. But this was only the start.</p>
+
+<p>Ben then got on the <abbr>WHATWG</abbr> <abbr>IRC</abbr> channel:</p>
+
+<blockquote>
+<p>Within 10 minutes of joining the <abbr>WHATWG</abbr> <abbr>IRC</abbr> channel Ian Hickson had granted me approval to continue with my own build of the spec, targeted for web developers.</p>
+<footer><cite>— <a href="http://www.germanforblack.com/articles/html5-for-web-developers">HTML5, for web developers</a></cite> announcement by Ben Schwarz</footer>
+</blockquote>
+
+<p>After a lot of hard work, with input and encouragement from the web’s finest (including Dr Bruce), Ben has released <a href="http://developers.whatwg.org/" title="HTML5 &mdash; Edition for Web Developers">HTML5 for Web Developers</a>.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/02/html5-for-web-devs-50.png" alt="HTML5 for Web Developers screenshot" width="552" height="424" class="aligncenter size-full wp-image-3075" />
+<figcaption>HTML5 for Web Developers</figcaption>
+</figure>
+
+<blockquote>
+<p>The focus of this specification is readability and ease of access. Unlike the full HTML specification, this “web developer edition” removes information that only browser vendors need know.</p>
+<footer><cite>— <a href="http://developers.whatwg.org/">HTML5 for Web developers</a></cite></footer>
+</blockquote>
+
+<p>In addition to streamlining the content, it boasts all manner of freshly implemented buzzwords and technical trickery through the magicks<!-- intentional --> of JavaScript and CSS:</p>
+
+<ul>
+<li>find-as-you-type search (type “<kbd>/</kbd>”)</li>
+<li>offline access</li>
+<li>alternate styles for mobile devices</li>
+<li>technical references pulled inline</li>
+<li>beautiful typography</li>
+<li>…and <em>design</em></li>
+</ul>
+
+<p>It’s been well received, with more than <a href="https://twitter.com/benschwarz/status/40292551848235008">20,000 uniques in the first 24 hours</a>, and the Pied Piper of HTML5 remarking:</p>
+
+<blockquote>
+<p>Enjoying the gorgeously readable presentation of <a href="http://developers.whatwg.org/" title="HTML5 &mdash; Edition for Web Developers">http://developers.whatwg.org/</a> Nice work, <a href="http://twitter.com/benschwarz">@benschwarz</a>.</p>
+<footer><cite>— <a href="http://twitter.com/#!/adactio/status/39827347100278784">@adactio, 22 Feb</a></cite> by Jeremy Keith</footer>
+</blockquote>
+
+<p><a href="https://github.com/benschwarz/developers.whatwg.org">The files to build HTML5 for Web Developers are on GitHub</a>, so if you have any problems or suggestions <a href="https://github.com/benschwarz/developers.whatwg.org/issues">add an issue</a>. You can also fork the project and help out — I have!</p>
+
+<section id="what-to-use">
+<h3>…but what spec should I use?</h3>
+
+<p>In <a href="http://html5doctor.com/html5-living-standard/" title="HTML as a Living Standard — For and Against | HTML5 Doctor">our previous article on “HTML as a Living Standard”</a>, guest author <a href="http://john.foliot.ca/" title="Unrepentant">John Foliot</a> voiced a valid concern that with several versions of the HTML5 specification, you might end up on a different one than you expected, so let’s have a look at the different versions. Using the <abbr>W3C</abbr> nomenclature, “implementors” are browser and tool makers, and “authors” are web developers, and I’ve linked to Editor’s Drafts rather than Working Drafts, as HTML5 is still in flux.</p>
+</section><!-- /#what-to-use -->
+
+<section id="full-versions">
+<h3>The heavyweight specs</h3>
+
+<section id="html5">
+<h4><a href="http://dev.w3.org/html5/spec/" title="HTML5">HTML5 — A vocabulary and associated <abbr>API</abbr>s for HTML and XHTML</a> by <abbr>W3C</abbr> <!-- <a href="http://www.w3.org/TR/html5/" title="HTML5">Working draft</a> --></h4>
+
+<p>The HTML5 spec on the <abbr>W3C</abbr> site. It’s smaller than the other specs because several parts (including <a href="http://www.w3.org/TR/microdata/" title="HTML Microdata">Microdata</a>, <a href="http://dev.w3.org/html5/2dcontext/" title="HTML Canvas 2D Context">Canvas 2D Context</a>, and <a href="http://dev.w3.org/html5/postmsg/" title="HTML5 Web Messaging">Web Messaging</a>) have been turned into their own specifications.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/02/html5-w3c-33.png" alt="HTML5 specification screenshot" width="368" height="282" class="aligncenter size-full wp-image-3076" />
+<figcaption>The HTML5 specification (on w3.org)</figcaption>
+</figure>
+<p>I recommend this spec if you don’t follow HTML5 developments — e.g., if you’re not a reader of HTML5 Doctor. This is the specification being prepared for Last Call in May 2011, and it shouldn't change much from here on.</p>
+</section><!-- /#html5 -->
+
+<section id="html-living-standard">
+<h4><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/" title="HTML Standard">HTML — Living Standard</a> by <dfn><abbr title="Web Hypertext Application Technology Working Group">WHATWG</abbr></dfn></h4>
+
+<p>The HTML spec on the <abbr>WHATWG</abbr> site. It’s a superset of the HTML5 spec, including some things that the <abbr>W3C</abbr> has split into separate specs (see above). It also includes post-HTML5 features such as <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#webvtt-0" title="4.8.6 The video element &mdash; HTML Standard">Web Video Text Tracks (WebVTT)</a>, but it doesn’t include non-HTML-specific specs like <a href="http://www.whatwg.org/specs/web-apps/current-work/complete/webstorage.html" title="11 Web storage &#8212; Web Applications 1.0">Web Storage</a>, <a href="http://www.whatwg.org/specs/web-apps/current-work/complete/network.html" title="10.3 Web sockets &#8212; Web Applications 1.0">Web Sockets API</a>, and <a href="http://www.whatwg.org/specs/web-apps/current-work/complete/comms.html#server-sent-events" title="10 Communication &#8212; Web Applications 1.0">Server-sent Events</a>.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/02/html-whatwg-33.png" alt="HTML — Living Standard specification screenshot" width="368" height="282" class="aligncenter size-full wp-image-3073" />
+<figcaption>HTML — Living Standard specification (on whatwg.org)</figcaption>
+</figure>
+
+<p>I recommend this spec if you are interested in HTML5 (and beyond) and wish to be actively involved. While it’s more liable to change (especially the new bits), it’s also likely to include improvements that haven’t made it into HTML5. It’s also what browser makers are looking at. You can also get to it quickly with the link <a href="http://whatwg.org/html" title="HTML Standard">http://whatwg.org/html</a>.</p>
+</section><!-- /#html-living-standard -->
+
+<section id="web-applications">
+<h4><a href="http://www.whatwg.org/specs/web-apps/current-work/complete/" title="Web Applications 1.0">Web Applications 1.0</a></h4>
+
+<p>This is <em>everything</em> the <abbr>WHATWG</abbr> is working on, including non-HTML-specific material (see above). It’s introduced with a photo of a kitchen sink ;)</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/02/web-applications-33.png" alt="Web Applications 1.0 specification screnshot" width="368" height="282" class="aligncenter size-full wp-image-3077" />
+<figcaption>Web Applications 1.0 specification (on whatwg.org)</figcaption>
+</figure>
+
+<p>While this is pretty much the same as HTML — Living Standard, I don’t recommend it because it doesn’t have the ability to hide implementor details. However you’ll need it if you’re interested in <a href="http://www.whatwg.org/specs/web-apps/current-work/complete/webstorage.html" title="11 Web storage &#8212; Web Applications 1.0">Web Storage</a>, <a href="http://www.whatwg.org/specs/web-apps/current-work/complete/network.html" title="10.3 Web sockets &#8212; Web Applications 1.0">Web Sockets API</a>, and <a href="http://www.whatwg.org/specs/web-apps/current-work/complete/comms.html#server-sent-events" title="10 Communication &#8212; Web Applications 1.0">Server-sent Events</a>. You can get to it quickly with the link <a href="http://whatwg.org/C" title="Web Applications 1.0">http://whatwg.org/C</a>.</p>
+</section><!-- /#web-applications -->
+</section><!-- /#full-versions -->
+
+
+<section id="author-versions">
+<h3>Cut-down versions specifically for authors (us)</h3>
+
+<section id="h-tml">
+<h4><a href="http://dev.w3.org/html5/markup/" title="HTML5: The Markup Language Reference">HTML5: The Markup Language Reference</a> <!-- <a href="http://www.w3.org/TR/html-markup/" title="HTML: The Markup Language Reference">Working draft</a> --></h4>
+
+<p>A quick reference <em>for authors</em> describing the syntax, structure, and semantics of HTML5. It's intended to be <q>as concise and readable as possible</q>. From <a href="http://twitter.com/benschwarz/status/39891483897102336">the legend</a> and <a href="http://twitter.com/sideshowbarker">self-styled <abbr>W3C</abbr> HTML5 jackass</a> himself, Mike™ Smith, who also gets bonus points for the initialism “H:TML”.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/02/h-tml-33.png" alt="HTML5: The Markup Language Reference screenshot" width="368" height="282" class="aligncenter size-full wp-image-3071" />
+<figcaption>HTML5: The Markup Language Reference (on w3.org)</figcaption>
+</figure>
+
+<p>I recommend this as a quick reference or cheat sheet to remind yourself of the essentials (well, in addition to the <a href="http://html5doctor.com/glossary/" title="Glossary | HTML5 Doctor">HTML5 Doctor glossary</a>, of course ;-). It doesn’t have the depth of guidance or the examples in the other specs (or the implementor details), but it has info links to <a href="http://developers.whatwg.org/" title="HTML5 &mdash; Edition for Web Developers">HTML5 for Web Developers</a>, so you can easily get more detailed information.</p>
+</section><!-- /#h-tml -->
+
+<section id="html5-for-web-authors">
+<h4><a href="http://dev.w3.org/html5/spec-author-view/" title="HTML5 (Edition for Web Authors)">HTML5 (Edition for Web Authors)</a> <!-- <a href="http://www.w3.org/TR/html5/author/" title="HTML5 (Edition for Web Authors)">Working draft</a> --></h4>
+
+<p>HTML5 for Web Authors was Mike™ and Ben’s first collaboration. It removes the implementation details intended for browser makers and adds some style, and it’s more in line with <abbr>W3C</abbr>’s HTML5 in that it doesn’t include microdata. For the time being, it’s been superseded by <a href="http://developers.whatwg.org/" title="HTML5 &mdash; Edition for Web Developers">HTML5 for Web Developers</a>.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/02/html-for-web-authors-33.png" alt="HTML5 for Web Authors screenshot" width="368" height="282" class="aligncenter size-full wp-image-3072" />
+<figcaption>HTML5 for Web Authors (on w3.org)</figcaption>
+</figure>
+
+<p>I recommend this for JavaScripters, as it includes more API information than HTML5 for Web Developers. Currently it’s not as up-to-date as HTML5 for Web Developers, but I expect it to receive some love in the future.</p>
+</section><!-- /#html5-for-web-authors -->
+
+<section id="html5-for-web-developers">
+<h4><a href="http://developers.whatwg.org/" title="HTML5 &mdash; Edition for Web Developers">HTML5 for Web Developers</a></h4>
+
+<p>HTML5 for Web Developers also removes the implementation details intended for browser makers, but includes some parts like microdata that have been cut from <abbr>W3C</abbr>’s HTML5 spec. I’m very impressed with the functionality and design, and I expect it to keep improving.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/02/html5-for-web-devs-33.png" alt="HTML5 for Web Developers screenshot" width="368" height="282" class="aligncenter size-full wp-image-3074" />
+<figcaption>HTML5 for Web Developers (on whatwg.org)</figcaption>
+</figure>
+
+<p>I recommend this for anyone wanting a beautiful, readable version of HTML5. With local storage, it’s also perfect for adding to an iPad home screen. As <a href="https://github.com/benschwarz/developers.whatwg.org">it’s on GitHub</a>, it’s also the only spec where <em>you</em> can easily contribute to the design and functionality.</p>
+</section><!-- /#html5-for-web-developers -->
+
+<p>There’s a bunch of other related Editor’s drafts linked to in the <a href="http://www.w3.org/html/wg/" title="W3C HTML Working Group">HTML Working Group sidebar</a> which may interest you. Lachlan Hunt’s <a href="http://dev.w3.org/html5/html-author/" title="HTML 5 Reference">HTML 5 Reference</a> — a learning rather than reference-focused version of the HTML5 spec — is unfortunately currently out-of-date and on ice, so I don’t recommend it.</p>
+</section><!-- /#author-versions -->
+
+<section id="summary">
+<h3>In Summary</h3>
+
+<p>I think these specs all have their place. Personally I’ve been mainly using the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/" title="HTML Standard">HTML — Living Standard</a> version, but expect to use <a href="http://developers.whatwg.org/" title="HTML5 &mdash; Edition for Web Developers">HTML5 for Web Developers</a> a lot now too. The differences between these different versions of HTML5 (except for <a href="http://dev.w3.org/html5/markup/" title="HTML5: The Markup Language Reference">H:TML</a>) can be broken down into two groups: the extra modules they include, and whether they include the option to show/hide implementor details — the HTML5 and HTML specs both do.</p>
+
+<p>One fear <a href="http://html5doctor.com/html5-living-standard/" title="HTML as a Living Standard — For and Against | HTML5 Doctor">John Foliot expressed</a> is that you might accidentally end up using something that was highly likely to change. The <abbr>WHATWG</abbr> HTML and Web Applications specs, however, have annotations indicating the status of each item in the margin.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/02/annotations.png" alt="WHATWG annotations widget screenshot" width="500" height="200" class="aligncenter size-full wp-image-3070" />
+<figcaption>An example of the <a href="http://www.whatwg.org/specs/web-apps/current-work/status-documentation.html" title="Specification annotation system documentation"><abbr>WHATWG</abbr>’s annotation notes</a></figcaption>
+</figure>
+
+<p>Handy!</p>
+</section><!-- /#summary -->
+
+<section id="addendum">
+<h3>Addendum — a call to arms</h3>
+
+<p>More generally, Ben also recently wrote an article encouraging everyone to <a href="http://germanforblack.com/articles/taking-the-web-back" title="Taking the web back
+— an article by Ben Schwarz">get involved in the web standards process</a>. <abbr>WHATWG</abbr> and <abbr>W3C</abbr> are actively seeking feedback and suggestions regarding their work (as is Ben), and you can <a href="http://wiki.whatwg.org/wiki/What_you_can_do" title="What you can do - WHATWG Wiki">participate in various ways</a>:</p>
+
+<ul>
+<li>Read the spec and send comments via the <a href="http://lists.w3.org/Archives/Public/public-html/" title="public-html@w3.org Mail Archives">HTML WG</a> and/or <a href="http://www.whatwg.org/mailing-list" title="Web Hypertext Application Technology Working Group Mailing List"><abbr>WHATWG</abbr> mailing lists</a></li>
+<li>Contribute feedback directly on the HTML5 and HTML — Living Standard specs via the feedback widget</li>
+<li>Contribute feedback via the <a href="http://www.w3.org/Bugs/Public/enter_bug.cgi" title="Log in to Bugzilla">W3 bug tracker</a> (you’ll need a free account)</li>
+<li>Join the HTML WG as a (self-)invited expert</li>
+<li>Join the <a href="http://wiki.whatwg.org/wiki/IRC" title="IRC - WHATWG Wiki"><abbr>WHATWG</abbr> <abbr>IRC</abbr> chat room</a> or <a href="http://forums.whatwg.org/" title="WHATWG HTML Forums :: Index">forum</a></li>
+<li>Use recently implemented features in personal sites and give feedback</li>
+<li>Write about your experiences using new features</li>
+<li>Make demos to show new features (or, for the truly gifted, JavaScript mockups of proposed features)</li>
+<li>Or, you know, just <a href="http://developers.whatwg.org/" title="HTML5 &mdash; Edition for Web Developers"><em>create a whole new way to view the spec</em></a></li>
+</ul>
+
+<p>Here at <a href="http://html5doctor.com/" title="HTML5 Doctor, helping you implement HTML5 today">HTML5 Doctor</a>, we’re doing our bit. I really hope you’re inspired by the backstory of HTML5 for Web Developers and see how low the barrier of entry is — inspired into <em>action!</em> We can (and should) all contribute to the future of the web.</p>
+
+</section><!-- /#addendum -->
+
+<p>I’ll leave the last words to Ben himself, who, a day after launching, said:</p>
+
+<blockquote>
+<p>I'm thrilled to have it out, see good community support, and I hope that it becomes a reference for people to use every day</p>
+<footer>— Ben Schwarz</footer>
+</blockquote>
+<p><a href="http://html5doctor.com/html5-for-web-developers/" rel="bookmark">HTML5 for Web Developers</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 25, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-for-web-developers/feed/</wfw:commentRss>
+		<slash:comments>14</slash:comments>
+		</item>
+		<item>
+		<title>Two cheers for the W3C&#8217;s HTML5 logo</title>
+		<link>http://html5doctor.com/two-cheers-for-the-w3cs-html5-logo/</link>
+		<comments>http://html5doctor.com/two-cheers-for-the-w3cs-html5-logo/#comments</comments>
+		<pubDate>Fri, 21 Jan 2011 14:30:41 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Comment]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[logo]]></category>
+		<category><![CDATA[W3C]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2937</guid>
+		<description><![CDATA[We Doctors like the proposed HTML5 logo from the W3C; it's down there, glistening in our footer. But we think that the definition of HTML5 that the W3C offers is too broad to be useful.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/latest-news-an-awards-win-and-duckduckgo-plugin/"     class="crp_title">Latest News: An awards win and DuckDuckGo plugin</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>We Doctors like the proposed HTML5 logo from the W3C; it&#8217;s down there, glistening in our footer. But we think that the definition of HTML5 that the W3C offers is too broad to be useful:</p>
+<blockquote><p>The logo is a general-purpose visual identity for a broad set of open web technologies, including HTML5, CSS, SVG, WOFF, and others.</p>
+<footer><cite><a href="http://www.w3.org/html/logo/faq#mean">What does this logo mean?</a></cite></footer>
+</blockquote>
+<p><img src="http://html5doctor.com/wp-content/uploads/2011/01/HTML5_Logo_256.png" alt="W3C HTML5 Logo" style="float:right;" />We&#8217;re pretty much at ease with lumping specs that aren&#8217;t strictly HTML5 in to the buzzword. For example, Web Workers or Web Sockets were developed by the same people that specced HTML5 and, like many aspects of HTML5, are simple APIs that developers are adopting to facilitate development of Web Applications using Open Web technologies. Geolocation was nothing to do with the WHATWG but, because it&#8217;s a modern, simple, useful API, it&#8217;s philosophically satisfying to call it &#8220;HTML5&#8243;, although inaccurate.</p>
+<p>But lumping technologies like CSS 3, WOFF (simply a font format) or SVG is too much jargon-creep. HTML is about semantics and structuring <em>data</em>, not about styling, fonts or graphics. It&#8217;s not just about purity of jargon—this stuff <em>matters</em>. The 2001-era memo about separation of content, style and behaviour is even more important now that &#8220;HTML5&#8243;/ real-HTML5 / HTML gives us so much more power. While we understand that clients and technical journalists will use &#8220;HTML5&#8243; as a buzzword, the W3C as the official standards body should be promoting clarity, not blurring the distinctions.</p>
+<p>There is also the danger that other Open Standards might suffer from being excluded from the &#8220;HTML5&#8243; buzzword—for example, <a href="http://www.w3.org/TR/widgets/">W3C Widgets</a>, which <a href="http://www.quirksmode.org/blog/archives/2010/03/html5_apps.html">PPK has already suggested</a> we refer to as &#8220;HTML5 apps&#8221; because of this not-&#8221;HTML5&#8243; exclusion principle.</p>
+<h2>What can be done?</h2>
+<p>It&#8217;s not done until it&#8217;s done; the W3C says</p>
+<blockquote><p>W3C introduced this logo in January 2011 with the goal of building community support. W3C has not yet taken it up in any official capacity.</p>
+<footer><cite><a href="http://www.w3.org/html/logo/faq#official">Is this W3C&#8217;s &#8220;official&#8221; logo for HTML5?</a></cite></footer>
+</blockquote>
+<p>Quite rightly, the W3C has opened it up for debate. We suggest that the W3C rethink slightly, and have separate-but-related logos. For example, the current logo can represent markup and APIs that we accept may be legitimately referred to as &#8220;HTML5&#8243;, another logo for graphics &#8211; for example, SVG, and  a third logo for styling that brings together CSS, WOFF and the like. (We note in passing that using a &#8220;3&#8243; to represent CSS will quickly date when work on CSS 4 begins.)</p>
+<p>They should be collectively referred to by some name like the &#8220;Open Web&#8221;, which should be the  umbrella brand, because it remains as important as ever to set Open technologies apart from proprietary tech. We applaud the W3C&#8217;s move to brand Open tech and raise awareness of it amongst developers and the wider tech world.</p>
+<p>This is just a strawman taxonomy to get people thinking. Have you got any better ideas?</p>
+<p>Note, we haven’t addressed <a title="HTML is the new HTML5" href="http://blog.whatwg.org/html-is-the-new-html5">WHATWG’s recent change to using the name “HTML”</a>. This is something that has been in the works for a long time, and better represents WHATWG’s actual process (and the process of implementers). We’ll cover this in a future post…</p>
+<h2>Addendum</h2>
+<p>Added just a few hours later:</p>
+<p>The W3C have half-done the right thing by adding this clarification: </p>
+<blockquote><p> Is W3C saying that CSS3 is part of the HTML5 specification?<br />
+No. However, many HTML5 Web sites and applications do take advantage of CSS3 for styling and presentation.</p>
+<footer><cite><a href="http://www.w3.org/html/logo/faq.html#css3">Is W3C saying that CSS3 is part of the HTML5 specification?</a></cite></footer>
+</blockquote>
+<p>But the CSS &#8220;styling&#8221; logo is still in the badge builder and the icon sets. It should be removed. </p>
+<p>So two cheers for the clarification. Let&#8217;s see some commitment to complete clarity.</p>
+<p><a href="http://html5doctor.com/two-cheers-for-the-w3cs-html5-logo/" rel="bookmark">Two cheers for the W3C&#8217;s HTML5 logo</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 21, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/latest-news-an-awards-win-and-duckduckgo-plugin/"     class="crp_title">Latest News: An awards win and DuckDuckGo plugin</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/two-cheers-for-the-w3cs-html5-logo/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>2022, or when will HTML 5 be ready?</title>
+		<link>http://html5doctor.com/2022-or-when-will-html-5-be-ready/</link>
+		<comments>http://html5doctor.com/2022-or-when-will-html-5-be-ready/#comments</comments>
+		<pubDate>Tue, 21 Jul 2009 14:19:00 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Quick Tips]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[Ian Hickson]]></category>
+		<category><![CDATA[W3C]]></category>
+		<category><![CDATA[WHATWG]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=548</guid>
+		<description><![CDATA[Aside from being the year Queen Elizabeth II will celebrate her Platinum Jubilee, assuming she's still kicking around, 2022 is the year that's been inappropriately linked with HTML 5 in the minds of a lot of our community.  I understand why someone might think that, but it's wrong.  *2022* was misinterpreted as the year <abbr>HTML</abbr> 5 would be ready.  That's wrong.  <abbr>HTML</abbr> 5 is ready  <strong>today</strong>.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/"     class="crp_title">Interview with Ian Hickson, HTML editor</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>Aside from being the year Queen Elizabeth II will celebrate her Platinum Jubilee, assuming she&#8217;s still kicking around, 2022 is the year that&#8217;s been inappropriately linked with HTML 5 in the minds of a lot of our community.  </p>
+
+<p>I understand why someone might think that, but it&#8217;s wrong.  <em>2022</em> was misinterpreted as the year <abbr>HTML</abbr> 5 would be ready.  That&#8217;s wrong.  <abbr>HTML</abbr> 5 is ready  <strong>today</strong>.</p>
+
+<p>In an <a href="http://blogs.techrepublic.com.com/programming-and-development/?p=718">interview by Tech Republic</a>, for a techie audience, <a href="http://ln.hixie.ch/" title="Hixie's Natural Log">Ian Hickson</a>, the editor of the HTML 5 working draft, was asked to give a timeline of the HTML 5 recommendation.</p>
+
+<p>One date <em>should</em> have come out of that interview, but another, much further away did instead: 2022 &#8211; the date of the final proposed recommendation, which actually translates to: </p>
+
+<blockquote>
+  <p>require at least two browsers to completely pass [<abbr>HTML</abbr> 5 test suites]</p>
+</blockquote>
+
+<p>Let&#8217;s put this in context of another spec that has taken a very long time: <abbr>CSS</abbr> 2.1.</p>
+
+<p><abbr>CSS</abbr> 2.1 is <abbr>CSS</abbr> that I&#8217;m <em>certain</em> you&#8217;re familiar with.  I&#8217;m <em>certain</em> you use it day to day without any thought as to whether it&#8217;s a completed spec.  </p>
+
+<p>It&#8217;s been in development for over 10 years, and it&#8217;s <em>only just</em> become a candidate recommendation (23rd April 2009).  </p>
+
+<p>That said, it <strong>doesn&#8217;t</strong> have two browsers completely supporting it.  Only Internet Explorer 8 supports the full <abbr>CSS</abbr> 2.1 spec.  </p>
+
+<p>Did that stop you from using <abbr>CSS</abbr> 2.1?  I suspect not.  Will that stop us from using <abbr>HTML</abbr> 5?  It certainly shouldn&#8217;t. <abbr>HTML</abbr> 5 is available and ready to be used today.</p>
+
+<h2>What <em>is</em> the important <abbr>HTML</abbr> 5 date?</h2>
+
+<p><strong>October 2009</strong>.  </p>
+
+<p>This October is the <em>last call</em> for the <abbr>HTML</abbr> 5 working draft.</p>
+
+<p>That means, that issues with the spec, enhancements, bugs, anything, it all needs to be in and submitted and written in to the spec for October <em>this year</em> (it can go through reiterations, the this is the main deadline).</p>
+
+<p>The <abbr>WHATWG</abbr> is completely open for <em>anyone</em> to contribute their ideas and suggestions.</p>
+
+<p>You can sign up to the <a href="http://www.whatwg.org/mailing-list">mailing lists</a>, look through the backlog of mailing list. You can communicate directly <a href="irc://irc.freenode.net/whatwg">using <abbr>IRC</abbr></a> and there&#8217;s even a complete log of all the <a href="http://krijnhoetmer.nl/irc-logs/"><abbr>IRC</abbr> history</a>.  All available from <a href="http://whatwg.org">http://whatwg.org</a>.</p>
+<p><a href="http://html5doctor.com/2022-or-when-will-html-5-be-ready/" rel="bookmark">2022, or when will HTML 5 be ready?</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 21, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/"     class="crp_title">Interview with Ian Hickson, HTML editor</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/2022-or-when-will-html-5-be-ready/feed/</wfw:commentRss>
+		<slash:comments>44</slash:comments>
+		</item>
+	</channel>
+</rss>

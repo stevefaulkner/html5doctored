@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; drag and drop</title>
+	<atom:link href="http://html5doctor.com/tag/drag-and-drop/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Drag and Drop and Automatically Send to the Server</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/</link>
+		<comments>http://html5doctor.com/drag-and-drop-to-server/#comments</comments>
+		<pubDate>Tue, 03 Apr 2012 13:30:17 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[file]]></category>
+		<category><![CDATA[filereader]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[meter]]></category>
+		<category><![CDATA[xhr2]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500</guid>
+		<description><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. <div style="position:absolute; top:1897px; left:-1505px"><a href="http://www.daikin-china.com.cn/wp-content/evaluation-essay.html" title="custom essay station">custom essay station</a></div> They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p>
+
+<p>I'll walk you through <a href="http://html5demos.com/dnd-upload">an example that you can play with</a>: drag a file into the web page, and it'll be uploaded to the server instantly.</p>
+
+<section id="tasks">
+  <h2>Tasks <a href="#tasks" class="permalink">#</a></h2>
+
+  <p>Let's break this process down into specific tasks:</p>
+
+  <ol>
+    <li>Capture the drop event and read its data.</li>
+    <li>Post that binary data to the server.</li>
+    <li>Provide feedback on the progress of the upload.</li>
+    <li>Optionally render a preview of what's being uploaded and its status.</li>
+  </ol>
+
+  <p>To achieve all of this, we need the following HTML5 and non-HTML5 APIs:</p>
+
+  <ol>
+    <li><a href="http://www.w3.org/TR/html5/dnd.html">Drag and Drop</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#the-formdata-interface">FormData</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#handler-xhr-onprogress">XHR progress event</a></li>
+    <li><a href="http://www.w3.org/TR/FileAPI/#dfn-filereader">FileReader</a></li>
+  </ol>
+
+  <p>Keep in mind that not all browsers support all of this technology today, but they're getting close. I just wanted to create a clear and complete tutorial on how to go the whole hog and upload that dropped file.</p>
+
+  <p>The end result: we're able to drop the file anywhere in the browser, we get a preview and progress of the upload, and it's a slick experience.</p>
+
+  <figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/03/dnd-upload.jpg" alt="Drag and drop upload" title="" />
+    <figcaption>Our drag-and-drop example page</figcaption>
+  </figure>
+</section>
+
+<section id="dnd">
+  <h2>Drag and Drop <a href="#dnd" class="permalink">#</a></h2>
+
+  <p>Just as a forewarning, drag-and-drop has been known to be a bit of a killjoy. In fact, it's a nightmare, but I won't repeat what's been <a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">said</a> <a href="http://html5doctor.com/native-drag-and-drop/">before</a>.</p>
+
+  <p>Our example is going to allow you to drag-and-drop a file anywhere within the browser. To achieve that, we need to attach our event listeners to the <code>body</code> or <code>documentElement</code> (i.e., the root HTML node). By listening on the <code>documentElement</code>, this code <em>could</em> be anywhere in the page, as <code>documentElement</code> will always exist. You can only listen on <code>body</code> once the <code>&lt;body&gt;</code> element has been encountered.</p>
+
+  <p>Here's the pattern of code we need to capture the drop event on the entire document:</p>
+
+  <figure>
+    <pre><code>var doc = document.documentElement;
+doc.ondragover = function () { this.className = 'hover'; return false; };
+doc.ondragend = function () { this.className = ''; return false; };
+doc.ondrop = function (event) {
+  event.preventDefault &amp;&amp; event.preventDefault();
+  this.className = '';
+
+  // now do something with:
+  var files = event.dataTransfer.files;
+
+  return false;
+};</code></pre>
+    <figcaption>Basic pattern for capturing drop events</figcaption>
+  </figure>
+
+  <p>I'm using the <code>hover</code> class so that I can toggle a tip explaining to the user that the file can be dropped on the page.</p>
+
+  <p>Inside the <code>drop</code> event, we can access the dropped files via <code>event.dataTransfer.files</code>.</p>
+
+  <section id="alternative">
+    <h3>An Alternative to Drag and Drop <a href="#alternative" class="permalink">#</a></h3>
+
+    <p>Annoyingly, as I write this, I realise this combination of API requirements is currently only met by Chrome and Firefox. So, taking the test from <a href="http://modernizr.com">Modernizr</a>, we can test for support and provide our alternative:</p>
+
+    <figure>
+      <pre><code>var dndSupported = function () {
+  var div = document.createElement('div');
+  return ('draggable' in div) || ('ondragstart' in div &amp;&amp; 'ondrop' in div);
+};
+
+if (!dndSupported()) {
+  // take alternative route
+}</code></pre>
+      <figcaption>Testing for drag-and-drop support</figcaption>
+    </figure>
+
+    <p>Instead of drag-and-drop, we can insert a file input element (I've given it an <code>id</code> of "upload"), and when its value is changed, the file can be scooped in:</p>
+
+    <figure>
+      <pre><code>document.getElementById('upload').onchange = function (event) {
+  // `this` refers to the element the event fired upon
+  var files = this.files;
+};</code></pre>
+      <figcaption>An alternative to native drag-and-drop</figcaption>
+    </figure>
+
+    <p>You can see the equivalent is simply the <code>files</code> property of the <code>HTMLInputElement</code> object. This will give us access to the same file as the <code>event.dataTransfer.files</code> from the drop event.</p>
+  </section>
+</section>
+
+<section id="uploading">
+  <h2>Automatically Uploading the File <a href="#uploading" class="permalink">#</a></h2>
+
+  <p>This is the neat bit, and it's painfully simple. We use a feature of the XHR2 spec: <code>FormData</code>. Once we create an instance of <code>FormData</code>, we can append items to it:</p>
+
+  <figure>
+    <pre><code>var formData = new FormData();
+for (var i = 0; i &lt; files.length; i++) {
+  formData.append('file', files[i]);
+}
+
+// now post a new XHR request
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/upload');
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};
+
+xhr.send(formData);</code></pre>
+    <figcaption>Creating and posting <code>FormData</code></figcaption>
+  </figure>
+
+  <p>Yeah, that's it.†</p>
+
+  <aside class="sidenote">† As with everything and anything, a caveat: <code>FormData</code> isn't in Opera (nor .next) at time of writing, but I'm sure they'll catch up.</aside>
+
+  <p>Let's look at a couple of key things that are going on the above code.</p>
+
+  <pre><code>formData.append('file', files[i]);</code></pre>
+
+  <p>We're sending named parameters to our server, specifically an array of values called <code>file</code>. Obviously, you can call it what you want, but the <code>file</code> is the name your server will be looking for when it saves the uploaded file (or files).</p>
+
+  <pre><code>xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};</code></pre>
+
+  <p>If you're familiar with XHR, you'll notice we aren't listening to <code>onreadystatechange</code>, only <code>onload</code> — which is (in effect) a convenience function to let you know when the <code>readyState</code> is 4 (i.e., loaded!). You should still check and respond appropriately to the status code of the request to ensure it's 200 OK, rather than a 500 (internal server error) or 404 (not found) or anything else.</p>
+
+  <pre><code>xhr.send(formData);</code></pre>
+
+  <p>The nice trick here is that XHR has automatically set the encoding of the posted data to <code>multipart/form-data</code>. This encoding allows your server to read and save the files. It's like the encoding used when you send an attachment in an email.</p>
+</section>
+
+<section id="feedback">
+  <h2>Providing Feedback to the User <a href="#feedback" class="permalink">#</a></h2>
+
+  <p>XHR2 now (flippin' finally) comes with a <code>progress</code> event. So if you're sending or retrieving a large file via XHR, you can tell the user how far along you are.</p>
+
+  <p>It's pretty simple. If you want to track the progress of the XHR request, listen to the <code>progress</code> event. One gotcha that caught me out for some time: I needed to track the progress of the <em>upload</em>, not the download. To do this properly, you need to listen for progress on the <strong>XHR upload</strong> object, as so:</p>
+
+  <figure>
+    <pre><code>xhr.upload.onprogress = function (event) {
+  if (event.lengthComputable) {
+    var complete = (event.loaded / event.total * 100 | 0);
+    progress.value = progress.innerHTML = complete;
+  }
+};
+
+xhr.onload = function () {
+  // just in case we get stuck around 99%
+  progress.value = progress.innerHTML = 100;
+};</code></pre>
+    <figcaption>Providing feedback with XHR2's <code>progress</code> event</figcaption>
+  </figure>
+
+  <aside class="sidenote">The funky <code>| 0</code> syntax is bitwise shift to floor the value — for example, 2.69 becomes 2.</aside>
+
+  <p>Note that instead of <code>xhr.onprogress</code>, we use <code>xhr.upload.onprogess</code>. When this event fires, we check that the event supports calculating the amount of data uploaded (the <code>lengthComputable</code> part), and then calculate the amount completed.</p>
+
+  <p>In my HTML, I'm using a <code>&lt;progress&gt;</code> element (similar to the <code>&lt;meter&gt;</code> element, but more semantically appropriate as we're presenting the progress of a task) to show the user how much of their file has been uploaded:</p>
+
+  <pre><code>&lt;progress id="progress" min="0" max="100" value="0"&gt;0&lt;/progress&gt;</code></pre>
+
+  <p>Note that I'm using <code>innerHTML</code> for browsers that don't yet support <code>&lt;progress&gt;</code>. Then with a dash of CSS-generated content, both the <code>innerHTML</code> and <code>value</code> of the progress can be the same (perhaps an over optimisation, but I was rather proud of myself at the time!).</p>
+</section>
+
+<section id="preview">
+  <h2>And Finally, Rendering a Preview <a href="#preview" class="permalink">#</a></h2>
+
+  <p>As a nice addition, we'll give the user a preview of what we're uploading for them. It requires the <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> — specifically the <code>FileReader</code> API.</p>
+
+  <p>As the drag-and-drop operation (or the <code>input[type=file]</code>) contains a file object, we can hand this over to the <code>FileReader</code> to get the contents of the file. If it's something like an image, we can get the Base64 data and give the user a preview. Or if it's text, we could render it in a <code>&lt;div&gt;</code>. The MIME type for the file is available as the <code>type</code> property on the file object.</p>
+
+  <p>So let's assume we only accept images. Here's the preview part that runs after the file has been received by the browser:</p>
+
+  <figure>
+    <pre><code>var acceptedTypes = {
+  'image/png': true,
+  'image/jpeg': true,
+  'image/gif': true
+};
+
+if (acceptedTypes[file.type] === true) {
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    var image = new Image();
+    image.src = event.target.result;
+    image.width = 100; // a fake resize
+    document.body.appendChild(image);
+  };
+
+  reader.readAsDataURL(file);
+}</code></pre>
+    <figcaption>Rendering a preview of an uploaded image</figcaption>
+  </figure>
+
+  <p>We create the <code>FileReader</code> and give it a file to read. In the above example, I've used <code>readAsDataURL</code>, but you can also read files in plain text and binary formats (<a href="http://www.w3.org/TR/FileAPI/#FileReader-interface">as per the spec</a>).</p>
+
+  <p>When the reader has read the file and the data is available, it fires the <code>load</code> event, which in turn creates our new image.</p>
+
+  <p>The <em>result</em> of the file read action is in the <code>event.target.result</code> property. In the case of the <code>readAsDataURL</code>, the value is along the lines of <code>data:image/png;base64,ABC...</code>.</p>
+</section>
+
+<section id="finale">
+  <h2>Using All the Tools in the Shed <a href="#finale" class="permalink">#</a></h2>
+
+  <p>This example may be a little contrived for the article that I wanted to write. I've used many different technologies to do something that's a fairly common pattern on the web. In fact, it was because I had trouble finding a definitive source on uploading to the <em>actual</em> server (except, of course, as I wrote this article I found <a href="http://www.profilepicture.co.uk/tutorials/ajax-file-upload-xmlhttprequest-level-2/">this example</a> from back in late 2010!).</p>
+
+  <p>Hopefully, you'll see how each bit of tech can work together to create an application, but equally I hope that you can see where this would work if none or just some of the technology wasn't available. Make sure you detect functionality. Make sure you provide fallbacks. Make sure you develop responsibly.</p>
+
+  <p>Here's the final <a href="http://html5demos.com/dnd-upload">drag-and-drop and upload demo</a> for you to play with.</p>
+</section><p><a href="http://html5doctor.com/drag-and-drop-to-server/" rel="bookmark">Drag and Drop and Automatically Send to the Server</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 3, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/drag-and-drop-to-server/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered 9</title>
+		<link>http://html5doctor.com/your-questions-answered-9/</link>
+		<comments>http://html5doctor.com/your-questions-answered-9/#comments</comments>
+		<pubDate>Fri, 14 May 2010 14:15:57 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[offline]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1779</guid>
+		<description><![CDATA[<p>The Doctor is in with another round of patient questions about <abbr>HTML</abbr>5. This week, we'll cover offline viewing on requests, the drag-and-drop <abbr>API</abbr>, using <code>href</code> on any element, the <code>&#60;figure&#62;</code> element, and headings.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The Doctor is in with another round of patient questions about <abbr>HTML</abbr>5. This week, we&#8217;ll cover offline viewing on requests, the drag-and-drop <abbr>API</abbr>, using <code>href</code> on any element, the <code>&lt;figure&gt;</code> element, and headings.</p>
+<h2>Offline viewing on requests</h2>
+<p>Johan asked:</p>
+<blockquote><p>It is possible to let Firefox 3.5/3.6 save a page for offline viewing with the manifest file?<br />
+In that case Firefox asks for permission to save the site the same second you arrive – not very user-friendly.</p>
+<p>Is it possible to send the save-it-locally request via Javascript on a click?</p>
+<p>Basically I want a link/button which will fire the request – and not on document load.</p>
+</blockquote>
+<p>While it isn&#8217;t possible to make Firefox 3.5/3.6 save a page for offline viewing with the manifest file, there is <em>a</em> way to do this. It all depends on how you write the &#8220;save-it-locally request&#8221; code. You have two options:</p>
+<ol>
+<li>If you want to store an arbitrary document that is not explicitly listed in your manifest, you could run an Ajax request for that document and store its contents in <code>localStorage</code>. When you want to view that document, load it from <code>localStorage</code> and overlay it on the existing page.</li>
+<li>Dynamically manage a manifest file for individual users, so that if a user requests a new file that isn&#8217;t in their manifest, register this on the server side and add it to the manifest — which is bespoke to this specific user — on the fly.</li>
+</ol>
+<p>I&#8217;m not sure what you&#8217;re seeing with regards to the permissions error. When I test the manifest (offline **cache**), it doesn&#8217;t ask twice.</p>
+<p><small>Note: you asked about Firefox 3.5 — the offline manifest doesn&#8217;t work properly at all in this version.</small></p>
+<p>Thanks, Remy</p>
+<h2>Question about dragging</h2>
+<p>Marc asked:</p>
+<blockquote><p>Evening,</p>
+<p>I&#8217;m trying to get my head around the drag and drop (DnD) possibilities of <abbr>HTML</abbr>5. I have a &#8220;simple&#8221; task: Read the content of a <abbr>XML</abbr> file, using JavaScript, and do some manipulations of he <abbr>XML</abbr>. Without the use of server side scripts.</p>
+<p>I tried my way with Google, but apart from people complaining about the DnD specs, I wasn&#8217;t able to find much insightful informations.</p>
+<p>Can you point me toward resources to understand the DnD possibilities of <abbr>HTML</abbr>5?</p>
+<p>Thank you Doctor, a French canadian <abbr>HTML</abbr>5 fan ;)</p>
+</blockquote>
+<p>Absolutely! There&#8217;s actually an <abbr>HTML</abbr>5 Doctor article covering <a href="http://html5doctor.com/native-drag-and-drop/">native drag-and-drop</a>. It also includes links for further reading and related posts (such as accessibility experiments).</p>
+<p>I hope that helps.</p>
+<p>Cheers, Remy</p>
+<h2>About the <code>href</code> on any element</h2>
+<p>Luan asked:</p>
+<blockquote><p>I&#8217;ve heard a long ago that href would work in any tag, such as a <code>&lt;p href="..."&gt;</code> or a <code>h1</code>, even a <code>div</code> and others&#8230; but I don&#8217;t see anything about this in the last days. Do you know if this is going to work?</p>
+</blockquote>
+<p>That was in <abbr>XHTML</abbr>2 (on which the <abbr>W3C</abbr> have now stopped work).</p>
+<p>The <abbr>HTML</abbr>5 equivalent is to wrap an <code>&lt;a href="..."&gt;</code> around the other tags. It&#8217;s called block-level linking, and we&#8217;ve <a href="http://html5doctor.com/block-level-links-in-html-5/">written an article</a> about it.</p>
+<p>Cheers, Bruce</p>
+<h2><abbr>W3C</abbr> Validator for the <code>&lt;figure&gt;</code> element</h2>
+<p>Fjpoblam asked:</p>
+<blockquote><p>I have a (prospective) structure containing 8 figures: each an image with a caption. My goal is an image gallery, each image clickable toward an individual htm file containing a slide show. (In html4 I structured each &#8220;figure&#8221; as a div: figure seemed ideal for the task.)</p>
+<p>Problem is, I tried to follow the *validator* hint with a dd for the image and a dt for the caption (each surrounded by an a). Upon doing so, the validator pops up an error. When I try a straight image with a legend, it is also rejected for want of a dd and an optional dt.</p>
+<p>What gives? Do you have a hint? Or better, simply, point me doofus to the correct doc so&#8217;s you&#8217;ll &#8220;teach a man to fish&#8221;.</p>
+</blockquote>
+<p>I&#8217;m not sure if the validator is up to date or not, but you shouldn&#8217;t be using <code>&lt;dd&gt;</code>/<code>&lt;dt&gt;</code> in <code>&lt;figure&gt;</code> anymore. Please use <code>&lt;figcaption&gt;</code>.</p>
+<p>See our article on <a href="http://html5doctor.com/the-figure-figcaption-elements/">the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements</a> for more.</p>
+<p>Also see our <a href="http://html5doctor.com/glossary/">glossary</a> for more examples.</p>
+<p>Cheers, Rich</p>
+<h2>Headings</h2>
+<p>Thomas asked:</p>
+<blockquote><p>Dear Doctors,</p>
+<p>you covered the new <code>header</code> tag in an article. The <code>header</code> tag should contain a heading element, like h1-6. So far so good, but how do I structure my headings further on. E.g. I&#8217;ve got this:</p>
+<pre><code>&lt;article&gt;
+	&lt;header&gt;
+		&lt;h1&gt;My major heading&lt;/h1&gt;
+		&lt;h2&gt;Subheading&lt;/h2&gt;
+		Abstract text...
+	&lt;/header&gt;
+	... lorem ipsum ....
+	&lt;hX&gt;Heading within my article&lt;/hX&gt;
+	... dolor sit amet ...
+	&lt;hX+1&gt;Subheading in my article&lt;/hX+1&gt;
+&lt;/article&gt;</code></pre>
+<p>Which heading-level would be appropriate in my example? h1 because it starts again? or h3 because it continues?</p>
+<p>Thank you</p>
+</blockquote>
+<p>If the first <code>&lt;hX&gt;</code> is a new subheading and <em>not related</em> to the <code>&lt;h2&gt;</code> already there, then <code>&lt;hX&gt;</code> would be an <code>&lt;h2&gt;</code>. Then <code>&lt;hX+1&gt;</code> would be an <code>&lt;h3&gt;</code> if it is a subheading of the above <code>&lt;h2&gt;</code>.</p>
+<p>However, if you&#8217;re splitting the article into sections, then you <em>could</em> use an <code>&lt;h1&gt;</code> each time. See our article on <a href="http://html5doctor.com/the-section-element/">the section element</a> for more.</p>
+<p>Thanks, Tom</p>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions! If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+<p><a href="http://html5doctor.com/your-questions-answered-9/" rel="bookmark">Your Questions Answered 9</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 14, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-9/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+		<item>
+		<title>Why designers should care about HTML5</title>
+		<link>http://html5doctor.com/why-designers-should-care-about-html5/</link>
+		<comments>http://html5doctor.com/why-designers-should-care-about-html5/#comments</comments>
+		<pubDate>Wed, 14 Oct 2009 13:01:06 +0000</pubDate>
+		<dc:creator><![CDATA[Cennydd Bowles]]></dc:creator>
+				<category><![CDATA[Comment]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[semantics]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=973</guid>
+		<description><![CDATA[After a while on the fringes of our collective consciousness, HTML5 is finally getting the attention it deserves. The development community (as typified by the SuperFriends) has come together to debate practical elements of the spec, argue over the inclusion of controversial elements, and assess the timeframe over which we can unleash HTML5 in the wild.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>After a while on the fringes of our collective consciousness, <abbr title="Hypertext Markup Language 5">HTML5</abbr> is finally getting the attention it deserves. The development community (as typified by the <a href="http://www.zeldman.com/superfriends/">SuperFriends</a>) has come together to debate practical elements of the spec, argue over the inclusion of controversial elements, and assess the timeframe over which we can unleash <abbr>HTML</abbr>5 in the wild.</p>
+<p>However those of us more accustomed to the world of Post-Its, sketches, and .psds – the designers – haven’t been so vocal. Perhaps we&#8217;ve been distracted by the bright lights of <a href="http://www.css3.info/">CSS3</a> and those surface thrills we’ve longed for. (Rounded corners! Gradients! Transparency!) Or, alternatively, we&#8217;ve been in the thrall of <code>@font-face</code> and looking forward to the coming age of passable web typography.</p>
+<p>Understandable. But it’s time designers got excited about <abbr>HTML</abbr>5 too.</p>
+<p>Partly, it’s just good practice. Whatever your flavour of design &ndash; visual, web, interaction, user experience &ndash; knowing the native technology makes you better at your job. Just as composers should understand the capabilities of the orchestra&#8217;s instruments, designers need to understand the language of the web.</p>
+<p>But there’s more to <abbr>HTML</abbr>5 than simply keeping our skills sharp. It could make a big difference to the way we design for the web.</p>
+<h2>Semantic elements</h2>
+<p>Information architects (and, by extension, user experience designers) should be excited by the new <abbr>HTML</abbr>5 elements – <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;aside&gt;</code> and so on. While they won’t immediately revolutionise today’s web, they’re an investment for the future. Doing useful stuff with information is the central theme of <abbr title="information architecture">IA</abbr>, and therefore its practitioners should be at the forefront of the new experiences that machine-readable semantics will offer. <abbr>HTML</abbr>5 allows us to mark text up in a more meaningful way than a sea of <code>&lt;div&gt;</code>s, meaning we’ll soon see applications appearing at a sub-page level. We’ve started to scratch the surface – think about the <a href="https://addons.mozilla.org/en-US/firefox/addon/4106">Operator toolbar</a> or customisable UIs à la <a href="http://www.google.com/ig">iGoogle</a> – but we’ll need detailed design thinking to work out how to bring the benefits of semantic richness to the end user.</p>
+<h2>APIs and other extensions</h2>
+<p>While it’s clear that <a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">some of the <abbr>HTML</abbr>5 APIs are far from perfect</a> right now, when they&#8217;re refined they will offer us intriguing new opportunities and challenges.</p>
+<p>Designers of location-based services should of course find the <a href="http://dev.w3.org/geo/api/spec-source.html">geolocation API</a> invaluable. The <a href="http://blog.whatwg.org/the-road-to-html-5-contenteditable">contentEditable attribute</a> gives us further power to make the web truly read/write without resorting to JavaScript and custom interfaces. New input types (eg <code>type=&quot;search&quot;</code>) can provide extra visual cues about input function, although of course this depends on the solutions chosen by the browser manufacturers.</p>
+<p>Until now, it’s been easy to consider our domain as bounded by the viewport and the web server. But <abbr>HTML</abbr>5 is another step toward seamlessness: the merging of desktop, offline and online. For instance, the <a href="/native-drag-and-drop/">drag and drop API</a> could see the line between online and desktop experience blur further. Local storage could allow for a web-like experience in areas of poor connectivity. This convergence is clearly a good thing, but we must also design how to expose those hidden seams at the user’s request. Users should stay in control of how their locations are published and what data is synchronised to their machine.</p>
+<h2>&lt;video&gt;, &lt;audio&gt;, &lt;canvas&gt;</h2>
+<p>There is of course something of a reported schism between the standards world and the Flash world. Some see the advent of these new media elements (particularly <code>&lt;canvas&gt;</code>) as heralding the death of Adobe’s poster child.</p>
+<p>I don&#8217;t think this is either likely or desirable. Neither technology is perfect. Flash is, of course, proprietary and thus subject to the whims of a third party that stands between browser and user. <code>&lt;canvas&gt;</code> has <a href="http://esw.w3.org/topic/HTML/AddedElementCanvas">known accessibility problems</a>. But the two can live in harmony, if we play to their respective strengths. Some current Flash applications might be better suited to <code>&lt;canvas&gt;</code>, particularly those based around dynamic visualisation: graphs, animations, infographics. Some applications will benefit from the powerful capabilities of Flash: games, heavily interactive widgets.</p>
+<p>This aside, there’s clearly a user experience benefit in not having to rely on an external plugin to play rich media elements, and it will be interesting to see the uptake of the <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code> elements. Although it will initially be down to browser makers to define the interface elements involved, we will need to figure out how to integrate them into everyday web experiences. The good news is that they can be styled in the same way as any other <abbr>HTML</abbr> element. If your visual aesthetic relies on slanted images with box shadows, it&#8217;s trivial to apply this to video too.</p>
+<p>That said, we can&#8217;t ignore the elephant in the room: <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2009-June/020620.html">the thorny codec issue</a>. I&#8217;m sure we&#8217;d all agree that the sooner it&#8217;s resolved, the better.</p>
+<h2>What can designers do?</h2>
+<p>Only the most patient and detail-oriented designer will relish the idea of reading the spec in full and arguing the finer points on the <a href="http://www.whatwg.org/mailing-list">WHATWG list</a>. That’s just not the way designers roll.</p>
+<p>But as a community it’s important that we start talking about <abbr>HTML</abbr>5. If you&#8217;re new to <abbr>HTML</abbr>, now&#8217;s a great time to learn. The <a href="/article-archive/">articles on this site</a> and <a href="http://www.alistapart.com/articles/previewofhtml5/">A preview of HTML5</a> give useful guidance on the differences between <abbr>HTML</abbr>5 and its predecessors. Above all, designers should get chatting with their developer friends: there can’t be many left who no longer have an opinion on this technology. How do they see their practices changing? What can we do today to prepare our sites for the advent of HTML5? How can we build on its strong points to make the web a better place?</p>
+<p>We don&#8217;t yet know what we&#8217;ll accomplish with <abbr>HTML</abbr>5, but then it&#8217;s not often that the vocabulary of the web changes this deeply. However, one thing is clear: if we prepare now, we have a great chance to bring innovation to our users&#8217; online lives.</p>
+<p class="disclaimer">This article was jointly published on <a href="http://www.cennydd.co.uk/">Ineffable</a>, Cennydd&#8217;s personal website.</p>
+<p><a href="http://html5doctor.com/why-designers-should-care-about-html5/" rel="bookmark">Why designers should care about HTML5</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 14, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/why-designers-should-care-about-html5/feed/</wfw:commentRss>
+		<slash:comments>16</slash:comments>
+		</item>
+	</channel>
+</rss>

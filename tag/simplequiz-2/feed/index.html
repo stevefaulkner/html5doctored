@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>simplequiz &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/simplequiz-2/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 11 Jul 2016 11:54:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Simplequiz #7: Pinterest</title>
+		<link>http://html5doctor.com/html5-simplequiz-7-pinterest/</link>
+		<comments>http://html5doctor.com/html5-simplequiz-7-pinterest/#comments</comments>
+		<pubDate>Tue, 22 Jan 2013 15:22:02 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Simplequiz]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[pinterest]]></category>
+		<category><![CDATA[simplequiz]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4776</guid>
+		<description><![CDATA[<p>One of our readers commented on an article a while ago (I won't tell you which one just now ;) asking about marking up items on Pinterest. It struck me that this would be a prime candidate for a Simplequiz, so here we are.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>One of our readers commented on an article a while ago (I won&#8217;t tell you which one just now ;) asking about marking up items on Pinterest. It struck me that this would be a prime candidate for a Simplequiz, so here we are.</p>
+
+<p><a href="http://pinterest.com">Pinterest</a>, for the uninitiated of you, allows you to organise and share things you love — mostly food, drink, and kittens.</p>
+
+<figure>
+  <img src="http://html5doctor.com/wp-content/uploads/2013/01/Pinterest-Home1.jpg" alt="Pinterest Homepage Screengrab" />
+  <figcaption>A distinct lack of kittens on Pinterest&#8217;s homepage in this screengrab</figcaption>
+</figure>
+
+<p>We&#8217;re going to look at how to mark up a single pinned item, as shown below:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2013/01/Screen-Shot-2013-01-22-at-14.54.15.png" alt="Individual pinned item on Pinterest" /><img src="http://html5doctor.com/wp-content/uploads/2013/01/Screen-Shot-2013-01-22-at-14.54.21.png" alt="Individual pinned item on Pinterest" />
+  <figcaption>The item we&#8217;ll be marking up (bottom image is the hovered state)</figcaption>
+</figure>
+
+<p>The existing markup is below (I&#8217;ve simplified it a little to make it easier to read):</p>
+
+<pre><code>&lt;div class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;div class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;a href="me/cat/"&gt;
+      &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Awesome cat description.&lt;/p&gt;
+  &lt;p class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/p&gt;
+  &lt;div class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>So, all&#8217;s well and good, but how should it be marked up in HTML5? As the saying goes, there are a hundred ways to skin a cat (excuse the pun). We&#8217;ve created five possible options, one of which achieved some consensus amongst the Doctors. Be warned: some of the differences between options are small and may be difficult to spot. Look carefully at each option!</p>
+
+<p>Let us know which answer you would go with (or roll your own) in the comments. Make sure you show your working out. Also, please escape your HTML (or use pseudo code), or we’ll put a <del>severed unicorn head</del> <ins>skinned cat</ins> in your bed.</p>
+
+<section id="answer-a">
+  <h2>Answer A: <a class="permalink" href="#answer-a">#</a></h2>
+  <p>An <code>&lt;article&gt;</code>, with <code>&lt;nav&gt;</code> and <code>&lt;aside&gt;</code> elements:</p>
+
+  <pre><code>&lt;article class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;nav class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;a href="me/cat/"&gt;
+      &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Awesome cat description.&lt;/p&gt;
+  &lt;aside class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/aside&gt;
+  &lt;article class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section id="answer-b">
+  <h2>Answer B: <a class="permalink" href="#answer-b">#</a></h2>
+  <p>An <code>&lt;article&gt;</code>, with <code>&lt;aside&gt;</code> elements:</p>
+
+  <pre><code>&lt;article class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;aside class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/aside&gt;
+    &lt;a href="me/cat/"&gt;
+      &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Awesome cat description.&lt;/p&gt;
+  &lt;aside class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/aside&gt;
+  &lt;article class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section id="answer-c">
+  <h2>Answer C: <a class="permalink" href="#answer-c">#</a></h2>
+  <p>An <code>&lt;article&gt;</code>, with <code>&lt;nav&gt;</code>, <code>&lt;figure&gt;</code>, and <code>&lt;aside&gt;</code> elements:</p>
+
+  <pre><code>&lt;article class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;nav class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;figure&gt;
+      &lt;a href="me/cat/"&gt;
+        &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+        &lt;figcaption&gt;Awesome cat description.&lt;/figcaption&gt;
+      &lt;/a&gt;
+    &lt;/figure&gt;
+  &lt;/div&gt;
+  &lt;aside class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/aside&gt;
+  &lt;article class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section id="answer-d">
+  <h2>Answer D: <a class="permalink" href="#answer-d">#</a></h2>
+  <p>A <code>&lt;section&gt;</code>, with <code>&lt;aside&gt;</code> and <code>&lt;figure&gt;</code> elements:</p>
+
+  <pre><code>&lt;section class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;aside class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/aside&gt;
+    &lt;figure&gt;
+      &lt;a href="me/cat/"&gt;
+        &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+        &lt;figcaption&gt;Awesome cat description.&lt;/figcaption&gt;
+      &lt;/a&gt;
+    &lt;/figure&gt;
+  &lt;/div&gt;
+  &lt;p class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/p&gt;
+  &lt;div class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+</section>
+
+<section id="answer-e">
+  <h2>Answer E: <a class="permalink" href="#answer-e">#</a></h2>
+  <p>A <code>&lt;div&gt;</code>, with child <code>&lt;article&gt;</code> and <code>&lt;aside&gt;</code> elements:</p>
+
+  <pre><code>&lt;div class="pin"&gt;
+  &lt;article class="pin-holder"&gt;
+    &lt;aside class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/aside&gt;
+    &lt;a href="me/cat/"&gt;
+      &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+      &lt;p&gt;Awesome cat description.&lt;/p&gt;
+    &lt;/a&gt;
+  &lt;/article&gt;
+  &lt;aside class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/aside&gt;
+  &lt;div class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</section>
+
+<p>Your answers below, please, with your rationale, by Tuesday, 29th January.</p><p><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/" rel="bookmark">Simplequiz #7: Pinterest</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 22, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-simplequiz-7-pinterest/feed/</wfw:commentRss>
+		<slash:comments>64</slash:comments>
+		</item>
+	</channel>
+</rss>

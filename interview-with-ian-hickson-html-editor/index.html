@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  Interview with Ian Hickson, HTML editor | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Interview with Ian Hickson, HTML editor Comments Feed" href="http://html5doctor.com/interview-with-ian-hickson-html-editor/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='Review: Pro HTML5 Accessibility by Joshue O Connor' href='http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/' />
+<link rel='next' title='Simplequiz #7: Pinterest' href='http://html5doctor.com/html5-simplequiz-7-pinterest/' />
+<link rel="canonical" href="http://html5doctor.com/interview-with-ian-hickson-html-editor/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=4868' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Finterview-with-ian-hickson-html-editor%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Finterview-with-ian-hickson-html-editor%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+	  
+  
+	</head>
+<body class="single single-post postid-4868 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-4868 post type-post status-publish format-standard hentry category-interviews" id="post-4868">
+                 <h1>Interview with Ian Hickson, HTML editor </h1>
+                <small><time datetime="2013-01-08" pubdate>Tuesday, January 8th, 2013</time> by <a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson" rel="author">Bruce Lawson</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		
+                <p><a href="http://www.publickey1.jp/blog/13/hixie_html5hixie.html">Japanese translation</a>, thanks <a href="http://twitter.com/jniino">Junichi Niino</a>.</p>
+<p>Hot on the heels of our <a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/">interview with Robin Berjon</a>, editor of HTML5 at W3C, over the weekend I interviewed Ian Hickson, editor of HTML &#8220;The Living Standard&#8221; at WHATWG and, arguably, the most influential individual working on the Web today. Hickson, known as &#8220;Hixie&#8221;, works for Google and previously worked for Opera (my employer) and Netscape.</p>
+<p>Some of questions were suggested by web developers over Twitter, where indicated.</p>
+<figure>
+  <img src="http://html5doctor.com/wp-content/uploads/2013/01/Ian_Hickson_at_CSS_Working_Group_Meeting_Day_Three.jpeg" alt="" width="201" height="211" class="aligncenter size-full" /></p>
+<figcaption>Ian Hickson</figcaption>
+</figure>
+<dl>
+<dt>If you could wipe out any web technologies from existence, which would you choose? (from @webr3)</dt>
+<dd>
+<p>HTML, JavaScript, DOM, anything I&#8217;ve ever invented, SVG, XML, JSON, CSS — basically anything that anyone uses! The Web technology stack is a complete mess. The problem is: what would you replace it with?</p>
+<p>The Web&#8217;s technology stack is one of the only (maybe the only? I&#8217;m hard pressed to come up with another example) platform that is completely vendor-neutral and not centrally developed. Anyone can invent a new feature and if the market agrees, can get that feature to be a de facto part of the platform. <code>XMLHttpRequest</code> is a classic example. A browser cannot be a serious competitor on the Web without supporting it now, yet it was initially just made up and shipped by one vendor without any consultation with anyone. Even the features that are designed in public with wide review end up implemented and used before they&#8217;re &#8220;done&#8221;, and once they&#8217;re used they can&#8217;t be changed — which leads to APIs that make no sense, like <code>pushState()</code>, which has a required argument that is ignored.</p>
+<p>The hardest part of this is that we can&#8217;t tell if something we&#8217;ve designed is any good without testing it in real world sites, and by the time it&#8217;s been properly tested, it&#8217;s too late to change it. <code>pushState()</code> happened like this (where we learnt that the second of the three arguments should be dropped only after there were already pages depending on using the first and third arguments), but there are even bigger examples: the CSS cascade and specificity mechanism, for example, which was a great idea but that doesn&#8217;t quite work at the end of the day, or even XML and specifically XML namespaces, which are widely recognised as a disaster but which whole layers of the Web platform depend on.</p>
+<p>This isn&#8217;t helped by the way that certain parts of the platform that are now absolutely core central pillars, like JavaScript, essentially started as experiments; or the way that other features, like the offline application cache API, were designed with a very limited understanding of how authors would eventually use them. (Appcache works great if you want to do what it was designed for, but it turns out most people want     to do something different enough that appcache feels horrible to them.)</p>
+<p>In the end, the most horrible parts of the Web are also the most successful, because it&#8217;s the most successful parts that get extended by the most people, and so that have the least coordination in terms of their long-term evolution, which is how things end up being horrible.</p>
+</dd>
+<dt>HTML5 vs. the &#8220;living standard&#8221;: how do I know which elements will be around ten years from now, so I can safely use them in client work? (from @szafranek)</dt>
+<dd>
+<p>You know what will be around ten years from now by looking at what is implemented in two browsers today. If it&#8217;s implemented in two browsers today, I can almost guarantee it&#8217;ll still be around in ten years. If it&#8217;s not, all bets are off.</p>
+<p>This has nothing to do with &#8220;living standard&#8221; vs. versioned specs, though. HTML4 has all kinds of features that aren&#8217;t in HTML anymore — for example, <code>&lt;object declare&gt;</code> and <code>&lt;a coords&gt;</code>.</p>
+</dd>
+<dt>Do you feel there&#8217;s enough innovation within the user agent market, since most are virtually equivalent in every way? (From @webr3)</dt>
+<dd>
+<p>I don&#8217;t really agree with the premise of the question. Browsers differ in many important ways. One of the reasons they might seem to be &#8220;virtually equivalent&#8221;, though, is that they often adopt features from each other. Another is that one of the key features they&#8217;ve all been trying for is &#8220;get out of the way and let the Web shine through&#8221;, which means you see less and less of the browser itself.</p>
+<p>In the area of browser development that I&#8217;m most familiar with — namely the Web technology stack — there&#8217;s a lot of innovation going on. I get a lot of e-mails from browser vendors asking me to spec their new invention so that it has a spec and can be implemented by everyone else also. In fact, it&#8217;s gotten to the point where I have to track these requests to make sure I only spec those with multiple vendors on board. (I don&#8217;t want to end up with a spec where each section is only implemented by one browser. That would be a waste of everyone&#8217;s time.)</p>
+<p>The browser space right now has more active competition than it ever has had in the past, especially on desktops. It&#8217;s a great time for users.</p>
+</dd>
+<dt>Why are you the one who always says &#8220;no&#8221;? Casing the <code>&lt;picture&gt;</code> and <code>&lt;main&gt;</code> elements here (from @helloanselm). Why so grumpy? (from @steve_fenton)</dt>
+<dd>
+<p>The short answer is, it&#8217;s my job!</p>
+<p>There&#8217;s really two questions here. First, why do we in general say &#8220;no&#8221; so often? And second, why is it that it&#8217;s so often me that says it?</p>
+<p>The first one is a combination of prioritisation and design.</p>
+<p>First, let&#8217;s look at prioritisation. There are very limited resources available to add features to the Web. Every feature has a cost:</p>
+<ul>
+<li>Implementation: someone has to write code for it in each browser</li>
+<li>Testing: someone has to write the tests to check the feature is working</li>
+<li>QA: someone has to regularly run the tests to make sure the feature doesn&#8217;t regress</li>
+<li>Code maintenance: when browser vendors refactor code, they have to refactor more code if there are more features</li>
+<li>Tutorials: people who write tutorials have to include the feature, or handle feedback asking for them to do so</li>
+<li>Cognitive load: authors learning the platform have more documentation to wade through, even if they don&#8217;t care about the feature</li>
+<li>Page maintenance: authors have to know how to maintain the feature if other people have used it in pages they now maintain</li>
+<li>Spec writing: someone has to write the spec for the feature and ensure it&#8217;s maintained</li>
+<li>Bug fixing: when bugs are found in the spec or implementations, they have to be maintained</li>
+<li>Code size: each feature increases the size of browsers (both on-disk binaries and in-memory resident size)</li>
+</ul>
+<p>(This list comes from <a href="http://wiki.whatwg.org/wiki/FAQ#Where.27s_the_harm_in_adding.E2.80.94">our FAQ</a>.)</p>
+<p>We get an absolute torrent of feature requests, from authors, users, browser vendors, etc. So we have to prioritise:</p>
+<ul>
+<li>Is the feature going to be implemented by more than one browser? If no browser has signed up, or if only one has signed up and no other browsers have shown any interest, then I add it to the <a href="http://wiki.whatwg.org/wiki/New_Features_Awaiting_Implementation_Interest">page of notes</a> I mentioned earlier, and move on.</li>
+<li>Is the feature a game changer, or is it merely incremental? If the feature does no more than save a line of code every now and then, then its value probably doesn&#8217;t warrant its cost.</li>
+<li>Is the feature compatible with the Web philosophy? If the request is for a way to force the user to read something the way the author wants, it&#8217;s likely to be a non-starter. If it&#8217;s something that enables the user to control the page better, that&#8217;s more likely to be a winner.</li>
+<li>Is it more important than everything else? This is a great way to filter ideas: is your idea the most important thing we can do to improve the Web? There&#8217;s not always a direct tradeoff. The people who work on a browser&#8217;s JavaScript engine are often not the same people who work on a browser&#8217;s canvas API, for instance. But there&#8217;s always an opportunity cost — adding one feature means we won&#8217;t have the time or resources to add another.</li>
+</ul>
+<p>So that&#8217;s the first part of the answer: we say &#8220;no&#8221; because we don&#8217;t have time to add everything. <code>&lt;main&gt;</code> is a great example of this. In my opinion, the value it adds is so minimal that it just isn&#8217;t worth the cost.</p>
+<p>Next, let&#8217;s look at design. The way we usually approach ideas is that we describe the problem, then we come up with solutions to the problem and compare them by evaluating them against the problem. This is where most concrete proposals run into a &#8220;no&#8221;, because something else got the &#8220;yes&#8221; instead.</p>
+<p><code>&lt;picture&gt;</code> is an example of this. We described the problem (that took a few months of back and forth), and then once we had a problem description, I looked at the various proposals and synthesised a solution based on those that addressed the problems adequately while trying to avoid some common design pitfalls based on lessons we&#8217;d learnt from previous ideas. So for example with <code>&lt;picture&gt;</code>, we learnt with <code>&lt;video&gt;</code> and <code>&lt;source&gt;</code> that having multiple elements for selecting a resource is a huge design pitfall, so when designing a solution to the problem here, I avoided that (hence the <code>srcset=""</code> design based on CSS&#8217;s <code>image-set()</code> proposal).</p>
+<p>So that&#8217;s the second part of the answer. We say &#8220;no&#8221; to some specific proposals because we&#8217;ve come up with other (better) solutions instead.</p>
+<p>The second implicit question here was why do <em>I</em> say &#8220;no&#8221; so much, as opposed to other people. This is basically politics. It&#8217;s hard to say &#8220;no&#8221;, in part because of human nature, but also in part because when you say &#8220;no&#8221; in this kind of context you tend to invite argument. Most browser vendors don&#8217;t have time to have these arguments. I do. It&#8217;s my job, and I&#8217;ve gotten pretty good at saying &#8220;no&#8221; over the years. So a lot of the veteran browser engineers will just redirect people to me and expect me to say &#8220;no&#8221; for them. This lets them get on with their job of writing a browser, redirecting all the ire and arguments to me, whose job it is to field them. Or they&#8217;ll see an e-mail to the WHATWG list, think &#8220;oh my, that&#8217;s crazy&#8221;, but just stay silent because &#8220;Hixie will deal with it&#8221;.</p>
+<p>In reality, I can&#8217;t really say either &#8220;yes&#8221; or &#8220;no&#8221;. What I say doesn&#8217;t mean anything: I don&#8217;t write any browsers. The browser vendors say &#8220;no&#8221; to me all the time by not implementing what I&#8217;ve specced. Just last week I revamped part of the spec (on context menus) because none of the browser vendors implemented it. One of the specs I spent years of my life on — XBL2 — has gone precisely nowhere because the browser vendors just don&#8217;t want to implement it. (My main mistake with XBL was trying to solve the whole problem at once, rather than doing it in incremental steps that implementors could more easily deal with.)</p>
+<p>Similarly, there&#8217;s stuff that was never specced, indeed stuff that I&#8217;ve said &#8220;no&#8221; to myself, which the browser vendors nonetheless implemented. Again with the context menu example: Gecko implemented it by having an element called <code>&lt;menuitem&gt;</code>, which I argued forcefully was a bad design. They disagreed with my arguments and implemented it anyway, and so (eventually) I updated the spec to have <code>&lt;menuitem&gt;</code>. (This isn&#8217;t a criticism of Mozilla. It&#8217;s how these things are done. They did nothing wrong here.)</p>
+</dd>
+<dt>Do you feel there&#8217;s enough feedback from HTML authors, rather than vendors, getting through to specification editors/authors? (from @webr3)</dt>
+<dd>
+<p>I don&#8217;t know about &#8220;enough&#8221;. Is there ever &#8220;enough&#8221; feedback?</p>
+<p>We do get a lot of feedback from Web developers, but it&#8217;s true that most of it has to be collected by seeking it out on forums, sites like Reddit, Twitter, Google+, people&#8217;s blogs, etc. I have some Google Alerts that lead me to a lot of places where people are complaining about HTML in one way or another, which I use as feedback. It&#8217;s almost certainly not enough. I wish we had more authors participating directly by either filing bugs or participating in the WHATWG list. People probably don&#8217;t realise how much feedback we get from developers, because they don&#8217;t see me reading the blogs and so on. Also, a lot of the feedback browser vendors send us is actually of the form &#8220;Web developers tell us that…&#8221; (though they often don&#8217;t say that explicitly).</p>
+<p>The problem, to be honest, is that most authors don&#8217;t know what they want. Many years ago, Google actually paid for a usability study for one of the features I was speccing (microdata) and it was absolutely fascinating to see how people&#8217;s actual performance was so divergent from their impressions. We&#8217;d ask them questions like, &#8220;Which would be simpler, this or that?&#8221;, and then we&#8217;d actually test them by having them use the options, and there was just no relationship between what people said they wanted and what people were actually able to use.</p>
+<p>Often when people send feedback (not just authors; pretty much anyone who hasn&#8217;t been in the process for a long time starts this way), they send feedback along the lines of &#8220;I want to add feature X&#8221; or &#8220;I want feature X to be extended in manner Y&#8221;. But when we drill down and ask them, &#8220;What problem are you trying to solve?&#8221;, or, &#8220;What&#8217;s your use case?&#8221; (same question but phrased differently), we often find that either (a) they actually don&#8217;t have a real problem and just thought that it would be a good idea, or (b) their solution wouldn&#8217;t actually solve their problem. Often we&#8217;re able to come up with much simpler solutions (or point to already existing solutions), which is quite satisfying.</p>
+</dd>
+<dt>Two and a half years ago, <a href="http://www.webstandards.org/2009/05/13/interview-with-ian-hickson-editor-of-the-html-5-specification/">I asked you, &#8220;Would you like to be the HTML 6 editor?&#8221;</a>. You replied, &#8220;I might want a change of pace when we&#8217;re done with HTML 5.&#8221; How come you decided not to take that holiday and continue editing HTML?</dt>
+<dd>
+<p>We&#8217;re not done yet. I still have 238 e-mails and 163 bugs remaining.</p>
+</dd>
+<dt>Do you have an exit strategy, or would you like to edit HTML for the forseeable future?</dt>
+<dd>
+<p>Well, I could stop any time, really. So long as I find it interesting and implementors respect my work, though, why stop? We have a severe lack of spec writers who are able to write good specs.</p>
+</dd>
+<dt>For styling form components, we were told to wait for XBL, then to wait for Web Components. Anne van Kesteren said, &#8220;After a decade of waiting for this, I think it might be time to start calling this vaporware.&#8221; Thoughts?</dt>
+<dd>
+<p>If anyone has a better proposal, I&#8217;m all ears.</p>
+</dd>
+<dt>You work for Google, which has a widely deployed browser, a mobile operating system, and massive web properties. Do your employers require you to align specifications to their business objectives or otherwise influence your specification decisions?</dt>
+<dd>
+<p>No, quite the opposite. When I started, I was given very explicit instructions to the effect that I should put the Web&#8217;s long-term interests ahead of any of Google&#8217;s short-term interests.</p>
+<p>Having said that, of course, one of the reasons I wanted to work for Google is the unique perspective one can get from working here and from having access to the data Google has. There&#8217;s no question that that has influenced my decisions.</p>
+</dd>
+<dt>Do you have other duties apart from specification?</dt>
+<dd>
+<p>I basically work on the HTML spec full-time, but yes, I have some <a href="http://ian.hixie.ch/career/resume.html">other duties</a> internally.</p>
+</dd>
+<dt>Is the Web Platform becoming too complex (Web Components, shadow DOM, etc.)? </dt>
+<dd>
+<p>Too complex for what?</p>
+</dd>
+<dt>For the amateur with something to say, rather than professional coder? Or new entrants — e.g., <a href="http://the-pastry-box-project.net/geri-coady/2013-january-3/">Geri Coady&#8217;s Pastry Box article</a>?</dt>
+<dd>
+<p>The platform has been too complex for any one person to fully understand for a long time already. Heck, there are parts of the Web platform that I haven&#8217;t even tried to grok — for example, WebGL or IndexDB — and parts that I continually find to be incredibly complicated despite my efforts at understanding them — like the Unicode bidirectional text algorithm or the subtler aspects of JavaScript&#8217;s prototype model. I&#8217;m pretty sure most authors don&#8217;t understand the precise details of margin collapsing in the presence of floats and divs with <code>clear</code> set, or the inline box model.</p>
+<p>This isn&#8217;t surprising, though. If you define the &#8220;Windows&#8221; platform as everything from the NT kernel API to the Direct3D API and everything in between, I&#8217;m pretty sure you&#8217;d quickly come to the conclusion that nobody understood that whole platform either.</p>
+<p>I don&#8217;t think this is a problem.</p>
+</dd>
+<dt>The WHATWG began because the W3C told you, &#8220;HTML was dead. If you want to do something like HTML5, you should go elsewhere.&#8221; Now that the W3C has come to its senses, is it time for the WHATWG to hang up its spurs and for its participants to work inside W3C to continue the development of the web platform?</dt>
+<dd>
+<p>We tried (2007–2012). It didn&#8217;t work out. In fact, we ended up spinning more specs out of the W3C! The WHATWG has about <a href="http://whatwg.org/specs/">12 specs</a> spread amongst eight or so editors now.</p>
+</dd>
+<dt>In what sense didn&#8217;t it work out, and why?</dt>
+<dd>
+<p>We have different priorities, different visions, different approaches. I&#8217;m probably not the right person to give an objective answer, though.</p>
+</dd>
+<dt>You seem to have most of your spats with people who work in the field of accessibility. Why is that?</dt>
+<dd>
+<p>I don&#8217;t know. I wish I did.</p>
+</dd>
+<dt>You told me, &#8220;People with disabilities are just as important to me in my work on HTML5 as is anyone else&#8221;, but I guess they would say you don&#8217;t pay enough attention to the needs of disabled people (<code>longdesc</code>, table <code>summary</code>, re-writing rules for alt text). Presumably therefore you feel that disabled people are better served by removing these features. What do you base that assumption on?</dt>
+<dd>
+<p>The premise of the question is that there&#8217;s one accessibility community that speaks with one voice and has one opinion, and that they entirely represent the exact homogeneous desires of all disabled people. But none of that is true. There are multiple Web standards accessibility communities. People within those communities often don&#8217;t agree with each other. There are lots of disabled people with lots of different opinions and different needs. The accessibility communities don&#8217;t always represent all the disabled people&#8217;s needs. And so forth.</p>
+<p>Taking the specific features you list:</p>
+<ul>
+<li><code>longdesc=""</code> is a solution in search of a problem, which virtually no author uses, and which those who do use almost entirely use incorrectly, and which therefore users have long ignored. Discouraging its continued use means authors are more likely to spend time on things that are more likely to improve accessibility. Mark Pilgrim, author of &#8220;Dive Into Accessibility&#8221;, <a href=" http://blog.whatwg.org/the-longdesc-lottery">wrote a post about this</a>.</li>
+<li>Table summaries: check out the <a href="http://whatwg.org/html/#the-table-element">HTML spec for &lt;table&gt;</a>. The first paragraph says that <code>&lt;table&gt;</code> is for representing tabular data (incidentally discouraging the use of <code>&lt;table&gt;</code> for layout tables, which is good for accessibility). The second paragraph says what tabular data is (a grid). The third paragraph provides a link to the section that defines what the table model is. The fourth paragraph encourages authors to &#8220;provide information describing how to interpret complex tables&#8221; and links to <em>an entire section</em> describing how to give table summaries. That section has six different suggestions for how to do it.</li>
+<li>Rules for alternative text for images: the section on <code>&lt;img&gt;</code> first says that <code>&lt;img&gt;</code> represents an image, then briefly says that how you give the URL for the image (it goes into more detail for that again later), and then the <em>third sentence</em> points at the section on <code>alt=""</code> — which consists of literally a dozen different subsections on how best to give alternative text for images in a wide variety of cases. When this was first written, it was probably by far the most detailed description for how to write alternative text ever published.</li>
+</ul>
+<p>So we didn&#8217;t remove two of those three features. We expanded them dramatically. The one feature we removed was really a misfeature, and we have the data to back that up.</p>
+</dd>
+<dt>What&#8217;s been your biggest mistake? What are you most proud of?</dt>
+<dd>
+<p>I&#8217;m probably most proud of the HTML parser specification. Years ago it seemed like such a preposterously absurd task to take on that I said I would never do it. And it was huge (and we&#8217;re not quite done yet; there&#8217;s at least one major outstanding bug). But this, more than anything, has been the crowning achievement of the HTML spec. We went from a world where four browser engines had four completely different approaches with radically different behaviours in every edge case, to a world where the browsers agree so closely on their behaviour that we have an almost unheard of level of interoperability. There have been academic papers written about it. It&#8217;s completely changed how we write parser specifications, and I expect the knock-on effects on other specs will continue for years. It used to be that people said that specs should only define how to parse conforming content and should do so in a declarative fashion. But now saying that sounds hopelessly naive and old-fashioned.</p>
+<p id="appcache">My biggest mistake…there are so many to choose from! <code>pushState()</code> is my favourite mistake, for the sheer silliness of ending up with an API that has a useless argument and being forced to keep it because the feature was so desired that people used it on major sites before we were ready to call it done, preventing us from changing lest we break it. <code>postMessage()</code>&#8216;s security model is so poorly designed that it&#8217;s had academic papers written about how dumb I was, so that&#8217;s a pretty big mistake. (It&#8217;s possible to use <code>postMessage()</code> safely. It&#8217;s just that the easiest thing to do is not the safe way, so people get it wrong all the time.) The appcache API is another big mistake. It&#8217;s the best example of not understanding the problem before designing a solution, and I&#8217;m still trying to fix that mess.</p>
+<p>At the less-technical and more-political level, I think taking WebSockets to the IETF was a huge mistake. It ended up delaying the spec for literally a year without any resulting improvements, and they made a number of changes that IMHO reduce the protocol&#8217;s security. (Again, it&#8217;s possible to use it safely, it&#8217;s just not as easy as it was before the IETF got involved. Ironically, they broke the very things we learnt to do right after getting them wrong with <code>postMessage()</code>.) We&#8217;re still waiting for things like compression and multiplexing, which we would probably have had a long time ago if we hadn&#8217;t gone to the IETF.</p>
+<p>Also, when I designed the Web Storage API I made a horrible mistake by making the API synchronous and requiring consistency during a script&#8217;s execution, which essentially became the one place in the whole Web platform where, in theory, browsers are required to block cross-process. Since browsers don&#8217;t implement that, we instead have an API where there&#8217;s no consistency guarantee, which is rather scary.</p>
+<p>Outside of the HTML spec, one of my biggest mistakes was not realising, back when I was first in the CSS working group, that specifications were not immutable. CSS2 had these vague rules about margin collapsing and about the inline box model which David Baron and I took as essentially immutable constraints around which we were to strictly define the margin collapsing model and the inline box model. We succeeded, in that now the spec has mostly well-defined models for both those things, but boy are they insanely complicated. What we should have done instead is just break the constraints and come up with something simpler, ideally something that more closely matched what browsers implemented at the time.</p>
+<p>One of the side-effects of that kind of thinking (not directly my mistake, though I didn&#8217;t argue against it as far as I recall) is that we ended up with &#8220;Quirks Mode&#8221; and DOCTYPE switching. What we should have done is just made the specs match browsers and not bothered with all these modes.</p>
+<p>I also made mistakes with the Acid tests, wherein I tested things that the specs required but which in retrospect it would have been better to ignore, which ended up encouraging browsers to implement things that we later realised it would have been better all around if we had skipped. Some of those we were able to mitigate, others not so much. Acid3 had some stuff around SVG fonts that we should have never had. Acid2 had some crazy stuff around SGML comments that we were thankfully later able to totally abandon.</p>
+<p>I made a number of mistakes in the development of XBL2 (as mentioned earlier), but since the result of those mistakes was that it&#8217;s getting ignored, the only real long-term cost has been the opportunity cost and delay in getting a solution in that space.</p>
+<p>I&#8217;m sure I&#8217;m forgetting some huge mistake I&#8217;ve made that everyone is yelling at me for. (I asked for suggestions for this question on IRC, and after we were done enumerating a bunch of mistakes, Anne asked, &#8220;That&#8217;s a long list. Why do we trust this guy again?&#8221; D&#8217;oh.)</p>
+</dd>
+<dt>Urban geek legend has it that you invented Web Sockets because you wanted to control your model trains through the browser and couldn&#8217;t. True or false?</dt>
+<dd>
+<p>Obviously there&#8217;s a lot of demand for something like Web Sockets, so it&#8217;s not like it was only because I want to control my trains that we worked on that, but it was definitely a key motivating factor for me. Without Web Sockets I was forced to use hanging GETs and all the other techniques people will be familiar with, which introduces precious milliseconds of latency that can be so destructive when you have two locomotives speeding towards each other. I&#8217;ve since used Web Sockets in pretty much every non-trivial development project I&#8217;ve done.</p>
+</dd>
+<dt>You specified microdata, which even you dislike, because RDFa was ugly and hard to write…</dt>
+<dd>
+<p>It&#8217;s not so much that I dislike microdata so much as I don&#8217;t think the problem microdata (and RDF, etc.) solves is an interesting problem that should be solved. Of course, enough people think it is a problem that should be solved that I approached it like all the other problems. It&#8217;s a good example of how the HTML spec is not just a reflection of my wishes.</p>
+</dd>
+<dt>…The WHATWG shot across RDFa&#8217;s bow worked. <a href="http://manu.sporny.org/2012/mythical-differences/">RDFa Lite now does everything microdata does</a>, while also being compatible with Facebook&#8217;s Open Graph Protocol…</dt>
+<dd>
+<p>RDFa Lite doesn&#8217;t do everything microdata does. There&#8217;s a number of things that microdata does (or doesn&#8217;t do) that are absolutely key:</p>
+<ul>
+<li>not have anything to do with RDF</li>
+<li>not have any support for any prefixing mechanism</li>
+<li>have integration with the drag-and-drop API</li>
+</ul>
+<p>There are probably others, too, but I haven&#8217;t studied RDFa Lite carefully.</p>
+</dd>
+<dt>Why is &#8220;not have anything to do with RDF&#8221; key?</dt>
+<dd>
+<p>It&#8217;s where microdata and microformats get most of their simplicity compared to RDF-based technologies.</p>
+</dd>
+<dt>…To avoid fragmentation, are you going to withdraw microdata as a spec, add an RDFa API, and use RDFa Lite instead? If not, why not?</dt>
+<dd>
+<p>Well, at this point microdata is in wide use, so there&#8217;s no way to remove it even if we wanted to. But since RDFa still doesn&#8217;t solve the same problems, it hasn&#8217;t come up.</p>
+<p>RDFa (or rather, RDF) and microdata have fundamentally different data models. RDF is a triple (quad, really) database. Microdata represents tree structures. Microdata has more in common with JSON than RDF.</p>
+<dt>What are your thoughts on angle brackets…</dt>
+<dd>
+<p>They&#8217;re pointy? I don&#8217;t know. Are angle brackets something people have thoughts on?</p>
+</dd>
+<dt>…and how does HTML stand up to JSON? (from @pal_nes)</dt>
+<dd>
+<p>Different solutions to different problems.</p>
+<p>JSON&#8217;s missing one major feature that I wish it would get, which is defined error handling (even if it&#8217;s only XML-style &#8220;you must abandon the parse if it there is an error&#8221;). Right now, handling of broken JSON seems to vary from parser to parser.</p>
+<p>Other than that, I like JSON and often use it. I think people get very attached to generic syntaxes, though. Sometimes the best syntax is just newline-separated strings in a plain text file. Sometimes it&#8217;s a nested tree like JSON. Other times it&#8217;s a nested annotated tree like XML. Sometimes it&#8217;s a binary bitmap. I think people shy away from defining their own syntaxes more than they should. Writing a parser is easy and is a very, <em>very</em> well studied part of computer science. Using something like JSON makes sense if what you want to serialise is a static JavaScript structure with no cross-references. If your data structure is something else, then using JSON doesn&#8217;t generally make more sense than using a dedicated format — either way, you&#8217;re going to have to get the data out and piece it back together into your own internal representation.</p>
+<p>Also, often when people define generic syntaxes, they go a bit crazy. When you&#8217;re defining a dedicated format (or a vocabulary for a generic format, same thing really), you usually don&#8217;t have time to go crazy and define wild features, because your motivation is to solve your original problem and designing the language is a necessary evil, not the end goal.</p>
+</dd>
+<dt>Is it a problem if people have no markup in the <code>&lt;body&gt;</code> and generate the DOM with script?</dt>
+<dd>
+<p>It&#8217;s obviously a problem for users who have scripting disabled, but other than that, it&#8217;s just an authoring choice.</p>
+<p>There are significant advantages to having a static description of markup. You can validate it, for example, to catch semantic errors (such as accidentally putting an <code>&lt;input&gt;</code> in a <code>&lt;select&gt;</code> instead of using <code>&lt;option&gt;</code>). HTML these days has several features to make it easier to do this while writing a Web app — e.g., <code>hidden=""</code>, DOM cloning, etc.</p>
+<p>But equally there are advantages to generating things from script. For one, if you want to generate several instances of something, right now the easiest way is to describe the structure in JavaScript calls with the data you want to substitute into your template being right there.</p>
+<p>Personally, when I write Web apps (mostly games), I tend to use static HTML for the parts of the app that don&#8217;t change or that only appear once, and JavaScript calls to generate the parts that appear more than once. For example, one of the games I&#8217;m working on has a list of maps, and so the <code>&lt;ol&gt;</code> for the list is hard-coded in the HTML, but the <code>&lt;li&gt;</code>s are generated dynamically.</p>
+</dd>
+<dt>Talking of script, what do you think of DART?</dt>
+<dd>
+<p>I haven&#8217;t studied it (or the newer JS proposals, for that matter) enough to have an opinion. If it&#8217;s intended to replace JavaScript as the Web&#8217;s language, they have an uphill battle ahead of them, though. Replacing any part of the Web is extremely hard.</p>
+<p>I wrote about <a href="https://plus.google.com/107429617152575897589/posts/SiLdNL9MsFw">the difficulty of replacing the whole Web</a> last year. Replacing any part of the Web (as opposed to extending it) is similar in difficulty, though on a proportionally smaller scale.</p>
+</dd>
+<dt>How do you think the long-term development of devices and interaction models will impact the development of web standards? (from @wcagtest)</dt>
+<dd>
+<p>I don&#8217;t think it&#8217;ll affect the development at all. There&#8217;s no difference between new interaction models and any other new feature. The Web and Web standards themselves will obviously be impacted, but I have no idea how. I&#8217;m fascinated to find out how the Web will evolve in the face of projects like Google&#8217;s Glass or devices like the Pebble.</p>
+<p>I am sad that the Web didn&#8217;t handle small screens — and later, touch UI — that well. I would&#8217;ve hoped that the Web&#8217;s media-independent nature would have made that work better. For small screens, honestly, I mostly blame Web designers for assuming big screens and not thinking flexibly. We&#8217;re seeing that change now. For touch, though, I wish we had done a better job of mapping the UI to the Web&#8217;s generic events. A touch gets mapped to a &#8220;click&#8221; event easily enough, but drag-and-drop never got mapped, pinch gestures didn&#8217;t get mapped to wheel events, etc. Mainly I think this is because the first truly successful touch browser set the standard, and it was developed mostly in secret with a small team many of whom, as I understand it, weren&#8217;t Web veterans.</p>
+</dd>
+<dt>Will native apps triumph over the Web on mobile devices?</dt>
+<dd>
+<p>Native platforms and the Web have very different characteristics. The Web is by design radically vendor-neutral, and (to a lesser extent in practice) device-neutral. This has huge benefits: nobody can single-handedly kill the Web, for example. If you write a Web page or application today, and then tomorrow your desktop operating system vendor or your mobile phone handset vendor goes bankrupt, you can just buy another device and your page still works. If you target a proprietary platform — e.g., Amiga or OS/2 — that then loses the support of its vendor, the result is that your application is no longer usable.</p>
+<p>The <em>cost</em> of having a system immune from the whims of a single vendor is that by and large, innovation doesn&#8217;t happen in multi-vendor discussions. If you have a proprietary platform, it&#8217;s easy to add features to it: you just do it. No need to argue with anyone. On the Web, a feature can only be added if every major implementor agrees it&#8217;s worth adding, and that usually only happens once it&#8217;s been proven in a native platform. So native platforms have the edge when things are rapidly innovating.</p>
+<p>This is why the mobile world today has so much focus on native apps. Every new generation brings radical new features, and the Web will always be behind on those. So the cutting edge is native.</p>
+<p>You can see this on the desktop. Innovation on desktop operating systems has slowed down dramatically, and as a result the Web has been able to mature there. The result is that on desktop, Web apps are doing great (so great that it&#8217;s viable to create a desktop OS that does nothing but bring up a Web browser, in fact). Mobile is where desktop was a decade or two ago, in terms of innovation.</p>
+</dd>
+<dt>What&#8217;s the biggest danger to a free, open Web at the moment?</dt>
+<dd>
+<p>Patents.</p>
+</dd>
+<dt>What&#8217;s the very next thing on your to-do list?</dt>
+<dd>
+<p>The top thing on my bugs list is &#8220;Spec for document.open() doesn&#8217;t match reality when the parser is script-created&#8221;. That sounds like a hard one. Let&#8217;s see…top thing on my e-mail pile right now is…some even harder stuff do with the HTML parser and feedback from [Boris Zbarsky] about some very subtle aspects of the security implications of certain DOM APIs. Yikes. Maybe I&#8217;ll do lunch instead…</p>
+</dd>
+                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/interviews/" rel="category tag">interviews</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                                            </li>
+                </ul>
+
+		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson" rel="author">Bruce Lawson</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson" rel="author">Bruce Lawson</a></span>. Bruce evangelises Open Web Standards for <a href="http://dev.opera.com/">Opera</a> (but opinions here are his own).  Previously, he was technical lead for the Solicitors Regulation Authority site. He is  co-author of  <a href="http://introducinghtml5.com/">Introducing HTML5</a>.
+
+He blogs at <a href="http://brucelawson.co.uk/">brucelawson.co.uk</a> and tweets at <a href="http://www.twitter.com/brucel">@brucel</a>.</p>
+                    <img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=128&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>26 Responses on the article “Interview with Ian Hickson, HTML editor”</h3>
+
+		<li class="comment even thread-even depth-1" id="comment-29545">
+				<div id="div-comment-29545" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9d9f17e37b751b9f83081ba3dd44bab4?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9d9f17e37b751b9f83081ba3dd44bab4?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://broken-links.com' rel='external nofollow' class='url'>Peter Gasston</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29545">
+			January 8, 2013 at 3:13 pm</a>		</div>
+
+		<p>Very good interview, well done. One thing I would add: I don&#8217;t think Web Components are hard, there&#8217;s just not a lot of writing about them that explains them clearly. I&#8217;m working on that at the moment for my new book, and the fundamentals are surprisingly easy once it clicks.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29545#respond' onclick='return addComment.moveForm( "div-comment-29545", "29545", "respond", "4868" )' aria-label='Reply to Peter Gasston'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-brucel bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-29550">
+				<div id="div-comment-29550" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29550">
+			January 8, 2013 at 3:27 pm</a>		</div>
+
+		<p>FWIW Peter, I don&#8217;t think Web Components (or CSS, or JS, or SVG) are hard. But the amount of moving parts that makes up one page can be huge&#8230;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29550#respond' onclick='return addComment.moveForm( "div-comment-29550", "29550", "respond", "4868" )' aria-label='Reply to Bruce Lawson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-29551">
+				<div id="div-comment-29551" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8ccbd11668791fb7b3e86162142b159c?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8ccbd11668791fb7b3e86162142b159c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.stevefenton.co.uk/' rel='external nofollow' class='url'>Steve Fenton</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29551">
+			January 8, 2013 at 3:52 pm</a>		</div>
+
+		<p>I rarely read interviews all the way to the end, but this one kept me interested all the way through.</p>
+<p>I think it will help me to empathise more with Hixie in the future, although I will keep hold of that list of mistakes just in case!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29551#respond' onclick='return addComment.moveForm( "div-comment-29551", "29551", "respond", "4868" )' aria-label='Reply to Steve Fenton'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-29552">
+				<div id="div-comment-29552" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/81d4896889881ab794df2415b6de3a37?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/81d4896889881ab794df2415b6de3a37?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">steve faulkner</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29552">
+			January 8, 2013 at 3:57 pm</a>		</div>
+
+		<p>Shame on you Dr. Bruce! Having shied away once again from asking the hard questions, a most important and controversial question remains un-answered:</p>
+<blockquote><p><a href="https://twitter.com/stevefaulkner/status/286868713704153089" rel="nofollow">Blue Stratos or Old Spice?</a></p></blockquote>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29552#respond' onclick='return addComment.moveForm( "div-comment-29552", "29552", "respond", "4868" )' aria-label='Reply to steve faulkner'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-brucel bypostauthor even thread-even depth-1" id="comment-29553">
+				<div id="div-comment-29553" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29553">
+			January 8, 2013 at 3:59 pm</a>		</div>
+
+		<p>Steve, if Hixie shows up, I shall press him most mercilessly on his choice of male grooming fragrances. Manicured hand on heart.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29553#respond' onclick='return addComment.moveForm( "div-comment-29553", "29553", "respond", "4868" )' aria-label='Reply to Bruce Lawson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-29554">
+				<div id="div-comment-29554" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a9db2cbc6d4e589aec2d25f67771b85e?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a9db2cbc6d4e589aec2d25f67771b85e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://ecmazing.com' rel='external nofollow' class='url'>Šime Vidas</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29554">
+			January 8, 2013 at 5:04 pm</a>		</div>
+
+		<p>I love how there exist only like 5 different photos of Ian on the entire Internet, and the one chosen for this article is over 6 years old :-P</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29554#respond' onclick='return addComment.moveForm( "div-comment-29554", "29554", "respond", "4868" )' aria-label='Reply to Šime Vidas'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-29555">
+				<div id="div-comment-29555" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/1b4d98c1d4b3935c3bcfe5ccc61d79d2?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/1b4d98c1d4b3935c3bcfe5ccc61d79d2?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Mark Pilgrim</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29555">
+			January 8, 2013 at 5:05 pm</a>		</div>
+
+		<p>I also read the entire interview. To me, the most interesting part was about the HTML features that Ian has specced that turned out badly. Of course no platform is immune to this, even (perhaps especially) platforms controlled by a single vendor. Deprecation is always a challenge.</p>
+<p>Then I scrolled down to the comment box and saw the disclaimer, &#8220;Some HTML is ok.&#8221; Truer words have never been spoken.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29555#respond' onclick='return addComment.moveForm( "div-comment-29555", "29555", "respond", "4868" )' aria-label='Reply to Mark Pilgrim'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-29557">
+				<div id="div-comment-29557" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/02cd45622e90350cc061aaaa02229195?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/02cd45622e90350cc061aaaa02229195?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://tantek.com' rel='external nofollow' class='url'>Tantek Çelik</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29557">
+			January 8, 2013 at 8:12 pm</a>		</div>
+
+		<blockquote cite="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29555"><p>Then I scrolled down to the comment box and saw the disclaimer, “Some HTML is ok.” Truer words have never been spoken.</p></blockquote>
+<p>&#8220;Some HTML is ok&#8221; &#8211; perhaps the title of your next book Mark?</p>
+<p>(and yes, excellent interview Bruce &amp; Ian).</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29557#respond' onclick='return addComment.moveForm( "div-comment-29557", "29557", "respond", "4868" )' aria-label='Reply to Tantek Çelik'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-29561">
+				<div id="div-comment-29561" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/e1f353becc9a449e7e1ca322ef02b963?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e1f353becc9a449e7e1ca322ef02b963?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Peter</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29561">
+			January 8, 2013 at 10:35 pm</a>		</div>
+
+		<p>Is there audio of this interview?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29561#respond' onclick='return addComment.moveForm( "div-comment-29561", "29561", "respond", "4868" )' aria-label='Reply to Peter'>Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-brucel bypostauthor odd alt depth-2" id="comment-29570">
+				<div id="div-comment-29570" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29570">
+			January 9, 2013 at 9:14 am</a>		</div>
+
+		<p>Peter, no there&#8217;s no audio available.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29570#respond' onclick='return addComment.moveForm( "div-comment-29570", "29570", "respond", "4868" )' aria-label='Reply to Bruce Lawson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-29562">
+				<div id="div-comment-29562" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/31e50661789fdd6927b730c28829e60a?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/31e50661789fdd6927b730c28829e60a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">José Pedro</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29562">
+			January 8, 2013 at 11:05 pm</a>		</div>
+
+		<p>I am curious to what lead to the decision to use a custom handshake for WebSockets. I am a novice with socket technology, but was interested in it, as it provided so many uses. But doesn&#8217;t using that custom handshake hinder the uses of WebSockets?</p>
+<p>There are so many existing services that use regular sockets that allowing WebSockets to interact with them without any specific customization would allow specialized client-side only webapps capable of anything. Instead, the current design requires either some compatibility layer on the receiving end or a middle man server to make the bridge between regular sockets and WebSockets. Wouldn&#8217;t have been better to make WebSockets compatible with other sockets. And if so, what lead to the design decision?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29562#respond' onclick='return addComment.moveForm( "div-comment-29562", "29562", "respond", "4868" )' aria-label='Reply to José Pedro'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-29563">
+				<div id="div-comment-29563" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/189e700a1367072d494a1b33ee94cbda?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/189e700a1367072d494a1b33ee94cbda?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.codesimplicity.com/' rel='external nofollow' class='url'>Max Kanat-Alexander</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29563">
+			January 8, 2013 at 11:59 pm</a>		</div>
+
+		<p>An excellent interview! As usual, I agree with pretty much every single thing Hixie said. :-) I was particularly surprised that he immediately brought up all the parts of the web that I&#8217;ve had problems with as things he also thought were problematic.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29563#respond' onclick='return addComment.moveForm( "div-comment-29563", "29563", "respond", "4868" )' aria-label='Reply to Max Kanat-Alexander'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-29564">
+				<div id="div-comment-29564" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/59224f86a994baedfcd9e7dc82cc14b9?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/59224f86a994baedfcd9e7dc82cc14b9?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://gsnedders.com/' rel='external nofollow' class='url'>Geoffrey Sneddon</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29564">
+			January 9, 2013 at 12:59 am</a>		</div>
+
+		<blockquote><p>Wouldn’t have been better to make WebSockets compatible with other sockets. And if so, what lead to the design decision?</p></blockquote>
+<p>Imagine a world where every single user of a malicious site (say, in an advert on an advertising network across thousands of sites) connects to an SMTP server and starts sending out several emails per second. Suddenly you have a massively powerful spamnet.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29564#respond' onclick='return addComment.moveForm( "div-comment-29564", "29564", "respond", "4868" )' aria-label='Reply to Geoffrey Sneddon'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-29606">
+				<div id="div-comment-29606" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/89c946a7484745cd60e0b56348d44443?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/89c946a7484745cd60e0b56348d44443?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.enhanceability.com' rel='external nofollow' class='url'>Ronald L Stone</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29606">
+			January 10, 2013 at 7:29 am</a>		</div>
+
+		<p>informative interview. important questions are &#8216;what are the specs?&#8217; and &#8216;what are the browsers?&#8217; or &#8216;what are the apps?&#8217;.</p>
+<p>important approaches concern the user or users.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29606#respond' onclick='return addComment.moveForm( "div-comment-29606", "29606", "respond", "4868" )' aria-label='Reply to Ronald L Stone'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-29613">
+				<div id="div-comment-29613" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/e57cd9ac952cf3e75920e499b54551ba?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e57cd9ac952cf3e75920e499b54551ba?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://InDev' rel='external nofollow' class='url'>H Max</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29613">
+			January 10, 2013 at 4:27 pm</a>		</div>
+
+		<p><b>Heard about the controversial and reviled &#8220;Hixie&#8221;</b> for years. Your interview/Q-A session really did a marvelous job of revealing the person, his motives, his decision-making schema, his depth of knowledge, his native intelligence and the way he handles the firestorm of criticism he is a magnet for.</p>
+<p>This interview is a keeper. Just a sensational piece. Great work, extremely informative.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29613#respond' onclick='return addComment.moveForm( "div-comment-29613", "29613", "respond", "4868" )' aria-label='Reply to H Max'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-29756">
+				<div id="div-comment-29756" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2141e7cc580cb0a705a7ca7b46815869?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2141e7cc580cb0a705a7ca7b46815869?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.universalwebdesign.co.uk/' rel='external nofollow' class='url'>internet marketing agency</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29756">
+			January 12, 2013 at 8:01 pm</a>		</div>
+
+		<p>Thanks for sharing Such A Nice Articles.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29756#respond' onclick='return addComment.moveForm( "div-comment-29756", "29756", "respond", "4868" )' aria-label='Reply to internet marketing agency'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-29797">
+				<div id="div-comment-29797" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/54bbae71bb9e4fc503c7f780c3f72633?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/54bbae71bb9e4fc503c7f780c3f72633?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Richard Clark</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29797">
+			January 13, 2013 at 9:24 pm</a>		</div>
+
+		<p>re: Why WebSockets implemented more than a raw socket handshake,  the main reasons were 1) to maintain interoperability with the browser&#8217;s sandboxing model (origin-based security), and 2) interoperate cleanly with HTTP (the &#8220;upgrade&#8221; mechanism has been in HTTP from the beginning.)</p>
+<p>Hixie&#8217;s comment about the IETF adding features that &#8220;reduced the protocol&#8217;s security&#8221; is intriguing. I&#8217;ll have to go back through the change stream from hixie-76 to RFC-6455 with an eye toward the security implications.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29797#respond' onclick='return addComment.moveForm( "div-comment-29797", "29797", "respond", "4868" )' aria-label='Reply to Richard Clark'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-brucel bypostauthor odd alt thread-even depth-1" id="comment-29831">
+				<div id="div-comment-29831" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29831">
+			January 14, 2013 at 9:45 am</a>		</div>
+
+		<p>A supplementary question for Hixie that&#8217;s been niggling at me:</p>
+<p>Hixie said &#8220;we learnt with &lt;video&gt; and &lt;source&gt; that having multiple elements for selecting a resource is a huge design pitfall&#8221;.</p>
+<p>Could you elaborate on that those pitfalls are, and how you&#8217;ve learned of them since specifying &lt;source&gt;? (I don&#8217;t hear many people struggling with how &lt;source&gt; is used.)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29831#respond' onclick='return addComment.moveForm( "div-comment-29831", "29831", "respond", "4868" )' aria-label='Reply to Bruce Lawson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-brucel bypostauthor even thread-odd thread-alt depth-1" id="comment-29868">
+				<div id="div-comment-29868" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29868">
+			January 15, 2013 at 9:21 am</a>		</div>
+
+		<p>Got an email from Hixie answering this:</p>
+<blockquote><p>
+<a href="http://lists.w3.org/Archives/Public/public-whatwg-archive/2012Aug/0070.html" rel="nofollow">Search for &#8220;multiple elements&#8221;</a>:<br />
+Generally, processing models for    multi-element structures in the DOM are a disproportionate source of    trouble in a wide variety of areas:</p>
+<ul>
+<li>they introduce the need for much more elaborate error handling,      since they have multiple failure modes (what happens if one or       another element is found in another, or if the outer element has an       unexpected inner element?)
+</li><li>the processing model has to deal with changes more complicated than       just &#8220;change&#8221; (what if an element is added or removed, or moved?)
+</li><li>it introduces all kinds of complicated questions once you introduce       shadow trees (what if you bind something with a special child? what       if the shadow tree contains such a child?)
+</li><li>it introduces complexities in the algorithms to deal with unexpected      text nodes, comment nodes, PIs, etc.
+</li><li>it introduces some complexity in the parser, because you have to       handle the case where you&#8217;re only half-way through parsing the       &#8220;parent&#8221; element when you return to the event loop, with more       children elements to process (when does the processing model       start? what do you expose in the DOM API half-way through? etc).
+</li></ul>
+<p>Alternatively, check how complicated the<br />
+<a href=" http://www.whatwg.org/specs/web-apps/current-work/#loading-the-media-resource" rel="nofollow">&lt;source&gt; processing model has become in the spec</a>.</p>
+</blockquote>
+<p>I (Bruce) note, however, that these are complexities for implementors and specifiers rather than web  developers.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29868#respond' onclick='return addComment.moveForm( "div-comment-29868", "29868", "respond", "4868" )' aria-label='Reply to Bruce Lawson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-29882">
+				<div id="div-comment-29882" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/09bb44ac3625a121017cd98d0a7dc52c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/09bb44ac3625a121017cd98d0a7dc52c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://annevankesteren.nl/' rel='external nofollow' class='url'>Anne van Kesteren</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29882">
+			January 15, 2013 at 12:52 pm</a>		</div>
+
+		<p>The resulting mess however (as implementations will more likely be buggy) causes pain downstream and reduces the amount of work that can be done in other areas. It&#8217;s all tradeoffs.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29882#respond' onclick='return addComment.moveForm( "div-comment-29882", "29882", "respond", "4868" )' aria-label='Reply to Anne van Kesteren'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-29883">
+				<div id="div-comment-29883" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/b32ba9e7b52a7318792e2c620bd430f0?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/b32ba9e7b52a7318792e2c620bd430f0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://blog.yoav.ws' rel='external nofollow' class='url'>Yoav Weiss</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29883">
+			January 15, 2013 at 1:21 pm</a>		</div>
+
+		<p>@Anne (&amp; @Hixie) &#8211; since these mechanisms are already specified and implemented for media elements:<br />
+* Are current video/audio parsing implementations unreasonably buggy?<br />
+* Is it possible to reuse specifications &amp; code to extend the media element&#8217;s source also to picture or other elements?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29883#respond' onclick='return addComment.moveForm( "div-comment-29883", "29883", "respond", "4868" )' aria-label='Reply to Yoav Weiss'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-29913">
+				<div id="div-comment-29913" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c679e141dcea9a95965ab46236d78375?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c679e141dcea9a95965ab46236d78375?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Alex Bell</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29913">
+			January 15, 2013 at 11:11 pm</a>		</div>
+
+		<p>&#8220;(It’s possible to use postMessage() safely. It’s just that the easiest thing to do is not the safe way, so people get it wrong all the time.)&#8221;</p>
+<p>What&#8217;s the right way, and what&#8217;s the wrong way? An explanation, or at least a link here would be great.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=29913#respond' onclick='return addComment.moveForm( "div-comment-29913", "29913", "respond", "4868" )' aria-label='Reply to Alex Bell'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-30154">
+				<div id="div-comment-30154" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/60d66ff749f3436ae39b7b06318babac?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/60d66ff749f3436ae39b7b06318babac?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://spicyweb.dk' rel='external nofollow' class='url'>Martin Hjort</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-30154">
+			January 20, 2013 at 1:54 pm</a>		</div>
+
+		<p>Very interesting interview, even for a guy who&#8217;s not that deep into specs. Nice to hear a word from a guy &#8220;deep down in the mess&#8221; ;) and at the same time actually learn something. One of the few longreads I&#8217;ve actually completed :-)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=30154#respond' onclick='return addComment.moveForm( "div-comment-30154", "30154", "respond", "4868" )' aria-label='Reply to Martin Hjort'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-31006">
+				<div id="div-comment-31006" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c6c68c256b5bd72410a9d64640ddaab7?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c6c68c256b5bd72410a9d64640ddaab7?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">fps</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-31006">
+			February 1, 2013 at 11:57 pm</a>		</div>
+
+		<blockquote><p>Using something like JSON makes sense if what you want to serialise is a static JavaScript structure with no cross-references. If your data structure is something else, then using JSON doesn’t generally make more sense than using a dedicated format — either way, you’re going to have to get the data out and piece it back together into your own internal representation.
+</p></blockquote>
+<p>There&#8217;s an alternative: using RDF</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=31006#respond' onclick='return addComment.moveForm( "div-comment-31006", "31006", "respond", "4868" )' aria-label='Reply to fps'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-31683">
+				<div id="div-comment-31683" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/5339fc2bd25bead7c8d75e9635a94f27?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/5339fc2bd25bead7c8d75e9635a94f27?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://mi2.com' rel='external nofollow' class='url'>Matthew M. Kaufman</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-31683">
+			February 22, 2013 at 7:28 pm</a>		</div>
+
+		<p>This is a great interview structure;</p>
+<p>Do you have a pre-formed format for conducting your interviews?  I saw in the writing that it refered back to a previous interview 2 and a half years ago. </p>
+<p>Very dynamic.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=31683#respond' onclick='return addComment.moveForm( "div-comment-31683", "31683", "respond", "4868" )' aria-label='Reply to Matthew M. Kaufman'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-36883">
+				<div id="div-comment-36883" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f57e024a3c964b23f11c8d6d499acb5f?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f57e024a3c964b23f11c8d6d499acb5f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Web Design</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-36883">
+			July 25, 2013 at 2:47 pm</a>		</div>
+
+		<p>Thanks for the article Bruce!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/interview-with-ian-hickson-html-editor/?replytocom=36883#respond' onclick='return addComment.moveForm( "div-comment-36883", "36883", "respond", "4868" )' aria-label='Reply to Web Design'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/interview-with-ian-hickson-html-editor/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='4868' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1c529d0681" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="4"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>
+<!-- Dynamic page generated in 0.983 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-12-29 20:54:14 -->
+
+<!-- super cache -->

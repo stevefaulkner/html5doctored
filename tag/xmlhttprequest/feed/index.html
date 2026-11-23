@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; xmlhttprequest</title>
+	<atom:link href="http://html5doctor.com/tag/xmlhttprequest/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>Your HTML5 Questions 20</title>
+		<link>http://html5doctor.com/your-html5-questions-20/</link>
+		<comments>http://html5doctor.com/your-html5-questions-20/#comments</comments>
+		<pubDate>Tue, 09 Oct 2012 14:09:40 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[outlines]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[xmlhttprequest]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4762</guid>
+		<description><![CDATA[<p>We're back again to answer some more of your questions. This time we've included a bonus answer so you've got six to go at, rather than the usual 5. In this post cover a XMLHttpRequest query, how to define sections, understanding outlines, what markup to use for a social bar, using HTML5 with a legacy site and hidden headings for accessibility.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re back again to answer some more of your questions. This time we&#8217;ve included a bonus answer so you&#8217;ve got six to go at, rather than the usual five!</p>
+
+<p>In this post, we&#8217;ll cover an <code>XMLHttpRequest</code> query, how to define sections, understanding outlines, which markup to use for a social bar, using HTML5 with a legacy site, and hidden headings for accessibility.</p>
+
+<section id="xhr">
+  <h2>XMLHttpRequest <a class="permalink" href="#xhr">#</a></h2>
+
+  <p>Kieran asked:</p>
+
+  <blockquote>
+    <p>I have a test web page where I read the contents of a text file in my dropbox public folder using XMLHttpRequest. However my code works fine in IE but does not work in firefox. I thought XMLHttpRequest2 would work with HTML5. Can you help? Here is the code:</p>
+
+  <pre><code>&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+  &lt;title&gt;JS file reading&lt;/title&gt;
+  &lt;!--&lt;link href="layout.css" rel="stylesheet" type="text/css"&gt;--&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script type="text/javascript"&gt;
+    var oRequest = new XMLHttpRequest();
+    var sURL = "http://dl.dropbox.com/u/34358808/test1.pkl";
+
+    oRequest.open("GET",sURL,false);
+    oRequest.setRequestHeader("User-Agent",navigator.userAgent);
+    oRequest.send(null)
+
+    if (oRequest.status==200) alert(oRequest.responseText);
+    else alert("Error executing XMLHttpRequest call!");
+  &lt;/script&gt;
+  Reading files with javascript
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </blockquote>
+
+  <p>I wouldn&#8217;t recommend running that as a synchronous request.</p>
+
+  <p>That said, I can&#8217;t see how your code would work. You&#8217;re making a cross-domain request, and Dropbox hasn&#8217;t enabled <a href="http://www.w3.org/TR/cors/" title="Cross-Origin Resource Sharing">CORS</a> (as far as I can see — and I did a couple of initial checks).</p>
+
+  <p>Maybe give XHR2 a better read and check out CORS, which is what I think you want.</p>
+
+  <p>Bottom line, since you&#8217;re hitting Dropbox, unless you do something like a JSONP request (and modify the content appropriately), I don&#8217;t think you&#8217;re going to be able to achieve what you&#8217;re shooting for here.</p>
+
+  <p>— Remy</p>
+</section>
+
+<section id="sections">
+  <h2>Defining Sections on Home Page and Category Pages <a class="permalink" href="#sections">#</a></h2>
+
+  <p>Özer asked:</p>
+
+  <blockquote>
+    <p>An example website is <a href="http://www.kahome.com">www.kahome.com</a>. I have no problem with header footer aside etc. However, I am confused while using <code>article</code> on homepage and category pages.</p>
+
+    <p>The homepage contains main menu, an important image, a brief information text, some important seasonal category links (changing seasonally), news section (dynamically changing) and secondary categories at the bottom.</p>
+
+    <p>First: Centered main image <code>&lt;div id="orta"&gt;</code> should be tagged as article or not?</p>
+
+    <p>Second: <code>&lt;div id="sidebar-2"&gt;</code> with brief company information should tagged as an article or aside? (it is currently aside because of CMS layout but i can change it)</p>
+
+    <p>Third: seasonal category links <code>&lt;div id="ana"&gt;</code> is tagged as article. Is it true?</p>
+
+    <p>Fourth: for the <a href="http://www.kahome.com/restaurant-furniture.html">category page</a>, there is a collection of products and they are completely tagged in <code>&lt;article&gt;</code>. Should each product link be tagged as sub articles (they have just title, image, 3 words description) or is it better to use <code>&lt;section&gt;</code> for each product box?</p>
+
+    <p>Last question is about your sectioning system: In html5doctor.com homepage sectioning,  &#8220;article id=opener&#8221;  contains a featured article (sub article) and an aside section with recent comments. However there is no top level article in &#8220;opener&#8221; section.</p>
+
+    <p>For &#8220;more posts from HTML5 doctor&#8221; section, <code>&lt;section&gt;</code> is used as main frame and <code>&lt;article&gt;</code>s are nested in it.</p>
+
+    <p>What is the difference between of those two sections and what is the purpose of such usage? (Probably detailed answer to this question will also answer my questions above.) Thank you for your kind interest.</p>
+  </blockquote>
+
+  <p>Hi Özer,</p>
+
+  <ol>
+    <li>The image in the center of your homepage is not an <code>article</code>, it isn&#8217;t a standalone piece of content (like a news post or shop product) and appears to be just a nice image to spruce up the homepage. However, if the photo of the table was one of your products and you were using that space to advertise that product with a link through to the product, perhaps some text content like a name and description, that could be considered an article.</li>
+
+    <li>If that company information box was just on the homepage as a little introduction, I would consider it just part of the homepage and therefore not an <code>&lt;article&gt;</code>. If it had a heading, I would probably use <code>&lt;section&gt;</code> rather than <code>&lt;div&gt;</code> and make it part of the document outline. See <a href="http://html5doctor.com/document-outlines">our article on document outlines</a> for more on this.</li>
+
+    <li>I would consider the seasonal categories area a <code>&lt;section&gt;</code>, if you added a heading like &#8220;Seasonal Categories&#8221; to the document outline, and then each category within that could be an article as they summarise the standalone content that is a category page.</li>
+
+    <li>I personally don&#8217;t see a problem with using <code>&lt;article&gt;</code> for each of your products in a listing. If you think of it like a news feed, perhaps even via RSS, each product is a standalone entity and should be treated as such. We have examples of this in <a href="http://html5doctor.com/the-article-element/">our post about <code>&lt;article&gt;</code></a> (see the section entitled &#8220;A <code>&lt;section&gt;</code> containing <code>&lt;article&gt;</code>s&#8221;).</li>
+  </ol>
+
+  <p>Finally, even though you aren&#8217;t marking up a blog, Dr Bruce&#8217;s article <a href="http://html5doctor.com/designing-a-blog-with-html5/"><cite>Designing a Blog with HTML5</cite></a> may prove useful in helping you understand how and when to use <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, and other elements.</p>
+
+  <p>Hope this helps! Mike</p>
+</section>
+
+<section id="outline">
+  <h2>Outline View <a class="permalink" href="#outline">#</a></h2>
+
+  <p>Tarun asked:</p>
+
+  <blockquote>
+    <p>I have a very small question, regarding outline view in html5.</p>
+
+    <p>Problem is in HTML5 we need a heading tag in each section, article, nav etc. for outline view. But in a document there are many places where we do not need to display any heading for an article, section or nav etc.</p>
+
+    <p>So there are two solution i know are below:</p>
+
+    <ol>
+      <li>Set display none to heading not need to show. But the problem is it&#8217;s not good for SEO purpose. Search engine may blacklist if they find lot of sections with display none property.</li>
+
+      <li>Set a big value to text-indent so that they will not display, but again same problem. it&#8217;s not good for SEO.</li>
+    </ol>
+
+    <p>Please give me a proper solution for that. Thanks in advance :)</p>
+  </blockquote>
+
+  <p>I think <code>&lt;article&gt;</code>s often need a heading (but not necessarily if the <code>&lt;article&gt;</code> is a comment, nested in a parent article). Whether or not you have heading on sections, <code>&lt;nav&gt;</code> is entirely up to your content authors and designers.</p>
+
+  <p>If you don&#8217;t need them, don&#8217;t add them.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="social">
+  <h2>HTML5 Element for a Social Bar <a class="permalink" href="#social">#</a></h2>
+
+  <p>Ibo asked:</p>
+
+  <blockquote>
+    <p>I was wondering what HTML5 tag to use for the a social bar (Facebook and Twitter links, etc). Is there a common practice for sectioning social links? Should a social bar be defined as a section or should it be as grouping links? Has a tag like <code>&lt;social&gt;&lt;/social&gt;</code> ever been considered for the HTML5 standard? Could a tag like this be beneficial to SEO?</p>
+
+    <p>Even though I might be a rookie at coding html, I take great pride and comfort in coding semantically correct html.</p>
+
+    <p>A design I made has a social bar on the very top of the page. Should I include it the <code>header</code> section like I do with the main navigation <nav> tags? In coding html, is this the best practice?</p>
+
+    <pre><code>&lt;header&gt;
+  &lt;div id="social"&gt;...&lt;/div&gt;
+  &lt;h1&gt;...&lt;/h1&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;header&gt;</code></pre>
+  </blockquote>
+
+  <p>Seems to me that a social bar is peripheral to your content rather than introductory or navigation, and therefore shouldn&#8217;t be in the <code>&lt;header&gt;</code>. As it&#8217;s peripheral, I&#8217;d probably put in in <code>&lt;aside&gt;</code> — most likely just a plain old <code>&lt;div&gt;</code>, but either way not in a header.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="older-site">
+  <h2>HTML5 with an Older Site <a class="permalink" href="#older-site">#</a></h2>
+
+  <p>Clodagh asked:</p>
+
+  <blockquote>
+    <p>I have been requested to build a HTML5 area within the confines of a site that is not HTML5. Is this possible and how would it work with doctypes? I would greatly appreciate any advice you can give on this.</p>
+    </blockquote>
+
+  <h3>Solution #1 (preferred)</h3>
+  <p>Change the doctype for the whole site. Assuming it already has some kind of doctype (and therefore works in standards mode rather than quirks mode), all existing content and functionality will be unchanged and new stuff will be fine.</p>
+
+  <h3>Solution #2</h3>
+  <p>If you can&#8217;t change the doctype, you can use an <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#obsolete-permitted-doctype-string">obsolete permitted doctype</a> — that is, just add the HTML5 areas and leave the doctype alone.</p>
+
+  <p> — Bruce</p>
+</section>
+
+<section id="hidden-headings">
+  <h2>Hidden Headings for Accessibility <a class="permalink" href="#hidden-headings">#</a></h2>
+
+  <p>Tim asked:</p>
+
+  <blockquote>
+    <p>I have been seeing more of these pointers popping up lately advising to place a heading (<code>h1</code> etc.) before each section in our document telling what the section is.  For example, <code>&lt;h1&gt;Site Navigation&lt;/h1&gt;</code> placed immediately before the <code>nav</code> that outlines your main site navigation.  The presumption in these cases is that you would then be hiding the text via text-indent so that it didn&#8217;t appear to visual site visitors, but would be available for sight-disabled users so they know what the section is and so that the document outline is correct and sections. This seems odd to me and I&#8217;ve struggled with why.  Is this a good practice?</p>
+
+    <p>See <a href="http://www.webcredible.co.uk/user-friendly-resources/web-accessibility/beyond-guidelines.shtml">Webcredible</a> and <a href="http://webdesign.about.com/od/html5tutorials/a/html5-outlines.htm">About.com</a>.</p>
+  </blockquote>
+
+  <p>Good question, and I&#8217;m considering writing an article about it. It&#8217;s come about because it&#8217;s well-known that people with screenreaders often navigate a page (or derive a preliminary mental map of its structure) via its heading structure. Here&#8217;s <a href="http://www.youtube.com/watch?v=AmUPhEVWu_E">a YouTube video by a blind web developer explaining how he does this</a>. In JAWS, for example, a user can hit the H key to jump from heading to heading, hit &#8220;2&#8243; to go to the next <code>&lt;h2&gt;</code>, &#8220;3&#8243; to go to the next <code>&lt;h3&gt;</code>, and so on. (This is why I recommend that you don&#8217;t make all headings into <code>&lt;h1&gt;</code>s in the hope that the HTML5 Outlining algorithm will deal with it, because until browsers actually understand that, screenreader users will get a completely flat hierarchy. That&#8217;s changing, though; Jaws 13 supports the h1-only technique in Internet Explorer 9 and Firefox. See <a href="http://www.accessibleculture.org/articles/2011/10/jaws-ie-and-headings-in-html5/">Accessible culture</a> for more).</p>
+
+  <p>However, power users of screenreaders have other mechanisms to navigate a page. Since the Webcredible article you cite (dated 2007), <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">many assistive technologies now allow navigation via ARIA landmark roles</a>. HTML5 mints new elements like <code>&lt;nav&gt;</code> and <code>&lt;aside&gt;</code> that have similar semantics to those ARIA roles (ARIA can be used in any markup language, including HTML4 and SVG).</p>
+
+  <p>Thus, <a href="http://www.paciellogroup.com/blog/2011/07/html5-accessibility-chops-aria-landmark-support/">because a user can get to the <code>&lt;nav&gt;</code> through other means</a>, it can be argued that having a heading &#8220;navigation&#8221; is redundant. Or not: my own blog has headings for navigation types such as &#8220;categories&#8221; and &#8220;recent comments&#8221;, but I don&#8217;t have a heading &#8220;main nav&#8221;, &#8220;main content&#8221;, or &#8220;footer&#8221;.</p>
+
+  <p>I don&#8217;t do it for two reasons. First, it feels redundant to me. The structural semantics are there for user agents to consume. Second, I dislike using CSS to hide content from the view, not because of worries about SEO penalties, but simply because it feels wrong to me.</p>
+
+  <p>But your mileage may vary.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="summary">
+  <h2>Got a question for us? <a class="permalink" href="#summary">#</a></h2>
+
+  <p>That wraps up this round of questions. If you’ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we’ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-html5-questions-20/" rel="bookmark">Your HTML5 Questions 20</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 9, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-html5-questions-20/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Peter Gasston &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/author/peterg/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>CSS3 Pseudo-Classes and HTML5 Forms</title>
+		<link>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/</link>
+		<comments>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/#comments</comments>
+		<pubDate>Tue, 28 Feb 2012 14:30:47 +0000</pubDate>
+		<dc:creator><![CDATA[Peter Gasston]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[css3]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[readonly]]></category>
+		<category><![CDATA[required]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4483</guid>
+		<description><![CDATA[<p>Guest Doctor Peter Gasston takes a look at how new CSS3 Pseudo-classes align perfectly with HTML5 Forms.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Hello! I’m Doctor Peter and I’m here to treat you with a dose of complementary CSS3. Don’t worry, this won’t hurt a bit.</p>
+
+<p>Contrary to what <a href="http://html5please.com/">HTML5 Please</a> and the W3C would have you believe, CSS3 is not part of HTML5. “But this is HTML5 Doctor,” I imagine you saying. “Why are you talking about CSS3 here?” Well, I want to talk about a very specific part of CSS3, one that works in perfect tandem with HTML5, specifically with the new form functions that are available.</p>
+
+<p>One of the killer features that HTML5 introduces is client-side form validation without using JavaScript. Now, I know the other doctors haven’t discussed this yet, and as I’m just a locum, you might feel as if I’m putting the cart before the horse (#mixedmetaphors), but I’m hoping to explain just enough to let you know how it works, and then your regular doctors can provide the details at a later date.</p>
+
+<section id="pseudo-classes">
+  <h2>A Recap of Pseudo-Classes <a href="#pseudo-classes" class="permalink">#</a></h2>
+
+  <p>A <dfn>pseudo-class</dfn> is information about an element that’s in the document tree but not available through any specified attributes. For example, the <code>:first-child</code> pseudo-class applies to elements which are the first child of their parents. You can get that information from the DOM tree, but there’s no <code>first-child</code> attribute.</p>
+
+  <p>In CSS2.1, there were a handful of pseudo-classes available, notably the link states (<code>:link</code>, <code>:visited</code>) and those of user actions (<code>:active</code>, <code>:hover</code>). In CSS3, that handful becomes a basketful, with pseudo-classes of structure (<code>:nth-child</code>, <code>:nth-of-type</code>), UI element (<code>:enabled</code>, <code>:checked</code>), and the ones we’ll look at now, of form validation.</p>
+</section>
+
+<section id="form-validation">
+  <h2>Form Validation without JavaScript <a href="#form-validation" class="permalink">#</a></h2>
+  
+  <p>So as I mentioned at the beginning, HTML5 introduces client-side form validation without the need for JavaScript. When you attempt to submit a form, your browser will validate all of the fields and return an error if any of the fields is incorrect. This will happen mostly automagically — provided your browser has the capability — and will look something like what’s shown in Figure 1:</p>
+
+  <figure>
+    <img src="http://html5doctor.com/demos/pseudo-classes/figure1.png" alt="Form with an invalid field and associated error message">
+    <figcaption>Figure 1: A form validation error message</figcaption>
+  </figure>
+
+  <p>Those error messages are browser and OS specific, and hard to modify (<a href="http://www.broken-links.com/2011/06/16/styling-html5-form-validation-errors/" title="Styling HTML5 Form Validation Errors">which I documented on my blog</a>), but you can change the way the errors appear on the elements themselves with the new validation pseudo-classes, which are part of the <a href="http://www.w3.org/TR/css3-ui/">CSS3 Basic UI module</a>.</p>
+  
+  <p>I’ll cover current browser support as we go through the article, but in a nutshell:</p>
+  
+  <ul>
+    <li>Firefox and IE10 support some of it.</li>
+    <li>Opera and Chrome support all of it.</li>
+    <li>Safari supports all of it too, but form validation is disabled by default.</li>
+  </ul>
+  
+  <p>That being the case, I’d recommend using Chrome, Opera, or Safari to view the examples I’ll be showing you.</p>
+  
+  <p>If you want to keep up to date with browser support for form validation, I suggest keeping an eye on <a href="http://caniuse.com/#feat=form-validation">When can I use</a>.</p>
+  
+  <p>So with all of the boring technical guff out of the way, let’s get on with the interesting technical guff and take a look at some examples of form validation.</p>
+  
+  <section id="required-and-optional-elements">
+    <h3>Required and Optional Elements <a href="#required-and-optional-elements" class="permalink">#</a></h3>
+    
+    <p>One of the most common patterns of validation is that of mandatory (that is, required) values — the fields that the user must complete in order to progress. To mark a form element as mandatory, you need only add the <code>required</code> attribute to it:</p>
+    
+    <pre><code>&lt;input type="text" required&gt;</code></pre>
+    
+    <p>If you want to apply styles to this in order to show that requirement, you can use the new <code>:required</code> pseudo-class, which applies rules to any matched element which has the <code>required</code> attribute. For example, you may want to put an asterisk after the text of the label:</p>
+    
+    <pre><code>input:required + label::after { content: "*"; }</code></pre>
+    
+    <p>The exact rules you use depends on how you’ve marked up your document. The rule in this example is based on the markup having this structure:</p>
+    
+    <pre><code>&lt;input type="text" required id="foo"&gt;
+&lt;label for="foo"&gt;Foo&lt;/label&gt;</code></pre>
+    
+    <p>The opposite of required is, of course, optional. And wouldn’t you know it, we have a pseudo-class for that too, logically named <code>:optional</code>. It affects any form element that doesn’t have a <code>required</code> attribute. For example, you may want to make those have a lighter border:</p>
+    
+    <pre><code>input:optional { border-color: silver; }</code></pre>
+    
+    <p>You can see this in action in Figure 2, or <a href="http://html5doctor.com/demos/pseudo-classes/example1.html" title="Live Example #1">take a look at a live example</a>.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure2.png" alt="Required and optional form fields">
+      <figcaption>Figure 2: Input fields styled with <code>:required</code> (top) and <code>:optional</code> (bottom)</figcaption>
+    </figure>
+  </section>
+
+  <section id="valid-and-invalid-elements">
+    <h3>Valid and Invalid Elements <a href="#valid-and-invalid-elements" class="permalink">#</a></h3>
+
+    <p>There are other types of validation besides simply “required” or “optional”. You can use pattern matching, such as email address validation:</p>
+    
+    <pre><code>&lt;input type="email"&gt;</code></pre>
+
+    <p>If the user enters anything into the field, it has to match the pattern of an email address, or else it will be marked as invalid. (Of course, if it’s not required, then it can be left blank.)</p>
+    
+    <p>You can style valid or invalid form elements using pseudo-classes called — wait for it — <code>:valid</code> and <code>:invalid</code>. Maybe you want add a symbol depending on the validation status:</p>
+    
+    <pre><code>input:invalid + label::after { content: ' ⨉'; }
+input:valid + label::after { content: ' ✓'; }</code></pre>
+
+    <p>Note that these will take effect as soon as the page loads, so you’ll probably want to use JavaScript to apply them only after submission, perhaps by adding a class to the form with JavaScript:</p>
+    
+    <pre><code>document.forms[].addEventListener('submit', function(e) {
+  e.currentTarget.classList.add('submitted');
+  // Your fallback form validation function
+});</code></pre>
+
+    <p>The exact script you use will vary, but however you do it, you can use that class to style the form elements, like so:</p>
+    
+    <pre><code>.submitted input:invalid + label::after { content: ' ⨉'; }</code></pre>
+    
+    <p>Figure 3 shows the output of this, and you can also <a href="http://html5doctor.com/demos/pseudo-classes/example2.html" title="Live Example #2">see the live example</a>.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure3.png" alt="Valid and invalid form fields">
+      <figcaption>Figure 3: Showing the use of the <code>:valid</code> (top) and <code>:invalid</code> (bottom) pseudo-classes</figcaption>
+    </figure>
+    
+    <p>Two extra things to note about this example: first, in order to use my own JavaScript, I’ve prevented the form from automatically validating by using the <code>novalidate</code> attribute on the submit button; and second, Firefox puts a coloured glow around elements depending on their validation state, which I’ve over-ruled by using their proprietary <code>:-moz-ui-invalid</code> selector. View the source of the demo to see how these are used.</p>
+  </section>
+  
+  <section id="number-ranges">
+    <h3>Number Ranges <a href="#number-ranges" class="permalink">#</a></h3>
+
+    <p>Some of the new input types, such as <code>number</code>, allow a range of values using the <code>min</code> and <code>max</code> attributes, like so:</p>
+    
+    <pre><code>&lt;input type="number" max="10" min="1"&gt;</code></pre>
+    
+    <p>Although form controls will usually prevent the user from entering a value outside of this range, there may be occasions (such as when JavaScript is used to provide values) where the value provided to the input does exceed the range:</p>
+    
+    <pre><code>&lt;input type="number" max="10" min="1" value="11"&gt;</code></pre>
+    
+    <p>When this happens, you can use the <code>:out-of-range</code> pseudo-class for your styling:</p>
+    
+    <pre><code>input[type='number']:out-of-range { border-color: red; }</code></pre>
+
+    <p>And, as you’d expect, there’s a counterpart known by the name of <code>:in-range</code>:</p>
+    
+    <pre><code>input[type='number']:in-range { border-color: green; }</code></pre>
+    
+    <p>In Figure 4 you can see these two pseudo-classes at work, and once more there’s also <a href="http://html5doctor.com/demos/pseudo-classes/example3.html" title="Live Example #3">a live example</a> to view.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure4.png" alt="Out-of-range and in-range form fields">
+      <figcaption>Figure 4: The <code>:out-of-range</code> (top) and <code>:in-range</code> (bottom) pseudo-classes applied to a <code>range</code> input</figcaption>
+    </figure>
+  </section>
+  
+  <section id="reading-and-writing">
+    <h3>Reading and Writing </h3>
+    
+    <p>You may have a form field that’s pre-filled with a value that you don’t want the user to be able to edit, such as terms and conditions in a <code>textarea</code>. If that’s the case, you can add the <code>readonly</code> attribute:</p>
+    
+    <pre><code>&lt;textarea readonly&gt;Lorem ipsum&lt;/textarea&gt;</code></pre>
+    
+    <p>You can style elements which have the <code>readonly</code> attribute applied, using…can you guess? You are correct, imagined reader: the <code>:read-only</code> pseudo-class. You could combine it with the <code>user-select</code> CSS property to prevent the user from being able to select the text (in the example, I’ve also changed the border style to make it more obvious):</p>
+    
+    <pre><code>textarea:read-only { user-select: none; }</code></pre>
+    
+    <p>And if you should need it, there is of course a <code>:read-write</code> pseudo-class for elements which don’t have the attribute applied:</p>
+    
+    <pre><code>textarea:read-write { user-select: text; }</code></pre>
+    
+    <p>You can see the results in Figure 5, and as before there’s <a href="http://html5doctor.com/demos/pseudo-classes/example4.html" title="Live Example #4">a live example</a> too.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure5.png" alt="Read-only and read-write form fields">
+      <figcaption>Figure 5: The textarea on the left is styled using <code>:read-write</code>, and the one on the right, with <code>:read-only</code></figcaption>
+    </figure>
+
+    <p>Firefox and IE10 have actually implemented the <code>readonly</code> attribute, but don’t yet have support for these pseudo-classes.</p>
+  </section>
+</section>
+
+<section id="browser-support">
+  <h2>Browser Support <a href="#browser-support" class="permalink">#</a></h2>
+  
+  <p>This table lists support for HTML5 Form Validation in browsers at the time of writing:</p>
+  
+  <table>
+    <caption>Browser support for HTML5 Form Validation</caption>
+    <thead>
+      <tr>
+        <th>Browser/Attribute</th>
+        <th scope="col">Chrome</th>
+        <th scope="col">Firefox</th>
+        <th scope="col">IE</th>
+        <th scope="col">Opera</th>
+        <th scope="col">Safari</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><code>:optional</code> / <code>:required</code></th>
+        <td>10.0</td>
+        <td>4.0</td>
+        <td>10.0</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:invalid</code> / <code>:valid</code></th>
+        <td>10.0</td>
+        <td>4.0</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:in-range</code> / <code>:out-of-range</code></th>
+        <td>10.0</td>
+        <td>n/a</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:read-only</code> / <code>:read-write</code></th>
+        <td>10.0</td>
+        <td>n/a</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="goodbye">
+  <h2>That’s All from Me <a href="#goodbye" class="permalink">#</a></h2>
+  
+  <p>I hope I’ve given you enough to whet your appetite for finding out more about HTML5 Form Validation. There’s plenty more to it, including a full JavaScript API (you can <a href="http://dev.w3.org/html5/spec-author-view/constraints.html#the-constraint-validation-api" title="4.10.21 Constraints — HTML5: Edition for Web Authors">read about this in the HTML5 spec</a>, but ).</p>
+  
+  <p>Thanks for your time, and thanks to the Doctors for this opportunity.</p>
+</section><p><a href="http://html5doctor.com/css3-pseudo-classes-and-html5-forms/" rel="bookmark">CSS3 Pseudo-Classes and HTML5 Forms</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 28, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/feed/</wfw:commentRss>
+		<slash:comments>38</slash:comments>
+		</item>
+	</channel>
+</rss>

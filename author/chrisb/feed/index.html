@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Chris Bewick &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/author/chrisb/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>HTML5 Custom Data Attributes (data-*)</title>
+		<link>http://html5doctor.com/html5-custom-data-attributes/</link>
+		<comments>http://html5doctor.com/html5-custom-data-attributes/#comments</comments>
+		<pubDate>Thu, 27 May 2010 13:50:08 +0000</pubDate>
+		<dc:creator><![CDATA[Chris Bewick]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[data]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1874</guid>
+		<description><![CDATA[<p>Have you ever found yourself using element <code>class</code> names or <code>rel</code> attributes to store arbitrary snippets of metadata for the sole purpose of making your JavaScript simpler? If you have, then I have some exciting news for you! If you haven&#39;t and you&#39;re thinking, <q>Wow, that&#39;s a great idea!</q> I implore you to rid your mind of that thought immediately and continue reading.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Have you ever found yourself using element <code>class</code> names or <code>rel</code> attributes to store arbitrary snippets of metadata for the sole purpose of making your JavaScript simpler? If you have, then I have some exciting news for you! If you haven&#39;t and you&#39;re thinking, <q>Wow, that&#39;s a great idea!</q> I implore you to rid your mind of that thought immediately and continue reading.</p>
+
+<p>Thanks to <abbr>HTML</abbr>5, we now have the ability to embed custom data attributes on all <abbr>HTML</abbr> elements. These new custom data attributes consist of two parts:</p>
+
+<dl> <dt>Attribute Name</dt> <dd>The data attribute name must be at least one character long and must be prefixed with &#39;<code>data-</code>&#39;. It should not contain any uppercase letters.</dd> <dt>Attribute Value</dt> <dd>The attribute value can be any string.</dd></dl>
+
+<p>Using this syntax, we can add application data to our markup as shown below:</p>
+
+<pre><code>&lt;ul id="vegetable-seeds"&gt;
+  &lt;li data-spacing="10cm" data-sowing-time="March to June"&gt;Carrots&lt;/li&gt;
+  &lt;li data-spacing="30cm" data-sowing-time="February to March"&gt;Celery&lt;/li&gt;
+  &lt;li data-spacing="3cm" data-sowing-time="March to September"&gt;Radishes&lt;/li&gt;
+&lt;/ul&gt; </code></pre>
+
+<p>We can now use this stored data in our site&#8217;s JavaScript to create a richer, more engaging user experience. Imagine that when a user clicks on a vegetable a new layer opens up in the browser displaying the additional seed spacing and sowing instructions. Thanks to the <code>data-</code> attributes we&#8217;ve added to our <code>&lt;li&gt;</code> elements, we can now display this information instantly without having to worry about making any Ajax calls and without having to make any server-side database queries.</p>
+
+<p>Prefixing the custom attributes with <code>data-</code> ensures that they will be completely ignored by the user agent. As far as the browser and indeed the website&#8217;s end user are concerned, this data does not exist.</p>
+
+<p>The spec says (emphasis ours):</p>
+
+<blockquote><p><strong>Custom data attributes are intended to store custom data private to the page or application, for which there are no more appropriate attributes or elements.</strong></p>
+
+<p>These attributes are not intended for use by software that is independent of the site that uses the attributes.</p>
+
+<p>Every HTML element may have any number of custom data attributes specified, with any value.</p>
+
+<cite><a href="http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data">W3C Specification</a></cite></blockquote>
+
+
+<h2>How can I use data attributes?</h2>
+
+<p>As custom data attributes are valid <abbr>HTML</abbr>5, they can be used in any browser that supports <abbr>HTML</abbr>5 doctypes. Thankfully, this is pretty much all of them. In addition to aiding backwards compatibility, this also ensures that custom data attributes will remain a scalable, cross-platform solution well into the future.</p>
+
+<p>Now that we have a broad understanding of what data attributes are, let&#39;s take a look at how they can be used:</p>
+
+<ul>
+	<li>To store the initial height or opacity of an element which might be required in later JavaScript animation calculations</li>
+	<li>To store parameters for a Flash movie that&#8217;s loaded via JavaScript</li>
+	<li>To store custom web analytics tagging data as demonstrated by <a title="Google Analytics Tagging with HTML5 data-* Attributes" href="http://jasonkarns.com/blog/2010/03/10/google-analytics-tagging/">Jason Karns</a></li>
+	<li>To store data about the health, ammo, or lives of an element in a JavaScript game</li>
+	<li>To power accessible JavaScript <code>&lt;video&gt;</code> subtitles as demonstrated by <a title="Accessible HTML5 Video with JavaScripted captions" href="http://dev.opera.com/articles/view/accessible-html5-video-with-javascripted-captions/">Bruce Lawson</a></li>
+</ul>
+
+
+
+<h2>What shouldn&#8217;t I use data attributes for?</h2>
+
+<p>Although flexible, data attributes aren&#8217;t an appropriate solution for all problems.</p>
+
+<ul>
+	<li>Data attributes should not be used if there is a existing attribute or element which is more appropriate for storing your data. For example, date/time data should probably be presented semantically in a time element instead rather than stored in custom data attributes.</li>
+	<li>Custom data attributes are not intended to compete with microformats. It is clearly stated in the spec that the data is not intended to be publicly usable. External software should not interact with it. Marking up contact details or event details using custom data attributes would be wrong, unless of course it is only intended to be used by your own internal scripts.</li>
+	<li>The presence/absence of a particular data attribute should not be used as a <abbr>CSS</abbr> hook for any styling. Doing so would suggest that the data you are storing is of immediate importance to the user and should be marked up in a more semantic and accessible manner.</li>
+</ul>
+
+
+
+<h2>Using <code>data-</code> attributes with JavaScript</h2>
+
+<p>Now that we understand what custom <code>data-</code> attributes are and when we can use them, we should probably take a look at how we can interact with them using JavaScript.</p>
+
+<p>If we wanted to retrieve or update these attributes using existing, native JavaScript, then we can do so using the <code>getAttribute</code> and <code>setAttribute</code> methods as shown below:</p>
+
+<pre><code>&lt;div id='strawberry-plant' data-fruit='12'&gt;&lt;/div&gt;
+
+&lt;script&gt;
+// 'Getting' data-attributes using getAttribute
+var plant = document.getElementById('strawberry-plant');
+var fruitCount = plant.getAttribute('data-fruit'); // fruitCount = '12'
+
+// 'Setting' data-attributes using setAttribute
+plant.setAttribute('data-fruit','7'); // Pesky birds
+&lt;/script&gt;</code></pre>
+
+<p>This method will work in all modern browsers, but it is not how <code>data-</code> attributes are intended to be used. The second (new and improved) way to achieve the same thing is by accessing an element&#8217;s <code>dataset</code> property. This <code>dataset</code> property — part of the new <abbr>HTML</abbr>5 JavaScript <abbr>API</abbr>s — will return a <code>DOMStringMap</code> object of all the selected element&#39;s <code>data-</code> attributes. When using this approach, rather than using the full attribute name, you can ditch the <code>data-</code> prefix and refer to the custom data directly using the name you have assigned to it. Data attribute names which contain hyphens will be stripped of their hyphens and converted to <a href="http://en.wikipedia.org/wiki/CamelCase">CamelCase</a>.</p>
+
+<pre><code>&lt;div id='sunflower' data-leaves='47' data-plant-height='2.4m'&gt;&lt;/div&gt;
+
+&lt;script&gt;
+// 'Getting' data-attributes using dataset 
+var plant = document.getElementById('sunflower');
+var leaves = plant.dataset.leaves; // leaves = 47;
+
+// 'Setting' data-attributes using dataset
+var tallness = plant.dataset.plantHeight; // 'plant-height' -&gt; 'plantHeight'
+plant.dataset.plantHeight = '3.6m';  // Cracking fertiliser
+&lt;/script&gt;</code></pre>
+
+<p>If, at some point in your script, a specific <code>data-</code> attribute becomes redundant and is no longer needed, it is also possible to completely remove that attribute from the DOM element by setting it to a value of <code>null</code>.</p>
+
+<pre><code>plant.dataset.leaves = null; // Caterpillars attack!</code></pre>
+
+<p>Unfortunately, the new <code>dataset</code> property has not yet been implemented in any browser, so in the meantime it&#8217;s best to use <code>getAttribute</code> and <code>setAttribute</code> as demonstrated earlier.</p>
+
+<p>While developing your application, you may find it useful to be able to select elements based on the presence of — or indeed the specific values of — their custom <code>data-</code> attributes. This can be achieved quickly and easily using <code>querySelectorAll</code> as shown below:</p>
+
+<pre><code>// Select all elements with a 'data-flowering' attribute
+document.querySelectorAll('[data-flowering]');
+
+// Select all elements with red leaves
+document.querySelectorAll('[data-foliage-colour="red"]');</code></pre>
+
+
+
+<h2>A word of warning</h2>
+
+<p>As data attributes become more widely used, the potential for clashes in naming conventions becomes much greater. If you use an unimaginative attribute name such as <code>data-height</code>, then it is likely you will eventually come across a library or plugin that uses the same attribute name. Multiple scripts getting and setting a common <code>data-</code> attribute will probably cause chaos. In order to avoid this, I encourage people to choose a standard string (perhaps the site/plugin name) to prefix all their <code>data-</code> attributes — e.g. <code>data-html5doctor-height</code> or <code>data-my-plugin-height</code>.</p>
+
+
+
+<h2>Summary</h2>
+
+<p>Custom <code>data-</code> attributes are a great way to simplify the storage of application data in your web pages. Although you can&#8217;t utilise the new JavaScript <abbr>API</abbr>s just yet, you can enjoy great success using <code>getAttribute</code> and <code>setAttribute</code> safe in the knowledge that they will work in all major browsers.</p>
+
+
+
+<h2>Homework</h2>
+
+<p>If you&#8217;re super keen to have a play with the new <code>dataset</code> property but disappointed that it hasn&#8217;t been implemented, fear not!, for there is a light at the end of the tunnel. You might be interested in looking at <a href="/author/remys/">Dr Remy&#8217;s</a>  <a title="Code to enable dataset functionality in some browsers" href="http://gist.github.com/362081">experimental code</a>, which partially enables the <code>dataset</code> functionality in some browsers by editing the <code>Element.prototype</code>.</p>
+
+<p>The code supports the retrieval of <code>data-</code> attributes in the latest versions of Firefox, Safari, Opera, and Chrome, but sadly will not work in any version of <abbr>IE</abbr> (since <abbr>IE</abbr> does not expose the Element object). This code also partially supports the setting of data attributes, but it will only store the new attribute values within the JavaScript and will not update the <abbr>DOM</abbr> element as a full, native implementation of the <code>dataset</code> property would. Although this code is mainly a proof of concept, it may be useful for mobile application or intranet development in closed environments where cross-browser (<abbr>IE</abbr>) compatibility is not an issue.</p>
+<p><a href="http://html5doctor.com/html5-custom-data-attributes/" rel="bookmark">HTML5 Custom Data Attributes (data-*)</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 27, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-custom-data-attributes/feed/</wfw:commentRss>
+		<slash:comments>45</slash:comments>
+		</item>
+	</channel>
+</rss>

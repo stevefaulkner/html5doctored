@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset=utf-8> <!-- simplified version; works on legacy browsers -->
+  <title>
+      Aside Revisited | HTML5 Doctor  </title>
+
+<meta name="description" content="As the HTML5 specification is not yet final, changes should be expected in order to improve on the good bits and cut out the bad bits. <code>aside</code>, a misunderstood  good bit, is such an element that has had another look and tweaked based on feedback from the web development community. In this article we take a look at what has changed." />
+	
+    
+    
+    
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/style.css">
+  
+     
+  
+  <!--[if IE]>
+    <script src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/css/ie7.css">
+  <![endif]-->  
+
+	<link rel="shortcut icon" href="http://html5doctor.com/wp-content/themes/html5doctor/img/favicon.ico" type="image/x-icon" />
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor RSS Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/atom+xml" title="HTML5 Doctor Atom Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/rss+xml" title="HTML5Doctor Comments RSS Feed" href="http://feeds.feedburner.com/HTML5DoctorComments" />
+  <link rel="pingback" href="http://html5doctor.com/xmlrpc.php" />
+
+
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Aside Revisited Comments Feed" href="http://html5doctor.com/aside-revisited/feed/" />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/stylesheet.css?ver=2.0.7' type='text/css' media='all' />
+<link rel='stylesheet' id='sociable-front-css-css'  href='http://html5doctor.com/wp-content/plugins/sociable/sociable.css?ver=2.8.6' type='text/css' media='' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.50' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://html5doctor.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='HTML5 Doctor' href='http://html5doctor.com' />
+<link rel='start' title='Designing a blog with html5' href='http://html5doctor.com/designing-a-blog-with-html5/' />
+<link rel='prev' title='Your Questions Answered #3' href='http://html5doctor.com/your-questions-answered-3/' />
+<link rel='next' title='The Address Element' href='http://html5doctor.com/the-address-element/' />
+<meta name="generator" content="WordPress 2.8.6" />
+</head>
+<body class="wordpress single">
+
+<nav id="skipLink">
+	<ul>
+    	<li><a href="#nav">Skip to primary navigation</a></li>
+        <li><a href="#content">Skip to main content</a></li>
+        <li><a href="#sidebar">Skip to sidebar</a></li>
+    </ul>
+</nav>
+
+<header role="banner">
+    <hgroup>
+        <h1 class="logo"><a href="http://html5doctor.com/">HTML5 Doctor</a></h1>
+        <h2 class="strapline">helping you implement HTML5 today</h2>
+    </hgroup>
+</header>
+  
+<nav>
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>  
+<div id="content">
+
+<div class="hfeed" role="main">
+      	<article class="hentry" id="post-1015">
+	  <header>
+	    <h1 class="entry-title">Aside Revisited</h1>
+	  </header>
+	  <div class="entry-content">
+      
+		        
+        <p class="disclaimer">This is an update from the <a href="http://html5doctor.com/understanding-aside/">previous article</a> since the spec has changed to allow <code>aside</code> to be used for secondary content, changing it's context depending on whether or not it is contained within <code>article</code>.</p>                
+                
+	    <p>As the HTML5 specification is not yet final, changes should be expected in order to improve on the good bits and cut out the bad bits. <code>aside</code>, a misunderstood  good bit, is such an element that has had another look and tweaked based on feedback from the web development community. In this article we take a look at what has changed.<span id="more-1015"></span></p>
+<h2>Doctor! Doctor! I feel like I&#8217;ve read about this before!</h2>
+<p>Here at HTML5Doctor we have indeed already discussed <code>aside</code> in &#8220;<a href="http://html5doctor.com/understanding-aside/">Understanding Aside</a>&#8220;, and if you have met me in person you&#8217;ll have likely been hit by my ranting about its definition. Its definition suggested that <code>aside</code> should be used for content that was tangentially related to the content surrounding it, such as related reading links and glossaries. </p>
+<p>It did <em>not</em> appear to be an appropriate element for holding secondary content, typically known as &#8220;sidebars&#8221; which contain content related to the site, rather than related to the specific article. From the comments here and elsewhere, you can see this definition was not accepted by the community, and opened the debate of &#8220;what should we use for secondary content?&#8221;.</p>
+<h2>Aside Redefined</h2>
+<p>Aside is now acceptable to use for secondary content, such as a blogroll, groups of additional <a href="http://html5doctor.com/nav-element/">navigation</a> and even  advertising  if that content is related to the page. When used <em>within</em> an <code>article</code> element, the contents should be specifically related to that article, for example a glossary. When using <code>aside</code>, please be aware of these changes of context.</p>
+<p>The two uses of aside can be best illustrated with an example.</p>
+<pre><code>&lt;body&gt;
+&nbsp;&nbsp;&lt;header&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;My Blog&lt;/h1&gt;
+&nbsp;&nbsp;&lt;/header&gt;
+&nbsp;&nbsp;&lt;article&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;My Blog Post&lt;/h1&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+&nbsp;&nbsp;&nbsp;&nbsp;eiusmod tempor incididunt ut labore et dolore magna aliqua.&lt;/p&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;aside&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Since this aside is contained within an article, a parser
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;should understand that the content of this aside is directly related
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to the article itself. --&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Glossary&lt;/h1&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;dl&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;dt&gt;Lorem&lt;/dt&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;dd&gt;ipsum dolor sit amet&lt;/dd&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/dl&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/aside&gt;
+&nbsp;&nbsp;&lt;/article&gt;
+&nbsp;&nbsp;&lt;aside&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- This aside is outside of the article and is therefore content
+&nbsp;&nbsp;&nbsp;&nbsp;related to the page but not as tightly to the above article --&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Blogroll&lt;/h2&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;My Friend&lt;/a&gt;&lt;/li&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;My Other Friend&lt;/a&gt;&lt;/li&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;My Best Friend&lt;/a&gt;&lt;/li&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;
+&nbsp;&nbsp;&lt;/aside&gt;
+&lt;/body&gt;
+</code></pre>
+<h2>Conclusion</h2>
+<p>This means that <code>aside</code> can now be used for secondary content. Please keep in mind that <code>aside</code>, and similarly secondary content, does not <em>necessarily</em> mean &#8220;sidebar&#8221;&mdash;the style of the content should not dictate the use of this element. If you have content which does not take as strong a role as your main content, but is related to the page or article, then <code>aside</code> is what you need, regardless of its visual design.</p>
+<div class="sociable">
+<div class="sociable_tagline">
+<h5>Share and Save:</h5>
+</div>
+<ul>
+<li class="sociablefirst"><a rel="nofollow"  href="http://twitter.com/home?status=Aside%20Revisited%20-%20http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F" title="Twitter"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Twitter" alt="Twitter" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;title=Aside%20Revisited&amp;bodytext=As%20the%20HTML5%20specification%20is%20not%20yet%20final%2C%20changes%20should%20be%20expected%20in%20order%20to%20improve%20on%20the%20good%20bits%20and%20cut%20out%20the%20bad%20bits.%20aside%2C%20a%20misunderstood%20%20good%20bit%2C%20is%20such%20an%20element%20that%20has%20had%20another%20look%20and%20tweaked%20based%20on%20feedback%20from%20the%20web%20development%20community.%20In%20this%20article%20we%20take%20a%20look%20at%20what%20has%20changed." title="Digg"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Digg" alt="Digg" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-235px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://sphinn.com/index.php?c=post&amp;m=submit&amp;link=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F" title="Sphinn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Sphinn" alt="Sphinn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://reddit.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;title=Aside%20Revisited" title="Reddit"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Reddit" alt="Reddit" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-55px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://delicious.com/post?url=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;title=Aside%20Revisited&amp;notes=As%20the%20HTML5%20specification%20is%20not%20yet%20final%2C%20changes%20should%20be%20expected%20in%20order%20to%20improve%20on%20the%20good%20bits%20and%20cut%20out%20the%20bad%20bits.%20aside%2C%20a%20misunderstood%20%20good%20bit%2C%20is%20such%20an%20element%20that%20has%20had%20another%20look%20and%20tweaked%20based%20on%20feedback%20from%20the%20web%20development%20community.%20In%20this%20article%20we%20take%20a%20look%20at%20what%20has%20changed." title="del.icio.us"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="del.icio.us" alt="del.icio.us" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;title=Aside%20Revisited" title="StumbleUpon"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="StumbleUpon" alt="StumbleUpon" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://technorati.com/faves?add=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F" title="Technorati"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Technorati" alt="Technorati" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-271px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.netvibes.com/share?title=Aside%20Revisited&amp;url=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F" title="Netvibes"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Netvibes" alt="Netvibes" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.facebook.com/share.php?u=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;t=Aside%20Revisited" title="Facebook"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Facebook" alt="Facebook" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;title=Aside%20Revisited&amp;annotation=As%20the%20HTML5%20specification%20is%20not%20yet%20final%2C%20changes%20should%20be%20expected%20in%20order%20to%20improve%20on%20the%20good%20bits%20and%20cut%20out%20the%20bad%20bits.%20aside%2C%20a%20misunderstood%20%20good%20bit%2C%20is%20such%20an%20element%20that%20has%20had%20another%20look%20and%20tweaked%20based%20on%20feedback%20from%20the%20web%20development%20community.%20In%20this%20article%20we%20take%20a%20look%20at%20what%20has%20changed." title="Google Bookmarks"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Google Bookmarks" alt="Google Bookmarks" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-91px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.friendfeed.com/share?title=Aside%20Revisited&amp;link=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F" title="FriendFeed"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="FriendFeed" alt="FriendFeed" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-37px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://news.ycombinator.com/submitlink?u=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;t=Aside%20Revisited" title="HackerNews"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="HackerNews" alt="HackerNews" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-127px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;title=Aside%20Revisited&amp;source=HTML5+Doctor+helping+you+implement+HTML5+today&amp;summary=As%20the%20HTML5%20specification%20is%20not%20yet%20final%2C%20changes%20should%20be%20expected%20in%20order%20to%20improve%20on%20the%20good%20bits%20and%20cut%20out%20the%20bad%20bits.%20aside%2C%20a%20misunderstood%20%20good%20bit%2C%20is%20such%20an%20element%20that%20has%20had%20another%20look%20and%20tweaked%20based%20on%20feedback%20from%20the%20web%20development%20community.%20In%20this%20article%20we%20take%20a%20look%20at%20what%20has%20changed." title="LinkedIn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="LinkedIn" alt="LinkedIn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-1px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.newsvine.com/_tools/seed&amp;save?u=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;h=Aside%20Revisited" title="NewsVine"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="NewsVine" alt="NewsVine" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.sphere.com/search?q=sphereit:http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;title=Aside%20Revisited" title="SphereIt"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="SphereIt" alt="SphereIt" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-181px -55px" class="sociable-hovers" /></a></li>
+<li class="sociablelast"><a rel="nofollow"  href="http://www.tumblr.com/share?v=3&amp;u=http%3A%2F%2Fhtml5doctor.com%2Faside-revisited%2F&amp;t=Aside%20Revisited&amp;s=As%20the%20HTML5%20specification%20is%20not%20yet%20final%2C%20changes%20should%20be%20expected%20in%20order%20to%20improve%20on%20the%20good%20bits%20and%20cut%20out%20the%20bad%20bits.%20aside%2C%20a%20misunderstood%20%20good%20bit%2C%20is%20such%20an%20element%20that%20has%20had%20another%20look%20and%20tweaked%20based%20on%20feedback%20from%20the%20web%20development%20community.%20In%20this%20article%20we%20take%20a%20look%20at%20what%20has%20changed." title="Tumblr"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Tumblr" alt="Tumblr" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-325px -55px" class="sociable-hovers" /></a></li>
+</ul>
+</div>
+	  </div>
+	  <footer>
+    		<div>
+                <div class="author-blurb author">
+            	<p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></span>. A developer at <a href="http://studiolift.com">Lift</a> in Reading, England, you can catch him on <a href="http://twitter.com/akamike">Twitter</a> or occasionally blogging on his own site, <a href="http://akamike.net/">akamike</a>. Beyond the web, Mike is usually gaming or listening to progressive rock.</p>
+               <img alt='' src='http://www.gravatar.com/avatar/5b123a491d26ed764cdc5f700c54d200?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+            	</div>
+                
+            	<span>Posted on <time class="published updated" datetime="2009-10-28">October 28th, 2009</time></span>
+                
+				<p>				Got anything to add or ask? <a href="#respond">then leave a response</a>,<br />or <a href="http://html5doctor.com/aside-revisited/trackback/" rel="trackback">trackback</a> from your own site.
+				            </div>
+            <p>Categorised under: <a href="http://html5doctor.com/category/elements/" title="View all posts in Elements" rel="category tag">Elements</a>.</p>
+            <p>Tagged with: <a href="http://html5doctor.com/tag/article/" rel="tag">article</a>, <a href="http://html5doctor.com/tag/aside/" rel="tag">aside</a>, <a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a>, <a href="http://html5doctor.com/tag/html5/" rel="tag">html5</a>.</p>
+	  </footer>
+      </article>
+	    
+<!-- You can start editing here. -->
+<div id="comments">
+    <h3 id="comment-head">
+    30 Responses    to &#8220;
+    Aside Revisited    &#8221;</h3>
+<article class=" " id="comment-1500">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://topsy.com/tb/bit.ly/2XMixM' rel='external nofollow' class='url'>Tweets that mention Aside Revisited | HTML5 Doctor -- Topsy.com</a></cite> at <a class="commentmetadata" href="#comment-1500">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 28th, 2009        at
+        2:36 pm    </time></a></p>
+            <p>[...] This post was mentioned on Twitter by Chris Coyier, Jack Franklin. Jack Franklin said: RT @jackosborne: The @html5doctor has published a new post about the aside element as it has now changed <a href="http://bit.ly/2XMixM" rel="nofollow">http://bit.ly/2XMixM</a> [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-1502">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk/' rel='external nofollow' class='url'>bruce</a></cite> at <a class="commentmetadata" href="#comment-1502">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 28th, 2009        at
+        4:11 pm    </time></a></p>
+            <p>Bum.</p>
+<p>Better go and update  my blog then&#8230;.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1503">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.easilyamusedinc.com' rel='external nofollow' class='url'>James Tryon</a></cite> at <a class="commentmetadata" href="#comment-1503">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 28th, 2009        at
+        4:33 pm    </time></a></p>
+            <p>That&#8217;s hot. How long tell we can start using this?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/c0f59a1efe5c84d30110cf35ce502105?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1504">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.broken-links.com/' rel='external nofollow' class='url'>Peter Gasston</a></cite> at <a class="commentmetadata" href="#comment-1504">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 28th, 2009        at
+        4:34 pm    </time></a></p>
+            <p>What a timely article; I was just debating this very issue. Thanks for the clarification!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/9d9f17e37b751b9f83081ba3dd44bab4?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1505">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Sidebar</cite> at <a class="commentmetadata" href="#comment-1505">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 28th, 2009        at
+        5:03 pm    </time></a></p>
+            <p>So everybody uses aside as a sidebar div and they&#8217;re all wrong. </p>
+<p>Hmm, how about creating then a &#8220;SIDEBAR&#8221; tag so we can use that instead?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/d3dd7254c3fe03d22243b9fa6e74dde5?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1507">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://kylefox.ca' rel='external nofollow' class='url'>Kyle Fox</a></cite> at <a class="commentmetadata" href="#comment-1507">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 28th, 2009        at
+        6:14 pm    </time></a></p>
+            <p>For site-level stuff like blogrolls, advertisements, &#8220;about me&#8221;, etc., how do you choose between the <code>&lt;aside&gt;</code> or <code>&lt;section&gt;</code>?</p>
+<p>For me it makes more sense to use <code>&lt;aside&gt;</code> tags exclusively inside an <code>&lt;article&gt;</code>, to give it proper context.  I think it&#8217;s use-case is less clear now that it can also be used for secondary content.</p>
+<p>What&#8217;s the purpose of adding all these new tags if they can be used all over the place interchangeably anyway?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/8ee8797254d515adcf0b4e3aba71ae7f?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1509">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://kimblim.dk' rel='external nofollow' class='url'>kimblim</a></cite> at <a class="commentmetadata" href="#comment-1509">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 28th, 2009        at
+        8:52 pm    </time></a></p>
+            <p>Nice to see an actual example of aside in use &#8211; now it kind of makes sense <img src='http://html5doctor.com/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> </p>
+<p>Btw: You&#8217;ve got your definition list wrong &#8211; you&#8217;ve got a dd as the wrapper element instead of a dl&#8230;</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/f9351dfb863b530b4f2689b276cb665b?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1510">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://thepinkcrow.com' rel='external nofollow' class='url'>Rachel Nabors</a></cite> at <a class="commentmetadata" href="#comment-1510">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 28th, 2009        at
+        8:59 pm    </time></a></p>
+            <p>How contextual! But I wonder if something like a &#8220;sidebar&#8221; tag would be more appropriate and reduce confusion?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/c6dcd5b5544fb6025eedaa7c8c7033c0?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1516">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://oli-studio.com/' rel='external nofollow' class='url'>Oli</a></cite> at <a class="commentmetadata" href="#comment-1516">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        6:20 am    </time></a></p>
+            <p>That’s a change? <a href="http://boblet.tumblr.com/post/134732913/html5-structure3" rel="nofollow">I thought that’s how <code>&lt;aside&gt;</code> always worked</a> (?)</p>
+<blockquote cite="http://boblet.tumblr.com/post/134732913/html5-structure3"><p><code>&lt;aside&gt;</code> content should be additional to (but not essential to the understanding of) the main content, ie any related content … keep in mind the &lt;aside&gt; must be related—having your sidebar in an &lt;aside&gt; in the page’s main &lt;section&gt; is fine, but site-wide information shouldn’t appear in an article’s &lt;aside&gt;, for example.</p></blockquote>
+<p>An easy way to think about this is <em>&lt;aside&gt; is related content that <strong>could be cut</strong>, eg by a mobile browser</em>.</p>
+<p>@Sidebar—no, it <strong>is</strong> possible to use <code>&lt;aside&gt;</code> for a sidebar, as long as it’s information tangentially related to the <code>&lt;aside&gt;</code>’s container. Read the article again <img src='http://html5doctor.com/wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' /> </p>
+<p>@Mike—maybe it’d be good to change:</p>
+<blockquote cite=""><p>Please keep in mind that aside, and similarly secondary content, does not mean “sidebar”</p></blockquote>
+<p>to “Please keep in mind that aside, and similarly secondary content, does not <em>necessarily</em> mean ‘sidebar’”, to avoid @Sidebar’s confusion.</p>
+<p>@Kyle and @Rachel—The new semantic elements (mostly sectioning ones) can seem a little fuzzy, but that’s because they represent semantics, rather than one clearly defined thing, like an image or a list. Having an element for each specific context or use-case (rather than these more general-use ones) would definitely be a bad idea. While it takes making some HTML5 sites to get your head around, think Russian Dolls and you’ll have a head start.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/75690a036a5769d87b86e9c36a80357e?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1518">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://praegnanz.de' rel='external nofollow' class='url'>Gerrit van aaken</a></cite> at <a class="commentmetadata" href="#comment-1518">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        8:03 am    </time></a></p>
+            <p>Now the question seems to be whether we should use more than one site-related &#8220;aside&#8221; element (one for each block in the sidebar, as a replacement for &#8220;div.sidebox&#8221;), or if aside can be used instead of a &#8220;sidebar&#8221; element.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/180b4e4ae8d7df2c4b39967ad425f098?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" author_comment" id="comment-1521">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://akamike.net' rel='external nofollow' class='url'>Mike Robinson</a></cite> at <a class="commentmetadata" href="#comment-1521">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        10:52 am    </time></a></p>
+            <p>@Sidebar: &#8220;Sidebar&#8221; relates to the presentation of an element, rather than it&#8217;s content. Separation of content and presentation is vital, but to clarify: what you refer to as a &#8220;sidebar&#8221; is likely to be &#8220;secondary content&#8221;, and therefore <code>&lt;aside&gt;</code> is appropriate. Of course, if your &#8220;sidebar&#8221; is purely navigation that is key to the page, something like <code>&lt;nav&gt;</code> would be more appropriate. Presentation is irrelevant at the mark-up stage, so please refer to the content itself (&#8221;Primary Content&#8221;, &#8220;Secondary Content&#8221;, &#8220;Navigation&#8221;, etc) rather than how it could be styled.</p>
+<p>@Kyle, Rachel, Gerrit &#038; Sidebar: <code>&lt;aside&gt;</code> was originally called &#8220;sidebar&#8221; but was changed due to the presentational connotations with that name. How <code>&lt;aside&gt;</code> changes context depending on it&#8217;s parent elements is perfectly logical and is not the only new element that does so. For example, <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code> can exist directly in the <code>&lt;body&gt;</code>, in an <code>&lt;article&gt;</code>, or even in a <code>&lt;section&gt;</code>. The <code>&lt;header&gt;</code> of an <code>&lt;article&gt;</code> adopts a context that is dependant on that <code>&lt;article&gt;</code>, rather than the HTML document as a whole. Just like we don&#8217;t have a &#8220;subnav&#8221; element to differ from <code>&lt;nav&gt;</code>, adding an additional &#8220;sidebar&#8221; elment would be redundant.</p>
+<p>@kimblim: Doh! Thanks for that, I&#8217;ve corrected the example <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>@Oli: Thanks for your great response! I&#8217;ve made that change, bit silly of me to miss it in the first place. In regards to how it used to be defined, there was nothing in the spec (particularly no examples) that deemed <code>&lt;aside&gt;</code> suitable for secondary content. Only recently was the third example of <code>&lt;aside&gt;</code>&#8217;s use added, along with this line:</p>
+<blockquote><p>The element can be used for typographical effects like pull quotes or sidebars, for advertising, for groups of nav elements, and for other content that is considered separate from the main content of the page.</p>
+</blockquote>
+<p>@Gerrit: It is acceptable to use multiple <code>&lt;aside&gt;</code> elements, particularly if you are grouping it&#8217;s contents by a particular theme. For example, an &#8220;Elsewhere&#8221; group of content that acts as a lifestream, plus a group of content directly related to the site (&#8221;Recent Posts&#8221;, &#8220;Tag Cloud&#8221;, etc).</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/5b123a491d26ed764cdc5f700c54d200?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1522">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://oli-studio.com/' rel='external nofollow' class='url'>Oli</a></cite> at <a class="commentmetadata" href="#comment-1522">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        2:06 pm    </time></a></p>
+            <p>@Mike—Hrm, I’m now wondering if I read more into it than everyone else, or got some inside info on IRC. No matter! Hurrah for a more explicit spec eh <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>While I personally love the nuance the new semantic elements bring, they certainly seem to be easy to misinterpret huh <img src='http://html5doctor.com/wp-includes/images/smilies/icon_biggrin.gif' alt=':D' class='wp-smiley' />  Seems like the dust is starting to settle though</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/75690a036a5769d87b86e9c36a80357e?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1523">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.yostivanich.com/2009/10/29/links-for-2009-10-29/' rel='external nofollow' class='url'>links for 2009-10-29 | Yostivanich</a></cite> at <a class="commentmetadata" href="#comment-1523">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        2:09 pm    </time></a></p>
+            <p>[...] Aside Revis­ited | HTML5 Doctor “Aside is now accept­able to use for sec­ondary con­tent, such as a blogroll, groups of addi­tional nav­i­ga­tion and even adver­tis­ing if that con­tent is related to the page. When used within an arti­cle ele­ment, the con­tents should be specif­i­cally related to that arti­cle, for exam­ple a glos­sary. When using aside, please be aware of these changes of context.” (tags: html html5 w3c) [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-1524">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://kylefox.ca' rel='external nofollow' class='url'>Kyle Fox</a></cite> at <a class="commentmetadata" href="#comment-1524">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        3:14 pm    </time></a></p>
+            <p>@oli @mike &#8212; I wasn&#8217;t suggesting a <code>sidebar</code> element.  I realize that context is inferred by an element&#8217;s location in the DOM (i.e., the parent node gives a node it&#8217;s own context).  Nor was I suggesting that there be an element for &#8220;each specific context or use-case&#8221;.</p>
+<p>The point I&#8217;m trying to raise is that previously it was suggested to use a <code>section</code> element to identify auxiliary/secondary site-level content, perhaps like:</p>
+<p><code>&lt;section id="main_content"&gt;&lt;article&gt;...&lt;/article&gt;...&lt;/section&gt;</code><br />
+<code>&lt;section id="aux_content"&gt;&lt;/section&gt;</code></p>
+<p>whereas now it seems like and <code>aside</code> would be a more appropriate element to use for <code>#aux_content</code>.</p>
+<p>My question, then, is how one would choose between <code>section</code> or <code>aside</code> when constructing this sort of markup, <strong>especially</strong> when considering that auxiliary content typically contains multiple pieces of content.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/8ee8797254d515adcf0b4e3aba71ae7f?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1525">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://dangayle.com' rel='external nofollow' class='url'>Dan Gayle</a></cite> at <a class="commentmetadata" href="#comment-1525">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        3:43 pm    </time></a></p>
+            <p>This whole thing about &#8220;is it or is it not navigation/is it or is it not secondary content to the article&#8221; stuff is more confusing than ever. When does a website EVER have a &#8220;sidebar&#8221; without it having some kind of navigation? I completely understand the different use cases, and the idea seems close to what I do anyway.</p>
+<p>For instance, I typically have a <code>&lt;div class=&quot;sidebar&quot;&gt;</code> element that holds things navigational elements, ads, and other site-wide informational elements.</p>
+<p>Within my <code>&lt;div class=&quot;content&quot;&gt;</code> block, I sometimes have what I refer to as an &#8220;inline sidebar&#8221;, <code>&lt;div class=&quot;inline-sidebar&quot;&gt;</code>. This inline sidebar does indeed work specifically in the manner in which you describe how the <code>&lt;aside&gt;</code> element should work.</p>
+<p>If constrained to that use, it would make a lot more sense, particularly when it comes to parsing, such as your mobile device example. What happens when we web designers, confused by the switching context of these stupid elements, decide to make our <code>&lt;div class=&quot;sidebar&quot;&gt;</code> elements into <code>&lt;aside&gt;</code> elements, and the user agents of our mobile devices parse that out, as you suggest?</p>
+<p>The whole &#8220;semantics&#8221; thing is getting way out of hand sometimes. If you do a survey and everyone calls the same element &#8220;sidebar&#8221;, and you decide to create an element to take up its role, but &#8220;oh by the way, it doesn&#8217;t do what you think it does and we&#8217;re going to call it something else&#8221; is a stupid, stupid mistake.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/86f04549a3317b5bfb85e6b6b2bea826?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1527">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://dangayle.com' rel='external nofollow' class='url'>Dan Gayle</a></cite> at <a class="commentmetadata" href="#comment-1527">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        3:50 pm    </time></a></p>
+            <p>And I thought that this might be appropriate:</p>
+<blockquote><p><b>side·bar (-bär′)</b><i>noun</i>1. a short article dealing with a sidelight of a major news story and printed alongside it2. a discussion at the bench between the lawyers and the judge, conducted outside the hearing of the jury<cite><a href="http://www.yourdictionary.com/sidebar" title="Sidebar Definition" rel="nofollow">YourDictionary.com/sidebar</a></cite></p></blockquote>
+<p>I come from a newspaper background, and I have always thought of a sidebar in this manner. It has nothing to do with the presentation.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/86f04549a3317b5bfb85e6b6b2bea826?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1528">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">thinsoldier</cite> at <a class="commentmetadata" href="#comment-1528">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        4:56 pm    </time></a></p>
+            <p>Idea for future article:<br />
+Take a screenshot of a real site (I can supply one <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> <br />
+Discuss the original html4 tags &amp; id/classes used.<br />
+Then you guys label the screenshot with what html5 tags &amp; id/class values would be best and why.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/53af034616f4fe3d4c08ea2f2297380d?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1529">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">thinsoldier</cite> at <a class="commentmetadata" href="#comment-1529">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        5:07 pm    </time></a></p>
+            <p>Continuing thought:<br />
+Seriously, this site needs more screenshots/visual aids of real-world examples. None of that bare-bones grey-box example junk.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/53af034616f4fe3d4c08ea2f2297380d?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1530">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://richclarkdesign.com' rel='external nofollow' class='url'>Richard Clark</a></cite> at <a class="commentmetadata" href="#comment-1530">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        6:18 pm    </time></a></p>
+            <p>@thinsoldier good points, and glad to hear your thoughts, this is actually something we&#8217;ve got in the pipeline but we were thinking of guiding people through the process by writing the markup as well. We&#8217;ll try and add some more real world examples in the future. If you&#8217;ve any other thoughts be sure to let us know.</p>
+<p>@dangayle</p>
+<blockquote><p>
+If you do a survey and everyone calls the same element “sidebar”, and you decide to create an element to take up its role, but “oh by the way, it doesn’t do what you think it does and we’re going to call it something else” is a stupid, stupid mistake.
+</p></blockquote>
+<p>Thats exactly what Hixie did (well not a survey but he profiled a tonne of sites for class and id names) and it&#8217;s why we&#8217;ve got elements like <code>header</code> and <code>footer</code>. I&#8217;ll try and find the link for you.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1531">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://dangayle.com' rel='external nofollow' class='url'>Dan Gayle</a></cite> at <a class="commentmetadata" href="#comment-1531">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        6:25 pm    </time></a></p>
+            <blockquote><p>Thats exactly what Hixie did (well not a survey but he profiled a tonne of sites for class and id names) and it’s why we’ve got elements like header and footer. I’ll try and find the link for you.<cite>Richard Clark</cite></p></blockquote>
+<p>That&#8217;s exactly my point. Why go 3/4 of the way and use nomenclature that web designers understand, then attempt to replace something they <em>do</em> understand with something that a) is named funny and b) doesn&#8217;t even work the same anyway? </p>
+<p>You have now introduced confusion where confusion need not exist.</p>
+<p>Try this on:</p>
+<blockquote><p><b>side·bar (-bär?)</b><br />
+<i>noun</i><br />
+1. a short article dealing with a sidelight of a major news story and printed alongside it<br />
+2. a discussion at the bench between the lawyers and the judge, conducted outside the hearing of the jury<br />
+<cite><a href="http://www.yourdictionary.com/sidebar" title="Sidebar Definition" rel="nofollow">YourDictionary.com/sidebar</a></cite></p></blockquote>
+<p>Semantics indeed.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/86f04549a3317b5bfb85e6b6b2bea826?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1533">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk/' rel='external nofollow' class='url'>bruce</a></cite> at <a class="commentmetadata" href="#comment-1533">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 29th, 2009        at
+        8:22 pm    </time></a></p>
+            <p>Here&#8217;s the link that maps the most common class names in 1,000,000,000 pages to their html5 elements <a href="http://code.google.com/webstats/2005-12/classes.html" rel="nofollow">http://code.google.com/webstats/2005-12/classes.html</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1537">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Alohci</cite> at <a class="commentmetadata" href="#comment-1537">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 30th, 2009        at
+        1:23 am    </time></a></p>
+            <p>@bruce. Interesting list. Some comments: </p>
+<p>1) The class names &#8220;main&#8221;, &#8220;body&#8221; and probably &#8220;content&#8221; don&#8217;t map exactly onto the &#8220;article&#8221; element&#8217;s semantics. In fact, article is explicitly disallowed from acting as &#8220;main&#8221; or &#8220;body&#8221;.</p>
+<p>2) The &#8220;date&#8221; element seems to have disappeared in favour of the &#8220;time&#8221; element. The class name &#8220;time&#8221; is not listed.</p>
+<p>3) None of the class names &#8220;section&#8221;, &#8220;article&#8221; and &#8220;aside&#8221; appear at all.</p>
+<p>Neither do they appear in Rene Saarsoo&#8217;s survey (<a href="http://triin.net/2006/06/12/CSS#class-selectors" rel="nofollow">http://triin.net/2006/06/12/CSS#class-selectors</a>) or John Allsopp list of classes (<a href="http://westciv.typepad.com/dog_or_higher/2005/11/real_world_sema.html" rel="nofollow">http://westciv.typepad.com/dog_or_higher/2005/11/real_world_sema.html</a>  Table 3). </p>
+<p>Little wonder then, that there is so much confusion about how to use these elements correctly, since it seems that they are not achieving their original intent of &#8220;paving the cowpaths&#8221;.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/35d15750b8ccddc331ed4c7660ca14c4?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1539">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.lostfocus.de/archives/2009/10/30/bookmarks-for-october-27th-through-october-30th/' rel='external nofollow' class='url'>Bookmarks for October 27th through October 30th &laquo; LostFocus</a></cite> at <a class="commentmetadata" href="#comment-1539">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 30th, 2009        at
+        7:01 am    </time></a></p>
+            <p>[...] Aside Revisited | HTML5 Doctor &#8211; [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-1541">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk/' rel='external nofollow' class='url'>bruce</a></cite> at <a class="commentmetadata" href="#comment-1541">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 30th, 2009        at
+        11:48 am    </time></a></p>
+            <p>@Alohci</p>
+<p>1) true. But this research shows the origin of the  idea of document landmarks becoming elements in their own right.</p>
+<p>2) I should have said &#8211; this is from December 2005. Spec has changed quite a bit since then.</p>
+<p>3) section is from xhtml2. article &#8211; as the main content of the page &#8211; is easily discernible as an attempt to make a generic element that encompasses main / content/ body.  Aside   seems (to me) to be an obvious  addition to &#8220;landmark&#8221; elements. YMMV, of course.</p>
+<p>Re Saarsoo/ Allsopp lists &#8211; pass. Maybe Hixie will stop by and answer.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1542">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://dangayle.com/a-brief-note-on-html5-semantics/' rel='external nofollow' class='url'>A brief note on HTML5 Semantics | Daniel John Gayle</a></cite> at <a class="commentmetadata" href="#comment-1542">
+    <time datetime="2009-10-28T14:23+00:00">
+        October 30th, 2009        at
+        3:19 pm    </time></a></p>
+            <p>[...] HTML5 people say that the new &lt;aside&gt; element is named such because &lt;sidebar&gt; is [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-1551">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Zygmuś</cite> at <a class="commentmetadata" href="#comment-1551">
+    <time datetime="2009-10-28T14:23+00:00">
+        November 4th, 2009        at
+        12:19 pm    </time></a></p>
+            <p>HTML 6 will have also tags: &#8220;undecided&#8221;, &#8220;internetexploreronly&#8221; and &#8220;waterclosed&#8221;. Sorry pseudo webmasters loved in &#8220;beautiful desgin build with XHTML 7 Nitro Edition + CSS 9&#8243;, but I am switching&#8230; back: to the HTML 3.2 Final. I can still use with it: CSS 1-3 and ECMA libraries/extensions like jQuery. HTML&gt;4.01 Strict just does big suck. I will never support special html-fixations for iPhones etc. I do not care for guests/users working with this kind of device. It is not my problem, but their. In fact, Internet Explorer users will have always support, becouse you have to care for them. If you will not support them (even by making websites layouts based on tables) your site will means nothing to the whole wide world.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/f94c678173c81972550787f4a00e9a4f?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1554">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://choosedaily.com/2048/collection-html5-resources-move/' rel='external nofollow' class='url'>Collection of HTML5 Resources to Move You Forward</a></cite> at <a class="commentmetadata" href="#comment-1554">
+    <time datetime="2009-10-28T14:23+00:00">
+        November 4th, 2009        at
+        2:40 pm    </time></a></p>
+            <p>[...] Aside Revisited [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt author_comment" id="comment-1557">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://akamike.net' rel='external nofollow' class='url'>Mike Robinson</a></cite> at <a class="commentmetadata" href="#comment-1557">
+    <time datetime="2009-10-28T14:23+00:00">
+        November 4th, 2009        at
+        3:32 pm    </time></a></p>
+            <p>@Zygmuś: You clearly have a lot of issues with the way HTML is heading, but I am not sure how your comment relates to this particular article! It might be more worth your time to republish that on something more relevant.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/5b123a491d26ed764cdc5f700c54d200?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1561">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://tomkox.net/' rel='external nofollow' class='url'>TomkOx</a></cite> at <a class="commentmetadata" href="#comment-1561">
+    <time datetime="2009-10-28T14:23+00:00">
+        November 4th, 2009        at
+        7:41 pm    </time></a></p>
+            <p>Someone said (in prev-version of article) that for image should be used <code>&lt;figure&gt;</code> instead of <code>&lt;aside&gt;</code>. But it is not true! Reason: if image is &#8220;just an ad-on relative to the main content&#8221; it can be put into the <code>&lt;figure&gt;</code> and this &#8220;figure&#8221; can be inserted into <code>&lt;aside&gt;</code>.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/6a2d2fe2d24d5ddf2dec2c38c9040a2b?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1585">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.interactivesportsmanagement.com' rel='external nofollow' class='url'>Keri</a></cite> at <a class="commentmetadata" href="#comment-1585">
+    <time datetime="2009-10-28T14:23+00:00">
+        November 13th, 2009        at
+        4:31 pm    </time></a></p>
+            <p>As the definition of   has changed the implementations in the leading edge browsers will need to change, and that will take time.  I&#8217;m waiting until at least one browser announces support for the new definition before I do any more HTML5 testing.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4f3bce1f15adf720d46338a72ee71ade?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+</section>
+<section id="respond">
+<h3>Leave a Reply</h3>
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+        <p>
+        <label for="author">Name
+        (required)        </label>
+        <input required aria-required="true" type="text" name="author" id="author" value="" size="22" />
+    </p>
+    <p>
+        <label for="email">Email (will not be published)
+        (required)        </label>
+        <input required aria-required="true" type="email" name="email" id="email" value="" size="22"  />
+    </p>
+    <p>
+        <label for="url">Website</label>
+        <input type="url" name="url" id="url" value="" size="22"  />
+    </p>
+        <p>You can use these tags: &lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strong&gt;</p>
+    <p>You can also use &lt;code&gt;, and remember to use &amp;lt; and &amp;gt; for brackets.</p>
+    <p>
+        <label for="comment" class="screenreader">Enter comment</label>
+        <textarea required aria-required="true" name="comment" id="comment"  cols="40" rows="10"></textarea>
+        <input name="submit" type="submit" id="submit"  value="Submit Comment" />
+        <input type="hidden" name="comment_post_ID" value="1015" />
+    </p>
+    
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+</form>
+</div>	
+			
+	
+<!--    <section class="ask-doctor">
+        <form action="">
+            <label>Got a question about html5? Ask the doctor....
+            <input type="text">
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+    </section>-->
+
+</div><!-- //end hfeed -->
+
+<aside role="complementary">
+
+<div>
+	    <form id="searchform" method="get" action="http://html5doctor.com" role="search">
+
+      <div>
+
+        
+        <input id="s" name="s" type="search" value="Search" size="20" tabindex="1" onfocus="if (!this.reset) { this.value = ''; this.reset = true }" />
+
+        
+        <input id="searchsubmit" name="searchsubmit" class="btn" type="submit" value="Go" tabindex="2" />
+
+      </div>
+
+    </form> 
+</div>
+
+<aside>
+	<ul class="ads">
+    	<li><a href="http://www.authenticjobs.com/?aff=dcacc"><img src="http://www.authenticjobs.com/img/aj_125x125.gif" alt="Post a job. Find one. authenticjobs.com" width="125" height="125" /></a></li>
+    	<li><a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/mt-125x125-dk.png" alt="Proudly Hosted by Media Temple"></a></li>
+    </ul>
+</aside>
+
+<aside class="ask-banner">
+	<a href="/ask-the-doctor/"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/ask-doctor-banner.png" alt="Got a question about html5? Ask the doctor" /></a>
+</aside>
+
+<nav>
+	<h3>Recent Articles</h3>
+	<ul class="recent">
+			<li><a href='http://html5doctor.com/the-address-element/' title='The Address Element'>The Address Element</a></li>
+	<li><a href='http://html5doctor.com/aside-revisited/' title='Aside Revisited'>Aside Revisited</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-3/' title='Your Questions Answered #3'>Your Questions Answered #3</a></li>
+	<li><a href='http://html5doctor.com/why-designers-should-care-about-html5/' title='Why designers should care about HTML5'>Why designers should care about HTML5</a></li>
+	<li><a href='http://html5doctor.com/dd-details-wrong-again/' title='dd-details wrong again'>dd-details wrong again</a></li>
+	<li><a href='http://html5doctor.com/measure-up-with-the-meter-tag/' title='Measure up with the meter tag'>Measure up with the meter tag</a></li>
+	<li><a href='http://html5doctor.com/the-footer-element-update/' title='The Footer Element Update'>The Footer Element Update</a></li>
+	<li><a href='http://html5doctor.com/september-html5-spec-changes/' title='September HTML5 spec changes'>September HTML5 spec changes</a></li>
+	<li><a href='http://html5doctor.com/the-section-element/' title='The section element'>The section element</a></li>
+	<li><a href='http://html5doctor.com/absent-elements-and-validation/' title='Absent Elements and Validation'>Absent Elements and Validation</a></li>
+	<li><a href='http://html5doctor.com/its-bug-report-time/' title='It&#8217;s bug report time!'>It&#8217;s bug report time!</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-2/' title='Your questions answered #2'>Your questions answered #2</a></li>
+    </ul> 
+</nav>
+
+<nav>
+	<h3><abbr>HTML</abbr>5 Doctors (Authors)</h3>
+	<ul>
+    	<li><a href="/author/richc/">Richard Clark</a></li>
+    	<li><a href="/author/brucel/">Bruce Lawson</a></li>
+    	<li><a href="/author/jacko/">Jack Osborne</a></li>
+    	<li><a href="/author/miker/">Mike Robinson</a></li>
+    	<li><a href="/author/remys/">Remy Sharp</a></li>
+    	<li><a href="/author/toml/">Tom Leadbetter</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Contributing Authors</h3>
+	<ul>
+    	    	<li><a href="/author/cennyddb/">Cennydd Bowles</a></li>
+    	<li><a href="/author/markb/">Mark Boas</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Categories</h3>
+	<ul>
+    		<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" title="View all posts filed under Accessibility">Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" title="View all posts filed under Attributes">Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" title="View all posts filed under Boilerplates">Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" title="View all posts filed under Browser Compatibility">Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" title="View all posts filed under Comment">Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" title="View all posts filed under CSS">CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" title="View all posts filed under Elements">Elements</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" title="View all posts filed under JavaScript APIs">JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" title="View all posts filed under Questions">Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" title="View all posts filed under Quick Tips">Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" title="View all posts filed under Specification Changes">Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" title="View all posts filed under Structure">Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" title="View all posts filed under Validation">Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" title="View all posts filed under WAI-ARIA">WAI-ARIA</a>
+</li>
+    </ul>    
+</nav>
+
+<section>
+	<h3>About</h3>
+	<p>HTML5doctor is run by a bunch of volunteers that are passionate about making <abbr>HTML</abbr>5 happen here and now. Read more about them on the <a href="/about/">about page</a>.</p>    
+</section>
+
+<section>
+<script type="text/javascript" src="http://feeds.delicious.com/v2/js/html5gallery?title=HTML5%20Articles%20Elsewhere&amp;icon=rss&amp;count=5&amp;sort=date&amp;extended&amp;showadd"></script>
+</section>
+</aside>
+</div><!--// end content -->
+<aside class="extras">
+	    <section>
+        <h3>Follow us on twitter</h3><a href="http://www.twitter.com/html5doctor"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/twitter.jpg" alt="Follow us on twitter"></a>
+        </section>
+   	    <section>
+	    <h3>Want to write for us?</h3> 
+        <p>We're always on the lookout for new writers, so if you feel you've got a grip on <abbr>HTML</abbr> 5 &amp; have something to add then please <a href="/contact/">get in touch</a>.</p>
+        </section>
+	    <section>        
+    	<h3>Sites using HTML5</h3><a href="http://html5gallery.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/html5gallery-thumb.png" alt="html5gallery - A showcase of sites using html5 markup"></a>
+		</section>
+	    <section>      
+    	<h3>Make a donation</h3>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHTwYJKoZIhvcNAQcEoIIHQDCCBzwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYBDcBlRDdUE5wHnlolMsrKtSMA1M8psZ9cT4QL+njWkbJp1o+mnAo1j1DYOF1YCcisLLFmkeyiu36CoHFTw3kV/wjTHLGVJxZVH+Y1LU5tYgrMRoqL6sumsqHEC0iUuKWKE3EJyN6Sz7nf449uAPzS7rCwyiGsdBF/JccXGw4Yj7DELMAkGBSsOAwIaBQAwgcwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIOr6Q6TgFHOGAgahR+dy9JOhu1CdbF/YLdM2fsT3IOMTC2QB/X1TJEcjObWOwVxHLWFiHZYSVwEyO41ke6a5eIfcSeZZdr67IJwvNGcDTLSyKbxyP2IEyzyLzPBlfIxtsvfylRn+CpmB6Fh5ZKZhGcryv+LjvgFO13DsDD8aECHgF+V64OWkynwB69CUB7iqPhFCQjoiBh9S/Fg0NIbzLyG1iy7kjNZ9/0JVBjSssPryEDSigggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0wOTA2MjEwNzM1NDdaMCMGCSqGSIb3DQEJBDEWBBRMQfr1dhDKl1RT5iuvFxdcR/a79DANBgkqhkiG9w0BAQEFAASBgEAPWRu9fIytGIkf/Jab2LvmYtzR3aJgw+52GB7MpA71tJStAhPzvsgjDBMReM5OWt/NV8WFBua4Gc0XaVm4F07iUnbWVPDitQFKTWto61aq19/sB9TnTbCOTyVEYqF0cvKEbEg6Vy1Hlag9BUM7rGfZJ+qWAxgAkof45WezTlpE-----END PKCS7-----
+">
+		<p>Unfortunately the hosting doesn't pay itself, if you've found the site useful please help us out by making a donation.<br />
+		<input type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online."></p>
+		<img alt="" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+		</form>
+		</section>
+</aside>
+
+<nav class="nav-footer">
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>
+
+<footer role="contentinfo">
+	<p><small>This site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/uk/">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</small></p>
+</footer>
+
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5doc.js"></script>
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/prettify.js"></script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8916679-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>  
+
+</body>
+</html>

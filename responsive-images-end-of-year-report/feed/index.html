@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Responsive images – end of year report</title>
+	<atom:link href="http://html5doctor.com/responsive-images-end-of-year-report/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/responsive-images-end-of-year-report/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 04 May 2016 10:02:12 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Mr. Raymond Kenneth Petry</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-2061236</link>
+		<dc:creator><![CDATA[Mr. Raymond Kenneth Petry]]></dc:creator>
+		<pubDate>Thu, 26 Nov 2015 07:05:39 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-2061236</guid>
+		<description><![CDATA[Wouldn&#039;t a more general purpose extension to .png, to include panorama zooming, be the better solution to image-resolution selection, (aside implementing something like rpi&#039;s SPIHT)...?]]></description>
+		<content:encoded><![CDATA[<p>Wouldn&#8217;t a more general purpose extension to .png, to include panorama zooming, be the better solution to image-resolution selection, (aside implementing something like rpi&#8217;s SPIHT)&#8230;?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Nono Junang</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-2055350</link>
+		<dc:creator><![CDATA[Nono Junang]]></dc:creator>
+		<pubDate>Tue, 10 Nov 2015 22:24:42 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-2055350</guid>
+		<description><![CDATA[What about having the following solution:
+- Introduce a new image mime-type for responsive images: image/rpng, image/rjpeg. The file extension remains .jpg, .png so that the server can fallback. That image format will deliver the content of the image in a progressive manner depending on the clients capabilities.
+- The content of the image would be the highest quality available.
+- Bring the HTTP Servers (Apache, IIS, etc...) to understand the new mime-type and deliver the image content depending on the clients capabilities
+- The client can specify to the server in which quality he wants such images delivered (low, medium, high, full), may be using a new HTTP-HEADER. In case there is no server (local app), then the image is fully loaded
+- The combination of the client capabilities will result in the following image qualities that can be requested from the server: low, medium, high, full. So it is up to the client to determine what quality of images he wants to request from the server.
+When the client requests for:
+    - a low quality image then the server delivers a limited amount of data, lest say 30%
+    - a medium quality image then the server delivers 50% of data
+    - a high quality image then the server delivers 80% of data
+    - the full image then the server delivers 100% of data.
+
+Lets say the client requested initially for a low quality image because it was on a 2g connection. Then 30% of the image data got delivered. Then the user switches to a 3g connection. Then the client can detect the change automatically and request for the high quality image providing the server with a hint telling that the low quality image has already been loaded and thus avoiding to load it again. Then another 50% of data is loaded (since the client already has 30% of the data in the cache, it only needs to load the 50% up to 80%)
+
+Now when the user switches to a WiFi connection the full image is loaded. This time only the remaining 20% of data is loaded from the server through the same mechanism.
+
+The could be an option in the client where the user could override that default behaviour and choose to always load the low, medium, high or full image.
+
+So recap:
+1- New responsive image mime-type
+2- Server to understand new image mime-type. If not then it will fallback to delivering the full image
+3- Client to specify what quality it wants (low, medium, high, full)
+4- Server to read what quality the client wants and return the amount of data progressive
+5- Server to return data diff based on a starting point, for example high image requested and starting point is low then return only high-low data.
+6- Client to request more data when the user switches to better connection.
+7- User can override in the client the quality of the images to be delivered
+
+What do you think?]]></description>
+		<content:encoded><![CDATA[<p>What about having the following solution:<br />
+&#8211; Introduce a new image mime-type for responsive images: image/rpng, image/rjpeg. The file extension remains .jpg, .png so that the server can fallback. That image format will deliver the content of the image in a progressive manner depending on the clients capabilities.<br />
+&#8211; The content of the image would be the highest quality available.<br />
+&#8211; Bring the HTTP Servers (Apache, IIS, etc&#8230;) to understand the new mime-type and deliver the image content depending on the clients capabilities<br />
+&#8211; The client can specify to the server in which quality he wants such images delivered (low, medium, high, full), may be using a new HTTP-HEADER. In case there is no server (local app), then the image is fully loaded<br />
+&#8211; The combination of the client capabilities will result in the following image qualities that can be requested from the server: low, medium, high, full. So it is up to the client to determine what quality of images he wants to request from the server.<br />
+When the client requests for:<br />
+    &#8211; a low quality image then the server delivers a limited amount of data, lest say 30%<br />
+    &#8211; a medium quality image then the server delivers 50% of data<br />
+    &#8211; a high quality image then the server delivers 80% of data<br />
+    &#8211; the full image then the server delivers 100% of data.</p>
+<p>Lets say the client requested initially for a low quality image because it was on a 2g connection. Then 30% of the image data got delivered. Then the user switches to a 3g connection. Then the client can detect the change automatically and request for the high quality image providing the server with a hint telling that the low quality image has already been loaded and thus avoiding to load it again. Then another 50% of data is loaded (since the client already has 30% of the data in the cache, it only needs to load the 50% up to 80%)</p>
+<p>Now when the user switches to a WiFi connection the full image is loaded. This time only the remaining 20% of data is loaded from the server through the same mechanism.</p>
+<p>The could be an option in the client where the user could override that default behaviour and choose to always load the low, medium, high or full image.</p>
+<p>So recap:<br />
+1- New responsive image mime-type<br />
+2- Server to understand new image mime-type. If not then it will fallback to delivering the full image<br />
+3- Client to specify what quality it wants (low, medium, high, full)<br />
+4- Server to read what quality the client wants and return the amount of data progressive<br />
+5- Server to return data diff based on a starting point, for example high image requested and starting point is low then return only high-low data.<br />
+6- Client to request more data when the user switches to better connection.<br />
+7- User can override in the client the quality of the images to be delivered</p>
+<p>What do you think?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Matteo Conta</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-172888</link>
+		<dc:creator><![CDATA[Matteo Conta]]></dc:creator>
+		<pubDate>Wed, 30 Jul 2014 16:18:09 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-172888</guid>
+		<description><![CDATA[I reposted the example with the correct HTML.
+
+I read part of the documentation at http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content.html#embedded-content and my first thought was that it seems too verbose.
+
+Consider this example:
+
+&#060;img sizes=&quot;100vw&quot; srcset=&quot;wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w&quot;
+     src=&quot;wolf-400.jpg&quot; alt=&quot;The rad wolf&quot;&#062;
+
+It adds a lot of additional code only for repeating the same concept:
+the browser needs to pickup a different image if the viewport is different from the default.
+
+Why don&#039;t you add a tag &quot;inside&quot; the image name? 
+
+The browser will search on the server for the correct image :
+
+&#060;img sizes=&quot;100vw&quot; srcset=&quot;wolf-[[vw]].jpg&quot;
+     src=&quot;wolf-100.jpg&quot; alt=&quot;The rad wolf&quot; &#062;
+
+[[vw]] will be replaced by the browser.
+
+This approach is also compatible with future improvements, if I serve the images using a service and I decide to offer images with a greater resolution, I don&#039;t need to change all the tags in my code.
+
+If you want to avoid 401 error for viewport not supported by the image we can add a &#060;viewport&#062; element with the supported viewports: 
+
+&#060;viewport  enabled=&quot;400 800 1600 3200&quot; default=&quot;100&quot;/&#062;
+
+Am I simplifying too much this topic?]]></description>
+		<content:encoded><![CDATA[<p>I reposted the example with the correct HTML.</p>
+<p>I read part of the documentation at <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content.html#embedded-content" rel="nofollow">http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content.html#embedded-content</a> and my first thought was that it seems too verbose.</p>
+<p>Consider this example:</p>
+<p>&lt;img sizes=&#8221;100vw&#8221; srcset=&#8221;wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w&#8221;<br />
+     src=&#8221;wolf-400.jpg&#8221; alt=&#8221;The rad wolf&#8221;&gt;</p>
+<p>It adds a lot of additional code only for repeating the same concept:<br />
+the browser needs to pickup a different image if the viewport is different from the default.</p>
+<p>Why don&#8217;t you add a tag &#8220;inside&#8221; the image name? </p>
+<p>The browser will search on the server for the correct image :</p>
+<p>&lt;img sizes=&#8221;100vw&#8221; srcset=&#8221;wolf-[[vw]].jpg&#8221;<br />
+     src=&#8221;wolf-100.jpg&#8221; alt=&#8221;The rad wolf&#8221; &gt;</p>
+<p>[[vw]] will be replaced by the browser.</p>
+<p>This approach is also compatible with future improvements, if I serve the images using a service and I decide to offer images with a greater resolution, I don&#8217;t need to change all the tags in my code.</p>
+<p>If you want to avoid 401 error for viewport not supported by the image we can add a &lt;viewport&gt; element with the supported viewports: </p>
+<p>&lt;viewport  enabled=&#8221;400 800 1600 3200&#8243; default=&#8221;100&#8243;/&gt;</p>
+<p>Am I simplifying too much this topic?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Mr. Raymond Kenneth Petry</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-57729</link>
+		<dc:creator><![CDATA[Mr. Raymond Kenneth Petry]]></dc:creator>
+		<pubDate>Thu, 19 Jun 2014 02:59:12 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-57729</guid>
+		<description><![CDATA[Maybe you can get their attention: Extended purpose users need user-defined elements e.g. X0-X9,XA-XZ, with some predefined as parents-and-children would be a nice touch...
+
+I currently have commandeered DL,DT, DD, but these no longer stack like they use-to till IE8, and never did in FF and Chrome...
+
+Ray.]]></description>
+		<content:encoded><![CDATA[<p>Maybe you can get their attention: Extended purpose users need user-defined elements e.g. X0-X9,XA-XZ, with some predefined as parents-and-children would be a nice touch&#8230;</p>
+<p>I currently have commandeered DL,DT, DD, but these no longer stack like they use-to till IE8, and never did in FF and Chrome&#8230;</p>
+<p>Ray.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Mark</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-49172</link>
+		<dc:creator><![CDATA[Mark]]></dc:creator>
+		<pubDate>Sat, 26 Apr 2014 09:35:54 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-49172</guid>
+		<description><![CDATA[Just received this update from the filament group http://filamentgroup.com/lab/picturefill_2_a/?utm_source=Responsive+Design+Weekly&#038;utm_campaign=ca05ff1258-Responsive_Design_Weekly_106&#038;utm_medium=email&#038;utm_term=0_df65b6d7c8-ca05ff1258-58981737]]></description>
+		<content:encoded><![CDATA[<p>Just received this update from the filament group <a href="http://filamentgroup.com/lab/picturefill_2_a/?utm_source=Responsive+Design+Weekly&#038;utm_campaign=ca05ff1258-Responsive_Design_Weekly_106&#038;utm_medium=email&#038;utm_term=0_df65b6d7c8-ca05ff1258-58981737" rel="nofollow">http://filamentgroup.com/lab/picturefill_2_a/?utm_source=Responsive+Design+Weekly&#038;utm_campaign=ca05ff1258-Responsive_Design_Weekly_106&#038;utm_medium=email&#038;utm_term=0_df65b6d7c8-ca05ff1258-58981737</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: JANNiS</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-48959</link>
+		<dc:creator><![CDATA[JANNiS]]></dc:creator>
+		<pubDate>Thu, 10 Apr 2014 11:49:34 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-48959</guid>
+		<description><![CDATA[src-N is dead now. Long live srcset. Look forward to !]]></description>
+		<content:encoded><![CDATA[<p>src-N is dead now. Long live srcset. Look forward to !</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Moltar</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-47971</link>
+		<dc:creator><![CDATA[Moltar]]></dc:creator>
+		<pubDate>Fri, 14 Feb 2014 21:55:58 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-47971</guid>
+		<description><![CDATA[Is there reason not to simply provide a src-N tag for any new ratio to be supported? 
+
+]]></description>
+		<content:encoded><![CDATA[<p>Is there reason not to simply provide a src-N tag for any new ratio to be supported? </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Phil</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-47370</link>
+		<dc:creator><![CDATA[Phil]]></dc:creator>
+		<pubDate>Sat, 08 Feb 2014 14:31:32 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-47370</guid>
+		<description><![CDATA[Looks like i&#039;m a little late to the party! - just found out about the new W3C Resource Priorities draft for lazyload and postpone:
+https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/ResourcePriorities/Overview.html
+Looks like it could develop into something interesting.]]></description>
+		<content:encoded><![CDATA[<p>Looks like i&#8217;m a little late to the party! &#8211; just found out about the new W3C Resource Priorities draft for lazyload and postpone:<br />
+<a href="https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/ResourcePriorities/Overview.html" rel="nofollow">https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/ResourcePriorities/Overview.html</a><br />
+Looks like it could develop into something interesting.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Phil</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-47364</link>
+		<dc:creator><![CDATA[Phil]]></dc:creator>
+		<pubDate>Sat, 08 Feb 2014 14:02:40 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-47364</guid>
+		<description><![CDATA[I like what @Matt Kieran suggested.
+
+I think the biggest problem for responsive images, or any asset linked in the mark-up, is our lack of control of when (or if) these assets are downloaded. 
+
+We should be able to inform browsers which assets should not be downloaded immediately (while still using the src attribute for our actual image).
+
+We can then use JavaScript to make a decision on weather or not to use the default source, or make a logical decision to load the appropriate image based on our specified criteria (view-port, pixel density, etc). 
+
+A simple flag as an extra attribute for img would work really well, (or maybe even a new meta tag that can include this information globally, dunno if that would work..).
+
+So for example: &#060;img src=&quot;potato.jpg&quot; alt=&quot;a potato&quot; defer=&quot;wait-for-js&quot;&gt;
+
+or even just:  &#060;img src=&quot;potato.jpg&quot; alt=&quot;a potato&quot; defer&gt;
+
+Like this, we keep almost identical mark-up, with only a very concise flag that the browser understands.
+
+I think this would degrade pretty gracefully too for older browsers that didn&#039;t allow for deferring the download of assets.
+They&#039;d just get the default source, (downloading immediately of course). 
+
+Search engines would also be able to index these images, and the mark up is valid and simple.
+
+I know mobify.js has a capturing api for this kind of thing, but I really think this should be simpler, and provided as a feature baked into the browser, and not dependant on large js libraries.
+
+Server side solutions are OK - but not all encompassing, and will have differing dependencies for every server environment in use. Performance can also become an issue here too. It is difficult for a server to gain accurate insight into what browser you are using, viewpoint and pixel density. 
+
+This solution has got to be within the client scripting environment - It has all the resources to decide which assets are best for its particular environment, and can also be used to detect connection speed if needed.]]></description>
+		<content:encoded><![CDATA[<p>I like what @Matt Kieran suggested.</p>
+<p>I think the biggest problem for responsive images, or any asset linked in the mark-up, is our lack of control of when (or if) these assets are downloaded. </p>
+<p>We should be able to inform browsers which assets should not be downloaded immediately (while still using the src attribute for our actual image).</p>
+<p>We can then use JavaScript to make a decision on weather or not to use the default source, or make a logical decision to load the appropriate image based on our specified criteria (view-port, pixel density, etc). </p>
+<p>A simple flag as an extra attribute for img would work really well, (or maybe even a new meta tag that can include this information globally, dunno if that would work..).</p>
+<p>So for example: &lt;img src=&#8221;potato.jpg&#8221; alt=&#8221;a potato&#8221; defer=&#8221;wait-for-js&#8221;></p>
+<p>or even just:  &lt;img src=&#8221;potato.jpg&#8221; alt=&#8221;a potato&#8221; defer></p>
+<p>Like this, we keep almost identical mark-up, with only a very concise flag that the browser understands.</p>
+<p>I think this would degrade pretty gracefully too for older browsers that didn&#8217;t allow for deferring the download of assets.<br />
+They&#8217;d just get the default source, (downloading immediately of course). </p>
+<p>Search engines would also be able to index these images, and the mark up is valid and simple.</p>
+<p>I know mobify.js has a capturing api for this kind of thing, but I really think this should be simpler, and provided as a feature baked into the browser, and not dependant on large js libraries.</p>
+<p>Server side solutions are OK &#8211; but not all encompassing, and will have differing dependencies for every server environment in use. Performance can also become an issue here too. It is difficult for a server to gain accurate insight into what browser you are using, viewpoint and pixel density. </p>
+<p>This solution has got to be within the client scripting environment &#8211; It has all the resources to decide which assets are best for its particular environment, and can also be used to detect connection speed if needed.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Jakob E</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/#comment-44608</link>
+		<dc:creator><![CDATA[Jakob E]]></dc:creator>
+		<pubDate>Wed, 22 Jan 2014 01:10:20 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352#comment-44608</guid>
+		<description><![CDATA[OK - where did the edit comment button go? Sorry for the not intended PS. And for H5D not having a feature to let me fix it ;)]]></description>
+		<content:encoded><![CDATA[<p>OK &#8211; where did the edit comment button go? Sorry for the not intended PS. And for H5D not having a feature to let me fix it ;)</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

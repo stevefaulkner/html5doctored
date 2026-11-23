@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  The woes of date input | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; The woes of date input Comments Feed" href="http://html5doctor.com/the-woes-of-date-input/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.3"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='HTML Developers: Please Consider' href='http://html5doctor.com/html-developers-please-consider/' />
+<link rel='next' title='Computer says NO to HTML5 document outline' href='http://html5doctor.com/computer-says-no-to-html5-document-outline/' />
+<link rel="canonical" href="http://html5doctor.com/the-woes-of-date-input/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=5961' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-woes-of-date-input%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-woes-of-date-input%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+	  
+  
+	</head>
+<body class="single single-post postid-5961 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-5961 post type-post status-publish format-standard hentry category-accessibility category-attributes category-elements category-forms tag-date tag-datepicker tag-forms tag-input" id="post-5961">
+                 <h1>The woes of date input </h1>
+                <small><time datetime="2016-01-19" pubdate>Tuesday, January 19th, 2016</time> by <a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin" rel="author">Ian Devlin</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		
+                <p>One of the many <a href="http://html5doctor.com/html5-forms-input-types/">new input types</a> that <abbr>HTML5</abbr> introduced is the date input type which, in theory, should allow a developer to provide the user with a simple, usable, recognisable method of entering a date on a web page. But sadly, this input type has yet to reach its full potential.</p>
+<section id="introduction">
+<p>Briefly, the date input type is a form element that allows the capture of a date from a user, usually via a datepicker. The implementation of this datepicker is up to the browser vendor, as the <a href="http://www.w3.org/TR/html51/semantics.html#date-state-%28type=date%29"><abbr>HTML5</abbr> specification</a> does not tell vendors how to implement the input&#8217;s <abbr title="User Interface">UI</abbr>.</p>
+<p>The input itself can of course be used without using any of its available attributes:</p>
+<pre><code>&lt;label for="when">Date:&lt;/label>
+&lt;input id="when" name="when" type="date"></code></pre>
+</p>
+<p>Or you can specify minimum and maximum date values via the <code>min</code> and <code>max</code> attributes, ensuring that a user can only choose dates within a specific range:</p>
+<pre><code>&lt;label for="when">Date:&lt;/label>
+&lt;input id="when" name="when" type="date" min="2016-01-01" max="2016-12-01"></code></pre>
+</p>
+<p>You can also use the <code>step</code> attribute to specify, in days, how a date can increment. The default is 1.</p>
+<p>This of course is the theory and a fine reality it would be, if it were so but alas it is not.</p>
+</section>
+<section id="features">
+<h2>Features</h2>
+<p>Rather than talk about <a href="http://caniuse.com/#feat=input-datetime">browser support</a> for the date input type, I will instead talk about the various features that are part of this input type:</p>
+<ul>
+<li><a href="#feature-input-field">the input field</a></li>
+<li><a href="#feature-min-max-attributes">the <code>min</code> and <code>max</code> attributes</a></li>
+<li><a href="#feature-step-attribute">the <code>step</code> attribute</a></li>
+<li><a href="#feature-datepicker">the datepicker</a></li>
+<li><a href="#feature-events">events</a></li>
+</ul>
+<section id="feature-input-field">
+<h3>The <code>input</code> field</h3>
+<p>Neither Firefox nor Safari support this input type; it is treated as a simple text field with no formatting and no special interaction.</p>
+<p>Microsoft Edge has no special interactions and in fact the input field appears to be read-only.</p>
+<p>Chrome and Opera have the same implementations which display a date placeholder (or date value if the input&#8217;s <code>value</code> attribute has been set) using the user&#8217;s system settings&#8217; date format. There are also some controls that allow the user to clear the input field, some arrows to cycle up and down between values, and an arrow that will open a datepicker (see Figure 1). There are some <a href="http://www.tjvantoll.com/2013/04/15/list-of-pseudo-elements-to-style-form-controls/#input_date">WebKit prefixed pseudo selectors</a> available that allow you to change the appearance of the various bits within the input date field.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-date-input.jpg" alt="Screenshot of WebKit's native date input on Chrome"></p>
+<figcaption>Figure 1. &#8211; WebKit&#8217;s date input field as seen on Chrome</figcaption>
+</figure>
+</section>
+<section id="feature-min-max-attributes">
+<h3>The <code>min</code> and <code>max</code> attributes</h3>
+<p>All of those browsers that support the date input type also support the <code>min</code> and <code>max</code> attributes.</p>
+<p>Chrome and Opera both work fine if both the <code>min</code> and <code>max</code> attributes are set, but the <abbr title="User Interface">UI</abbr> is poor when only one of them is set. In these browsers, the date input displays up and down arrows for the user to change each value (day, month, and year). If a date input has a minimum value set at today&#8217;s date, then if the user highlights the year and then clicks the down arrow, the year will change to 275760 as the arrows cycle between the valid values and, since no maximum has been set, the default maximum is used (see Figure 2). This has been <a href="https://code.google.com/p/chromium/issues/detail?id=577680">reported as a bug</a> but has been marked as &#8220;won&#8217;t fix&#8221; as apparently it is the desired behaviour, I disagree.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-date-input-bug.jpg" alt="Screenshot of WebKit's native date input on Chrome showing the year cycling to 275760"></p>
+<figcaption>Figure 2. &#8211; WebKit&#8217;s buggy date input field with a <code>min</code> value set but no <code>max</code></figcaption>
+</figure>
+<p>Something similar happens when only a <code>max</code> value is set in that pressing the up arrow will cycle around to the year 0001, which is the default minimum. Again this leads to a very confusing <abbr title="User Experience">UX</abbr> for the user, so please use both <code>min</code> and <code>max</code> where possible.</p>
+<p>With Android, the setting of these attributes can cause some weird quirks with the <a href="#feature-datepicker">datepicker</a>.</p>
+</section>
+<section id="feature-step-attribute">
+<h3>The <code>step</code> attribute</h3>
+<p>None of the browsers tested support the <code>step</code> attribute.</p>
+</section>
+<section id="feature-datepicker">
+<h3>The datepicker</h3>
+<p>Firefox and Safari do not support the date input type and therefore do not open a datepicker on desktop. But they <em>do</em> open a device&#8217;s native datepicker on mobile devices when the date input field receives focus.</p>
+<p>Microsoft Edge opens a datepicker, but its <abbr>UI</abbr> is very poor (see Figure 3).</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/edge-datepicker.png" alt="Screenshot of the the Edge's datepicker, which displays a list of selectable dates with one highlighted and two buttons at the bottom, once with a tick and the other with an X"></p>
+<figcaption>Figure 3. &#8211; Microsoft Edge&#8217;s native datepicker</figcaption>
+</figure>
+<p>Chrome and Opera open a fairly decent datepicker on desktop but you cannot style it at all. It looks how it looks (see Figure 4), and there&#8217;s nothing that you can do about it, no matter what your designer says. With these browsers you can <a href="http://trac.webkit.org/wiki/Styling%20Form%20Controls#Dateinputtype">disable the native datepicker</a> if you want and implement your own, but this will <em>not</em> work with mobile devices. This gives you the best of both worlds: you can implement a nicer datepicker for desktop and let a device use its own native datepicker.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-datepicker.jpg" alt="Screenshot of WebKit's native datepicker and date input on Chrome"></p>
+<figcaption>Figure 4. &#8211; WebKit&#8217;s native datepicker and date input field as seen on Chrome</figcaption>
+</figure>
+</section>
+<p>All the native datepickers that I tested on Android displayed some sort of confusing display quirks when valid <code>min</code> and <code>max</code> attribute are set. A user is correctly restricted from selecting a date outside of the specified range, but the visual datepickers often display &#8220;previous&#8221;, &#8220;current&#8221;, and &#8220;next&#8221; values for day, month, and year, and the values displayed for &#8220;previous&#8221; are either empty (in the case of the month) or set to 9999 (in the case of the year, see Figure 5).</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/android-4.3-native-datepicker.png" alt="Screenshot of the native datepicker on Android 4.3, with a selected date and the previous year set to 9999"></p>
+<figcaption>Figure 5. &#8211; The native datepicker on Android 4.3</figcaption>
+</figure>
+</section>
+<section id="feature-events">
+<h3>Events</h3>
+<p>Like most of the other input fields, the date input supports the <a href="http://www.w3.org/TR/html51/semantics.html#event-input-input"><code>input</code></a> and <a href="http://www.w3.org/TR/html51/semantics.html#event-input-change"><code>changed</code></a> events. The <code>input</code> event is fired every time a user interacts with the input field, while the <code>change</code> event is usually only fired when the value is committed, i.e. the input field loses focus.</p>
+<p>For those browsers mentioned above that support the native date input field, no specific events are fired that will allow you to determine if the user has done anything &#8220;date specific&#8221; such as opened or closed the datepicker, or cleared the input field. You can work out if the field has been cleared by listening for the <code>input</code> or <code>change</code> events and then checking the input field&#8217;s value.</p>
+<p>If you have an event listener set up for the <code>change</code> event and one for the <code>input</code> event, <code>changed</code> will never actually fire as <code>input</code> takes precendence.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion</h2>
+<p>So, what can we deduce from all this? Should we use the input date type or not? And as usual the answer is &#8220;it depends&#8221; as only you know what you&#8217;re building and how and where it will be used, so it might fit perfectly for your needs or it might not.</p>
+<p>I think in general it&#8217;s safe to use the input date type on occasions where a <code>min</code> and <code>max</code> does not need to be set as the quirks when these attributes are used are too irritating to ignore. Since not all browsers support a datepicker and you will have to get one from somewhere else to support these browsers, I would also recommend turning off the datepicker for all desktop browsers (using the method linked to above) as this will still allow devices to use their own.</p>
+<p>Have fun!</p>
+</section>
+</section>
+                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/accessibility/" rel="category tag">Accessibility</a></li><li><a href="http://html5doctor.com/category/attributes/" rel="category tag">Attributes</a></li><li><a href="http://html5doctor.com/category/elements/" rel="category tag">Elements</a></li><li><a href="http://html5doctor.com/category/forms/" rel="category tag">forms</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                        <ul class="semantic-list"><li><h3>Tags</h3></li><li><a href="http://html5doctor.com/tag/date/" rel="tag">date</a></li><li><a href="http://html5doctor.com/tag/datepicker/" rel="tag">datepicker</a></li><li><a href="http://html5doctor.com/tag/forms/" rel="tag">forms</a></li><li><a href="http://html5doctor.com/tag/input/" rel="tag">input</a></li></ul>                    </li>
+                </ul>
+
+		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin" rel="author">Ian Devlin</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin" rel="author">Ian Devlin</a></span>. Ian is a frontend engineer at <a href="http://www.trivago.de/">trivago</a> in Düsseldorf, Germany. He has been interested in HTML5 since late 2009 and occasionally writes for other sites and magazines. Outside of the web, he is interested in European history, archaeology and nature. You can follow him on Twitter under <a href="http://twitter.com/iandevlin">@iandevlin</a>.</p>
+                    <img alt='' src='http://2.gravatar.com/avatar/899342d1ff532340125ae00d33c250c6?s=128&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/899342d1ff532340125ae00d33c250c6?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>11 Responses on the article “The woes of date input”</h3>
+
+		<li class="comment even thread-even depth-1" id="comment-2082410">
+				<div id="div-comment-2082410" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6045b2b525bc0911bdb70ad07a580aa6?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6045b2b525bc0911bdb70ad07a580aa6?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Nico</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2082410">
+			January 19, 2016 at 5:51 pm</a>		</div>
+
+		<p>I wonder why this useful feature is still receiving so little support. Opera Classic (until it switched to the Blink engine) has had a great support for all these features and a lot more. Now &#8211; nearly five years later &#8211; we still have some majors browsers with no support for this at all.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2082410#respond' onclick='return addComment.moveForm( "div-comment-2082410", "2082410", "respond", "5961" )' aria-label='Reply to Nico'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2082473">
+				<div id="div-comment-2082473" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3a34497f7086bef699c79890fd390b76?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3a34497f7086bef699c79890fd390b76?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='https://laukstein.com' rel='external nofollow' class='url'>Binyamin</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2082473">
+			January 19, 2016 at 8:41 pm</a>		</div>
+
+		<p>&#8220;year&#8221; up to 4-digit Chrome <a href="https://code.google.com/p/chromium/issues/detail?id=579181" rel="nofollow">Issue #579181</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2082473#respond' onclick='return addComment.moveForm( "div-comment-2082473", "2082473", "respond", "5961" )' aria-label='Reply to Binyamin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2082718">
+				<div id="div-comment-2082718" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/78847a8c8aa19cca8dc1a4de1961727f?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/78847a8c8aa19cca8dc1a4de1961727f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Igor</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2082718">
+			January 20, 2016 at 9:37 am</a>		</div>
+
+		<p>Link to WebKit prefixed selectors specification is broken.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2082718#respond' onclick='return addComment.moveForm( "div-comment-2082718", "2082718", "respond", "5961" )' aria-label='Reply to Igor'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-iand bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-2082874">
+				<div id="div-comment-2082874" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/899342d1ff532340125ae00d33c250c6?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/899342d1ff532340125ae00d33c250c6?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://iandevlin.com/' rel='external nofollow' class='url'>Ian Devlin</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2082874">
+			January 20, 2016 at 4:57 pm</a>		</div>
+
+		<p>I too am wondering the same Nico, as it is such a common pattern. Opera&#8217;s Presto engine did indeed implement a fairly decent one, I must test it to see if it also had some of the quirks of WebKit.</p>
+<p>Thanks for pointing that out Igor, it is now fixed.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2082874#respond' onclick='return addComment.moveForm( "div-comment-2082874", "2082874", "respond", "5961" )' aria-label='Reply to Ian Devlin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2083137">
+				<div id="div-comment-2083137" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2a6b434b5332e77137537e6de4efc41a?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2a6b434b5332e77137537e6de4efc41a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://about.me/IDisposable' rel='external nofollow' class='url'>Marc Brooks</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2083137">
+			January 21, 2016 at 4:22 am</a>		</div>
+
+		<p>The main reason all of these suck so bad is that calendars are hard&#8230; once you step outside the easy Gregorian calendar in &#8220;recent&#8221; times, things get nasty&#8230; and don&#8217;t get me started about timezones (and local-datetime)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2083137#respond' onclick='return addComment.moveForm( "div-comment-2083137", "2083137", "respond", "5961" )' aria-label='Reply to Marc Brooks'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2084323">
+				<div id="div-comment-2084323" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6045b2b525bc0911bdb70ad07a580aa6?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6045b2b525bc0911bdb70ad07a580aa6?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Nico</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2084323">
+			January 24, 2016 at 2:56 pm</a>		</div>
+
+		<p>I agree with Marc that calendars are a hard thing to do right. But that&#8217;s only more of a reason for browsers doing them right. Otherwise we have to use libraries which normally don&#8217;t have the manpower to test this thoroughly and we will be stuck with implementations that may work fine for the next years but sometime will turn out broken for unexpected reasons.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2084323#respond' onclick='return addComment.moveForm( "div-comment-2084323", "2084323", "respond", "5961" )' aria-label='Reply to Nico'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2084489">
+				<div id="div-comment-2084489" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/37694b9c30424784bf3882ff5ebb827a?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/37694b9c30424784bf3882ff5ebb827a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Maksim</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2084489">
+			January 25, 2016 at 4:13 am</a>		</div>
+
+		<p>Another method to disable browser implementation I use in <a href="https://github.com/chemerisuk/better-dateinput-polyfill" rel="nofollow">better-dateinput-polyfill</a> Is just to change the input type to &#8220;text&#8221;.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2084489#respond' onclick='return addComment.moveForm( "div-comment-2084489", "2084489", "respond", "5961" )' aria-label='Reply to Maksim'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2086015">
+				<div id="div-comment-2086015" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/dd60af940773439f1b0c684a3af6db68?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/dd60af940773439f1b0c684a3af6db68?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Christof</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2086015">
+			January 29, 2016 at 4:48 pm</a>		</div>
+
+		<p>&gt; Microsoft Edge opens a datepicker, but its UI is very poor </p>
+<p>Why is the UI poor? I quite like it and its simple enough. Different to your standard month view but this does not make it bad, or does it?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2086015#respond' onclick='return addComment.moveForm( "div-comment-2086015", "2086015", "respond", "5961" )' aria-label='Reply to Christof'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2110018">
+				<div id="div-comment-2110018" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/4923259857a93103d1256b309c2da0e5?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/4923259857a93103d1256b309c2da0e5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Nick Coad</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2110018">
+			April 3, 2016 at 11:38 pm</a>		</div>
+
+		<p>Christof &#8211; my only complaint would be that it doesn&#8217;t show the day of the week, can make selecting dates painful in some contexts. Think about booking flights for a holiday for example, where you&#8217;ll probably want to book on a specific day of the week, but the week might be flexible.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2110018#respond' onclick='return addComment.moveForm( "div-comment-2110018", "2110018", "respond", "5961" )' aria-label='Reply to Nick Coad'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2116637">
+				<div id="div-comment-2116637" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/dd60af940773439f1b0c684a3af6db68?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/dd60af940773439f1b0c684a3af6db68?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Christof</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2116637">
+			April 27, 2016 at 10:11 pm</a>		</div>
+
+		<p>@Nick: Ok, can be in some circumstances. But then it looks the cleanest, is very usable with touch which a month table view sometimes is not. And I normally know the date day but not weekday. So I would not say it is poor but different.</p>
+<p>BTW, Safaris datetime-local support is broken it seems. It shows UI for Date and Time but there is no way to select a *year* for the date?! Tested e.g. on iPad 2, iOS 9.3. Chrome and Edge both show a usable Date+Time picker UI. Web worked around this using separate Date and time inputs but that kinda neglects the purpose&#8230;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2116637#respond' onclick='return addComment.moveForm( "div-comment-2116637", "2116637", "respond", "5961" )' aria-label='Reply to Christof'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2123161">
+				<div id="div-comment-2123161" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/ef5a293ed2aa8130cd295fe922e72e96?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/ef5a293ed2aa8130cd295fe922e72e96?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Mark</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-woes-of-date-input/#comment-2123161">
+			May 25, 2016 at 11:16 pm</a>		</div>
+
+		<p>The folks at google seem to be very lazy. They start things and either do not finish them or they abandon them. The min and max attributes in the time tag behave  completely different from expected. After beating the Microsoft Devil, he deserves his due because the time tag and its attributes work exactly as expected in Edge. </p>
+<p>To set values related to 12:00, 18:00 and 24:00/00:00 you need to use 11:59, 17:59 and 23:59 hrs respectively, which means you lose the precise functionality in browsers that work correctly with those values.</p>
+<p>There are also longstanding CSS3 issues with Chrome and the google browser on Android devices; but that&#8217;s another matter.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-woes-of-date-input/?replytocom=2123161#respond' onclick='return addComment.moveForm( "div-comment-2123161", "2123161", "respond", "5961" )' aria-label='Reply to Mark'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/the-woes-of-date-input/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='5961' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="349a307bdb" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="15"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>
+<!-- Dynamic page generated in 0.834 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-08-30 12:50:44 -->
+
+<!-- super cache -->

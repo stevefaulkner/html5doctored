@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; boilerplate</title>
+	<atom:link href="http://html5doctor.com/tag/boilerplate/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 18 Aug 2015 18:11:14 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Your Questions Answered #11</title>
+		<link>http://html5doctor.com/your-questions-answered-11/</link>
+		<comments>http://html5doctor.com/your-questions-answered-11/#comments</comments>
+		<pubDate>Fri, 30 Jul 2010 14:00:13 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[boilerplate]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[input]]></category>
+		<category><![CDATA[meter]]></category>
+		<category><![CDATA[placeholder]]></category>
+		<category><![CDATA[progress]]></category>
+		<category><![CDATA[web forms]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2328</guid>
+		<description><![CDATA[<p>The clinic is busy as ever with more <abbr>HTML</abbr>5 ailments. This week, we'll show you how (and whether) to store a <code>&#60;canvas&#62;</code> on the server, whether to use <code>&#60;progress&#62;</code> or <code>&#60;meter&#62;</code>, more on <code>&#60;header&#62;</code>, the <code>placeholder</code> attribute, and <abbr>HTML</abbr>5 minification.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is busy as ever with more <abbr>HTML</abbr>5 ailments. This week, we&#8217;ll show you how (and whether) to store a <code>&lt;canvas&gt;</code> on the server, whether to use <code>&lt;progress&gt;</code> or <code>&lt;meter&gt;</code>, more on <code>&lt;header&gt;</code>, the <code>placeholder</code> attribute, and <abbr>HTML</abbr>5 minification.</p>
+    
+    <section>
+      <h2>Getting info from a canvas to the server</h2>
+      <p>Stephen asked:</p>
+      <blockquote>
+        <p>I want to use a canvas element as a layout plan and allow people to move things about and the like but I then want to be able to submit the changed layout to the server so it can be kept not just as a bitmap but as the various current layout of the plan.  Is this possible?</p>
+      </blockquote>
+      <p>You could call <code>canvas.toDataURL()</code> and store this output on the server. (Note that <code>canvas</code> is the <abbr>DOM</abbr> node and not the 2D context.) This will store the current state of your canvas, but it&#8217;s effectively a bitmap at this point. If you want to store the element for later editing, I&#8217;d suggest you use <abbr>SVG</abbr> instead. You can achieve the same graphical effect, but you&#8217;ll have access to the actual vector data since it&#8217;s <abbr>XML</abbr>.</p>
+
+	  <p>Hope that helps,</p>
+	  
+	  <p>Remy</p>
+    </section>
+    
+    <section>
+      <h2>Progress or meter?</h2>
+      <p>Pierre asked:</p>
+      <blockquote>
+        <p>Hello doctor,</p>
+
+<p>I&#8217;m beginning with <abbr>HTML</abbr>5. I just wonder if I&#8217;m using the progress and meter elements correctly. Just imagine a player. Is it correct to use: the progress element to specify a load bar; the meter element to specify the volume set.</p>
+
+<p>Thank you Doctor, have a good day. :-)</p>
+      </blockquote>
+      <p><code>&lt;progress&gt;</code> is spot on for a loading bar, yes.</p>
+
+	  <p><code>&lt;meter&gt;</code> is read only, however, so it&#8217;s not appropriate for a volume control. There are some examples in <a href="http://html5doctor.com/measure-up-with-the-meter-tag/">Tom&#8217;s article on <code>&lt;meter&gt;</code></a>. To create a volume control, you could use one of the new input types specified in <abbr>HTML</abbr>5, perhaps <code>&lt;input type="range"&gt;</code>.</p>
+
+	  <p>Cheers,</p>
+	  
+	  <p>Rich</p>
+    </section>
+    
+    <section>
+      <h2>Headers</h2>
+      <p>Brad asked:</p>
+      <blockquote>
+        <p>Having read you can use the header tag within almost any other element, is it fair to say you no longer &#8220;design&#8221; the header but simply design the elements in each header?  How does that work?  Would you use header classes?</p>
+		
+        <p>In the past you define your header with an image or text etc.  You can no longer do that if you use multiple headers?</p>
+      </blockquote>
+      <p>The <code>&lt;header&gt;</code> element should be used if you have any related information within the &#8220;header&#8221; of that section that needs to be grouped. This means, for example, it isn&#8217;t necessary to wrap a lone <code>&lt;h1&gt;</code> in a <code>&lt;header&gt;</code> element. Also remember that the header doesn&#8217;t <em>have</em> to appear at the top of a section of page.</p>
+
+    <p>Our articles on the <a href="http://html5doctor.com/the-header-element/"><code>&lt;header&gt;</code> element</a> and <a href="http://html5doctor.com/the-hgroup-element/"><code>&lt;hgroup&gt;</code> element</a> explain this some more.</p>
+
+    <p>Whether you need to use classes depends on your site.</p>
+
+    <p>Ta,</p>
+    
+    <p>Rich</p>
+    </section>
+    
+    <section>
+      <h2>The <code>placeholder</code> attribute</h2>
+      <p>José asked:</p>
+      <blockquote>
+        <p>I recall once having seen text inputs that had tips inside them. They didn&#8217;t need Javascript in order to manage those tips. Would you consider discussing that a little better? That&#8217;d be great! Thanks!</p>
+      </blockquote>
+      <p>We&#8217;re publishing an article on forms shortly, so be sure to look out for it.</p>
+
+	  <p>Meanwhile, you&#8217;re looking for the <code>placeholder</code> attribute. Currently, this is supported only on Webkit browsers, although Mozilla is also working on it. You can use <code>placeholder</code> like this:</p>
+
+      <pre><code>&lt;input placeholder="Search" title="Type your search here" ...&gt;</code></pre>
+      
+	  <p>We&#8217;ve also written a JavaScript solution using feature detection (i.e., it will check whether the browser supports <code>placeholder</code> and adds support if not). Just add <a href="http://gist.github.com/330318">this script</a> to the end of your markup (note that it should be the end since it needs to run once the <abbr>DOM</abbr> is ready).</p>
+
+	  <p>Hope that helps,</p>
+	  
+	  <p>Bruce &amp; Remy</p>
+
+    </section>
+    
+    <section id="html5-minified">
+      <h2>HTML5 Minified</h2>
+      <p>Grant asked:</p>
+      <blockquote>
+        <p>Hello! Big fan of your website. I wanted to know about the so called &#8220;HTML Minified&#8221; feature that allows you to strip the <code>html</code>, <code>head</code> and <code>body</code> tags from your page.</p>
+
+		<p>The W3C Validator Conformance Checker for HTML5 says this is valid, but the Conformance Checker is beta and is supposedly unreliable. I haven&#8217;t heard from anywhere else that stripping these tags is a feature.</p>
+
+		<p>So is it really a feature? Or just a bug (A BIG one at that) in the experimental validator? I know that it works, but I would like to see any confirmation other than the validator that this is in fact an intended standard before I start using it on my websites. Thanks!</p>
+      </blockquote>
+      <p>According to the spec, it is now explicitly permitted to omit all kinds of <del datetime="2010-07-31T13:33+09:00">elements</del> <ins datetime="2010-07-31T13:33+09:00">tags</ins>, including the ones you mention. Browsers are able to deduce the document structure based on context (e.g., some elements are only allowed within a <code>&lt;body&gt;</code> element) and will fix the <abbr>DOM</abbr> as they go. In fact, these have always been optional tags in <abbr>HTML</abbr> (but not <abbr>XHTML</abbr>).</p>
+
+	  <p>Browsers are so good at this, though, because they’ve had to deal with the pants code out there on the interwebs. Going this route means you’re relying on browser error handling to render your document <del datetime="2010-07-31T13:34+09:00">(although said error handling has admittedly been standardised in <abbr>HTML</abbr>5)</del>. I personally see it as a more extreme version of quoting element attributes. Of course you don’t have to, but being strict makes errors much easier to find, helps out parsers that may not be as sophisticated as a full-fledged browser (like text editor syntax highlighting), and makes it easier for beginners and veterans alike to learn and use <abbr>HTML</abbr>.</p>
+
+	  <p>In general, machines understand you better when you’re explicit, so I’d advise against omitting these elements.</p>
+      
+      <p>For more detailed articles on <abbr>HTML</abbr>5 minification, check out Remy&#8217;s <a href="http://html5doctor.com/html-5-boilerplates/">HTML5 Boilerplates</a> and Bruce&#8217;s <a href="http://www.brucelawson.co.uk/2010/a-minimal-html5-document/">A minimal HTML5 document</a>.</p>
+
+	  <p>Peace,</p>
+	  
+	  <p>Oli</p>
+    </section>
+    
+	<section>
+		<h2>Got a question for us?</h2>
+		<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+	</section>
+<p><a href="http://html5doctor.com/your-questions-answered-11/" rel="bookmark">Your Questions Answered #11</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 30, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-11/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Boilerplates</title>
+		<link>http://html5doctor.com/html-5-boilerplates/</link>
+		<comments>http://html5doctor.com/html-5-boilerplates/#comments</comments>
+		<pubDate>Fri, 17 Jul 2009 13:30:45 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Boilerplates]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[boilerplate]]></category>
+		<category><![CDATA[doctype]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[template]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=526</guid>
+		<description><![CDATA[Without going into the discussion of why HTML 5 is available today and not 2022, this article is going to give you a series of HTML 5 boilerplates that you can use in your projects right now. HTML 5 in 5 seconds It&#8217;s &#252;ber easy to get your markup to validate as HTML 5 &#8212; [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Without going into the discussion of why <abbr>HTML</abbr> 5 is available <em>today</em> and not 2022, this article is going to give you a series of <abbr>HTML</abbr> 5 boilerplates that you can use in your projects <em>right now</em>.</p>
+<h2 id="html_5_in_5_seconds"><abbr>HTML</abbr> 5 in 5 seconds</h2>
+<p>It&#8217;s &uuml;ber easy to get your markup to validate as <abbr>HTML</abbr> 5 &mdash; just change your <code>DOCTYPE</code> from whatever it is now to this:</p>
+<pre><code>&lt;!DOCTYPE html&gt;</pre>
+<p></code></p>
+<p>That's it! It doesn't require anything more than that.</p>
+<p>Google are doing it already. Check out their homepage, written all in one line:</p>
+<pre><code>&lt;!doctype html&gt;&lt;head&gt;&lt;title&gt;HTML 5 - Google Search&lt;/title&gt;&lt;script&gt;...</code></pre>
+<p>Ironically, Google's search and results pages don't validate because of their use of invalid tags like <code>&lt;font&gt;</code> and a number of other errors, but that's okay. They can still take advantage of the <abbr>HTML</abbr> 5 parsing rules (e.g., no <code>type</code> attribute on the <code>&lt;script&gt;</code> element) by using the correct <code>DOCTYPE</code>.</p>
+<h2 id="html_5_minified"><abbr>HTML</abbr> 5 minified</h2>
+<p>If you like to knock out quick prototypes or experiments that don't require much styling, you might be interested in a miniature document in <abbr>HTML</abbr> 5:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;title&gt;Small HTML 5&lt;/title&gt;
+&lt;p&gt;Hello world&lt;/p&gt;</code></pre>
+<p>That's <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fjsbin.com%2Fowata&amp;ss=1">completely valid <abbr>HTML</abbr> 5</a> too.</p>
+<p>(Interestingly, there was some disagreement about this pattern's validity when I removed the <code>&lt;title&gt;</code> tag.  says it's fine, and so does the W3C validator as long as the markup is entered manually. But Henri Sivonen's validator says it's invalid without the <code>&lt;title&gt;</code> tag. The W3C validator also says it's invalid when you <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fjsbin.com%2Feyuqe&amp;ss=1">give it a url</a>. Hopefully, this will get sorted out soon.)</p>
+<h2 id="html_5_complete_compatible"><abbr>HTML</abbr> 5 complete &amp; compatible</h2>
+<p>This final, more complete boilerplate also indicates the character set. Without it, some characters will not render properly (and I've spent too much time in the past trying to work out why!).</p>
+<p>We're also including the <a href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/"><abbr>HTML</abbr> 5 shiv</a> so that we can style elements in IE. Note that <a href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/#a-little-head">you <em>must</em> include this script in the <code>&lt;head&gt;</code> element</a>.</p>
+<p>Finally, we're adding a few <abbr>CSS</abbr> rules to cause the new block-level elements to render as such, since some browsers don't know about them natively.</p>
+<p>So here it is &mdash; a valid and complete HTML 5 document boilerplate:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot; /&gt;
+&lt;title&gt;HTML 5 complete&lt;/title&gt;
+&lt;!--[if IE]&gt;
+&lt;script src=&quot;http://html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+&lt;style&gt;
+  article, aside, details, figcaption, figure, footer, header,
+  hgroup, menu, nav, section { display: block; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Hello World&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>If you want to experiment with <abbr>HTML</abbr> 5, the <a href="http://jsbin.com/">default JS Bin template</a> is an HTML5 boilerplate for you to play with too.</p>
+<p>lt;body</p>
+<p><a href="http://html5doctor.com/html-5-boilerplates/" rel="bookmark">HTML5 Boilerplates</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 17, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html-5-boilerplates/feed/</wfw:commentRss>
+		<slash:comments>129</slash:comments>
+		</item>
+	</channel>
+</rss>

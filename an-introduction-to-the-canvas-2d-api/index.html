@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  An introduction to the Canvas 2D API | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; An introduction to the Canvas 2D API Comments Feed" href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='Your Questions Answered #11' href='http://html5doctor.com/your-questions-answered-11/' />
+<link rel='next' title='Your Questions Answered #12' href='http://html5doctor.com/your-questions-12/' />
+<link rel="canonical" href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=2264' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fan-introduction-to-the-canvas-2d-api%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fan-introduction-to-the-canvas-2d-api%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+	  
+  
+	</head>
+<body class="single single-post postid-2264 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-2264 post type-post status-publish format-standard hentry category-elements category-javascript-apis tag-2d-context tag-canvas" id="post-2264">
+                 <h1>An introduction to the Canvas 2D API </h1>
+                <small><time datetime="2010-08-03" pubdate>Tuesday, August 3rd, 2010</time> by <a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp" rel="author">Remy Sharp</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		
+                <p>If the <code>alt;video width="300" height="150"&gt;</code> element is the poster boy of <abbr>HTML</abbr>5, then <code>&amp;lt;canvas&gt;</code> is definitely <a href="http://en.wikipedia.org/wiki/Danny_Zuko">Danny Zuko</a>. The <code>&amp;lt;canvas&gt;</code> element is (still) <a href="http://www.w3.org/TR/html5/">part of the HTML5 specification</a>, but the <a href="http://www.w3.org/TR/2dcontext/">2D drawing <abbr>API</abbr></a> has been moved into a separate document (in case you go looking and can&#8217;t find it).</p>
+
+<p><code>&amp;lt;canvas&gt;</code> has a wealth of features, like:</p>
+
+<ul>
+<li>drawing shapes,</li>
+<li>filling colours,</li>
+<li>creating gradients and patterns,</li>
+<li>rendering text,</li>
+<li>copying images, video frames, and other canvases,</li>
+<li>manipulating pixels, and</li>
+<li>exporting the contents of a <code>&lt;canvas&gt;</code> to a static file.</li>
+</ul>
+
+<p>In fact, the canvas <abbr>API</abbr> is so interesting, I wouldn&#8217;t be surprised to see entire books dedicated to it (and no, I don&#8217;t plan to write <em>that</em> book!).</p>
+
+<p>It&#8217;s important when working with <code>&lt;canvas&gt;</code> to treat it like a real painting canvas. Say you lay down a strip of red paint on a real canvas. If you paint over it in blue, you can&#8217;t get back to your original red paint. It&#8217;s the same with the canvas element. There&#8217;s no concept of layers. The <code>&lt;canvas&gt;</code> element is a <strong>bitmap</strong> drawing <abbr>API</abbr>, and once you&#8217;ve committed to a set of pixels, you&#8217;re stuck with them.</p>
+
+<p>Four of the Big Five browsers support canvas. We&#8217;re naturally missing <abbr>IE</abbr>8, but there&#8217;s hope: <abbr>IE</abbr>9 <em>does</em> support canvas. In fact, it supports <em>hardware accelerated drawing to the canvas</em> — other browsers currently don&#8217;t, making <abbr>IE</abbr>9 preview 3 the fastest (canvas) kid on the block!</p>
+
+<h2>Always consider the options</h2>
+
+<p>Before we dive in to the canvas <abbr>API</abbr>, I want to remind you to make sure you&#8217;re using the right technology for the job.</p>
+
+<p><a href="http://www.w3.org/TR/SVG/"><abbr>SVG</abbr></a> is the alternative drawing <abbr>API</abbr>. It&#8217;s vector-based and <em>does</em> support layers. <abbr>SVG</abbr> also exists in the <abbr>DOM</abbr>, making it easy to attach event handlers for interactivity, and it&#8217;s easier to deal with collision detection (in games, for example). It also supports animation either through <abbr>SMIL</abbr> or JavaScript. There&#8217;s an excellent JavaScript library called <a href="http://raphaeljs.com/">Raphaël</a> that uses <abbr>SVG</abbr> to render images and animations.</p>
+
+<p>The <code>&lt;canvas&gt;</code> element is good for pixel manipulation and highly active animations. Brad Neuberg does a <a href="http://www.youtube.com/watch?v=siOHh0uzcuY#t=17m00s">really good job of explaining the differences</a> in his Google <abbr>IO</abbr> talk from back in 2009.</p>
+
+<p>With all that in mind, let&#8217;s crack on with the canvas <abbr>API</abbr>.</p>
+
+<h2>Hello Canvas</h2>
+
+<p>The <code>&lt;canvas&gt;</code> element by itself is an invisible block of space, by default 300&#215;150 pixels (in all browsers):</p>
+
+<p><canvas id="c"></canvas></p>
+
+<p>So now we&#8217;ve got a blank canvas in front of us. To draw, we need the <em>drawing context</em>, which we can get using JavaScript. Once we have the context, we can draw abominations to our hearts&#8217; content:</p>
+
+<p><small><a href="http://jsbin.com/abagi3/edit">Code snippet</a></small></p>
+
+<p>The context is our direct access to draw and paint on the canvas. Without it, we can&#8217;t paint a thing.</p>
+
+<h2>Painting Shapes</h2>
+
+<p>The 2D drawing API is fairly large (not too huge, but bigger than most other <abbr>HTML</abbr>-esque <abbr>API</abbr>s), so I&#8217;m just going to show you how to draw something simple: a solid blue rectangle and a pink semi-circle.</p>
+
+<p>Using the <code>context</code> object from earlier, we&#8217;re going to call <code>fillRect()</code>, passing the method the coordinates of the top left corner (x, y) and the width and height of the rectangle we want to paint:</p>
+
+<p><small><a href="http://jsbin.com/abagi3/2/edit">Code snippet</a></small></p>
+
+<p><figure><img style="border: 1px solid #ccc;" src="http://html5doctor.com/wp-content/uploads/2010/07/canvas1.png" alt="Simple filled rectangle" title="Simple filled rectangle" width="300" height="150" class="alignnone size-full wp-image-2269" /><figcaption>Simple filled rectangle created with canvas</figcaption></figure>If you don&#8217;t specify a colour, the default fill and stroke colours will be black. So let&#8217;s change that to blue by setting the <code>fillStyle()</code> <em>before</em> we call <code>fillRect()</code>. We&#8217;re choosing our colour before drawing because this <code>&lt;canvas&gt;</code> is just like a real canvas — if you&#8217;re going to paint, you need to dip your brush in to the paint pot first:</p>
+
+<p>var canvas = document.getElementById(&#8220;c&#8221;),
+context = canvas.getContext(&#8220;2d&#8221;);</p>
+
+<p>context.fillStyle = &#8216;blue&#8217;;
+context.fillRect(10, 20, 200, 100);</p>
+
+<p><small><a href="http://jsbin.com/abagi3/3/edit">Code snippet</a></small></p>
+
+<p><figure><img style="border: 1px solid #ccc;" src="http://html5doctor.com/wp-content/uploads/2010/07/canvas2.png" alt="" title="Blue filled rectangle" width="300" height="150" class="alignnone size-full wp-image-2270" /><figcaption>Blue filled rectangle created with canvas</figcaption></figure>Being the eagle-eyed <abbr>HTML</abbr>5 ninja that you are, you noticed that I&#8217;ve used the string <code>blue</code> as the fill colour. You can use any CSS colour properties in the canvas <abbr>API</abbr>. That means <code>blue</code>, <code>#0000ff</code>, <code>#00f</code>, <code>rgb(0, 0, 255)</code>, and even <code>rgba(0, 0, 255, 0.5)</code> are all valid colours.</p>
+
+<p>How about we turn this thing up to eleven? Let&#8217;s add a pink semi-circle. <a href="http://www.youtube.com/watch?v=cbpccXp6Swo">Oh yeah! Let&#8217;s do this!</a></p>
+
+<p>var canvas = document.getElementById(&#8220;c&#8221;),
+context = canvas.getContext(&#8220;2d&#8221;);</p>
+
+<p>context.fillStyle = &#8216;blue&#8217;;
+context.fillRect(10, 20, 200, 100);</p>
+
+<p>// setup the line style
+context.strokeStyle = &#8216;#fa00ff&#8217;;
+context.lineWidth = 5;
+context.lineCap = &#8217;round&#8217;;</p>
+
+<p>// draw the arc path
+// (I&#8217;ll walk you through these values momentarily &#8211; bear with me!)
+context.arc(50, 50, 20, 0, Math.PI, false);</p>
+
+<p>// colour the path
+context.stroke();</p>
+
+<p><small><a href="http://jsbin.com/abagi3/4/edit">Code snippet</a></small></p>
+
+<p><figure><img style="border:1px solid #ccc;" src="http://html5doctor.com/wp-content/uploads/2010/07/canvas3.png" alt="" title="Blue filled rectangle with semi-circle" width="300" height="150" class="alignnone size-full wp-image-2271" /><figcaption>Blue filled rectangle with a semi-circle created with canvas</figcaption></figure>There are three things that we&#8217;ve added to our JavaScript:</p>
+
+<ol>
+<li>Configuring the line style</li>
+<li>Drawing the semi-circle <strong>path</strong></li>
+<li>Stroking the path (i.e., painting the line)</li>
+</ol>
+
+<p>When drawing paths, until you <code>fill</code> or <code>stroke</code> the path, nothing appears on the canvas. In this case, our path is an arc of a 180 degrees. The <code>arc()</code> method takes the following arguments: x coordinate, y coordinate, radius, start angle, end angle, and whether the arc should be drawn anti-clockwise. All of these arguments are required. (Technically, if you&#8217;re drawing a circle, it doesn&#8217;t matter whether you&#8217;re going clockwise or anti-clockwise, but you still need the argument.)</p>
+
+<p>The tricky parts are the start and end angle. They&#8217;re both in radians. Remember those? I didn&#8217;t, so I&#8217;ll forgive you if you don&#8217;t! Here&#8217;s how to convert from degrees to radians:</p>
+
+<p>var radians = degrees * Math.PI / 180;</p>
+
+<p>It&#8217;s common to pass 360 degrees to the drawing methods, which is simply <code>Math.PI * 2</code>. Similarly, 180 degrees is <code>Math.PI</code>, which we used to create our semi-circle.</p>
+
+<p>Once you have your path, you need to <code>stroke</code> (or <code>fill</code>) it. This applies the line style and colours to the path and completes our drawing. Do please remember that with this drawing: a) you can&#8217;t recover those lost blue pixels under the pink semi-circle, and b) this example would be much simpler in <abbr>SVG</abbr>!</p>
+
+<p>So remember to choose the <code>&lt;canvas&gt;</code> element based on its strengths as I outlined at the top of this article.</p>
+
+<h2>Exporting &#038; Saving</h2>
+
+<p>One thing that <abbr>SVG</abbr> <em>can&#8217;t</em> do is save the resulting image as a bitmap. It&#8217;s easy for <code>&lt;canvas&gt;</code> because the element is already a bitmap in the first place! The canvas can export its image to a data <abbr>URL</abbr> (e.g., <code>data:image/png;base64,iVBORw0KGg...</code>). This data may then be rendered in the browser, which could then be saved or dragged to the desktop, used in a new canvas, and so on.</p>
+
+<p>The browser must support <abbr>PNG</abbr> images, and it may have varying support for <abbr>GIF</abbr> and <abbr>JPG</abbr>. For our example, we&#8217;ll stick with <abbr>PNG</abbr> since it supports alpha transparency, and where we haven&#8217;t drawn on the canvas, it&#8217;ll be transparent.</p>
+
+<p>To get the data <abbr>URL</abbr>, we simply call <code>canvas.toDataURL('image/png')</code>. Note that we&#8217;re calling <code>toDataURL()</code> on the <code>&lt;canvas&gt;</code> element, <em>not</em> on the 2D context. This is because we&#8217;re getting all the pixels in the canvas, not just the pixels in a particular context.</p>
+
+<p>So taking the example we&#8217;ve put together already, we&#8217;ll make the browser redirect to a <abbr>PNG</abbr> version of the image when a user clicks on the <code>&lt;canvas&gt;</code> element (a contrived example, I know!):</p>
+
+<p>canvas.onclick = function () {
+window.location = canvas.toDataURL(&#8216;image/png&#8217;);
+};</p>
+
+<p><small><a href="http://jsbin.com/abagi3/5/edit">Code snippet</a></small></p>
+
+<p>If you go to the <a href="http://jsbin.com/abagi3/5/">live canvas example</a> and click on the <code>&lt;canvas&gt;</code> element, it will load a <abbr>PNG</abbr> version of the canvas. Now you can save that to your desktop, email it to your friends, or even tweet it to your followers!</p>
+
+<h2>That&#8217;s just the start</h2>
+
+<p>This is just a small preview of what the canvas 2D <abbr>API</abbr> can do. There&#8217;s a whole lot more:</p>
+
+<ul>
+<li>Gradients, fills, and patterns</li>
+<li>Paths</li>
+<li>Text</li>
+<li>Pixel manipulation</li>
+<li>Animations (though old school, flip book style)</li>
+</ul>
+
+<p>And don&#8217;t worry, the <abbr>HTML</abbr>5 Doctors will publish more articles explaining the canvas <abbr>API</abbr> in the future. We&#8217;ll even have special guest <a href="http://twitter.com/tabatkins">Tab Atkins</a> explaining how he got a video to render entirely in <abbr>ASCII</abbr>!</p>
+
+<p>In the meantime, here are a few useful resources to keep you going.</p>
+
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en/canvas_tutorial">Mozilla&#8217;s canvas tutorial</a></li>
+<li><a href="http://dev.opera.com/articles/view/html-5-canvas-the-basics/">Opera&#8217;s canvas tutorial</a></li>
+<li><a href="http://billmill.org/static/canvastutorial/">Breakout game live tutorial</a></li>
+<li><a href="http://diveinto.html5doctor.com/canvas.html">Mark Pilgrim&#8217;s Dive in to HTML5 canvas chapter</a> — but don&#8217;t forget there are <a href="http://introducinghtml5.com">other good books</a> you can buy too ;-)</li>
+</ul>
+
+<p></video></p>
+                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/elements/" rel="category tag">Elements</a></li><li><a href="http://html5doctor.com/category/javascript-apis/" rel="category tag">JavaScript APIs</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                        <ul class="semantic-list"><li><h3>Tags</h3></li><li><a href="http://html5doctor.com/tag/2d-context/" rel="tag">2d context</a></li><li><a href="http://html5doctor.com/tag/canvas/" rel="tag">canvas</a></li></ul>                    </li>
+                </ul>
+
+		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp" rel="author">Remy Sharp</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp" rel="author">Remy Sharp</a></span>. Remy (<a href="http://twitter.com/rem">@rem</a> on Twitter) is the founder of <a href="http://jqueryfordesigners.com">jQuery for Designers</a> and the <a href="http://full-frontal.org">Full Frontal JavaScript conference</a>, otherwise he's a developer and blogger.
+
+Generally speaking, he's about as crazy about JavaScript, HTML &amp; CSS as a squirrel is about his nuts during the winter.</p>
+                    <img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=128&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>24 Responses on the article “An introduction to the Canvas 2D API”</h3>
+
+		<li class="comment even thread-even depth-1" id="comment-10026">
+				<div id="div-comment-10026" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/ad181db1b12e1b14c6ef9d298c9229c4?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/ad181db1b12e1b14c6ef9d298c9229c4?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.barneyblack.com' rel='external nofollow' class='url'>Leandro</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10026">
+			August 3, 2010 at 2:46 pm</a>		</div>
+
+		<p>Cool!</p>
+<p>I hope more advanced articles!!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10026#respond' onclick='return addComment.moveForm( "div-comment-10026", "10026", "respond", "2264" )' aria-label='Reply to Leandro'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-10027">
+				<div id="div-comment-10027" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/ad181db1b12e1b14c6ef9d298c9229c4?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/ad181db1b12e1b14c6ef9d298c9229c4?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.barneyblack.com' rel='external nofollow' class='url'>Leandro</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10027">
+			August 3, 2010 at 2:47 pm</a>		</div>
+
+		<p>fiiirrrrssssssssstt comment! :D</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10027#respond' onclick='return addComment.moveForm( "div-comment-10027", "10027", "respond", "2264" )' aria-label='Reply to Leandro'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-10028">
+				<div id="div-comment-10028" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/36617df26d9b45372aabf4ca1633d1fd?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/36617df26d9b45372aabf4ca1633d1fd?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.canvasdemos.com' rel='external nofollow' class='url'>Andi Smith</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10028">
+			August 3, 2010 at 2:56 pm</a>		</div>
+
+		<p>If anyone makes anything cool with canvas, feel free to submit it to <a href="http://www.canvasdemos.com" rel="nofollow">canvasdemos.com</a>!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10028#respond' onclick='return addComment.moveForm( "div-comment-10028", "10028", "respond", "2264" )' aria-label='Reply to Andi Smith'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-10033">
+				<div id="div-comment-10033" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f11d3ff183cf60ae7233cdcc19585ad8?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f11d3ff183cf60ae7233cdcc19585ad8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://a.deveria.com' rel='external nofollow' class='url'>Alexis Deveria</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10033">
+			August 3, 2010 at 6:18 pm</a>		</div>
+
+		<p>Excellent article as usual, Remy!</p>
+<p>Funny story: I first experimented with Canvas using Mozilla&#8217;s original tutorial, and I actually thought that <em>was</em> SVG! Was surprised at the time to find out there were actually two ways for browsers to draw pretty shapes.</p>
+<p>And yeah, it sucks that there&#8217;s no easy way to save an SVG as a bitmap&#8230;for anyone who needs to do so anyway, I&#8217;d recommend the <a href="http://code.google.com/p/canvg/" rel="nofollow">Canvg</a> project.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10033#respond' onclick='return addComment.moveForm( "div-comment-10033", "10033", "respond", "2264" )' aria-label='Reply to Alexis Deveria'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-10039">
+				<div id="div-comment-10039" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d6f5b51e470ea697308fae0a8816a041?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d6f5b51e470ea697308fae0a8816a041?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.jasonneel.com' rel='external nofollow' class='url'>Jason</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10039">
+			August 4, 2010 at 1:31 am</a>		</div>
+
+		<p>Is it weird that I literally had Joe Swanson&#8217;s voice in my head as I read &#8220;Oh yeah! Let&#8217;s do this!&#8221; <strong>before</strong> I clicked on the link to the Family Guy clip?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10039#respond' onclick='return addComment.moveForm( "div-comment-10039", "10039", "respond", "2264" )' aria-label='Reply to Jason'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-10056">
+				<div id="div-comment-10056" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d7257522e63559ace444fd44e1028497?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d7257522e63559ace444fd44e1028497?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.dharne.com/blog/' rel='external nofollow' class='url'>Nathan Williams</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10056">
+			August 6, 2010 at 12:36 pm</a>		</div>
+
+		<p>Thanks a lot for the details. We had some great fun trying it out. Bit amateurish to display. Will take some time to get the hang of it. Look forward to more about HTML5 canvas and its possible applications. Great post, Remy keep up the good work.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10056#respond' onclick='return addComment.moveForm( "div-comment-10056", "10056", "respond", "2264" )' aria-label='Reply to Nathan Williams'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-10058">
+				<div id="div-comment-10058" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9910666fe2f7cca4c4567165eefef556?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9910666fe2f7cca4c4567165eefef556?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.w3.org/' rel='external nofollow' class='url'>Philippe Le Hegaret</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10058">
+			August 6, 2010 at 4:36 pm</a>		</div>
+
+		<p>The link to the editorial version of the 2D Canvas API is out of date. It&#8217;s now located at<br />
+ <a href="http://dev.w3.org/html5/2dcontext/" rel="nofollow">http://dev.w3.org/html5/2dcontext/</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10058#respond' onclick='return addComment.moveForm( "div-comment-10058", "10058", "respond", "2264" )' aria-label='Reply to Philippe Le Hegaret'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-richc odd alt thread-odd thread-alt depth-1" id="comment-10062">
+				<div id="div-comment-10062" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://richclarkdesign.com' rel='external nofollow' class='url'>Richard Clark</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10062">
+			August 8, 2010 at 12:06 pm</a>		</div>
+
+		<p>Thanks Philippe, we&#8217;ve updated the post.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10062#respond' onclick='return addComment.moveForm( "div-comment-10062", "10062", "respond", "2264" )' aria-label='Reply to Richard Clark'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-10265">
+				<div id="div-comment-10265" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fb91aba207bd0be62fc1d7d330a8fb72?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fb91aba207bd0be62fc1d7d330a8fb72?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://flax.ie/' rel='external nofollow' class='url'>Ciarán</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-10265">
+			August 28, 2010 at 3:46 pm</a>		</div>
+
+		<p>I look forward to seeing how IE9 preforms with canvas. And other browsers in general, as at the moment canvas is still quite slow. Good article</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=10265#respond' onclick='return addComment.moveForm( "div-comment-10265", "10265", "respond", "2264" )' aria-label='Reply to Ciarán'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-11465">
+				<div id="div-comment-11465" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/bdf4db6a727414d8dafd9ba8d79d800b?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/bdf4db6a727414d8dafd9ba8d79d800b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.canveasy.com' rel='external nofollow' class='url'>J.F. Herrera</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-11465">
+			October 7, 2010 at 4:38 pm</a>		</div>
+
+		<p>Great tutorial.  Big things are ahead for HTML programmers.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=11465#respond' onclick='return addComment.moveForm( "div-comment-11465", "11465", "respond", "2264" )' aria-label='Reply to J.F. Herrera'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-11507">
+				<div id="div-comment-11507" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/02646af05927396e948b0a1e36ced755?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/02646af05927396e948b0a1e36ced755?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.wiredbear.com' rel='external nofollow' class='url'>Ben</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-11507">
+			October 11, 2010 at 8:36 am</a>		</div>
+
+		<p>You didn&#8217;t mention <a href="http://code.google.com/p/explorercanvas/" rel="nofollow">excanvas</a> that allow interpretation of canvas tag with IE6, 7 and 8 (using VML).</p>
+<p>About saving image as a bitmap, I feel it useful to use SVG : I can build the svg file on the server-side for other purposes (generating PDF with charts for example)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=11507#respond' onclick='return addComment.moveForm( "div-comment-11507", "11507", "respond", "2264" )' aria-label='Reply to Ben'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-11508">
+				<div id="div-comment-11508" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/02646af05927396e948b0a1e36ced755?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/02646af05927396e948b0a1e36ced755?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.wiredbear.com' rel='external nofollow' class='url'>Ben</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-11508">
+			October 11, 2010 at 8:37 am</a>		</div>
+
+		<p>Just forgot to tell how I convert svg to bitmap server-side : I use <a href="http://xmlgraphics.apache.org/batik/" rel="nofollow">Batik</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=11508#respond' onclick='return addComment.moveForm( "div-comment-11508", "11508", "respond", "2264" )' aria-label='Reply to Ben'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-12080">
+				<div id="div-comment-12080" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/ca8f700506a55d35c449b61ad2ab0991?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/ca8f700506a55d35c449b61ad2ab0991?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.sunglassescool.com' rel='external nofollow' class='url'>happy</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-12080">
+			November 19, 2010 at 4:23 am</a>		</div>
+
+		<p>What a wonderful post!I like what you wrote, I believe you also like what I would recommend.someday,i find my favoraite shop,in this shop, you can find huge selection of <a href="http://www.sunglassescool.com/armani-sunglasses.html" rel="nofollow">armani glasses</a><br />
+Best of luck for you</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=12080#respond' onclick='return addComment.moveForm( "div-comment-12080", "12080", "respond", "2264" )' aria-label='Reply to happy'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14040">
+				<div id="div-comment-14040" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/e75f7d639c5ac0d4aa2a6d6b009da67b?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e75f7d639c5ac0d4aa2a6d6b009da67b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">bhupi</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-14040">
+			January 28, 2011 at 1:00 pm</a>		</div>
+
+		<p>Hey&#8230; Cool..</p>
+<p>but what, if the background of canvas is some external image with any format and drawn on the canvas and some graphic drawn on foreground. How to fetch the complete set of objects on the canvas?</p>
+<p>As far as I know the &#8220;toDataURL&#8221; method returns objects which are created graphic kind of something but not Image?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=14040#respond' onclick='return addComment.moveForm( "div-comment-14040", "14040", "respond", "2264" )' aria-label='Reply to bhupi'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14041">
+				<div id="div-comment-14041" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/e75f7d639c5ac0d4aa2a6d6b009da67b?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e75f7d639c5ac0d4aa2a6d6b009da67b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">bhupi</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-14041">
+			January 28, 2011 at 1:00 pm</a>		</div>
+
+		<p>Hey&#8230; Cool..</p>
+<p>but what, if the background of canvas is some external image with any format and drawn on the canvas and some graphic drawn on foreground. How to fetch the complete set of objects on the canvas?</p>
+<p>As far as I know the &#8220;toDataURL&#8221; method returns objects which are created graphic kind of something but not Image ?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=14041#respond' onclick='return addComment.moveForm( "div-comment-14041", "14041", "respond", "2264" )' aria-label='Reply to bhupi'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-14043">
+				<div id="div-comment-14043" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-14043">
+			January 28, 2011 at 2:32 pm</a>		</div>
+
+		<p>@bhupi &#8211; there&#8217;s no such thing as an &#8220;object&#8221; WRT the canvas. If it&#8217;s painted on the canvas, then toDataURL will give you an image representation of it. Anything behind the canvas is just that: *behind* the canvas, and therefore not part of it.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=14043#respond' onclick='return addComment.moveForm( "div-comment-14043", "14043", "respond", "2264" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-15135">
+				<div id="div-comment-15135" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/56f75fe00f98726d1baa5186c9a2f7b9?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/56f75fe00f98726d1baa5186c9a2f7b9?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Moniker</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-15135">
+			June 8, 2011 at 9:29 pm</a>		</div>
+
+		<p>It would have been helpful if you had included this code between the javascript code for canvas:<br />
+<code><br />
+window.onload = function() {</code></p>
+<p>}<br />
+</p>
+<p>I do not know any javascript and wasted quite some time trying to figure out what I was doing wrong.</p>
+<p>Thanks</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=15135#respond' onclick='return addComment.moveForm( "div-comment-15135", "15135", "respond", "2264" )' aria-label='Reply to Moniker'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-15136">
+				<div id="div-comment-15136" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-15136">
+			June 8, 2011 at 10:56 pm</a>		</div>
+
+		<p>@monkier &#8211; actually if you actually looked at the example code samples provided in this article, you would have seen the JavaScript was below the canvas element so you don&#8217;t need the window.onload.</p>
+<p>In fact, you shouldn&#8217;t use window.onload at all &#8211; maybe it&#8217;s time to learn JavaScript since you even admit you don&#8217;t know it?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=15136#respond' onclick='return addComment.moveForm( "div-comment-15136", "15136", "respond", "2264" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-15141">
+				<div id="div-comment-15141" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/97c7b5651d1d70bcab14249e0cc93520?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/97c7b5651d1d70bcab14249e0cc93520?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Monkier</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-15141">
+			June 9, 2011 at 2:04 pm</a>		</div>
+
+		<p>@Remy</p>
+<p>I looked at the example code. By omitting the other elements in the example code, I had to make assumptions and that is what I did.</p>
+<p>Anyway, my fault for not knowing any javascript.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=15141#respond' onclick='return addComment.moveForm( "div-comment-15141", "15141", "respond", "2264" )' aria-label='Reply to Monkier'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-16930">
+				<div id="div-comment-16930" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/37dbe80224e021a2268810fb7db1fb6d?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/37dbe80224e021a2268810fb7db1fb6d?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Jamna</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-16930">
+			July 26, 2011 at 1:11 pm</a>		</div>
+
+		<p>Hi ,<br />
+Great article !!!..Remy<br />
+thanks for it.</p>
+<p>I am learning HTML 5 in these days&#8230; so little confuse on some places &#8230;</p>
+<p>what is “drawing context” exactly ?</p>
+<p>what is the role of getcontext() method?</p>
+<p>why we always pass the string &#8220;2d&#8221; to the getContext() method, why not&#8221;3d&#8221;?</p>
+<p>Is there a 3-D canvas?</p>
+<p>if anybody can give me answers of these question&#8230;it will help me to understand this element.</p>
+<p>thanks</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=16930#respond' onclick='return addComment.moveForm( "div-comment-16930", "16930", "respond", "2264" )' aria-label='Reply to Jamna'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-20616">
+				<div id="div-comment-20616" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7b4a2383ac8c088352d529b61883b34e?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7b4a2383ac8c088352d529b61883b34e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://na' rel='external nofollow' class='url'>anamitra</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-20616">
+			December 14, 2011 at 12:51 pm</a>		</div>
+
+		<p>When we&#8217;re drawing a line or a pie chart using canvas,how can we show a tooltip for every individual section of a pie or every line of a line chart?Please suggest.I&#8217;m currently using filament group for drawing charts,which uses canvas implicitly.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=20616#respond' onclick='return addComment.moveForm( "div-comment-20616", "20616", "respond", "2264" )' aria-label='Reply to anamitra'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-32261">
+				<div id="div-comment-32261" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/4976c7b37585ff972e5865cf4c59e0b9?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/4976c7b37585ff972e5865cf4c59e0b9?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Anirudh</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-32261">
+			March 19, 2013 at 6:53 am</a>		</div>
+
+		<p>This is good and is little summary about the canvas. But want advanced tutorial like two different people working on same canvas and can see the changes made by other on that canvas.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=32261#respond' onclick='return addComment.moveForm( "div-comment-32261", "32261", "respond", "2264" )' aria-label='Reply to Anirudh'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-34387">
+				<div id="div-comment-34387" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9550a432f415377d61bd2c6a9dac387a?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9550a432f415377d61bd2c6a9dac387a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ben Shepherd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-34387">
+			May 12, 2013 at 2:55 pm</a>		</div>
+
+		<p>I have made some cool ball physics + collisions using Canvas</p>
+<p><a href="http://www.passion4web.co.uk/ben/collision1_3.html" rel="nofollow">http://www.passion4web.co.uk/ben/collision1_3.html</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=34387#respond' onclick='return addComment.moveForm( "div-comment-34387", "34387", "respond", "2264" )' aria-label='Reply to Ben Shepherd'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-177345">
+				<div id="div-comment-177345" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/94a0327611ace6b991786948313ad249?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/94a0327611ace6b991786948313ad249?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.rogamainformatica.es' rel='external nofollow' class='url'>Rogama</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comment-177345">
+			July 31, 2014 at 8:16 pm</a>		</div>
+
+		<p>Hi!!<br />
+Excelent tutorial, but&#8230; How to use the method Bitmap()??</p>
+<p>thank regard</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/?replytocom=177345#respond' onclick='return addComment.moveForm( "div-comment-177345", "177345", "respond", "2264" )' aria-label='Reply to Rogama'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/an-introduction-to-the-canvas-2d-api/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='2264' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="d30ab39320" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="117"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>

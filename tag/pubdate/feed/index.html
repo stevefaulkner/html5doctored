@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; pubdate</title>
+	<atom:link href="http://html5doctor.com/tag/pubdate/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Thu, 17 Jul 2014 07:44:09 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>The article element</title>
+		<link>http://html5doctor.com/the-article-element/</link>
+		<comments>http://html5doctor.com/the-article-element/#comments</comments>
+		<pubDate>Tue, 18 May 2010 14:00:27 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[article]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[pubdate]]></category>
+		<category><![CDATA[section]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1364</guid>
+		<description><![CDATA[<p>We’ve discussed a lot of new elements here at HTML5Doctor, but the <code>article</code> element has somehow escaped the microscope… until now! <code>article</code> is one of the new sectioning elements. It is often confused with <code>section</code> and <code>div</code> but don't worry we'll explain the difference between them.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/time-and-data-element/"     class="crp_title">Goodbye time, datetime, and pubdate. Hello data and value.</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li><li><a href="http://html5doctor.com/your-questions-18/"     class="crp_title">Your Questions 18</a></li><li><a href="http://html5doctor.com/avoiding-common-html5-mistakes/"     class="crp_title">Avoiding common HTML5 mistakes</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>We’ve discussed a lot of new elements here at HTML5Doctor, but the <code>article</code> element has somehow escaped the microscope… until now! <code>article</code> is one of the new sectioning elements. It is often confused with <code>section</code> and <code>div</code> but don&#8217;t worry we&#8217;ll explain the difference between them.</p>
+
+<section>
+<h2>What the spec says</h2>
+<p>Thankfully, <a href="http://www.w3.org/TR/html5/semantics.html#the-article-element">the spec is short and sweet</a>:</p>
+
+<blockquote><p>The <code>article</code> element represents a component of a page that consists of a self-contained composition in a document, page, application, or site and that is intended to be independently distributable or reusable, e.g. in syndication. This could be a forum post, a magazine or newspaper article, a blog entry, a user-submitted comment, an interactive widget or gadget, or any other independent item of content.</p><footer><cite><a href="http://www.w3.org/TR/html5/semantics.html#the-article-element">W3C Specification</a></cite></footer></blockquote>
+
+<p>In addition to its content, an <code>&lt;article&gt;</code> element typically has a heading (often in a header element), and sometimes a footer. The easiest way to conceptualise <code>&lt;article&gt;</code> is to think of its use in a weblog, as mentioned in the spec’s examples “a blog entry” and “user-submitted comments.” Here at <abbr>HTML</abbr>5 Doctor, we wrap each weblog entry inside an <code>&lt;article&gt;</code> element. We also use <code>&lt;article&gt;</code> on ‘static’ content pages, like the About and Contact pages, as <code>&lt;article&gt;</code> can be used for “any other independent item of content.” The tricky part is, what exactly is an <em>independent item of content</em>?</p>
+</section>
+
+<section>
+<h2>The smell test for going independent</h2>
+<p>An <em>independent</em> piece of content, one suitable for putting in an <code>&lt;article&gt;</code> element, is content that <em>makes sense on its own</em>. This yardstick is up to your interpretation, but an easy smell test is <em>would this make sense in an RSS feed?</em> Of course weblog articles and static pages would make sense in a feed reader, and some sites have weblog comment feeds. On the other hand, a feed with each paragraph of this article as a separate post wouldn’t be very useful. The key point here is that the content has to make sense <em>independent of its context</em>, i.e. when all the surrounding content is stripped away.</p>
+</section>
+
+<section>
+<h2>Examples of <code>&lt;article&gt;</code> in use</h2>
+<section>
+<h3>A bare-bones <code>&lt;article&gt;</code></h3>
+
+<p>We only have a title and some content, but it’s enough to make sense on its own (assume there’s <a href="http://en.wikipedia.org/wiki/Apples" title="Apple - Wikipedia, the free encyclopedia">a lot more content about apples</a> ;-)</p>
+
+<pre><code>&lt;article&gt;
+	&lt;h1&gt;Apple&lt;/h1&gt;
+	&lt;p&gt;The &lt;b&gt;apple&lt;/b&gt; is the pomaceous fruit of the apple tree...&lt;/p&gt;
+	...
+&lt;/article&gt;
+</code></pre>
+</section>
+
+<section>
+<h3>A weblog-style <code>&lt;article&gt;</code></h3>
+<p>A published date leads us to add a <code>&lt;header&gt;</code>, and there’s also content that would be suitable in a <code>&lt;footer&gt;</code> elements.</p>
+
+<pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Apple&lt;/h1&gt;
+    &lt;p&gt;Published: &lt;time pubdate="pubdate"&gt;2009-10-09&lt;/time&gt;&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;p&gt;The &lt;b&gt;apple&lt;/b&gt; is the pomaceous fruit of the apple tree...&lt;/p&gt;
+  ...
+  &lt;footer&gt;
+    &lt;p&gt;&lt;small&gt;Creative Commons Attribution-ShareAlike License&lt;/small&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section>
+<h3>An <code>&lt;article&gt;</code> with comments as nested <code>&lt;article&gt;</code>s</h3>
+<p>This example shows a weblog entry with comments. Each comment can be marked up as an <code>&lt;article&gt;</code> within the containing <code>&lt;article&gt;</code>.</p>  
+
+<pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Apple&lt;/h1&gt;
+    &lt;p&gt;Published: &lt;time pubdate datetime="2009-10-09"&gt;9th October, 2009&lt;/time&gt;&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;p&gt;The &lt;b&gt;apple&lt;/b&gt; is the pomaceous fruit of the apple tree...&lt;/p&gt;
+  ...
+  
+  &lt;section&gt;
+    &lt;h2&gt;Comments&lt;/h2&gt;
+    &lt;article&gt;
+      &lt;header&gt;
+      &lt;h3&gt;Posted by: Apple Lover&lt;/h3&gt;
+      &lt;p&gt;&lt;time pubdate datetime="2009-10-10T19:10-08:00"&gt;~1 hour ago&lt;/time&gt;&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;p&gt;I love apples, my favourite kind are Granny Smiths&lt;/p&gt;
+    &lt;/article&gt;
+    
+    &lt;article&gt;
+      &lt;header&gt;
+        &lt;h3&gt;Posted by: Oranges are king&lt;/h3&gt;
+        &lt;p&gt;&lt;time pubdate datetime="2009-10-10T19:15-08:00"&gt;~1 hour ago&lt;/time&gt;&lt;/p&gt;
+      &lt;/header&gt;
+      &lt;p&gt;Urgh, apples!? you should write about ORANGES instead!!1!&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section>
+<h3>An <code>&lt;article&gt;</code> with <code>&lt;section&gt;</code>s</h3>
+<p>You can use <a href="http://html5doctor.com/the-section-element/">the <code>&lt;section&gt;</code> element</a> to split the article into logical groups of content with headings:</p>
+
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;Apple varieties&lt;/h1&gt;
+  &lt;p&gt;The apple is the pomaceous fruit of the apple tree...&lt;/p&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Red Delicious&lt;/h2&gt;
+    &lt;p&gt;These bright red apples are the most common found in many supermarkets...&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Granny Smith&lt;/h2&gt;
+    &lt;p&gt;These juicy, green apples make a great filling for apple pies...&lt;/p&gt;
+  &lt;/section&gt;
+    
+&lt;/article&gt;</code></pre>
+</section>
+
+<section>
+<h3>A <code>&lt;section&gt;</code> containing <code>&lt;article&gt;</code>s</h3>
+<p>Where appropriate a <code>&lt;section&gt;</code> element can contain <code>&lt;article&gt;</code> elements. We already saw this in the comment section example above, and other common examples are the homepage or category pages of a weblog:</p>
+
+<pre><code>&lt;section&gt;
+  &lt;h1&gt;Articles on: Fruit&lt;/h1&gt;
+
+  &lt;article&gt;
+    &lt;h2&gt;Apple&lt;/h2&gt;
+    &lt;p&gt;The apple is the pomaceous fruit of the apple tree...&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;article&gt;
+    &lt;h2&gt;Orange&lt;/h2&gt;
+    &lt;p&gt;The orange is a hybrid of ancient cultivated origin, possibly between pomelo and tangerine...&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;article&gt;
+    &lt;h2&gt;Banana&lt;/h2&gt;
+    &lt;p&gt;Bananas come in a variety of sizes and colors when ripe, including yellow, purple, and red...&lt;/p&gt;
+  &lt;/article&gt;
+    
+&lt;/section&gt;</code></pre>
+</section>
+
+<section>
+<h3>Using <code>&lt;article&gt;</code> for a widget</h3>
+<p>The specification also mentions that an interactive widget can also be an <code>&lt;article&gt;</code>. The example below shows how the markup might look for an embedded widget from somewhere like <a href="http://www.widgetbox.com/">Widgetbox</a>.</p>
+
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;My Fruit Spinner&lt;/h1&gt;
+  &lt;object&gt;
+    &lt;param name="allowFullScreen" value="true"&gt;
+    &lt;embed src="#" width="600" height="395"&gt;&lt;/embed&gt;
+  &lt;/object&gt;
+&lt;/article&gt;</code></pre>
+</section>
+</section>
+
+<section>
+<h2>The <code>pubdate</code> attribute</h2>
+<p>You may have noticed the <code>pubdate</code> attribute in these examples. <code>pubdate</code> is an optional <em>boolean attribute</em> that may be added to one <a href="http://html5doctor.com/the-time-element"><code>time</code> element</a> within the <code>&lt;article&gt;</code>. If present it indicates that the <code>&lt;time&gt;</code> element is the date the <code>&lt;article&gt;</code> was published. It can be written in several ways, the most popular being:</p>
+
+<pre><code>pubdate
+pubdate="pubdate"</code></pre>
+
+<p>You could think of these as HTML and XHTML-style — the end result is the same so use the style you like. Note that <code>pubdate</code> applies only to the parent <code>&lt;article&gt;</code> element, or to the document as a whole.</p>
+</section>
+
+<section>
+<h2>The difference between <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code></h2>
+<p>There&#8217;s been <a href="http://adactio.com/journal/1654/">a lot of confusion</a> over the difference (or perceived lack of a difference) between the <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code> elements in <abbr>HTML</abbr>5. The <code>&lt;article&gt;</code> element is a specialised kind of <code>&lt;section&gt;</code>; it has a more specific semantic meaning than <code>&lt;section&gt;</code> in that it is <strong>an independent, self-contained</strong> block of related content. We <em>could</em> use <code>&lt;section&gt;</code>, but using <code>&lt;article&gt;</code> gives more semantic meaning to the content.</p>
+
+<p>By contrast <code>&lt;section&gt;</code> is only a block of <em>related</em> content, and <code>&lt;div&gt;</code> is only a block of content. Also as mentioned above the <code>pubdate</code> attribute doesn’t apply to <code>&lt;section&gt;</code>. To decide which of these three elements is appropriate, choose the first suitable option:</p>
+
+<ol>
+<li>Would the content would make sense on its own in a feed reader? If so use <code>&lt;article&gt;</code></li>
+<li>Is the content related? If so use <code>&lt;section&gt;</code></li>
+<li>Finally if there’s no semantic relationship use <code>&lt;div&gt;</code></li>
+</ol>
+
+<p><a href="http://html5doctor.com/author/brucel">Dr Bruce</a> has written <a href="http://www.brucelawson.co.uk/2010/html5-articles-and-sections-whats-the-difference/">HTML5 <code>&lt;article&gt;</code>s and <code>&lt;section&gt;</code>s, what’s the difference?</a>, so we recommend reading that if you are still fuzzy on when to use <code>&lt;article&gt;</code>.</p>
+</section>
+
+<section>
+<h2>Summary</h2>
+<p>Hopefully this post has given you some insight into the correct use of the <code>&lt;article&gt;</code> element. Do you have any other examples that you can share for using <code>&lt;article&gt;</code> in your <abbr>HTML</abbr>5 markup?</p>
+
+<p>I&#8217;m also keen to hear your thoughts on the confusion between the <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code> elements. Do you think the distinction between the two is clear?</p>
+</section><p><a href="http://html5doctor.com/the-article-element/" rel="bookmark">The article element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 18, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/time-and-data-element/"     class="crp_title">Goodbye time, datetime, and pubdate. Hello data and value.</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li><li><a href="http://html5doctor.com/your-questions-18/"     class="crp_title">Your Questions 18</a></li><li><a href="http://html5doctor.com/avoiding-common-html5-mistakes/"     class="crp_title">Avoiding common HTML5 mistakes</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-article-element/feed/</wfw:commentRss>
+		<slash:comments>99</slash:comments>
+		</item>
+	</channel>
+</rss>

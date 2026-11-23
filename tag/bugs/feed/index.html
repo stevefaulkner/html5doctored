@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; bugs</title>
+	<atom:link href="http://html5doctor.com/tag/bugs/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>dd-details wrong again</title>
+		<link>http://html5doctor.com/dd-details-wrong-again/</link>
+		<comments>http://html5doctor.com/dd-details-wrong-again/#comments</comments>
+		<pubDate>Mon, 12 Oct 2009 12:00:57 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[bugs]]></category>
+		<category><![CDATA[dd]]></category>
+		<category><![CDATA[details]]></category>
+		<category><![CDATA[dt]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[ie]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=991</guid>
+		<description><![CDATA[This article has been superseded. It&#8217;s here for historical reasons only. &#60;details&#62; now uses a &#60;summary&#62; element; &#60;figure&#62; uses &#60;figcaption&#62;. You may recall that I blogged about legend not being so legend as the heading element for details or figure. After enough noise was made the spec was changed so that the heading and contents [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/"     class="crp_title">Interview with Ian Hickson, HTML editor</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/"     class="crp_title">HTML5 adaptive images: end of round one</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p class="note"><strong>This article has been superseded. It&#8217;s here for historical reasons only. &lt;details&gt; now uses a &lt;summary&gt; element; &lt;figure&gt; uses &lt;figcaption&gt;.</strong></p>
+
+<p>You may recall that I blogged about <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">legend not being so legend</a> as the heading element for <code>details</code> or <code>figure</code>. After enough noise was made the spec was changed so that the heading and contents of these elements can now be marked up using the <code>dt/dd</code> combo.</p>
+
+<p>Although not immediately obvious why it&#8217;s the right choice, it appeared to work for our needs&#8230;at first. Of course now, it&#8217;s been discovered that it&#8217;s actually a pretty bad idea.</p>
+
+<p><span id="more-991"></span></p>
+
+<h2>How we got here</h2>
+
+<p>In short, <code>details</code> and <code>figure</code> solve a common design pattern and provide nice new semantic tags to solve that problem.  A <code>figure</code> could be an image you&#8217;re referring to in an article or chapter of a book, and the <code>details</code> element allows the user to interactively show and hide the <em>details</em> of some piece of information.</p>
+
+<p>Both elements can contain a heading element to label up the contents.  For some reason, beyond this author&#8217;s understanding, these two elements, completely different in meaning, have been historically tied to using the same solution solve the problem how to markup the heading.</p>
+
+<p>As I mentioned earlier, originally the proposed solution for the headings was to use the <code>legend</code> element, which <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">proved to completely break</a> in every browser (in new and interesting ways).</p>
+
+<p>Skip forward to mid-September, and Jeremy Keith <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0534.html">proposes that we solve the legend issue</a> with the dt/dd combo, and Ian Hickson <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0566.html">says</a>:</p>
+
+<blockquote>
+  <p>That&#8217;s not a bad idea actually. Ok, done.</p>
+</blockquote>
+
+<p>Before this was proposed there was lots of discussion about why we couldn&#8217;t introduce a new element to solve this problem, and Ian points out already 18 (or 22, I forget!) elements that represent some sort of heading.  This is the argument for not introducing another new heading type element to solve the <code>details</code> and <code>figure</code> problem.</p>
+
+<h2>The problem with dt/dd</h2>
+
+<p>Ironically the problem <em>isn&#8217;t</em> with the <code>dt</code> part of the solution, it&#8217;s actually with the <code>dd</code>.  </p>
+
+<p><a href="http://dean.edwards.name/" title="dean.edwards.name/">Dean Edwards</a> (genius behind some very cool JavaScript and something that will soon blow your minds) has been testing these elements in <em>detail</em> and found a very serious issue with the <code>dd</code> in, guess what, IE6 &#038; 7.  I want to explain and draw attention to what Dean has found.</p>
+
+<p>Styling a <code>dd</code> within <code>details</code> or <code>figure</code> (and probably other elements) bleeds to the next element.</p>
+
+<p>By styling a dd red, and only the dd, here&#8217;s what it <em>should</em> look like (and does in IE8):</p>
+
+<p><img src="http://html5doctor.com/wp-content/uploads/2009/10/dd-ie8.png" alt="dd styled in IE8" /></p>
+
+<p>Where as in IE7 (and IE6), the red style bleeds in to the following <code>p</code> element (note the &#8220;this paragraph shouldn&#8217;t be red&#8221;):</p>
+
+<p>![dd styled in IE7](<img src="http://html5doctor.com/wp-content/uploads/2009/10/dd-ie7.png" alt="dd styled in IE8" /></p>
+
+<p>What&#8217;s more, if you look back at the screen shots you can see the last paragraph says &#8220;Contents of first &lt;dd&gt;&#8221;.  The result of that test is being generated by the following JavaScript:</p>
+
+<pre><code>document.getElementsByTagName('dd')[0].innerHTML</code></pre>
+
+<p>Notice how in IE7, the contents of the first <code>dd</code>&#8216;s <code>innerHTML</code> is <strong>empty</strong>.</p>
+
+<p>The problem here is that:</p>
+
+<ol>
+<li>IE7 and below can&#8217;t style a <code>dd</code> properly without it breaking and the style bleeding in to adjacent elements.</li>
+<li>JavaScript, randomly, can&#8217;t see the contents of the <code>dd</code>.</li>
+</ol>
+
+<h2>Is there hope?</h2>
+
+<p>There is a hack that fixes this issue. It&#8217;s pretty mad, but it does fix the styling issue. However the side effects from this hack are outright unacceptable and are so serious I would argue that the hack solution itself is a bug.</p>
+
+<p>The hack is over at the <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0802.html">public-html of W3.org</a>, and involves stuffing an open <code>object</code> tag just before we close the <code>head</code> tag.</p>
+
+<p>This isn&#8217;t a clean solution for including in HTML by hand, authors won&#8217;t remember or might get it wrong, so it needs to be perhaps automated as part of the HTML5 enabling script, right?  It would have to be inserted using <code>document.write()</code> as the last part of the <code>head</code> element.</p>
+
+<p>Dean went on to test this, and <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-September/023247.html">he found</a>:</p>
+
+<blockquote>
+  <p>There is a nasty side effect though. As you mentioned the document.write() should be the last thing in the &lt;head&gt;. If there are any scripts following the document.write() then they are <em>not executed</em>.</p>
+</blockquote>
+
+<p>The <em>really</em> freakin&#8217; important bit:</p>
+
+<blockquote>
+  <p>If there are any scripts following the document.write() then they are <em>not executed</em></p>
+</blockquote>
+
+<p>So, to answer the question: <em>is there hope?</em> No, not for the dd/dt combo.  It can&#8217;t be styled properly and hacks will break JavaScript.</p>
+
+<h2>We want the details</h2>
+
+<p>We, as authors, want to make use of <code>details</code> and <code>figure</code> today. Waiting for IE7 to fall out of circulation before we start using these elements (as it&#8217;s been proposed a number of times on the IRC channel and mailing boards) is outright not going to happen.  IE6 &#038; 7 are going to be around for a good more number of years, certainly IE7 (IE6 has at least another 5 years in the beast).</p>
+
+<p>We <em>are</em> going to start enabling the <code>details</code> interactive UI pattern using JavaScript whilst we wait for vendors bake it in to the browser, so the final proposed markup needs to work in all the browsers, <em>including</em> IE6 and IE7.</p>
+
+<p>What are our current options?</p>
+
+<ol>
+<li>Give new meaning to an existing element (as we&#8217;ve already tried to), <code>legend</code>, <code>label</code> and <code>dt/dd</code> have been tried, tested and failed. What else could we use?</li>
+<li>Repurpose one of the existing <em>new</em> elements (keeping in mind that the dt/dd was repurposed so it should be a consideration).</li>
+<li>Create <em>another</em> heading element to solve this problem.</li>
+</ol>
+
+<p>The problem is that the conversation seems to have lost steam (or certain Dean was starting to see the conversation go in circles).  If you want to see these two elements make it the final spec, and correctly, head over to either the <a href="irc://irc.freenode.net/#whatwg">IRC channel</a> or the <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/">mailing list</a>, and get heard.</p>
+
+<h2>Reference links</h2>
+
+<ul>
+<li><a href="http://dean.edwards.name/test/details.html">Dean&#8217;s original details test</a> (my modified tests to fire the innerHTML on load: <a href="http://jsbin.com/inugi/edit#html">details</a>, <a href="http://jsbin.com/uluro/edit#html">figure</a>)</li>
+<li>Litmusapp browser screenshots of the results: <a href="http://leftlogic.litmusapp.com/pub/6bee14e">details</a>, <a href="http://leftlogic.litmusapp.com/pub/c7f18b4">figure</a></li>
+<li>whatwg mailing list thread: <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-September/023240.html">September</a>, <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-October/023277.html">October</a></li>
+</ul>
+<p><a href="http://html5doctor.com/dd-details-wrong-again/" rel="bookmark">dd-details wrong again</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 12, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/"     class="crp_title">Interview with Ian Hickson, HTML editor</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/"     class="crp_title">HTML5 adaptive images: end of round one</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/dd-details-wrong-again/feed/</wfw:commentRss>
+		<slash:comments>23</slash:comments>
+		</item>
+		<item>
+		<title>How to get HTML5 working in IE and Firefox 2</title>
+		<link>http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/</link>
+		<comments>http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/#comments</comments>
+		<pubDate>Sat, 20 Jun 2009 08:05:45 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[bugs]]></category>
+		<category><![CDATA[firefox]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[ie]]></category>
+		<category><![CDATA[javascript]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=134</guid>
+		<description><![CDATA[HTML 5 may be the latest and greatest technology, but some browsers don&#8217;t have native support for the new semantic elements. Let&#8217;s momentarily forget about the really sexy functionality, like full control over the &#60;video&#62; element, and just focus on getting the elements rendered. The problematic A-grade browsers include IE 8 and below, Firefox 2, [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><abbr>HTML</abbr> 5 may be the latest and greatest technology, but <em>some</em> browsers don&#8217;t have native support for the new semantic elements. Let&#8217;s momentarily forget about the really sexy functionality, like <a href="http://html5doctor.com/the-video-element/">full control over the <code>&lt;video&gt;</code> element</a>, and just focus on getting the elements rendered.</p>
+
+<p>The problematic <a href="http://developer.yahoo.com/yui/articles/gbs/">A-grade browsers</a> include <abbr>IE</abbr> 8 and below, Firefox 2, and Camino 1 (these last two browsers both use the Gecko rendering engine, which is why they&#8217;re both affected).</p>
+
+<p>Let&#8217;s start with Internet Explorer.</p>
+
+<span id="more-134"></span>
+
+<h2><abbr>IE</abbr> doesn&#8217;t believe in <abbr>HTML</abbr> 5 elements</h2>
+
+<p>Quite simply, <abbr>IE</abbr> doesn&#8217;t even <em>see</em> <abbr>HTML</abbr> 5 elements, much less style them.</p>
+
+<p>This is actually the same issue that we had before <abbr>HTML</abbr> 5, where the <code>&lt;abbr&gt;</code> element couldn&#8217;t be styled in <abbr>IE</abbr> 6, resulting in <a href="http://www.sovavsiti.cz/css/abbr.html">all manner</a> of <a href="http://dean.edwards.name/my/abbr-cadabra.html">workarounds</a>. (Let me add that we&#8217;ll also fix the <code>&lt;abbr&gt;</code> element while we convince <abbr>IE</abbr> to recognise <abbr>HTML</abbr> 5 elements).</p>
+
+<h3>The fix</h3>
+
+<p>There is hope! The trick, discovered by <a href="http://intertwingly.net/blog/2008/01/22/Best-Standards-Support#c1201006277">Sjoerd Visscher</a>, is simply to create the new element using JavaScript, and <em lang="fr">voilà</em>, <abbr>IE</abbr> is able to style it:</p>
+
+<pre><code>document.createElement('header');</code></pre>
+
+<p>John Resig has also written about this <a href="http://ejohn.org/blog/html5-shiv/"><abbr>HTML</abbr> 5 shiv</a>.</p>
+
+<p>For example, say you wanted to style the <code>&lt;time&gt;</code> element in italics:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Header test&lt;/title&gt;
+  &lt;style&gt;
+  time { font-style: italic; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;time datetime=&quot;2009-09-13&quot;&gt;my birthday&lt;/time&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>This screenshot shows the rendering in <abbr>IE</abbr> <a href="http://jsbin.com/urawa">before</a> we apply the fix:</p>
+
+<p><img class="alignnone size-full wp-image-143" title="IE without HTML 5 shiv" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-without.png" alt="IE without HTML 5 shiv" width="570" height="337" /></p>
+
+<p>To apply the fix, add the indicated line of code:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Header test&lt;/title&gt;
+  &lt;style&gt;
+  time { font-style: italic; }
+  &lt;/style&gt;
+  
+  &lt;!-- Add this line --&gt;
+  &lt;script&gt;document.createElement('time');&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;time datetime=&quot;2009-09-13&quot;&gt;my birthday&lt;/time&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Now <a href="http://jsbin.com/iduto">after</a> we&#8217;ve applied the fix, it&#8217;s correctly styled in <abbr>IE</abbr>:</p>
+
+<p><img class="alignnone size-full wp-image-142" title="IE with HTML 5 shiv" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-with.png" alt="IE with HTML 5 shiv" width="565" height="327" /></p>
+
+<h3>One hit solution</h3>
+
+<p>For everyone&#8217;s convenience, I wrote a single JavaScript file that can be included to create all the <abbr>HTML</abbr> 5 elements (and the <code>&lt;abbr&gt;</code> element) for <abbr>IE</abbr>.</p>
+
+<p><a href="https://github.com/aFarkas/html5shiv/zipball/master">Download the <abbr>IE</abbr> <abbr>HTML</abbr> 5 enabling script</a></p>
+
+<p>Include the script in your <code>&lt;head&gt;</code> tag, and you&#8217;ll be able to style the elements appropriately in <abbr>IE</abbr>:</p>
+
+<pre><code>&lt;!--[if lte IE 8]&gt;
+&lt;script src=&quot;html5.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;![endif]--&gt;</code></pre>
+
+<p>Note that I&#8217;ve used a conditional comment to only apply this to <abbr>IE</abbr> 8 and below. It&#8217;s my hope that <abbr>IE</abbr> 9 and onwards will support <abbr>HTML</abbr> 5 elements, but when that day comes, make sure to double check the conditional!</p>
+
+<h3>Conditions &amp; Gotchas</h3>
+
+<p>There are a couple of things to be aware of when using the HTML 5 shiv.</p>
+
+<h4>JavaScript required</h4>
+
+<p>This obviously means that your design now depends on JavaScript. Personally, I feel that if you&#8217;ve used semantic markup for your site and the elements can&#8217;t be styled, the content is still completely readable.</p>
+
+<p>Here&#8217;s a screenshot of the <a href="http://2009.full-frontal.org/">Full Frontal</a> web site, written using <abbr>HTML</abbr> 5 elements, rendered in <abbr>IE</abbr> with and without JavaScript enabled:</p>
+
+<p><img class="alignnone size-full wp-image-141" title="IE with and without JavaScript to fix HTML 5" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-js-fix-compare.png" alt="IE with and without JavaScript to fix HTML 5" width="600" height="304" /></p>
+
+<p>You can see in the second screenshot that the content isn&#8217;t perfect, but it&#8217;s still readable &mdash; it cascades down correctly, much as if <abbr>CSS</abbr> were disabled.</p>
+
+<h4 id="a-little-head">A little head is always good</h4>
+
+<p>If you create the new element and <em>don&#8217;t</em> use a <code>&lt;body&gt;</code> tag (which is perfectly valid <abbr>HTML</abbr> 5), <abbr>IE</abbr> will put all those created elements inside the <code>&lt;head&gt;</code> tag. Pretty crazy, but you can easily avoid this by always using both the <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> tags in your markup. <a href="http://blog.whatwg.org/supporting-new-elements-in-ie#comment-40743">Leif Halvard explains further with demos.</a></p>
+
+<h2>Firefox 2 and Camino 1 rendering bug</h2>
+
+<p>Both Firefox 2 and Camino 1 have a bug in the Gecko rendering engine (specifically versions prior to 1.9b5):</p>
+
+<blockquote><p>Firefox 2 (or any other Gecko-based browser with a Gecko version pre 1.9b5) has a parsing bug where it will close an unknown element when it sees the start tag of a &#8220;block&#8221; element p, h1, div, and so forth.</p></blockquote>
+
+<p>According to the <a href="http://gs.statcounter.com/#browser_version-ww-monthly-201001-201101">the stats</a> (note that Firefox 2 doesn&#8217;t even factor), Firefox 2 only has around 3% of the market &mdash; perhaps low enough to justify ignoring it. It&#8217;s safe to assume that Camino 1 commands an even smaller percentage of the market.</p>
+
+<p>By ignoring this issue, however, a site can look quite bad in these browsers. So how can we fix it?</p>
+
+<p>The bug surfaces when Gecko doesn&#8217;t recognise an element. Explained roughly, when Gecko parses an unrecognised element, it removes the element&#8217;s contents and puts them next to the element.</p>
+
+<p>Take, for example, the following code:</p>
+
+<pre><code>&lt;body&gt;
+  &lt;header&gt;&lt;h1&gt;Title&lt;/h1&gt;&lt;/header&gt;
+  &lt;article&gt;&lt;p&gt;...&lt;/p&gt;&lt;/article&gt;
+&lt;/body&gt;</pre></code>
+
+<p>This will be parsed in Gecko (prior to version 1.9b5) as if the markup were actually as follows:</p>
+
+<pre><code>&lt;body&gt;
+  &lt;header&gt;&lt;/header&gt;
+  &lt;h1&gt;Title&lt;/h1&gt;
+  &lt;article&gt;&lt;/article&gt;
+  &lt;p&gt;...&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+
+<p>The visual result is similar to the above screenshot of <abbr>IE</abbr> running without JavaScript (though subtly different, as the DOM tree is actually in a different order than you as the author intended).</p>
+
+<h3>The fix</h3>
+
+<p>There are two approaches to fixing this issue, and so far I've only successfully used the non-JavaScript approach.</p>
+
+<h4>The JavaScript solution</h4>
+
+<p>The first approach is to use JavaScript to traverse the DOM tree, rearranging elements as issues are encountered. Simon Pieters has a <a href="http://blog.whatwg.org/supporting-new-elements-in-firefox-2">small working example</a> of how this can be done (towards the bottom of the page). In practise, however, I <em>personally</em> found it didn't work for my markup. The problem is definitely solvable using JavaScript, but this solution still needs work to handle all permutations of markup.</p>
+
+<h4>The <abbr>XHTML</abbr> solution</h4>
+
+<p>The second approach is to serve Gecko XHTML. I've found this to be the easier approach if you're either generating a page dynamically (using something like PHP) or if you can create your own <code>.htaccess</code> file to use Apache's <code>mod_rewrite</code>.</p>
+
+<p>The first change to your markup is to add the <code>xmlns</code> attribute to your <code>&lt;html&gt;</code> tag:</p>
+
+<pre><code>&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;</code></pre>
+
+<p>Next, we need to sniff the user agent string (typically a bad approach, but justifiable when targeting such a specific group of users). If the Gecko build is less than 1.9, then we need to set the Content-type header to <code>application/xhtml+xml</code>.</p>
+
+<p>If you want to use <code>mod_rewrite</code> in an <code>.htaccess</code> file (or the <code>httpd.conf</code> file), you need the following rules:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI} \.html$
+RewriteCond %{HTTP_USER_AGENT} rv:1\.(([1-8]|9pre|9a|9b[0-4])\.[0-9.]+).*Gecko
+RewriteRule .* - [T=application/xhtml+xml]</code></pre>
+
+<p>This rule sends the proper Content-type header to all Gecko based browsers where version is less than 1.9, or "rv:1.9pre" or "rv:1.9a" or "rv:1.9b<em>x</em>" where <em>x</em> is less than 5.</p>
+
+<p>If you don't want to use the <code>mod_rewrite</code> approach, you'll need to manually send the header in your server side scripts. Here's a solution for a PHP script:</p>
+
+<pre><code>if (preg_match('/rv:1\.(([1-8]|9pre|9a|9b[0-4])\.[0-9.]+).*Gecko/', $_SERVER['HTTP_USER_AGENT'])) {
+  header('Content-type: application/xhtml+xml');
+}</code></pre>
+
+<p>This snippet needs to be included <em>before</em> anything has been printed by your script &mdash; i.e., as early as possible.</p>
+
+<h3>Gotcha: Yellow Screen of Death</h3>
+
+<p>The Yellow Screen of Death shows up whenever there's an <abbr>XML</abbr> error on the page. If we're serving markup as <abbr>XML</abbr> and telling the browser to interpret it strictly as <abbr>XML</abbr>, then we can't serve any characters it doesn't recognise or else it's going to bork:</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/4/48/Yellow_screen_of_death.png" alt="Yellow Screen of Death" /></p>
+
+<p>Below are a few ways to avoid <abbr>XML</abbr> parsing errors.</p>
+
+<h4>Create strict markup</h4>
+
+<p>You need to ensure your markup is squeaky clean &mdash; but that's easy, because you're already a Markup Jedi, right?</p>
+
+<h4>Use <abbr>XML</abbr> entities</h4>
+
+<p><abbr>HTML</abbr> entities are a no-no. Sorry, but <code>&amp;bull;</code> isn't going to fly anymore. You need to use <abbr>XML</abbr> entities, the numerical representation of these characters.</p>
+
+<p>I've built <a href="http://leftlogic.com/lounge/articles/entity-lookup/">an entity lookup tool</a> that shows the <abbr>HTML</abbr> entity and the <abbr>XML</abbr> value of that entity. For example, <code>&amp;bull;</code> is 8226, so the XML entity is <code>&amp;#8226;</code>.</p>
+
+<h4>Sanitise user generated content</h4>
+
+<p>If your site relies on any user generated content (e.g., blog comments), then you need to sanitise the output to ensure there are no validation issues to trigger the Yellow Screen of Death.</p>
+
+<p>This issue alone may justify further investigation of a JavaScript solution.</p>
+
+<h3>Worth the trouble?</h3>
+
+<p>All that said, Firefox has a very good automated upgrade path. Looking at the <a href="http://gs.statcounter.com/#browser_version-ww-monthly-201001-201101">stats</a>, it's safe to say that the number of users with this Gecko bug is rapidly diminishing.</p>
+
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="http://blog.whatwg.org/supporting-new-elements-in-firefox-2">Firefox 2 rendering issue on WHATWG Blog</a></li>
+<li><a href="http://blog.whatwg.org/supporting-new-elements-in-ie#comment-40743"><abbr>IE</abbr> / missing head tag issue</a></li>
+<li><a href="http://ejohn.org/blog/html5-shiv/"><abbr>HTML</abbr> 5 shiv</a></li>
+<li><a href="http://remysharp.com/2009/01/07/html5-enabling-script/"><abbr>HTML</abbr> 5 enabling script</a></li>
+</ul><p><a href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/" rel="bookmark">How to get HTML5 working in IE and Firefox 2</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 20, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/feed/</wfw:commentRss>
+		<slash:comments>141</slash:comments>
+		</item>
+	</channel>
+</rss>

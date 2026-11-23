@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; contenteditable</title>
+	<atom:link href="http://html5doctor.com/tag/contenteditable/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The contenteditable attribute</title>
+		<link>http://html5doctor.com/the-contenteditable-attribute/</link>
+		<comments>http://html5doctor.com/the-contenteditable-attribute/#comments</comments>
+		<pubDate>Tue, 10 Jan 2012 15:10:16 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[contenteditable]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3796</guid>
+		<description><![CDATA[<p>For some time now, we’ve been using various technologies to edit and store text within a web browser. Now with the <code>contenteditable</code> attribute, things have got a whole lot easier. In this article, I’ll tell you what this attribute is for, how it works, and how we can take things further.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[For some time now, we’ve been using various technologies to edit and store text within a web browser. Now with the <code>contenteditable</code> attribute, things have got a whole lot easier. In this article, I’ll tell you what this attribute is for, how it works, and how we can take things further.
+
+<section id="basics">
+<h2>The Basics <a class="permalink" href="#basics">#</a></h2>
+First, let’s check out the spec:
+<blockquote>The <code>contenteditable</code> attribute is an enumerated attribute whose keywords are the empty string, true, and false. The empty string and the true keyword map to the true state. The false keyword maps to the false state. In addition, there is a third state, the inherit state, which is the missing value default (and the invalid value default).
+
+<footer>— <cite><a title="contenteditable attribute — HTML5" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#contenteditable">WHATWG</a></cite></footer></blockquote>
+The <code>contenteditable</code> attribute was mainly intended for providing an in-browser rich-text or WYSIWYG experience. You’ve likely seen this sort of thing in blog-based authoring tools like Symphony or sites like Flickr where you can begin editing page content simply by clicking in a given area.
+
+As mentioned above, <code>contenteditable</code> has three possible states:
+
+<dl><dt><code>contenteditable=""</code> or <code>contenteditable="true"</code></dt><dd>Indicates that the element is editable.</dd><dt><code>contenteditable="false"</code></dt><dd>Indicates that the element is not editable.</dd><dt><code>contenteditable="inherit"</code></dt><dd>Indicates that the element is editable if its immediate parent element is editable. This is the default value.</dd></dl>When you add <code>contenteditable</code> to an element, the browser will make that element editable. In addition, any children of that element will also become editable unless the child elements are explicitly <code>contenteditable="false"</code>.
+
+</section><section id="code-example">
+<h2>Code Example <a class="permalink" href="#code-example">#</a></h2>
+Here’s some example code to get us started:
+
+<figure>
+<pre><code>&lt;div id="example-one" contenteditable="true"&gt;
+&lt;style scoped&gt;
+  #example-one { margin-bottom: 10px; }
+  [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
+  [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
+&lt;/style&gt;
+&lt;p&gt;Everything contained within this div is editable in browsers that support &lt;code&gt;HTML5&lt;/code&gt;. Go on, give it a try: click it and start typing.&lt;/p&gt;
+&lt;/div&gt;
+    </code></pre>
+<figcaption>Putting it together</figcaption></figure></section><section id="live-examples">
+<h2>Live examples <a class="permalink" href="#live-examples">#</a></h2>
+Here are two basic-but-live examples showing what you can do with <code>contenteditable</code>.
+
+<section id="first-example">
+<h3>Example One <a class="permalink" href="#first-example">#</a></h3>
+<div id="example-one" contenteditable="true"><figure>Everything contained within this div is editable in browsers that support <code>HTML5</code>. Go on, give it a try: click it and start typing.
+
+<figcaption>Live text editing</figcaption></figure></div>
+I’ve used CSS to create an obvious visual cue that this area of text is different from the rest. Note that I’ve future-proofed this with <code>&lt;style scoped&gt;</code>, which <a href="http://html5doctor.com/the-scoped-attribute/">I covered in my previous article</a>.
+
+</section><section id="second-example">
+<h3>Example Two <a class="permalink" href="#second-example">#</a></h3>
+<a href="http://twitter.com/chriscoyier">Chris Coyier</a> of CSS-Tricks pointed out that you can let your users <a href="http://css-tricks.com/show-and-edit-style-element/">edit the CSS</a> in real-time. Because the <code>&lt;style&gt;</code> element is set to <code>display: none</code> by the user agent, we need to set it to <code>block</code> for this code to work.
+
+Try editing the <code>CSS</code> below:
+<div id="example-two" contenteditable="true"><figure>
+<div id="style-block"></div>
+<figcaption>Live CSS editing</figcaption></figure></div>
+</section></section><section id="browser-support">
+<h2>Browser Support <a class="permalink" href="#browser-support">#</a></h2>
+Browser support for <code>contenteditable</code> is surprisingly good:
+<table class="wide"><caption>Browser Support for <code>contenteditable</code></caption>
+<thead>
+<tr>
+<th scope="col">Browser</th>
+<th scope="col">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Chrome</th>
+<td>4.0+</td>
+</tr>
+<tr>
+<th scope="row">Safari</th>
+<td>3.1+</td>
+</tr>
+<tr>
+<th scope="row">Mobile Safari</th>
+<td>5.0+</td>
+</tr>
+<tr>
+<th scope="row">Firefox</th>
+<td>3.5+</td>
+</tr>
+<tr>
+<th scope="row">Opera</th>
+<td>9.0+</td>
+</tr>
+<tr>
+<th scope="row">Opera Mini/Mobile</th>
+<td>N/A</td>
+</tr>
+<tr>
+<th scope="row">Internet Explorer</th>
+<td>5.5+</td>
+</tr>
+<tr>
+<th scope="row">Android</th>
+<td>3.0+</td>
+</tr>
+</tbody>
+</table>
+We have to give credit where it’s due and point out that Internet Explorer has supported this attribute since IE5.5. In fact, a very early iteration of <code>contenteditable</code> was .
+
+For a more in-depth compatibility table, visit <a href="http://caniuse.com/contenteditable">When Can I Use…</a>.
+
+</section><section id="storing-changes">
+<h2>Storing the Changes <a class="permalink" href="#storing-changes">#</a></h2>
+For this section, I went straight to Doctor Remy for help, as he is much more knowledgeable than me when it comes to <del>storing your data</del> everything.
+<blockquote>Depending on the complexity of your editable block, your code could be listening for the enter key (keyCode 13) to save the changes, and the escape key (keyCode 27) to undo the changes.
+
+When the user hits enter (assuming it’s a single line of editable content), it would grab the innerHTML of the editable field and send an Ajax post to your server with the change.
+
+A simple example of this can be seen on JS Bin: <a href="http://jsbin.com/owavu3/1/edit">contenteditable saving to Ajax</a>
+
+<footer>— <cite><a title="Remy Sharp on storing content changes with the contenteditable attribute" href="http://html5doctor.com/author/remys/">Remy Sharp</a></cite></footer></blockquote>
+</section><section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+We’ve repeated the phrase “paving the cowpaths” all over this site, and I’m mentioning it again with the introduction of the <code>contenteditable</code> attribute. The spec finally makes official something that’s been implemented by browser makers for years.
+
+Although this is one of the lesser-known new attributes, I bet you’ll find yourself using it more often than you would think.
+
+Imagine being able to simply click a block of content and start making changes instantly: making quick corrections to an article in-place, allowing users to edit their comments, or even building spreadsheets within company applications that aren’t hooked up to any sort of back-end user interface.
+
+If you can think of other uses for this attribute, then head on down to the comments section and tell us where else you think this could be implemented.
+
+</section><section id="related-reading">
+<h2>Related Reading <a class="permalink" href="#related-reading">#</a></h2>
+<ul>
+	<li><a href="http://blog.whatwg.org/the-road-to-html-5-contenteditable#what">What is <code>contenteditable</code>?</a></li>
+	<li><a href="http://css-tricks.com/expanding-images-html5/">Expanding Images Using HTML5’s <code>contenteditable</code></a></li>
+</ul>
+</section><p><a href="http://html5doctor.com/the-contenteditable-attribute/" rel="bookmark">The contenteditable attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 10, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-contenteditable-attribute/feed/</wfw:commentRss>
+		<slash:comments>44</slash:comments>
+		</item>
+	</channel>
+</rss>

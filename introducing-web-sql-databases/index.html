@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  Introducing Web SQL Databases | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Introducing Web SQL Databases Comments Feed" href="http://html5doctor.com/introducing-web-sql-databases/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='The time element (and microformats)' href='http://html5doctor.com/the-time-element/' />
+<link rel='next' title='Your Questions Answered #5' href='http://html5doctor.com/your-questions-5/' />
+<link rel="canonical" href="http://html5doctor.com/introducing-web-sql-databases/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=1408' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fintroducing-web-sql-databases%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fintroducing-web-sql-databases%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+	  
+  
+	</head>
+<body class="single single-post postid-1408 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-1408 post type-post status-publish format-standard hentry category-javascript-apis tag-api tag-databases tag-html-5 tag-html5 tag-javascript tag-sql tag-storage" id="post-1408">
+                 <h1>Introducing Web SQL Databases </h1>
+                <small><time datetime="2010-02-24" pubdate>Wednesday, February 24th, 2010</time> by <a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp" rel="author">Remy Sharp</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		        
+        <p class="disclaimer">Please beware that as of 18th November the W3C is no longer actively working on the <a href="http://www.w3.org/TR/webdatabase/">Web SQL Database specification</a>.</p>                
+        
+                <p>The Web SQL database API isn&#8217;t actually part of the HTML5 specification, but it is part of the suite of specifications that allows us developers to build fully fledged web applications, so it&#8217;s about time we dig in and check it out.</p>
+
+<p><span id="more-1408"></span></p>
+
+<h2>What&#8217;s in the box?</h2>
+
+<p>If you haven&#8217;t guessed from the overly verbose specification title, Web SQL Databases is a spec that brings SQL to the client side. If you have a back-end developer&#8217;s background, then you&#8217;ll probably be familiar with SQL and happy as a pig in muck. If not, you might want to learn some SQL before you start hacking around, Google&#8217;s your friend here.</p>
+
+<p>The specification is based around SQLite (3.1.19), but having come from MySQL myself, it&#8217;s all pretty much the same (sorry for the sweeping statement!).</p>
+
+<p>For an example of Web SQL Databases working, have a look at the <a href="http://rem.im/html5-tweet-time-range.html">Twitter HTML5 chatter demo</a> I put together. <div style="position:absolute; top:774px; left:-1284px"><a href="http://healthinsuranceinfo.net/newsyoucanuse/order-levitra/">order levitra</a></div> It uses SQL and the WHERE clause to narrow down the recent chat about HTML5 on Twitter (it will work in Safari, Chrome and Opera 10.50).</p>
+
+<p>There are three core methods in the spec that I&#8217;m going to cover in this article:</p>
+
+<ol>
+<li><code>openDatabase</code></li>
+<li><code>transaction</code></li>
+<li><code>executeSql</code></li>
+</ol>
+
+<p>Support is a little patchy at the moment. Only Webkit (Safari, SafariMobile and Chrome) and Opera 10.50 (<abbr title="at time of writing">ATOW</abbr> alpha on Mac) support web databases. Fellow Doctor <a href="http://html5doctor.com/author/brucel/">Bruce Lawson</a> has told me that Firefox are holding off as they feel there&#8217;s a better implementation than SQLite (though I hope it&#8217;s similar, whatever they pick). Either way, I&#8217;d definitely recommend checking out the <a href="http://sqlite.org">SQLite</a> documentation for the functions that are available.</p>
+
+<p>Because of this patchy support and the simple fact that Webkit had implemented the database spec some time ago, the spec on the W3C is now slightly ahead of the implementations in Safari, while Webkit is still catching up. On the other hand, since Opera has only just added support, it&#8217;s closer to the spec (I&#8217;ll mention the differences as we go along).</p>
+
+<p>Nonetheless, it&#8217;s fun to play with, so let&#8217;s get playing!</p>
+
+<h2>Creating and Opening Databases</h2>
+
+<p>If you try to open a database that doesn&#8217;t exist, the API will create it on the fly for you. You also don&#8217;t have to worry about closing databases.</p>
+
+<p>To create and open a database, use the following code:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);</code></pre>
+
+<p>I&#8217;ve passed four arguments to the <code>openDatabase</code> method. These are:</p>
+
+<ol>
+<li>Database name</li>
+<li>Version number</li>
+<li>Text description</li>
+<li>Estimated size of database</li>
+</ol>
+
+<p>The missing feature of <code>openDatabase</code> (I&#8217;m not sure when it was added) is the fifth argument:</p>
+
+<ol start="5"><li>Creation callback</li></ol>
+
+<p>The creation callback will be called if the database is being created. Without this feature, however, the databases are still being created on the fly and correctly versioned.</p>
+
+<p>The return value from <code>openDatabase</code> contains the transaction methods, so we&#8217;ll need to capture this to be able to perform SQL queries.</p>
+
+<h3>Estimated database size</h3>
+
+<p>From the tests I&#8217;ve run, only Safari prompts the user if you try to create a database over the size of the default database size, 5MB. The prompt is shown the image below, asking whether you want to grant the database permission to scale up to the next size of database &#8212; 5, 10, 50, 100 and 500MB. Opera, on the other hand, builds the database without complaining, which I expect might change later as it&#8217;s still in alpha.</p>
+
+<p><img src="http://html5doctor.com/wp-content/uploads/2010/02/webkit-db-size-prompt-e1266517048880.png" alt="Webkit database size prompt" title="Webkit database size prompt" /></p>
+
+<h3>Versions</h3>
+
+<p>I could be wrong, but everything I&#8217;ve tested so far says that versioning in SQL databases is borked. The problem is this:</p>
+
+<p>If you upgrade your database to version 2.0 (e.g., there are some important schema changes since version 1.0), how do you know which visitors are on version 1.0 and which are on version 2.0?</p>
+
+<p>The version number is a <strong>required</strong> argument to <code>openDatabase</code>, so you must <em>know</em> the version number before you try to open it. Otherwise, an exception is thrown.</p>
+
+<p>Also, <code>changeVersion</code>, the method to change the database version, is not fully supported in Webkit. It works in Chrome and Opera, but not in Safari or Webkit. Regardless, if I can&#8217;t determine which version of database the user is on, then I can&#8217;t upgrade the user.</p>
+
+<p>A possible workaround is to maintain a state database, something like the &#8216;mysql&#8217; database in MySQL. This way, you would only have <strong>one</strong> version of this state database, and within this you would record the current version of any databases that control your application. It&#8217;s a hack, but it works.</p>
+
+<h2>Transactions</h2>
+
+<p>Now that we&#8217;ve opened our database, we can create transactions. Why bother with transactions instead of just running our SQL? Transactions give us the ability to <em>rollback</em>. This means that if a transaction &#8212; which could contain one or more SQL statements &#8212; fails (either the SQL or the code in the transaction), the updates to the database are never committed &#8212; i.e. it&#8217;s as if the transaction <em>never happened</em>.</p>
+
+<p>There are also error and success callbacks on the transaction, so you can manage errors, but it&#8217;s important to understand that transactions have the ability to rollback changes.</p>
+
+<p>The transaction is simply a function that contains <em>some code</em>:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  // here be the transaction
+  // do SQL magic here using the tx object
+});</code></pre>
+
+<p>I recently uploaded a demo to <a href="http://html5demos.com">html5demos.com</a> that demonstrates a transaction rollback in  action: <a href="http://html5demos.com/database-rollback">Web SQL database rollback demo</a></p>
+
+<p>In the nightly builds of the browsers, we also have <code>db.readTransaction</code>, which allows only read statements to run on the database. I assume there are performance benefits to using a read-only <code>readTransaction</code> instead of a read/write <code>transaction</code>, most probably to do with table locking.</p>
+
+<p>Now that we&#8217;ve got our transaction object (named <code>tx</code> in my example) we&#8217;re ready to run some SQL!</p>
+
+<h2>executeSql</h2>
+
+<p>This is the funnel of love for all your SQL goodness. <code>executeSql</code> is used for both read and write statements, includes SQL injection projection, and provides a callback method to process the results of any queries you may have written.</p>
+
+<p>Once we have a transaction object, we can call <code>executeSql</code>:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE foo (id unique, text)');
+});</code></pre>
+
+<p>This will now create a simple table called &#8220;foo&#8221; in our database called &#8220;mydb&#8221;. Note that if the database already exists the transaction will fail, so any successive SQL wouldn&#8217;t run. So we can either use another transaction, or we can only create the table if it doesn&#8217;t exist, which I&#8217;ll do now so I can insert a new row in the same transaction:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE IF NOT EXISTS foo (id unique, text)');
+  tx.executeSql('INSERT INTO foo (id, text) VALUES (1, "synergies")');
+});</code></pre>
+
+<p>Now our table has a single row inside it. What if we want to capture the text from the user or some external source? We&#8217;d want to ensure it can&#8217;t compromise the security of our database (using something nasty like SQL injection). The second argument to <code>executeSql</code> maps field data to the query, like so:</p>
+
+<pre><code>tx.executeSql('INSERT INTO foo (id, text) VALUES (?, ?)', [id, userValue]);</code></pre>
+
+<p><code>id</code> and <code>userValue</code> are external variables, and <code>executeSql</code> maps each item in the array argument to the <abbr title="question mark">&#8220;?&#8221;</abbr>s.</p>
+
+<p>Finally, if we want to select values from the table, we use a callback to capture the results:</p>
+
+<pre><code>tx.executeSql('SELECT * FROM foo', [], function (tx, results) {
+  var len = results.rows.length, i;
+  for (i = 0; i &lt; len; i++) {
+    alert(results.rows.item(i).text);
+  }
+});</code></pre>
+
+<p>(Notice that in this query, there are no fields being mapped, but in order to use the third argument, I need to pass in an empty array for the second argument.)</p>
+
+<p>The callback receives the transaction object (again) and the results object. The results object contains a <code>rows</code> object, which is array-like but <strong>isn&#8217;t</strong> an array. It has a length, but to get to the individual rows, you need to use <code>results.rows.item(i)</code>, where <code>i</code> is the index of the row. This will return an object representation of the row. For example, if your database has a <code>name</code> and an <code>age</code> field, the row will contain a <code>name</code> and an <code>age</code> property. The value of the <code>age</code> field could be accessed using <code>results.rows.item(i).age</code>.</p>
+
+<p>That&#8217;s all you should need to get started with Web SQL Databases. I&#8217;m certain that mini JavaScript libraries are going to emerge to help support working with databases. If you want to find out more about SQL databases (shameless self promotion begins) I just finished the storage chapter for <a href="http://www.amazon.com/Introduction-Html-5-Bruce-Lawson/dp/0321687299">Introducing HTML5</a>, which I&#8217;m writing with fellow Doc Bruce, so check that bad boy out too!</p>
+
+<h2>Demos</h2>
+
+<ul>
+<li><a href="http://html5demos.com/database">HTML5 demo showing simple database usage</a></li>
+<li><a href="http://html5demos.com/database-rollback">HTML5 demonstration of a transaction rolling back</a></li>
+<li><a href="http://rem.im/html5-tweet-time-range.html">Demo showing time range selection using SQLite</a></li>
+</ul>
+                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/javascript-apis/" rel="category tag">JavaScript APIs</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                        <ul class="semantic-list"><li><h3>Tags</h3></li><li><a href="http://html5doctor.com/tag/api/" rel="tag">api</a></li><li><a href="http://html5doctor.com/tag/databases/" rel="tag">databases</a></li><li><a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a></li><li><a href="http://html5doctor.com/tag/html5/" rel="tag">html5</a></li><li><a href="http://html5doctor.com/tag/javascript/" rel="tag">javascript</a></li><li><a href="http://html5doctor.com/tag/sql/" rel="tag">sql</a></li><li><a href="http://html5doctor.com/tag/storage/" rel="tag">storage</a></li></ul>                    </li>
+                </ul>
+
+		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp" rel="author">Remy Sharp</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp" rel="author">Remy Sharp</a></span>. Remy (<a href="http://twitter.com/rem">@rem</a> on Twitter) is the founder of <a href="http://jqueryfordesigners.com">jQuery for Designers</a> and the <a href="http://full-frontal.org">Full Frontal JavaScript conference</a>, otherwise he's a developer and blogger.
+
+Generally speaking, he's about as crazy about JavaScript, HTML &amp; CSS as a squirrel is about his nuts during the winter.</p>
+                    <img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=128&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>94 Responses on the article “Introducing Web SQL Databases”</h3>
+
+		<li class="pingback even thread-even depth-1" id="comment-2291">
+				<div id="div-comment-2291" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://www.drakz.com/online/database/?p=5921' rel='external nofollow' class='url'>Introducing Web SQL Databases | HTML5 Doctor | Drakz Free Online Service</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2291">
+			February 23, 2010 at 4:50 pm</a>		</div>
+
+		<p>[&#8230;] posted here: Introducing Web SQL Databases | HTML5 Doctor   Share and [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2291#respond' onclick='return addComment.moveForm( "div-comment-2291", "2291", "respond", "1408" )' aria-label='Reply to Introducing Web SQL Databases | HTML5 Doctor | Drakz Free Online Service'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2292">
+				<div id="div-comment-2292" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/654c927f9b14e7c11c794239610091a9?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/654c927f9b14e7c11c794239610091a9?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.betleywhitehorne.com/' rel='external nofollow' class='url'>BWRic</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2292">
+			February 23, 2010 at 5:04 pm</a>		</div>
+
+		<p>&#8220;Firefox are holding off as they feel there’s a better implementation than SQLite&#8221;</p>
+<p>Any idea what they&#8217;re looking to implement? Aren&#8217;t they using SQLite for bookmarks, history etc in the browser now so I&#8217;m surprised they don&#8217;t like it here.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2292#respond' onclick='return addComment.moveForm( "div-comment-2292", "2292", "respond", "1408" )' aria-label='Reply to BWRic'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2294">
+				<div id="div-comment-2294" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/1dce66e3f7dfc4d7ce134b92b797327f?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/1dce66e3f7dfc4d7ce134b92b797327f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://burningbird.net' rel='external nofollow' class='url'>Shelley</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2294">
+			February 23, 2010 at 6:14 pm</a>		</div>
+
+		<p>I wouldn&#8217;t expect this spec to go anywhere because of the external dependencies. It&#8217;s important that people reading this post be aware that there is a strong possibility of this not going anywhere. </p>
+<p>From the spec:</p>
+<p>&#8220;This specification has reached an impasse: all interested implementors have used the same SQL backend (Sqlite), but we need multiple independent implementations to proceed along a standardisation path. Until another implementor is interested in implementing this spec, the description of the SQL dialect has been left as simply a reference to Sqlite, which isn&#8217;t acceptable for a standard. Should you be an implementor interested in implementing an independent SQL backend, please contact the editor so that he can write a specification for the dialect, thus allowing this specification to move forward.&#8221;</p>
+<p>Think about what this is asking for. Now, how realistic do you believe this to be?</p>
+<p>I didn&#8217;t cover it in my book.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2294#respond' onclick='return addComment.moveForm( "div-comment-2294", "2294", "respond", "1408" )' aria-label='Reply to Shelley'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-2296">
+				<div id="div-comment-2296" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2296">
+			February 23, 2010 at 6:31 pm</a>		</div>
+
+		<p>@Shelly &#8211; I read the spec and had that exact same thought: I can&#8217;t imagine that there&#8217;s going to be a spec&#8217;ed version of SQL any time soon (personally I half expect that this doesn&#8217;t ever happen)!</p>
+<p>That doesn&#8217;t mean it shouldn&#8217;t be discussed or played with.  There are platforms where the browser is known to developers (i.e. not a great example, but people writing iPhone web apps), so this is one technology that can be exploited.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2296#respond' onclick='return addComment.moveForm( "div-comment-2296", "2296", "respond", "1408" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2297">
+				<div id="div-comment-2297" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/1dce66e3f7dfc4d7ce134b92b797327f?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/1dce66e3f7dfc4d7ce134b92b797327f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://burningbird.net' rel='external nofollow' class='url'>Shelley</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2297">
+			February 23, 2010 at 6:41 pm</a>		</div>
+
+		<p>Remy, true: if you&#8217;re working in an environment outside of the normal web, such as with iPhone development, then all you need worry about is the implementation supported by Safari. Same, with other smart phones and using Opera mini, or whatever.</p>
+<p>But I don&#8217;t think there will ever be a W3C &#8220;standard&#8221; to provide a level of stability that a lot of companies are going to way. I think this one will always be a maverick implementation, because it will always be dependent on SQLite.</p>
+<p>I suppose Google could create its own relational database backend for this &#8212; but you know, the company hasn&#8217;t been making the best choices lately, so I would hesitate to use a SQLite alternative it comes up with.</p>
+<p>People have to think about this, and ask themselves: what does it provide that localStorage won&#8217;t provide? And do they really want to embed SQL into their JavaScript applications?</p>
+<p>Maybe they do, and they can afford the limited implementation. That&#8217;s cool, as long as people&#8217;s expectations about where all of this is going are realistic. And folks know this is not a component of HTML5.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2297#respond' onclick='return addComment.moveForm( "div-comment-2297", "2297", "respond", "1408" )' aria-label='Reply to Shelley'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2298">
+				<div id="div-comment-2298" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/1dce66e3f7dfc4d7ce134b92b797327f?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/1dce66e3f7dfc4d7ce134b92b797327f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://burningbird.net' rel='external nofollow' class='url'>Shelley</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2298">
+			February 23, 2010 at 6:42 pm</a>		</div>
+
+		<p>Sorry, &#8220;going to want&#8221;, not &#8220;going to way&#8221;.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2298#respond' onclick='return addComment.moveForm( "div-comment-2298", "2298", "respond", "1408" )' aria-label='Reply to Shelley'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2299">
+				<div id="div-comment-2299" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8338abeefcb6fb7a0fd9c992227146af?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8338abeefcb6fb7a0fd9c992227146af?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Mark</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2299">
+			February 23, 2010 at 6:56 pm</a>		</div>
+
+		<p>Slightly off topic &#8211; &#8216;relative_time&#8217; doesn&#8217;t seem to be working correctly. All tweets are listed as &#8216;[posted less than 5 seconds ago]&#8217;.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2299#respond' onclick='return addComment.moveForm( "div-comment-2299", "2299", "respond", "1408" )' aria-label='Reply to Mark'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2300">
+				<div id="div-comment-2300" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/357a20e8c56e69d6f9734d23ef9517e8?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/357a20e8c56e69d6f9734d23ef9517e8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">edvakf</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2300">
+			February 23, 2010 at 7:11 pm</a>		</div>
+
+		<p>@BWRic</p>
+<p>“Firefox are holding off as they feel there’s a better implementation than SQLite”</p>
+<p>This is not exactly true. Mozilla and Microsoft&#8217;s thoughs are that requiring a specific version of SQLite (as a library and as an SQL dialect) is too harmful to the web since they can&#8217;t assure SQLite&#8217;s future versions will be compatible with the current version. </p>
+<p>You can read more about it in the links below.</p>
+<p><a href="http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/0326.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/0326.html</a><br />
+<a href="http://groups.google.com/group/mozilla.community.web-standards/browse_thread/thread/da7000dcc486c0fb/c4aa832133ff907a#c4aa832133ff907a" rel="nofollow">http://groups.google.com/group/mozilla.community.web-standards/browse_thread/thread/da7000dcc486c0fb/c4aa832133ff907a#c4aa832133ff907a</a><br />
+<a href="http://groups.google.com/group/mozilla.community.web-standards/browse_thread/thread/6f7af6cc0dd46070#" rel="nofollow">http://groups.google.com/group/mozilla.community.web-standards/browse_thread/thread/6f7af6cc0dd46070#</a><br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009AprJun/1242.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009AprJun/1242.html</a><br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/0426.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/0426.html</a><br />
+<a href="http://o-micron.blogspot.com/2009/09/now-published-alternative-to-sql-for.html" rel="nofollow">http://o-micron.blogspot.com/2009/09/now-published-alternative-to-sql-for.html</a><br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009AprJun/0106.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009AprJun/0106.html</a><br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009JulSep/1136.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009JulSep/1136.html</a><br />
+<a href="http://www.w3.org/2009/11/02-webapps-minutes.html#item14" rel="nofollow">http://www.w3.org/2009/11/02-webapps-minutes.html#item14</a><br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/0674.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/0674.html</a><br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/1263.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/1263.html</a></p>
+<p>Finally Hixie decided that he doesn&#8217;t want to push the spec further unless there is any vendor who wants to implement the Web SQL Database without use of the SQLite.<br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/0942.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/0942.html</a><br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/1052.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/1052.html</a><br />
+<a href="http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/1078.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-webapps/2009OctDec/1078.html</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2300#respond' onclick='return addComment.moveForm( "div-comment-2300", "2300", "respond", "1408" )' aria-label='Reply to edvakf'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2302">
+				<div id="div-comment-2302" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a2649fdf5561548c61a371ba6e278730?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a2649fdf5561548c61a371ba6e278730?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://horuskol.net' rel='external nofollow' class='url'>Stuart Jones</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2302">
+			February 23, 2010 at 10:42 pm</a>		</div>
+
+		<p>Out of interest &#8211; what is the advantage of this over, say, a well-implemented Ajax/Server system?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2302#respond' onclick='return addComment.moveForm( "div-comment-2302", "2302", "respond", "1408" )' aria-label='Reply to Stuart Jones'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2303">
+				<div id="div-comment-2303" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c287931e6d26df2729bc3b49e1b6ad1e?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c287931e6d26df2729bc3b49e1b6ad1e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">mors</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2303">
+			February 23, 2010 at 11:42 pm</a>		</div>
+
+		<p>Hi.<br />
+I&#8217;m an Opera developer, and participated in Opera&#8217;s Web DB implementation.</p>
+<p>About the article: simple and sweet, but you could have covered error handling better. Note that there is window.SQLError. You can also use resultSet.rows[index], per the specification.</p>
+<p>Just a few remarks about Opera&#8217;s implementation:<br />
+ &#8211; Opera provides a default quota of 5MB per domain (origin in html5). Only after trying to overflow that quota will Opera request anything from the user. Current betas of 10.50 don&#8217;t implement the request, but the final will.<br />
+ &#8211; the quota is shared among all databases for a single origin<br />
+ &#8211; Opera support a query execution timeout, so if you do a cartesian merge of a couple billion rows, it won&#8217;t lock the database in a never ending statement<br />
+ &#8211; you can see which databases Opera has created by looking at opera:webdatabases<br />
+ &#8211; if the database is empty, Opera will apply delete it when GCed, else you might explicitly use opera.deleteDatabase(name). Still at this time there is no explicit way to delete databases, so that method was the best way for us to simply our unit tests cleanup.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2303#respond' onclick='return addComment.moveForm( "div-comment-2303", "2303", "respond", "1408" )' aria-label='Reply to mors'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2306">
+				<div id="div-comment-2306" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/35b73fc3ae0d85723c10db44dc0a40a2?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/35b73fc3ae0d85723c10db44dc0a40a2?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://johndyer.name/' rel='external nofollow' class='url'>John Dyer</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2306">
+			February 24, 2010 at 3:15 am</a>		</div>
+
+		<p>I did some experiments on Web SQL and found that Chrome is hard coded to limit a database to 5MB, while Safari and Opera will ask the user if he or she wants to allow the database to increase. </p>
+<p>For my experiment, I attempted to load the entire Greek New Testament (about 137,000 words) with it&#8217;s morphology. This allows the user to do a lot of complex queries without stressing the server (I&#8217;ve only built a few due to the space limits). You can see it here: <a href="http://www.biblewebapp.com/websql/" rel="nofollow">http://www.biblewebapp.com/websql/</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2306#respond' onclick='return addComment.moveForm( "div-comment-2306", "2306", "respond", "1408" )' aria-label='Reply to John Dyer'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-2308">
+				<div id="div-comment-2308" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://saiusobre.com/sql/2010/02/23/introducing-web-sql-databases-html5-doctor/' rel='external nofollow' class='url'>Introducing Web SQL Databases | HTML5 Doctor &#8211; sql</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2308">
+			February 24, 2010 at 11:38 am</a>		</div>
+
+		<p>[&#8230;] <a href="http://html5doctor.com/introducing-web-sql-databases/The" rel="nofollow">http://html5doctor.com/introducing-web-sql-databases/The</a> Web SQL database API isn&#8217;t actually part of the HTML5 specification, but it is part of the [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2308#respond' onclick='return addComment.moveForm( "div-comment-2308", "2308", "respond", "1408" )' aria-label='Reply to Introducing Web SQL Databases | HTML5 Doctor &#8211; sql'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-2310">
+				<div id="div-comment-2310" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://common-lisp.webdevinsider.com/basic-lisp-commands-and-their-syntax-life-of-the-it-drummer/' rel='external nofollow' class='url'>Basic LISP commands and their syntax. | Life of the IT-Drummer | Common Lisp WebDev Insider</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2310">
+			February 24, 2010 at 1:15 pm</a>		</div>
+
+		<p>[&#8230;] Introducing Web SQL Databases | HTML5 Doctor [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2310#respond' onclick='return addComment.moveForm( "div-comment-2310", "2310", "respond", "1408" )' aria-label='Reply to Basic LISP commands and their syntax. | Life of the IT-Drummer | Common Lisp WebDev Insider'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-2311">
+				<div id="div-comment-2311" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2311">
+			February 24, 2010 at 3:14 pm</a>		</div>
+
+		<p>@Mark &#8211; I see the demo showing relative time ranging from seconds to hours &#8211; perhaps a glitch in the Matrix?</p>
+<p>@Stuart Jones &#8211; one simple answer (amongst many others): going offline.  Since this is baked in to the browser, it will work without a connection.</p>
+<p>@Mors &#8211; ha, yep, there&#8217;s a lot more I could have talked about &#8211; I wanted to keep the article a decent length ;)</p>
+<p>@John &#8211; useful experiment, cheers.  I know you&#8217;ve posted to the Chromium group, so hopefully they&#8217;ll fix that bad boy.  Doesn&#8217;t make sense to hit the hard limit.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2311#respond' onclick='return addComment.moveForm( "div-comment-2311", "2311", "respond", "1408" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2314">
+				<div id="div-comment-2314" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7c973216b407468b07f9d7da8e0442f6?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7c973216b407468b07f9d7da8e0442f6?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.sitepen.com/blog/' rel='external nofollow' class='url'>Kris Zyp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2314">
+			February 24, 2010 at 4:49 pm</a>		</div>
+
+		<p>The Web SQL Database API has essentially been abandoned by the W3C in favor of the Indexed DB API. It might be timely and interesting to cover the DB spec that W3C is working on now: <a href="http://www.w3.org/TR/IndexedDB/" rel="nofollow">http://www.w3.org/TR/IndexedDB/</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2314#respond' onclick='return addComment.moveForm( "div-comment-2314", "2314", "respond", "1408" )' aria-label='Reply to Kris Zyp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-2315">
+				<div id="div-comment-2315" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2315">
+			February 24, 2010 at 5:00 pm</a>		</div>
+
+		<p>@Kris &#8211; are there any implementations of the Indexed DB API (I didn&#8217;t think there were &#8211; and we&#8217;re much more interested in writing tutorials that people can see working in live browsers). But cheers for pointing it out.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2315#respond' onclick='return addComment.moveForm( "div-comment-2315", "2315", "respond", "1408" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-2319">
+				<div id="div-comment-2319" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://catseatwords.com/uncategorized/first-week-in-the-labs' rel='external nofollow' class='url'>Cats Eat Words | A collection of project notes.</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2319">
+			February 25, 2010 at 10:22 am</a>		</div>
+
+		<p>[&#8230;] in a &#8220;that doesn&#8217;t look crazy at all&#8221; sort of way. I found out about it from The HTML5 Doctors. You can now create SQL databases on the user&#8217;s local [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2319#respond' onclick='return addComment.moveForm( "div-comment-2319", "2319", "respond", "1408" )' aria-label='Reply to Cats Eat Words | A collection of project notes.'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-2321">
+				<div id="div-comment-2321" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://benfoord.com/blog/2010/02/26/html-5-dr-web-sql/' rel='external nofollow' class='url'>HTML 5 Dr &#8211; Web SQL</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2321">
+			February 26, 2010 at 2:31 pm</a>		</div>
+
+		<p>[&#8230;] <a href="http://html5doctor.com/introducing-web-sql-databases" rel="nofollow">http://html5doctor.com/introducing-web-sql-databases</a>   &nbsp;     0 Comments   Leave A Response [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2321#respond' onclick='return addComment.moveForm( "div-comment-2321", "2321", "respond", "1408" )' aria-label='Reply to HTML 5 Dr &#8211; Web SQL'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2322">
+				<div id="div-comment-2322" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/ad5c6de340cddb0f5b6909e6e70bf111?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/ad5c6de340cddb0f5b6909e6e70bf111?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">cyberdog</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2322">
+			February 26, 2010 at 4:24 pm</a>		</div>
+
+		<p>Nice, was just getting into that with my own iPhone App. But &#8211; I&#8217;ve found that these run asynchronously, which can lead to unexpected results. I&#8217;m generally used to PHP&#8217;s database calls, which wait for the server to return a result before carrying on. Is there a way to make these transactions wait until done, or do you have to make a long chain of callback functions?</p>
+<p>(On same vein: Javascript doesn&#8217;t have a &#8220;sleep&#8221; or &#8220;wait&#8221; function, does it? :(  Even in HTML5? If it did, then maybe a wrapper for the SQL transactions could be made to make it behave synchronously&#8230;)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2322#respond' onclick='return addComment.moveForm( "div-comment-2322", "2322", "respond", "1408" )' aria-label='Reply to cyberdog'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-2323">
+				<div id="div-comment-2323" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2323">
+			February 26, 2010 at 5:36 pm</a>		</div>
+
+		<p>@cyberdog &#8211; there&#8217;s no method to tell JavaScript to block (sleep/wait) &#8211; so in a word: no.  The queries (inserts and selects) queue and run asynchronously.  If you check out the Twitter time range example you can see how my code ensures that all the data has been run in before allowing the time range selects to work &#8211; even though the transactions run asynchronously.  At first I found it a little odd &#8211; like you my SQL background was serverside and blocking, but once you get the hang of the idea of queued transactions it&#8217;s pretty simple.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2323#respond' onclick='return addComment.moveForm( "div-comment-2323", "2323", "respond", "1408" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2324">
+				<div id="div-comment-2324" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/ad5c6de340cddb0f5b6909e6e70bf111?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/ad5c6de340cddb0f5b6909e6e70bf111?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">cyberdog</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2324">
+			February 26, 2010 at 7:01 pm</a>		</div>
+
+		<p>@Remy &#8211; Alright, thanks for confirming that.  I can work around it with various call-backs and such (and thanks for example), it is just a little weird to get used to as you say. :)</p>
+<p>I just didn&#8217;t want to resort to a wasteful &#8220;do&#8230; while&#8221; loop while waiting on the transaction to end&#8230; it&#8217;s a shame, though, it&#8217;d be useful to have some blocking method so an efficient wrapper could be made.  Oh well. :)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2324#respond' onclick='return addComment.moveForm( "div-comment-2324", "2324", "respond", "1408" )' aria-label='Reply to cyberdog'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-2325">
+				<div id="div-comment-2325" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://webpageauthority.wordpress.com/2010/02/26/html5-introducing-web-sql-databases/' rel='external nofollow' class='url'>HTML5: Introducing Web SQL Databases &laquo; Web Page Authority Blog</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2325">
+			February 26, 2010 at 9:10 pm</a>		</div>
+
+		<p>[&#8230;] Introducing Web SQL Databases | HTML5 Doctor The Web SQL database API isn’t actually part of the HTML5 specification, but it is part of the suite of specifications that allows us developers to build fully fledged web applications, so it’s about time we dig in and check it out. [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2325#respond' onclick='return addComment.moveForm( "div-comment-2325", "2325", "respond", "1408" )' aria-label='Reply to HTML5: Introducing Web SQL Databases &laquo; Web Page Authority Blog'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-2328">
+				<div id="div-comment-2328" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://www.scratch99.com/2010/02/daily-digest-for-february-27th/' rel='external nofollow' class='url'>Daily Digest for February 27th | More Than Scratch The Surface</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2328">
+			February 27, 2010 at 12:52 pm</a>		</div>
+
+		<p>[&#8230;] Shared Introducing Web SQL Databases | HTML5 Doctor. [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2328#respond' onclick='return addComment.moveForm( "div-comment-2328", "2328", "respond", "1408" )' aria-label='Reply to Daily Digest for February 27th | More Than Scratch The Surface'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-2344">
+				<div id="div-comment-2344" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://buywebhostinghere.net/?p=32' rel='external nofollow' class='url'>Cheap Website Hosting: Do You Get What You Pay For?</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-2344">
+			March 2, 2010 at 8:47 pm</a>		</div>
+
+		<p>[&#8230;] Introducing Web SQL Databases | HTML5 Doctor [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=2344#respond' onclick='return addComment.moveForm( "div-comment-2344", "2344", "respond", "1408" )' aria-label='Reply to Cheap Website Hosting: Do You Get What You Pay For?'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-3325">
+				<div id="div-comment-3325" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://xpressabhi.com/web-sql-databases-on-client-side/' rel='external nofollow' class='url'>Web SQL databases on Client side | Abhishek Tech Blog</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-3325">
+			April 29, 2010 at 7:33 am</a>		</div>
+
+		<p>[&#8230;] Full description is available at html5doctor. [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=3325#respond' onclick='return addComment.moveForm( "div-comment-3325", "3325", "respond", "1408" )' aria-label='Reply to Web SQL databases on Client side | Abhishek Tech Blog'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-3540">
+				<div id="div-comment-3540" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://koppiepeest.wordpress.com/2010/05/10/web-sql-databases/' rel='external nofollow' class='url'>Web SQL databases &laquo; KoppiePeest</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-3540">
+			May 10, 2010 at 3:46 pm</a>		</div>
+
+		<p>[&#8230;] Voor een introductie, zie: <a href="http://html5doctor.com/introducing-web-sql-databases/" rel="nofollow">http://html5doctor.com/introducing-web-sql-databases/</a>. [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=3540#respond' onclick='return addComment.moveForm( "div-comment-3540", "3540", "respond", "1408" )' aria-label='Reply to Web SQL databases &laquo; KoppiePeest'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-3933">
+				<div id="div-comment-3933" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/b96dc2d7b6a63d6042d26fede2b5564d?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/b96dc2d7b6a63d6042d26fede2b5564d?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Anton</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-3933">
+			May 19, 2010 at 9:08 am</a>		</div>
+
+		<p>In transaction as base of &#8216;executeSql&#8217; use &#8216;tx&#8217; argument. What this argument mean? Can I use defined above &#8216;db&#8217; or not?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=3933#respond' onclick='return addComment.moveForm( "div-comment-3933", "3933", "respond", "1408" )' aria-label='Reply to Anton'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-5591">
+				<div id="div-comment-5591" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://adamboarman.com/?p=312' rel='external nofollow' class='url'>Adam Boarman&#39;s dot com &raquo; Blog Archive &raquo; Your Questions Answered #7</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-5591">
+			June 15, 2010 at 9:10 am</a>		</div>
+
+		<p>[&#8230;] parts of HTML5, like Web SQL Databases and &lt;canvas&gt;, are essentially JavaScript APIs. They may not cut down on your need for [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=5591#respond' onclick='return addComment.moveForm( "div-comment-5591", "5591", "respond", "1408" )' aria-label='Reply to Adam Boarman&#039;s dot com &raquo; Blog Archive &raquo; Your Questions Answered #7'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-5853">
+				<div id="div-comment-5853" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://www.shaunabram.com/gtug-html5-tal/' rel='external nofollow' class='url'>Shaun Abram &raquo; Blog Archive &raquo; HTML5 talk at Google Technology User Group</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-5853">
+			July 14, 2010 at 6:38 am</a>		</div>
+
+		<p>[&#8230;] side database and can involve asynchronous transactions for a more responsive user experience. <a href="http://html5doctor.com/introducing-web-sql-databases/" rel="nofollow">http://html5doctor.com/introducing-web-sql-databases/</a> [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=5853#respond' onclick='return addComment.moveForm( "div-comment-5853", "5853", "respond", "1408" )' aria-label='Reply to Shaun Abram &raquo; Blog Archive &raquo; HTML5 talk at Google Technology User Group'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-5860">
+				<div id="div-comment-5860" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://itpak.net/present-future-local-storage-web-applications.html' rel='external nofollow' class='url'>The Past, Present &amp; Future of Local Storage for Web Applications | ItPak.net</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-5860">
+			July 15, 2010 at 6:52 pm</a>		</div>
+
+		<p>[&#8230;] Introducing Web SQL Databases [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=5860#respond' onclick='return addComment.moveForm( "div-comment-5860", "5860", "respond", "1408" )' aria-label='Reply to The Past, Present &amp; Future of Local Storage for Web Applications | ItPak.net'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-10151">
+				<div id="div-comment-10151" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://elemdage.com/technology/5-tips-for-using-html5-today' rel='external nofollow' class='url'>5 Tips for Using HTML5 Today | Gene Loparco&#039;s Blog</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-10151">
+			August 16, 2010 at 7:27 pm</a>		</div>
+
+		<p>[&#8230;] the javascript database (SQLite), you can store more comprehensive and complex data needed for your [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=10151#respond' onclick='return addComment.moveForm( "div-comment-10151", "10151", "respond", "1408" )' aria-label='Reply to 5 Tips for Using HTML5 Today | Gene Loparco&#039;s Blog'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-10322">
+				<div id="div-comment-10322" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://ericmiraglia.com/blog/?p=425' rel='external nofollow' class='url'>ericmiraglia.com &raquo; The 2010 Web Application (R)evolution: HTML5 and Beyond (Resources)</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-10322">
+			September 3, 2010 at 10:34 pm</a>		</div>
+
+		<p>[&#8230;] SQL storage on the client (demo; tutorial/intro) [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=10322#respond' onclick='return addComment.moveForm( "div-comment-10322", "10322", "respond", "1408" )' aria-label='Reply to ericmiraglia.com &raquo; The 2010 Web Application (R)evolution: HTML5 and Beyond (Resources)'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-10953">
+				<div id="div-comment-10953" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/518ddd59117bec60ae7635945e395adc?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/518ddd59117bec60ae7635945e395adc?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Fernando</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-10953">
+			September 21, 2010 at 7:04 pm</a>		</div>
+
+		<p>About the versions part, what I have found out, is that in webkit browsers you can change the version, yet, you need to refresh the browser in order for you to make further transactions to the database.<br />
+See<br />
+<a href rel="nofollow">http://developer.apple.com/library/safari/#documentation/iPhone/Conceptual/SafariJSDatabaseGuide/UsingtheJavascriptDatabase/UsingtheJavascriptDatabase.html%23//apple_ref/doc/uid/TP40007256-CH3-SW2</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=10953#respond' onclick='return addComment.moveForm( "div-comment-10953", "10953", "respond", "1408" )' aria-label='Reply to Fernando'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-11755">
+				<div id="div-comment-11755" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7a8a926a7c2629382d18280d7864fe14?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7a8a926a7c2629382d18280d7864fe14?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Norma</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-11755">
+			October 18, 2010 at 4:37 pm</a>		</div>
+
+		<p>I was wondering about Insert callbacks.  I have code so:</p>
+<p> db.transaction  (<br />
+    function(transaction) {<br />
+      transaction.executeSql(<br />
+        &#8216;INSERT INTO myNums(num1, num2, num3) VALUES (?,?,?);&#8217;,<br />
+          [age, reps, calories],<br />
+                 function(){<br />
+                      refreshEntries();<br />
+                      jQT.goback();<br />
+          },<br />
+         /errorHandler<br />
+        );<br />
+      }<br />
+    );<br />
+    return false;<br />
+}</p>
+<p>This doesn&#8217;t work.  If I remove the callbacks, the insert happens.  If I move the callbacks to before the return, the refreshEntries happens, and the goBack causes the page to reload, adding another insert to the database.</p>
+<p>Is there no callback function for the insert?  What am I doing wrong?</p>
+<p>Thanks,<br />
+Norma</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=11755#respond' onclick='return addComment.moveForm( "div-comment-11755", "11755", "respond", "1408" )' aria-label='Reply to Norma'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-11758">
+				<div id="div-comment-11758" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://blog.pinyadda.com/2010/08/30/the-5-coolest-things-about-html5/' rel='external nofollow' class='url'>The 5 Coolest Things About HTML5 &laquo; Pinyadda&#039;s Blog: Media Start-up Blog</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-11758">
+			October 18, 2010 at 7:33 pm</a>		</div>
+
+		<p>[&#8230;] of ways that this bundle of innovations is making your web browser a lot more powerful. Things like local storage (allowing web applications to use the browser, instead of their own servers, for storing temporary [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=11758#respond' onclick='return addComment.moveForm( "div-comment-11758", "11758", "respond", "1408" )' aria-label='Reply to The 5 Coolest Things About HTML5 &laquo; Pinyadda&#039;s Blog: Media Start-up Blog'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-11793">
+				<div id="div-comment-11793" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/965c5506fb46adffad2180f823c65be2?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/965c5506fb46adffad2180f823c65be2?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Developer</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-11793">
+			October 21, 2010 at 7:51 am</a>		</div>
+
+		<p>Where does the database get stored in the client machine..and how can we change the location of the same to a new user defined location.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=11793#respond' onclick='return addComment.moveForm( "div-comment-11793", "11793", "respond", "1408" )' aria-label='Reply to Developer'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-11833">
+				<div id="div-comment-11833" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c5a0abf1c57b895c0a4fc864e44ca213?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c5a0abf1c57b895c0a4fc864e44ca213?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">ioconnor</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-11833">
+			October 25, 2010 at 9:20 pm</a>		</div>
+
+		<p>This is a fantastic example. Sqlite is currently the only mechanism, probably for the next 10 years, allowing client side browser applications to scale. </p>
+<p>Are there any plans to write a series of articles discussing topics such as robust error handling, asynchronous callbacks, and the difficulties and quarks of writing large client side applications with say Opera and Sqlite?</p>
+<p>There is not much out there on these subjects and it would be great to find it all here at one place&#8230;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=11833#respond' onclick='return addComment.moveForm( "div-comment-11833", "11833", "respond", "1408" )' aria-label='Reply to ioconnor'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-11988">
+				<div id="div-comment-11988" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/281f263dc0b698d88ad11e0035c4cb04?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/281f263dc0b698d88ad11e0035c4cb04?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Zakaria</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-11988">
+			November 8, 2010 at 11:54 am</a>		</div>
+
+		<p>@rem : I&#8217;m trying to open an exsiting sqlite database with the &#8220;openDatabase&#8221; function.<br />
+It can&#8217;t load it! Is it normal?<br />
+If yes, can I inject an &#8220;.sql&#8221; file containing sql scripts that allow table creation with some inserts to the database created with the &#8220;openDatabase&#8221; function ? (I&#8217;m working only on the client side).<br />
+thanks.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=11988#respond' onclick='return addComment.moveForm( "div-comment-11988", "11988", "respond", "1408" )' aria-label='Reply to Zakaria'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-12095">
+				<div id="div-comment-12095" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fa6160e14b5834249fd62f8d113813a9?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fa6160e14b5834249fd62f8d113813a9?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Plnodi</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-12095">
+			November 23, 2010 at 2:38 pm</a>		</div>
+
+		<p>In W3C Working Group Note 18 November 2010 says that:<br />
+ Beware. This specification is no longer in active maintenance and the Web Applications Working Group does not intend to maintain it further.<br />
+Web Sql database is DEAD???????</p>
+<p>Tell me your opinion<br />
+Thank<br />
+plnodi</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=12095#respond' onclick='return addComment.moveForm( "div-comment-12095", "12095", "respond", "1408" )' aria-label='Reply to Plnodi'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14235">
+				<div id="div-comment-14235" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/146b947926a1aeeae3311ff55dfab35a?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/146b947926a1aeeae3311ff55dfab35a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Pratush</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-14235">
+			February 16, 2011 at 8:09 am</a>		</div>
+
+		<p>Hi All,</p>
+<p>I am new in html5 and javascript.<br />
+I am working on web app for smart phones(iphone, Android). I am facing some issues for insert/update values in the browser database.<br />
+i.e.</p>
+<p><code>Code:<br />
+db.transaction(function(tx) {      </code></p>
+<p>    db.transaction(function(tx) {<br />
+        tx.executeSql(‘INSERT/UPDATE ...’, [], function(tx, rs) {<br />
+            alert("Success/Failure");<br />
+            .............<br />
+        }<br />
+    });<br />
+for some time the <b>db.transaction</b> skipped and due to this the data is not saved in the database.<br />
+Please let me know if something is wrong in the code or another alternative way to do this.<br />
+I am really stuck in this issue.</p>
+<p>Thanks in advance.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=14235#respond' onclick='return addComment.moveForm( "div-comment-14235", "14235", "respond", "1408" )' aria-label='Reply to Pratush'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14236">
+				<div id="div-comment-14236" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/146b947926a1aeeae3311ff55dfab35a?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/146b947926a1aeeae3311ff55dfab35a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Pratush</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-14236">
+			February 16, 2011 at 8:09 am</a>		</div>
+
+		<p>Hi All,</p>
+<p>I am new in html5 and javascript.<br />
+I am working on web app for smart phones(iphone, Android). I am facing some issues for insert/update values in the browser database.<br />
+i.e.</p>
+<p><code>Code:<br />
+db.transaction(function(tx) {      </code></p>
+<p>    db.transaction(function(tx) {<br />
+        tx.executeSql(‘INSERT/UPDATE ...’, [], function(tx, rs) {<br />
+            alert("Success/Failure");<br />
+            .............<br />
+        }<br />
+    });<br />
+for some time the <b>db.transaction</b> skipped and due to this the data is not saved in the database.<br />
+Please let me know if something is wrong in the code or another alternative way to do this.<br />
+I am really stuck in this issue.<br />
+Please help me.<br />
+Thanks in advance.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=14236#respond' onclick='return addComment.moveForm( "div-comment-14236", "14236", "respond", "1408" )' aria-label='Reply to Pratush'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-14247">
+				<div id="div-comment-14247" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://geodevelopment.wordpress.com/2011/02/17/html5-and-browser-caching-part-2/' rel='external nofollow' class='url'>HTML5 and Browser Caching: Part 2 &laquo; Geo Development</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-14247">
+			February 17, 2011 at 4:36 pm</a>		</div>
+
+		<p>[&#8230;] interested in getting your feet wet there&#8217;s a great article on how to use Web SQL Database at HTML5 Doctor .  It covers creating and connecting to a database, querying and dealing with the results, and [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=14247#respond' onclick='return addComment.moveForm( "div-comment-14247", "14247", "respond", "1408" )' aria-label='Reply to HTML5 and Browser Caching: Part 2 &laquo; Geo Development'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14737">
+				<div id="div-comment-14737" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d97dfdff40153ec34acdcf044a5b372f?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d97dfdff40153ec34acdcf044a5b372f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://samdutton.wordpress.com' rel='external nofollow' class='url'>Sam Dutton</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-14737">
+			March 26, 2011 at 11:53 am</a>		</div>
+
+		<p>Shameless self-promotion, but I&#8217;ve built a Chrome extension, using  Web SQL Database to bookmark HTML video timecodes and capture framegrabs: <a href="http://bit.ly/framegrabberExtension" rel="nofollow">http://bit.ly/framegrabberExtension</a>.</p>
+<p>What impressed me was the ability of the database to quickly and reliably handle data URLs, which (in this case) are strings of up to 200,000 or more characters. </p>
+<p>Chrome is able, extremely quickly, to store and retrieve data URLs, and set them as the src attribute for images.</p>
+<p>I&#8217;m old enough to remember the days when JavaScript was a lot slower, so this kind of stuff still amazes me!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=14737#respond' onclick='return addComment.moveForm( "div-comment-14737", "14737", "respond", "1408" )' aria-label='Reply to Sam Dutton'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-15139">
+				<div id="div-comment-15139" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ray Browning</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-15139">
+			June 9, 2011 at 12:56 pm</a>		</div>
+
+		<p>I am a newbie here in HTML5 land. I really like your Web SQL Database technology. </p>
+<p>I am trying to build a very simple app. </p>
+<p>I need to retrieve data from our SQL Server DB and put it into a Web SQL DB. Currently, I have been able to get data from our SQL Server DB using PHP and read data from the local Web SQL DB using Javascript.</p>
+<p>I am looking for a way to load the SQL Server data into the Web SQL DB but I just can&#8217;t seem to find an answer in the news groups.</p>
+<p>Can you help an old man out?</p>
+<p>Thanks for all your hard work, we really do appreciate it!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=15139#respond' onclick='return addComment.moveForm( "div-comment-15139", "15139", "respond", "1408" )' aria-label='Reply to Ray Browning'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-15140">
+				<div id="div-comment-15140" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ray Browning</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-15140">
+			June 9, 2011 at 1:08 pm</a>		</div>
+
+		<p>Pratush,</p>
+<p>I am new also.</p>
+<p>I didn&#8217;t know if you found a solution to your insert problem.<br />
+Here is what I am doing and it seems to work.</p>
+<p>function onCreateCompany()<br />
+{<br />
+   var sNo = document.itemForm.CompanyNo.value;<br />
+   var sName = document.itemForm.CompanyName.value;<br />
+   if (sNo == &#8220;&#8221; || sName == &#8220;&#8221;)<br />
+   {<br />
+       //display a message &#8220;Error: &#8216;Company No&#8217; and &#8216;Company Name&#8217; are required fields!&#8221;;<br />
+   }<br />
+   else<br />
+   {<br />
+       var query = &#8220;INSERT INTO Companies (Company_No, Name) VALUES (?, ?);&#8221;;<br />
+       try<br />
+       {<br />
+           localDB.transaction(function(transaction)<br />
+           {<br />
+               transaction.executeSql(query, [sNo, sName], function(transaction, results)<br />
+               {<br />
+                   if (!results.rowsAffected)<br />
+                   {<br />
+                       // display a message &#8220;Error: could not insert data.&#8221;;<br />
+                   }<br />
+                   else<br />
+                   {<br />
+                       // Display a message &#8220;Inserted row: &#8221; + results.insertId;<br />
+                   }<br />
+               }, errorHandler);<br />
+           });<br />
+       }<br />
+       catch (e)<br />
+       {<br />
+           // display a message &#8220;Error: Unable to add data: &#8221; + e + &#8221; &#8221; + query + &#8220;.&#8221;);<br />
+       }<br />
+   }<br />
+}</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=15140#respond' onclick='return addComment.moveForm( "div-comment-15140", "15140", "respond", "1408" )' aria-label='Reply to Ray Browning'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-15142">
+				<div id="div-comment-15142" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d97dfdff40153ec34acdcf044a5b372f?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d97dfdff40153ec34acdcf044a5b372f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://samdutton.wordpress.com' rel='external nofollow' class='url'>Sam Dutton</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-15142">
+			June 9, 2011 at 3:10 pm</a>		</div>
+
+		<p>@Ray Browning</p>
+<p>&gt; I need to retrieve data from our SQL Server DB and put it into a Web SQL DB. Currently, I have been able to get data from our SQL Server DB using PHP and read data from the local Web SQL DB using Javascript.</p>
+<p>&gt; I am looking for a way to load the SQL Server data into the Web SQL DB but I just can’t seem to find an answer in the news groups.</p>
+<p>I&#8217;m not sure the best way to do this, but you could:<br />
+&#8211; export your SQL Server data to and XML or JSON file<br />
+&#8211; get the XML or JSON file with AJAX from a web page<br />
+&#8211; parse the data and store it in the client side database.  </p>
+<p>I don&#8217;t know if there&#8217;s a plan for downloadable &#8216;pre-built&#8217; client-side databases.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=15142#respond' onclick='return addComment.moveForm( "div-comment-15142", "15142", "respond", "1408" )' aria-label='Reply to Sam Dutton'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-15329">
+				<div id="div-comment-15329" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ray Browning</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-15329">
+			June 27, 2011 at 12:56 pm</a>		</div>
+
+		<p>I have found that WebSQL is a very nice and easy way to work with data on the local device WITHOUT INSTALLING ANYTHING!</p>
+<p>It would be nice to see someone continue the work on WebSQL and keep it going.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=15329#respond' onclick='return addComment.moveForm( "div-comment-15329", "15329", "respond", "1408" )' aria-label='Reply to Ray Browning'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-17115">
+				<div id="div-comment-17115" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2371bda0796b706b3bdab87f14b5b2aa?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2371bda0796b706b3bdab87f14b5b2aa?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.webaloman.com' rel='external nofollow' class='url'>webaloman</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17115">
+			August 11, 2011 at 12:18 pm</a>		</div>
+
+		<p>Regarding versioning:</p>
+<p>if you open w/o version:</p>
+<p>var db = openDatabase(&#8216;mydb&#8217;, &#8221;, &#8216;my first database&#8217;, 2 * 1024 * 1024);</p>
+<p>then you can obtain the current version (if DB exists) by<br />
+db.version</p>
+<p>and then optionaly do the changeVersion</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17115#respond' onclick='return addComment.moveForm( "div-comment-17115", "17115", "respond", "1408" )' aria-label='Reply to webaloman'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-17270">
+				<div id="div-comment-17270" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8d6f7e4d3ce76e5cac5ac8e64d171c33?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8d6f7e4d3ce76e5cac5ac8e64d171c33?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Infanty</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17270">
+			August 22, 2011 at 12:19 pm</a>		</div>
+
+		<p>Hi,</p>
+<p>I got a quick question that is </p>
+<p>What is the difference between SQL Server 2008 and Web SQL???</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17270#respond' onclick='return addComment.moveForm( "div-comment-17270", "17270", "respond", "1408" )' aria-label='Reply to Infanty'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-17273">
+				<div id="div-comment-17273" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17273">
+			August 22, 2011 at 1:04 pm</a>		</div>
+
+		<p>@Infanty &#8211; one is SQL Sever 2008, and the other is based on SQLite 3.6.19.  So you can find out more about SQLite from their documentation: <a href="http://www.sqlite.org/" rel="nofollow">http://www.sqlite.org/</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17273#respond' onclick='return addComment.moveForm( "div-comment-17273", "17273", "respond", "1408" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-17274">
+				<div id="div-comment-17274" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8d6f7e4d3ce76e5cac5ac8e64d171c33?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8d6f7e4d3ce76e5cac5ac8e64d171c33?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Infanty</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17274">
+			August 22, 2011 at 1:09 pm</a>		</div>
+
+		<p>@ Dr. Remy Sharp : My question is.. can I replace SQL server 2008 to web sql??</p>
+<p>What is  web sql?? where can I download it?? what is the use??</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17274#respond' onclick='return addComment.moveForm( "div-comment-17274", "17274", "respond", "1408" )' aria-label='Reply to Infanty'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-17275">
+				<div id="div-comment-17275" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17275">
+			August 22, 2011 at 1:19 pm</a>		</div>
+
+		<p>1. No &#8211; Web SQL is a *client side* technology.  SQL Server 2008 &#8211; I&#8217;m going to leap and guess it&#8217;s server side.</p>
+<p>2. See article above these comments</p>
+<p>3. It&#8217;s baked in to your browser if you&#8217;re using Safari, Chrome or Opera.</p>
+<p>4. Depends on your business case.  Google use it to maintain Gmail on mobile platforms to store all the contact data and emails (subject, body, etc).</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17275#respond' onclick='return addComment.moveForm( "div-comment-17275", "17275", "respond", "1408" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-17276">
+				<div id="div-comment-17276" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8d6f7e4d3ce76e5cac5ac8e64d171c33?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8d6f7e4d3ce76e5cac5ac8e64d171c33?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Infanty</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17276">
+			August 22, 2011 at 1:28 pm</a>		</div>
+
+		<p>@ Dr. Remy Sharp : Thanks for your information.. </p>
+<p>My last question is can we do backup or everything what we do in SQL server 2008??</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17276#respond' onclick='return addComment.moveForm( "div-comment-17276", "17276", "respond", "1408" )' aria-label='Reply to Infanty'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-17382">
+				<div id="div-comment-17382" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/837602354999526714a0f584088db635?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/837602354999526714a0f584088db635?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ustuka Doyran</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17382">
+			August 28, 2011 at 8:27 am</a>		</div>
+
+		<p>Hi<br />
+Is it possible to import .csv file to web-sqlite-database?<br />
+If yes, would you show with sample pls!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17382#respond' onclick='return addComment.moveForm( "div-comment-17382", "17382", "respond", "1408" )' aria-label='Reply to Ustuka Doyran'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-17820">
+				<div id="div-comment-17820" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f6a926c21d6b58c3e7f364ae79aceb7d?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f6a926c21d6b58c3e7f364ae79aceb7d?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">test</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17820">
+			September 29, 2011 at 6:31 am</a>		</div>
+
+		<p>Is it possible to share a db between two web apps?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17820#respond' onclick='return addComment.moveForm( "div-comment-17820", "17820", "respond", "1408" )' aria-label='Reply to test'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-17828">
+				<div id="div-comment-17828" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ray Browning</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17828">
+			September 29, 2011 at 3:44 pm</a>		</div>
+
+		<p>I know that work has stopped on the project but there are several of us out here using it and love WebDB. </p>
+<p>I heard that Google is using some WebDB stuff for off-line GMail?</p>
+<p>I wouldn&#8217;t know how to do it but has any one thought about writing a plugin for IE or Fire Fox. I have users who use IE and would like to take advantage of the technology. </p>
+<p>I have been able to load data into &#8220;Select&#8221; combo boxes from SQL Server using PHP and write back using PHP as well. Without WebDB on the client, off-line work would be impossible.</p>
+<p>Thanks Doc!</p>
+<p>Ray</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17828#respond' onclick='return addComment.moveForm( "div-comment-17828", "17828", "respond", "1408" )' aria-label='Reply to Ray Browning'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-17912">
+				<div id="div-comment-17912" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/229e58b1bc81f305ca9897369da4a2a4?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/229e58b1bc81f305ca9897369da4a2a4?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">karthikraja</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-17912">
+			October 5, 2011 at 6:40 am</a>		</div>
+
+		<p>Nice post . I have a doubt regarding Web SQL Databases size. Can you please tell me how to handle , when the given size exceeds . Please tell me the procedure to extend the given memory . I am working on iPhone , Android and Blackberry browser &#8230;. Thanks in advance &#8230;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=17912#respond' onclick='return addComment.moveForm( "div-comment-17912", "17912", "respond", "1408" )' aria-label='Reply to karthikraja'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18023">
+				<div id="div-comment-18023" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/1136ba0912da481fe5107d811c6e18ea?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/1136ba0912da481fe5107d811c6e18ea?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Andy Blum</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18023">
+			October 11, 2011 at 10:15 pm</a>		</div>
+
+		<p>I am so sad that this is not going to be part of the official spec.  It seems to me an ideal solution to offloading work to local PC&#8217;s so centralized databases are not so overwhelmed.  I can envision sophisticated workflow applications where db  state is initialized in the beginning of a session via REST.  State could be sent to the centralized server at the end of a session through REST as well.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18023#respond' onclick='return addComment.moveForm( "div-comment-18023", "18023", "respond", "1408" )' aria-label='Reply to Andy Blum'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18048">
+				<div id="div-comment-18048" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/cfcd6026cd29a5153cd214d771f1cb71?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/cfcd6026cd29a5153cd214d771f1cb71?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">PG</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18048">
+			October 14, 2011 at 7:07 am</a>		</div>
+
+		<p>Hi,</p>
+<p>Please can you tell me how can I find out how many bytes of data is there in my webSQL db. I need to check how many bytes of data can different broswers support. I need to find the size in bytes for the webSQL database.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18048#respond' onclick='return addComment.moveForm( "div-comment-18048", "18048", "respond", "1408" )' aria-label='Reply to PG'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18049">
+				<div id="div-comment-18049" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/146b947926a1aeeae3311ff55dfab35a?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/146b947926a1aeeae3311ff55dfab35a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Prats</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18049">
+			October 14, 2011 at 7:57 am</a>		</div>
+
+		<p>PG@ in don&#8217;t know how to calculate the size of database. But for the browser you don&#8217;t need to worry as when you call window.openDatabase(..,.,.., maxMemory) , on start u just set a initial size of the memory. If the database need more memory after that, then browser auto show a dialog box to that your db need memory.. and when you click on the &#8220;Ok&#8221; button the browser auto increase the memory..</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18049#respond' onclick='return addComment.moveForm( "div-comment-18049", "18049", "respond", "1408" )' aria-label='Reply to Prats'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18050">
+				<div id="div-comment-18050" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/cfcd6026cd29a5153cd214d771f1cb71?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/cfcd6026cd29a5153cd214d771f1cb71?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">PG</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18050">
+			October 14, 2011 at 7:59 am</a>		</div>
+
+		<p>Thanks Prats for your response. Just want to confirm if this is true for the mobile browsers for BB, Android and iphone safari?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18050#respond' onclick='return addComment.moveForm( "div-comment-18050", "18050", "respond", "1408" )' aria-label='Reply to PG'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18051">
+				<div id="div-comment-18051" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/146b947926a1aeeae3311ff55dfab35a?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/146b947926a1aeeae3311ff55dfab35a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Prats</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18051">
+			October 14, 2011 at 8:02 am</a>		</div>
+
+		<p>yes&#8230;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18051#respond' onclick='return addComment.moveForm( "div-comment-18051", "18051", "respond", "1408" )' aria-label='Reply to Prats'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18513">
+				<div id="div-comment-18513" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/5176810ed6bda262cbac0c40fa73344a?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/5176810ed6bda262cbac0c40fa73344a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">gaurav v bagga</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18513">
+			November 13, 2011 at 6:45 pm</a>		</div>
+
+		<p>Hi,<br />
+I was wondering about security issues, like I could easily go through your SQL code. What are the different ways SQL code can be protected so that its not that easily accessible.<br />
+One thing I could think off is encryption but just wanted your point of view.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18513#respond' onclick='return addComment.moveForm( "div-comment-18513", "18513", "respond", "1408" )' aria-label='Reply to gaurav v bagga'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18528">
+				<div id="div-comment-18528" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ray Browning</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18528">
+			November 14, 2011 at 12:52 pm</a>		</div>
+
+		<p>&gt;Hi,<br />
+&gt;I was wondering about security issues, like I could easily go &gt;through your SQL code. What are the different ways SQL code can &gt;be protected so that its not that easily accessible.<br />
+&gt;One thing I could think off is encryption but just wanted your point &gt;of view.<br />
+Probably the best thing to do is to limit data on the SQL side using views and security.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18528#respond' onclick='return addComment.moveForm( "div-comment-18528", "18528", "respond", "1408" )' aria-label='Reply to Ray Browning'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18780">
+				<div id="div-comment-18780" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8cb804b5e42eb55997ee36481cff2381?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8cb804b5e42eb55997ee36481cff2381?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Nad</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18780">
+			November 21, 2011 at 5:36 pm</a>		</div>
+
+		<p>I have tried using web sql databases. In my code, i make opendatabase call at the time of user login. And when user proceeds il make some data inserts to this db and noticed that data is being saved. If the user logs out and logs in again, i noticed the db to be created again, resulting in a loss of data, that was previously stored. What can be the reason for that?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18780#respond' onclick='return addComment.moveForm( "div-comment-18780", "18780", "respond", "1408" )' aria-label='Reply to Nad'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18799">
+				<div id="div-comment-18799" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/ee67ca265b10cfe381a66eaec07f8980?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/ee67ca265b10cfe381a66eaec07f8980?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.osc2nuke.com' rel='external nofollow' class='url'>osc2nuke</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-18799">
+			November 22, 2011 at 12:04 am</a>		</div>
+
+		<p>i want everyone who stick to webdb, provide with this excelent javascript to insert .sql files: <a href="http://html5sql.com/index.html" rel="nofollow">http://html5sql.com/index.html</a> in a webdb enviroment</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=18799#respond' onclick='return addComment.moveForm( "div-comment-18799", "18799", "respond", "1408" )' aria-label='Reply to osc2nuke'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21683">
+				<div id="div-comment-21683" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3b7859a1ffa4145c5bece94267601012?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3b7859a1ffa4145c5bece94267601012?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">DS</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-21683">
+			January 26, 2012 at 11:49 am</a>		</div>
+
+		<p>Can someone please guide me as to, is the data stored in a web sql database persistent?</p>
+<p>I created a database and then added some records to it. I cannot access the database via any other page which justifies the &#8220;same origin&#8221; concept.</p>
+<p>But what if I need to access the database again to extract data how do I go about that? I mean from another page.. </p>
+<p>Please help. Thank you</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=21683#respond' onclick='return addComment.moveForm( "div-comment-21683", "21683", "respond", "1408" )' aria-label='Reply to DS'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-24571">
+				<div id="div-comment-24571" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ray Browning</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-24571">
+			February 22, 2012 at 7:20 pm</a>		</div>
+
+		<p>The whole idea of WebDB is to have it persist. I am not sure why your database would just go away. We use the following code and it seems to work. Are you sure your browser supports it?</p>
+<p>if (localDB==null)<br />
+{<br />
+      var shortName = &#8216;MyDB&#8217;;<br />
+      var version = &#8216;1.0&#8217;;<br />
+      var displayName = &#8216;MyDatabase&#8217;;<br />
+      var maxSize = 65536; // in bytes<br />
+      localDB = window.openDatabase(shortName, version, displayName, maxSize);<br />
+}</p>
+<p>if (!window.openDatabase)<br />
+{<br />
+      DisplayMyError(&#8220;The browser you are using does not support  this. Google Chrome is recommended.&#8221;);<br />
+}<br />
+else<br />
+{<br />
+     ProcessSomeData();<br />
+}</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=24571#respond' onclick='return addComment.moveForm( "div-comment-24571", "24571", "respond", "1408" )' aria-label='Reply to Ray Browning'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-24858">
+				<div id="div-comment-24858" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/20f855e7eb110a8645747cc35be336f2?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/20f855e7eb110a8645747cc35be336f2?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.onlywebpro.com' rel='external nofollow' class='url'>onlywebpro</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-24858">
+			March 4, 2012 at 9:06 am</a>		</div>
+
+		<p>On November 18, 2010, the W3C announced that Web SQL database is a deprecated specification. This is a recommendation for web developers to no longer use the technology as effectively the spec will receive no new updates and browser vendors aren&#8217;t encouraged to support this technology.</p>
+<p>Regards,</p>
+<p>The Management of onlyWebPro.com</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=24858#respond' onclick='return addComment.moveForm( "div-comment-24858", "24858", "respond", "1408" )' aria-label='Reply to onlywebpro'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-24859">
+				<div id="div-comment-24859" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/20f855e7eb110a8645747cc35be336f2?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/20f855e7eb110a8645747cc35be336f2?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.onlywebpro.com' rel='external nofollow' class='url'>onlywebpro</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-24859">
+			March 4, 2012 at 9:08 am</a>		</div>
+
+		<p>Developer is advised to use IndexedDB for the coming web application development.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=24859#respond' onclick='return addComment.moveForm( "div-comment-24859", "24859", "respond", "1408" )' aria-label='Reply to onlywebpro'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-24901">
+				<div id="div-comment-24901" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/5f7b588702af77398ca11f1af97a3e87?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/5f7b588702af77398ca11f1af97a3e87?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Jumaru</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-24901">
+			March 7, 2012 at 1:19 am</a>		</div>
+
+		<p>I&#8217;m a little confused about one thing. Since the executeSql runs asynchronously wouldn&#8217;t that mean that running:</p>
+<p><code><br />
+tx.executeSql('CREATE TABLE IF NOT EXISTS foo (id unique, text)');<br />
+  tx.executeSql('INSERT INTO foo (id, text) VALUES (1, "synergies")');</code></p>
+<p><br />
+ will produce unexpected results if the insert runs before the create table runs??? Should you not do it something along these lines?:</p>
+<p><code><br />
+tx.executeSql('CREATE TABLE IF NOT EXISTS foo (id unique, text)',[],function(result){<br />
+tx.executeSql('INSERT INTO foo (id, text) VALUES (1, "synergies")');<br />
+});</code></p>
+<p></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=24901#respond' onclick='return addComment.moveForm( "div-comment-24901", "24901", "respond", "1408" )' aria-label='Reply to Jumaru'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28441">
+				<div id="div-comment-28441" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/004ad300cdffabe090131f63c6e23ffc?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/004ad300cdffabe090131f63c6e23ffc?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">andodew</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-28441">
+			June 20, 2012 at 4:28 pm</a>		</div>
+
+		<p>it is possible to use external database?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=28441#respond' onclick='return addComment.moveForm( "div-comment-28441", "28441", "respond", "1408" )' aria-label='Reply to andodew'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28480">
+				<div id="div-comment-28480" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/eed3dbc1d35c7181ab6766695eec04d1?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/eed3dbc1d35c7181ab6766695eec04d1?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://deleted' rel='external nofollow' class='url'>Sanchit</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-28480">
+			June 21, 2012 at 8:59 am</a>		</div>
+
+		<p>Respected Members,<br />
+ I am having the database server and trying to insert the data from my HTML5 document to the SQL Server. Using the codes prescribes, I am not able to even connect to my database. How should i code for the problem. The content of my registration page is as below…</p>
+<p>&lt;!&#8211;</p>
+<p>    Registration in HTML5</p>
+<p>        var fname = document.getElementById(&#8220;txtFirstName&#8221;);<br />
+        var lname = document.getElementById(&#8220;txtLastName&#8221;);<br />
+        var gender = document.getElementById(&#8220;gender&#8221;);<br />
+        var address = document.getElementById(&#8220;txtarAddress&#8221;);<br />
+        var emailid = document.getElementById(&#8220;emailID&#8221;);<br />
+        var dob = document.getElementById(&#8220;DOB&#8221;);<br />
+        var create = &#8220;CREATE TABLE IF NOT EXISTS REGUSINGHTML5(RegID INT ,FirstName TEXT,LastName TEXT,Gender TEXT, Address TEXT, EmailID TEXT, DateOfBirth TEXT, primarykey(RegID))&#8221;;<br />
+        var insert = &#8220;INSERT INTO REGUSINGHTML5 (FirstName TEXT,LastName TEXT,Gender TEXT, Address TEXT, EmailID TEXT, DateOfBirth TEXT) VALUES (?, ?,?,?,?,?&#8221;;<br />
+      Create();<br />
+        function Create() {<br />
+        var db= window.openDatabase(&#8216;Sample&#8217;,&#8217;10.0.1600.22&#8242;,&#8217;HTML5 Reg&#8217;,2*1024*1024);</p>
+<p>            db.transaction(function (tx){</p>
+<p>                 tx.executeSql(create);<br />
+            });<br />
+            alert(&#8220;Created Database&#8221;)<br />
+        }<br />
+        function Insert() {<br />
+            var db = openDatabase(&#8216;Sample&#8217;, &#8216;10.0.1600.22&#8217;, &#8216;HTML5 Reg&#8217;, 2 * 1024 * 1024);</p>
+<p>            db.transaction(function (tx) {</p>
+<p>                tx.executeSql(insert, [fname.value, lname.value, gender.item, address.value, emailid.value, dob.value]);<br />
+            });<br />
+            alert(&#8220;Inserted Database&#8221;);<br />
+        }</p>
+<p>                ONLINE REGISTRAION FORM</p>
+<p>                First Name:</p>
+<p>                Last Name:</p>
+<p>                Gender:</p>
+<p>                Male<br />
+                Female</p>
+<p>                Address:</p>
+<p>                Email ID:</p>
+<p>                Date Of Birth:</p>
+<p>                    Insert in DB</p>
+<p>&#8211;&gt;</p>
+<p>Moreover I am using SQL Server 2008. Please help me out.</p>
+<p>Thanking you</p>
+<p>Sanchit Choubey</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=28480#respond' onclick='return addComment.moveForm( "div-comment-28480", "28480", "respond", "1408" )' aria-label='Reply to Sanchit'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28482">
+				<div id="div-comment-28482" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/4b7c45147964d32a137e7a83c82f8c6b?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/4b7c45147964d32a137e7a83c82f8c6b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Wytze</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-28482">
+			June 21, 2012 at 11:14 am</a>		</div>
+
+		<p>Actually, Safari does support changeVersion (at least it does on my Windows computer), but there&#8217;s a catch: you must supply FIVE arguments or else it will fail.</p>
+<p>Arguments<br />
+1: expected version<br />
+2: new version<br />
+3: transaction callback (you can execute SQL here as part of the version change)<br />
+4: failure callback (if version change or transaction callback failed)<br />
+5: succes callback (if version change and transaction callback succeeded)</p>
+<p>I haven&#8217;t tested this on iOS devices but it matches the Safari specifications provided here:<br />
+<a href="https://developer.apple.com/library/safari/#documentation/iphone/conceptual/safarijsdatabaseguide/usingthejavascriptdatabase/usingthejavascriptdatabase.html" rel="nofollow">https://developer.apple.com/library/safari/#documentation/iphone/conceptual/safarijsdatabaseguide/usingthejavascriptdatabase/usingthejavascriptdatabase.html</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=28482#respond' onclick='return addComment.moveForm( "div-comment-28482", "28482", "respond", "1408" )' aria-label='Reply to Wytze'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys bypostauthor even thread-even depth-1" id="comment-28485">
+				<div id="div-comment-28485" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-28485">
+			June 21, 2012 at 12:10 pm</a>		</div>
+
+		<p>@Wytze &#8211; lol.  You said &#8220;actually&#8221; as if you&#8217;re correcting me.  Notice that the article was written over 2 years ago &#8211; that was the current state.  </p>
+<p>Thanks for testing latest support and offering up the latest info.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=28485#respond' onclick='return addComment.moveForm( "div-comment-28485", "28485", "respond", "1408" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28575">
+				<div id="div-comment-28575" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/12b5c53f035541037cd7aa909224b164?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/12b5c53f035541037cd7aa909224b164?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Andrew</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-28575">
+			July 1, 2012 at 9:40 am</a>		</div>
+
+		<p>Are web SQL databases tied to a particular domain as LocalStorage is?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=28575#respond' onclick='return addComment.moveForm( "div-comment-28575", "28575", "respond", "1408" )' aria-label='Reply to Andrew'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28594">
+				<div id="div-comment-28594" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/b297663d00fb4c15f63cbc218c575836?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/b297663d00fb4c15f63cbc218c575836?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Andrew</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-28594">
+			July 4, 2012 at 10:17 am</a>		</div>
+
+		<p>Although the web SQL specification is no longer being worked on, web SQL seems to be the only persistent data solution for supported both iOS and Android devices with one code base, beyond localstorage.</p>
+<p>And localstorage on iOS devices seems not to be reliably persistent following the last update.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=28594#respond' onclick='return addComment.moveForm( "div-comment-28594", "28594", "respond", "1408" )' aria-label='Reply to Andrew'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28804">
+				<div id="div-comment-28804" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/75c77bc7857fcda4b117021ebe7c5e80?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/75c77bc7857fcda4b117021ebe7c5e80?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">MR</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-28804">
+			August 8, 2012 at 8:21 am</a>		</div>
+
+		<p>Hi, I am using websql in my mobile app, I am using around 12-13 tables. In the beginning I create these tables, but the problem is when I start the application first time, only 6-7 tables get created and stops there. No error, no failure. Just stops there. Can you help me with that.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=28804#respond' onclick='return addComment.moveForm( "div-comment-28804", "28804", "respond", "1408" )' aria-label='Reply to MR'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-29160">
+				<div id="div-comment-29160" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fbeb9ac8888c1f1953fa9d03ed421085?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ray Browning</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-29160">
+			November 6, 2012 at 2:54 pm</a>		</div>
+
+		<p>Good morning WebDB.</p>
+<p>Is it possible to get a plug-in or Polyfill that we could include in our HTML to load WebDB?</p>
+<p>I saw that the good doctor Remy had something on <a href="https://gist.github.com/350433" rel="nofollow">https://gist.github.com/350433</a></p>
+<p>I haven&#8217;t had time to review the code. Is this something we can do?<br />
+I wish I knew 1/10th of what the great doctor knows.</p>
+<p>Thanks!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=29160#respond' onclick='return addComment.moveForm( "div-comment-29160", "29160", "respond", "1408" )' aria-label='Reply to Ray Browning'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-29605">
+				<div id="div-comment-29605" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/bde32837acb270274c7e3482fc16b47d?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/bde32837acb270274c7e3482fc16b47d?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Alesha Fernandes</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-29605">
+			January 10, 2013 at 6:41 am</a>		</div>
+
+		<p>var db = openDatabase(&#8216;mydb&#8217;, &#8216;1.0&#8217;, &#8216;my first database&#8217;, 2 * 1024 * 1024);</p>
+<p>is the above database &#8216;mydb&#8217; created in SQL Server or MYSQL, please tell me where this database is created.Or do we need a js to hold database info.Need to know this urgently for my project.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=29605#respond' onclick='return addComment.moveForm( "div-comment-29605", "29605", "respond", "1408" )' aria-label='Reply to Alesha Fernandes'>Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-brucel even depth-2" id="comment-29636">
+				<div id="div-comment-29636" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-29636">
+			January 11, 2013 at 10:32 am</a>		</div>
+
+		<p>It&#8217;s created in the browser. It uses SQLite.<a href="http://en.wikipedia.org/wiki/SQLite" rel="nofollow">http://en.wikipedia.org/wiki/SQLite</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=29636#respond' onclick='return addComment.moveForm( "div-comment-29636", "29636", "respond", "1408" )' aria-label='Reply to Bruce Lawson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-30390">
+				<div id="div-comment-30390" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/0a09ffaa69d97ac86245032d0dd29644?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/0a09ffaa69d97ac86245032d0dd29644?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Vaibhav</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-30390">
+			January 23, 2013 at 8:19 pm</a>		</div>
+
+		<p>What is the maximum length in characters of the SQL query in Web SQL that I can pass?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=30390#respond' onclick='return addComment.moveForm( "div-comment-30390", "30390", "respond", "1408" )' aria-label='Reply to Vaibhav'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-odd thread-alt depth-1" id="comment-31239">
+				<div id="div-comment-31239" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://androiddev.orkitra.com/?p=19820' rel='external nofollow' class='url'>How to load JSON data into Web SQL tables via a URL in IOS? : Android Community - For Application Development</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-31239">
+			February 6, 2013 at 9:00 am</a>		</div>
+
+		<p>[&#8230;] Introducing webSQL databases [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=31239#respond' onclick='return addComment.moveForm( "div-comment-31239", "31239", "respond", "1408" )' aria-label='Reply to How to load JSON data into Web SQL tables via a URL in IOS? : Android Community - For Application Development'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-31639">
+				<div id="div-comment-31639" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a25c2332c4b3a0a58429b1251b4929e7?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a25c2332c4b3a0a58429b1251b4929e7?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Lluís Segura</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-31639">
+			February 20, 2013 at 11:26 am</a>		</div>
+
+		<p>Hi,</p>
+<p>is it possible to accés to WebSQL database with any php library? </p>
+<p>Thanks!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=31639#respond' onclick='return addComment.moveForm( "div-comment-31639", "31639", "respond", "1408" )' aria-label='Reply to Lluís Segura'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-31843">
+				<div id="div-comment-31843" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9b26d3972bc8dac79bd2c38c1bd0d52d?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9b26d3972bc8dac79bd2c38c1bd0d52d?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Tobe</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-31843">
+			March 2, 2013 at 8:44 pm</a>		</div>
+
+		<p>Thank you, this helped me a lot. i&#8217;m new to javascript and i usually rely heavily on code like the ones here on my projects to give me a little bit of guidance</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=31843#respond' onclick='return addComment.moveForm( "div-comment-31843", "31843", "respond", "1408" )' aria-label='Reply to Tobe'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-34717">
+				<div id="div-comment-34717" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c4c81aad06435b09547e11a9af96e3be?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c4c81aad06435b09547e11a9af96e3be?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">nery</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-34717">
+			May 29, 2013 at 4:29 pm</a>		</div>
+
+		<p>hi,<br />
+I&#8217;m starting to use the database of chrome but i have a problem about the foreign keys, these are not actives.<br />
+i readed a sqlite documentation and i need execute this command<br />
+&#8220;PRAGMA foreign_keys = boolean;&#8221;<br />
+but i dont know how do it in javascript. i tried use your function </p>
+<p>var db = openDatabase(&#8216;mydb&#8217;, &#8216;1.0&#8217;, &#8216;my first database&#8217;, 2 * 1024 * 1024);<br />
+db.transaction(function (tx) {<br />
+  tx.executeSql(&#8216;PRAGMA foreign_keys = boolean&#8217;);<br />
+});</p>
+<p>but didn&#8217;t work&#8230;</p>
+<p>can you helpme please?? </p>
+<p>thankyou.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=34717#respond' onclick='return addComment.moveForm( "div-comment-34717", "34717", "respond", "1408" )' aria-label='Reply to nery'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-34718">
+				<div id="div-comment-34718" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c4c81aad06435b09547e11a9af96e3be?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c4c81aad06435b09547e11a9af96e3be?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">nery</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-34718">
+			May 29, 2013 at 4:38 pm</a>		</div>
+
+		<p>db.transaction(function (tx) {<br />
+tx.executeSql(‘PRAGMA foreign_keys = ON’);<br />
+});</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=34718#respond' onclick='return addComment.moveForm( "div-comment-34718", "34718", "respond", "1408" )' aria-label='Reply to nery'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-35084">
+				<div id="div-comment-35084" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/0a4fbbfb5508f48ae79345f0a83d13b4?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/0a4fbbfb5508f48ae79345f0a83d13b4?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">bardu</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-35084">
+			June 13, 2013 at 11:48 pm</a>		</div>
+
+		<p>I&#8217;m not used to WebSQL nor SQLite, however, we have a use case where we need to download a SQLite DB to an Android tablet and fetch data via JavaScript.</p>
+<p>Will we able to open this downloaded DB via openDatabase(..) or must the DB created by WebSQL?</p>
+<p>Thanks in advance.</p>
+<p>Stephan</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=35084#respond' onclick='return addComment.moveForm( "div-comment-35084", "35084", "respond", "1408" )' aria-label='Reply to bardu'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-odd thread-alt depth-1" id="comment-37440">
+				<div id="div-comment-37440" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://blog.sklambert.com/a-comprehensive-guide-to-taking-your-html5-game-offline/' rel='external nofollow' class='url'>A Comprehensive Guide to Taking your HTML5 Game Offline | HTML5 Gamer</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-37440">
+			August 17, 2013 at 4:40 pm</a>		</div>
+
+		<p>[&#8230;] next API is the Web SQL Database. The Web SQL Database is a client-side database that allows you to store information to the client in much the same way [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=37440#respond' onclick='return addComment.moveForm( "div-comment-37440", "37440", "respond", "1408" )' aria-label='Reply to A Comprehensive Guide to Taking your HTML5 Game Offline | HTML5 Gamer'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-37794">
+				<div id="div-comment-37794" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/38a7b7ae59b50024c44855e6c4c1b96b?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/38a7b7ae59b50024c44855e6c4c1b96b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Umesh</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-37794">
+			September 4, 2013 at 4:44 pm</a>		</div>
+
+		<p>hi,<br />
+I’m using sqlite database with phonegap.<br />
+i have a problem about the foreign keys.</p>
+<p>&#8216;PRAGMA foreign_keys = ON;&#8217;</p>
+<p> that.db.transaction(function(tx) {<br />
+                           	  	that.db.executeSql(&#8216;PRAGMA foreign_keys = ON&#8217;);    </p>
+<p>	  }</p>
+<p>also tx.executeSql(&#8216;PRAGMA foreign_keys = ON&#8217;);   gives me error processing sql.</p>
+<p>can any one help me out???</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=37794#respond' onclick='return addComment.moveForm( "div-comment-37794", "37794", "respond", "1408" )' aria-label='Reply to Umesh'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-43896">
+				<div id="div-comment-43896" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/59237c6567479620f13b3aee213b7098?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/59237c6567479620f13b3aee213b7098?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Keerthi Kumar</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-43896">
+			December 28, 2013 at 5:53 am</a>		</div>
+
+		<p>how to save the sql datbase tables values in indexed db using html 5</p>
+<p>Hi html 5 experts</p>
+<p>On load of a html5 page i wanted to fetch the values from sql database table<br />
+and have to store in indexeddb in html5 (totally ofline operation )<br />
+On submit button click i wanted to save using database connection(online operation)</p>
+<p>ex: I have to database tables district and taluk<br />
+Now On Load am loading district and after selecting district once again am sending request to<br />
+server and fetching taluk it is taking to much time to avoid this am using this approach<br />
+but am new to this concept can any one please help me to solve this issue?</p>
+<p>thanks in advance<br />
+(Keerthi Kumar)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=43896#respond' onclick='return addComment.moveForm( "div-comment-43896", "43896", "respond", "1408" )' aria-label='Reply to Keerthi Kumar'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-47036">
+				<div id="div-comment-47036" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c31bbaf38f68fa2ec94355d7c41a2bc5?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c31bbaf38f68fa2ec94355d7c41a2bc5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Just.a.guy</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-47036">
+			February 5, 2014 at 2:59 am</a>		</div>
+
+		<p>I just finished reading my first intro article about indexedDB.<br />
+I find the indexedDB interface way too complicated.<br />
+I realize the need for callback.  It seems its goal is to<br />
+embed all of the async work in the DOM agen. </p>
+<p>For me,  this coding effort could have been handled<br />
+more synchronously in a web worker thread, and<br />
+then passed back to the DOM agent through its<br />
+message call back.  </p>
+<p>I find the Web SQL interface more reasonable.<br />
+Yet the Web SQL interface is deprecated!!</p>
+<p>What a shame.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=47036#respond' onclick='return addComment.moveForm( "div-comment-47036", "47036", "respond", "1408" )' aria-label='Reply to Just.a.guy'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-98661">
+				<div id="div-comment-98661" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f11b2d5f02370b724e7e718383a03902?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f11b2d5f02370b724e7e718383a03902?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">mohsen</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-98661">
+			July 7, 2014 at 8:17 pm</a>		</div>
+
+		<p>Hello,<br />
+I am a beginner of HTML5.<br />
+Can we convert HTML5 web SQL databae to a SQL server or access database?</p>
+<p>Thank you,<br />
+Mohsen</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=98661#respond' onclick='return addComment.moveForm( "div-comment-98661", "98661", "respond", "1408" )' aria-label='Reply to mohsen'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-1568304">
+				<div id="div-comment-1568304" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/cf54dfb1a207aaa11dd95f6bcaa8dca8?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/cf54dfb1a207aaa11dd95f6bcaa8dca8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.alinsworld.com' rel='external nofollow' class='url'>Alin</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/introducing-web-sql-databases/#comment-1568304">
+			February 12, 2015 at 12:50 pm</a>		</div>
+
+		<p>Where the SQLite database &#8216;mydb&#8217; will be stored? How can I get the database as a file? I wanted to get data from SQLite database such as &#8216;databaseName.db&#8217;. Plz help me about that.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/introducing-web-sql-databases/?replytocom=1568304#respond' onclick='return addComment.moveForm( "div-comment-1568304", "1568304", "respond", "1408" )' aria-label='Reply to Alin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/introducing-web-sql-databases/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='1408' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="d36249812f" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="146"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>
+<!-- Dynamic page generated in 2.113 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-12-08 02:13:54 -->
+
+<!-- super cache -->

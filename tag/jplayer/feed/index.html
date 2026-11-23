@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; jplayer</title>
+	<atom:link href="http://html5doctor.com/tag/jplayer/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>HTML5 Audio — The State of Play</title>
+		<link>http://html5doctor.com/html5-audio-the-state-of-play/</link>
+		<comments>http://html5doctor.com/html5-audio-the-state-of-play/#comments</comments>
+		<pubDate>Tue, 08 May 2012 14:00:24 +0000</pubDate>
+		<dc:creator><![CDATA[Mark Boas]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[jplayer]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4628</guid>
+		<description><![CDATA[<p>Guest doctor Mark Boas returns with a follow up to his 2009 article <cite>Native Audio in the Browser</cite>, which covers the basics of HTML5 audio. Read the original if you want to get a feel for the <code>&#60;audio&#62;</code> element and associated API. If not, get comfortable and dive deep to learn about the current state of play for HTML5 audio.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>This is a follow up to my 2009 article <a href="http://html5doctor.com/native-audio-in-the-browser/"><cite>Native Audio in the Browser</cite></a>, which covers the basics of HTML5 audio. It may well be worth reading if you want to get a feel for the <code>&lt;audio&gt;</code> element and associated API.</p>
+<p>Now, two and a half years later, it&#8217;s time to see how things are progressing. With many new advanced audio APIs being actively worked on and plenty of improvements to the existing native audio we all know and love, it&#8217;s certainly an exciting time to revisit the heady world of <code>&lt;audio&gt;</code>.</p>
+<p>A good way of understanding how the land lies is by going through a few use cases. That&#8217;s what I&#8217;ll attempt to do in this post.</p>
+<p>So how do we get started? Well, there are a few things we need to do to prepare the ground. Let&#8217;s tackle MIME types first.</p>
+<section id="mime-types">
+<h2>MIME Types <a href="#mime-types" class="permalink">#</a></h2>
+<p>MIME types (also known as <a href="http://en.wikipedia.org/wiki/Internet_media_type">Internet Media Types</a>) are a way of defining file formats so that your system knows how to handle them.</p>
+<section id="mime-types-server-side">
+<h3>Server Side <a href="#mime-types-server-side" class="permalink">#</a></h3>
+<p>First things first: your media server should be configured to serve correct MIME types. In the case of the Apache web server, this means adding the following lines to your <code>.htaccess</code> file:</p>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Do not apply gzip compression to your media files on the server. Most formats are already compressed, and there&#8217;s limited support for those that aren&#8217;t. Further, in the case of a fallback solution, Flash does not support gzipped media.</p>
+</aside>
+<pre><code># AddType TYPE/SUBTYPE EXTENSION
+AddType audio/mpeg mp3
+AddType audio/mp4 m4a
+AddType audio/ogg ogg
+AddType audio/ogg oga
+AddType audio/webm webma
+AddType audio/wav wav</code></pre>
+</section>
+<section id="mime-types-client-side">
+<h3>Client Side <a href="#mime-types-client-side" class="permalink">#</a></h3>
+<p>When defining sources in your code or markup, you can also specify the MIME type, which will help the browser identify the media correctly.</p>
+<p>To set up HTML5 audio in the most robust manner, you could write something like this:</p>
+<pre><code>&lt;audio&gt;
+   &lt;source src="elvis.mp3" type='audio/mpeg; codecs="mp3"'&gt;
+   &lt;source src="elvis.oga" type='audio/ogg; codecs="vorbis"'&gt;
+   &lt;!-- add your fallback solution here --&gt;
+&lt;/audio&gt;</code></pre>
+<p>Here we define the element and the sources to use. The browser will only pick one. It won&#8217;t play both. In this code, we also place a fallback solution after the &lt;<code>source</code>&gt; elements.</p>
+<aside class="sidenote">
+<p>Note that you can omit the codecs portion of the <code>type</code> attribute, but for robustness and efficiency, I recommend you supply the browser with as much media information as possible.</p>
+</aside>
+<p>Along with the source, we specify a <code>type</code> attribute. Although not strictly necessary, this attribute allows the browser to know the MIME type and the codecs of the supplied media before it downloads it. If not, supplied the browser will guess and take a trial-and-error approach to detecting the media type.</p>
+<p>Cool. So now we know how to define our audio sources, and the browser will happily pick the first source that it supports. But what if we want to supply the correct source in a more dynamic manner?</p>
+</section>
+</section>
+<section id="canPlayType">
+<h2>Knowing in Advance: <code>canPlayType</code> Can Help, Probably <a href="#canPlayType" class="permalink">#</a></h2>
+<p>Fortunately the audio API provides us with a way to find out whether a certain format is supported by the browser. But first, here&#8217;s a quick recap on how we manipulate the audio element via the API.</p>
+<div class="callout highlight-block">
+<p>If you mark up your element in HTML as we did in our previous example, you can grab the <code>&lt;audio&gt;</code> element by doing the following:</p>
+<pre><code>var audio = document.getElementsByTagName('audio')[index];
+
+// or, if you gave it an id attribute
+var audio = document.getElementById('my-audio-id');</code></pre>
+<p>Alternatively, you can also create your element entirely in JavaScript:</p>
+<pre><code>var audio = new Audio();</code></pre>
+</p></div>
+<p>Once you have your audio element, you&#8217;re ready to access its methods and properties. To test format support, you can use the <code>canPlayType</code> method, which takes a MIME type as a parameter:</p>
+<pre><code>audio.canPlayType('audio/ogg');</code></pre>
+<p>You can even explicitly include the codec:</p>
+<pre><code>audio.canPlayType('audio/ogg; codecs="vorbis"');</code></pre>
+<p><code>canPlayType</code> returns one of three values:</p>
+<ol>
+<li><code>probably</code>,</li>
+<li><code>maybe</code>, or</li>
+<li>&#8220;&#8221; (the empty string).</li>
+</ol>
+<aside class="sidenote">
+<p>Previously, <code>canPlayType</code> returned &#8220;no&#8221; instead of the empty string. Worth knowing for use with early audio enabled browsers such as Firefox 3.5, Chrome 4, and Safari 4, although these make up a very small percentage of active browsers.</p>
+</aside>
+<p>The reason we have these odd return types is because of the general weirdness surrounding codecs. The browser can only guess at whether a certain codec is playable without actually trying to play it.</p>
+<p>So to test for support, you could do this:</p>
+<pre><code>var audio = new Audio();
+  var canPlayOgg = !!audio.canPlayType &amp;&amp; audio.canPlayType('audio/ogg; codecs="vorbis"') != "";</code></pre>
+<p>All we&#8217;re doing here is checking that <code>canPlayType</code> is supported (<code>!!</code> effectively casts to a boolean) and then checking that <code>canPlayType</code> of our chosen format doesn&#8217;t return an empty string.</p>
+</section>
+<section id="support">
+<h2>Current Browser Codec Support <a href="#support" class="permalink">#</a></h2>
+<p>Let&#8217;s check the codec support in the current crop of modern browsers.</p>
+<table>
+<caption>Desktop browser audio codec support</caption>
+<thead>
+<tr>
+<th>Desktop Browser</th>
+<th>Version</th>
+<th>Codec Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internet Explorer</td>
+<td>9.0+</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td>6.0+</td>
+<td>Ogg Vorbis, MP3, WAV†</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>3.6+</td>
+<td>Ogg Vorbis, WAV</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>5.0+</td>
+<td>MP3, AAC, WAV</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td>10.0+</td>
+<td>Ogg Vorbis, WAV</td>
+</tr>
+</tbody>
+</table>
+<p>  <small>† WAV since Chrome 9</small></p>
+<table>
+<caption>Mobile browser audio codec support</caption>
+<thead>
+<tr>
+<th>Mobile Browser</th>
+<th>Version</th>
+<th>Codec Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opera for Android</td>
+<td>14.0+</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Mobile Safari (iPhone, iPad, iPod Touch)</td>
+<td>iOS 3.0+</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Android Stock browser</td>
+<td>2.3+</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Chrome for Android</td>
+<td>all</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Firefox for Android</td>
+<td>all</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Firefox OS</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Windows Phone</td>
+<td>?</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Blackberry</td>
+<td>6.0+</td>
+<td>MP3, AAC</td>
+</tr>
+</tbody>
+</table>
+<p>  <small>†† mobile browsers generally use codecs on the host operating system. Various versions of Android include different codecs. Generally, mp3 and Ogg Vorbis can be assumed. See <a href="https://developer.android.com/guide/appendix/media-formats.html#core">Supported Media Formats</a> in official Android documentation for more.</small></p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> Android 2.2 supports the <code>&lt;video&gt;</code> element but not its <code>&lt;audio&gt;</code> counterpart. In order to play audio, you need to use the video element.</p>
+</aside>
+<p>The good news is that at the time of writing, it&#8217;s estimated that around 80% of browsers now support HTML5 audio.</p>
+<p>The bad news is that there is still no consensus on which codec to support, so you&#8217;ll need to provide both MP3 <em>and</em> Ogg Vorbis sources in order to take full advantage of HTML5 audio.</p>
+<section id="containers">
+<h2>Containers, Formats, and File Extensions (oh, and MIME types again) <a href="#containers" class="permalink">#</a></h2>
+<p>Above, I&#8217;ve referred to the audio formats as they&#8217;re commonly known, but technically we should refer to their container format. (A container can contain more than one format — e.g., MP4 can contain AAC or AAC+.)</p>
+<aside class="sidenote">
+<p><strong>Tip:</strong> To check the codec support of your browser, you can visit <a href="http://jplayer.org/HTML5.Audio.Support/">the jPlayer audio support tester</a> or, more comprehensively (for audio and video), <a href="http://www.baccano.com/video/support.htm">baccano.com</a>.</p>
+</aside>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Format(s)</th>
+<th>File Extensions</th>
+<th>MIME Type</th>
+<th>Codec String</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP3</td>
+<td>MP3</td>
+<td>.mp3</td>
+<td>audio/mpeg</td>
+<td>mp3</td>
+</tr>
+<tr>
+<td>MP4</td>
+<td>AAC, AAC+</td>
+<td>.mp4, .m4a, .aac</td>
+<td>audio/mp4</td>
+<td>mp4a.40.5</td>
+</tr>
+<tr>
+<td>OGA/OGG</td>
+<td>Ogg Vorbis</td>
+<td>.oga, .ogg</td>
+<td>audio/ogg</td>
+<td>vorbis</td>
+</tr>
+<tr>
+<td>WAV</td>
+<td>PCM</td>
+<td>.wav</td>
+<td>audio/wav</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="properties">
+<h2>We have <code>&lt;audio&gt;</code> and we&#8217;re not afraid to use it! <a href="#properties" class="permalink">#</a></h2>
+<p>Okay, we&#8217;ve done the minimum amount of work to get our audio element set up and playable. What else can we do? At the moment, we&#8217;re relying on the browsers&#8217; default audio players, each of which looks and works a little bit differently than the rest. Perhaps we&#8217;d like to customise the experience and create our own. To help us do that, the <code>&lt;audio&gt;</code> element supports several different properties exposing its current state.</p>
+<p>Some of the more commonly used properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currentTime</td>
+<td>playhead position</td>
+<td>double (seconds)</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>media duration</td>
+<td>double (seconds); read-only</td>
+</tr>
+<tr>
+<td>muted</td>
+<td>is volume muted?</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>paused</td>
+<td>is media paused?</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>volume level</td>
+<td>double (between 0 and 1)</td>
+</tr>
+</tbody>
+</table>
+<aside class="sidenote">
+<p>You may need to check the <code>durationchange</code> event as some durations could change while media downloads. Also, depending on whether metadata is available, you might need to wait until the audio starts playing to check its duration. In short, keep an eye on the <code>durationchange</code> event, and watch out for <code>NaN</code> values when the duration isn&#8217;t yet known!</p>
+</aside>
+<p>Using these properties is pretty straightforward. For example:</p>
+<pre><code>var audio = new Audio();
+var duration = audio.duration;</code></pre>
+<p>The variable <code>duration</code> now holds the duration (in seconds) of the audio clip.</p>
+</section>
+</section>
+<section id="buffering-seeking-and-time-ranges">
+<h2>Buffering, Seeking, and Time Ranges <a href="#buffering-seeking-and-time-ranges" class="permalink">#</a></h2>
+<p>The situation is improving in this area, as browser makers start to implement key parts of the spec.</p>
+<p>The API provides attributes called <code>buffered</code> and <code>seekable</code> that can be used in situations where we want to ascertain which part of the media has been buffered, preloaded, or is ready to be played without delay.</p>
+<p>Let&#8217;s first take a look at the <code>buffered</code> and <code>seekable</code> attributes. Both return a <a href="http://www.w3.org/TR/html5/video.html#timeranges">TimeRanges</a> object. The <code>TimeRanges</code> object is a list of time periods containing start and end times that can be referenced by their indexes.</p>
+<section id="buffered-attribute">
+<h3>The <code>buffered</code> Attribute <a href="#buffered-attribute" class="permalink">#</a></h3>
+<p>The <code>buffered</code> attribute will return the time ranges that have been completely downloaded. A little bit of a code:</p>
+<pre><code>// returns TimeRanges object of buffered media
+var buffered = audio.buffered;
+
+// returns time in seconds of the last buffered TimeRange
+var bufferedEnd = audio.buffered.end();</code></pre>
+</section>
+<section id="time-ranges">
+<h3>The <code>TimeRanges</code> Object <a href="#time-ranges" class="permalink">#</a></h3>
+<p>The <code>TimeRanges</code> object contains data on the parts on buffered media in the form of one or more — you guessed it — time ranges. A <code>TimeRanges</code> object consists of these properties:</p>
+<ol>
+<li><code>length</code> — number of time ranges</li>
+<li><code>start(index)</code> — start time in seconds of a particular time range</li>
+<li><code>end(index)</code> — end time in seconds of a particular time range</li>
+</ol>
+<aside class="sidenote" style="clear: left; margin-top: 0.5em">
+<p><strong>Fun fact:</strong> The default unit of time used by the JavaScript Audio API is seconds, while many traditional JavaScript functions, such as <code>setInterval</code>, use milliseconds.</p>
+</aside>
+<p>You may be wondering in what situation the <code>TimeRanges</code> object would contain more than one time range. Imagine the user clicks forward to a portion of unbuffered media. The idea is that the media would then start buffering from that point, and you&#8217;d have two time ranges:</p>
+<pre>------------------------------------------------------
+|=============|                    |===========|     |
+------------------------------------------------------
+0             5                    15          19    21</pre>
+<p>So in this case:</p>
+<ul>
+<li><code>audio.buffered.length</code> returns 2</li>
+<li><code>audio.buffered.start(0)</code> returns 0</li>
+<li><code>audio.buffered.end(0)</code> returns 5</li>
+<li><code>audio.buffered.start(1)</code> returns 15</li>
+<li><code>audio.buffered.end(1)</code> returns 19</li>
+<li><code>audio.buffered.end()</code> returns 19</li>
+</ul>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Most audio-capable browsers enable seeking to new file positions during a download. To allow this, you must enable range requests on your server. Although enabled by default on web servers such as Apache, you can verify by checking that your server responds with the <code>Accept-Ranges</code> header.</p>
+</aside>
+<p>Note that if the user is actively seeking through the media throughout the buffering process, a contiguous buffered progress bar actually makes little sense. Also consider that some browsers will read part of the end of the file to establish duration and so create two time ranges almost immediately. Now you&#8217;re starting to appreciate why making an accurate buffered progress bar is a little tricky!</p>
+<p>You can check out <code>TimeRanges</code> in real-time using this handy <a href="http://jplayer.org/HTML5.Media.Event.Inspector/">HTML5 Media Event Inspector</a>.</p>
+</section>
+<section id="seeking-and-seekable">
+<h3>Seeking and Seekable <a href="#seeking-and-seekable" class="permalink">#</a></h3>
+<p>Seeking is the act of looking forward (or backward) in a media file. This usually happens when a section of media is requested before it&#8217;s finished loading.</p>
+<p>The <code>seeking</code> attribute can be used to determine whether that part of the media is being actively &#8220;seeked&#8221;. When it returns true, the portion of the media the user requested is still being loaded.</p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> All modern browsers, apart from Safari on Windows, enable the <code>seekable</code> attribute, which means the <code>seeking</code> event never seems to fire as the user can jump directly to the requested part. The <code>seeked</code> event does fire though, which annoys some people who think that <code>seeking</code> should always fire before <code>seeked</code>.</p>
+</aside>
+<p>To recap a little, the <code>buffered</code> property tells us what&#8217;s been downloaded and is often used as an indication of what part of the media can be directly played. If the browser supports it, however, it may make more sense to use the <code>seekable</code> attribute to determine which parts of the media can be jumped to and played immediately.</p>
+<p><code>seekable</code> returns a <code>TimeRanges</code> object of time ranges that can be played immediately. This uses a technology known as byte-range requests, which allows part of the content to be requested over HTTP. In short, we don&#8217;t have to load all the data prior to the desired part in order to play it.</p>
+<p>An example:</p>
+<pre><code>// Is the player currently seeking?
+var isSeeking = audio.seeking;
+
+// Is the media seekable?
+var isSeekable = audio.seekable &amp;&amp; audio.seekable.length &gt; 0;
+
+// Time in seconds within which the media is seekable.
+var seekableEnd = audio.seekable.end();</code></pre>
+<div class="callout highlight-block">
+<p>Time ranges can be confusing. <code>audio.seekable.end()</code> actually tells us the end point of the last time range (not the end point of all seekable media). In practice, though, this is good enough, as the browser either enables range requests or doesn&#8217;t. If it doesn&#8217;t, then <code>audio.seekable</code> will be equivalent to <code>audio.buffered</code>, which will give a valid indication of the end of seekable media.</p>
+</p></div>
+<p>Note that media being in a &#8220;seekable&#8221; state is different than media being in a &#8220;buffered&#8221; state. Media doesn&#8217;t have to be buffered to be seekable.</p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> In practice only one seekable TimeRange object is created. Where browsers support range requests the TimeRange object spans zero to the media duration, where they don&#8217;t, the TimeRange object starts at zero and its end grows as the media downloads.</p>
+</aside>
+<p>Buffered and seekable data can be useful information, but it would be too easy if there weren&#8217;t a few gotchas.</p>
+<ol>
+<li>Preloading is not supported in all older audio-capable browsers (Opera 10/Firefox 3.6).</li>
+<li>The <code>buffered</code> attribute is not always supported (Blackberry PlayBook).</li>
+<li>Not all HTML5 browsers allow byte-range seeking — for example, Safari on Windows. In this case, you can still seek within the downloaded content. It downloads from the start until the end, as does Flash.</li>
+</ol>
+<p>If you want to deliver the best possible solution to your users, you&#8217;ll need to feature test.</p>
+</section>
+<section id="preloading">
+<h3>A Note about Preloading <a href="#preloading" class="permalink">#</a></h3>
+<p>I mentioned the <code>preload</code> attribute in the previous article. This attribute accepts three possible values:</p>
+<ol>
+<li><code>none</code> — Do not preload any media. Wait for a play event before downloading anything.</li>
+<li><code>metadata</code> — Preload just the metadata. Grab the start and the end of the file via range-request and determine the duration.</li>
+<li><code>auto</code> — Preload the whole file. Grab the start and the end of the file to determine duration, then seek back to the start again for the preload proper.</li>
+</ol>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> Mobile Safari ignores the <code>preload</code> attribute, effectively always using <code>preload="none"</code>.</p>
+</aside>
+<p>When it comes to preloading, remember that it&#8217;s a request or hint to tell the browser how you&#8217;d like to preload the media. The browser is not under any obligation to fulfill that request. For this reason, certain browsers may handle these requests differently.</p>
+</section>
+</section>
+<section id="played">
+<h2>Well-Played <a href="#played" class="permalink">#</a></h2>
+<aside class="sidenote">
+<p><strong>Tip:</strong> If you loop through <code>audio.played</code>, sum the time ranges between starts and ends, and then compare it with the duration, you can determine the percentage of the audio that the user has listened to. This may be a useful metric.</p>
+</aside>
+<p>It&#8217;s worth mentioning the <code>played</code> property in passing. This property tells us which time ranges have been played within the media. For example:</p>
+<pre><code>// returns a TimeRanges object
+var played = audio.played;</code></pre>
+</section>
+<section id="events">
+<h2>Media Events <a href="#events" class="permalink">#</a></h2>
+<p>Underpinning both the native audio and video APIs is a comprehensive set of events. A full list can be found at the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-video-element.html#mediaevents">WhatWG version of the spec</a>.</p>
+<p>Attaching handlers to media events allows you to easily react to changes in state. For example, it might be useful to update the time info in a custom-built player each time the <code>timeupdate</code> event occurs.</p>
+<p>A quick summary of the more commonly used media events:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>durationchange</td>
+<td>The <code>duration</code> attribute has been updated.</td>
+</tr>
+<tr>
+<td>ended</td>
+<td>Playback has stopped as the end of the media was reached.</td>
+</tr>
+<tr>
+<td>pause</td>
+<td>The media playback has been paused. Note there is no <code>stop</code> event.</td>
+</tr>
+<tr>
+<td>play</td>
+<td>The media has started playing.</td>
+</tr>
+<tr>
+<td>timeupdate</td>
+<td>The current playback position changed (usually every 250ms).</td>
+</tr>
+<tr>
+<td>volumechange</td>
+<td>The volume changed.</td>
+</tr>
+</tbody>
+</table>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Android (at least 2.3) does not always fire the <code>ended</code> event. Well, it sometimes throws one out for good measure, but generally you need to create your own by capturing the <code>pause</code> event that is fired upon reaching the end of the media and comparing <code>audio.currentTime</code> with <code>audio.duration</code>. Alternatively, you can listen for the <code>pause</code> event and check that <code>audio.currentTime</code> is zero. To be absolutely certain, use a combination of both techniques.</p>
+</aside>
+<p>Other useful events:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canplay</td>
+<td>The media can be played but may need to pause while the file is downloaded.</td>
+</tr>
+<tr>
+<td>canplaythrough</td>
+<td>At current download rates, it is estimated that the media can be played from start to finish without pause.</td>
+</tr>
+<tr>
+<td>progress</td>
+<td>The browser is fetching the media data (usually every 250ms).</td>
+</tr>
+</tbody>
+</table>
+<p>Again, the <a href="http://jplayer.org/HTML5.Media.Event.Inspector/">HTML5 Media Event Inspector</a> is your friend.</p>
+<p>Additionally, you can test browser support by using <a href="http://areweplayingyet.org/">areweplayingyet.org</a>. It&#8217;s worth checking out the code behind the tests to understand the goings-on under the hood.</p>
+</section>
+<section id="streaming">
+<h2>Streaming <a href="#streaming" class="permalink">#</a></h2>
+<p>Streaming audio is a common requirement. This is an area that until recently has been dominated by Adobe&#8217;s Flash technology. Proprietary server technologies and protocols are well-established. One of the leading examples of this is Adobe&#8217;s <a href="http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol">Real Time Messaging Protocol</a> (RTMP). However, current browsers only support streaming over HTTP, and so something like Flash is required to process RTMP streams.</p>
+<p>Currently, audio-enabled browsers only support <a href="http://en.wikipedia.org/wiki/SHOUTcast">SHOUTcast</a> and <a href="http://en.wikipedia.org/wiki/Icecast">Icecast</a> servers that stream audio over HTTP. SHOUTcast is propriety and allows streaming of MP3 and AAC files only, while Icecast is non-propriety and supports Ogg Vorbis as well as MP3 and AAC.</p>
+<table>
+<thead>
+<tr>
+<th>Stream</th>
+<th>AAC</th>
+<th>MP3</th>
+<th>Ogg Vorbis</th>
+<th>Native Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Icecast</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SHOUTCast</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>RTMP</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No (requires Flash)</td>
+</tr>
+</thead>
+</table>
+</section>
+<section id="spec">
+<h2>An Evolving Spec (Or, &#8220;Whoa, this thing is moving!&#8221;) <a href="#spec" class="permalink">#</a></h2>
+<p>As the audio spec is still evolving, there are a couple of inconsistencies in browser implementations to watch out for. These generally affect older browsers.</p>
+<section id="load">
+<h3>The <code>load</code> Method <a href="#load" class="permalink">#</a></h3>
+<p>Until fairly recently, the <code>load</code> method was required in order to tell the browser about a change in the media source and to get it to update appropriately. Now, <code>media.load()</code> causes the element to reset and to start selecting and loading a new media resource from scratch.</p>
+<p>So for older browsers, such as Firefox 3.6, in order to change the media source, you&#8217;ll not only need to change the source value but also issue a load command:</p>
+<pre><code>var audio = new Audio();
+audio.setAttribute("src","mynew.mp3");
+audio.load(); // required for 'older' browsers</code></pre>
+</section>
+<section id="hacks">
+<h3>When Browsers Go Off-Spec <a href="#hacks" class="permalink">#</a></h3>
+<p>When creating cross-browser solutions, it&#8217;s useful to know which browsers follow <a href="http://dev.w3.org/html5/spec/video.html#audio">the W3C spec</a> to what extent and how they deviate.</p>
+<section id="autoplay-and-volume">
+<h4>Autoplay and Volume <a href="#autoplay-and-volume" class="permalink">#</a></h4>
+<p>iOS and Blackberry devices ignore the <code>autoplay</code> attribute and media element volume changes, whereas Android supports <code>autoplay</code> but not volume changes.</p>
+<p>Effectively, on Blackberry and iOS devices, <code>autoplay</code> functionality is disabled as both require a user-initiated event to &#8220;kick it off&#8221;. This has the unfortunate side-effect that any audio suffers a delay between user interaction and playback.</p>
+<p>To mitigate against these issues, you may want to take a look at <a href="http://remysharp.com/2010/12/23/audio-sprites/">Doctor Remy Sharp&#8217;s excellent article on Audio Sprites and fixes for iOS</a>.</p>
+</section>
+<section id="multiaudio">
+<h4>Simultaneous Playback of Multiple Audio Elements <a href="#multiaudio" class="permalink">#</a></h4>
+<p>A particular annoyance for developers of anything but the most simple audio web apps: not all browsers will play multiple audio elements simultaneously. This is a particular problem for games developers. Again, we see this issue with iOS and Blackberry devices.</p>
+</section>
+<section id="oses">
+<h4>Operating System Dependence <a href="#oses" class="permalink">#</a></h4>
+<aside class="sidenote">
+<p>Although of limited use to developers, you could install other codecs such as Ogg Vorbis on the underlying operating system, and browsers that use OS codecs should be able to play them back.</p>
+</aside>
+<p><a href="http://happyworm.com/blog/2010/08/17/safari-requires-quicktime-for-html5-based-media/">Safari (5+) relies on Quicktime being installed.</a> This is rarely a problem unless you are running it on Windows.</p>
+<p>Internet Explorer (9+) relies on the codecs being present at the operating system level. As it only runs on Windows, this is fortunately almost always the case.</p>
+</section>
+</section>
+</section>
+<section id="whats-new">
+<h2>What&#8217;s New? <a href="#whats-new" class="permalink">#</a></h2>
+<p>There are a few new features and whole new APIs being specified for web-based audio, so let&#8217;s take a look at what&#8217;s around the corner.</p>
+<section id="playback-rate">
+<h3>A Change of Pace <a href="#playback-rate" class="permalink">#</a></h3>
+<p>A couple of noteworthy upcoming features are <code>playbackRate</code> and <code>defaultPlaybackRate</code>. As you can probably imagine, these fellas let us alter the speed and direction of playback. This functionality could be used for fast-forward and rewind functions or perhaps to allow users to tweak the playback speed so they can fit more podcasts into their day.</p>
+<ul>
+<li><code>audio.playbackRate</code> returns 1 at normal speed and acts as a multiple that is applied to the rate of playback. For example, setting <code>playbackRate</code> to 2 would double the speed, while setting it to -1 would play the media backwards.</li>
+<li><code>audio.defaultPlaybackRate</code> is the rate at which the audio will play after you pause and restart the media (or issue any event for that matter).</code></li>
+</ul>
+</section>
+<section id="media-fragments">
+<h3>Media Fragments <a href="#media-fragments" class="permalink">#</a></h3>
+<p>Currently, if we wish to reference some part of a media file, we often first have to download at least some of the media we don&#8217;t actually need. <a href="http://www.w3.org/TR/media-frags/">The W3C Media Fragments proposal</a> was created to address this issue <a href="http://www.w3.org/TR/2009/WD-media-frags-reqs-20091217/">and others</a>, such as the retrieval of an area of video or just the associated text track. In the case of audio, it will allow us to specify which parts we want to download using parameters on the source URI.</p>
+</section>
+</section>
+<section id="advanced-apis">
+<h2>Advanced Audio APIs: The Future Sound of Browsers </h2>
+<p>When it comes to more advanced audio functionality, Mozilla was first to enter the fray with <a href="https://wiki.mozilla.org/Audio_Data_API">an early experimental Audio Data API for Firefox</a>. This was intended to facilitate audio manipulation via JavaScript and created a platform for low-level tinkering.</p>
+<p>Not to be outdone, Google released <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">the Web Audio API for Chrome</a> and put it forward as a W3C proposal. The Web Audio API is a higher-level implementation that takes an audio-node based approach and provides many useful functions.</p>
+<p>Both implementations address the desire by developers to do more with audio — to create, manipulate, analyse, and mix audio on the fly. In effect, we may one day be able to do in a browser anything we can currently do with native applications.</p>
+<p>So what if we want to play with advanced audio in the browser? Well, two separate implementations currently exist. If you want to write applications that use both APIs in any reasonable way, you need third-party bridging libraries to abstract away the differences.</p>
+<p>Also fairly new on the scene is <a href="http://www.w3.org/TR/2011/WD-streamproc-20111215/">Mozilla&#8217;s MediaStream Processing API</a>, which takes another approach to audio and video streams to allow us to manipulate at both high and low levels.</p>
+<p>In fact, using advanced APIs and taking advantage of the speed of modern JavaScript engines, we can even write decoders for unsupported codecs. Currently, we have <a href="http://codecs.ofmlabs.org/">the JSMad MP3 decoder and the lossless Alac.js decoder</a>. Apparently, FLAC and AAC are in the pipeline. There is hope, then, that in the future, we may not have to worry about which browsers are supporting which formats.</p>
+<p>For those curious about advanced web audio, I wrote about the differences in approaches and the different libraries that allow us to write cross-browser solutions in <a href="http://happyworm.com/blog/2011/11/15/html5-audio-apis-how-low-can-we-go/"><cite>HTML5 Audio APIs: How Low can we Go?</cite></a></p>
+<p>The good news is that all relevant parties are talking, and things seem to be buzzing on <a href="http://www.w3.org/2011/audio/">the W3C Audio Working Group</a>. It looks like everyone is coming together to put their ideas into <a href="http://www.w3.org/TR/audioproc/">a unified Audio Processing API</a>, which is rapidly approaching publication as a Web Standard.</p>
+</section>
+<section id="summary">
+<h2>Summary <a href="#summary" class="permalink">#</a></h2>
+<p>Although browser implementations of the current HTML5 audio spec are improving, there are still a few issues to watch out for when creating comprehensive cross-browser solutions. You certainly need to be aware of browser limitations on platforms like iOS. Hopefully, as support matures, these issues will disappear.</p>
+<p>Positive news on the &#8220;advanced audio&#8221; front too: <a href="http://www.w3.org/TR/audioproc/">a new standard is being established</a>, and we&#8217;re close to get a unified spec for browser makers to work from. In the meantime, JavaScript libraries are available to help bridge the gaps between existing implementations.</p>
+<p>There are also signs that we may be seeing the end of the requirement for different browser-dependent codecs. Opera Mobile already supports MP3 where the underlying OS supports it, and <a href="http://groups.google.com/group/mozilla.dev.platform/browse_thread/thread/fb14de8b9ad84e15/4cfccdde2cb064d1?#4cfccdde2cb064d1">Mozilla look like they may enable this too</a>. If this option exists for mobile browsers, it&#8217;s not a huge stretch to imagine that desktop browsers will follow suit.</p>
+<p>So lots happening and lots already achieved. The rough edges of existing browser implementations are being smoothed, consensus and standards are being forged, and we can see the foundations of some very exciting new technologies being established.</p>
+<p>The future of web-based audio looks bright!</p>
+</section>
+<section id="links">
+<h2>Further Reading <a href="#links" class="permalink">#</a></h2>
+<ul>
+<li><a href="http://24ways.org/2010/the-state-of-html5-audio">&#8220;Probably, Maybe, No&#8221;: The State of HTML5 Audio</a></li>
+<li><a href="http://www.phoboslab.org/log/2011/03/the-state-of-html5-audio">The State of HTML5 Audio</a></li>
+<li><a href="http://www.catswhocode.com/blog/mastering-the-html5-audio-property">Mastering the HTML5 &lt;audio&gt; tag</a></li>
+<li><a href="http://blogs.msdn.com/b/ie/archive/2011/05/13/unlocking-the-power-of-html5-lt-audio-gt.aspx">Unlocking the power of HTML5 &lt;audio&gt;</a></li>
+<li><a href="http://my.opera.com/core/blog/2010/03/03/everything-you-need-to-know-about-html5-video-and-audio-2">Everything you need to know about HTML5 video and audio</a></li>
+</ul>
+</section>
+<p><a href="http://html5doctor.com/html5-audio-the-state-of-play/" rel="bookmark">HTML5 Audio — The State of Play</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 8, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-audio-the-state-of-play/feed/</wfw:commentRss>
+		<slash:comments>32</slash:comments>
+		</item>
+	</channel>
+</rss>

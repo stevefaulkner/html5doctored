@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset=utf-8> <!-- simplified version; works on legacy browsers -->
+  <title>
+      The Address Element | HTML5 Doctor  </title>
+
+<meta name="description" content="The <code>address</code> element has been around for a good few years now. In fact, it's been around since <abbr>HTML</abbr>3, remember that? However since the elements creation there have always been problems; knowledge and implementation. So with it once again being incorporated into the <abbr>HTML</abbr>5 specification how should we be using it?" />
+	
+    
+    
+    
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/style.css">
+  
+     
+  
+  <!--[if IE]>
+    <script src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/css/ie7.css">
+  <![endif]-->  
+
+	<link rel="shortcut icon" href="http://html5doctor.com/wp-content/themes/html5doctor/img/favicon.ico" type="image/x-icon" />
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor RSS Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/atom+xml" title="HTML5 Doctor Atom Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/rss+xml" title="HTML5Doctor Comments RSS Feed" href="http://feeds.feedburner.com/HTML5DoctorComments" />
+  <link rel="pingback" href="http://html5doctor.com/xmlrpc.php" />
+
+
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; The Address Element Comments Feed" href="http://html5doctor.com/the-address-element/feed/" />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/stylesheet.css?ver=2.0.7' type='text/css' media='all' />
+<link rel='stylesheet' id='sociable-front-css-css'  href='http://html5doctor.com/wp-content/plugins/sociable/sociable.css?ver=2.8.6' type='text/css' media='' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.50' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://html5doctor.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='HTML5 Doctor' href='http://html5doctor.com' />
+<link rel='start' title='Designing a blog with html5' href='http://html5doctor.com/designing-a-blog-with-html5/' />
+<link rel='prev' title='Aside Revisited' href='http://html5doctor.com/aside-revisited/' />
+<meta name="generator" content="WordPress 2.8.6" />
+</head>
+<body class="wordpress single">
+
+<nav id="skipLink">
+	<ul>
+    	<li><a href="#nav">Skip to primary navigation</a></li>
+        <li><a href="#content">Skip to main content</a></li>
+        <li><a href="#sidebar">Skip to sidebar</a></li>
+    </ul>
+</nav>
+
+<header role="banner">
+    <hgroup>
+        <h1 class="logo"><a href="http://html5doctor.com/">HTML5 Doctor</a></h1>
+        <h2 class="strapline">helping you implement HTML5 today</h2>
+    </hgroup>
+</header>
+  
+<nav>
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>  
+<div id="content">
+
+<div class="hfeed" role="main">
+      	<article class="hentry" id="post-1051">
+	  <header>
+	    <h1 class="entry-title">The Address Element</h1>
+	  </header>
+	  <div class="entry-content">
+      
+		        
+	    <p>The <code>address</code> element has been around for a good few years now. In fact, it&#8217;s been around since <abbr>HTML</abbr>3, remember that? However since the elements creation there have always been problems; knowledge and implementation. So with it once again being incorporated into the <abbr>HTML</abbr>5 specification how should we be using it? A quick look at the spec will tell you</p>
+<blockquote><p>
+The address element provides contact information for a document or part of a document. Information provided by address may include the names of the document’s maintainers, links to the maintainers’ Web pages, e-mail addresses for feedback, postal addresses, phone numbers, and so on. The address element is not appropriate for all postal and e-mail addresses; it should be reserved for providing such information about the contact people for the document.
+</p></blockquote>
+<p>Well, if we follow the above advice we could do something like this:<br />
+<code></p>
+<pre>
+The HTML5 Doctor is run by the following group of volunteers:
+<mark>&#60;address&#62;</mark>
+&#60;a href="http://html5doctor.com/author/jacko"&#62;Jack Osborne&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/richc"&#62;Rich Clark&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/miker"&#62;Mike Robinson&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/toml"&#62;Tom Leadbetter&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/brucel"&#62;Bruce Lawson&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/remys"&#62;Remy Sharp&#60;/a&#62;
+<mark>&#60;/address&#62;</mark>
+</pre>
+<p></code><br />
+Another example that we have implemented on this very site is<br />
+<code>
+<pre>
+&#60;footer&#62;
+&#60;div class="vcard"&#62; by
+<mark>&#60;address class="author"&#62;</mark>
+&#60;em class="fn"&#62;&#60;a title="Posts by Jack Osborne" href="#"&#62;Jack Osborne&#60;/a&#62;&#60;/em&#62;
+<mark>&#60;/address&#62;</mark> on
+&#60;time datetime="2009-11-04" class="published updated"&#62;November 4th, 2009&#60;/time&#62;
+&#60;/div&#62;
+&#60;/footer&#62;
+</pre>
+<p></code><br />
+If you view the source code on our <a href="http://html5doctor.com" title="HTML5 Doctor Home">home page</a> you will see that we have used the address element, which has been nested within the <code>footer</code> of the articles, several times throughout the page. This is useful should the information be aggregated.</p>
+<p>The worrying thing about the <code>address</code> element is that it is not as straight forward as it may initially appear. Thankfully many of you will be familiar with the incorrect implementation of the <code>address</code> element and the way that people have been abusing it for years but for those of you who are not, let me show you an example.</p>
+<p><code></p>
+<pre>
+<mark>&#60;address&#62;</mark>
+Dr. Jack Osborne
+HTML5 Hospital,
+Doctorville,
+Great Britain
+Tel: +44 (0)XXXX XXXXXX
+<mark>&#60;/address&#62;</mark>
+</pre>
+<p></code></p>
+<p>I&#8217;m sure to some of you will be looking at the above code snippet and be wondering what exactly is wrong. It&#8217;s all very simple, the <code>address</code> element was <strong>not</strong> created for postal addresses and to reinforce this, the latest spec stipulates that the address element must not be used to represent arbitrary addresses (e.g. postal addresses), unless those addresses are in fact the relevant contact information. </p>
+<p>When you are marking up an address that is not relevant we can use the <code>p</code> element to mark up this information and take advantage of the elements versatility by marking up addresses using the <a href="http://microformats.org/wiki/hcard" title="hCard Microformat">hCard microformat</a>. Lets take a look at our example from above and show what it will look like with the addition of microformats.<br />
+<code></p>
+<pre>
+&#60;div class="vcard"&#62;
+&#60;p class="fn"&#62;&#60;a class="url" href="#"&#62;Dr. Jack Osborne&#60;/a&#62;&#60;p&#62;
+&#60;p class="adr" &#62;
+&#60;span class="street-address"&#62;HTML5 Hospital&#60;/span&#62;
+&#60;span class="region"&#62;Doctorville&#60;/span&#62;
+&#60;span class="postal-code"&#62;Postal Code&#60;/span&#62;
+&#60;span class="country-name"&#62;Great Britain&#60;/span&#62;
+&#60;/p&#62;
+&#60;p class="tel"&#62;+44 (0)XXXX XXXXXX&#60;/p&#62;
+&#60;/div&#62;
+</pre>
+<p></code></p>
+<p>As you can see, I have attached the vCard class to a div but you can append them to any block element and I have then gone about attaching the appropriate classes to the p and span elements within. </p>
+<p>Unfortunately going into the hCard microformat goes beyond the scope of this article. The only reason I have decided to include it is to show the readers that you are <strong>not</strong> supposed to use the <code>address</code> element for postal addresses (its for providing contact information for a whole document or section of a document) but if you want to maximise the semantic value of that information you can do so with the addition of a couple of simple classes. However, if you don&#8217;t feel comfortable implementing these microformats on your own then visit the <a href="http://microformats.org/code/hcard/creator" title="hCard Microformat generator">hCard generator</a> which will do all of the heavy lifting for you.</p>
+<div class="sociable">
+<div class="sociable_tagline">
+<h5>Share and Save:</h5>
+</div>
+<ul>
+<li class="sociablefirst"><a rel="nofollow"  href="http://twitter.com/home?status=The%20Address%20Element%20-%20http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F" title="Twitter"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Twitter" alt="Twitter" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;title=The%20Address%20Element&amp;bodytext=The%20address%20element%20has%20been%20around%20for%20a%20good%20few%20years%20now.%20In%20fact%2C%20it%27s%20been%20around%20since%20HTML3%2C%20remember%20that%3F%20However%20since%20the%20elements%20creation%20there%20have%20always%20been%20problems%3B%20knowledge%20and%20implementation.%20So%20with%20it%20once%20again%20being%20incorporated%20into%20the%20HTML5%20specification%20how%20should%20we%20be%20using%20it%3F" title="Digg"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Digg" alt="Digg" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-235px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://sphinn.com/index.php?c=post&amp;m=submit&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F" title="Sphinn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Sphinn" alt="Sphinn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://reddit.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;title=The%20Address%20Element" title="Reddit"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Reddit" alt="Reddit" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-55px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://delicious.com/post?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;title=The%20Address%20Element&amp;notes=The%20address%20element%20has%20been%20around%20for%20a%20good%20few%20years%20now.%20In%20fact%2C%20it%27s%20been%20around%20since%20HTML3%2C%20remember%20that%3F%20However%20since%20the%20elements%20creation%20there%20have%20always%20been%20problems%3B%20knowledge%20and%20implementation.%20So%20with%20it%20once%20again%20being%20incorporated%20into%20the%20HTML5%20specification%20how%20should%20we%20be%20using%20it%3F" title="del.icio.us"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="del.icio.us" alt="del.icio.us" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;title=The%20Address%20Element" title="StumbleUpon"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="StumbleUpon" alt="StumbleUpon" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://technorati.com/faves?add=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F" title="Technorati"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Technorati" alt="Technorati" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-271px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.netvibes.com/share?title=The%20Address%20Element&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F" title="Netvibes"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Netvibes" alt="Netvibes" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.facebook.com/share.php?u=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;t=The%20Address%20Element" title="Facebook"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Facebook" alt="Facebook" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;title=The%20Address%20Element&amp;annotation=The%20address%20element%20has%20been%20around%20for%20a%20good%20few%20years%20now.%20In%20fact%2C%20it%27s%20been%20around%20since%20HTML3%2C%20remember%20that%3F%20However%20since%20the%20elements%20creation%20there%20have%20always%20been%20problems%3B%20knowledge%20and%20implementation.%20So%20with%20it%20once%20again%20being%20incorporated%20into%20the%20HTML5%20specification%20how%20should%20we%20be%20using%20it%3F" title="Google Bookmarks"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Google Bookmarks" alt="Google Bookmarks" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-91px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.friendfeed.com/share?title=The%20Address%20Element&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F" title="FriendFeed"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="FriendFeed" alt="FriendFeed" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-37px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://news.ycombinator.com/submitlink?u=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;t=The%20Address%20Element" title="HackerNews"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="HackerNews" alt="HackerNews" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-127px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;title=The%20Address%20Element&amp;source=HTML5+Doctor+helping+you+implement+HTML5+today&amp;summary=The%20address%20element%20has%20been%20around%20for%20a%20good%20few%20years%20now.%20In%20fact%2C%20it%27s%20been%20around%20since%20HTML3%2C%20remember%20that%3F%20However%20since%20the%20elements%20creation%20there%20have%20always%20been%20problems%3B%20knowledge%20and%20implementation.%20So%20with%20it%20once%20again%20being%20incorporated%20into%20the%20HTML5%20specification%20how%20should%20we%20be%20using%20it%3F" title="LinkedIn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="LinkedIn" alt="LinkedIn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-1px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.newsvine.com/_tools/seed&amp;save?u=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;h=The%20Address%20Element" title="NewsVine"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="NewsVine" alt="NewsVine" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.sphere.com/search?q=sphereit:http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;title=The%20Address%20Element" title="SphereIt"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="SphereIt" alt="SphereIt" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-181px -55px" class="sociable-hovers" /></a></li>
+<li class="sociablelast"><a rel="nofollow"  href="http://www.tumblr.com/share?v=3&amp;u=http%3A%2F%2Fhtml5doctor.com%2Fthe-address-element%2F&amp;t=The%20Address%20Element&amp;s=The%20address%20element%20has%20been%20around%20for%20a%20good%20few%20years%20now.%20In%20fact%2C%20it%27s%20been%20around%20since%20HTML3%2C%20remember%20that%3F%20However%20since%20the%20elements%20creation%20there%20have%20always%20been%20problems%3B%20knowledge%20and%20implementation.%20So%20with%20it%20once%20again%20being%20incorporated%20into%20the%20HTML5%20specification%20how%20should%20we%20be%20using%20it%3F" title="Tumblr"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Tumblr" alt="Tumblr" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-325px -55px" class="sociable-hovers" /></a></li>
+</ul>
+</div>
+	  </div>
+	  <footer>
+    		<div>
+                <div class="author-blurb author">
+            	<p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></span>. A Front End Developer living in the west coast of Scotland. Catch Jack on <a href="http://www.twitter.com/jackosborne" title="jack osborne twitter">twitter</a> or his own <a href="http://www.jackosborne.co.uk" title="jack osborne portfolio">site</a> where more often than not you will find him writing about css3 selectors, food and music.</p>
+               <img alt='' src='http://www.gravatar.com/avatar/a5854872c2c601bf98b308f251dc24a4?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+            	</div>
+                
+            	<span>Posted on <time class="published updated" datetime="2009-11-03">November 3rd, 2009</time></span>
+                
+				<p>				Got anything to add or ask? <a href="#respond">then leave a response</a>,<br />or <a href="http://html5doctor.com/the-address-element/trackback/" rel="trackback">trackback</a> from your own site.
+				            </div>
+            <p>Categorised under: <a href="http://html5doctor.com/category/elements/" title="View all posts in Elements" rel="category tag">Elements</a>.</p>
+            <p>Tagged with: <a href="http://html5doctor.com/tag/address/" rel="tag">address</a>, <a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a>, <a href="http://html5doctor.com/tag/html5/" rel="tag">html5</a>.</p>
+	  </footer>
+      </article>
+	    
+<!-- You can start editing here. -->
+<div id="comments">
+    <h3 id="comment-head">
+    15 Responses    to &#8220;
+    The Address Element    &#8221;</h3>
+<article class=" " id="comment-1558">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://aaronbassett.com' rel='external nofollow' class='url'>Aaron Bassett</a></cite> at <a class="commentmetadata" href="#comment-1558">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 4th, 2009        at
+        4:24 pm    </time></a></p>
+            <p>I might be missing something but why shouldn&#8217;t you use it for a postal address? I understand that it should only be used to mark-up the contact details for the document (or document section) maintainer and not every address that appears on a site. But if the maintainer&#8217;s contact details include a postal address, why shouldn&#8217;t you use the address element? The spec actually says that in that case it <strong>should</strong> be used:</p>
+<blockquote><p>Information provided by address may include the names of the document’s maintainers, links to the maintainers’ Web pages, e-mail addresses for feedback, <em>postal addresses</em>, phone numbers, and so on.</p></blockquote>
+<p>The emphasis is mine.</p>
+<p>I always understood it that you should not use the address element when you were referring to a entity who is not the document owner/maintainer. For example in a business directory, like Yell.com the businesses listed in search results should <strong>not</strong> be marked up using the address tag. If an address tag is to be used on that site it should only be used to mark up Yell.com&#8217;s contact details. </p>
+<p>However if this contains a Postal address, that&#8217;s fine. Or am I way off the mark? <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/309287088ccfe196428a5dbe2b051c48?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1559">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Jonas</cite> at <a class="commentmetadata" href="#comment-1559">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 4th, 2009        at
+        4:39 pm    </time></a></p>
+            <p>I have been using the address element for a postal address in my imprint. As I understand it, this would be a correct use?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/97fb194122dd1e60e672478600058e42?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1560">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">zcorpan</cite> at <a class="commentmetadata" href="#comment-1560">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 4th, 2009        at
+        6:45 pm    </time></a></p>
+            <blockquote><p>In fact, it’s been around since HTML3, remember that?</p></blockquote>
+<p>Actually, it&#8217;s been around since the first draft of HTML, <a href="http://www.w3.org/History/19921103-hypertext/hypertext/WWW/MarkUp/Tags.html#20" rel="nofollow">HTML Tags</a>.</p>
+<blockquote><p>Well, if we follow the above advice we could do something like this:</p></blockquote>
+<p>I&#8217;d include the &#8220;The HTML5 Doctor is run by the following group of volunteers:&#8221; text inside the address element.</p>
+<p>Shouldn&#8217;t the postal address examples include br elements so that it makes sense without CSS? (The spec says br is appropriate for postal addresses.)</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/9767673d472c2f27307890c27061bca3?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1563">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://simplyfull.com' rel='external nofollow' class='url'>Steve Rose</a></cite> at <a class="commentmetadata" href="#comment-1563">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 4th, 2009        at
+        8:09 pm    </time></a></p>
+            <p>Interesting. I had not known that. </p>
+<p>However, I&#8217;ve used it to indicate addresses of business, etc., and found it to work very well with Google. One little boutique with a common name jumped right to the top of the Google listings, where Google showed a map to the boutique.</p>
+<p>Isn&#8217;t this a bit like arguing English language usage based on old text books, and ignoring common usage?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/a4a17fcaa4a359c5abef493a653b2d06?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1565">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.tyssendesign.com.au' rel='external nofollow' class='url'>John Faulds</a></cite> at <a class="commentmetadata" href="#comment-1565">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 4th, 2009        at
+        8:51 pm    </time></a></p>
+            <p>Even though I agree with Aaron&#8217;s approach to how to use &lt;address&gt;, I stopped using it a while back when I began using Microformats instead.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/bfabc6446c2fedd907a7e63949324ae9?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1566">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Andrew Vit</cite> at <a class="commentmetadata" href="#comment-1566">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 4th, 2009        at
+        9:08 pm    </time></a></p>
+            <p>As I understand it, the address element doesn&#8217;t limit what kind of contact details it should contain, just that it should be a contact for the page. In any case, postal address should be acceptable!</p>
+<p>And, for that matter, why didn&#8217;t html5 consider semantic tags for marking up postal addresses and phone numbers? (I mean native elements, not post-facto conventions like hCard.)</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/f0987c97234fa9c6b26f796bdbdab037?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1567">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://csarven.ca/' rel='external nofollow' class='url'>Sarven Capadisli</a></cite> at <a class="commentmetadata" href="#comment-1567">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 4th, 2009        at
+        9:24 pm    </time></a></p>
+            <p>This is not an either or situation. Do both.</p>
+<p>Postal code in <code>address</code> is totally fine if in fact the owner of the document should be reached using that bit of information. This is plain ol&#8217; HTML.</p>
+<p>Mark up the entity (document owner) using hCard because there is that added benefit of identifying specific bits.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/0ca0a18603cbd049900ebea3a3bb29d4?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1568">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://topsy.com/tb/bit.ly/2W2k15' rel='external nofollow' class='url'>Tweets that mention The Address Element | HTML5 Doctor -- Topsy.com</a></cite> at <a class="commentmetadata" href="#comment-1568">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 4th, 2009        at
+        10:01 pm    </time></a></p>
+            <p>[...] This post was mentioned on Twitter by Simon Bingham, ilya alexander , Jack Osborne, Rafael de Almeida, Mike Robinson and others. Mike Robinson said: Dr @jackosborne takes a look at &lt;address&gt; <a href="http://bit.ly/2Fo7OR" rel="nofollow">http://bit.ly/2Fo7OR</a> Maybe time for a @html5doctor house call service? #html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-1570">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://jonathanstegall.com/2009/11/04/links-for-november-4th/' rel='external nofollow' class='url'>Links for November 4th | jonathan stegall: creative tension</a></cite> at <a class="commentmetadata" href="#comment-1570">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 5th, 2009        at
+        2:02 am    </time></a></p>
+            <p>[...] The Address Element | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-1571">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://aaronbassett.com' rel='external nofollow' class='url'>Aaron Bassett</a></cite> at <a class="commentmetadata" href="#comment-1571">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 5th, 2009        at
+        8:19 am    </time></a></p>
+            <blockquote><p>Even though I agree with Aaron’s approach to how to use &lt;address&gt;, I stopped using it a while back when I began using Microformats instead.</p></blockquote>
+<p>Why not use both? You could easily use &lt;address&gt; as the contain element for your hCard rather than a div. Giving you the benefits of the Microformat &amp; the semantics of using the correct element <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/309287088ccfe196428a5dbe2b051c48?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1572">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://richclarkdesign.com' rel='external nofollow' class='url'>Rich Clark</a></cite> at <a class="commentmetadata" href="#comment-1572">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 5th, 2009        at
+        9:13 am    </time></a></p>
+            <p>@aaron, you&#8217;re right you could use both. </p>
+<p>@zcorpan, yes the <code>&lt;br&gt;</code> tags should be in there.</p>
+<p>Jacks now away for a few days at Build Conference so give him a shout if you&#8217;re there and he&#8217;ll update the article with some of your suggestions just as soon as he gets back.</p>
+<p>Thanks</p>
+<p>Rich</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1573">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://foolip.org/' rel='external nofollow' class='url'>Philip Jägenstedt</a></cite> at <a class="commentmetadata" href="#comment-1573">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 5th, 2009        at
+        9:15 am    </time></a></p>
+            <p>No love for HTML5 microdata?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/f7c6debc698bf9bc007dd36ddccd1d83?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1576">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> at <a class="commentmetadata" href="#comment-1576">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 6th, 2009        at
+        5:06 pm    </time></a></p>
+            <p>Philip &#8211; we&#8217;d love someone to write a guest column showing how to use  microdata. Up for it?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1577">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://foolip.org/' rel='external nofollow' class='url'>Philip Jägenstedt</a></cite> at <a class="commentmetadata" href="#comment-1577">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 6th, 2009        at
+        5:15 pm    </time></a></p>
+            <p>Bruce, maybe I&#8217;ll spend this weekend updating my JavaScript implementation to make that possible&#8230;</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/f7c6debc698bf9bc007dd36ddccd1d83?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1578">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://bodytechnician.com/' rel='external nofollow' class='url'>Jordan Rothstein</a></cite> at <a class="commentmetadata" href="#comment-1578">
+    <time datetime="2009-11-03T19:34+00:00">
+        November 6th, 2009        at
+        5:57 pm    </time></a></p>
+            <p>W3C.org recommends using the Address element for any type of contact information: name, email, IM, phone, postal mail, URL, VOIP and new media as they emerge. Examples of this from the specs for HTML2, HTML3 and HTML4 are given below. (Please note that the address element has been part of HTML since HTML2, not HTML3 as you claimed.)</p>
+<p>Address element is for:<br />
+Contact information for the contact person(s) for the page.</p>
+<p>Address element is not for:<br />
+Contact information for anyone other than the contact person(s) for the page.</p>
+<p>When to use the Address element:<br />
+If I make a page urging readers to contact their elected representative about climate change, my contact info should be in address tags on my page. The representative&#8217;s info should not be in address tags on my page. If the elected representative has a page about climate change, their contact info should be in address tags on their page.</p>
+<p>Examples from W3C.org:</p>
+<p>HTML2<br />
+<a href="http://www.w3.org/MarkUp/html-spec/html-spec_5.html#SEC5.5.3" rel="nofollow">http://www.w3.org/MarkUp/html-spec/html-spec_5.html#SEC5.5.3</a><br />
+The ADDRESS element contains such information as address, signature and authorship, often at the beginning or end of the body of a document.<br />
+Typically, the ADDRESS element is rendered in an italic typeface and may be indented.<br />
+Example of use:</p>
+<p>Newsletter editor<br />
+J.R. Brown<br />
+JimquickPost News, Jimquick, CT 01234<br />
+Tel (123) 456 7890</p>
+<p>HTML3<br />
+<a href="http://www.w3.org/MarkUp/html3/address.html" rel="nofollow">http://www.w3.org/MarkUp/html3/address.html</a><br />
+The ADDRESS element specifies such information as address, signature and authorship for the current document, and typically placed at the top or bottom of the document. When used with %text, the element acts similar to a paragraph with breaks before and after.<br />
+Example:</p>
+<p>Newsletter editor<br />
+J.R. Brown<br />
+8723 Buena Vista, Smallville, CT 01234&#038;t;BR&gt;<br />
+Tel: +1 (123) 456 7890</p>
+<p>HTML3.2<br />
+<a href="http://www.w3.org/TR/REC-html32#address" rel="nofollow">http://www.w3.org/TR/REC-html32#address</a><br />
+The ADDRESS element requires start and end tags, and specifies information such as authorship and contact details for the current document. User agents should render the content with paragraph-breaks before and after. Note that the content is restricted to paragraphs, plain text and text-like elements as defined by the %text entity.<br />
+Example:</p>
+<p>Newsletter editor<br />
+J.R. Brown<br />
+8723 Buena Vista, Smallville, CT 01234<br />
+Tel: +1 (123) 456 7890</p>
+<p>HTML4<br />
+<a href="http://www.w3.org/TR/WD-html40-970917/struct/global.html#h-8.4.4" rel="nofollow">http://www.w3.org/TR/WD-html40-970917/struct/global.html#h-8.4.4</a><br />
+For lack of a better place, we include the definition of the ADDRESS here. This element adds author and contact information to a document, e.g.,</p>
+<p>Newsletter editor<br />
+J. R. Brown<br />
+8723 Buena Vista, Smallville, CT 01234<br />
+Tel: +1 (123) 456 7890</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/d154f1b98d0d3e3db950b675d28f095d?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+</section>
+<section id="respond">
+<h3>Leave a Reply</h3>
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+        <p>
+        <label for="author">Name
+        (required)        </label>
+        <input required aria-required="true" type="text" name="author" id="author" value="" size="22" />
+    </p>
+    <p>
+        <label for="email">Email (will not be published)
+        (required)        </label>
+        <input required aria-required="true" type="email" name="email" id="email" value="" size="22"  />
+    </p>
+    <p>
+        <label for="url">Website</label>
+        <input type="url" name="url" id="url" value="" size="22"  />
+    </p>
+        <p>You can use these tags: &lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strong&gt;</p>
+    <p>You can also use &lt;code&gt;, and remember to use &amp;lt; and &amp;gt; for brackets.</p>
+    <p>
+        <label for="comment" class="screenreader">Enter comment</label>
+        <textarea required aria-required="true" name="comment" id="comment"  cols="40" rows="10"></textarea>
+        <input name="submit" type="submit" id="submit"  value="Submit Comment" />
+        <input type="hidden" name="comment_post_ID" value="1051" />
+    </p>
+    
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+</form>
+</div>	
+			
+	
+<!--    <section class="ask-doctor">
+        <form action="">
+            <label>Got a question about html5? Ask the doctor....
+            <input type="text">
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+    </section>-->
+
+</div><!-- //end hfeed -->
+
+<aside role="complementary">
+
+<div>
+	    <form id="searchform" method="get" action="http://html5doctor.com" role="search">
+
+      <div>
+
+        
+        <input id="s" name="s" type="search" value="Search" size="20" tabindex="1" onfocus="if (!this.reset) { this.value = ''; this.reset = true }" />
+
+        
+        <input id="searchsubmit" name="searchsubmit" class="btn" type="submit" value="Go" tabindex="2" />
+
+      </div>
+
+    </form> 
+</div>
+
+<aside>
+	<ul class="ads">
+    	<li><a href="http://www.authenticjobs.com/?aff=dcacc"><img src="http://www.authenticjobs.com/img/aj_125x125.gif" alt="Post a job. Find one. authenticjobs.com" width="125" height="125" /></a></li>
+    	<li><a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/mt-125x125-dk.png" alt="Proudly Hosted by Media Temple"></a></li>
+    </ul>
+</aside>
+
+<aside class="ask-banner">
+	<a href="/ask-the-doctor/"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/ask-doctor-banner.png" alt="Got a question about html5? Ask the doctor" /></a>
+</aside>
+
+<nav>
+	<h3>Recent Articles</h3>
+	<ul class="recent">
+			<li><a href='http://html5doctor.com/the-address-element/' title='The Address Element'>The Address Element</a></li>
+	<li><a href='http://html5doctor.com/aside-revisited/' title='Aside Revisited'>Aside Revisited</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-3/' title='Your Questions Answered #3'>Your Questions Answered #3</a></li>
+	<li><a href='http://html5doctor.com/why-designers-should-care-about-html5/' title='Why designers should care about HTML5'>Why designers should care about HTML5</a></li>
+	<li><a href='http://html5doctor.com/dd-details-wrong-again/' title='dd-details wrong again'>dd-details wrong again</a></li>
+	<li><a href='http://html5doctor.com/measure-up-with-the-meter-tag/' title='Measure up with the meter tag'>Measure up with the meter tag</a></li>
+	<li><a href='http://html5doctor.com/the-footer-element-update/' title='The Footer Element Update'>The Footer Element Update</a></li>
+	<li><a href='http://html5doctor.com/september-html5-spec-changes/' title='September HTML5 spec changes'>September HTML5 spec changes</a></li>
+	<li><a href='http://html5doctor.com/the-section-element/' title='The section element'>The section element</a></li>
+	<li><a href='http://html5doctor.com/absent-elements-and-validation/' title='Absent Elements and Validation'>Absent Elements and Validation</a></li>
+	<li><a href='http://html5doctor.com/its-bug-report-time/' title='It&#8217;s bug report time!'>It&#8217;s bug report time!</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-2/' title='Your questions answered #2'>Your questions answered #2</a></li>
+    </ul> 
+</nav>
+
+<nav>
+	<h3><abbr>HTML</abbr>5 Doctors (Authors)</h3>
+	<ul>
+    	<li><a href="/author/richc/">Richard Clark</a></li>
+    	<li><a href="/author/brucel/">Bruce Lawson</a></li>
+    	<li><a href="/author/jacko/">Jack Osborne</a></li>
+    	<li><a href="/author/miker/">Mike Robinson</a></li>
+    	<li><a href="/author/remys/">Remy Sharp</a></li>
+    	<li><a href="/author/toml/">Tom Leadbetter</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Contributing Authors</h3>
+	<ul>
+    	    	<li><a href="/author/cennyddb/">Cennydd Bowles</a></li>
+    	<li><a href="/author/markb/">Mark Boas</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Categories</h3>
+	<ul>
+    		<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" title="View all posts filed under Accessibility">Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" title="View all posts filed under Attributes">Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" title="View all posts filed under Boilerplates">Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" title="View all posts filed under Browser Compatibility">Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" title="View all posts filed under Comment">Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" title="View all posts filed under CSS">CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" title="View all posts filed under Elements">Elements</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" title="View all posts filed under JavaScript APIs">JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" title="View all posts filed under Questions">Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" title="View all posts filed under Quick Tips">Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" title="View all posts filed under Specification Changes">Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" title="View all posts filed under Structure">Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" title="View all posts filed under Validation">Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" title="View all posts filed under WAI-ARIA">WAI-ARIA</a>
+</li>
+    </ul>    
+</nav>
+
+<section>
+	<h3>About</h3>
+	<p>HTML5doctor is run by a bunch of volunteers that are passionate about making <abbr>HTML</abbr>5 happen here and now. Read more about them on the <a href="/about/">about page</a>.</p>    
+</section>
+
+<section>
+<script type="text/javascript" src="http://feeds.delicious.com/v2/js/html5gallery?title=HTML5%20Articles%20Elsewhere&amp;icon=rss&amp;count=5&amp;sort=date&amp;extended&amp;showadd"></script>
+</section>
+</aside>
+</div><!--// end content -->
+<aside class="extras">
+	    <section>
+        <h3>Follow us on twitter</h3><a href="http://www.twitter.com/html5doctor"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/twitter.jpg" alt="Follow us on twitter"></a>
+        </section>
+   	    <section>
+	    <h3>Want to write for us?</h3> 
+        <p>We're always on the lookout for new writers, so if you feel you've got a grip on <abbr>HTML</abbr> 5 &amp; have something to add then please <a href="/contact/">get in touch</a>.</p>
+        </section>
+	    <section>        
+    	<h3>Sites using HTML5</h3><a href="http://html5gallery.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/html5gallery-thumb.png" alt="html5gallery - A showcase of sites using html5 markup"></a>
+		</section>
+	    <section>      
+    	<h3>Make a donation</h3>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+		<p>Unfortunately the hosting doesn't pay itself, if you've found the site useful please help us out by making a donation.<br />
+		<input type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online."></p>
+		<img alt="" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+		</form>
+		</section>
+</aside>
+
+<nav class="nav-footer">
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>
+
+<footer role="contentinfo">
+	<p><small>This site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/uk/">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</small></p>
+</footer>
+
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5doc.js"></script>
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/prettify.js"></script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8916679-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>  
+
+</body>
+</html>

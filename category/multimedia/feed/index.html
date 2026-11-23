@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; multimedia</title>
+	<atom:link href="http://html5doctor.com/category/multimedia/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Taking Web Audio Offline in iOS 6 Safari</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/</link>
+		<comments>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comments</comments>
+		<pubDate>Tue, 27 Nov 2012 13:30:20 +0000</pubDate>
+		<dc:creator><![CDATA[Alex Gibson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[ios]]></category>
+		<category><![CDATA[offline]]></category>
+		<category><![CDATA[webkit]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812</guid>
+		<description><![CDATA[Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be mission impossible. But with the advent of the WebKit-only, it is now finally achievable — although you still need to jump through a few hoops.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be <a href="http://happyworm.com/blog/2012/05/29/playing-web-audio-offline-on-mobile-safari-mission-impossible/">mission impossible</a>. But with the advent of the (WebKit-only) <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">Web Audio API</a>, it is now finally achievable — although you still need to jump through a few hoops.</p>
+
+<p>The bad news is that you still can&#8217;t cache an MP3 file using <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a> and then simply load it using an <code>XmlHttpRequest</code>. Safari on iOS 6 will cache the MP3 but then refuse to play it and fail silently (how useful!).</p>
+
+<p>But all is not lost…</p>
+
+<p><section id="base64">
+<h2>Base64 to the Rescue <a href="#base64" class="permalink">#</a></h2></p>
+
+<p>Because the Web Audio API offers developers direct control over the <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioBufferSourceNode">AudioBuffer</a>, you can now convert data formats on-the-fly and feed them directly to the Web Audio API for playback. For example, if you encode an MP3 file as a Base64 string, you can then decode it to an <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a> and convert the raw audio data.
+</section></p>
+
+<p><section id="encoding">
+<h2>Encoding an Audio File <a href="#encoding" class="permalink">#</a></h2></p>
+
+<p>You can easily convert an MP3 file to a Base64 string using <a href="http://www.openssl.org/">OpenSSL</a>. If you are on Mac OS X, it comes pre-installed, so just open up Terminal.app and type the following command:</p>
+
+<p><figure></p>
+
+<pre><code>openssl base64 -in [infile] -out [outfile]
+</code></pre>
+
+<p></figure></p>
+
+<p>Make sure to replace <code>[infile]</code> with the path to your MP3 and <code>[outfile]</code> with your chosen destination for the encoded data.</p>
+
+<p>This will output a Base64-encoded string representation of your sound file. You can then cache the string using any form of web storage you choose (e.g., <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a>, <a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/">localStorage</a>, or <a href="http://html5doctor.com/introducing-web-sql-databases/">webSQL</a>).
+</section></p>
+
+<p><section id="decoding">
+<h2>Base64 to ArrayBuffer <a href="#decoding" class="permalink">#</a></h2></p>
+
+<p>In order to decode the Base64 string back into an <code>ArrayBuffer</code>, you&#8217;ll need to use a custom method. Check out Daniele Guerrero&#8217;s <a href="https://github.com/danguer/blog-examples/blob/master/js/base64-binary.js">base64-binary.js</a> as a good script that can be used exactly for this purpose. It decodes a Base64 string into a <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint8Array">Uint8Array</a> typed array and stores it in an <code>ArrayBuffer</code>.</p>
+
+<p>Once this is done, you can simply decode the audio data using the Web Audio API&#8217;s <code>decodeAudioData()</code> method:</p>
+
+<p><figure></p>
+
+<pre><code>var buff = Base64Binary.decodeArrayBuffer(sound);
+
+myAudioContext.decodeAudioData(buff, function(audioData) {
+  myBuffer = audioData;
+});
+</code></pre>
+
+<p></figure></p>
+
+<p>Once you have the audio data decoded, pass it to your audio buffer source and play the sound:</p>
+
+<p><figure></p>
+
+<pre><code>mySource = myAudioContext.createBufferSource();
+mySource.buffer = myBuffer;
+mySource.connect(myAudioContext.destination);
+mySource.noteOn(0);
+</code></pre>
+
+<p></figure></p>
+
+<p></section></p>
+
+<p><section id="demo">
+<h2>Full Demo and Source Code <a href="#demo" class="permalink">#</a></h2></p>
+
+<p>Check out the <a href="http://alxgbsn.co.uk/offlinewebaudio/">online demo</a> and <a href="https://github.com/alexgibson/offlinewebaudio">source code</a> for a complete example of the techniques discussed in this article.
+</section></p>
+
+<p><section id="support">
+<h2>Browser Support <a href="#support" class="permalink">#</a></h2></p>
+
+<p>Currently the demo works in Safari 6, Chrome Desktop, and iOS 6 Safari. The technique has potential to work in any browser that supports Web Audio API, so hopefully Chrome Mobile can soon add support as well.</p>
+
+<p>The W3C is currently pursuing the Web Audio API <a href="http://www.w3.org/2011/audio/wiki/W3C_Audio_Publications_and_Milestones">as a standard</a>.
+</section></p>
+<p><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/" rel="bookmark">Taking Web Audio Offline in iOS 6 Safari</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 27, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>Multimedia Troubleshooting</title>
+		<link>http://html5doctor.com/multimedia-troubleshooting/</link>
+		<comments>http://html5doctor.com/multimedia-troubleshooting/#comments</comments>
+		<pubDate>Tue, 31 Jul 2012 13:30:51 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4711</guid>
+		<description><![CDATA[<p>While I was researching <abbr>HTML5</abbr> multimedia-related topics for my book, <cite><abbr>HTML5</abbr> Multimedia: Develop and Design</cite>, I noticed a number people struggling to get <abbr>HTML5</abbr> audio and video working in different scenarios. From Twitter to Stack Overflow, the same questions kept cropping up, so I've put together a list of the most common problems (and some not so common) and their solutions (if there is one!).</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>While I was researching <abbr>HTML5</abbr> multimedia-related topics for my book, <cite><a href="http://html5multimedia.com"><abbr>HTML5</abbr> Multimedia: Develop and Design</a></cite>, I noticed a number people struggling to get <abbr>HTML5</abbr> audio and video working in different scenarios. From Twitter to Stack Overflow, the same questions kept cropping up, so I&#8217;ve put together a list of the most common problems (and some not so common) and their solutions (if there is one!).</p>
+<p>In most cases, the problems and solutions apply to both audio and video. I&#8217;ll note when something is specific to one or the other.</p>
+<p>Before I go any further, if you aren&#8217;t aware of how you can actually go about adding audio and video to your website via <abbr>HTML5</abbr>, you can read a number of other articles on this site to get you up to speed.  covered <a href="http://html5doctor.com/the-video-element/">the video element</a>, and <a href="http://html5doctor.com/author/markb/">Mark Boas</a> covered <a href="http://html5doctor.com/native-audio-in-the-browser/">native audio in the browser</a> and <a href="http://html5doctor.com/html5-audio-the-state-of-play/">HTML5 Audio &#8211; The State of Play</a>.</p>
+<p>In addition, I covered the same topics, <a title="Working with HTML5 multimedia components — Part 1: Video" href="http://www.adobe.com/devnet/html5/articles/html5-multimedia-pt1.html">video</a> and <a title="Working with HTML5 multimedia components — Part 2: Audio" href="http://www.adobe.com/devnet/html5/articles/html5-multimedia-pt2.html">audio</a>, as part of a series over on the .</p>
+<section class="numbered-heading" id="browser-support">
+<h2>Browser Support <a class="permalink" href="#browser-support">#</a></h2>
+<p>This is one of the first things you should check: Does the browser you&#8217;re using actually support the type of media file you&#8217;re trying to play? It&#8217;s simple enough to forget which browsers support which file types, so I&#8217;ll refresh your memory here.</p>
+<section id="audio-support">
+<h3>Audio <a class="permalink" href="#audio-support">#</a></h3>
+<ul>
+<li>Firefox supports Ogg Vorbis and <abbr title="Waveform Audio File Format">WAV</abbr></li>
+<li>Opera supports Ogg Vorbis and <abbr>WAV</abbr></li>
+<li>Safari supports MP3, <abbr title="Advanced Audio Coding">AAC</abbr>, and MP4</li>
+<li>Chrome supports Ogg Vorbis, MP3, <abbr>WAV</abbr>, <abbr>AAC</abbr>, and MP4</li>
+<li>Internet Explorer 9+ supports MP3, <abbr>AAC</abbr>, and MP4</li>
+<li>iOS supports MP3, <abbr>AAC</abbr>, and MP4</li>
+<li>Android supports <abbr>AAC</abbr> and MP3</li>
+</ul>
+<p>In order to support all of the browsers mentioned above, it&#8217;s advisable to serve your audio file in Ogg Vorbis, and MP3. For example:</p>
+<pre><code>&lt;audio controls&gt; 
+   &lt;source src="myAudio.ogg" type="audio/ogg"&gt;
+   &lt;source src="myAudio.mp3" type="audio/mp3"&gt;
+&lt;/audio&gt;</code></pre>
+</section>
+<section id="video-support">
+<h3>Video <a class="permalink" href="#video-support">#</a></h3>
+<ul>
+<li>Firefox supports Theora Ogg and WebM</li>
+<li>Opera supports Theora Ogg and WebM</li>
+<li>Safari supports MP4</li>
+<li>Chrome supports Theora Ogg, MP4, and WebM</li>
+<li>Internet Explorer 9+ supports MP4 and WebM (requires a plugin)</li>
+<li>iOS supports MP4</li>
+<li>Android supports MP4 and WebM (2.3+)</li>
+</ul>
+<p>In order to support all of the browsers mentioned above, you should serve your video file in both WebM and MP4 using the <code>source</code> element. For example:</p>
+<pre><code>&lt;video controls&gt;
+   &lt;source src="myVideo.mp4" type="video/mp4"&gt;
+   &lt;source src="myVideo.webm" type="video/webm"&gt;
+&lt;/video&gt;</code></pre>
+</section>
+</section>
+<section class="numbered-heading" id="mime-types">
+<h2><abbr title="Multipurpose Internet Mail Extensions">MIME</abbr> Types <a class="permalink" href="#mime-types">#</a></h2>
+<p>Even if you have the correct media file for the browser, it&#8217;s possible that your server doesn&#8217;t have the correct <abbr>MIME</abbr> type set up. <abbr>MIME</abbr> types tell the server how to handle the different file types. If you&#8217;re using something akin to Apache and you know your stuff, head to the <code>.htaccess</code> file and add the following for audio support:</p>
+<pre><code>AddType audio/ogg ogg AddType audio/ogg oga AddType audio/wav wav AddType audio/mpeg mp3 AddType audio/mp4 mp4 AddType audio/mp4 mpa</code></pre>
+<p>And similarily for video support:</p>
+<pre><code>AddType video/webm webm AddType video/mp4 mp4 AddType video/ogg ogg AddType video/ogg ogv</code></pre>
+<p>If you don&#8217;t have access to your server&#8217;s <code>.htaccess</code> file, your control panel should have an option somewhere that allows you to view and add <abbr>MIME</abbr> types.</p>
+<p>If you have a Windows server, then you may need to add the <abbr>MIME</abbr> types to <abbr title="Internet Information Services">IIS</abbr>, either <a title="Configuring MIME Types in IIS 7" href="http://technet.microsoft.com/en-us/library/17bda1f4-8a0d-440f-986a-5aaa9d40b74c.aspx">using the <abbr>IIS</abbr> Manager</a> or <a title="How to add mime types with IIS7 Web.config" href="http://blogs.iis.net/bills/archive/2008/03/25/how-to-add-mime-types-with-iis7-web-config.aspx">in the web.config file</a>.</p>
+</section>
+<section class="numbered-heading" id="file-conversion">
+<h2>File Conversion <a class="permalink" href="#file-conversion">#</a></h2>
+<p>It&#8217;s quite possible that a client has sent you a media file and you&#8217;ve determined its <abbr>MIME</abbr> type from its file extension. It&#8217;s possible, however, that the file wasn&#8217;t encoded correctly. It could, for example, be a perfectly valid MP4 file, but for some reason some browsers have trouble playing it. If this happens, you&#8217;re better off encoding the file yourself using a tool such as <a href="http://www.mirovideoconverter.com/">Miro Video Converter</a> or <a href="http://mediaconverter.org/">Media Converter</a> so you can be sure of the correct encoding.</p>
+<p>Additionally, some files, especially MP4 files, don&#8217;t always play in a browser that is supposed to support them. This is due to the fact that MP4 (also known as H.264) files can be encoded according to different <a title="H.264/MPEG-4 AVC: Profiles — Wikipedia" href="http://en.wikipedia.org/wiki/H.264#Profiles">&#8220;profiles&#8221;</a>. If the file in question is encoded in a profile that the browser doesn&#8217;t support, then naturally it won&#8217;t work. If this happens to you, try to ensure that the file is encoded according to the <a href="http://en.wikipedia.org/wiki/H.264#Profiles">Baseline profile</a> which is more likely to be supported than any of the more advanced ones. In my experience, using a tool like Miro ensures that the MP4 file will work just fine in supporting browsers.</p>
+<p>If you need to support Firefox 3.6 and lower, you&#8217;ll also need to convert your audio files to <a href="http://en.wikipedia.org/wiki/Ogg">Ogg</a> and add them as an extra <code>&lt;source&gt;</code> for the <code>&lt;audio&gt;</code> element.</p>
+</section>
+<section class="numbered-heading" id="buffering-mp4s">
+<h2>MP4 Files That Don&#8217;t Start Playing Until Fully Downloaded <a class="permalink" href="#buffering-mp4s">#</a></h2>
+<p>Usually <abbr>HTML5</abbr> audio and video players will allow the user to start playing a media file before it has fully downloaded (as long as it actually has something to play!). Sometimes this isn&#8217;t the case with an MP4 file, where the browser waits to download the entire file before making it available to play. This is due to an encoding issue.</p>
+<p>Sometimes MP4 files are encoded with the file index (which contains information on the file such as it&#8217;s duration) placed at the <em>end</em> of the media file rather than at the beginning. This index contains the metadata that the browser requires in order for it to offer progressive download. If this index is at the end, it knows nothing at all about the file and therefore has to wait until it receives the index.</p>
+<p>If this happens to you, there&#8217;s a simple fix called the <a href="http://renaun.com/blog/code/qtindexswapper/">QTIndexSwapper</a> by Renaun Erickson that you download to your computer and run on the file that simply moves the index to the start of the file and saves it.</p>
+</section>
+<section class="numbered-heading" id="attributes">
+<h2>Getting Your Attributes Right <a class="permalink" href="#attributes">#</a></h2>
+<p>This might seem a little obvious, but it&#8217;s amazing how many questions I see on Stack Overflow where people are wondering why a certain function isn&#8217;t working when they&#8217;re using attributes that no longer exist. A prime example of this is the <code>autobuffer</code> attribute on both the <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements, which was replaced by the <code>preload</code> attribute as far back as <time datetime="2010-02">February 2010</time>.</p>
+<p>People seem to forget that <abbr>HTML5</abbr> is not yet finalised (although large parts of it are quite stable) and that anything you read might be out of date. It&#8217;s worth checking the <a href="http://dev.w3.org/html5/spec/spec.html"><abbr title="World Wide Web Consortium">W3C</abbr> <abbr>HTML5</abbr> specification</a> and also <a href="http://caniuse.com/#cats=HTML5">When Can I Use?</a> to view browser support.</p>
+</section>
+<section class="numbered-heading" id="volume-control-in-firefox-11">
+<h2>Volume Control in Firefox 11+ <a class="permalink" href="#volume-control-in-firefox-11">#</a></h2>
+<p>This is an problem that has cropped up recently. Some of you may have noticed that the volume controls have disappeared from the audio player in Firefox 11+. True, you can mute it, and the volume controls are still controllable via the keyboard&#8217;s up and down keys, but the volume slider itself was <a title="HTML5 media controls and Firefox | Ian Devlin" href="http://www.iandevlin.com/blog/2012/04/html5/html5-media-controls-and-firefox">removed due to two bugs</a>. I assume this will return in the future, but for now, in case you were wondering what happened to them, it&#8217;s not your fault. (You can, of course, use the Media <abbr>API</abbr> to build your own set of <a title="Working with HTML5 multimedia components — Part 3: Custom controls" href="http://www.adobe.com/devnet/html5/articles/html5-multimedia-pt3.html">custom controls</a>.)</p>
+</section>
+<section class="numbered-heading" id="plugins">
+<h2>Plugins Required <a class="permalink" href="#plugins">#</a></h2>
+<p>One of the biggest selling points of <abbr>HTML5</abbr> audio and video is that no third-party plugins — such as Flash — are required in order to play multimedia files, as long as the browser in question supports it.</p>
+<p>Unfortunately, this is not strictly true, as both Internet Explorer (9+) and Safari do require Microsoft Media Player and Apple QuickTime, respectively, to be installed in order for them to be able to play <abbr>HTML5</abbr> audio and video files.</p>
+</section>
+<section class="numbered-heading" id="fullscreen">
+<h2>Video and Fullscreen <a class="permalink" href="#fullscreen">#</a></h2>
+<p>An oft-requested requirement for <abbr>HTML5</abbr> video is the ability to play in fullscreen mode. The <abbr>HTML5</abbr> specification has nothing to say on this, but a separate specification for a <a href="http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html">Fullscreen <abbr>API</abbr></a> is currently under work, with experimental versions available in some of the major browsers.</p>
+<p>The following browsers go some way to supporting the Fullscreen <abbr>API</abbr>, albeit using their own vendor specific versions:</p>
+<ul>
+<li>Chrome 19+</li>
+<li>Firefox 12+</li>
+<li>Safari 5.1+</li>
+</ul>
+<p>There is also the <a href="https://github.com/sindresorhus/screenfull.js">screenfull.js JavaScript polyfill</a> that enables this functionality for a limited number of browsers.</p>
+</section>
+<section class="numbered-heading" id="poster-in-ie9">
+<h2>Internet Explorer 9+ Ignores Your Poster Image <a class="permalink" href="#poster-in-ie9">#</a></h2>
+<p>If you have a <abbr>HTML5</abbr> video defined with a poster image (using the <code>poster</code> attribute), you might be surprised when <em>Internet Explorer 9 completely ignores it unless you have set the <code>preload</code> attribute to be <code>none</code></em>.</p>
+<p>Since Internet Explorer was one of the last browsers to support <abbr>HTML5</abbr>, we all grew accustomed to the other browsers&#8217; treatment of the <code>poster</code> attribute: if it&#8217;s specified, display that image until the user starts to play the video. Internet Explorer 9 doesn&#8217;t do this. It only displays the image contained within the <code>poster</code> attribute if it has nothing else to show, so if the first frame of the video has been loaded (with <code>preload</code> set to <code>auto</code> — the default value — or <code>metadata</code>), then it uses this regardless of what&#8217;s in the <code>poster</code> attribute.</p>
+<p>This appears to be a case of Internet Explorer interpreting the specification in its own way and doing something different to all other browsers. Internet Explorer 10 also currently exhibits the same (mis)behaviour.</p>
+</section>
+<section class="numbered-heading" id="devices">
+<h2>Accessing Webcams and Microphones <a class="permalink" href="#devices">#</a></h2>
+<p>The ability to access peripheral devices such as microphones and webcams was always in the minds of the <abbr>HTML5</abbr> specification writers when they added the <code>&lt;device&gt;</code> element. This has since been removed and replaced with the more thorough <a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">getUserMedia <abbr>API</abbr></a>, which allows access to such media devices.</p>
+<p>The <abbr>API</abbr> itself is <a title="It’s Curtains for Marital Strife Thanks to getUserMedia" href="http://html5doctor.com/getusermedia/">easy to use</a>, but browser support is currently quite limited. Opera is currently the only browser with an implementation, supporting only video, but you can already see what <a title="Filtering a webcam using getUserMedia and HTML5 canvas" href="http://www.iandevlin.com/blog/2012/06/html5/filtering-a-webcam-using-getusermedia-and-html5-canvas">it can do</a>. Internet Explorer 10 will follow suit, and it will soon appear in Firefox Nightly.</p>
+</section>
+<section id="summary">
+<h2>Summary <a class="permalink" href="#summary">#</a></h2>
+<p>This ends my round up of gotchas that you may encounter when working with <abbr>HTML5</abbr> audio and video. Of course, it doesn&#8217;t cover everything, and I&#8217;m sure there are issues that you may have come across that haven&#8217;t been mentioned here. If you have, please do add them below in the comments, with their solution if possible, or if not, I or one of the other <a href="http://html5doctor.com/about/"><abbr>HTML5</abbr> Doctors</a> will try to help.</p>
+</section>
+<p><a href="http://html5doctor.com/multimedia-troubleshooting/" rel="bookmark">Multimedia Troubleshooting</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 31, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/multimedia-troubleshooting/feed/</wfw:commentRss>
+		<slash:comments>23</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Audio — The State of Play</title>
+		<link>http://html5doctor.com/html5-audio-the-state-of-play/</link>
+		<comments>http://html5doctor.com/html5-audio-the-state-of-play/#comments</comments>
+		<pubDate>Tue, 08 May 2012 14:00:24 +0000</pubDate>
+		<dc:creator><![CDATA[Mark Boas]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[jplayer]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4628</guid>
+		<description><![CDATA[<p>Guest doctor Mark Boas returns with a follow up to his 2009 article <cite>Native Audio in the Browser</cite>, which covers the basics of HTML5 audio. Read the original if you want to get a feel for the <code>&#60;audio&#62;</code> element and associated API. If not, get comfortable and dive deep to learn about the current state of play for HTML5 audio.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>This is a follow up to my 2009 article <a href="http://html5doctor.com/native-audio-in-the-browser/"><cite>Native Audio in the Browser</cite></a>, which covers the basics of HTML5 audio. It may well be worth reading if you want to get a feel for the <code>&lt;audio&gt;</code> element and associated API.</p>
+<p>Now, two and a half years later, it&#8217;s time to see how things are progressing. With many new advanced audio APIs being actively worked on and plenty of improvements to the existing native audio we all know and love, it&#8217;s certainly an exciting time to revisit the heady world of <code>&lt;audio&gt;</code>.</p>
+<p>A good way of understanding how the land lies is by going through a few use cases. That&#8217;s what I&#8217;ll attempt to do in this post.</p>
+<p>So how do we get started? Well, there are a few things we need to do to prepare the ground. Let&#8217;s tackle MIME types first.</p>
+<section id="mime-types">
+<h2>MIME Types <a href="#mime-types" class="permalink">#</a></h2>
+<p>MIME types (also known as <a href="http://en.wikipedia.org/wiki/Internet_media_type">Internet Media Types</a>) are a way of defining file formats so that your system knows how to handle them.</p>
+<section id="mime-types-server-side">
+<h3>Server Side <a href="#mime-types-server-side" class="permalink">#</a></h3>
+<p>First things first: your media server should be configured to serve correct MIME types. In the case of the Apache web server, this means adding the following lines to your <code>.htaccess</code> file:</p>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Do not apply gzip compression to your media files on the server. Most formats are already compressed, and there&#8217;s limited support for those that aren&#8217;t. Further, in the case of a fallback solution, Flash does not support gzipped media.</p>
+</aside>
+<pre><code># AddType TYPE/SUBTYPE EXTENSION
+AddType audio/mpeg mp3
+AddType audio/mp4 m4a
+AddType audio/ogg ogg
+AddType audio/ogg oga
+AddType audio/webm webma
+AddType audio/wav wav</code></pre>
+</section>
+<section id="mime-types-client-side">
+<h3>Client Side <a href="#mime-types-client-side" class="permalink">#</a></h3>
+<p>When defining sources in your code or markup, you can also specify the MIME type, which will help the browser identify the media correctly.</p>
+<p>To set up HTML5 audio in the most robust manner, you could write something like this:</p>
+<pre><code>&lt;audio&gt;
+   &lt;source src="elvis.mp3" type='audio/mpeg; codecs="mp3"'&gt;
+   &lt;source src="elvis.oga" type='audio/ogg; codecs="vorbis"'&gt;
+   &lt;!-- add your fallback solution here --&gt;
+&lt;/audio&gt;</code></pre>
+<p>Here we define the element and the sources to use. The browser will only pick one. It won&#8217;t play both. In this code, we also place a fallback solution after the &lt;<code>source</code>&gt; elements.</p>
+<aside class="sidenote">
+<p>Note that you can omit the codecs portion of the <code>type</code> attribute, but for robustness and efficiency, I recommend you supply the browser with as much media information as possible.</p>
+</aside>
+<p>Along with the source, we specify a <code>type</code> attribute. Although not strictly necessary, this attribute allows the browser to know the MIME type and the codecs of the supplied media before it downloads it. If not, supplied the browser will guess and take a trial-and-error approach to detecting the media type.</p>
+<p>Cool. So now we know how to define our audio sources, and the browser will happily pick the first source that it supports. But what if we want to supply the correct source in a more dynamic manner?</p>
+</section>
+</section>
+<section id="canPlayType">
+<h2>Knowing in Advance: <code>canPlayType</code> Can Help, Probably <a href="#canPlayType" class="permalink">#</a></h2>
+<p>Fortunately the audio API provides us with a way to find out whether a certain format is supported by the browser. But first, here&#8217;s a quick recap on how we manipulate the audio element via the API.</p>
+<div class="callout highlight-block">
+<p>If you mark up your element in HTML as we did in our previous example, you can grab the <code>&lt;audio&gt;</code> element by doing the following:</p>
+<pre><code>var audio = document.getElementsByTagName('audio')[index];
+
+// or, if you gave it an id attribute
+var audio = document.getElementById('my-audio-id');</code></pre>
+<p>Alternatively, you can also create your element entirely in JavaScript:</p>
+<pre><code>var audio = new Audio();</code></pre>
+</p></div>
+<p>Once you have your audio element, you&#8217;re ready to access its methods and properties. To test format support, you can use the <code>canPlayType</code> method, which takes a MIME type as a parameter:</p>
+<pre><code>audio.canPlayType('audio/ogg');</code></pre>
+<p>You can even explicitly include the codec:</p>
+<pre><code>audio.canPlayType('audio/ogg; codecs="vorbis"');</code></pre>
+<p><code>canPlayType</code> returns one of three values:</p>
+<ol>
+<li><code>probably</code>,</li>
+<li><code>maybe</code>, or</li>
+<li>&#8220;&#8221; (the empty string).</li>
+</ol>
+<aside class="sidenote">
+<p>Previously, <code>canPlayType</code> returned &#8220;no&#8221; instead of the empty string. Worth knowing for use with early audio enabled browsers such as Firefox 3.5, Chrome 4, and Safari 4, although these make up a very small percentage of active browsers.</p>
+</aside>
+<p>The reason we have these odd return types is because of the general weirdness surrounding codecs. The browser can only guess at whether a certain codec is playable without actually trying to play it.</p>
+<p>So to test for support, you could do this:</p>
+<pre><code>var audio = new Audio();
+  var canPlayOgg = !!audio.canPlayType &amp;&amp; audio.canPlayType('audio/ogg; codecs="vorbis"') != "";</code></pre>
+<p>All we&#8217;re doing here is checking that <code>canPlayType</code> is supported (<code>!!</code> effectively casts to a boolean) and then checking that <code>canPlayType</code> of our chosen format doesn&#8217;t return an empty string.</p>
+</section>
+<section id="support">
+<h2>Current Browser Codec Support <a href="#support" class="permalink">#</a></h2>
+<p>Let&#8217;s check the codec support in the current crop of modern browsers.</p>
+<table>
+<caption>Desktop browser audio codec support</caption>
+<thead>
+<tr>
+<th>Desktop Browser</th>
+<th>Version</th>
+<th>Codec Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internet Explorer</td>
+<td>9.0+</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td>6.0+</td>
+<td>Ogg Vorbis, MP3, WAV†</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>3.6+</td>
+<td>Ogg Vorbis, WAV</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>5.0+</td>
+<td>MP3, AAC, WAV</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td>10.0+</td>
+<td>Ogg Vorbis, WAV</td>
+</tr>
+</tbody>
+</table>
+<p>  <small>† WAV since Chrome 9</small></p>
+<table>
+<caption>Mobile browser audio codec support</caption>
+<thead>
+<tr>
+<th>Mobile Browser</th>
+<th>Version</th>
+<th>Codec Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opera for Android</td>
+<td>14.0+</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Mobile Safari (iPhone, iPad, iPod Touch)</td>
+<td>iOS 3.0+</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Android Stock browser</td>
+<td>2.3+</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Chrome for Android</td>
+<td>all</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Firefox for Android</td>
+<td>all</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Firefox OS</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Windows Phone</td>
+<td>?</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Blackberry</td>
+<td>6.0+</td>
+<td>MP3, AAC</td>
+</tr>
+</tbody>
+</table>
+<p>  <small>†† mobile browsers generally use codecs on the host operating system. Various versions of Android include different codecs. Generally, mp3 and Ogg Vorbis can be assumed. See <a href="https://developer.android.com/guide/appendix/media-formats.html#core">Supported Media Formats</a> in official Android documentation for more.</small></p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> Android 2.2 supports the <code>&lt;video&gt;</code> element but not its <code>&lt;audio&gt;</code> counterpart. In order to play audio, you need to use the video element.</p>
+</aside>
+<p>The good news is that at the time of writing, it&#8217;s estimated that around 80% of browsers now support HTML5 audio.</p>
+<p>The bad news is that there is still no consensus on which codec to support, so you&#8217;ll need to provide both MP3 <em>and</em> Ogg Vorbis sources in order to take full advantage of HTML5 audio.</p>
+<section id="containers">
+<h2>Containers, Formats, and File Extensions (oh, and MIME types again) <a href="#containers" class="permalink">#</a></h2>
+<p>Above, I&#8217;ve referred to the audio formats as they&#8217;re commonly known, but technically we should refer to their container format. (A container can contain more than one format — e.g., MP4 can contain AAC or AAC+.)</p>
+<aside class="sidenote">
+<p><strong>Tip:</strong> To check the codec support of your browser, you can visit <a href="http://jplayer.org/HTML5.Audio.Support/">the jPlayer audio support tester</a> or, more comprehensively (for audio and video), <a href="http://www.baccano.com/video/support.htm">baccano.com</a>.</p>
+</aside>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Format(s)</th>
+<th>File Extensions</th>
+<th>MIME Type</th>
+<th>Codec String</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP3</td>
+<td>MP3</td>
+<td>.mp3</td>
+<td>audio/mpeg</td>
+<td>mp3</td>
+</tr>
+<tr>
+<td>MP4</td>
+<td>AAC, AAC+</td>
+<td>.mp4, .m4a, .aac</td>
+<td>audio/mp4</td>
+<td>mp4a.40.5</td>
+</tr>
+<tr>
+<td>OGA/OGG</td>
+<td>Ogg Vorbis</td>
+<td>.oga, .ogg</td>
+<td>audio/ogg</td>
+<td>vorbis</td>
+</tr>
+<tr>
+<td>WAV</td>
+<td>PCM</td>
+<td>.wav</td>
+<td>audio/wav</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="properties">
+<h2>We have <code>&lt;audio&gt;</code> and we&#8217;re not afraid to use it! <a href="#properties" class="permalink">#</a></h2>
+<p>Okay, we&#8217;ve done the minimum amount of work to get our audio element set up and playable. What else can we do? At the moment, we&#8217;re relying on the browsers&#8217; default audio players, each of which looks and works a little bit differently than the rest. Perhaps we&#8217;d like to customise the experience and create our own. To help us do that, the <code>&lt;audio&gt;</code> element supports several different properties exposing its current state.</p>
+<p>Some of the more commonly used properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currentTime</td>
+<td>playhead position</td>
+<td>double (seconds)</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>media duration</td>
+<td>double (seconds); read-only</td>
+</tr>
+<tr>
+<td>muted</td>
+<td>is volume muted?</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>paused</td>
+<td>is media paused?</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>volume level</td>
+<td>double (between 0 and 1)</td>
+</tr>
+</tbody>
+</table>
+<aside class="sidenote">
+<p>You may need to check the <code>durationchange</code> event as some durations could change while media downloads. Also, depending on whether metadata is available, you might need to wait until the audio starts playing to check its duration. In short, keep an eye on the <code>durationchange</code> event, and watch out for <code>NaN</code> values when the duration isn&#8217;t yet known!</p>
+</aside>
+<p>Using these properties is pretty straightforward. For example:</p>
+<pre><code>var audio = new Audio();
+var duration = audio.duration;</code></pre>
+<p>The variable <code>duration</code> now holds the duration (in seconds) of the audio clip.</p>
+</section>
+</section>
+<section id="buffering-seeking-and-time-ranges">
+<h2>Buffering, Seeking, and Time Ranges <a href="#buffering-seeking-and-time-ranges" class="permalink">#</a></h2>
+<p>The situation is improving in this area, as browser makers start to implement key parts of the spec.</p>
+<p>The API provides attributes called <code>buffered</code> and <code>seekable</code> that can be used in situations where we want to ascertain which part of the media has been buffered, preloaded, or is ready to be played without delay.</p>
+<p>Let&#8217;s first take a look at the <code>buffered</code> and <code>seekable</code> attributes. Both return a <a href="http://www.w3.org/TR/html5/video.html#timeranges">TimeRanges</a> object. The <code>TimeRanges</code> object is a list of time periods containing start and end times that can be referenced by their indexes.</p>
+<section id="buffered-attribute">
+<h3>The <code>buffered</code> Attribute <a href="#buffered-attribute" class="permalink">#</a></h3>
+<p>The <code>buffered</code> attribute will return the time ranges that have been completely downloaded. A little bit of a code:</p>
+<pre><code>// returns TimeRanges object of buffered media
+var buffered = audio.buffered;
+
+// returns time in seconds of the last buffered TimeRange
+var bufferedEnd = audio.buffered.end();</code></pre>
+</section>
+<section id="time-ranges">
+<h3>The <code>TimeRanges</code> Object <a href="#time-ranges" class="permalink">#</a></h3>
+<p>The <code>TimeRanges</code> object contains data on the parts on buffered media in the form of one or more — you guessed it — time ranges. A <code>TimeRanges</code> object consists of these properties:</p>
+<ol>
+<li><code>length</code> — number of time ranges</li>
+<li><code>start(index)</code> — start time in seconds of a particular time range</li>
+<li><code>end(index)</code> — end time in seconds of a particular time range</li>
+</ol>
+<aside class="sidenote" style="clear: left; margin-top: 0.5em">
+<p><strong>Fun fact:</strong> The default unit of time used by the JavaScript Audio API is seconds, while many traditional JavaScript functions, such as <code>setInterval</code>, use milliseconds.</p>
+</aside>
+<p>You may be wondering in what situation the <code>TimeRanges</code> object would contain more than one time range. Imagine the user clicks forward to a portion of unbuffered media. The idea is that the media would then start buffering from that point, and you&#8217;d have two time ranges:</p>
+<pre>------------------------------------------------------
+|=============|                    |===========|     |
+------------------------------------------------------
+0             5                    15          19    21</pre>
+<p>So in this case:</p>
+<ul>
+<li><code>audio.buffered.length</code> returns 2</li>
+<li><code>audio.buffered.start(0)</code> returns 0</li>
+<li><code>audio.buffered.end(0)</code> returns 5</li>
+<li><code>audio.buffered.start(1)</code> returns 15</li>
+<li><code>audio.buffered.end(1)</code> returns 19</li>
+<li><code>audio.buffered.end()</code> returns 19</li>
+</ul>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Most audio-capable browsers enable seeking to new file positions during a download. To allow this, you must enable range requests on your server. Although enabled by default on web servers such as Apache, you can verify by checking that your server responds with the <code>Accept-Ranges</code> header.</p>
+</aside>
+<p>Note that if the user is actively seeking through the media throughout the buffering process, a contiguous buffered progress bar actually makes little sense. Also consider that some browsers will read part of the end of the file to establish duration and so create two time ranges almost immediately. Now you&#8217;re starting to appreciate why making an accurate buffered progress bar is a little tricky!</p>
+<p>You can check out <code>TimeRanges</code> in real-time using this handy <a href="http://jplayer.org/HTML5.Media.Event.Inspector/">HTML5 Media Event Inspector</a>.</p>
+</section>
+<section id="seeking-and-seekable">
+<h3>Seeking and Seekable <a href="#seeking-and-seekable" class="permalink">#</a></h3>
+<p>Seeking is the act of looking forward (or backward) in a media file. This usually happens when a section of media is requested before it&#8217;s finished loading.</p>
+<p>The <code>seeking</code> attribute can be used to determine whether that part of the media is being actively &#8220;seeked&#8221;. When it returns true, the portion of the media the user requested is still being loaded.</p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> All modern browsers, apart from Safari on Windows, enable the <code>seekable</code> attribute, which means the <code>seeking</code> event never seems to fire as the user can jump directly to the requested part. The <code>seeked</code> event does fire though, which annoys some people who think that <code>seeking</code> should always fire before <code>seeked</code>.</p>
+</aside>
+<p>To recap a little, the <code>buffered</code> property tells us what&#8217;s been downloaded and is often used as an indication of what part of the media can be directly played. If the browser supports it, however, it may make more sense to use the <code>seekable</code> attribute to determine which parts of the media can be jumped to and played immediately.</p>
+<p><code>seekable</code> returns a <code>TimeRanges</code> object of time ranges that can be played immediately. This uses a technology known as byte-range requests, which allows part of the content to be requested over HTTP. In short, we don&#8217;t have to load all the data prior to the desired part in order to play it.</p>
+<p>An example:</p>
+<pre><code>// Is the player currently seeking?
+var isSeeking = audio.seeking;
+
+// Is the media seekable?
+var isSeekable = audio.seekable &amp;&amp; audio.seekable.length &gt; 0;
+
+// Time in seconds within which the media is seekable.
+var seekableEnd = audio.seekable.end();</code></pre>
+<div class="callout highlight-block">
+<p>Time ranges can be confusing. <code>audio.seekable.end()</code> actually tells us the end point of the last time range (not the end point of all seekable media). In practice, though, this is good enough, as the browser either enables range requests or doesn&#8217;t. If it doesn&#8217;t, then <code>audio.seekable</code> will be equivalent to <code>audio.buffered</code>, which will give a valid indication of the end of seekable media.</p>
+</p></div>
+<p>Note that media being in a &#8220;seekable&#8221; state is different than media being in a &#8220;buffered&#8221; state. Media doesn&#8217;t have to be buffered to be seekable.</p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> In practice only one seekable TimeRange object is created. Where browsers support range requests the TimeRange object spans zero to the media duration, where they don&#8217;t, the TimeRange object starts at zero and its end grows as the media downloads.</p>
+</aside>
+<p>Buffered and seekable data can be useful information, but it would be too easy if there weren&#8217;t a few gotchas.</p>
+<ol>
+<li>Preloading is not supported in all older audio-capable browsers (Opera 10/Firefox 3.6).</li>
+<li>The <code>buffered</code> attribute is not always supported (Blackberry PlayBook).</li>
+<li>Not all HTML5 browsers allow byte-range seeking — for example, Safari on Windows. In this case, you can still seek within the downloaded content. It downloads from the start until the end, as does Flash.</li>
+</ol>
+<p>If you want to deliver the best possible solution to your users, you&#8217;ll need to feature test.</p>
+</section>
+<section id="preloading">
+<h3>A Note about Preloading <a href="#preloading" class="permalink">#</a></h3>
+<p>I mentioned the <code>preload</code> attribute in the previous article. This attribute accepts three possible values:</p>
+<ol>
+<li><code>none</code> — Do not preload any media. Wait for a play event before downloading anything.</li>
+<li><code>metadata</code> — Preload just the metadata. Grab the start and the end of the file via range-request and determine the duration.</li>
+<li><code>auto</code> — Preload the whole file. Grab the start and the end of the file to determine duration, then seek back to the start again for the preload proper.</li>
+</ol>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> Mobile Safari ignores the <code>preload</code> attribute, effectively always using <code>preload="none"</code>.</p>
+</aside>
+<p>When it comes to preloading, remember that it&#8217;s a request or hint to tell the browser how you&#8217;d like to preload the media. The browser is not under any obligation to fulfill that request. For this reason, certain browsers may handle these requests differently.</p>
+</section>
+</section>
+<section id="played">
+<h2>Well-Played <a href="#played" class="permalink">#</a></h2>
+<aside class="sidenote">
+<p><strong>Tip:</strong> If you loop through <code>audio.played</code>, sum the time ranges between starts and ends, and then compare it with the duration, you can determine the percentage of the audio that the user has listened to. This may be a useful metric.</p>
+</aside>
+<p>It&#8217;s worth mentioning the <code>played</code> property in passing. This property tells us which time ranges have been played within the media. For example:</p>
+<pre><code>// returns a TimeRanges object
+var played = audio.played;</code></pre>
+</section>
+<section id="events">
+<h2>Media Events <a href="#events" class="permalink">#</a></h2>
+<p>Underpinning both the native audio and video APIs is a comprehensive set of events. A full list can be found at the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-video-element.html#mediaevents">WhatWG version of the spec</a>.</p>
+<p>Attaching handlers to media events allows you to easily react to changes in state. For example, it might be useful to update the time info in a custom-built player each time the <code>timeupdate</code> event occurs.</p>
+<p>A quick summary of the more commonly used media events:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>durationchange</td>
+<td>The <code>duration</code> attribute has been updated.</td>
+</tr>
+<tr>
+<td>ended</td>
+<td>Playback has stopped as the end of the media was reached.</td>
+</tr>
+<tr>
+<td>pause</td>
+<td>The media playback has been paused. Note there is no <code>stop</code> event.</td>
+</tr>
+<tr>
+<td>play</td>
+<td>The media has started playing.</td>
+</tr>
+<tr>
+<td>timeupdate</td>
+<td>The current playback position changed (usually every 250ms).</td>
+</tr>
+<tr>
+<td>volumechange</td>
+<td>The volume changed.</td>
+</tr>
+</tbody>
+</table>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Android (at least 2.3) does not always fire the <code>ended</code> event. Well, it sometimes throws one out for good measure, but generally you need to create your own by capturing the <code>pause</code> event that is fired upon reaching the end of the media and comparing <code>audio.currentTime</code> with <code>audio.duration</code>. Alternatively, you can listen for the <code>pause</code> event and check that <code>audio.currentTime</code> is zero. To be absolutely certain, use a combination of both techniques.</p>
+</aside>
+<p>Other useful events:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canplay</td>
+<td>The media can be played but may need to pause while the file is downloaded.</td>
+</tr>
+<tr>
+<td>canplaythrough</td>
+<td>At current download rates, it is estimated that the media can be played from start to finish without pause.</td>
+</tr>
+<tr>
+<td>progress</td>
+<td>The browser is fetching the media data (usually every 250ms).</td>
+</tr>
+</tbody>
+</table>
+<p>Again, the <a href="http://jplayer.org/HTML5.Media.Event.Inspector/">HTML5 Media Event Inspector</a> is your friend.</p>
+<p>Additionally, you can test browser support by using <a href="http://areweplayingyet.org/">areweplayingyet.org</a>. It&#8217;s worth checking out the code behind the tests to understand the goings-on under the hood.</p>
+</section>
+<section id="streaming">
+<h2>Streaming <a href="#streaming" class="permalink">#</a></h2>
+<p>Streaming audio is a common requirement. This is an area that until recently has been dominated by Adobe&#8217;s Flash technology. Proprietary server technologies and protocols are well-established. One of the leading examples of this is Adobe&#8217;s <a href="http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol">Real Time Messaging Protocol</a> (RTMP). However, current browsers only support streaming over HTTP, and so something like Flash is required to process RTMP streams.</p>
+<p>Currently, audio-enabled browsers only support <a href="http://en.wikipedia.org/wiki/SHOUTcast">SHOUTcast</a> and <a href="http://en.wikipedia.org/wiki/Icecast">Icecast</a> servers that stream audio over HTTP. SHOUTcast is propriety and allows streaming of MP3 and AAC files only, while Icecast is non-propriety and supports Ogg Vorbis as well as MP3 and AAC.</p>
+<table>
+<thead>
+<tr>
+<th>Stream</th>
+<th>AAC</th>
+<th>MP3</th>
+<th>Ogg Vorbis</th>
+<th>Native Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Icecast</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SHOUTCast</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>RTMP</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No (requires Flash)</td>
+</tr>
+</thead>
+</table>
+</section>
+<section id="spec">
+<h2>An Evolving Spec (Or, &#8220;Whoa, this thing is moving!&#8221;) <a href="#spec" class="permalink">#</a></h2>
+<p>As the audio spec is still evolving, there are a couple of inconsistencies in browser implementations to watch out for. These generally affect older browsers.</p>
+<section id="load">
+<h3>The <code>load</code> Method <a href="#load" class="permalink">#</a></h3>
+<p>Until fairly recently, the <code>load</code> method was required in order to tell the browser about a change in the media source and to get it to update appropriately. Now, <code>media.load()</code> causes the element to reset and to start selecting and loading a new media resource from scratch.</p>
+<p>So for older browsers, such as Firefox 3.6, in order to change the media source, you&#8217;ll not only need to change the source value but also issue a load command:</p>
+<pre><code>var audio = new Audio();
+audio.setAttribute("src","mynew.mp3");
+audio.load(); // required for 'older' browsers</code></pre>
+</section>
+<section id="hacks">
+<h3>When Browsers Go Off-Spec <a href="#hacks" class="permalink">#</a></h3>
+<p>When creating cross-browser solutions, it&#8217;s useful to know which browsers follow <a href="http://dev.w3.org/html5/spec/video.html#audio">the W3C spec</a> to what extent and how they deviate.</p>
+<section id="autoplay-and-volume">
+<h4>Autoplay and Volume <a href="#autoplay-and-volume" class="permalink">#</a></h4>
+<p>iOS and Blackberry devices ignore the <code>autoplay</code> attribute and media element volume changes, whereas Android supports <code>autoplay</code> but not volume changes.</p>
+<p>Effectively, on Blackberry and iOS devices, <code>autoplay</code> functionality is disabled as both require a user-initiated event to &#8220;kick it off&#8221;. This has the unfortunate side-effect that any audio suffers a delay between user interaction and playback.</p>
+<p>To mitigate against these issues, you may want to take a look at <a href="http://remysharp.com/2010/12/23/audio-sprites/">Doctor Remy Sharp&#8217;s excellent article on Audio Sprites and fixes for iOS</a>.</p>
+</section>
+<section id="multiaudio">
+<h4>Simultaneous Playback of Multiple Audio Elements <a href="#multiaudio" class="permalink">#</a></h4>
+<p>A particular annoyance for developers of anything but the most simple audio web apps: not all browsers will play multiple audio elements simultaneously. This is a particular problem for games developers. Again, we see this issue with iOS and Blackberry devices.</p>
+</section>
+<section id="oses">
+<h4>Operating System Dependence <a href="#oses" class="permalink">#</a></h4>
+<aside class="sidenote">
+<p>Although of limited use to developers, you could install other codecs such as Ogg Vorbis on the underlying operating system, and browsers that use OS codecs should be able to play them back.</p>
+</aside>
+<p><a href="http://happyworm.com/blog/2010/08/17/safari-requires-quicktime-for-html5-based-media/">Safari (5+) relies on Quicktime being installed.</a> This is rarely a problem unless you are running it on Windows.</p>
+<p>Internet Explorer (9+) relies on the codecs being present at the operating system level. As it only runs on Windows, this is fortunately almost always the case.</p>
+</section>
+</section>
+</section>
+<section id="whats-new">
+<h2>What&#8217;s New? <a href="#whats-new" class="permalink">#</a></h2>
+<p>There are a few new features and whole new APIs being specified for web-based audio, so let&#8217;s take a look at what&#8217;s around the corner.</p>
+<section id="playback-rate">
+<h3>A Change of Pace <a href="#playback-rate" class="permalink">#</a></h3>
+<p>A couple of noteworthy upcoming features are <code>playbackRate</code> and <code>defaultPlaybackRate</code>. As you can probably imagine, these fellas let us alter the speed and direction of playback. This functionality could be used for fast-forward and rewind functions or perhaps to allow users to tweak the playback speed so they can fit more podcasts into their day.</p>
+<ul>
+<li><code>audio.playbackRate</code> returns 1 at normal speed and acts as a multiple that is applied to the rate of playback. For example, setting <code>playbackRate</code> to 2 would double the speed, while setting it to -1 would play the media backwards.</li>
+<li><code>audio.defaultPlaybackRate</code> is the rate at which the audio will play after you pause and restart the media (or issue any event for that matter).</code></li>
+</ul>
+</section>
+<section id="media-fragments">
+<h3>Media Fragments <a href="#media-fragments" class="permalink">#</a></h3>
+<p>Currently, if we wish to reference some part of a media file, we often first have to download at least some of the media we don&#8217;t actually need. <a href="http://www.w3.org/TR/media-frags/">The W3C Media Fragments proposal</a> was created to address this issue <a href="http://www.w3.org/TR/2009/WD-media-frags-reqs-20091217/">and others</a>, such as the retrieval of an area of video or just the associated text track. In the case of audio, it will allow us to specify which parts we want to download using parameters on the source URI.</p>
+</section>
+</section>
+<section id="advanced-apis">
+<h2>Advanced Audio APIs: The Future Sound of Browsers </h2>
+<p>When it comes to more advanced audio functionality, Mozilla was first to enter the fray with <a href="https://wiki.mozilla.org/Audio_Data_API">an early experimental Audio Data API for Firefox</a>. This was intended to facilitate audio manipulation via JavaScript and created a platform for low-level tinkering.</p>
+<p>Not to be outdone, Google released <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">the Web Audio API for Chrome</a> and put it forward as a W3C proposal. The Web Audio API is a higher-level implementation that takes an audio-node based approach and provides many useful functions.</p>
+<p>Both implementations address the desire by developers to do more with audio — to create, manipulate, analyse, and mix audio on the fly. In effect, we may one day be able to do in a browser anything we can currently do with native applications.</p>
+<p>So what if we want to play with advanced audio in the browser? Well, two separate implementations currently exist. If you want to write applications that use both APIs in any reasonable way, you need third-party bridging libraries to abstract away the differences.</p>
+<p>Also fairly new on the scene is <a href="http://www.w3.org/TR/2011/WD-streamproc-20111215/">Mozilla&#8217;s MediaStream Processing API</a>, which takes another approach to audio and video streams to allow us to manipulate at both high and low levels.</p>
+<p>In fact, using advanced APIs and taking advantage of the speed of modern JavaScript engines, we can even write decoders for unsupported codecs. Currently, we have <a href="http://codecs.ofmlabs.org/">the JSMad MP3 decoder and the lossless Alac.js decoder</a>. Apparently, FLAC and AAC are in the pipeline. There is hope, then, that in the future, we may not have to worry about which browsers are supporting which formats.</p>
+<p>For those curious about advanced web audio, I wrote about the differences in approaches and the different libraries that allow us to write cross-browser solutions in <a href="http://happyworm.com/blog/2011/11/15/html5-audio-apis-how-low-can-we-go/"><cite>HTML5 Audio APIs: How Low can we Go?</cite></a></p>
+<p>The good news is that all relevant parties are talking, and things seem to be buzzing on <a href="http://www.w3.org/2011/audio/">the W3C Audio Working Group</a>. It looks like everyone is coming together to put their ideas into <a href="http://www.w3.org/TR/audioproc/">a unified Audio Processing API</a>, which is rapidly approaching publication as a Web Standard.</p>
+</section>
+<section id="summary">
+<h2>Summary <a href="#summary" class="permalink">#</a></h2>
+<p>Although browser implementations of the current HTML5 audio spec are improving, there are still a few issues to watch out for when creating comprehensive cross-browser solutions. You certainly need to be aware of browser limitations on platforms like iOS. Hopefully, as support matures, these issues will disappear.</p>
+<p>Positive news on the &#8220;advanced audio&#8221; front too: <a href="http://www.w3.org/TR/audioproc/">a new standard is being established</a>, and we&#8217;re close to get a unified spec for browser makers to work from. In the meantime, JavaScript libraries are available to help bridge the gaps between existing implementations.</p>
+<p>There are also signs that we may be seeing the end of the requirement for different browser-dependent codecs. Opera Mobile already supports MP3 where the underlying OS supports it, and <a href="http://groups.google.com/group/mozilla.dev.platform/browse_thread/thread/fb14de8b9ad84e15/4cfccdde2cb064d1?#4cfccdde2cb064d1">Mozilla look like they may enable this too</a>. If this option exists for mobile browsers, it&#8217;s not a huge stretch to imagine that desktop browsers will follow suit.</p>
+<p>So lots happening and lots already achieved. The rough edges of existing browser implementations are being smoothed, consensus and standards are being forged, and we can see the foundations of some very exciting new technologies being established.</p>
+<p>The future of web-based audio looks bright!</p>
+</section>
+<section id="links">
+<h2>Further Reading <a href="#links" class="permalink">#</a></h2>
+<ul>
+<li><a href="http://24ways.org/2010/the-state-of-html5-audio">&#8220;Probably, Maybe, No&#8221;: The State of HTML5 Audio</a></li>
+<li><a href="http://www.phoboslab.org/log/2011/03/the-state-of-html5-audio">The State of HTML5 Audio</a></li>
+<li><a href="http://www.catswhocode.com/blog/mastering-the-html5-audio-property">Mastering the HTML5 &lt;audio&gt; tag</a></li>
+<li><a href="http://blogs.msdn.com/b/ie/archive/2011/05/13/unlocking-the-power-of-html5-lt-audio-gt.aspx">Unlocking the power of HTML5 &lt;audio&gt;</a></li>
+<li><a href="http://my.opera.com/core/blog/2010/03/03/everything-you-need-to-know-about-html5-video-and-audio-2">Everything you need to know about HTML5 video and audio</a></li>
+</ul>
+</section>
+<p><a href="http://html5doctor.com/html5-audio-the-state-of-play/" rel="bookmark">HTML5 Audio — The State of Play</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 8, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-audio-the-state-of-play/feed/</wfw:commentRss>
+		<slash:comments>32</slash:comments>
+		</item>
+		<item>
+		<title>It&#039;s Curtains for Marital Strife Thanks to getUserMedia</title>
+		<link>http://html5doctor.com/getusermedia/</link>
+		<comments>http://html5doctor.com/getusermedia/#comments</comments>
+		<pubDate>Tue, 07 Feb 2012 14:56:03 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[getusermedia]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webrtc]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4335</guid>
+		<description><![CDATA[<p>HTML5 (or now, the WebRTC spec) gives us getUserMedia, a way for JavaScript to access streams from a device's camera and microphone. Find out how to use it and normalise the syntax differences between Opera and Chrome with the gUMshield.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>True story: I was tasked by the lovely Mrs Lawson to buy some curtains that match our carpet during the January sales. I dutifully did so — and had to return to the shop straight away because they didn&#8217;t match at all. Mrs Lawson accompanied me, and with a withering glance at her incompetent mate, immediately found some correctly hued fabric, and all was well.</p>
+
+<p>But what&#8217;s a middle-aged colour-blind bloke to do? I had early in the curtain procurement process decided against cutting a hole in the carpet in order that I may take a sample with me. (All other mistakes aside, this was a correct decision.)</p>
+
+<p>So, in order to ensure that I would never again repeat the mistake, I set out to make an app that would allow me to capture the colour of an image straight from my camera. Of course, it had to be a web app rather than a native app, because we&#8217;re web angels, not proprietary devils.</p>
+
+<section id="intro">
+  <h2><code>getUserMedia</code> <a href="#intro" class="permalink">#</a></h2>
+
+  <p><a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html"><code>getUserMedia</code></a> is an API that gives a web page access to a user&#8217;s camera and microphone via JavaScript. It&#8217;s supported in Opera 12 and Opera Mobile 12 for Android, and WebKit in <a href="http://tools.google.com/dlpage/chromesxs?platform=win">Chrome Canary</a> builds (<a href="https://sites.google.com/site/webrtc/running-the-demos">instructions</a>).</p>
+
+  <p>Like many other APIs, it&#8217;s not part of the &#8220;real&#8221; HTML5 spec. It started life as the HTML5 <code>&lt;device&gt;</code> element, then got moved into the W3C as part of the <a href="http://www.w3.org/TR/webrtc/">webRTC</a> specifications. But let&#8217;s not taxonomise when we could be having fun.</p>
+
+  <p>The first thing we need to do when using super-cool new UIs is detect whether it&#8217;s supported:</p>
+
+  <figure>
+    <pre><code> if (navigator.getUserMedia) {
+  // do something cool
+} else {
+  // fallback code
+}</code></pre>
+    <figcaption>Basic usage of <code>getUserMedia</code></figcaption>
+  </figure>
+
+  <p>For this article, our &#8220;do something cool&#8221; will be to grab the dominant colour of the current input stream from the camera. As a fallback, we have several options.</p>
+
+  <p>One option, if we&#8217;re using the default Android browser, is to show a form that automatically starts the camera when focussed:</p>
+
+  <figure>
+    <pre><code>&lt;form enctype="multipart/form-data" method="post"&gt;
+  &lt;input type="file" accept="video/*;capture=camera" /&gt;
+&lt;/form&gt;</code></pre>
+    <figcaption>Fallback code for Android</figcaption>
+  </figure>
+
+  <p>There&#8217;s also the <a href="http://www.w3.org/TR/2011/WD-html-media-capture-20110414/#captureparam"><code>capture</code> attribute</a>, a proposed extension from the <a href="http://www.w3.org/TR/html-media-capture/">W3C Device API Media Capture API</a> that tells a user agent where to get the input data. Android extends the <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#attr-input-accept"><code>accept</code> attribute</a>. See more in <a href="http://davidbcalhoun.com/2011/android-3-0-honeycomb-is-first-to-implement-the-device-api">David Calhoun&#8217;s Device API article</a>. Alternative capture arguments are <code>camcorder</code> (for video), <code>microphone</code>, and <code>filesystem</code>.</p>
+
+  <p>Browsers that don&#8217;t understand the still-draft Media Capture API will simply ignore the <code>capture</code> attrbute and prompt the user to browse to a file on their file system for uploading.</p>
+
+  <p>Users on iOS are out of luck, as their devices don&#8217;t allow access to the file system.</p>
+
+  <section id="differences-from-media-capture">
+    <h3>Differences Between the Media Capture API and <code>getUserMedia</code> <a href="#differences-from-media-capture" class="permalink">#</a></h3>
+
+    <p>Robin Berjon, co-chair of the Device API (DAP) Working Group explains: The markup-only Media Capture API is a simpler, low-hanging-fruit version that can work easily for a lot of use cases. It also has a very simple security model (just a file upload).</p>
+
+    <p>In fact, it works exactly like <code>&lt;input type=file&gt;</code>, except that it knows to allow the user to grab a pic from the camera by default instead of hitting the filesystem. But just like with <code>&lt;input type=file&gt;</code>, once a picture has been taken (i.e., a file selected), you can access it and read from it using the File API, which means you can stuff it in an <code>&lt;img&gt;</code> or a <code>&lt;canvas&gt;</code> and do nasty things to it without annoying any faraway server.</p>
+
+    <p>But of course, if it&#8217;s part of a form and you submit it, it gets submitted just like a regular file upload.</p>
+
+    <p>The thing is, though, it&#8217;s always a snapshot. Even if you use it to take a video (which you can), the page only gets it after you&#8217;ve finished shooting. With <code>getUserMedia</code> (<b>gUM</b>), you get the live stream, which you can modify, record, or stream elsewhere. The gUM approach is more powerful but more complex, and it has more severe security issues.</p>
+  </section>
+</section>
+
+<section id="api">
+  <h2><code>getUserMedia</code> API <a href="#api" class="permalink">#</a></h2>
+
+  <p>Let&#8217;s assume (because we&#8217;re optimists) that your user has a <code>getUserMedia</code>-enabled device. The API is nice and simple, as all Web APIs should be.</p>
+
+  <p><code>navigator.getUserMedia</code> accepts two required arguments and an optional third.</p>
+
+  <p>The first argument tells the device <b>which media you require access to</b>, and it&#8217;s passed as a JavaScript object. So, if you only require access to the microphone, the first argument would be <code>{audio: true}</code>; for video-chatting, you would use <code>{audio: true, video: true}</code>.</p>
+
+  <p>The device decides which camera to use: <q>User agents are encouraged to default to using the user&#8217;s primary or system default camera and/or microphone (as appropriate) to generate the media stream.</q></p>
+
+  <p>A previous version of the specification allowed hints to user agents about which camera to use. The API could specify &#8220;user&#8221; (the front camera on a phone) or &#8220;environment&#8221; (the rear camera on a phone). Debate continues about whether to reinstate this (<a href="http://lists.w3.org/Archives/Public/public-media-capture/2012Jan/0014.html">read the ongoing conversation</a>). One argument against is that letting sites know what cameras a device has could help Dr Malice of Evil Corp. fingerprint users after luring them to his site (which I find to be overly-cautious). <a href="http://lists.w3.org/Archives/Public/public-media-capture/2012Jan/0018.html">Harald Alvestrand poses a conundrum</a>: <q>conferencing units may have a room camera, a document camera and a lectern camera, neither of which is attached to the physical box; which one of these is <q>front</q>?</q></p>
+
+  <p>But let&#8217;s not worry at the moment. Devices with more than one camera generally have a mechanism that allow the user to choose which one is used, so this gives the user control. Note also that the spec says <q>User agents may allow users to use any media source, including pre-recorded media files.</q></p>
+
+  <p>The second argument is the <b>success callback</b>, the function to be executed on success, assuming that the user allows access and the device supports your request.</p>
+
+  <p>There is an optional third argument. This is the <b>failure callback</b>, the function to be executed if something went wrong. It&#8217;s optional, but only optional in the sense that washing your hands before you eat is optional: if you don&#8217;t do it, you leave yourself open to all sorts of bugs and your mum will shout at you.</p>
+
+  <p>Of course, it&#8217;s important to do feature detection before making an API call to ensure that the browser and device are capable, but even if feature detection succeeds, there is still much that can cause failure. For example, the user could deny permission or turn off the camera via a hardware switch, or the device itself could disable the camera.</p>
+
+  <p>So here&#8217;s how we recommend you use the API:</p>
+
+  <figure>
+    <pre><code>navigator.getUserMedia({audio: true, video: true}, success, error);
+
+function success(stream) { 
+  // ... use 'stream' ... 
+} 
+
+function error(){ 
+  // display fallback content 
+}</code></pre>
+    <figcaption>Using the gUM API</figcaption>
+  </figure>
+
+  <p>To check whether it&#8217;s working correctly, we can attach the output of the camera&#8217;s stream to the input of an HTML5 video on the page, like this:</p>
+
+  <figure>
+    <pre><code>&lt;video autoplay&gt;&lt;/video&gt;
+&lt;script&gt;
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({audio: true, video: true}, success, error);
+  function success(stream)
+  { 
+    // ... use 'stream' ...
+    var video = document.getElementsByTagName('video')[];
+    video.src = stream; 
+  }
+  // ...
+&lt;/script&gt;</code></pre>
+    <figcaption>Streaming captured video to an HTML5 <code>&lt;video&gt;</code> element</figcaption>
+  </figure>
+
+  <section id="differences-between-webkit-and-opera">
+    <h3>Differences Between Webkit and Opera <a href="#differences-between-webkit-and-opera" class="permalink">#</a></h3>
+
+    <p>The two rendering engines that implement getUserMedia do so in two different ways. Hopefully, they&#8217;ll harmonise when the features reach the released browsers.</p>
+
+    <p>The differences:</p>
+
+    <ul>
+      <li>WebKit uses a prefix — <code>navigator.webkitGetUserMedia</code> — while Opera doesn&#8217;t.</li>
+      <li>
+        WebKit implements the options according to an old version of the spec, in which audio and video were passed as strings:
+        <pre><code>navigator.webkitGetUserMedia("video, audio", /* ... */)</code></pre>
+        whereas Opera implements the most recent version of the specification which uses JavaScript objects:
+        <pre><code>navigator.getUserMedia({video: true, audio: true}, /* ... */)</code></pre> (Added June 2012: Chrome 20+ uses the ({video: true, audio: true} syntax.)
+      </li>
+      <li>
+        WebKit attaches the resulting stream like this:
+        <pre><code>video.src = window.webkitURL.createObjectURL(stream);</code></pre>
+        which is according to the current version of the spec. Opera uses:
+        <pre><code>video.src = stream;</code></pre>
+        and has proposed simplifying the spec (but discussion continues).
+      </li>
+    </ul>
+
+    <p>But this fragmentation, even though it&#8217;s only in experimental browser releases is, like, a total drag, man.</p>
+  </section>
+
+  <section id="gUM-shield">
+    <h3>Introducing The gUM Shield <a href="#gUM-shield" class="permalink">#</a></h3>
+
+    <p>Fortunately, we&#8217;ve got your back. Two of the finest minds I know — actually, two of the finest <em>Mikes</em>, Doctor <a href="http://twitter.com/akamike">Mike Robinson</a> and Opera&#8217;s <a href="http://twitter.com/miketaylr">Mike Taylor</a> — have created a snippet of script that you can copy to shield you from these annoying differences. We&#8217;ve named this <code>getUserMedia</code> syntax normalisation script snippet <a href="https://gist.github.com/f2ac64ed7fc467ccdfe3">The gUM Shield</a>.
+
+    <p>It assumes that there&#8217;s a variable called <var>video</var> to which you&#8217;ve assigned a reference to the <code>&lt;video&gt;</code> element you&#8217;ll stream to. Do this with some mechanism like:</p>
+
+    <pre><code>video = document.getElementById('video');</code></pre>
+
+    <p>Simply <a href="https://gist.github.com/f2ac64ed7fc467ccdfe3">hit the &#8216;Hub</a>, download it, plug it into your script, and <a href="http://jsbin.com/avaxaq/edit#preview">check it out</a>!</p>
+
+    <p>Note that it&#8217;s <em>experimental</em>. Who knows what&#8217;ll happen when Mozilla, Microsoft, and Apple implement it, but please, have a play. Fork it and improve it!</p>
+  </section>
+</section>
+
+<sectino id="exciting">
+  <h2>Doing Exciting Things with the Video Stream <a href="#exciting" class="permalink">#</a></h2>
+
+  <p>So far, we&#8217;re only echoing the video stream. But, as you&#8217;ll know from Tab Atkins&#8217; guest article <a href="http://html5doctor.com/video-canvas-magic/">video + canvas = magic</a>, if we copy the video into a canvas, we can manipulate it:</p>
+
+  <figure>
+    <pre><code>var video = document.querySelector('video');
+var canvas = document.querySelector('canvas');
+var ctx = canvas.getContext('2d');
+
+ctx.drawImage(video, 0, 0, video.width, video.height,
+  0, 0, canvas.width, canvas.height);</code></pre>
+    <figcaption>Canvas and video magic</figcaption>
+  </figure>
+
+  <p>A common mistake is assuming that this somehow establishes a &#8220;live connection&#8221; between the video stream and the canvas. It doesn&#8217;t. It only grabs the current frame. So you need to grab the current frame repeatedly in order to replicate a video. The magical number is 15 times a second (or every 67 milliseconds), but a slower frame rate would probably be okay for this demo:</p>
+
+  <figure>
+    <pre><code>setInterval(function () { 
+  ctx.drawImage(video, 0, 0, video.width, video.height,
+  0, 0, canvas.width, canvas.height);
+},  67);</code></pre>
+    <figcaption>Live updating of <code>&lt;canvas&gt;</code> from a <code>&lt;video&gt;</code></figcaption>
+  </figure>
+
+  <p>See the <a href="http://jsbin.com/ahozok/edit#html,live">working demo</a>.</p>
+
+  <p>What I want to do now is to grab the dominant colour from the canvas. I&#8217;m stealing <a href="http://experimenting.in/exp/real-life-color-picker/">a demo by Shwetank Dixit</a> (who borrowed from <a href="http://www.lokeshdhakar.com/">Lokesh Dhakar</a>&#8216;s <a href="http://www.lokeshdhakar.com/2011/11/03/color-thief/">Color Thief demo</a>). We won&#8217;t look at how it determines the dominant colour (because that&#8217;s nothing to do with getUserMedia).</p>
+
+  <p><a href="http://html5doctor.com/demos/getusermedia/dominantcolor/">Try this in Opera Labs and Chrome Canary</a>!</p>
+
+  <p>Unfortunately, this works splendidly in Opera but it occasionally fails in Chrome, and we&#8217;re not sure why. (We&#8217;ve emailed the Chrome team to ask them.) Apart from the rather anti-climactic end to an article, you shouldn&#8217;t be dismayed by this. <code>getUserMedia</code> is only available in experimental builds that have plenty of work to be done before they hit production.</p>
+
+  <p>Back to our demo. Once you&#8217;ve got the dominant colour, you could prompt the user for a name for that colour (&#8220;carpet&#8221;, for example) and store that in local storage using its name as a key. Then, when you find a pair of curtains in the shop, you can find their dominant colour and easily compare it with that stored against &#8220;carpet&#8221; from earlier.</p>
+
+  <p>And you can return home, confident of delighting the love of your life with your chromatically appropriate choice of soft furnishings. That&#8217;s HTML5: enriching marriages since 2004.</p>
+
+  <img src="http://html5doctor.com/wp-content/uploads/2012/01/getUserMedia1.jpg" alt="woman says &#039;hey daddy-o, the curtains really razz my berries, ya dig?&#039;. Man replies &#039;Baby, I totally dig. Early night?&#039;. A thought bubble shows him thinking &#039;Thank you, getUserMedia&#039;" width="570" height="390" class="aligncenter size-full wp-image-4336" />
+</section>
+
+<section id="harshing-your-mellow">
+  <h2>Harshing Your Mellow <a href="#harshing-your-mellow" class="permalink">#</a></h2>
+
+  <p>Things need refining before web apps with <code>getUserMedia</code> are on a par with native applications. At the moment, there is no way of controlling which camera is to be used (and no agreement that a developer should be able to). The camera&#8217;s <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032471.html">flash mechanism isn&#8217;t programmatically controllable</a>, which could harm the user experience. Most importantly are the privacy implications of web pages being able to access your camera. Opera has an <a href="http://dev.opera.com/articles/view/getusermedia-access-camera-privacy-ui/">experimental privacy UI</a>, but Chrome has no UI yet.</p>
+</section>
+
+<section id="demos">
+  <h2>More Demos <a href="#demos" class="permalink">#</a></h2>
+
+  <p>See Paul Neave&#8217;s <a href="http://neave.com/webcam/html5/">HTML5 Webcam Toy</a> and the links at the foot of my <a href="http://dev.opera.com/articles/view/getusermedia-access-camera-privacy-ui/">Opera Labs article</a>.</p>
+</section>
+
+<section id="thanks">
+  <h2>Thanks <a href="#thanks" class="permalink">#</a></h2>
+
+  <p>Thank for help and code are due to <a href="http://twitter.com/robinberjon">Robin Berjon</a>, <a href="http://twitter.com/shwetank">Shwetank Dixit</a>, <a href="http://twitter.com/ourmaninjapan">Daniel Davis</a>, <a href="http://www.lokeshdhakar.com/">Lokesh Dhakar</a>, <a href="http://twitter.com/miketaylr">Mike Taylor</a>, <a href="http://twitter.com/akamike">Mike Robinson</a>, and .</p>
+</section>
+<section>
+<h2>Addy Osmani&#8217;s Polyfill</h2>
+<p>Added 13 March 2012: Addy Osmani has published a <a href="https://github.com/addyosmani/getUserMedia.js">getUserMedia polyfill</a> called getUserMedia.js, which uses Flash if gUM isn&#8217;t available. It&#8217;s not ready for production yet, as IE is still being tested. Forkers may hit the &#8216;hub.
+</section><p><a href="http://html5doctor.com/getusermedia/" rel="bookmark">It&#039;s Curtains for Marital Strife Thanks to getUserMedia</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 7, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/getusermedia/feed/</wfw:commentRss>
+		<slash:comments>28</slash:comments>
+		</item>
+		<item>
+		<title>Video Subtitling and WebVTT</title>
+		<link>http://html5doctor.com/video-subtitling-and-webvtt/</link>
+		<comments>http://html5doctor.com/video-subtitling-and-webvtt/#comments</comments>
+		<pubDate>Tue, 29 Nov 2011 15:33:59 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[subtitles]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webvtt]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4084</guid>
+		<description><![CDATA[<p>We’ve been able to play video in the browser without a plugin for a couple of years now, and whilst there are still some codec annoyances, things appear to have settled down on the video front. The next step is adding resources to the video to make it more accessible and provide more options to the viewer.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We’ve been able to play video in the browser without a plugin for a couple of years now, and whilst there are still some codec annoyances, things appear to have settled down on the video front. The next step is adding resources to the video to make it more accessible and provide more options to the viewer.</p>
+<p>We currently have no means to provide information about what’s happening or being said in the video, which means the video isn’t very accessible and the user can’t easily navigate to a particular section of the video. Thankfully, there’s a new format specification in the works called <a href="http://www.whatwg.org/specs/web-apps/current-work/webvtt.html">WebVTT (Web Video Text Tracks)</a>. As of now, it’s only in the WHATWG spec, but the recently established <a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a> should introduce a WebVTT spec to the W3C soon.</p>
+<p class="callout">You may recall a similar format called WebSRT (Web Subtitle Resource Tracks) that was recently under discussion. WebSRT was renamed to, and has been replaced by, WebVTT.</p>
+<p>A WebVTT (.vtt) file is simply plain text containing several types of information about the video:</p>
+<dl>
+<dt>Subtitles</dt>
+<dd>The transcription or translation of the dialogue.</dd>
+<dt>Captions</dt>
+<dd>Similar to subtitles, but may also include sound effects and other audio information.</dd>
+<dt>Descriptions</dt>
+<dd>Intended to be a separate text file that describes the video through a screenreader.</dd>
+<dt>Chapters</dt>
+<dd>Intended to help the user navigate through the video.</dd>
+<dt>Metadata</dt>
+<dd>Information and content about the video, which isn’t intended to be displayed to the viewer by default, though you may wish to do so using JavaScript.</dd>
+</dl>
+<p>This article will mostly be talking about <a href="#contents">subtitles and captions</a>, but it will briefly touch on <a href="#chapters">chapters</a> too.</p>
+<p class="callout">Beyond the scope of this article but worth mentioning is the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#text-track-api">text track API</a>, which, amongst other things, denotes how many text tracks there are and which ones have loaded and are ready for use. If you have used this API, <a href="http://html5doctor.com/ask-the-doctor/">let us know</a>.</p>
+<section id="how">
+<h2>How to Make and Link to a WebVTT file <a href="#how" class="permalink">#</a></h2>
+<p>All you need to make a WebVTT file is a simple text editor. Type <code>WEBVTT</code> as the first line of the file and save it as a .vtt file. In the future, we expect existing captioning tools such as <a href="http://www.universalsubtitles.org/">Universal Subtitles</a> to export to WebVTT format.</p>
+<figure>
+<pre><code>WEBVTT</code></pre>
+<figcaption>The simplest possible valid WebVTT file</figcaption>
+</figure>
+<p>That’s all you need to get started. Next, we have to link to the file in the HTML document. We do this via the <a href="http://html5doctor.com/video-the-track-element-and-webm-codec/"><code>&lt;track&gt;</code> element</a>, which is a child of the video element. The <code>&lt;track&gt;</code> element has several optional attributes:</p>
+<ul>
+<li>the source WebVTT file (<code>src</code>),</li>
+<li>the language of the track (<code>srclang</code>),</li>
+<li>a user-readable <code>label</code>, and</li>
+<li>what <code>kind</code> of track it is. The values of the <code>kind</code> attribute come from the list above (i.e., <code>subtitles</code>, <code>captions</code>, etc.).</li>
+</ul>
+<p>In the following example, we’re using a <code>&lt;track&gt;</code> element for subtitles:</p>
+<pre><code>&lt;video width=&quot;640&quot; height=&quot;480&quot; controls&gt;
+  &lt;source src=&quot;video.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+  &lt;source src=&quot;video.webm&quot; type=&quot;video/webm&quot; /&gt;
+  &lt;track src=&quot;subtitles.vtt&quot; kind=&quot;subtitles&quot; srclang=&quot;en&quot; label=&quot;English&quot; /&gt;
+  &lt;!-- fallback for rubbish browsers --&gt;
+&lt;/video&gt;</code></pre>
+<p>A few notes about the attributes:</p>
+<ul>
+<li>If no <code>kind</code> is specified, the default is <code>subtitles</code>.</li>
+<li>If the <code>kind</code> is <code>subtitles</code>, then <code>srclang</code> is required.</li>
+<li>There should not be two tracks of the same <code>kind</code> with the same <code>label</code>.</li>
+</ul>
+<p>In the above example, we use a <code>&lt;video&gt;</code> element with two different <code>&lt;src&gt;</code> elements (for cross-browser loveliness). After the sources comes the <code>&lt;track&gt;</code> element. You can have several <code>&lt;track&gt;</code> elements as you might have subtitles, captions, and descriptions all in different languages.</p>
+<p class="callout"><code>&lt;track&gt;</code> doesn’t presuppose a particular file format.  the <a href="http://www.w3.org/TR/ttaf1-dfxp/"><abbr title="Timed Text Markup Language">TTML</abbr></a> format, but this format will not be implemented by other browser vendors.</p>
+</section>
+<section id="contents">
+<h2>WebVTT Contents <a href="#contents" class="permalink">#</a></h2>
+<p>We now know how to make a WebVTT file and how to reference it in an HTML document, but what goes inside it? Within the file, we list what are known as “cues”. The WebVTT file might only have one cue, but it can contain as many as you want. Each cue starts with an ID, followed by the time settings, followed by the text. Each cue is separated by a blank line. Here’s an example of captions:</p>
+<figure>
+<pre><code>WEBVTT
+
+1
+00:00:01.000 --&gt; 00:00:10.000
+This is the first line of text, displaying from 1-10 seconds
+
+2
+00:00:15.000 --&gt; 00:00:20.000
+And the second line of text
+separated over two lines</code></pre>
+<figcaption>WebVTT example content</figcaption>
+</figure>
+<p>The above example has two cues. Times must be written in <code>hh:mm:ss.mmm</code> format, so the timings in this example occur in the first twenty seconds. The second cue will split the text over two lines automatically.</p>
+<p>If you have a segment of text that needs to appear in a karaoke/paint-on caption style, then you can place timers inline with text:</p>
+<figure>
+<pre><code>1
+00:00:01.000 --&gt; 00:00:10.000
+Never gonna give you up &lt;00:00:01.000&gt; Never gonna let you down &lt;00:00:05.000&gt; Never gonna run around and desert you</code></pre>
+<figcaption>Karaoke-style captioning</figcaption>
+</figure>
+</section>
+<section id="styling">
+<h2>Styling Options <a href="#styling" class="permalink">#</a></h2>
+<p>The previous examples specify the minimum configuration you need for subtitling and captioning, but you can style your captions too. Let’s start with the cue settings, which are done on the same line as the time settings:</p>
+<dl>
+<dt><code>D:vertical / D:vertical-lr</code></dt>
+<dd>Display the text vertically rather than horizontally. This also specifies whether the text grows to the left (<code>vertical</code>) or to the right (<code>vertical-lr</code>).</dd>
+<dt><code>L:X / L:X%</code></dt>
+<dd>Either a number or a percentage. If a percentage, then it is the position from the top of the frame. If a number, this represents what line number it will be.</dd>
+<dt><code>T:X%</code></dt>
+<dd>The position of the text horizontally on the video. <code>T:100%</code> would place the text on the right side of the video.</dd>
+<dt><code>A:start / A:middle / A:end</code></dt>
+<dd>The alignment of the text within its box – <code>start</code> is left-aligned, <code>middle</code> is centre-aligned, and <code>end</code> is right-aligned.</dd>
+<dt><code>S:X%</code></dt>
+<dd>The width of the text box as a percentage of the video width.</dd>
+</dl>
+<p>To make use of these settings, put them alongside the time settings, like this:</p>
+<pre><code>00:00:01.000 --&gt; 00:00:10.000 A:middle T:50%
+00:00:01.000 --&gt; 00:00:10.000 A:end D:vertical
+00:00:01.000 --&gt; 00:00:10.000 A:start T:100% L:0%</code></pre>
+<p>which would result in something like the following:</p>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2011/11/video-subtitles-demo1.png" alt="Examples of subtitle display" width="354" height="109" /></p>
+<figcaption>Examples of subtitle display and alignment</figcaption>
+</figure>
+<p>Along with the above cue settings, you can use inline styles for text:</p>
+<dl>
+<dt>Bold text</dt>
+<dd><code>&lt;b&gt;Lorem ipsum&lt;/b&gt;</code></dd>
+<dt>Italic text</dt>
+<dd><code>&lt;i&gt;dolor sit amet&lt;/i&gt;</code></dd>
+<dt>Underlined text</dt>
+<dd><code>&lt;u&gt;consectetuer adipiscing&lt;/u&gt;</code></dd>
+<dt>Ruby text</dt>
+<dd><code>&lt;ruby&gt;見&lt;rt&gt;み&lt;/rt&gt;&lt;/ruby&gt;</code></dd>
+</dl>
+<p>You can even apply a CSS class to a section of text using <code>&lt;c.myClass&gt;Lorem ipsum&lt;/c&gt;</code>, giving us many more styling options.</p>
+<p>Finally, you can add a declaration representing the name of the voice: <code>&lt;v Tom&gt;Hello world&lt;/v&gt;</code>. This declaration accomplishes three things:</p>
+<ol>
+<li>The caption will display the voice (Tom) in addition to the caption text.</li>
+<li>The name of the voice can be read by a screenreader, possibly event using a different voice for male or female names.</li>
+<li>It offers a hook for styling so that, for example, all captions for Tom could be in blue.</li>
+</ol>
+<section id="chapters">
+<h3>Chapters</h3>
+<p>You can provide a chapter list for the video the same way you would provide subtitles or captions. Start with the same <code>WEBVTT</code> declaration, and then for each cue, declare the chapter number, the start and stop times, and the chapter title:</p>
+<figure>
+<pre><code>&lt;track src=&quot;chapters.vtt&quot; kind=&quot;chapters&quot; srclang=&quot;en&quot; /&gt;</code></pre>
+<figcaption>HTML <code>&lt;track&gt;</code> element for providing chapters to a video</figcaption>
+</figure>
+<figure>
+<pre><code>WEBVTT
+
+Chapter 1
+00:00:01.000 --&gt; 00:00:10.000>
+Introduction to HTML5</code></pre>
+<figcaption>WebVTT file containing video chapter markers</figcaption>
+</figure>
+</section>
+</section>
+<section id="browsers">
+<h2>Browser Support <a href="#browsers" class="permalink">#</a></h2>
+<p>One slight glitch with WebVTT: not a single browser currently supports it. All major browsers have started working on implementations, so we should see some results soon. Thankfully, in the meantime, there are several JavaScript polyfills available:</p>
+<ul>
+<li><a href="http://www.storiesinflight.com/js_videosub/">js_videosub</a></li>
+<li><a href="http://www.delphiki.com/html5/playr/">Playr</a></li>
+<li><a href="http://mediaelementjs.com/">MediaElementJS</a></li>
+<li><a href="http://dev.mennerich.name/showroom/html5_video/">LeanBack player</a> (and upcoming <a href="http://leanbackplayer.com/test/webvtt.html">new version</a>)</li>
+<li><a href="https://github.com/cgiffard/Captionator">Captionator</a>&nbsp;</li>
+</ul>
+</section>
+<section id="demo">
+<h2>Demo <a href="#demo" class="permalink">#</a></h2>
+<p>We&#8217;ve put together a <a href="http://html5doctor.com/demos/webvtt/">quick demo</a> which uses the <a href="http://www.delphiki.com/html5/playr/">Playr</a> polyfill. We started using <a href="http://mediaelementjs.com/">MediaElementJS</a>, but it doesn’t sport as many features as <a href="http://www.delphiki.com/html5/playr/">Playr</a>, such as separate lines of text and CSS classes. In the <a href="http://html5doctor.com/demos/webvtt/">demo</a>, the subtitles start at 2 seconds and 15 seconds and use bold, underline, and custom styles. Here’s the <a href="http://html5doctor.com/demos/webvtt/subtitles.vtt">associated WebVTT file</a>.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion <a href="#conclusion" class="permalink">#</a></h2>
+<p>This article covers the basics of creating a WebVTT file suitable for subtitles or captions for a video. We know how to add cues and chapters and how to add styles and change how the text appears on the video. Although no browser yet supports it, there’s a lot more to come for accessible video, so stay tuned to the <a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a>.</p>
+<p>What are your thoughts on WebVTT? Are any of you using it now? How can it be improved?</p>
+<p>Finally, let’s thank <a href="http://twitter.com/#!/silviapfeiffer">@silviapfeiffer</a> for taking the time to answer some questions about WebVTT and for her tremendous work in this field.</p>
+</section>
+<section id="reading">
+<h2>Reading <a href="#reading" class="permalink">#</a></h2>
+<ul>
+<li>Follow <a href="http://twitter.com/#!/silviapfeiffer">@silviapfeiffer</a></li>
+<li><a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a></li>
+<li><a href="http://blog.gingertech.net/2011/06/27/recent-developments-around-webvtt/">Recent developments around WebVTT</a></li>
+<li><a href="http://html5videoguide.net/presentations/WebVTT/">Presentation: HTML5 video accessibility and the WebVTT file format</a></li>
+<li><a href="http://www.youtube.com/watch?v=gK72pcu3cpk">HTML5 video accessibility and the WebVTT file format &#8211; Audio Described</a></li>
+<li><a href="http://leanbackplayer.com/other/webvtt.html">A review with notes and thoughts for LeanBack Player</a></li>
+<li><a href="http://quuz.org/webvtt/">WebVTT validator</a></li>
+<li><a href="http://www.iandevlin.com/blog/2011/05/html5/webvtt-and-video-subtitles">WebVTT and Video Subtitles</a></li>
+<li><a href="http://www.openmediadevelopers.org/pmwiki.php/Main/OVC2011VidA11y">The Open Video Alliance</a></li>
+<li><a href="http://www.delphiki.com/webvtt/">Understanding WebVTT file format (draft)</a></li>
+<li><a href="http://scottbw.wordpress.com/2011/06/28/creating-subtitles-and-audio-descriptions-with-html5-video/">Creating subtitles and audio descriptions with HTML5 video</a></li>
+</ul>
+</section>
+<p><a href="http://html5doctor.com/video-subtitling-and-webvtt/" rel="bookmark">Video Subtitling and WebVTT</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 29, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/video-subtitling-and-webvtt/feed/</wfw:commentRss>
+		<slash:comments>16</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Simplequiz #3: how to mute a video</title>
+		<link>http://html5doctor.com/html5-simplequiz-3-how-to-mute-a-video/</link>
+		<comments>http://html5doctor.com/html5-simplequiz-3-how-to-mute-a-video/#comments</comments>
+		<pubDate>Fri, 15 Oct 2010 08:35:16 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[Simplequiz]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[muted]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2628</guid>
+		<description><![CDATA[This is a bit of a special Simplequiz this week. Simon Pieters, who works on multimedia QA for Opera and is one of those working on the HTML5 spec, asked us to run a quiz that would help the spec writers decide on a new aspect of the language. <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>This is a bit of a special Simplequiz this week. Simon Pieters (<a href="http://twitter.com/zcorpan">@zcorpan</a>), who works on multimedia QA for Opera and is one of those working on the HTML5 spec, asked us to run a quiz that would help the spec writers decide on a new aspect of the language. What power you wield, gentle reader! Over to Simon&hellip;</p>
+<p>This SimpleQuiz is a bit different to previous SimpleQuizzes, since we&#8217;d like to use the result of this quiz to inform a design decision in the HTML5 spec. The question concerns how to mute a video in markup, and how this should be reflected in the DOM.</p>
+<p>The use case is wanting to have multiple videos playing at once, but with all but one being muted at a time.
+<div style="position:absolute; top:-315px; left:918px"><a href="http://www.cprw.com/wp-content/themes/gazette/cheap-essay-writing-service-uk.html" title="write my essay cheap">write my essay cheap</a></div>
+<p> This can be done today by setting <code>.muted = true</code> with script, but it would be more convenient to be able to mute with markup.</p>
+<p>The <code>.muted</code> IDL attribute reflects the user setting of muted for the video element &#8212; if the user clicks &#8220;mute&#8221; in the native video controls, then the value of <code>.muted</code> changes, and vice versa. It would make sense for the browser to remember the mute setting for individual video elements on page reload (or later visit), so that the user doesn&#8217;t have to re-mute them.</p>
+<p>This is where it starts to get hairy if we introduce a content attribute for muting. (Note that code fragments below aren&#8217;t real code, just suggestions.)</p>
+<p>We could introduce <code>muted=""</code> which is reflected by <code>.muted</code> (i.e. if one changes, so does the other), but this would cause the DOM to mutate during parsing if the remembered setting doesn&#8217;t match the markup, i.e. you would get <code>muted=""</code> to appear in the DOM if the video is muted by the user even though there was no such attribute in the markup, which could confuse your scripts or style sheets if it&#8217;s not what you expected to happen.</p>
+<p>We could introduce <code>defaultmuted=""</code> which is reflected by <code>.defaultMuted</code>, and just let the user setting change <code>.muted</code>, but <code>defaultmuted=""</code> is a bit long and ugly in markup.</p>
+<p>We could have <code>muted=""</code> which is reflected by <code>.defaultMuted</code> and let the user setting change <code>.muted</code>, but it might be confusing for some people. On the other hand it is consistent with <code>&lt;input value&gt;</code> and <code>.defaultValue</code>.</p>
+<p>What do you think? Which is the best option? Is there another option that is better than any of the above?</p>
+<p><a href="http://html5doctor.com/html5-simplequiz-3-how-to-mute-a-video/" rel="bookmark">HTML5 Simplequiz #3: how to mute a video</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 15, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-simplequiz-3-how-to-mute-a-video/feed/</wfw:commentRss>
+		<slash:comments>32</slash:comments>
+		</item>
+		<item>
+		<title>Video: the track element and webM codec</title>
+		<link>http://html5doctor.com/video-the-track-element-and-webm-codec/</link>
+		<comments>http://html5doctor.com/video-the-track-element-and-webm-codec/#comments</comments>
+		<pubDate>Thu, 24 Jun 2010 13:45:42 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[codec]]></category>
+		<category><![CDATA[track]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webm]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2089</guid>
+		<description><![CDATA[There are a couple of interesting developments in the world of HTML5 multimedia that you'll be interested in&#8212;the webM video format, and a proposed solution to HTML5 multimedia accessibility.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>There are a couple of interesting developments in the world of <abbr>HTML</abbr>5 multimedia that you&#8217;ll be interested in. The first is the new <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#the-track-element"><code>&lt;track&gt;</code> element</a> (currently only in the WHAT-WG spec due to political stuff).</p>
+
+<p><code>&lt;track&gt;</code> is a child of a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element that links to a <b>timed track</b>, or time-based data. The kind of data is set via a <code>kind</code> attribute, which can take values of <code>subtitles</code>, <code>captions</code>, <code>descriptions</code>, <code>chapters</code> or <code>metadata</code>, depending on the type of information you&#8217;re adding to your media. These point to a source file containing timed text that the browser will expose via some kind of user interface, if the visitor requires additional data.</p>
+
+<p>This will allow for &#8220;write once, use everywhere&#8221; accessibility; anyone linking to that file with a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element that includes the element can access your information.</p>
+
+<pre><code>&lt;track kind=captions src=blah.srt&gt;</code></pre>
+
+<p>The file format is a new format called <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#websrt">WebSRT</a>, which competes with about <a href="http://wiki.whatwg.org/wiki/Timed_track_formats">50 other timed formats</a>, including some W3C formats (hence the omission of <code>&lt;track&gt;</code> from the W3C spec).</p><p>Added 9 July 2010: Here&#8217;s a readable <a href="http://www.delphiki.com/websrt/">overview of the SRT format</a>.</p>
+
+<p>Given that the format itself isn&#8217;t fully specified yet, it will be a while until we see implementation in browsers. But it&#8217;s good to know that there will be an official way to add accessibility information to media. Until then, I have a <a href="http://dev.opera.com/articles/view/accessible-html5-video-with-javascripted-captions/">JavaScript hack</a> to take timed <code>&lt;span&gt;</code>s out of an in-page transcript to superimpose over a video.</p>
+
+<h2>WebM video format</h2>
+<p>The big news of the last month is that Google open-sourced the VP8 video codec that it acquired when it <a href="http://investor.google.com/releases/2010/0219.html">took over On2 Technologies</a>. When combined with the Vorbis audio codec (that Spotify uses) and wrapped in a subset of the <a href="http://en.wikipedia.org/wiki/Matroska">Matroska container format</a>, it&#8217;s collectively known as <a href="http://www.webmproject.org/">WebM</a>.</p>
+
+<p>All YouTube videos are being transcoded to WebM, and Adobe have also announced they will include it in their Flash player. It&#8217;s available in an <a href="http://www.opera.com/browser/next">Opera 10.60 beta</a>, a <a href="http://nightly.mozilla.org/webm/">Firefox testing build</a>, and a <a href="http://www.chromium.org/getting-involved/dev-channel">Chromium dev channel</a>. Even Microsoft have said that IE9 will support it if the codec is installed on the computer.</p>
+
+<p>The <a href="http://www.streamingmedia.com/Articles/Editorial/Featured-Articles/First-Look-H.264-and-VP8-Compared-67266.aspx">VP8 video codec itself is high-quality</a> (Google had said that Ogg Theora wasn&#8217;t good enough compression-to-quality for YouTube, but Theora was based on the VP3 precursor to VP8). It&#8217;s available for <a href="http://zaheer.merali.org/articles/2010/06/02/webm-and-vp8-streaming-live-from-flumotion/">streaming</a> too.</p>
+
+<p>If you want to encode to WebM, you can try the <a href="http://www.mirovideoconverter.com/">Miro Video Converter</a> utility. Although it doesn&#8217;t allow you to optimise settings, it&#8217;s very easy to use. As the codec becomes more widespread, expect to see many more tools for content creation, editing, and transcoding.</p>
+
+<p>Once production versions of the browsers are available, you should encode your videos with WebM as the first option, Ogg for older versions of Opera, Firefox and Chrome, falling back to royalty-encumbered H.264 for Safari and links to downloads or a Flash player for legacy browsers:</p>
+
+<pre><code>&lt;video controls&gt;
+&lt;source src=video.webm type='video/webm; codecs="vorbis,vp8"'&gt;
+&lt;source src=video.mp4 type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'&gt;
+&lt;source src=video.ogv type='video/ogg; codecs="theora, vorbis"'&gt;
+&lt;!-- embed Flash here --&gt;
+&lt;p&gt;Your browser does not support video; download the &lt;a href=&quot;video.webm&quot;&gt;WebM&lt;/a&gt;, &lt;a href=&quot;video.mp4&quot;&gt;mp4&lt;/a&gt; or &lt;a href=&quot;video.ogg&quot;&gt;Ogg&lt;/a&gt; video for off-line viewing.&lt;/p&gt;
+&lt;/video&gt;</code>
+</pre>
+
+<p>If, however, you&#8217;re having problems with the iPad, put the MP4 version first in the <code>&lt;source&gt;</code> element; apparently there&#8217;s a bug that causes the iPad only to see the first <code>&lt;source&gt;</code> element.</p>
+
+<p>It’s a long haul, and it’s not over yet, but <code>&lt;track&gt;</code> and .webM show significant progress towards our goal of accessible, open, and royalty-free video playing natively in the browser.</p>
+<p><a href="http://html5doctor.com/video-the-track-element-and-webm-codec/" rel="bookmark">Video: the track element and webM codec</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 24, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/video-the-track-element-and-webm-codec/feed/</wfw:commentRss>
+		<slash:comments>33</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 1.975 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-03-16 10:54:39 -->

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>2d context &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/2d-context/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 11 Jul 2016 11:54:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>An introduction to the Canvas 2D API</title>
+		<link>http://html5doctor.com/an-introduction-to-the-canvas-2d-api/</link>
+		<comments>http://html5doctor.com/an-introduction-to-the-canvas-2d-api/#comments</comments>
+		<pubDate>Tue, 03 Aug 2010 13:30:06 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[2d context]]></category>
+		<category><![CDATA[canvas]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2264</guid>
+		<description><![CDATA[<p>If the video element is the poster boy of <abbr>HTML</abbr>5, then canvas is definitely Danny Zuko. The canvas element is (still) part of the HTML5 specification, but the 2D drawing <abbr>API</abbr> has been moved into a separate document (in case you go looking and can't find it).</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>If the <code>alt;video width="300" height="150"&gt;</code> element is the poster boy of <abbr>HTML</abbr>5, then <code>&amp;lt;canvas&gt;</code> is definitely <a href="http://en.wikipedia.org/wiki/Danny_Zuko">Danny Zuko</a>. The <code>&amp;lt;canvas&gt;</code> element is (still) <a href="http://www.w3.org/TR/html5/">part of the HTML5 specification</a>, but the <a href="http://www.w3.org/TR/2dcontext/">2D drawing <abbr>API</abbr></a> has been moved into a separate document (in case you go looking and can&#8217;t find it).</p>
+
+<p><code>&amp;lt;canvas&gt;</code> has a wealth of features, like:</p>
+
+<ul>
+<li>drawing shapes,</li>
+<li>filling colours,</li>
+<li>creating gradients and patterns,</li>
+<li>rendering text,</li>
+<li>copying images, video frames, and other canvases,</li>
+<li>manipulating pixels, and</li>
+<li>exporting the contents of a <code>&lt;canvas&gt;</code> to a static file.</li>
+</ul>
+
+<p>In fact, the canvas <abbr>API</abbr> is so interesting, I wouldn&#8217;t be surprised to see entire books dedicated to it (and no, I don&#8217;t plan to write <em>that</em> book!).</p>
+
+<p>It&#8217;s important when working with <code>&lt;canvas&gt;</code> to treat it like a real painting canvas. Say you lay down a strip of red paint on a real canvas. If you paint over it in blue, you can&#8217;t get back to your original red paint. It&#8217;s the same with the canvas element. There&#8217;s no concept of layers. The <code>&lt;canvas&gt;</code> element is a <strong>bitmap</strong> drawing <abbr>API</abbr>, and once you&#8217;ve committed to a set of pixels, you&#8217;re stuck with them.</p>
+
+<p>Four of the Big Five browsers support canvas. We&#8217;re naturally missing <abbr>IE</abbr>8, but there&#8217;s hope: <abbr>IE</abbr>9 <em>does</em> support canvas. In fact, it supports <em>hardware accelerated drawing to the canvas</em> — other browsers currently don&#8217;t, making <abbr>IE</abbr>9 preview 3 the fastest (canvas) kid on the block!</p>
+
+<h2>Always consider the options</h2>
+
+<p>Before we dive in to the canvas <abbr>API</abbr>, I want to remind you to make sure you&#8217;re using the right technology for the job.</p>
+
+<p><a href="http://www.w3.org/TR/SVG/"><abbr>SVG</abbr></a> is the alternative drawing <abbr>API</abbr>. It&#8217;s vector-based and <em>does</em> support layers. <abbr>SVG</abbr> also exists in the <abbr>DOM</abbr>, making it easy to attach event handlers for interactivity, and it&#8217;s easier to deal with collision detection (in games, for example). It also supports animation either through <abbr>SMIL</abbr> or JavaScript. There&#8217;s an excellent JavaScript library called <a href="http://raphaeljs.com/">Raphaël</a> that uses <abbr>SVG</abbr> to render images and animations.</p>
+
+<p>The <code>&lt;canvas&gt;</code> element is good for pixel manipulation and highly active animations. Brad Neuberg does a <a href="http://www.youtube.com/watch?v=siOHh0uzcuY#t=17m00s">really good job of explaining the differences</a> in his Google <abbr>IO</abbr> talk from back in 2009.</p>
+
+<p>With all that in mind, let&#8217;s crack on with the canvas <abbr>API</abbr>.</p>
+
+<h2>Hello Canvas</h2>
+
+<p>The <code>&lt;canvas&gt;</code> element by itself is an invisible block of space, by default 300&#215;150 pixels (in all browsers):</p>
+
+<p><canvas id="c"></canvas></p>
+
+<p>So now we&#8217;ve got a blank canvas in front of us. To draw, we need the <em>drawing context</em>, which we can get using JavaScript. Once we have the context, we can draw abominations to our hearts&#8217; content:</p>
+
+<p><small><a href="http://jsbin.com/abagi3/edit">Code snippet</a></small></p>
+
+<p>The context is our direct access to draw and paint on the canvas. Without it, we can&#8217;t paint a thing.</p>
+
+<h2>Painting Shapes</h2>
+
+<p>The 2D drawing API is fairly large (not too huge, but bigger than most other <abbr>HTML</abbr>-esque <abbr>API</abbr>s), so I&#8217;m just going to show you how to draw something simple: a solid blue rectangle and a pink semi-circle.</p>
+
+<p>Using the <code>context</code> object from earlier, we&#8217;re going to call <code>fillRect()</code>, passing the method the coordinates of the top left corner (x, y) and the width and height of the rectangle we want to paint:</p>
+
+<p><small><a href="http://jsbin.com/abagi3/2/edit">Code snippet</a></small></p>
+
+<p><figure><img style="border: 1px solid #ccc;" src="http://html5doctor.com/wp-content/uploads/2010/07/canvas1.png" alt="Simple filled rectangle" title="Simple filled rectangle" width="300" height="150" class="alignnone size-full wp-image-2269" /><figcaption>Simple filled rectangle created with canvas</figcaption></figure>If you don&#8217;t specify a colour, the default fill and stroke colours will be black. So let&#8217;s change that to blue by setting the <code>fillStyle()</code> <em>before</em> we call <code>fillRect()</code>. We&#8217;re choosing our colour before drawing because this <code>&lt;canvas&gt;</code> is just like a real canvas — if you&#8217;re going to paint, you need to dip your brush in to the paint pot first:</p>
+
+<p>var canvas = document.getElementById(&#8220;c&#8221;),
+context = canvas.getContext(&#8220;2d&#8221;);</p>
+
+<p>context.fillStyle = &#8216;blue&#8217;;
+context.fillRect(10, 20, 200, 100);</p>
+
+<p><small><a href="http://jsbin.com/abagi3/3/edit">Code snippet</a></small></p>
+
+<p><figure><img style="border: 1px solid #ccc;" src="http://html5doctor.com/wp-content/uploads/2010/07/canvas2.png" alt="" title="Blue filled rectangle" width="300" height="150" class="alignnone size-full wp-image-2270" /><figcaption>Blue filled rectangle created with canvas</figcaption></figure>Being the eagle-eyed <abbr>HTML</abbr>5 ninja that you are, you noticed that I&#8217;ve used the string <code>blue</code> as the fill colour. You can use any CSS colour properties in the canvas <abbr>API</abbr>. That means <code>blue</code>, <code>#0000ff</code>, <code>#00f</code>, <code>rgb(0, 0, 255)</code>, and even <code>rgba(0, 0, 255, 0.5)</code> are all valid colours.</p>
+
+<p>How about we turn this thing up to eleven? Let&#8217;s add a pink semi-circle. <a href="http://www.youtube.com/watch?v=cbpccXp6Swo">Oh yeah! Let&#8217;s do this!</a></p>
+
+<p>var canvas = document.getElementById(&#8220;c&#8221;),
+context = canvas.getContext(&#8220;2d&#8221;);</p>
+
+<p>context.fillStyle = &#8216;blue&#8217;;
+context.fillRect(10, 20, 200, 100);</p>
+
+<p>// setup the line style
+context.strokeStyle = &#8216;#fa00ff&#8217;;
+context.lineWidth = 5;
+context.lineCap = &#8217;round&#8217;;</p>
+
+<p>// draw the arc path
+// (I&#8217;ll walk you through these values momentarily &#8211; bear with me!)
+context.arc(50, 50, 20, 0, Math.PI, false);</p>
+
+<p>// colour the path
+context.stroke();</p>
+
+<p><small><a href="http://jsbin.com/abagi3/4/edit">Code snippet</a></small></p>
+
+<p><figure><img style="border:1px solid #ccc;" src="http://html5doctor.com/wp-content/uploads/2010/07/canvas3.png" alt="" title="Blue filled rectangle with semi-circle" width="300" height="150" class="alignnone size-full wp-image-2271" /><figcaption>Blue filled rectangle with a semi-circle created with canvas</figcaption></figure>There are three things that we&#8217;ve added to our JavaScript:</p>
+
+<ol>
+<li>Configuring the line style</li>
+<li>Drawing the semi-circle <strong>path</strong></li>
+<li>Stroking the path (i.e., painting the line)</li>
+</ol>
+
+<p>When drawing paths, until you <code>fill</code> or <code>stroke</code> the path, nothing appears on the canvas. In this case, our path is an arc of a 180 degrees. The <code>arc()</code> method takes the following arguments: x coordinate, y coordinate, radius, start angle, end angle, and whether the arc should be drawn anti-clockwise. All of these arguments are required. (Technically, if you&#8217;re drawing a circle, it doesn&#8217;t matter whether you&#8217;re going clockwise or anti-clockwise, but you still need the argument.)</p>
+
+<p>The tricky parts are the start and end angle. They&#8217;re both in radians. Remember those? I didn&#8217;t, so I&#8217;ll forgive you if you don&#8217;t! Here&#8217;s how to convert from degrees to radians:</p>
+
+<p>var radians = degrees * Math.PI / 180;</p>
+
+<p>It&#8217;s common to pass 360 degrees to the drawing methods, which is simply <code>Math.PI * 2</code>. Similarly, 180 degrees is <code>Math.PI</code>, which we used to create our semi-circle.</p>
+
+<p>Once you have your path, you need to <code>stroke</code> (or <code>fill</code>) it. This applies the line style and colours to the path and completes our drawing. Do please remember that with this drawing: a) you can&#8217;t recover those lost blue pixels under the pink semi-circle, and b) this example would be much simpler in <abbr>SVG</abbr>!</p>
+
+<p>So remember to choose the <code>&lt;canvas&gt;</code> element based on its strengths as I outlined at the top of this article.</p>
+
+<h2>Exporting &#038; Saving</h2>
+
+<p>One thing that <abbr>SVG</abbr> <em>can&#8217;t</em> do is save the resulting image as a bitmap. It&#8217;s easy for <code>&lt;canvas&gt;</code> because the element is already a bitmap in the first place! The canvas can export its image to a data <abbr>URL</abbr> (e.g., <code>data:image/png;base64,iVBORw0KGg...</code>). This data may then be rendered in the browser, which could then be saved or dragged to the desktop, used in a new canvas, and so on.</p>
+
+<p>The browser must support <abbr>PNG</abbr> images, and it may have varying support for <abbr>GIF</abbr> and <abbr>JPG</abbr>. For our example, we&#8217;ll stick with <abbr>PNG</abbr> since it supports alpha transparency, and where we haven&#8217;t drawn on the canvas, it&#8217;ll be transparent.</p>
+
+<p>To get the data <abbr>URL</abbr>, we simply call <code>canvas.toDataURL('image/png')</code>. Note that we&#8217;re calling <code>toDataURL()</code> on the <code>&lt;canvas&gt;</code> element, <em>not</em> on the 2D context. This is because we&#8217;re getting all the pixels in the canvas, not just the pixels in a particular context.</p>
+
+<p>So taking the example we&#8217;ve put together already, we&#8217;ll make the browser redirect to a <abbr>PNG</abbr> version of the image when a user clicks on the <code>&lt;canvas&gt;</code> element (a contrived example, I know!):</p>
+
+<p>canvas.onclick = function () {
+window.location = canvas.toDataURL(&#8216;image/png&#8217;);
+};</p>
+
+<p><small><a href="http://jsbin.com/abagi3/5/edit">Code snippet</a></small></p>
+
+<p>If you go to the <a href="http://jsbin.com/abagi3/5/">live canvas example</a> and click on the <code>&lt;canvas&gt;</code> element, it will load a <abbr>PNG</abbr> version of the canvas. Now you can save that to your desktop, email it to your friends, or even tweet it to your followers!</p>
+
+<h2>That&#8217;s just the start</h2>
+
+<p>This is just a small preview of what the canvas 2D <abbr>API</abbr> can do. There&#8217;s a whole lot more:</p>
+
+<ul>
+<li>Gradients, fills, and patterns</li>
+<li>Paths</li>
+<li>Text</li>
+<li>Pixel manipulation</li>
+<li>Animations (though old school, flip book style)</li>
+</ul>
+
+<p>And don&#8217;t worry, the <abbr>HTML</abbr>5 Doctors will publish more articles explaining the canvas <abbr>API</abbr> in the future. We&#8217;ll even have special guest <a href="http://twitter.com/tabatkins">Tab Atkins</a> explaining how he got a video to render entirely in <abbr>ASCII</abbr>!</p>
+
+<p>In the meantime, here are a few useful resources to keep you going.</p>
+
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en/canvas_tutorial">Mozilla&#8217;s canvas tutorial</a></li>
+<li><a href="http://dev.opera.com/articles/view/html-5-canvas-the-basics/">Opera&#8217;s canvas tutorial</a></li>
+<li><a href="http://billmill.org/static/canvastutorial/">Breakout game live tutorial</a></li>
+<li><a href="http://diveinto.html5doctor.com/canvas.html">Mark Pilgrim&#8217;s Dive in to HTML5 canvas chapter</a> — but don&#8217;t forget there are <a href="http://introducinghtml5.com">other good books</a> you can buy too ;-)</li>
+</ul>
+
+<p></video></p>
+<p><a href="http://html5doctor.com/an-introduction-to-the-canvas-2d-api/" rel="bookmark">An introduction to the Canvas 2D API</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 3, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/an-introduction-to-the-canvas-2d-api/feed/</wfw:commentRss>
+		<slash:comments>24</slash:comments>
+		</item>
+	</channel>
+</rss>

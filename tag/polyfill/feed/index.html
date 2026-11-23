@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; polyfill</title>
+	<atom:link href="http://html5doctor.com/tag/polyfill/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>How to get all the browsers playing ball</title>
+		<link>http://html5doctor.com/how-to-get-all-the-browsers-playing-ball/</link>
+		<comments>http://html5doctor.com/how-to-get-all-the-browsers-playing-ball/#comments</comments>
+		<pubDate>Fri, 01 Apr 2011 08:10:06 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[polyfill]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3150</guid>
+		<description><![CDATA[At the beginning of the year, all seven of the HTML5 Doctors met up and started to discuss the problem of browser support within the realm of HTML5, CSS3 and all the sexy new APIs.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/drag-and-drop-to-server/"     class="crp_title">Drag and Drop and Automatically Send to the Server</a></li><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>At the beginning of the year, all seven of the HTML5 Doctors met up and started to discuss the problem of browser support within the realm of HTML5, CSS3 and all the sexy new APIs.</p>
+
+<p>In the last year, riding the popularity of HTML5, a great number of JavaScript <a href="http://remysharp.com/what-is-a-polyfill">polyfills</a>/shim/shams/what-have-you have been released, and the Modernizr project even maintains a list of these <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripts</a>.</p>
+
+<p>But we've gone one step further.</p>
+
+<p>What if you could include a single JavaScript library, and it automatically detected the state of the browser support for the latest technology, and where the browser is lacking, the JavaScript library plugs the missing gaps.</p>
+
+<p>An über polyfill library if you will!</p>
+
+<p>That's exactly what we've been working on for the last few months. Here today, we give you a new service from the HTML5 Doctors that will give your old and busted browser a kick up the backside and finally bring it
+up to scratch.</p>
+
+<p>It goes without saying that this is a fairly mammoth task, so this is just the beta of the service, but we felt that it was in a good enough state to release to our loyal readers.</p>
+
+<h2>The Über Polyfill</h2>
+
+<p>So enough jibber-jabber, right? Let's get down and dirty with how to get using this library today.</p>
+
+<p>That's it. By including this script in to a browser like, say IE6, it will have access to Web Storage, WebSockets, Web Forms <a href="#support">and more</a>.</p>
+
+<p>We've also configured the service so that you can include just specific pieces of technology - so if you just want Web Forms, you would do:</p>
+
+<p>And if you wanted to mix Web Forms with full CSS3 support:</p>
+
+<p>And so on.</p>
+
+<p>This is a <em>hosted</em> service by HTML5 Doctor, so you'll need to hotlink the script in your site. It needs to be included <em>before</em> you try to access the "native" API in your JavaScript. So you can include this service in the <code>head</code> element, or just before your own JavaScript - as you like. </p>
+
+<h2 id="support">Support</h2>
+
+<p>Currently the service supports the following specifications:</p>
+
+<ul>
+<li>All of CSS3 (including selectors)</li>
+<li>PostMessage and related messaging APIs</li>
+<li>RDFa</li>
+<li>Includes all the new HTML5 elements - article, section, etc</li>
+<li>Live connections via: XHR2, EventSource and WebSockets</li>
+<li>File API</li>
+<li>Offline support</li>
+<li>Offline events</li>
+<li>Loading web pages APIs, most importantly, the History API (<a href="http://developers.whatwg.org/browsers.html">ref</a>)</li>
+<li>Storage API, including the events (which most browsers currently lack)</li>
+</ul>
+
+<p>Obviously sexy HTML5 things like native video and audio are supported, and specifically, we've been able to ensure that all browsers support WebM (yep, even gave Safari a bit of kick to support WebM) that way you
+only need to encode your videos once (finally). There's lots more we're planning to do in the future to make developing for the web with HTML5 so much easier.</p>
+
+<h2>The Future</h2>
+
+<p>There's still a lot that can be done with this service, and we're already working on the next exciting feature will be the full <a href="http://www.w3.org/TR/dap-api-reqs/">DAP</a> implementation - yes that <em>does</em> mean you'll be able to access your camera from an input element:</p>
+
+<pre><code>&lt;input type="file" accept="image/*;capture=camera"&gt;
+</code></pre>
+
+<p>Pretty exciting stuff, eh? Let us know what you'd like to be included that isn't in this and we'll look at including it in the full release.</p>
+<p><a href="http://html5doctor.com/how-to-get-all-the-browsers-playing-ball/" rel="bookmark">How to get all the browsers playing ball</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 1, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/drag-and-drop-to-server/"     class="crp_title">Drag and Drop and Automatically Send to the Server</a></li><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/how-to-get-all-the-browsers-playing-ball/feed/</wfw:commentRss>
+		<slash:comments>42</slash:comments>
+		</item>
+	</channel>
+</rss>

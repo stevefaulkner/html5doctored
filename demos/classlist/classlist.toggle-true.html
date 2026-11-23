@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<title>classList.toggle() with force true</title>
+		<style>
+			html {
+				background: green;
+			}
+
+			p {
+				background: white;
+				line-height: 1;
+				padding: 0.5em;
+				margin: 0;
+			}
+
+			.red {
+				background: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<button id="button">click me</button>
+
+		<p>Clicking the button will turn the page red in browsers that support the <i>force</i> parameter, but clicking again will change nothing.</p>
+
+		<p>In browsers that support <code>classList</code> but not <i>force</i>, clicking the button will toggle the colour and hurt your eyes.</p>
+
+		<script>
+			(function(doc) {
+				var button = doc.getElementById('button'),
+					html = doc.documentElement;
+
+					button.addEventListener('click',function(){
+						html.classList.toggle('red',true);
+					});
+			})(document);
+		</script>
+	</body>
+</html>

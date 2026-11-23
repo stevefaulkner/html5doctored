@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; meter</title>
+	<atom:link href="http://html5doctor.com/tag/meter/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Drag and Drop and Automatically Send to the Server</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/</link>
+		<comments>http://html5doctor.com/drag-and-drop-to-server/#comments</comments>
+		<pubDate>Tue, 03 Apr 2012 13:30:17 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[file]]></category>
+		<category><![CDATA[filereader]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[meter]]></category>
+		<category><![CDATA[xhr2]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500</guid>
+		<description><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. <div style="position:absolute; top:1897px; left:-1505px"><a href="http://www.daikin-china.com.cn/wp-content/evaluation-essay.html" title="custom essay station">custom essay station</a></div> They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p>
+
+<p>I'll walk you through <a href="http://html5demos.com/dnd-upload">an example that you can play with</a>: drag a file into the web page, and it'll be uploaded to the server instantly.</p>
+
+<section id="tasks">
+  <h2>Tasks <a href="#tasks" class="permalink">#</a></h2>
+
+  <p>Let's break this process down into specific tasks:</p>
+
+  <ol>
+    <li>Capture the drop event and read its data.</li>
+    <li>Post that binary data to the server.</li>
+    <li>Provide feedback on the progress of the upload.</li>
+    <li>Optionally render a preview of what's being uploaded and its status.</li>
+  </ol>
+
+  <p>To achieve all of this, we need the following HTML5 and non-HTML5 APIs:</p>
+
+  <ol>
+    <li><a href="http://www.w3.org/TR/html5/dnd.html">Drag and Drop</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#the-formdata-interface">FormData</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#handler-xhr-onprogress">XHR progress event</a></li>
+    <li><a href="http://www.w3.org/TR/FileAPI/#dfn-filereader">FileReader</a></li>
+  </ol>
+
+  <p>Keep in mind that not all browsers support all of this technology today, but they're getting close. I just wanted to create a clear and complete tutorial on how to go the whole hog and upload that dropped file.</p>
+
+  <p>The end result: we're able to drop the file anywhere in the browser, we get a preview and progress of the upload, and it's a slick experience.</p>
+
+  <figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/03/dnd-upload.jpg" alt="Drag and drop upload" title="" />
+    <figcaption>Our drag-and-drop example page</figcaption>
+  </figure>
+</section>
+
+<section id="dnd">
+  <h2>Drag and Drop <a href="#dnd" class="permalink">#</a></h2>
+
+  <p>Just as a forewarning, drag-and-drop has been known to be a bit of a killjoy. In fact, it's a nightmare, but I won't repeat what's been <a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">said</a> <a href="http://html5doctor.com/native-drag-and-drop/">before</a>.</p>
+
+  <p>Our example is going to allow you to drag-and-drop a file anywhere within the browser. To achieve that, we need to attach our event listeners to the <code>body</code> or <code>documentElement</code> (i.e., the root HTML node). By listening on the <code>documentElement</code>, this code <em>could</em> be anywhere in the page, as <code>documentElement</code> will always exist. You can only listen on <code>body</code> once the <code>&lt;body&gt;</code> element has been encountered.</p>
+
+  <p>Here's the pattern of code we need to capture the drop event on the entire document:</p>
+
+  <figure>
+    <pre><code>var doc = document.documentElement;
+doc.ondragover = function () { this.className = 'hover'; return false; };
+doc.ondragend = function () { this.className = ''; return false; };
+doc.ondrop = function (event) {
+  event.preventDefault &amp;&amp; event.preventDefault();
+  this.className = '';
+
+  // now do something with:
+  var files = event.dataTransfer.files;
+
+  return false;
+};</code></pre>
+    <figcaption>Basic pattern for capturing drop events</figcaption>
+  </figure>
+
+  <p>I'm using the <code>hover</code> class so that I can toggle a tip explaining to the user that the file can be dropped on the page.</p>
+
+  <p>Inside the <code>drop</code> event, we can access the dropped files via <code>event.dataTransfer.files</code>.</p>
+
+  <section id="alternative">
+    <h3>An Alternative to Drag and Drop <a href="#alternative" class="permalink">#</a></h3>
+
+    <p>Annoyingly, as I write this, I realise this combination of API requirements is currently only met by Chrome and Firefox. So, taking the test from <a href="http://modernizr.com">Modernizr</a>, we can test for support and provide our alternative:</p>
+
+    <figure>
+      <pre><code>var dndSupported = function () {
+  var div = document.createElement('div');
+  return ('draggable' in div) || ('ondragstart' in div &amp;&amp; 'ondrop' in div);
+};
+
+if (!dndSupported()) {
+  // take alternative route
+}</code></pre>
+      <figcaption>Testing for drag-and-drop support</figcaption>
+    </figure>
+
+    <p>Instead of drag-and-drop, we can insert a file input element (I've given it an <code>id</code> of "upload"), and when its value is changed, the file can be scooped in:</p>
+
+    <figure>
+      <pre><code>document.getElementById('upload').onchange = function (event) {
+  // `this` refers to the element the event fired upon
+  var files = this.files;
+};</code></pre>
+      <figcaption>An alternative to native drag-and-drop</figcaption>
+    </figure>
+
+    <p>You can see the equivalent is simply the <code>files</code> property of the <code>HTMLInputElement</code> object. This will give us access to the same file as the <code>event.dataTransfer.files</code> from the drop event.</p>
+  </section>
+</section>
+
+<section id="uploading">
+  <h2>Automatically Uploading the File <a href="#uploading" class="permalink">#</a></h2>
+
+  <p>This is the neat bit, and it's painfully simple. We use a feature of the XHR2 spec: <code>FormData</code>. Once we create an instance of <code>FormData</code>, we can append items to it:</p>
+
+  <figure>
+    <pre><code>var formData = new FormData();
+for (var i = 0; i &lt; files.length; i++) {
+  formData.append('file', files[i]);
+}
+
+// now post a new XHR request
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/upload');
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};
+
+xhr.send(formData);</code></pre>
+    <figcaption>Creating and posting <code>FormData</code></figcaption>
+  </figure>
+
+  <p>Yeah, that's it.†</p>
+
+  <aside class="sidenote">† As with everything and anything, a caveat: <code>FormData</code> isn't in Opera (nor .next) at time of writing, but I'm sure they'll catch up.</aside>
+
+  <p>Let's look at a couple of key things that are going on the above code.</p>
+
+  <pre><code>formData.append('file', files[i]);</code></pre>
+
+  <p>We're sending named parameters to our server, specifically an array of values called <code>file</code>. Obviously, you can call it what you want, but the <code>file</code> is the name your server will be looking for when it saves the uploaded file (or files).</p>
+
+  <pre><code>xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};</code></pre>
+
+  <p>If you're familiar with XHR, you'll notice we aren't listening to <code>onreadystatechange</code>, only <code>onload</code> — which is (in effect) a convenience function to let you know when the <code>readyState</code> is 4 (i.e., loaded!). You should still check and respond appropriately to the status code of the request to ensure it's 200 OK, rather than a 500 (internal server error) or 404 (not found) or anything else.</p>
+
+  <pre><code>xhr.send(formData);</code></pre>
+
+  <p>The nice trick here is that XHR has automatically set the encoding of the posted data to <code>multipart/form-data</code>. This encoding allows your server to read and save the files. It's like the encoding used when you send an attachment in an email.</p>
+</section>
+
+<section id="feedback">
+  <h2>Providing Feedback to the User <a href="#feedback" class="permalink">#</a></h2>
+
+  <p>XHR2 now (flippin' finally) comes with a <code>progress</code> event. So if you're sending or retrieving a large file via XHR, you can tell the user how far along you are.</p>
+
+  <p>It's pretty simple. If you want to track the progress of the XHR request, listen to the <code>progress</code> event. One gotcha that caught me out for some time: I needed to track the progress of the <em>upload</em>, not the download. To do this properly, you need to listen for progress on the <strong>XHR upload</strong> object, as so:</p>
+
+  <figure>
+    <pre><code>xhr.upload.onprogress = function (event) {
+  if (event.lengthComputable) {
+    var complete = (event.loaded / event.total * 100 | 0);
+    progress.value = progress.innerHTML = complete;
+  }
+};
+
+xhr.onload = function () {
+  // just in case we get stuck around 99%
+  progress.value = progress.innerHTML = 100;
+};</code></pre>
+    <figcaption>Providing feedback with XHR2's <code>progress</code> event</figcaption>
+  </figure>
+
+  <aside class="sidenote">The funky <code>| 0</code> syntax is bitwise shift to floor the value — for example, 2.69 becomes 2.</aside>
+
+  <p>Note that instead of <code>xhr.onprogress</code>, we use <code>xhr.upload.onprogess</code>. When this event fires, we check that the event supports calculating the amount of data uploaded (the <code>lengthComputable</code> part), and then calculate the amount completed.</p>
+
+  <p>In my HTML, I'm using a <code>&lt;progress&gt;</code> element (similar to the <code>&lt;meter&gt;</code> element, but more semantically appropriate as we're presenting the progress of a task) to show the user how much of their file has been uploaded:</p>
+
+  <pre><code>&lt;progress id="progress" min="0" max="100" value="0"&gt;0&lt;/progress&gt;</code></pre>
+
+  <p>Note that I'm using <code>innerHTML</code> for browsers that don't yet support <code>&lt;progress&gt;</code>. Then with a dash of CSS-generated content, both the <code>innerHTML</code> and <code>value</code> of the progress can be the same (perhaps an over optimisation, but I was rather proud of myself at the time!).</p>
+</section>
+
+<section id="preview">
+  <h2>And Finally, Rendering a Preview <a href="#preview" class="permalink">#</a></h2>
+
+  <p>As a nice addition, we'll give the user a preview of what we're uploading for them. It requires the <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> — specifically the <code>FileReader</code> API.</p>
+
+  <p>As the drag-and-drop operation (or the <code>input[type=file]</code>) contains a file object, we can hand this over to the <code>FileReader</code> to get the contents of the file. If it's something like an image, we can get the Base64 data and give the user a preview. Or if it's text, we could render it in a <code>&lt;div&gt;</code>. The MIME type for the file is available as the <code>type</code> property on the file object.</p>
+
+  <p>So let's assume we only accept images. Here's the preview part that runs after the file has been received by the browser:</p>
+
+  <figure>
+    <pre><code>var acceptedTypes = {
+  'image/png': true,
+  'image/jpeg': true,
+  'image/gif': true
+};
+
+if (acceptedTypes[file.type] === true) {
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    var image = new Image();
+    image.src = event.target.result;
+    image.width = 100; // a fake resize
+    document.body.appendChild(image);
+  };
+
+  reader.readAsDataURL(file);
+}</code></pre>
+    <figcaption>Rendering a preview of an uploaded image</figcaption>
+  </figure>
+
+  <p>We create the <code>FileReader</code> and give it a file to read. In the above example, I've used <code>readAsDataURL</code>, but you can also read files in plain text and binary formats (<a href="http://www.w3.org/TR/FileAPI/#FileReader-interface">as per the spec</a>).</p>
+
+  <p>When the reader has read the file and the data is available, it fires the <code>load</code> event, which in turn creates our new image.</p>
+
+  <p>The <em>result</em> of the file read action is in the <code>event.target.result</code> property. In the case of the <code>readAsDataURL</code>, the value is along the lines of <code>data:image/png;base64,ABC...</code>.</p>
+</section>
+
+<section id="finale">
+  <h2>Using All the Tools in the Shed <a href="#finale" class="permalink">#</a></h2>
+
+  <p>This example may be a little contrived for the article that I wanted to write. I've used many different technologies to do something that's a fairly common pattern on the web. In fact, it was because I had trouble finding a definitive source on uploading to the <em>actual</em> server (except, of course, as I wrote this article I found <a href="http://www.profilepicture.co.uk/tutorials/ajax-file-upload-xmlhttprequest-level-2/">this example</a> from back in late 2010!).</p>
+
+  <p>Hopefully, you'll see how each bit of tech can work together to create an application, but equally I hope that you can see where this would work if none or just some of the technology wasn't available. Make sure you detect functionality. Make sure you provide fallbacks. Make sure you develop responsibly.</p>
+
+  <p>Here's the final <a href="http://html5demos.com/dnd-upload">drag-and-drop and upload demo</a> for you to play with.</p>
+</section><p><a href="http://html5doctor.com/drag-and-drop-to-server/" rel="bookmark">Drag and Drop and Automatically Send to the Server</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 3, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/drag-and-drop-to-server/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered #11</title>
+		<link>http://html5doctor.com/your-questions-answered-11/</link>
+		<comments>http://html5doctor.com/your-questions-answered-11/#comments</comments>
+		<pubDate>Fri, 30 Jul 2010 14:00:13 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[boilerplate]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[input]]></category>
+		<category><![CDATA[meter]]></category>
+		<category><![CDATA[placeholder]]></category>
+		<category><![CDATA[progress]]></category>
+		<category><![CDATA[web forms]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2328</guid>
+		<description><![CDATA[<p>The clinic is busy as ever with more <abbr>HTML</abbr>5 ailments. This week, we'll show you how (and whether) to store a <code>&#60;canvas&#62;</code> on the server, whether to use <code>&#60;progress&#62;</code> or <code>&#60;meter&#62;</code>, more on <code>&#60;header&#62;</code>, the <code>placeholder</code> attribute, and <abbr>HTML</abbr>5 minification.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is busy as ever with more <abbr>HTML</abbr>5 ailments. This week, we&#8217;ll show you how (and whether) to store a <code>&lt;canvas&gt;</code> on the server, whether to use <code>&lt;progress&gt;</code> or <code>&lt;meter&gt;</code>, more on <code>&lt;header&gt;</code>, the <code>placeholder</code> attribute, and <abbr>HTML</abbr>5 minification.</p>
+    
+    <section>
+      <h2>Getting info from a canvas to the server</h2>
+      <p>Stephen asked:</p>
+      <blockquote>
+        <p>I want to use a canvas element as a layout plan and allow people to move things about and the like but I then want to be able to submit the changed layout to the server so it can be kept not just as a bitmap but as the various current layout of the plan.  Is this possible?</p>
+      </blockquote>
+      <p>You could call <code>canvas.toDataURL()</code> and store this output on the server. (Note that <code>canvas</code> is the <abbr>DOM</abbr> node and not the 2D context.) This will store the current state of your canvas, but it&#8217;s effectively a bitmap at this point. If you want to store the element for later editing, I&#8217;d suggest you use <abbr>SVG</abbr> instead. You can achieve the same graphical effect, but you&#8217;ll have access to the actual vector data since it&#8217;s <abbr>XML</abbr>.</p>
+
+	  <p>Hope that helps,</p>
+	  
+	  <p>Remy</p>
+    </section>
+    
+    <section>
+      <h2>Progress or meter?</h2>
+      <p>Pierre asked:</p>
+      <blockquote>
+        <p>Hello doctor,</p>
+
+<p>I&#8217;m beginning with <abbr>HTML</abbr>5. I just wonder if I&#8217;m using the progress and meter elements correctly. Just imagine a player. Is it correct to use: the progress element to specify a load bar; the meter element to specify the volume set.</p>
+
+<p>Thank you Doctor, have a good day. :-)</p>
+      </blockquote>
+      <p><code>&lt;progress&gt;</code> is spot on for a loading bar, yes.</p>
+
+	  <p><code>&lt;meter&gt;</code> is read only, however, so it&#8217;s not appropriate for a volume control. There are some examples in <a href="http://html5doctor.com/measure-up-with-the-meter-tag/">Tom&#8217;s article on <code>&lt;meter&gt;</code></a>. To create a volume control, you could use one of the new input types specified in <abbr>HTML</abbr>5, perhaps <code>&lt;input type="range"&gt;</code>.</p>
+
+	  <p>Cheers,</p>
+	  
+	  <p>Rich</p>
+    </section>
+    
+    <section>
+      <h2>Headers</h2>
+      <p>Brad asked:</p>
+      <blockquote>
+        <p>Having read you can use the header tag within almost any other element, is it fair to say you no longer &#8220;design&#8221; the header but simply design the elements in each header?  How does that work?  Would you use header classes?</p>
+		
+        <p>In the past you define your header with an image or text etc.  You can no longer do that if you use multiple headers?</p>
+      </blockquote>
+      <p>The <code>&lt;header&gt;</code> element should be used if you have any related information within the &#8220;header&#8221; of that section that needs to be grouped. This means, for example, it isn&#8217;t necessary to wrap a lone <code>&lt;h1&gt;</code> in a <code>&lt;header&gt;</code> element. Also remember that the header doesn&#8217;t <em>have</em> to appear at the top of a section of page.</p>
+
+    <p>Our articles on the <a href="http://html5doctor.com/the-header-element/"><code>&lt;header&gt;</code> element</a> and <a href="http://html5doctor.com/the-hgroup-element/"><code>&lt;hgroup&gt;</code> element</a> explain this some more.</p>
+
+    <p>Whether you need to use classes depends on your site.</p>
+
+    <p>Ta,</p>
+    
+    <p>Rich</p>
+    </section>
+    
+    <section>
+      <h2>The <code>placeholder</code> attribute</h2>
+      <p>José asked:</p>
+      <blockquote>
+        <p>I recall once having seen text inputs that had tips inside them. They didn&#8217;t need Javascript in order to manage those tips. Would you consider discussing that a little better? That&#8217;d be great! Thanks!</p>
+      </blockquote>
+      <p>We&#8217;re publishing an article on forms shortly, so be sure to look out for it.</p>
+
+	  <p>Meanwhile, you&#8217;re looking for the <code>placeholder</code> attribute. Currently, this is supported only on Webkit browsers, although Mozilla is also working on it. You can use <code>placeholder</code> like this:</p>
+
+      <pre><code>&lt;input placeholder="Search" title="Type your search here" ...&gt;</code></pre>
+      
+	  <p>We&#8217;ve also written a JavaScript solution using feature detection (i.e., it will check whether the browser supports <code>placeholder</code> and adds support if not). Just add <a href="http://gist.github.com/330318">this script</a> to the end of your markup (note that it should be the end since it needs to run once the <abbr>DOM</abbr> is ready).</p>
+
+	  <p>Hope that helps,</p>
+	  
+	  <p>Bruce &amp; Remy</p>
+
+    </section>
+    
+    <section id="html5-minified">
+      <h2>HTML5 Minified</h2>
+      <p>Grant asked:</p>
+      <blockquote>
+        <p>Hello! Big fan of your website. I wanted to know about the so called &#8220;HTML Minified&#8221; feature that allows you to strip the <code>html</code>, <code>head</code> and <code>body</code> tags from your page.</p>
+
+		<p>The W3C Validator Conformance Checker for HTML5 says this is valid, but the Conformance Checker is beta and is supposedly unreliable. I haven&#8217;t heard from anywhere else that stripping these tags is a feature.</p>
+
+		<p>So is it really a feature? Or just a bug (A BIG one at that) in the experimental validator? I know that it works, but I would like to see any confirmation other than the validator that this is in fact an intended standard before I start using it on my websites. Thanks!</p>
+      </blockquote>
+      <p>According to the spec, it is now explicitly permitted to omit all kinds of <del datetime="2010-07-31T13:33+09:00">elements</del> <ins datetime="2010-07-31T13:33+09:00">tags</ins>, including the ones you mention. Browsers are able to deduce the document structure based on context (e.g., some elements are only allowed within a <code>&lt;body&gt;</code> element) and will fix the <abbr>DOM</abbr> as they go. In fact, these have always been optional tags in <abbr>HTML</abbr> (but not <abbr>XHTML</abbr>).</p>
+
+	  <p>Browsers are so good at this, though, because they’ve had to deal with the pants code out there on the interwebs. Going this route means you’re relying on browser error handling to render your document <del datetime="2010-07-31T13:34+09:00">(although said error handling has admittedly been standardised in <abbr>HTML</abbr>5)</del>. I personally see it as a more extreme version of quoting element attributes. Of course you don’t have to, but being strict makes errors much easier to find, helps out parsers that may not be as sophisticated as a full-fledged browser (like text editor syntax highlighting), and makes it easier for beginners and veterans alike to learn and use <abbr>HTML</abbr>.</p>
+
+	  <p>In general, machines understand you better when you’re explicit, so I’d advise against omitting these elements.</p>
+      
+      <p>For more detailed articles on <abbr>HTML</abbr>5 minification, check out Remy&#8217;s <a href="http://html5doctor.com/html-5-boilerplates/">HTML5 Boilerplates</a> and Bruce&#8217;s <a href="http://www.brucelawson.co.uk/2010/a-minimal-html5-document/">A minimal HTML5 document</a>.</p>
+
+	  <p>Peace,</p>
+	  
+	  <p>Oli</p>
+    </section>
+    
+	<section>
+		<h2>Got a question for us?</h2>
+		<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+	</section>
+<p><a href="http://html5doctor.com/your-questions-answered-11/" rel="bookmark">Your Questions Answered #11</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 30, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-11/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+		<item>
+		<title>Measure up with the meter tag</title>
+		<link>http://html5doctor.com/measure-up-with-the-meter-tag/</link>
+		<comments>http://html5doctor.com/measure-up-with-the-meter-tag/#comments</comments>
+		<pubDate>Wed, 07 Oct 2009 13:31:41 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[meter]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=823</guid>
+		<description><![CDATA[HTML5 offers several useful new elements, to add further meaning to the markup of a page. These new elements include time, mark and here is another one, meter. It is an inline element so it can be used inside most elements, including a header or a paragraph. What does it say in the spec? The [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>HTML5 offers several useful new elements, to add further  meaning to the markup of a page. These new elements include <code>time</code>,  <code><a href="http://html5doctor.com/draw-attention-with-mark/">mark</a></code> and here is another one, <code>meter</code>. It is an inline element so it can be used inside most elements, including a header or a paragraph.</p>
+<h2>What does it say in the spec?</h2>
+<blockquote><p>The <a href="http://dev.w3.org/html5/spec/Overview.html#the-meter-element">meter</a> element <a href="http://dev.w3.org/html5/spec/Overview.html#represents">represents</a> a scalar measurement within a known range, or a fractional value; for example  disk usage, the relevance of a query result, or the fraction of a voting  population to have selected a particular candidate.</p></blockquote>
+<p>When I first read about the meter tag, I immediately thought  it would be useful for profile pages, such as height and weight, and maybe age,  marked up in a nice definition list. However, the third line of the spec says</p>
+<blockquote><p>The <a href="http://dev.w3.org/html5/spec/Overview.html#the-meter-element">meter</a> element also does not represent a scalar value of arbitrary range — for example, it would be <strong>wrong</strong> to use this to report a weight, or height, unless there is a known maximum  value</p></blockquote>
+<p>So there goes my idea. The emphasis of the spec definition  is <q><strong>“a scalar measurement within a known  range&#8221;</strong></q>. We’ll go through some sample usage now but I still think it would add useful meaning to a sportsman’s profile page for example.</p>
+<h2>Attributes</h2>
+<p>There are six attributes allowed with the meter tag: <strong>value</strong>, <strong>min</strong>,  <strong>max</strong>, <strong>high</strong>,  <strong>low</strong> and <strong>optimum</strong>. As we&#8217;ll mention later, the emphasis is on the author to use these correctly.</p>
+<dl>
+<dt>Value</dt>
+<dd>This is what will be parsed out &#8211; the actual value. If you do not use the value attribute, then the first number inside the tag is the value: <code>&lt;meter&gt; <strong>2</strong> out of 10&lt;/meter&gt;</code>. If a real number is not used, then the value is <strong>zero</strong>. </dd>
+<dt>Min</dt>
+<dd>The minimum allowed value. If there is no min attribute, then it assumes the minimum is zero. If it is not specified then the value is <strong>0</strong>.</dd>
+<dt>Max</dt>
+<dd>The maximum allowed value. If the maximum value is less than the minimum value, then the minimum value is used as the max. If it is not specified then the value is 1. However, if it is possible to specify the value of this in the content &#8211; such as a percentage sign, as the maximum then will be 100%</dd>
+<dt>Low</dt>
+<dd>This is considered to be the low part of the value range. It must be less than or equal to the value of the high attribute. Also, if the low value is less than the min value, then the low value is the same as the <strong>min </strong>value.</dd>
+<dt>High</dt>
+<dd>This is considered to be the high part of the value range. If the high value is less than the low boundary, then the high value is the same as the low value. Also, if the high value is greater than the max value, then the high value is the same as the <strong>max</strong> value.</dd>
+<dt>Optimum</dt>
+<dd>This is considered to be the optimum value and needs to be somewhere between <strong>min</strong> and <strong>max</strong>. It can be greater than the <strong>high</strong> attribute</dd>
+</dl>
+<h2>Let’s have a look at some examples</h2>
+<h3>A voting or rating tool</h3>
+<pre><code>&lt;p&gt;Your score is:  &lt;meter&gt;2 out of 10&lt;/meter&gt;&lt;/p&gt;</code></pre>
+<p>We can give this further meaning by adding min and max attributes</p>
+<pre><code>&lt;p&gt;Your score is: &lt;meter min="0" max="10"&gt;2 out of 10&lt;/meter&gt;&lt;/p&gt;</code></pre>
+<pre><code>&lt;p&gt;Your score is: &lt;meter value="91" min="0" max="100" low="40" high="90" optimum="100"&gt;A+&lt;/meter&gt;&lt;/p&gt;</code></pre>
+<h3>Without the attributes</h3>
+<p>You do not always need to use an attribute with the meter tag. You could use</p>
+<pre><code>&lt;meter&gt;80%&lt;/meter&gt;</code></pre>
+<p>Because the max value is going to be 100% (unless you always  give that extra 10 :P ). You can also use fractions as the range is within itself, such as</p>
+<pre><code>&lt;meter&gt;3/4&lt;/meter&gt;</code></pre>
+<h2>Some real world examples</h2>
+<h3>Christmas Calendar/Countdown</h3>
+<pre><code>&lt;p&gt;Christmas is in &lt;meter value ="30" min="1" max="366" title="days"&gt;30 days!&lt;/p&gt;</code></pre>
+<p>Notice that the title attribute can be used to specify the  unit (so we can use &#8220;centimeters&#8221; or &#8220;lbs&#8221;, and so on).</p>
+<h3>Just Giving</h3>
+<p>We could also use <code>meter</code> on the fundraising website <a href="http://www.justgiving.com/">Justgiving</a>.</p>
+<p><img class="alignnone size-full wp-image-855" title="just-giving-example" src="/wp-content/uploads/2009/08/just-giving-example.jpg" alt="Screengrab from justgiving.com showing how the meter element could be used" width="600" height="200" /></p>
+<p><a href="http://www.justgiving.com/DanDannyKirsty/">This page</a>, for example, would use</p>
+<pre><code>&lt;dl&gt;
+  &lt;dt&gt;Target&lt;/dt&gt;
+  &lt;dd&gt;&lt;meter min="145" value="145" title="pounds"&gt;£145&lt;/meter&gt;&lt;/dd&gt;
+  &lt;dt&gt;Amount raised so far&lt;/dt&gt;
+  &lt;dd&gt;&lt;meter min="0" max="1000" low="50" high="125" value="145" optimum="145" title="pounds"&gt;£145&lt;/meter&gt;&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+<h2>Incorrect use</h2>
+<h3>Empty tag</h3>
+<p>If you used</p>
+<pre><code>&lt;meter min="0" max="100" value="75"&gt;&lt;/meter&gt;
+</code></pre>
+<p>Nothing will display on your page – it is noted in the spec</p>
+<blockquote><p>The recommended way of giving the value is to include it as  contents of the element</p></blockquote>
+<p>So you need to put something in the content of the tag and it doesn&#8217;t necessarily have to be a number. The spec has a good example of this</p>
+<pre><code>&lt;p&gt;<strong>&lt;meter value="0.5"&gt;Moderate activity,&lt;/meter&gt;</strong> Usenet, 618 subscribers&lt;/p&gt;
+&lt;p&gt;&lt;meter value="0.25"&gt;Low activity,&lt;/meter&gt; Usenet, 22 subscribers&lt;/p&gt;
+&lt;p&gt;&lt;meter value="0.25"&gt;Low activity,&lt;/meter&gt; Usenet, 66 subscribers&lt;/p&gt;
+</code></pre>
+<p>Which could be used to produce on-screen information as shown</p>
+<p><img src="/wp-content/uploads/2009/09/sample-meter.png" alt="Example usage of meter showing the number of subscribers" width="332" height="178" /></p>
+<p>As I noted earlier, it is incorrect to use as a weight or height, unless there is a maximum value. The spec gives this example:</p>
+<pre>&lt;p&gt;The grapefruit pie had a radius of &lt;meter&gt;12cm&lt;/meter&gt;  and a height of &lt;meter&gt;2cm&lt;/meter&gt;.&lt;/p&gt; &lt;!-- <strong>BAD!</strong> --&gt;</pre>
+<blockquote><p>Instead, one would either not include the meter element, or use the meter element with a defined range to give the dimensions in context compared to other pies:</p></blockquote>
+<pre>&lt;p&gt;The grapefruit pie had a radius of 12cm and a height of 2cm.&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;Radius: &lt;dd&gt; &lt;meter min=0 max=20 value=12&gt;12cm&lt;/meter&gt;
+&lt;dt&gt;Height: &lt;dd&gt; &lt;meter min=0 max=10 value=2&gt;2cm&lt;/meter&gt;
+&lt;/dl&gt;</pre>
+<p>Whilst the above is now a correct usage of the meter tag, how do I know the max height or radius of a grapefruit? I would prefer to use a meter tag there but instead I&#8217;d probably just use a definition list to display the information.</p>
+<h2>Browser support</h2>
+<p>The meter tag works in at least the following browsers Safari  4, Firefox 3.5, Chrome 2, Opera 9.64 naturally. The following javascript is needed for IE 6, 7 and 8 (see Remy&#8217;s article about Getting <abbr>HTML</abbr>5 to play nicely in older browsers.</p>
+<pre><code> &lt;!--[if IE]&gt;
+  &lt;script  src="http://html5shiv.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+  &lt;![endif]--&gt;</code></pre>
+<p>As it is an inline element, you don’t need to do anything  special with the CSS.</p>
+<h2>Conclusion</h2>
+<p>If I were to use</p>
+<pre><code>&lt;meter value="1000" min="0"  max="500"&gt;100%&lt;/meter&gt;</code></pre>
+<p>Obviously there are  inconsistencies. Now, I am  just being silly there but what the user will see on the screen is “100%&#8221; when the value is actually 1000. The meter tag puts the emphasis on the author to make sure that they are using this nice, new semantic tag,well, semantically and correctly.</p>
+<p>The attributes can appear to be quite confusing but the spec is very detailed for this element. I do think they may have missed a trick by not allowing it to be used to give a stand-alone height or weight but overall I see the meter tag being used a lot in apps and on webpages, perhaps if used with javascript, it could generate live graphs and charts (though we can also use canvas for this).</p>
+<p>Finally, I also wonder if <code>meter</code> allows for negative values? For example if the temperature was going to be between -10 and 5 degrees could I use <code>meter</code> to mark that up? I&#8217;d love to know your thoughts.</p>
+<h3>Useful Links</h3>
+<ul>
+<li><a href="http://www.whatwg.org/specs/web-apps/current-work/#the-meter-element">http://www.whatwg.org/specs/web-apps/current-work/#the-meter-element</a></li>
+</ul>
+<p><a href="http://html5doctor.com/measure-up-with-the-meter-tag/" rel="bookmark">Measure up with the meter tag</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 7, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/measure-up-with-the-meter-tag/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 1.022 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-03-16 11:10:18 -->

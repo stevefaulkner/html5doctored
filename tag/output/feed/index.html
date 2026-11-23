@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; output</title>
+	<atom:link href="http://html5doctor.com/tag/output/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>The output element</title>
+		<link>http://html5doctor.com/the-output-element/</link>
+		<comments>http://html5doctor.com/the-output-element/#comments</comments>
+		<pubDate>Tue, 20 Dec 2011 14:30:20 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[output]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3976</guid>
+		<description><![CDATA[<p>Across the web, you’ll see a range of sites that feature calculators for working out things like loan repayments, mortgage rates, tax, insurance, and more. Until now, we’ve had no way of semantically marking up the result of those calculations. Enter: the <code>&#60;output&#62;</code> element! In this article, we’ll show you <code>&#60;output&#62;</code> and some related JavaScript tricks. Let’s get cracking.</p> <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/"     class="crp_title">Taking Web Audio Offline in iOS 6 Safari</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>Across the web, you’ll see a range of sites that feature calculators for working out things like loan repayments, mortgage rates, tax, insurance, and more. Until now, we’ve had no way of semantically marking up the result of those calculations. Enter: the <code>&lt;output&gt;</code> element! In this article, we’ll show you <code>&lt;output&gt;</code> and some related JavaScript tricks. Let’s get cracking.</p> 
+
+<section id="definition">
+  <h2>The Definition <a href="#definition" class="permalink">#</a></h2>
+  
+  <p>The <code>&lt;output&gt;</code> element, new in HTML5, is used in forms. The WHATWG HTML specification describes <code>&lt;output&gt;</code> very simply:</p>
+  
+  <blockquote>
+    <p>The output element represents the result of a calculation.</p>
+<footer>&mdash; <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-button-element.html#the-output-element">WHATWG HTML specification</a></cite></footer>
+</blockquote>
+
+  <p>Along with the standard <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#global-attributes">global attributes</a>, <code>&lt;output&gt;</code> also accepts the following:</p>
+  
+  <dl> 
+    <dt><code>for</code></dt>
+    <dd>A space-separated list containing the IDs of the elements whose values went into the calculation.</dd>
+    <dt><code>form</code></dt>
+    <dd>Associates the <code>&lt;output&gt;</code> element with its <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/association-of-controls-and-forms.html#form-owner">form owner</a>. The value must be the ID of a form in the same document. This allows you to place an <code>&lt;output&gt;</code> element outside of the <code>&lt;form&gt;</code> with which it is associated.</dd>
+    <dt><code>name</code></dt>
+    <dd>The name of the element.</dd>
+  </dl>
+</section>
+
+<section id="implementation">
+  <h2>Implementing <code>&lt;output&gt;</code> <a href="#implementation" class="permalink">#</a></h2>
+  
+  <p>We’ll start by creating a simple example that adds two whole numbers together (Figure 1). We’ll use the new-in-HTML5 <code>number</code> input type and the <code>parseInt</code> JavaScript function to convert the input strings to integers:</p>
+  
+  <figure>
+    <pre><code>&lt;form onsubmit="return false" oninput="o.value = parseInt(a.value) + parseInt(b.value)"&gt;
+  &lt;input name="a" type="number" step="any"&gt; +
+  &lt;input name="b" type="number" step="any"&gt; =
+  <mark>&lt;output name="o"&gt;&lt;/output&gt;</mark>
+&lt;/form&gt;</code></pre>
+  
+    <img src="http://html5doctor.com/wp-content/uploads/2011/10/output-construction.png" alt="Construction of a calculation using the output element" />
+  
+    <figcaption>Figure 1: A simple calculator, rendered in Chrome</figcaption>
+  </figure>
+  
+  <aside class="sidenote">
+    <p><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-input-element-attributes.html#the-step-attribute">The <code>step</code> attribute</a> is new to HTML5. It defines the increment by which a <code>number</code> input increases and decreases.</p>
+  </aside>    
+  
+  <div class="callout highlight-block">
+    <p>Notice that we’re using the now-standard <code>oninput</code> event, which has replaced the <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=11129">deprecated <code>onforminput</code> event</a>. Daniel Friesen has written a detailed article on <a href="http://blog.danielfriesen.name/2010/02/16/html5-browser-maze-oninput-support/">the background and current support of <code>oninput</code></a>. <code>oninput</code> isn’t supported in IE8 and below, and its IE9 support is a little flaky, but you can work around these problems using <a href="http://www.useragentman.com/blog/2011/05/12/fixing-oninput-in-ie9-using-html5widgets/">the html5Widgets polyfill</a>.</p>
+  </div>
+  
+  <p><a href="http://html5doctor.com/demos/output/1.html">See a live example of the code in Figure 1.</a></p>
+  
+  <p>As you’d expect, if you only enter a single value, the function returns <abbr title="Not a Number">NaN</abbr>. It’s effectively trying to add a number and an undefined value, and 1 + undefined = undefined.</p>
+  
+  <section id="for-attribute">
+    <h3>Using the <code>for</code> Attribute <a href="#for-attribute" class="permalink">#</a></h3>
+    
+    <p>Let’s build on the previous example and add the <code>for</code> attribute to the <code>&lt;output&gt;</code> (Figure 2). We need to add IDs to each of the associated <code>&lt;input&gt;</code>s, just as we would with the <code>for</code> attribute on a <code>&lt;label&gt;</code>:</p>
+    
+    <figure>
+      <pre><code>&lt;form onsubmit="return false" oninput="o.value = parseInt(a.value) + parseInt(b.value)"&gt;
+  &lt;input name="a" id="a" type="number" step="any"&gt; +
+  &lt;input name="b" id="b" type="number" step="any"&gt; =
+  &lt;output name="o" <mark>for="a b"</mark>&gt;&lt;/output&gt;
+&lt;/form&gt;</code></pre>
+
+      <figcaption>Figure 2: Using the <code>for</code> attribute on the <code>&lt;output&gt;</code> element</figcaption>
+    </figure>
+
+    <p><a href="http://html5doctor.com/demos/output/2.html">See a live example of the code in Figure 2.</a></p>
+  </section>
+  
+  <section id="valueAsNumber">
+    <h3>The <code>valueAsNumber</code> Property <a href="#valueAsNumber" class="permalink">#</a></h3>
+    
+    <p>HTML5 has also introduced the <code>valueAsNumber</code> property of JavaScript input objects (specifically those of type number, date, and range). This returns the value as a number rather than as a string, meaning we no longer need to use <code>parseInt</code> or <code>parseFloat</code>, and the <code>+</code> operator adds rather than concatenates:</p>
+    
+    <figure>
+      <pre><code>&lt;form onsubmit="return false" <mark>oninput="o.value = a.valueAsNumber + b.valueAsNumber"</mark>&gt;
+  &lt;input name="a" id="a" type="number" step="any"&gt; +
+  &lt;input name="b" id="b" type="number" step="any"&gt; =
+  &lt;output name="o" for="a b"&gt;&lt;/output&gt;
+&lt;/form&gt;</code></pre>
+
+      <figcaption>Figure 3: Using the <code>valueAsNumber</code> property for retrieving a numeric value from an input</figcaption>
+    </figure>
+
+    <p><a href="http://html5doctor.com/demos/output/3.html">See a live example of the code in Figure 3.</a></p>
+  </section>
+</section>
+
+<section id="invoicing-calculator">
+  <h2>Invoicing Calculator: An In-depth Example with Fallbacks <a href="#invoicing-calculator" class="permalink">#</a></h2>
+  
+  <p>For a more realistic example, let’s create an invoicing calculator that multiplies the number of hours by the hourly rate and adds tax to give an overall total (Figure 4):</p>
+  
+  <figure>
+    <pre><code>&lt;form onsubmit="return false" oninput="amount.value = (hours.valueAsNumber * rate.valueAsNumber) + ((hours.valueAsNumber * rate.valueAsNumber) * vat.valueAsNumber)"&gt;
+  &lt;legend&gt;Invoice&lt;/legend&gt;
+
+  &lt;p&gt;&lt;label for="hours"&gt;Number of hours&lt;/label&gt;
+  &lt;input type="number" min="0" id="hours" name="hours"&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;label for="rate"&gt;Rate&lt;/label&gt;
+  &lt;span&gt;&pound;&lt;/span&gt;&lt;input type="number" min="0" id="rate" name="rate"&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;label for="vat"&gt;VAT&lt;/label&gt;
+  &lt;input type="number" min="0" id="vat" value="0.20" name="vat"&gt;&lt;/p&gt;
+
+  &lt;p&gt;Total: &lt;strong&gt;&pound;&lt;output name="amount" for="hours rate vat"&gt;0&lt;/output&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/form&gt;</code></pre>
+
+    <img src="http://html5doctor.com/wp-content/uploads/2011/10/invoice-calc.png" alt="Invoice tax calculator using the output element" />
+
+    <figcaption>Figure 4: An invoicing calculator that renders its result in an <code>output</code> element</figcaption>
+  </figure>
+
+  <p><a href="http://html5doctor.com/demos/output/4.html">See a live example of the code in Figure 4.</a></p>
+  
+  <p>Nothing too complicated going on there. In fact, the scripting is so simple that even I can do it ;)</p>
+</section>
+
+<section id="input-range">
+  <h2>A Mildly Controversial Example Using <code>&lt;input type="range"&gt;</code> <a href="#input-range" class="permalink">#</a></h2>
+  
+  <p>HTML5 also introduces the <code>range</code> input type, which renders as a slider control in supporting browsers. With this input type, a user can enter an approximate value within a given range without having to be completely precise or directly type a numeric value. For cross browser compatibility, see <a href="http://remysharp.com/2011/07/18/input-range-polyfill/">Remy’s input range polyfill</a>.</p>
+  
+  <p>While researching this article, I found a number of examples using the <code>&lt;output&gt;</code> element in conjunction with <code>&lt;input type="range"&gt;</code> as shown in Figure 5:</p>
+  
+  <figure>
+    <pre><code>&lt;form onsubmit="return false" oninput="level.value = flevel.valueAsNumber"&gt;
+  &lt;label for="flying"&gt;Flying Skill Level&lt;/label&gt;
+  &lt;input name="flevel" id="flying" type="range" min="0" max="100" value="0"&gt; 
+  &lt;output for="flying" name="level"&gt;0&lt;/output&gt;/100
+&lt;/form&gt;</code></pre>
+
+    <img src="http://html5doctor.com/wp-content/uploads/2011/10/output-range.png" alt="Output example using type=range" />
+
+    <figcaption>Figure 5: Using <code>&lt;input type="range"&gt;</code> with the <code>&lt;output&gt;</code> element</figcaption>
+  </figure>
+  
+  <p><a href="http://html5doctor.com/demos/output/5.html">See a live example of the code in Figure 5.</a></p>
+  
+  <p>Using <code>&lt;output&gt;</code> to show the current value to the user seems like a perfectly reasonable use case to me, but it isn’t <q cite="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-button-element.html#the-output-element">the result of a calculation</q> as the spec describes. I haven’t spoken directly to Hixie about this, but a couple of people on the IRC channel seemed to agree with, so I filed a <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=14379">bug report</a> to request the definition be amended. <ins datetime="2012-10-01T20:38:26+00:00">Since writing this article, the <a href="http://html5.org/tools/web-apps-tracker?from=7355&#038;to=7356">bug has been resolved and the definition loosened</a> meaning the above is now a valid use of <code>output</code>. Hurrah!.</ins> <del datetime="2012-10-01T20:38:26+00:00">I’ll update this article if something changes</del>.</p>
+</section>  
+
+<section id="support">
+  <h2>Browser Support and Polyfills <a href="#support" class="permalink">#</a></h2>
+  
+  <p>The good news is that all modern browsers support the <code>&lt;output&gt;</code> element to some extent. The bad news is that there are still a few gotchas.</p>
+  
+  <table class="wide">
+    <caption>Browser support for the <code>&lt;output&gt;</code> element</caption>
+    <thead>
+      <tr>
+        <th scope="col">Browser</th>
+        <th scope="col">Support</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Chrome</th>
+        <td>13+</td>
+      </tr>
+      <tr>
+        <th scope="row">Safari</th>
+        <td>5.1+</td>
+      </tr>
+      <tr>
+        <th scope="row">Firefox*</th>
+        <td>6+</td>
+      </tr>
+      <tr>
+        <th scope="row">Opera</th>
+        <td>9.20+</td>
+      </tr>
+      <tr>
+        <th scope="row">Internet Explorer</th>
+        <td>10+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p><small>* Firefox does support the <code>&lt;output&gt;</code> element and the <code>oninput</code> event, but <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=636737">it doesn’t support the <code>valueAsNumber</code> property</a>.</small></p>
+  
+  <p>All the examples we’ve seen so far should work perfectly in Opera 11.5+, Safari 5.1+, and Chrome 13+. IE, as you might expect, is lagging somewhat, but support for <code>&lt;output&gt;</code> is in IE10 Platform Preview 2, and support for <code>oninput</code> is already in IE9.</p>
+  
+  <p>In order to work around this in our simple examples, we’ll need to revert to the tried-and-trusted <code>getElementByID</code> and <code>parseFloat</code> (Figure 6):</p>
+  
+  <figure>
+    <pre><code>&lt;form onsubmit="return false" <mark>oninput="document.getElementById('o').innerHTML = parseFloat(document.getElementById('a').value) + parseFloat(document.getElementById('b').value)"</mark>&gt;
+  &lt;input name="a" id="a" type="number" step="any"&gt; +
+  &lt;input name="b" id="b" type="number" step="any"&gt; =
+  &lt;output name="o" id="o" for="a b"&gt;&lt;/output&gt;
+&lt;/form&gt;</code></pre>
+
+    <figcaption>Figure 6: Using <code>getElementById</code> to support older browsers</figcaption>
+  </figure>
+
+  <p><a href="http://html5doctor.com/demos/output/6.html">See a live example of the code in Figure 6.</a></p>
+
+  <p>While this isn’t ideal, it’s workable until those less-capable browsers die a slow and painful death. Alternatively, you can use polyfills to plug the gaps.</p>
+  
+  <p>To check support in your current browser, <a href="http://miketaylr.com/code/html5-output-element-support.html">open up Mike Taylor’s support test page</a>.
+  
+  <section id="polyfills">
+    <h3>Polyfills <a href="#polyfills" class="permalink">#</a></h3>
+    
+    <p>To support less-capable browsers, there are polyfills such as <a href="https://github.com/zoltan-dulac/html5Widgets">HTML5 Widgets</a> created by <cite><a href="http://www.useragentman.com">Zoltan &#8220;Du Lac&#8221; Hawryluk</a></cite>. Zoltan talks you through the process in <a href="http://www.useragentman.com/blog/2010/07/27/cross-browser-html5-forms-using-modernizr-webforms2-and-html5widgets/">this detailed article on creating cross browser forms using html5Widgets</a>.</p>
+  </section>
+</section>
+
+<section id="summary">
+  <h2>Summary <a href="#summary" class="permalink">#</a></h2>
+  
+  <p>You probably won&#8217;t find yourself using the <code>&lt;output&gt;</code> element all the time, but it’s useful in a whole host of situations. Calculating values on financial sites spring to mind, or outputting the current mouse position, or perhaps the goal difference in a table of sports teams. What other use cases can you think of for <code>&lt;output&gt;</code>? Let us know in the comments!</p>
+</section>
+
+<section id="links">
+  <h2>Related reading <a href="#links" class="permalink">#</a></h2>
+  
+  <ul>
+    <li><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-button-element.html#the-output-element">WHATWG HTML Specification for <code>&lt;output&gt;</code></a></li>
+    <li><a href="http://www.w3.org/wiki/HTML/Elements/output">W3C Elements Wiki Page for <code>&lt;output&gt;</code></a></li>
+    <li><a href="http://wufoo.com/html5/elements/3-output.html">Wufoo HTML5 Forms Tests for <code>&lt;output&gt;</code></a></li>
+    <li><a href="https://developer.mozilla.org/en/HTML/Element/output">Mozilla Developer Network docs on <code>&lt;output&gt;</code></a></li>
+    <li><a href="http://www.useragentman.com/blog/2011/05/10/is-onforminput-deprecated-in-html5-forms-and-why-should-i-care-anyways/">Is <code>onforminput</code> Deprecated in HTML5 Forms? (And Why Should I Care Anyways?) by <cite>Zoltan Hawryluk</cite></a></li>
+    <li><a href="http://blog.danielfriesen.name/2010/02/16/html5-browser-maze-oninput-support/">A HTML5 Browser Maze: <code>oninput</code> Support by <cite>Daniel Friessen</cite></a></li>
+    <li><a href="http://www.useragentman.com/blog/2011/05/12/fixing-oninput-in-ie9-using-html5widgets/">Fixing <code>oninput</code> in IE Using html5Widgets by <cite>Zoltan Hawryluk</cite></a></li>
+  </ul>
+</section><p><a href="http://html5doctor.com/the-output-element/" rel="bookmark">The output element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on December 20, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/"     class="crp_title">Taking Web Audio Offline in iOS 6 Safari</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-output-element/feed/</wfw:commentRss>
+		<slash:comments>35</slash:comments>
+		</item>
+	</channel>
+</rss>

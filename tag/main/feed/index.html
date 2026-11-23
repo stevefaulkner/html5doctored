@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; main</title>
+	<atom:link href="http://html5doctor.com/tag/main/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The main element</title>
+		<link>http://html5doctor.com/the-main-element/</link>
+		<comments>http://html5doctor.com/the-main-element/#comments</comments>
+		<pubDate>Wed, 26 Jun 2013 08:33:59 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[aria]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[main]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5081</guid>
+		<description><![CDATA[<p>Recently, main was formally added to the W3C HTML specification. Now that the dust has settled, it's about time we dive in to find out where and when it's appropriate to use main. Let's get started.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Recently, <code>&lt;main&gt;</code> was formally added to the W3C HTML specification. Now that the dust has settled, it&#8217;s about time we dive in to find out where and when it&#8217;s appropriate to use <code>&lt;main&gt;</code>. Let&#8217;s get started.</p>
+
+<h2>History</h2>
+
+<p>The inclusion of a main element (or similar) has long been debated in the working groups with authors and others often questioning why we had new elements such as <code>&lt;header&gt;</code>, <code>&lt;article&gt;</code>, and <code>&lt;footer&gt;</code> but no element to accurately describe the primary content of a page.</p>
+
+<p><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/">Steve Faulkner</a>, an accessibility consultant and new doctor in residence, undertook the hard graft of carrying out research, gathering data and use cases, and speaking to implementers to get them interested. As Steve explains, he talked to:</p>
+
+<blockquote>
+<p>as many implementers (both general browser implementers and accessibility implementers), developers, authors and users as I could and got advice and input from them. I went where the various people hung out; on IRC, mailing lists, twitter, blogs, conferences — anywhere.</p>
+<footer><cite><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/">Steve Faulkner</a></cite></footer>
+</blockquote>
+
+<p>This led to his writing an <a href="https://dvcs.w3.org/hg/html-extensions/raw-file/tip/maincontent/index.html">extension specification for <code>&lt;main&gt;</code></a> and a thorough <a href="http://www.w3.org/html/wg/wiki/User:Sfaulkne/main-usecases#Introduction">use case rationale</a>.</p>
+
+<p>The proposal <a href="http://lists.w3.org/Archives/Public/public-html/2012Nov/0232.html">was accepted in November 2012</a>, and <code>&lt;main&gt;</code> was then rolled into the HTML5.1 specification. Recently, it was added to the HTML5 specification following no objections. Lets have a look at how the spec describes <code>&lt;main&gt;</code>.</p>
+
+<h2>W3C Specification</h2>
+
+<p><aside class="sidenote">You should still use the ARIA role until all browsers map the role to the <code>&lt;main&gt;</code> element.</aside></p>
+
+<p>The primary purpose of <code>&lt;main&gt;</code> is to map <a href="http://www.w3.org/TR/wai-aria/roles#landmark_roles">ARIA&#8217;s landmark role <code>main</code></a> to an element in HTML. This will help screen readers and other assistive technologies understand where the main content begins. The W3C spec describes <code>&lt;main&gt;</code> as representing:</p>
+
+<blockquote>
+<p>The main content of the body of a document or application. The main content area consists of content that is directly related to or expands upon the central topic of a document or central functionality of an application.</p>
+
+<footer><cite><a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-main-element">W3C HTML Editors Draft</a></cite></footer>
+</blockquote>
+
+<p>Since the <code>&lt;main&gt;</code> element is now included in the HTML specification, the <code>&lt;body&gt;</code> element has reverted to its HTML4 definition:</p>
+
+<blockquote>
+<p>The body element represents the content of the document.</p>
+
+<footer><cite><a href="http://www.w3.org/html/wg/drafts/html/master/sections.html#the-body-element">W3C HTML Editors Draft</a></cite></footer>
+</blockquote>
+
+<h3>More Details</h3>
+
+<p>One important facet of <code>&lt;main&gt;</code> is that it can only be used once per page. <a href="http://lists.w3.org/Archives/Public/public-html/2013Jan/0230.html">Jeremy Keith wrote to the working group</a> to understand why this is the case (rather than allowing multiple <code>&lt;main&gt;</code>s). Although I won&#8217;t go into detail, the discussion is an interesting read.</p>
+
+<p>As per the spec, the <a href="http://validator.w3.org/nu/">W3C validator</a> throws an error if you attempt to use multiple <code>&lt;main&gt;</code> elements per document.</p>
+
+<p>Another stipulation of <code>&lt;main&gt;</code> is that it can&#8217;t be used as a descendant of an <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;header&gt;</code>, or <code>&lt;nav&gt;</code> element.</p>
+
+<p>Because <code>&lt;main&gt;</code> isn&#8217;t <a href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0">sectioning content</a>, it doesn&#8217;t affect the document outline in the same way <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, or <code>&lt;section&gt;</code> do.</p>
+
+<h2>Getting Going</h2>
+
+<p>Just as with the introduction of many other new HTML5 elements, not all browsers recognise <code>&lt;main&gt;</code> or have preset styles for it. You&#8217;ll need to ensure it displays as a block level element in your CSS:</p>
+
+<p><code><pre>main {display:block;}</code></pre></p>
+
+<p>For the time being, you'll also need to use JavaScript to create the element for older versions of IE:</p>
+
+<p><code><pre>&lt;script&gt;document.createElement('main');&lt;/script&gt;</code></pre></p>
+
+<p>Of course, if you use the <a href="https://github.com/aFarkas/html5shiv">html5shiv</a>, <code>&lt;main&gt;</code> is now baked in directly.</p>
+
+<h2>Implementing <code>&lt;main&gt;</code> on HTML5 Doctor</h2>
+
+<p>The easiest way to implement <code>&lt;main&gt;</code> is to replace that <code>&lt;div&gt;</code> that you've likely got with an <code>id</code> or <code>class</code> of something like <code>main</code> or <code>content</code>.</p>
+
+<p>So what does that look like in practice? Well, here's our pre-<code>&lt;main&gt;</code> markup on HTML5 Doctor:</p>
+
+<pre><code>&lt;body&gt;
+&lt;header role="banner"&gt;
+[...]
+&lt;/header&gt;
+
+&lt;div id="content" class="group" role="main"&gt;
+[...]
+&lt;/div&gt;
+
+&lt;footer role="contentinfo"&gt;
+    [...]
+&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+<p>And here's what it's like now:</p>
+
+<p><aside class="sidenote">We'll get around to removing the <code>id="content"</code> at some point too.</aside></p>
+
+<pre><code>&lt;body&gt;
+&lt;header role="banner"&gt;
+[...]
+&lt;/header&gt;
+
+&lt;main id="content" class="group" role="main"&gt;
+[...]
+&lt;/main&gt;
+
+&lt;footer role="contentinfo"&gt;
+    [...]
+&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+<p>Yes, it's really that simple. With any luck, it'll take you less than five minutes to implement.</p>
+
+<h2>The WHATWG Version</h2>
+
+<p>The WHATWG definition of <code>&lt;main&gt;</code> differs from the W3C version in that the element has no meaning. It's merely a styling hook (like a <code>&lt;div&gt;</code> with a new name) and represents its children.</p>
+
+<blockquote>
+<p>The main element can be used as a container for the dominant contents of another element. It represents its children.</p>
+
+<footer><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-main-element">WHATWG HTML</a></cite></footer>
+</blockquote>
+
+<p>We recommend using the W3C version of <code>&lt;main&gt;</code> as described above.</p>
+
+<h2>Browser Support</h2>
+
+<p><a href="http://www.mozilla.org/en-US/firefox/21.0/releasenotes/">Firefox 21</a>, Chrome 26, and a <a href="http://nightly.webkit.org/builds/trunk/mac/14">WebKit r140374</a> have all implemented basic support for <code>&lt;main&gt;</code>.</p>
+
+<p>They have all mapped the ARIA <code>role="main"</code> to the <code>&lt;main&gt;</code> element so assistive technologies can now recognise the <code>&lt;main&gt;</code> element without issue.</p>
+
+<h2>Summary</h2>
+
+<p>As you've seen, it's super easy to get up and running with <code>&lt;main&gt;</code>. It only takes a few minutes, so now really is the time to start adding it to the sites you're developing.</p>
+
+<p>If you aren't sure when or where to use <code>&lt;main&gt;</code>, be sure to ask us in the comments and one of us will try to help you out.</p>
+
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="http://www.sitepoint.com/html5-main-element/">Sitepoint — HTML5 Main Element</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/HTML/Element/main">MDN — main</a></li>
+<li><a href="http://www.iandevlin.com/blog/2013/01/html5/the-main-element">Ian Devlin — The main element</a></li>
+<li><a href="http://www.brucelawson.co.uk/2013/the-main-element/">Bruce Lawson — Using the main element</a></li>
+<li><a href="http://filamentgroup.com/lab/the_main_element/">Filament Group — The main element</a></li>
+<li><a href="http://www.w3.org/html/wg/wiki/User:Sfaulkne/main-usecases#Introduction">W3C — main element use cases</a></li>
+<li><a href="http://www.webmonkey.com/2013/02/main-element-lands-a-starring-role-in-html/">Web Monkey — The main element lands a starring role in html</a></li>
+<li><a href="http://www.webmonkey.com/2012/12/proposed-main-element-would-help-html-get-to-the-point/">Web Monkey — The main element would help HTML get to the point</a></li>
+</ul>
+<p><a href="http://html5doctor.com/the-main-element/" rel="bookmark">The main element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 26, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-main-element/feed/</wfw:commentRss>
+		<slash:comments>100</slash:comments>
+		</item>
+	</channel>
+</rss>

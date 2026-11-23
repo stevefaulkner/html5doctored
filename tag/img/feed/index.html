@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; img</title>
+	<atom:link href="http://html5doctor.com/tag/img/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>Your Questions Answered #5</title>
+		<link>http://html5doctor.com/your-questions-5/</link>
+		<comments>http://html5doctor.com/your-questions-5/#comments</comments>
+		<pubDate>Tue, 02 Mar 2010 14:30:55 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[img]]></category>
+		<category><![CDATA[nav]]></category>
+		<category><![CDATA[outline]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[sectioning]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1400</guid>
+		<description><![CDATA[We're back with our first round up of your questions for 2010. In this article we'll be covering a range of topics including sections and sectioning, the <code>img</code> element, scaling video and a proposal for a <code>field</code> element. <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> We&#8217;re back with our first roundup of your questions for 2010. In this article, we&#8217;ll be covering a range of topics including sections and sectioning, the <code>&lt;img&gt;</code> element, scaling video, and a proposal for a <code>&lt;field&gt;</code> element. </p>
+<h2>Headers and sidebars</h2>
+<p>Ad asked:</p>
+<blockquote><p>Hello,</p>
+<p>I have 2 questions:</p>
+<p>1. If I have my main navigation above the masterhead would best practise be having the nav tag inside of a header tag with the h1 and h2 in a hgroup? Or should the nav and header tag be separate?</p>
+<p>2. I am building a blog in HTML5. It has a blog-like sidebar with articles, contact info and about info in it. Would the best tag to wrap this in be section or aside?</p>
+<p>Thank you so much for your time,<br />
+Ad Taylor</p></blockquote>
+<p>Placing your <code>&lt;nav&gt;</code> within your <code>&lt;header&gt;</code> is fine and valid. However, if it makes more sense to leave it outside, then you can do that too. You don&#8217;t need to put the <code>&lt;hgroup&gt;</code> inside the <code>&lt;nav&gt;</code> though.</p>
+<p>See our articles on <a href="http://html5doctor.com/the-header-element/"><code>&lt;header&gt;</code></a> and <a href="http://html5doctor.com/nav-element/"><code>&lt;nav&gt;</code></a> for more on this.</p>
+<p>Regarding your second question, I would use <code>&lt;aside&gt;</code> (as we&#8217;ve done on the HTML5 doctor site) and then use multiple sections within that. Also see Bruce&#8217;s article on <a href="http://html5doctor.com/designing-a-blog-with-html5/">Designing a blog with HTML5</a>.</p>
+<p>Hope that helps.</p>
+<p>Cheers, Rich</p>
+<h2>HTML5 <code>&lt;img&gt;</code> element</h2>
+<p>Martijn asked:</p>
+<blockquote><p>As you are, according to the slogan, &#8220;helping [me] implement HTML5 today,&#8221; I thought to bother you people with a spec. related question.</p>
+<p>What should an UA do with an image without specified width and height attributes?</p>
+<p>The dimension attributes part of the specification keeps stating &#8220;if specified&#8221; for every rule but doesn&#8217;t give any &#8220;if not specified&#8221;.</p>
+<p>The part of the specification defining the img element itself does not state anything of importance about the dimension attributes apart from how the attributes in the DOM should be created by the UA.</p>
+<p>Interesting is to note that they have omitted these attributes in all their img element examples.</p>
+<p>In the dimension attribute section they go state the following.</p>
+<p> &#8211; The dimension attributes are not intended to be used to stretch the image.</p>
+<p>So we can only use them to make images smaller? This is odd as well so let&#8217;s say by stretch they mean to say both expending and shrinking in size. In this case the attributes can only be used for two cases:</p>
+<p>1. To state the exact width and height of the image. Something that seems redundant unless not using those attributes means the UA can display the image at any size (which it might, as nothing about this is defined in the spec.).</p>
+<p>2. To give a 0 in both attributes. By this I am telling the UA that the image is not to be seen by the user.</p>
+<p>Am I missing something or is the specification missing this?</p>
+<p>Looking forward to getting your prescription ;)</p>
+<p>Kind Regards, Martijn</p></blockquote>
+<p>If no dimension attributes are specified, the browser will leave no space for the image, and once the image has been loaded (after the rest of the page), it will then need to reflow the entire page, as that&#8217;s the first time it knows the size of the image. This can cause the content you&#8217;re reading scrolling off the page.</p>
+<p>If you give the size of the image as attributes in the HTML, the browser will leave space and render the image there once it&#8217;s loaded without reflowing the page. On a mobile phone, reflowing the page unnecessarily drains the battery, and users can get vertigo from the page&#8217;s text jumping around to accommodate images.</p>
+<p>Thanks, Bruce</p>
+<h2>Section and Sectioning</h2>
+<p>Yanoo asked:</p>
+<blockquote><p>Hi,</p>
+<p>What do you mean when you are talking about &#8220;sectioning&#8221;? And why don&#8217;t header and footer require sectioning?</p>
+<p>I think about section and sectioning like about part of something defined. News, comment, page content, sidebar, *header*, and *footer*. Is it bad representation?</p></blockquote>
+<p>Sectioning relates to the headings in some block of related content and defining what is related to what in a hierarchy of headings (<code>&lt;h1&gt;</code>&ndash;<code>&lt;h6&gt;</code>). The outlining algorithm can produce a table of contents from the nested <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, and <code>&lt;aside&gt;</code> elements.</p>
+<p>Headers and footers themselves do not change the outline; a header or footer may contain no headings. If a header or footer <em>does</em> contain a heading, then that heading does come into the outline. See our article on <a href="http://html5doctor.com/the-section-element/">the section element</a>.</p>
+<p>Thanks, Bruce</p>
+<h2>Scaling the Video</h2>
+<p>Ian asked:</p>
+<blockquote><p>Hi there,</p>
+<p>Not sure if this question is an appropriate one, but any help would be really appreciated.</p>
+<p>I&#8217;m going about updating my video website, chutney.ie, and would love to implement HTML5. I am interested in replicating the scaling effect/style used on the <a href="http://www.mozilla.com/en-US/firefox/3.5/firstrun/">Mozilla welcome page</a>.</p>
+<p>Not being overly knowledgeable in this area, I would love to know how to begin &mdash; is this effect a Flash based animation, or something that can be achieved with HTML alone?</p>
+<p>Again, any nudge in the right direction would be great.</p>
+<p>Many thanks,</p>
+<p>Ian</p></blockquote>
+<p>I&#8217;m not sure how Mozilla did it, but you can use some of the Webkit and Mozilla transforms on the <code>&lt;video&gt;</code> element. For example, you can cause the video to grow on hover &mdash; <a href="http://people.opera.com/patrickl/articles/introduction-html5-video/transitions/">see this example in Chrome, Safari, or Opera</a>. You can also use the <code>:target</code> pseudoclass to initiate animations. Alternatively, you can use a JavaScript <code>onClick</code> event to create the same effect. </p>
+<p>You can also combine <code>&lt;video&gt;</code> and <code>&lt;canvas&gt;</code> to provide some interesting results (laying the <code>&lt;canvas&gt;</code> over the <code>&lt;video&gt;</code>). For more on the <code>&lt;video&gt;</code> element and what it can do, please read the <a href="http://dev.opera.com/articles/view/introduction-html5-video/">Introduction to <abbr>HTML</abbr>5 Video</a> on dev Opera written by <a href="http://twitter.com/brucel">Bruce Lawson</a> and <a href="http://twitter.com/patrick_h_lauke">Patrick Lauke</a>.</p>
+<p>Cheers, Rich</p>
+<h2>We need a <code>&lt;field&gt;</code> tag</h2>
+<p>John wrote in and proposed a field element:</p>
+<blockquote><p>Hey there. First off thanks for the site. I was excited to find it. I spent a little time on the W3C site and honestly couldn&#8217;t figure out how to submit suggestions there. So going to submit mine to you guys and maybe you can pass it on (if it is good) or point me to someone that can help. Ok to the point:</p>
+<p>We are getting nice new tags to with HTML5 (nav, footer, etc) to help us create more semantic code. I think what we really need is a <code>field</code> tag &mdash; after all what are fieldsets sets of?</p>
+<p>Everyone wraps up their labels and inputs with some element. Some of us do this with UL, some people do it with DT/DD, some with DIVs and some people out there insist that a form is tabular data.</p>
+<p>We are all just bastardizing these elements because there is no clear semantic wrapper for field elements of a form.</p>
+<p>I think you get the point. I&#8217;m trying to keep this email short. If you think there is anything to this argument, I have a more detailed summary (with example code) at:</p>
+<p><a href="http://john.mirick.me/2009/10/what-is-really-set-of-shouldnt-we-have.html">http://john.mirick.me/2009/10/what-is-really-set-of-shouldnt-we-have.html</a></p>
+<p>I would love to hear your thoughts on this.</p>
+<p>Thanks!<br />
+John</p></blockquote>
+<p>While a field element would be nice &mdash; it would stop the argument over how best to mark-up forms &mdash; you have to ask yourself whether or not it actually adds any semantic or functional value to an HTML document. Yes, wrapping inputs and their labels in a field would make things easier to read and drop the need for the <code>for</code> attribute on the label (since the relationship can be assumed), but doing so would not be backwards compatible. In theory, we could continue to add <code>for</code> until there is a suitable time to drop it, but again I question the value of such a tag.</p>
+<p>The purpose of wrapping form input/label pairs is generally to ease styling. My personal stance is that unless there are case studies showing how such an element can add more value to HTML forms, this proposal won&#8217;t make it very far.</p>
+<p>Regards, Mike</p>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions. If you&#8217;ve got a query about the HTML5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help. </p>
+<p><a href="http://html5doctor.com/your-questions-5/" rel="bookmark">Your Questions Answered #5</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on March 2, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-5/feed/</wfw:commentRss>
+		<slash:comments>12</slash:comments>
+		</item>
+	</channel>
+</rss>

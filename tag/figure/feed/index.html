@@ -1,0 +1,1234 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>figure &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/figure/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Avoiding common HTML5 mistakes</title>
+		<link>http://html5doctor.com/avoiding-common-html5-mistakes/</link>
+		<comments>http://html5doctor.com/avoiding-common-html5-mistakes/#comments</comments>
+		<pubDate>Tue, 26 Jul 2011 13:38:05 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Misc]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[nav]]></category>
+		<category><![CDATA[section]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3494</guid>
+		<description><![CDATA[<p>Between curating sites for the HTML5 gallery and answering readers’ questions here at HTML5 Doctor, I see a host of HTML5 sites and their underlying markup. In this post, I’ll show you some of the mistakes and poor markup practices I often see and explain how to avoid them.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Between curating sites for the <a href="http://html5gallery.com">HTML5 gallery</a> and answering readers’ questions here at HTML5 Doctor, I see a host of HTML5 sites and their underlying markup. In this post, I’ll show you some of the mistakes and poor markup practices I often see and explain how to avoid them.</p>
+
+<section id="section-wrapper">
+  <h2>Don’t use section as a wrapper for styling</h2>
+  <p>One of the most common problems I see in people’s markup is the arbitrary replacement of <code>&lt;div&gt;</code>s with HTML5 sectioning elements — specifically, replacing wrapper <code>&lt;div&gt;</code>s (used for styling) with <code>&lt;section&gt;</code>s. In XHTML or HTML4, I would see something like this:</p>
+  
+  <pre><code>&lt;!-- HTML 4-style code --&gt;
+&lt;div id="wrapper"&gt;
+  &lt;div id="header"&gt;  
+    &lt;h1&gt;My super duper page&lt;/h1&gt;
+    &lt;!-- Header content --&gt;
+  &lt;/div&gt;
+  &lt;div id="main"&gt;
+    &lt;!-- Page content --&gt;
+  &lt;/div&gt;
+  &lt;div id="secondary"&gt;
+    &lt;!-- Secondary content --&gt;
+  &lt;/div&gt;
+  &lt;div id="footer"&gt;
+    &lt;!-- Footer content --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+  <p>Now, I’m instead seeing this:</p>
+  
+  <pre><code>&lt;!-- Don’t copy this code! It’s wrong! --&gt;
+<mark>&lt;section id="wrapper"&gt;</mark>
+  &lt;header&gt;  
+    &lt;h1&gt;My super duper page&lt;/h1&gt;
+    &lt;!-- Header content --&gt;
+  &lt;/header&gt;
+  &lt;section id="main"&gt;
+    &lt;!-- Page content --&gt;
+  &lt;/section&gt;
+  &lt;section id="secondary"&gt;
+    &lt;!-- Secondary content --&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
+    &lt;!-- Footer content --&gt;
+  &lt;/footer&gt;
+<mark>&lt;/section&gt;</mark></code></pre>
+  
+  <p>Frankly, that’s just wrong: <strong><code>&lt;section&gt;</code> is not a wrapper</strong>. <a href="http://html5doctor.com/section">The <code>&lt;section&gt;</code> element</a> denotes a semantic section of your content to help construct a <a href="http://html5doctor.com/outline">document outline</a>. It should contain a heading. If you’re looking for a page wrapper element (for any flavour of HTML or XHTML), consider applying styles directly to the <code>&lt;body&gt;</code> element as described by <a href="http://camendesign.com/code/developpeurs_sans_frontieres">Kroc Camen</a>. If you still need an additional element for styling, use a <code>&lt;div&gt;</code>. As <a href="http://html5doctor.com/div">Dr Mike explains, div isn’t dead</a>, and if there’s nothing else more appropriate, it’s probably where you really want to apply your CSS.</p>
+  
+  <p>With that in mind, here’s the correct way to mark up the above example using HTML5 and a couple of ARIA roles. (Note: you may need one <code>&lt;div&gt;</code> depending on your design.)</p>
+
+  <pre><code>&lt;body&gt;
+  &lt;header&gt;  
+    &lt;h1&gt;My super duper page&lt;/h1&gt;
+    &lt;!-- Header content --&gt;
+  &lt;/header&gt;
+  &lt;div role="main"&gt;
+    &lt;!-- Page content --&gt;
+  &lt;/div&gt;
+  &lt;aside role="complementary"&gt;
+    &lt;!-- Secondary content --&gt;
+  &lt;/aside&gt;
+  &lt;footer&gt;
+    &lt;!-- Footer content --&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+    
+  <p>If you’re not quite sure which element to use, then I suggest you refer to our <a href="http://html5doctor.com/flowchart">HTML5 sectioning content element flowchart</a> to guide you along your way.</p>
+
+</section>
+
+<section id="header-hgroup">
+  <h2>Only use header and hgroup when they’re required</h2>
+
+<div class="callout warning-block">
+  <p><a href="http://html5doctor.com/hgroup">the <code>&lt;hgroup&gt;</code></a> has now been removed from the HTML5 specification, please keep that in mind when reading the rest of this article.</p>
+</div>
+  
+  <p>There’s no sense writing markup when you don’t have to, right? Unfortunately, I often see <code>&lt;header&gt;</code> and <code>&lt;hgroup&gt;</code> being used when there’s no need for them. You can get up to speed with our articles on <a href="http://html5doctor.com/header">the <code>&lt;header&gt;</code> element</a> and <a href="http://html5doctor.com/hgroup">the <code>&lt;hgroup&gt;</code> element</a>, but I’ll briefly summarise:</p>
+  
+  <ul>
+    <li>The <code>&lt;header&gt;</code> element represents a group of introductory or navigational aids and usually contains the section’s heading</li>
+    <li>The <code>&lt;hgroup&gt;</code> element groups a set of <code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code> elements representing a section’s heading when the heading has multiple levels, such as subheadings, alternative titles, or taglines</li>
+  </ul>
+  
+  <section id="header-overuse">
+    <h3>Overuse of header</h3>
+    <p>As I’m sure you’re aware, the <code>&lt;header&gt;</code> element can be used multiple times in a document, which has popularized the following pattern:</p>
+
+    <pre><code>&lt;!-- Don’t copy this code! No need for header here --&gt;
+&lt;article&gt;
+  <mark>&lt;header&gt;</mark>  
+    &lt;h1&gt;My best blog post&lt;/h1&gt;
+  <mark>&lt;/header&gt;</mark>
+  &lt;!-- Article content --&gt;
+&lt;/article&gt;</code></pre>
+
+    <p>If your <code>&lt;header&gt;</code> element only contains a single heading element, leave out the <code>&lt;header&gt;</code>. The <code>&lt;article&gt;</code> ensures that the heading will be shown in the document outline, and because the <code>&lt;header&gt;</code> doesn’t contain multiple elements (as the definition describes), why write code when you don’t need to? Simply use this:</p>
+
+    <pre><code>&lt;article&gt;  
+  &lt;h1&gt;My best blog post&lt;/h1&gt;
+  &lt;!-- Article content --&gt;
+&lt;/article&gt;</code></pre>
+
+  </section>
+
+  <section id="hgroup-misuse">
+    <h3>Incorrect use of <code>&lt;hgroup&gt;</code></h3>
+    <p>On the subject of headers, I also frequently see incorrect uses of <code>&lt;hgroup&gt;</code>. You should not use <code>&lt;hgroup&gt;</code> in conjunction with <code>&lt;header&gt;</code> when:</p>
+
+    <ul>
+      <li>there’s only one child heading, or</li>
+      <li>the <code>&lt;hgroup&gt;</code> would work fine on its own (i.e., without the <code>&lt;header&gt;</code>).</li>
+    </ul>
+
+    <p>The first problem looks like this:</p>
+
+      <pre><code>&lt;!-- Don’t copy this code! No need for hgroup here --&gt;
+&lt;header&gt;
+  <mark>&lt;hgroup&gt;</mark>  
+    &lt;h1&gt;My best blog post&lt;/h1&gt;
+  <mark>&lt;/hgroup&gt;</mark>
+  &lt;p&gt;by Rich Clark&lt;/p&gt;
+&lt;/header&gt;</code></pre>
+
+    <p>In that case, simply remove the <code>&lt;hgroup&gt;</code> and let the heading run free.</p>
+
+    <pre><code>&lt;header&gt;
+  &lt;h1&gt;My best blog post&lt;/h1&gt;
+  &lt;p&gt;by Rich Clark&lt;/p&gt;
+&lt;/header&gt;</code></pre>
+
+    <p>The second problem is another case of including elements when they’re not necessarily required.</p>
+
+    <pre><code>&lt;!-- Don’t copy this code! No need for header here --&gt;
+&lt;header&gt;
+  <mark>&lt;hgroup&gt;</mark>  
+    &lt;h1&gt;My company&lt;/h1&gt;
+    &lt;h2&gt;Established 1893&lt;/h2&gt;
+  <mark>&lt;/hgroup&gt;</mark>
+&lt;/header&gt;</code></pre>
+
+    <p>When the only child of the <code>&lt;header&gt;</code> is the <code>&lt;hgroup&gt;</code>, why include the <code>&lt;header&gt;</code>? If you don’t have additional elements within the <code>&lt;header&gt;</code> (i.e., siblings of the <code>&lt;hgroup&gt;</code>), simply remove the <code>&lt;header&gt;</code> altogether.</p>
+
+    <pre><code>&lt;hgroup&gt;  
+  &lt;h1&gt;My company&lt;/h1&gt;
+  &lt;h2&gt;Established 1893&lt;/h2&gt;
+&lt;/hgroup&gt;</code></pre>
+
+    <p>For more <code>&lt;hgroup&gt;</code> examples and explanations, read the detailed <a href="http://html5doctor.com/hgroup">article about it in the archives</a>.</p>
+
+  </section>
+  
+</section>
+
+<section id="nav-external">
+  <h2>Don’t wrap all lists of links in <code>&lt;nav&gt;</code></h2>
+  <p>With  introduced in HTML5, we’re somewhat spoilt for choice when it comes to creating meaningful, structured markup. That said, we shouldn’t abuse the super-semantic elements now made available to us. Unfortunately, that’s what I see happening with <code>&lt;nav&gt;</code>. The spec describes <code>&lt;nav&gt;</code> as follows:</p>
+  
+  <blockquote>
+    <p>The nav element represents a section of a page that links to other pages or to parts within the page: a section with navigation links.</p>
+    
+    <p>Note: Not all groups of links on a page need to be in a nav element — the element is primarily intended for sections that consist of <mark>major navigation blocks</mark>. In particular, it is common for footers to have a short list of links to various pages of a site, such as the terms of service, the home page, and a copyright page. The footer element alone is sufficient for such cases; while a nav element can be used in such cases, it is usually unnecessary.</p>
+    <footer>
+      <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/complete/sections.html#the-nav-element">WHATWG HTML spec</a></cite>
+    </footer>
+  </blockquote>
+  
+  <p>The key phrase is ‘major’ navigation. We could debate all day about the definition of ‘major’, but to me it means:</p>
+  
+  <ul>
+    <li>Primary navigation</li>
+    <li>Site search</li>
+    <li>Secondary navigation (arguably)</li>
+    <li>In-page navigation (within a long article, for example)</li>
+  </ul>
+  
+  <p>While there isn’t any right or wrong here, a straw poll coupled with my own interpretation tells me that the following shouldn’t be enclosed by <code>&lt;nav&gt;</code>:</p>
+  
+  <ul>
+    <li>Pagination controls</li>
+    <li>Social links (although there may be exceptions where social links <em>are</em> the major navigation, in sites like <a href="http://about.me">About me</a> or <a href="http://flavours.me">Flavours</a>, for example)</li>
+    <li>Tags on a blog post</li>
+    <li>Categories on a blog post</li>
+    <li>Tertiary navigation</li>
+    <li>Fat footers</li>
+  </ul>
+  
+  <p>If you’re unsure whether to mark up a list of links with <code>&lt;nav&gt;</code>, ask yourself this: <q>Is this major navigation?</q> To help answer the question, consider the following rules of thumb:</p>
+    
+  <ul>
+    <li><q>Don’t use <code>&lt;nav&gt;</code> unless you think <code>&lt;section&gt;</code> would also be appropriate, with an <code>&lt;hx&gt;</code></q> — <cite><a href="http://krijnhoetmer.nl/irc-logs/whatwg/20091209#l-480">Hixie on IRC</a></cite></li>
+    <li>Would you add a link to it in a ‘skip to’ block for accessibility?</li>
+  </ul>
+  
+  <p>If the answer to these questions is ‘no’, then it’s probably not a <code>&lt;nav&gt;</code>.</p>
+</section>
+
+<section id="figure">
+  <h2>Common mistakes with the figure element</h2>
+  <p>Ah, <code>&lt;figure&gt;</code>. The appropriate use of this element, along with its partner-in-crime <code>&lt;figcaption&gt;</code>, is quite difficult to master. Let’s look at a few common problems I see with <code>&lt;figure&gt;</code>.</p>
+
+  <section>
+    <h3>Not every image is a figure</h3>
+    <p>Earlier, I told you not to write extra code when it’s not necessary. This mistake is similar. I’ve seen sites where every image has been marked up as a <code>&lt;figure&gt;</code>. There’s no need to add extra markup around your images for the sake of it. You’re just creating more work for yourself and not describing your content any more clearly.</p>
+
+    <p>The spec describes <code>&lt;figure&gt;</code> as being <q>some flow content, optionally with a caption, that is self-contained and is typically referenced as a single unit from the main flow of the document.</q> Therein lies the beauty of <code>&lt;figure&gt;</code>, that it can be moved away from the primary content — to a sidebar, say — without affecting the document’s flow.</p>
+  
+    <aside class="sidenote">
+      <p>These questions are also included in the <a href="http://html5doctor.com/flowchart">HTML5 element flowchart mentioned earlier</a>.</p>
+    </aside>
+        
+    <p>If it’s a purely presentational image and not referenced elsewhere in the document, then it’s definitely not a <code>&lt;figure&gt;</code>. Other use cases vary, but as a start, ask yourself, <q>Is this image required to understand the current context?</q> If not, it’s probably not a <code>&lt;figure&gt;</code> (an <code>&lt;aside&gt;</code>, perhaps). If so, ask yourself, <q>Could I move this to an appendix?</q> If the answer to both questions is ‘yes’, it’s probably a <code>&lt;figure&gt;</code>.</p>
+
+  </section>
+  
+  <section>
+    <h3>Your logo is not a figure</h3>
+    <p>Segueing nicely on, the same applies to your logo. Here are a couple of snippets that I see regularly:</p>
+    
+    <pre><code>&lt;!-- Don’t copy this code! It’s wrong! --&gt;
+&lt;header&gt;
+  &lt;h1&gt;
+    &lt;figure&gt;
+      &lt;img src="/img/mylogo.png" alt="My company" class="hide" /&gt;
+    &lt;/figure&gt;
+    My company name
+  &lt;/h1&gt;
+&lt;/header&gt;</code></pre>
+    
+    <pre><code>&lt;!-- Don’t copy this code! It’s wrong! --&gt;
+&lt;header&gt;  
+  &lt;figure&gt;
+    &lt;img src="/img/mylogo.png" alt="My company" /&gt;
+  &lt;/figure&gt;
+&lt;/header&gt;</code></pre>
+    
+    <p>There’s nothing else to say here. It’s just plain wrong. We could argue until the cows come home about whether your logo should be in an <code>&lt;h1&gt;</code>, but that’s not what we’re here for. The real issue is the abuse of the <code>&lt;figure&gt;</code> element. <code>&lt;figure&gt;</code> should be used only when referenced in a document or surrounding sectioning element. I think it’s fair to say that your logo is rarely going to be referenced in such a way. Quite simply, don’t do it. All you need is this:</p>
+    
+    <pre><code>&lt;header&gt;  
+  &lt;h1&gt;My company name&lt;/h1&gt;
+  &lt;!-- More stuff in here --&gt;
+&lt;/header&gt;</code></pre>
+  </section>
+
+  <section>
+    <h3>Figure can be more than an image</h3>
+    <p>Another common misconception regarding <code>&lt;figure&gt;</code> is that it can only be used for images. This isn’t the case. A <code>&lt;figure&gt;</code> could be video, audio, a chart (in SVG, for example), a quote, a table, a block of code, a piece of prose, or any combination of these and much more besides. Don’t limit your <code>&lt;figure&gt;</code>s to images. Our job as web standards affectionadoes is to accurately describe the content with our markup.</p>
+    
+    <p>A while back, <a href="http://html5doctor.com/figure">I wrote about <code>&lt;figure&gt;</code></a> in more depth. It’s worth a read if you want more detail or need a refresher.</p>
+  </section>
+
+</section>
+
+<section id="type-attr">
+  <h2>Don’t include unnecessary type attributes</h2>
+  <p>This is probably the most common problem we see in HTML5 Gallery submissions. While it isn’t really a mistake, I believe it’s best practice to avoid this pattern.</p>
+  
+  <p>In HTML5, there’s no need to include the <code>type</code> attribute on <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> elements. While these can be a pain to remove if they’re automatically added by your CMS, there’s really no reason to include them if you’re coding by hand or if you have tight control over your templates. Since all browsers expect scripts to be JavaScript and styles to be CSS, you don&#8217;t need this:</p>
+  
+  <pre><code>&lt;!-- Don’t copy this code! It’s attribute overload! --&gt;
+&lt;link <mark>type="text/css"</mark> rel="stylesheet" href="css/styles.css" /&gt;
+&lt;script <mark>type="text/javascript"</mark> src="js/scripts.js"&gt;&lt;/script&gt;</code></pre>
+    
+  <p>Instead, you can simply write:</p>
+  
+  <pre><code>&lt;link rel="stylesheet" href="css/styles.css" /&gt;
+&lt;script src="js/scripts.js"&gt;&lt;/script&gt;</code></pre>
+  
+  <p>You can also reduce the amount of code you write to specify your character set, amongst other things. Mark Pilgrim’s chapter on semantics in <cite><a href="http://diveinto.html5doctor.com/semantics.html">Dive into HTML5</a></cite> explains all.</p>
+  
+</section>
+
+<section id="form-attr">
+  <h2>Incorrect use of form attributes</h2>
+  <p>You may be aware that HTML5 has introduced a range of new attributes for forms. We’ll cover them in more detail in the coming months, but in the meantime, I’ll quickly show you a few things not to do.</p>
+  
+  <section>
+    <h3>Boolean attributes</h3>
+    
+    <aside class="sidenote">
+      <p>There are also boolean attributes for multimedia elements and others. The rules that I describe here apply to those elements as well.</p>
+    </aside>
+    
+    <p>Several of the new form attributes are boolean, meaning their mere presence in the markup ensures the behaviour is set. These attributes include:</p>
+    
+    <ul>
+      <li>autofocus</li>
+      <li>autocomplete</li>
+      <li>required</li>
+    </ul>
+    
+    <p>Admittedly, I only rarely see this, but using <code>required</code> as an example, I’ve seen the following:</p>
+    
+    <pre><code>&lt;!-- Don’t copy this code! It’s wrong! --&gt;
+&lt;input type="email" name="email" <mark>required="true"</mark> /&gt;
+&lt;!-- Another bad example --&gt;
+&lt;input type="email" name="email" <mark>required="1"</mark> /&gt;</code></pre>
+     
+    <p>Ultimately, this causes no harm. The client’s HTML parser sees the <code>required</code> attribute in the markup, so its function will still be applied. But what if you flip the code on its head and type <code>required="false"</code>?</p>
+    
+    <pre><code>&lt;!-- Don’t copy this code! It’s wrong! --&gt;
+&lt;input type="email" name="email" <mark>required="false"</mark> /&gt;</code></pre>
+    
+    <p>The parser will still see the <code>required</code> attribute and implement the behaviour <em>even though you tried to tell it not to</em>. Certainly not what you wanted.</p>
+    
+    <p>There are three valid ways for a boolean attribute to be applied. (The second and third options only apply if you’re writing XHTML syntax.)</p>
+    
+    <ul>
+      <li><code>required</code></li>
+      <li><code>required=""</code></li>
+      <li><code>required="required"</code></li>
+    </ul>
+    
+    <p>Applying that to our above example, we would write this (in HTML):</p>
+
+    <pre><code>&lt;input type="email" name="email" <mark>required</mark> /&gt;</code></pre>
+    
+  </section>
+</section>
+
+<section id="summary">
+  <h2>Summary</h2>
+  
+  <p>It would be impossible for me to list here all the quirky markup patterns and practices I’ve come across, but these are some of the most frequently seen. What other common markup mistakes have you spotted around the web? Which areas of HTML5 require further clarification? We’d love to help get the wording or examples in the spec changed to make them a little more specific, so leave your thoughts below, and don’t forget to escape your HTML!</p>
+</section>
+
+<p><small>Thanks to Ian Devlin, Derek Johnson, Tady Walsh, the HTML5 Gallery curators, and the HTML5 Doctors for their input to this article.</small></p><p><a href="http://html5doctor.com/avoiding-common-html5-mistakes/" rel="bookmark">Avoiding common HTML5 mistakes</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 26, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/avoiding-common-html5-mistakes/feed/</wfw:commentRss>
+		<slash:comments>106</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions #17</title>
+		<link>http://html5doctor.com/your-questions-17/</link>
+		<comments>http://html5doctor.com/your-questions-17/#comments</comments>
+		<pubDate>Tue, 19 Apr 2011 13:30:12 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[semantics]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3055</guid>
+		<description><![CDATA[<p>The clinic is packed this week with your HTML5 ailments! Today, we’ll discuss an HTML5 syntax dilemma, using sections within sections, link semantics, describing the contents of a figure, and marking up web app toolbars.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is packed this week with your <abbr>HTML</abbr>5 ailments! Today, we&#8217;ll discuss an <abbr>HTML</abbr>5 syntax dilemma, using sections within sections, <code>&lt;link&gt;</code> semantics, describing the contents of a figure, and marking up web app toolbars.</p>
+<section>
+<h2>HTML5 syntax dilemma</h2>
+<p>Manuel asked:</p>
+<blockquote>
+<p>In theory, <abbr>HTML</abbr>5 syntax is very lazy but, in fact, when you write a <abbr>HTML</abbr>5 page you follow some conventions that originate in the <abbr>XHTML</abbr> era: lowercase code, double-quoted attribute values, properly closed elements, proper element nesting. While this practice is rational and admirable, some people take a further step towards a <abbr>XHTML</abbr>-style syntax: they don&#8217;t use attribute minimization and do terminate empty elements. Of course this further step is not necessary to write clear HTML5 code, but could be fostered if you look at the following points:</p>
+<ol>
+<li>it makes [it] easier to upgrade legacy <abbr>XHTML</abbr> code (which represents the bulk of the web even if it&#8217;s generally served as text-html) to <abbr>HTML</abbr>5 (it&#8217;s just a matter of doctype change)</li>
+<li>it makes [an] easier the shift to <abbr>HTML</abbr>5 for web developers, since they are generally used to write <abbr>XHTML</abbr></li>
+<li>it could set a coding standard in the field</li>
+</ol>
+<p>What do you think about it?</p>
+</blockquote>
+<p>I disagree. I think there&#8217;s nothing lazy about <abbr>HTML</abbr>5 syntax. You could say that it&#8217;s lazy that in <abbr>HTML</abbr> we write <code>&lt;hr&gt;</code> rather than <code>&lt;horzontalrule&gt;</code>, but the fact is, it&#8217;s a specified part of the language.</p>
+<p>Furthermore, &#8220;legacy <abbr>XHTML</abbr>&#8221; code does not represent the bulk of the Web; 61% of the Web is <abbr>HTML</abbr>4 according to the <a href="http://dev.opera.com/articles/view/mama-w3c-validator-research-2/?page=2#doctype">Opera MAMA study in 2008</a>.</p>
+<p>But it doesn&#8217;t matter. You say tom-<em>ay</em>-toes, I say to-<em>mah</em>-toes; you like <abbr>XHTML</abbr> syntax, I like <abbr>HTML</abbr> syntax. They&#8217;re all the same to a browser, if served as <code>text/html</code>.</p>
+<p>Cheers, Bruce</p>
+</section>
+<section>
+<h2>Sections within sections</h2>
+<p>Corey asked:</p>
+<blockquote>
+<p>Don&#8217;t know if this has been asked before or not, as I couldn&#8217;t find anything to tell me otherwise. I read through the article and section information and understand more or less how they function, but I&#8217;m wondering if there is a case to be made about having a section within a section. Your article doesn&#8217;t really touch on whether this is appropriate or not.</p>
+<p>The reason I ask is because I have a page that is broken into different parts (introduction, description, requirements, etc) that are all part of the same overall article. Now if I wanted to break down say, the requirements section into sub-sections (technical, stylistic, semantic, etc) would it be all right to wrap those sub sections in a section tag (that is within a section itself), assuming I put the correct header on it?</p>
+<p>Thanks a bunch,</p>
+</blockquote>
+<p>Yes, you certainly can nest <code>&lt;section&gt;</code>s — in fact, that&#8217;s pretty much exactly what <code>&lt;section&gt;</code> is for! If you look at the source of some of our more recent articles — e.g., this article or <a href="http://html5doctor.com/microformats/">our microformats article</a> — you&#8217;ll notice how we&#8217;ve split the article into sections.</p>
+<p>In theory, using nested sections <a href="http://cialistadalafils.com/" title="cialis online pharmacy">cialis made in the usa</a> means that we&#8217;ll be able to do away with <code>&lt;h2&gt;</code>–<code>&lt;h6&gt;</code>, since a new heading level is implied with each nested section. In practice, however, it&#8217;s not as simple as that, so we suggest sticking with the usual <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> heading structure even if you decide to nest sections.</p>
+<p>For your example, this code would be entirely appropriate:</p>
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;Article name&lt;/h1&gt;
+  &lt;p&gt;...&lt;/p&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Introduction&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Description&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+      &lt;section&gt;
+        &lt;h3&gt;Technical&lt;/h3&gt;
+        &lt;p&gt;...&lt;/p&gt;
+      &lt;/section&gt;
+      &lt;section&gt;
+        &lt;h3&gt;Stylistic&lt;/h3&gt;
+        &lt;p&gt;...&lt;/p&gt;
+      &lt;/section&gt;
+  &lt;/section&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Requirements&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</code></pre>
+<p>Each part of the <code>&lt;article&gt;</code> is wrapped in a <code>&lt;section&gt;</code>. The one exception might be the introduction, unless you are explicitly declaring a heading with it. You don&#8217;t always need a <code>&lt;header&gt;</code> element if it would only contain a single <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> element. In that case, the heading on it&#8217;s own will be fine. Bruce has <a href="http://www.brucelawson.co.uk/2010/html5-articles-and-sections-whats-the-difference/">a good post on the difference between articles and sections</a>.</p>
+<p>Hope that helps, Rich</p>
+</section>
+<section>
+<h2>Since we&#8217;re being semantic…</h2>
+<p>Rob asked:</p>
+<blockquote>
+<p><abbr>HTML</abbr>5 is working towards being more semantic, but I don&#8217;t think the <code>&lt;link/&gt;</code> tag is semantic at all…especially for stylesheets!  Has anyone ever suggested changing the specification for the <code>&lt;style&gt;</code> tag to have an &#8216;src&#8217; attribute that would point to the <abbr>CSS</abbr> file? Current:</p>
+<pre><code>&lt;link rel="stylesheet" href="style.css" /&gt;</code></pre>
+<p>Suggestion:</p>
+<pre><code>&lt;style src="style.css"&gt;&lt;/style&gt;</code></pre>
+</blockquote>
+<p>I think most implementors would say that the current way works well enough. Breaking backwards compatibility for the sake of theoretical purity was where <abbr>XHTML</abbr> 2 was heading before it was finally curtailed. <abbr>HTML</abbr>5 takes stock of where we are, warts and all, and builds on that. (I feel your pain: I always want <code>&lt;img&gt;</code> to be <code>&lt;image&gt;</code>.)</p>
+<p>Cheers, Bruce</p>
+</section>
+<section>
+<h2>Describing the content of <code>&lt;figure&gt;</code></h2>
+<p>Sverri asked:</p>
+<blockquote>
+<p>A lot of things can be presented as figures (everything from a simple quote to an information-dense canvas). The first thing that came to my mind was using e.g. a &#8220;type&#8221; attribute. For example:</p>
+<pre><code>&lt;figure type="code css"&gt;
+  &lt;figcaption&gt;Styling p tags&lt;/figcaption&gt;
+  &lt;code&gt;p { margin-bottom: 1em }&lt;/code&gt;
+&lt;/figure&gt;</code></pre>
+<p>That would be a dead simple way of succinctly telling user agents, search engines, etc. what kind of content they can expect to find in the figure. However, since this is not valid <abbr>HTML</abbr>5 (as far as I know) how would you recommend describing the contents of a figure, so as to make it more accessible to non-human agents?</p>
+<p>Thank you.</p>
+</blockquote>
+<p>Bruce replied:</p>
+<p>What would be the purpose of doing so? For example, it&#8217;s easy for a non-human agent to see that your example contains code, or that:</p>
+<pre><code>&lt;figure&gt;
+  &lt;video&gt;...&lt;/video&gt;
+  &lt;figcaption&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>contains video, or that:</p>
+<pre><code>&lt;figure&gt;
+  &lt;img /&gt;
+  &lt;figcaption&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>contains an image. So I&#8217;m not sure of the use case for a type attribute.</p>
+<p>Sverri then responded:</p>
+<blockquote>
+<p>The way I think about this is that figures are images of sorts, or embedded content. A &#8220;type&#8221; attribute (or perhaps a more aptly named &#8220;of&#8221; attribute) would be the equivalent of the &#8220;alt&#8221; attribute of <code>img</code>. It is extra information, and as such would not always be needed, but sometimes it can be an important part in how you present the content.</p>
+<p>As for use cases:</p>
+<ul>
+<li>Aiding search engines better understand the content</li>
+<li>Browsers can use such information to make browsing the internet richer</li>
+</ul>
+<p>I realize that you can use some other way of describing the content, such as titles, itemscopes or other ways of adding metadata. A dedicated, but optional, attribute for this would not be such a bad idea in my opinion.</p>
+<p>To sum up, I suppose what I am getting at is that content in a <code>figure</code> is not always so well defined on its own.  A snippet of code, for example, is given more meaning if it is in a context, such as &#8220;css&#8221;, &#8220;algorithm&#8221; or &#8220;while loop&#8221;.</p>
+<p>I hope I am being clear enough in what I am saying.</p>
+</blockquote>
+<p>Bruce followed up once more:</p>
+<p>You are clear. There have been many such discussions during the development of <abbr>HTML</abbr>5 (and preceding versions of <abbr>HTML</abbr>). For example, why not have a <code>&lt;name&gt;</code> element for marking up people&#8217;s names, analogous to <code>&lt;time&gt;</code>? Why not have <code>&lt;geo&gt;</code> or <code>&lt;place&gt;</code> or <code>&lt;location&gt;</code>?</p>
+<p>The use cases you describe (aiding search engines and browsers) are equally applicable.</p>
+<p>But it comes down to two factors:</p>
+<p>First, <abbr>HTML</abbr> is not a specialised language. It&#8217;s a generalised language, and there are some cases that can&#8217;t be marked up with the existing crop of elements. (There are already over a hundred.)</p>
+<p>Second is that minting new elements and attributes isn&#8217;t &#8220;free&#8221;. It&#8217;s more for authors to remember (and get wrong), it bloats parsers in browsers, and it makes regression testing harder. So if a new addition to the language doesn&#8217;t solve a very common problem, it isn&#8217;t added to the language.</p>
+<p>As you said, microdata/microformats/RDFa can be used to extend the language for specialised cases.</p>
+<p>Thanks, Bruce</p>
+</section>
+<section>
+<h2>Web app buttons and toolbars: anchors, buttons, or commands?</h2>
+<p>Christian asked:</p>
+<blockquote>
+<p>If you&#8217;re creating a toolbar for a web app, or perhaps even a &#8220;Share this page&#8221; widget, should one use anchors, buttons or commands?</p>
+</blockquote>
+<p>A toolbar should be <abbr>HTML</abbr>5 <code>&lt;menu&gt;</code> with nested <code>&lt;command&gt;</code>s, but browser support is zilch. I&#8217;d use a list of buttons, personally. I think <code>&lt;button&gt;</code> is the right element to perform tasks that might need an &#8220;undo&#8221;, like &#8220;Tweet This&#8221; or &#8220;Delete Document&#8221;.</p>
+<p>Bruce</p>
+</section>
+<section>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-17/" rel="bookmark">Your Questions #17</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 19, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-17/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions #15</title>
+		<link>http://html5doctor.com/your-questions-15/</link>
+		<comments>http://html5doctor.com/your-questions-15/#comments</comments>
+		<pubDate>Fri, 14 Jan 2011 14:30:23 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[code]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[pre]]></category>
+		<category><![CDATA[wikipedia]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2744</guid>
+		<description><![CDATA[<p>The clinic is busy as ever with more <abbr>HTML</abbr>5 ills. This week, we'll cover marking up Wikipedia infoboxes, anchors in <code>&#60;hgroup&#62;</code>, <code>&#60;figure&#62;</code> for avatars, header(s), and how to use <code>&#60;code&#62;</code> and <code>&#60;pre&#62;</code>.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is busy as ever with more <abbr>HTML</abbr>5 ills. This week, we&#8217;ll cover marking up Wikipedia infoboxes, anchors in <code>&lt;hgroup&gt;</code>, <code>&lt;figure&gt;</code> for avatars, header(s), and how to use <code>&lt;code&gt;</code> and <code>&lt;pre&gt;</code>.</p>
+
+<section>
+  <h2>Wikipedia Infoboxes</h2>
+  <p>Andrés asked:</p>
+  <blockquote>
+    <p>Hello. I want to ask how I can code some stuff based on Wikipedia infoboxes with <abbr>HTML</abbr>5, which most of the time uses tables. I think that all of these can be surrounded by a figure tag, but I&#8217;m not sure about the subtleties.</p>
+
+    <p>Reference page: <a href="http://en.wikipedia.org/wiki/Help!_%28album%29">http://en.wikipedia.org/wiki/Help!_%28album%29</a>. It has a main infobox that:</p>
+
+    <ul>
+    	<li>Has a heading</li>
+    	<li>Has a thumbnail image</li>
+    	<li>Has 3 sections each separated by a faux table heading:
+    		<ul>
+    			<li>One that has a table with two columns, one with keys and other with labels, which I believe that can be done better with definition list but not sure if table is suited too</li>
+    			<li>One that has a list of links of magazines that have reviewed the disc. I believe it is fine as is coded but still</li>
+    			<li>One with a &#8220;chronology&#8221;, which is like a navigation menu in a table with the previous, current (no link) and next installment. Not idea if there&#8217;s an ideal way to markup it</li>
+    		</ul>
+    	</li>
+    </ul>
+
+    <p>There&#8217;s a 2nd infobox that feature a long list of links of related contents divided by some kind of table headings. I suppose it may better done by lists but there&#8217;s may be another approach. The 3rd infobox repeats the chronology noted above.</p>
+  </blockquote>
+  
+  <p>It&#8217;s a blessing and curse of <abbr>HTML</abbr> that there is often more than one correct answer. This is even more true with <abbr>HTML</abbr>5. Let&#8217;s look at the Help! album page:</p>
+
+  <ul>
+  	<li>Is the infobox essential to understanding? If yes, use <code>&lt;figure&gt;</code>; if no, use <code>&lt;aside&gt;</code> (inside <code>&lt;article&gt;</code>). If this data is just a summary of information already in the article, <code>&lt;aside&gt;</code> would be appropriate. If it contains unduplicated data, I prefer <code>&lt;figure&gt;</code>. I don’t think <code>&lt;table&gt;</code> is the best container element for the infobox.</li>
+  	<li>For the “studio album” details section, either <code>&lt;dl&gt;</code> or <code>&lt;table&gt;</code> would be appropriate.</li>
+  	<li>“Professional reviews” and “chronology” both look like lists, although either could also be a table.</li>
+  	<li>I actually find the chronology formatting quite strange, as it’ll only work well for 1–3 items. Assuming this would be used for a full chronology, an ordered list would be more suitable. I guess that this is <em>only</em> to list the previous and next albums (a partial chronology). I don’t think it’s suitable for <code>&lt;nav&gt;</code> as the Beatles released more than three albums (but might be if all albums were listed). It’d be good to use <code>rel="previous"</code> and <code>rel="next"</code> attributes on these links.</li>
+  	<li>The blue background titles would be best represented by <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code>
+  titles, ideally titling each <code>&lt;section&gt;</code>.</li>
+
+  <p>I&#8217;m guessing the second infobox you refer to is the large table of links at the bottom of the page. This seems appropriate as a series of inline lists (ordered by time or alphabetically) in a table.</p>
+
+  <p>I&#8217;m also guessing the third infobox you refer to is the &#8220;US Release&#8221; one that uses the same template as the first. The first infobox notes apply here too.</p>
+
+  <p>Peace — Oli</p>
+</section>
+    
+<section>
+	<h2>No anchor elements allowed in <code>&lt;hgroup&gt;</code> elements</h2>
+	<p>Daniel asked:</p>
+	<blockquote>
+		<p>Consider the following code:<p>
+
+<pre><code>&lt;hgroup&gt;
+&lt;a href="/"&gt;
+  &lt;h1&gt;Title&lt;/h1&gt;
+  &lt;h2&gt;Sub Title&lt;/h2&gt;
+&lt;/a&gt;
+&lt;/hgroup&gt;</code></pre>
+
+    <p>When using <a href="http://html5.validator.nu/">http://html5.validator.nu/</a> to validate my page, it says that this is invalid &#8220;Error: Element a  not allowed as child of element hgroup  in this context.&#8221;</p>
+
+    <p>I know that this validator is in beta (at least I think so), so maybe it&#8217;s wrong, but would you tell me if this is really valid or invalid? If it is invalid, would putting the anchor tags inside the heading tags fix it (despite having to use more markup :(</p>
+    </p>
+	</blockquote>
+	
+	<p>This example is in fact invalid. Only <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> elements can be a child of <code>&lt;hgroup&gt;</code>.</p>
+
+	<p>You can get around it using <a href="http://html5doctor.com/block-level-links-in-html-5/">block-level links</a> like so (but bear in mind some browsers have trouble with block-level links):</p>
+
+<pre><code>&lt;a href="/"&gt;
+&lt;hgroup&gt;
+  &lt;h1&gt;Title&lt;/h1&gt;
+  &lt;h2&gt;Sub Title&lt;/h2&gt;
+&lt;/hgroup&gt;
+&lt;/a&gt;</code></pre>
+
+  <p>Hope that helps.</p>
+
+  <p>Rich</p>
+</section>
+
+<section>
+	<h2>Using <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> as the avatar/id in a blog comment</h2>
+	<p>BigAB asked:</p>
+	<blockquote>
+		<p>Would this be a proper use of the figure and figcaption tags: representing the common case of avatar/username on comments (or forum entries) as a figure? Example:</p>
+<pre><code>&lt;article class="comment"&gt;
+   &lt;h4&gt;Comment on &lt;a href="/the-blog-article"&gt;The Blog Article&lt;/a&gt;&lt;/h4&gt;
+   &lt;figure&gt;
+       &lt;img class="avatar" src="/my-avatar" /&gt;
+       &lt;figcaption&gt;&lt;a rel="nofollow" href="http://my-website.exp"&gt;My Name&lt;/a&gt;&lt;/figcaption&gt;
+   &lt;/figure&gt;
+   &lt;p&gt;I am commenting on our blog article. This is my comment. I have much to comment on and am doing so in this comment.&lt;/p&gt;
+   &lt;p&gt;Thank you for letting me comment here.  I think it good that we can comment.  Feel free to comment on my comment.&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+	</blockquote>
+
+	<p>Doesn&#8217;t feel right to me. The spec says this:</p>
+	
+	<blockquote>
+	  <p>&#8220;The figure element represents some flow content, optionally with a caption, that is self-contained and is typically referenced as a single unit from the main flow of the document.</p>
+    
+    <p>The element can thus be used to annotate illustrations, diagrams, photos, code listings, etc, that are referred to from the main content of the document, but that could, without affecting the flow of the document, be moved away from that primary content, e.g. to the side of the page, to dedicated pages, or to an appendix.&#8221;</p>
+    
+    <footer>
+      <cite><a href="http://www.w3.org/TR/html5/grouping-content.html#the-figure-element">W3C Specification</a></cite>
+    </footer>
+  </blockquote>
+
+  <p>By &#8220;referred to&#8221;, I understand that to be &#8220;See figure 9&#8221;, but your example doesn&#8217;t do that. Personally, I&#8217;d just write:</p>
+
+  <pre><code>&lt;a href="#"&gt;&lt;img alt="Bob's homepage"&gt;Bob Smith&lt;/a&gt;</code></pre>
+
+  <p>Cheers, Bruce</p>
+</section>
+
+<section>
+	<h2>HTML5 Header</h2>
+	<p>Josh asked:</p>
+	<blockquote>
+		<p>I have read up a lot on the header element, and nesting numbered headers inside the hgroup element, and so forth. I&#8217;ve put a lot of the things I&#8217;ve seen on HTML5Doctor.com into practice on my own site, but was wondering if I can actually put the numbered header anywhere in the header, instead of having the numbered header (eg, h1-h6) first.</p>
+
+    <p>I was also wondering if putting links inside an h1-h6 itself would actually damage either page rank or usability. I mean, I don&#8217;t imagine how it would, but I like to be very careful, almost too careful with how I do things. I do auto-validations of all my markup constantly, and do manual validation once in a while. So, I&#8217;m a little OCD when it comes to items such as the header. Of course, putting the a element around the header itself may not hurt either &#8211; but like I said, I love to be careful.</p>
+
+    <p>Plus, great work on the site and the organization, folks! Some friends and myself make some articles on topics such as CSS and XHTML, more-recently HTML5, and it&#8217;s refreshing to come here to see a view from some real experts!</p>
+	</blockquote>
+	
+	<p>Thanks for your e-mail.</p>
+	
+  <ul>
+  	<li><code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> elements can go anywhere inside <code>&lt;header&gt;</code>, although we advise you to mark up your content first before thinking about <abbr>CSS</abbr>, so your page makes sense even without <abbr>CSS</abbr>.</li>
+  	<li>If you have more than one <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> as children of a <code>&lt;header&gt;</code>, wrap them in <code>&lt;hgroup&gt;</code>. If there’s nothing else in the <code>&lt;header&gt;</code>, just use the <code>&lt;hgroup&gt;</code> and not the <code>&lt;header&gt;</code>.</li>
+  	<li>If you only have one <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> and no other heading content, you don’t need either <code>&lt;hgroup&gt;</code> or <code>&lt;header&gt;</code>, although they might still be useful for a <abbr>CMS</abbr> template (where more stuff might be inserted) or as <abbr>CSS</abbr> hooks.</li>
+  	<li>Links inside <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> don’t affect page ranking or usability in isolation (but might affect usability if, for example, the link is to the current page).</li>
+  	<li>You can use block-level links around a <code>&lt;header&gt;</code> or <code>&lt;hgroup&gt;</code>, but test and be careful of Firefox’s <a href="http://remysharp.com/2009/08/10/defining-the-vomit-bug/">vomit</a> <a href="http://oli.jp/2009/html5-block-level-links/">bug</a>.</li>
+  </ul>
+
+  <p>Finally, while we applaud your studious approach to coding, do keep in mind that <abbr>HTML</abbr> is quite forgiving :-) As long as you validate occasionally and follow the spec, you’ll be fine. The web stack is a deep rabbit hole to go down, so while it’s great to do the best you possibly can, we also prescribe going outside once in a while ;-)</p>
+
+  <p>Peace — Oli</p>
+</section>
+
+<section>
+	<h2><code>&lt;code&gt;</code> vs <code>&lt;pre&gt;</code></h2>
+	<p>Daniel asked:</p>
+	<blockquote>
+		<p>Dear HTML5doctors,</p>
+
+    <p>How should I markup code example correctly? I have some that are inline inside my text, I think that&#8217;s <code>code</code> then, but others are multi lined. I need them to be white-spaced correctly as they would get them with <code>pre</code>, but isn&#8217;t that semantically wrong?</p>
+
+    <p>Or do I put <code>&lt;code&gt;</code> inside <code>&lt;pre&gt;</code>? <code>&lt;pre&gt;</code> inside <code>&lt;code&gt;</code>? Or is <code>&lt;pre&gt;</code> to <code>&lt;code&gt;</code> as <code>&lt;b&gt;</code> is to <code>&lt;strong&gt;</code>?</p>
+
+    <p>Many thanks</p>
+	</blockquote>
+	
+	<p>For inline code, just use <code>&lt;code&gt;...&lt;/code&gt;</code>, a phrasing (inline) element. For multi-line code, use <code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>. <code>&lt;pre&gt;</code> is a flow (block-level) element. Finally, the entities &amp;lt; and &amp;gt; map to &lt; and &gt;, which you’ll need to escape inside any <abbr>HTML</abbr> code snippets (although you only really need to do the first one).</p>
+
+  <p>Peace — Oli</p>
+</section>
+
+<section>
+	<h2>Got a question for us?</h2>
+	<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-15/" rel="bookmark">Your Questions #15</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 14, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-15/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered 9</title>
+		<link>http://html5doctor.com/your-questions-answered-9/</link>
+		<comments>http://html5doctor.com/your-questions-answered-9/#comments</comments>
+		<pubDate>Fri, 14 May 2010 14:15:57 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[offline]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1779</guid>
+		<description><![CDATA[<p>The Doctor is in with another round of patient questions about <abbr>HTML</abbr>5. This week, we'll cover offline viewing on requests, the drag-and-drop <abbr>API</abbr>, using <code>href</code> on any element, the <code>&#60;figure&#62;</code> element, and headings.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The Doctor is in with another round of patient questions about <abbr>HTML</abbr>5. This week, we&#8217;ll cover offline viewing on requests, the drag-and-drop <abbr>API</abbr>, using <code>href</code> on any element, the <code>&lt;figure&gt;</code> element, and headings.</p>
+<h2>Offline viewing on requests</h2>
+<p>Johan asked:</p>
+<blockquote><p>It is possible to let Firefox 3.5/3.6 save a page for offline viewing with the manifest file?<br />
+In that case Firefox asks for permission to save the site the same second you arrive – not very user-friendly.</p>
+<p>Is it possible to send the save-it-locally request via Javascript on a click?</p>
+<p>Basically I want a link/button which will fire the request – and not on document load.</p>
+</blockquote>
+<p>While it isn&#8217;t possible to make Firefox 3.5/3.6 save a page for offline viewing with the manifest file, there is <em>a</em> way to do this. It all depends on how you write the &#8220;save-it-locally request&#8221; code. You have two options:</p>
+<ol>
+<li>If you want to store an arbitrary document that is not explicitly listed in your manifest, you could run an Ajax request for that document and store its contents in <code>localStorage</code>. When you want to view that document, load it from <code>localStorage</code> and overlay it on the existing page.</li>
+<li>Dynamically manage a manifest file for individual users, so that if a user requests a new file that isn&#8217;t in their manifest, register this on the server side and add it to the manifest — which is bespoke to this specific user — on the fly.</li>
+</ol>
+<p>I&#8217;m not sure what you&#8217;re seeing with regards to the permissions error. When I test the manifest (offline **cache**), it doesn&#8217;t ask twice.</p>
+<p><small>Note: you asked about Firefox 3.5 — the offline manifest doesn&#8217;t work properly at all in this version.</small></p>
+<p>Thanks, Remy</p>
+<h2>Question about dragging</h2>
+<p>Marc asked:</p>
+<blockquote><p>Evening,</p>
+<p>I&#8217;m trying to get my head around the drag and drop (DnD) possibilities of <abbr>HTML</abbr>5. I have a &#8220;simple&#8221; task: Read the content of a <abbr>XML</abbr> file, using JavaScript, and do some manipulations of he <abbr>XML</abbr>. Without the use of server side scripts.</p>
+<p>I tried my way with Google, but apart from people complaining about the DnD specs, I wasn&#8217;t able to find much insightful informations.</p>
+<p>Can you point me toward resources to understand the DnD possibilities of <abbr>HTML</abbr>5?</p>
+<p>Thank you Doctor, a French canadian <abbr>HTML</abbr>5 fan ;)</p>
+</blockquote>
+<p>Absolutely! There&#8217;s actually an <abbr>HTML</abbr>5 Doctor article covering <a href="http://html5doctor.com/native-drag-and-drop/">native drag-and-drop</a>. It also includes links for further reading and related posts (such as accessibility experiments).</p>
+<p>I hope that helps.</p>
+<p>Cheers, Remy</p>
+<h2>About the <code>href</code> on any element</h2>
+<p>Luan asked:</p>
+<blockquote><p>I&#8217;ve heard a long ago that href would work in any tag, such as a <code>&lt;p href="..."&gt;</code> or a <code>h1</code>, even a <code>div</code> and others&#8230; but I don&#8217;t see anything about this in the last days. Do you know if this is going to work?</p>
+</blockquote>
+<p>That was in <abbr>XHTML</abbr>2 (on which the <abbr>W3C</abbr> have now stopped work).</p>
+<p>The <abbr>HTML</abbr>5 equivalent is to wrap an <code>&lt;a href="..."&gt;</code> around the other tags. It&#8217;s called block-level linking, and we&#8217;ve <a href="http://html5doctor.com/block-level-links-in-html-5/">written an article</a> about it.</p>
+<p>Cheers, Bruce</p>
+<h2><abbr>W3C</abbr> Validator for the <code>&lt;figure&gt;</code> element</h2>
+<p>Fjpoblam asked:</p>
+<blockquote><p>I have a (prospective) structure containing 8 figures: each an image with a caption. My goal is an image gallery, each image clickable toward an individual htm file containing a slide show. (In html4 I structured each &#8220;figure&#8221; as a div: figure seemed ideal for the task.)</p>
+<p>Problem is, I tried to follow the *validator* hint with a dd for the image and a dt for the caption (each surrounded by an a). Upon doing so, the validator pops up an error. When I try a straight image with a legend, it is also rejected for want of a dd and an optional dt.</p>
+<p>What gives? Do you have a hint? Or better, simply, point me doofus to the correct doc so&#8217;s you&#8217;ll &#8220;teach a man to fish&#8221;.</p>
+</blockquote>
+<p>I&#8217;m not sure if the validator is up to date or not, but you shouldn&#8217;t be using <code>&lt;dd&gt;</code>/<code>&lt;dt&gt;</code> in <code>&lt;figure&gt;</code> anymore. Please use <code>&lt;figcaption&gt;</code>.</p>
+<p>See our article on <a href="http://html5doctor.com/the-figure-figcaption-elements/">the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements</a> for more.</p>
+<p>Also see our <a href="http://html5doctor.com/glossary/">glossary</a> for more examples.</p>
+<p>Cheers, Rich</p>
+<h2>Headings</h2>
+<p>Thomas asked:</p>
+<blockquote><p>Dear Doctors,</p>
+<p>you covered the new <code>header</code> tag in an article. The <code>header</code> tag should contain a heading element, like h1-6. So far so good, but how do I structure my headings further on. E.g. I&#8217;ve got this:</p>
+<pre><code>&lt;article&gt;
+	&lt;header&gt;
+		&lt;h1&gt;My major heading&lt;/h1&gt;
+		&lt;h2&gt;Subheading&lt;/h2&gt;
+		Abstract text...
+	&lt;/header&gt;
+	... lorem ipsum ....
+	&lt;hX&gt;Heading within my article&lt;/hX&gt;
+	... dolor sit amet ...
+	&lt;hX+1&gt;Subheading in my article&lt;/hX+1&gt;
+&lt;/article&gt;</code></pre>
+<p>Which heading-level would be appropriate in my example? h1 because it starts again? or h3 because it continues?</p>
+<p>Thank you</p>
+</blockquote>
+<p>If the first <code>&lt;hX&gt;</code> is a new subheading and <em>not related</em> to the <code>&lt;h2&gt;</code> already there, then <code>&lt;hX&gt;</code> would be an <code>&lt;h2&gt;</code>. Then <code>&lt;hX+1&gt;</code> would be an <code>&lt;h3&gt;</code> if it is a subheading of the above <code>&lt;h2&gt;</code>.</p>
+<p>However, if you&#8217;re splitting the article into sections, then you <em>could</em> use an <code>&lt;h1&gt;</code> each time. See our article on <a href="http://html5doctor.com/the-section-element/">the section element</a> for more.</p>
+<p>Thanks, Tom</p>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions! If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+<p><a href="http://html5doctor.com/your-questions-answered-9/" rel="bookmark">Your Questions Answered 9</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 14, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-9/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+		<item>
+		<title>The figure &#038; figcaption elements</title>
+		<link>http://html5doctor.com/the-figure-figcaption-elements/</link>
+		<comments>http://html5doctor.com/the-figure-figcaption-elements/#comments</comments>
+		<pubDate>Tue, 13 Apr 2010 13:45:20 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1646</guid>
+		<description><![CDATA[<p>In traditional printed material like books and magazines, an image, chart, or code example would be accompanied by a caption. Before now, we didn't have a way of semantically marking up this sort of content directly in our <abbr>HTML</abbr>, instead resorting to <abbr>CSS</abbr> class names. <abbr>HTML</abbr>5 hopes to solve that problem by introducing the <code>&#60;figure&#62;</code> and <code>&#60;figcaption&#62;</code> elements. Let's explore!</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>In traditional printed material like books and magazines, an image, chart, or code example would be accompanied by a caption. Before now, we didn&#8217;t have a way of semantically marking up this sort of content directly in our <abbr>HTML</abbr>, instead resorting to <abbr>CSS</abbr> class names. <abbr>HTML</abbr>5 hopes to solve that problem by introducing the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements. Let&#8217;s explore!</p>
+
+<h2>The <code>&lt;figure&gt;</code> element</h2>
+
+<p>The <code>&lt;figure&gt;</code> element is intended to be used in conjunction with the <code>&lt;figcaption&gt;</code> element to mark up diagrams, illustrations, photos, and code examples (among other things). The spec says this about <code>&lt;figure&gt;</code>:</p>
+
+<blockquote><p>The figure element represents a unit of content, optionally with a caption, that is self-contained, that is typically referenced as a single unit from the main flow of the document, and that can be moved away from the main flow of the document without affecting the document’s meaning.</p><footer><cite><a href="http://dev.w3.org/html5/markup/figure.html">W3C Specification</a></cite></footer></blockquote>
+
+<h2>The <code>&lt;figcaption&gt;</code> element</h2>
+
+<p>The <code>&lt;figcaption&gt;</code> element has been the <a href="http://adactio.com/journal/1604/">subject</a> of <a href="http://remysharp.com/2009/08/12/saving-figure-detail/">much</a> <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">debate</a>. The spec initially wanted to repurpose <code>&lt;legend&gt;</code> rather than introduce a new element. Other suggestions included <code>&lt;label&gt;</code>, <code>&lt;caption&gt;</code>, <code>&lt;p&gt;</code> or the <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> elements. <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/"><code>&lt;legend&gt;</code> was changed</a>, so we then used a combination of <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> inside <code>&lt;figure&gt;</code> at <a href="http://twitter.com/adactio">Jeremy&#8217;s</a> suggestion. Most of these suggestions failed since there was no backwards compatibility for styling with <abbr>CSS</abbr>.</p>
+
+<p>Regular readers will know that <a href="http://html5doctor.com/summary-figcaption-element/">a new element was recently introduced</a>, namely <code>&lt;figcaption&gt;</code>. Who knows if it&#8217;ll stick, but for now here&#8217;s what the spec says about <code>&lt;figcaption&gt;</code>:</p>
+
+<blockquote><p>The figcaption element represents a caption or legend for a figure.</p><footer><cite><a href="http://dev.w3.org/html5/markup/figcaption.html">W3C Specification</a></cite></footer></blockquote>
+
+<p>The <code>&lt;figcaption&gt;</code> element is optional and can appear before <em>or</em> after the content within the <code>&lt;figure&gt;</code>. Only one <code>&lt;figcaption&gt;</code> element may be nested within a <code>&lt;figure&gt;</code>, although the <code>&lt;figure&gt;</code> element itself may contain multiple other child elements (e.g., <code>&lt;img&gt;</code> or <code>&lt;code&gt;</code>).</p>
+
+<h2>Using <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code></h2>
+
+<p>So we&#8217;ve seen what the spec says about these elements. How do we use them? Let&#8217;s look at some examples.</p>
+
+<h3>Figure with an image</h3>
+
+<p>An image within a <code>&lt;figure&gt;</code> element without a caption:</p>
+
+<figure><img src="http://html5doctor.com/wp-content/uploads/2010/03/orang-utan.jpg" alt="Baby Orang Utan hanging from a rope"></figure>
+
+<p>Here&#8217;s the code for that:</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;img src="/orang-utan.jpg" alt="Baby Orang Utan hanging from a rope"&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>Figure with an image and caption</h3>
+
+<p>An image within a <code>&lt;figure&gt;</code> element with an explanatory caption:</p>
+
+<figure><img src="http://html5doctor.com/wp-content/uploads/2010/03/macaque.jpg" alt="Macaque in the trees"><figcaption>A cheeky macaque, Lower Kintaganban River, Borneo. Original by <a href="http://www.flickr.com/photos/rclark/102352241/in/set-72057594082373448/">Richard Clark</a></figcaption>
+</figure>
+
+<p>and the code that we used:</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;img src="/macaque.jpg" alt="Macaque in the trees"&gt;
+  &lt;figcaption&gt;A cheeky macaque, Lower Kintaganban River, Borneo. Original by &lt;a href="http://www.flickr.com/photos/rclark/"&gt;Richard Clark&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>A figure with multiple images</h3>
+
+<p>Nesting multiple images within one <code>&lt;figure&gt;</code> element with a single caption:</p>
+
+<figure class="trptych"><img src="http://html5doctor.com/wp-content/uploads/2010/03/kookaburra.jpg" alt="Kooaburra"><img src="http://html5doctor.com/wp-content/uploads/2010/03/pelican.jpg" alt="Pelican stood on the beach"><img src="http://html5doctor.com/wp-content/uploads/2010/03/lorikeet.jpg" alt="Cheeky looking Rainbow Lorikeet"><figcaption>Australian Birds. From left to right, Kookburra, Pelican and Rainbow Lorikeet.<br>Originals by <a href="http://www.flickr.com/photos/rclark/">Richard Clark</a></figcaption>
+</figure>
+
+<p>The code:</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;img src="/kookaburra.jpg" alt="Kooaburra"&gt;
+  &lt;img src="/pelican.jpg" alt="Pelican stood on the beach"&gt;
+  &lt;img src="/lorikeet.jpg" alt="Cheeky looking Rainbow Lorikeet"&gt;
+  &lt;figcaption&gt;Australian Birds. From left to right, Kookburra, Pelican and Rainbow Lorikeet. Originals by &lt;a href="http://www.flickr.com/photos/rclark/"&gt;Richard Clark&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>Figure with a code block</h3>
+
+<p>The <code>&lt;figure&gt;</code> element may also be used for code examples:</p>
+
+<figure><blockquote><p><code>&lt;small&gt;&lt;a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share-alike license&lt;/a&gt;&lt;/small&gt;</code></p></blockquote>
+<figcaption>Using <code>&lt;small&gt;</code> around a <a href="http://creativecommons.org/choose/" title="Choose a License">Creative Commons license</a> link with <code>rel="license"</code></figcaption></figure>
+
+<p>Here&#8217;s the code for that:</p>
+
+<pre><code>&lt;figure&gt;
+&lt;blockquote&gt;&lt;p&gt;&lt;code&gt;&amp;lt;small&amp;gt;&amp;lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by-sa/3.0/&quot;&amp;gt;Creative Commons Attribution Share-alike license&amp;lt;/a&amp;gt;&amp;lt;/small&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;figcaption&gt;Using &lt;code&gt;&amp;lt;small&amp;gt;&lt;/code&gt; around a &lt;a href="http://creativecommons.org/choose/" title="Choose a License"&gt;Creative Commons license&lt;/a&gt; link with &lt;code&gt;rel="license"&lt;/code&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>Differences between <code>&lt;figure&gt;</code> and <code>&lt;aside&gt;</code></h3>
+
+<p><a href="http://html5doctor.com/aside-revisited/">We covered <code>&lt;aside&gt;</code> in an earlier article</a>, but it is important to note the difference between the two. You should choose between <code>&lt;aside&gt;</code> or <code>&lt;figure&gt;</code> by asking yourself if the content is essential to understanding the section:</p>
+
+<ul>
+  <li>If the content is simply related and not essential, use <code>&lt;aside&gt;</code>.</li>
+  <li>If the content is essential but its position in the flow of content isn’t important, use <code>&lt;figure&gt;</code>.</li>
+</ul>
+
+<p>Having said that, if its position relates to previous and subsequent content, use a more appropriate element — e.g., a <code>&lt;div&gt;</code>, a plain old <code>&lt;img&gt;</code>, a <code>&lt;blockquote&gt;</code>, or possibly even <code>&lt;canvas&gt;</code>, depending on its content.</p>
+
+<h2>Don&#8217;t stop there!</h2>
+
+<p>No need to constrain your <code>&lt;figure&gt;</code>s to images and code examples. Other content suitable for use in <code>&lt;figure&gt;</code> includes audio, video, charts (perhaps using <code>&lt;canvas&gt;</code> or <code>&lt;svg&gt;</code>), poems, or tables of statistics.</p>
+
+<p>It may not always be appropriate to use the <code>&lt;figure&gt;</code> element, though. For example, a graphic banner should not be marked up with <code>&lt;figure&gt;</code>. Instead, simply use the <code>&lt;img&gt;</code> element.</p>
+
+<h2>Summary</h2>
+
+<p>As we&#8217;ve illustrated in this article, there are a lot of possibilities for the <code>&lt;figure&gt;</code> element. Just remember to make sure it&#8217;s the most appropriate element for the job. But you already do that for all your markup, right? :)</p>
+<p><a href="http://html5doctor.com/the-figure-figcaption-elements/" rel="bookmark">The figure &#038; figcaption elements</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 13, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-figure-figcaption-elements/feed/</wfw:commentRss>
+		<slash:comments>124</slash:comments>
+		</item>
+		<item>
+		<title>Hello, summary and figcaption elements</title>
+		<link>http://html5doctor.com/summary-figcaption-element/</link>
+		<comments>http://html5doctor.com/summary-figcaption-element/#comments</comments>
+		<pubDate>Mon, 01 Feb 2010 10:42:38 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[details]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[summary]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1343</guid>
+		<description><![CDATA[The details and figure elements are saved from the crazed pecadillos of legend, dd/ dt and caption by these two freshly-minted elements, sent from Hickson over the weekend.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>This weekend saw the minting of not one but two new elements. The <code>summary</code> element (<strong>not</strong> the <code>summary</code> <em>attribute</em> on the <code>table</code> element) goes inside the <code>details</code> element:</p>
+<pre><code>&lt;details&gt;
+&lt;summary&gt;More information&lt;/summary&gt;
+&lt;p&gt;Here is the source data that is discussed in the article ... &lt;/p&gt;
+&lt;/details&gt;</code></pre>
+<p>This is designed to produce an &#8220;expando&#8221; box that is closed by default (but can be open by default using the boolean <code>open</code> attribute), only displaying the text specified by the <code>summary</code> as a control. Activating that control opens the whole <code>details</code> element; re-activating closes it again. If no <code>summary</code> text is present, the browser defaults to the rubric &#8220;details&#8221;. (Added 4 Feb 10:) In browsers that support <code>details</code>, this behaviour does not depend on author scripting, and should work even if JavaScript is disabled or not present.</p>
+<p><code>figcaption</code> lives inside the <code>figure</code>:</p>
+<pre><code>&lt;figure&gt;
+&lt;img ... &gt; (or <code>video</code>, <code>table</code> etc)
+&lt;figcaption&gt;A rabid unicorn goring a fairy.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>If you want some history, continue reading. Otherwise, bye bye!</p>
+<p>Previously, the <code>legend</code> element was specified to do the job of both. Unfortunately, <a href="/legend-not-such-a-legend-anymore/">every browser had parsing problems</a> re-using it outside forms. Similar problems were encountered attempting to re-use the <code>caption</code> element outside tables. At Jeremy Keith&#8217;s  suggestion, the spec then re-used <code>dd</code> and <code>dt</code>, but <a href="http://html5doctor.com/dd-details-wrong-again/">that breaks too</a>.</p>
+<p>Now, two new elements are minted. (I quite fancied one new element &#8211; <code>rubric</code> for both, but it&#8217;s a pretty esoteric word.)</p>
+<p>One of the objections to <code>details</code>, as described by Shelley Powers in <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=8379">her bug to remove it</a> is</p>
+<blockquote><p>the use of JavaScript for the purpose of expanding or collapsing a section is both well-defined and common among web applications. More importantly, following the concept of progressive enhancement, these types of expanding sections are expanded by default if script is turned off. To have a section that is dynamic but not controlled by script is going to cause confusion, particularly among people who turn scripting off and are assuming that there are no &#8220;expando&#8221; sections in the web page.</p>
+<p>In fact, I don&#8217;t see how this element will make developing web applications that much simpler. This type of functionality is trivial with JS.</p>
+</blockquote>
+<p>My counter-argument was that an expanding/ collapsing area on the page is a very common requirement. I&#8217;ve seen sites pull in a whole JavaScript library just to accomplish this (presumably as the developer was unfamiliar with JS), which bloats the page size for the user. I&#8217;ve seen pages where the &#8220;details&#8221; information is set to <code>display:none</code> by default, and the user cannot expand the information without JS, thereby making the contents inaccessible if JS is not present.</p>
+<p>Reinstating this element would be advantageous to developers, who wouldn&#8217;t need to learn JS to accomplish a common task; advantageous to users who would get an accessibility bonus from having this behaviour natively in the browser.</p>
+<p>While I like to think that the irrefutable logic of my argument, coupled with the tear-jerking rhetorical flourishes in  my prose captured both the heart and the head of the editor, I suspect what persuaded him was Apple&#8217;s Maciej Stachowiak saying that &#8220;the webkit community&#8221; were interested in implementing <code>details</code> once the spec was nailed down. Implementation wins the day.</p>
+<p><a href="http://html5doctor.com/summary-figcaption-element/" rel="bookmark">Hello, summary and figcaption elements</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 1, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/summary-figcaption-element/feed/</wfw:commentRss>
+		<slash:comments>50</slash:comments>
+		</item>
+		<item>
+		<title>dd-details wrong again</title>
+		<link>http://html5doctor.com/dd-details-wrong-again/</link>
+		<comments>http://html5doctor.com/dd-details-wrong-again/#comments</comments>
+		<pubDate>Mon, 12 Oct 2009 12:00:57 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[bugs]]></category>
+		<category><![CDATA[dd]]></category>
+		<category><![CDATA[details]]></category>
+		<category><![CDATA[dt]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[ie]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=991</guid>
+		<description><![CDATA[This article has been superseded. It&#8217;s here for historical reasons only. &#60;details&#62; now uses a &#60;summary&#62; element; &#60;figure&#62; uses &#60;figcaption&#62;. You may recall that I blogged about legend not being so legend as the heading element for details or figure. After enough noise was made the spec was changed so that the heading and contents [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p class="note"><strong>This article has been superseded. It&#8217;s here for historical reasons only. &lt;details&gt; now uses a &lt;summary&gt; element; &lt;figure&gt; uses &lt;figcaption&gt;.</strong></p>
+
+<p>You may recall that I blogged about <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">legend not being so legend</a> as the heading element for <code>details</code> or <code>figure</code>. After enough noise was made the spec was changed so that the heading and contents of these elements can now be marked up using the <code>dt/dd</code> combo.</p>
+
+<p>Although not immediately obvious why it&#8217;s the right choice, it appeared to work for our needs&#8230;at first. Of course now, it&#8217;s been discovered that it&#8217;s actually a pretty bad idea.</p>
+
+<p><span id="more-991"></span></p>
+
+<h2>How we got here</h2>
+
+<p>In short, <code>details</code> and <code>figure</code> solve a common design pattern and provide nice new semantic tags to solve that problem.  A <code>figure</code> could be an image you&#8217;re referring to in an article or chapter of a book, and the <code>details</code> element allows the user to interactively show and hide the <em>details</em> of some piece of information.</p>
+
+<p>Both elements can contain a heading element to label up the contents.  For some reason, beyond this author&#8217;s understanding, these two elements, completely different in meaning, have been historically tied to using the same solution solve the problem how to markup the heading.</p>
+
+<p>As I mentioned earlier, originally the proposed solution for the headings was to use the <code>legend</code> element, which <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">proved to completely break</a> in every browser (in new and interesting ways).</p>
+
+<p>Skip forward to mid-September, and Jeremy Keith <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0534.html">proposes that we solve the legend issue</a> with the dt/dd combo, and Ian Hickson <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0566.html">says</a>:</p>
+
+<blockquote>
+  <p>That&#8217;s not a bad idea actually. Ok, done.</p>
+</blockquote>
+
+<p>Before this was proposed there was lots of discussion about why we couldn&#8217;t introduce a new element to solve this problem, and Ian points out already 18 (or 22, I forget!) elements that represent some sort of heading.  This is the argument for not introducing another new heading type element to solve the <code>details</code> and <code>figure</code> problem.</p>
+
+<h2>The problem with dt/dd</h2>
+
+<p>Ironically the problem <em>isn&#8217;t</em> with the <code>dt</code> part of the solution, it&#8217;s actually with the <code>dd</code>.  </p>
+
+<p><a href="http://dean.edwards.name/" title="dean.edwards.name/">Dean Edwards</a> (genius behind some very cool JavaScript and something that will soon blow your minds) has been testing these elements in <em>detail</em> and found a very serious issue with the <code>dd</code> in, guess what, IE6 &amp; 7.  I want to explain and draw attention to what Dean has found.</p>
+
+<p>Styling a <code>dd</code> within <code>details</code> or <code>figure</code> (and probably other elements) bleeds to the next element.</p>
+
+<p>By styling a dd red, and only the dd, here&#8217;s what it <em>should</em> look like (and does in IE8):</p>
+
+<p><img src="http://html5doctor.com/wp-content/uploads/2009/10/dd-ie8.png" alt="dd styled in IE8" /></p>
+
+<p>Where as in IE7 (and IE6), the red style bleeds in to the following <code>p</code> element (note the &#8220;this paragraph shouldn&#8217;t be red&#8221;):</p>
+
+<p>![dd styled in IE7](<img src="http://html5doctor.com/wp-content/uploads/2009/10/dd-ie7.png" alt="dd styled in IE8" /></p>
+
+<p>What&#8217;s more, if you look back at the screen shots you can see the last paragraph says &#8220;Contents of first &lt;dd&gt;&#8221;.  The result of that test is being generated by the following JavaScript:</p>
+
+<pre><code>document.getElementsByTagName('dd')[0].innerHTML</code></pre>
+
+<p>Notice how in IE7, the contents of the first <code>dd</code>&#8216;s <code>innerHTML</code> is <strong>empty</strong>.</p>
+
+<p>The problem here is that:</p>
+
+<ol>
+<li>IE7 and below can&#8217;t style a <code>dd</code> properly without it breaking and the style bleeding in to adjacent elements.</li>
+<li>JavaScript, randomly, can&#8217;t see the contents of the <code>dd</code>.</li>
+</ol>
+
+<h2>Is there hope?</h2>
+
+<p>There is a hack that fixes this issue. It&#8217;s pretty mad, but it does fix the styling issue. However the side effects from this hack are outright unacceptable and are so serious I would argue that the hack solution itself is a bug.</p>
+
+<p>The hack is over at the <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0802.html">public-html of W3.org</a>, and involves stuffing an open <code>object</code> tag just before we close the <code>head</code> tag.</p>
+
+<p>This isn&#8217;t a clean solution for including in HTML by hand, authors won&#8217;t remember or might get it wrong, so it needs to be perhaps automated as part of the HTML5 enabling script, right?  It would have to be inserted using <code>document.write()</code> as the last part of the <code>head</code> element.</p>
+
+<p>Dean went on to test this, and <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-September/023247.html">he found</a>:</p>
+
+<blockquote>
+  <p>There is a nasty side effect though. As you mentioned the document.write() should be the last thing in the &lt;head&gt;. If there are any scripts following the document.write() then they are <em>not executed</em>.</p>
+</blockquote>
+
+<p>The <em>really</em> freakin&#8217; important bit:</p>
+
+<blockquote>
+  <p>If there are any scripts following the document.write() then they are <em>not executed</em></p>
+</blockquote>
+
+<p>So, to answer the question: <em>is there hope?</em> No, not for the dd/dt combo.  It can&#8217;t be styled properly and hacks will break JavaScript.</p>
+
+<h2>We want the details</h2>
+
+<p>We, as authors, want to make use of <code>details</code> and <code>figure</code> today. Waiting for IE7 to fall out of circulation before we start using these elements (as it&#8217;s been proposed a number of times on the IRC channel and mailing boards) is outright not going to happen.  IE6 &amp; 7 are going to be around for a good more number of years, certainly IE7 (IE6 has at least another 5 years in the beast).</p>
+
+<p>We <em>are</em> going to start enabling the <code>details</code> interactive UI pattern using JavaScript whilst we wait for vendors bake it in to the browser, so the final proposed markup needs to work in all the browsers, <em>including</em> IE6 and IE7.</p>
+
+<p>What are our current options?</p>
+
+<ol>
+<li>Give new meaning to an existing element (as we&#8217;ve already tried to), <code>legend</code>, <code>label</code> and <code>dt/dd</code> have been tried, tested and failed. What else could we use?</li>
+<li>Repurpose one of the existing <em>new</em> elements (keeping in mind that the dt/dd was repurposed so it should be a consideration).</li>
+<li>Create <em>another</em> heading element to solve this problem.</li>
+</ol>
+
+<p>The problem is that the conversation seems to have lost steam (or certain Dean was starting to see the conversation go in circles).  If you want to see these two elements make it the final spec, and correctly, head over to either the <a href="irc://irc.freenode.net/#whatwg">IRC channel</a> or the <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/">mailing list</a>, and get heard.</p>
+
+<h2>Reference links</h2>
+
+<ul>
+<li><a href="http://dean.edwards.name/test/details.html">Dean&#8217;s original details test</a> (my modified tests to fire the innerHTML on load: <a href="http://jsbin.com/inugi/edit#html">details</a>, <a href="http://jsbin.com/uluro/edit#html">figure</a>)</li>
+<li>Litmusapp browser screenshots of the results: <a href="http://leftlogic.litmusapp.com/pub/6bee14e">details</a>, <a href="http://leftlogic.litmusapp.com/pub/c7f18b4">figure</a></li>
+<li>whatwg mailing list thread: <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-September/023240.html">September</a>, <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-October/023277.html">October</a></li>
+</ul>
+<p><a href="http://html5doctor.com/dd-details-wrong-again/" rel="bookmark">dd-details wrong again</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 12, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/dd-details-wrong-again/feed/</wfw:commentRss>
+		<slash:comments>23</slash:comments>
+		</item>
+		<item>
+		<title>September HTML5 spec changes</title>
+		<link>http://html5doctor.com/september-html5-spec-changes/</link>
+		<comments>http://html5doctor.com/september-html5-spec-changes/#comments</comments>
+		<pubDate>Thu, 17 Sep 2009 12:00:20 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[dd]]></category>
+		<category><![CDATA[dialog]]></category>
+		<category><![CDATA[dt]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[footer]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[legend]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=911</guid>
+		<description><![CDATA[September being one month before the HTML5 spec goes to last call in October, there&#8217;s been a few significant changes to the HTML5 spec that we wanted to briefly share with our patients. Clarification over section and article The spec has been clarified to help authors correctly choose between when to use section and when [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>September being one month before the HTML5 spec goes to last call in October, there&#8217;s been a few significant changes to the HTML5 spec that we wanted to briefly share with our patients.</p>
+
+<p><span id="more-911"></span></p>
+
+<h2>Clarification over <code>section</code> and <code>article</code></h2>
+
+<p>The spec has been clarified to help authors correctly choose between when to use <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-section-element">section</a> and when to use <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-article-element">article</a>, and <a href="http://html5doctor.com/the-section-element/">Bruce&#8217;s section post</a> has also been updated.</p>
+
+<h2><code>footer</code> now works like <code>header</code></h2>
+
+<p>This was a big one and causing confusing to people coming to HTML5 for the first time.  Originally you couldn&#8217;t include a <code>nav</code> element inside a footer, or a <code>section</code>. </p>
+
+<p>Now the spec has been <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-footer-element">changed to match the <code>header</code> element</a>.</p>
+
+<h2><code>details</code> and <code>figure</code> saved</h2>
+
+<p>Instead of using legend, <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">which didn&#8217;t work</a>, <a href="http://adactio.com">Jeremy</a> suggested (although slightly tongue in cheek) to use <code>dt</code> for the title and <code>dd</code> for the body.  Ian Hickson agreed, and <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-figure-element">it&#8217;s in</a></p>
+
+<p>Example:</p>
+
+<pre><code>&lt;figure&gt;
+ &lt;dd&gt;&lt;video src=&quot;ex-b.mov&quot;&gt;&lt;/video&gt;
+ &lt;dt&gt;Exhibit B. The &lt;cite&gt;Rough Copy&lt;/cite&gt; trailer.
+&lt;/figure&gt;</code></pre>
+
+<h2><code>aside</code> has better examples</h2>
+
+<p>The documentation has been updated to specify <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-aside-element">better examples</a> of how the aside element can be used.</p>
+
+<p>Better examples help us authors understand how it can be used.</p>
+
+<h2>Dropped Elements</h2>
+
+<p>The following elements have been dropped from the HTML5 spec (though <code>bb</code> and <code>datagrid</code> were some time ago, and <code>datagrid</code> has been postponed rather than dropped entirely):</p>
+
+<ul>
+<li><a href="http://html5.org/tools/web-apps-tracker?from=3858&amp;to=3859">dialog</a></li>
+<li>bb</li>
+<li>datagrid</li>
+</ul>
+
+<h2>Ch-ch-changes</h2>
+
+<p>We&#8217;ll be posting in more detail about some of these changes, and as further changes come out of the editing process we&#8217;ll no doubt keep you all up to date, either via our <a href="http://twitter.com/html5doctor">Twitter account</a> (which you should follow) or feel free to <a href="http://html5doctor.com/contact/">let us know too</a>!</p>
+<p><a href="http://html5doctor.com/september-html5-spec-changes/" rel="bookmark">September HTML5 spec changes</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 17, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/september-html5-spec-changes/feed/</wfw:commentRss>
+		<slash:comments>30</slash:comments>
+		</item>
+		<item>
+		<title>Legend not such a legend anymore</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/</link>
+		<comments>http://html5doctor.com/legend-not-such-a-legend-anymore/#comments</comments>
+		<pubDate>Fri, 31 Jul 2009 12:00:26 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[details]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[legend]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=646</guid>
+		<description><![CDATA[Lately I decided I was going to recreate the interactive features of the details element using JavaScript (apparently the same day as fellow Brightonian Jeremy Keith). However I ran in to some very serious issues with the tag, so serious, in it’s current state, it’s unusable.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Lately I decided I was going to recreate the interactive features of the <code>details</code> element using JavaScript (apparently <a href="http://twitter.com/adactio/status/2869549874">the same day</a> as fellow Brightonian <a href="http://adactio.com/" title="Adactio: Jeremy Keith">Jeremy Keith</a>).</p>
+
+<p>However I ran in to some very serious issues with the tag, so serious, in it&#8217;s current state, it&#8217;s unusable.</p>
+
+<p><span id="more-646"></span></p>
+
+<h2>Overview of the details element</h2>
+
+<p>The <code>details</code> element, by default, is a collapsed element whose summary, or label, is the first child <code>legend</code> (if no <code>legend</code> is used, the UA provides a default, such as &#8220;Details&#8221;), with a triangular button to indicate it&#8217;s current open state.</p>
+
+<p>If you include the <code>open</code> attribute, then the element is open by default.  In theory, you could attach a click event to the legend, and switch the <code>open</code> attribute.</p>
+
+<p>The markup would roughly be this:</p>
+
+<pre><code>&lt;details open=&quot;open&quot;&gt;
+  &lt;legend&gt;Terms &amp; Conditions&lt;/legend&gt;
+  &lt;p&gt;You agree to xyz, etc.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+
+<p>Here&#8217;s the details test page I was working from: <a href="http://remysharp.com/demo/details.html">HTML 5 details test</a></p>
+
+<h2>The issues</h2>
+
+<p>The biggest problem, and the show stopper for me, is that the browser&#8217;s treatment of the <code>legend</code> element completely breaks this markup pattern &#8211; this is true for <strong>all</strong> the major browsers: Opera, Safari, Firefox and IE (tested in all the latest and some older browsers).  I&#8217;ll go in these issues in detail in a moment.</p>
+
+<p>Other problems include:</p>
+
+<ul>
+<li>Styling the legend element is exceptionally difficult, particularly positioning</li>
+<li>Using the <a href="http://www.whatwg.org/" title="Web Hypertext Application Technology Working Group">WHATWG</a> <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-xhtml-syntax.html#the-details-element-0">guidelines to styling</a> the <code>details</code> element prove both difficult to interpret and difficult to implement.</li>
+<li>When using CSS to style the open state of the <code>details</code> element using: <code>details[open] { height: auto; }</code>, meant that once I changed the open state using JavaScript, it wouldn&#8217;t trigger the browser to redraw (as it would if I had added a class). I&#8217;ve <a href="http://twitter.com/rem/status/2178972149">run in to this before</a>, CSS 2.1 is styling source, not the DOM.</li>
+</ul>
+
+<h2>Legend treatment</h2>
+
+<p>Surprisingly Firefox is the worst one out in these issues, the rest of the browsers have fairly same treatment of the issue.  In the screenshots, I&#8217;ve included a <code>fieldset</code> and nested <code>legend</code> for reference.</p>
+
+<h3>Internet Explorer</h3>
+
+<p>IE7 &amp; IE8 closes the <code>legend</code> element it encounters when it&#8217;s not inside a <code>fieldset</code> element and move it&#8217;s contents out to an adjacent text node.</p>
+
+<p>What&#8217;s also strange, is that looking at the DOM it also creates another empty(?) closed <code>legend</code> element after that text node.  It doesn&#8217;t have any effect, but just looked odd:</p>
+
+<p><img src="http://remysharp.com/wp-content/uploads/2009/07/ies-details-element-treatment.jpg" alt="IE's details element treatment" /></p>
+
+<h3>Opera</h3>
+
+<p>Opera (9 &amp; 10b) is very similar to IE in it&#8217;s treatment of the <code>legend</code> in the details element, except it doesn&#8217;t create the second closing <code>legend</code> node.  It just closes the <code>legend</code>, and creates the adjacent text node.</p>
+
+<h3>Safari</h3>
+
+<p>Safari simply strips the <code>legend</code> all together out of the DOM.  So much so, that if you open the web inspector, then the error console, you&#8217;ll see it warning out that it&#8217;s encountered an illegal element, ignoring it, then encountering the closing tag, so it ignores that too.  You&#8217;re left with just the text node.</p>
+
+<h3>Firefox</h3>
+
+<p>The best for last.  Firefox goes one step beyond the other browsers.  It assumes you&#8217;ve forgotten to include the <code>fieldset</code> element.  So when it hits the <code>legend</code> element, Firefox inserts an opening <code>fieldset</code> up until it finds (I believe) the closing <code>fieldset</code> element, which obviously it <em>doesn&#8217;t</em> so the result is the rest of the DOM, after the first illegally placed <code>legend</code> ends up eaten by <code>fieldset</code> element, which leaves my DOM in a mess:</p>
+
+<p><img src="http://remysharp.com/wp-content/uploads/2009/07/firefox-details-treatment.jpg" alt="Firefox details treatment" /></p>
+
+<h2>Impact on other elements</h2>
+
+<p><code>details</code> isn&#8217;t the only element that reuses the <code>legend</code> element for labelling, the <code>figure</code> element also is <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-0.html#the-figure-element">supposed to support</a> the <code>legend</code> element.  The result is obviously going to be the same.</p>
+
+<h2>Conclusion</h2>
+
+<p>We can&#8217;t style the legend element when the text is being thrown out by all the browsers, and Firefox&#8217;s DOM mangling is just too painful to look at.</p>
+
+<p>This basically means that we can&#8217;t, in any reasonable amount of time, use the <code>legend</code> element inside both the <code>details</code> and <code>figure</code> element in the spec&#8217;s current state.</p>
+
+<p>For me, I&#8217;ll be using an alternative element, probably just a <code>p</code> element styled to look like a <code>legend</code>, but that&#8217;s really not the point.  Ideas anyone?</p>
+
+<p>It turns out we weren&#8217;t the only ones looking at this and <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2009-July/021494.html">Ian Hickson</a> has responded on the issue:</p>
+
+<blockquote cite="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2009-July/021494.html"><p>My plan here is to continue to wait for a while longer to see if the parsing issues can get ironed out (the HTML5 parser in Gecko for instance solves this problem for Firefox). If we really can&#8217;t get past this, we&#8217;ll have to introduce a new element, but I&#8217;m trying to avoid going there.</p></blockquote>
+
+<p>It&#8217;s fine to think that Gecko will update, but it&#8217;s IE that I&#8217;m worried about, they <em>won&#8217;t</em> turn out their render engine, and the result is we&#8217;ll <em>have</em> to avoid using the <code>legend</code> in any element other than <code>fieldset</code>.</p>
+<p><a href="http://html5doctor.com/legend-not-such-a-legend-anymore/" rel="bookmark">Legend not such a legend anymore</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 31, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/legend-not-such-a-legend-anymore/feed/</wfw:commentRss>
+		<slash:comments>19</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 3.420 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-07-04 06:07:59 -->

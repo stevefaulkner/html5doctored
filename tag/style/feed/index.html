@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; style</title>
+	<atom:link href="http://html5doctor.com/tag/style/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The scoped attribute</title>
+		<link>http://html5doctor.com/the-scoped-attribute/</link>
+		<comments>http://html5doctor.com/the-scoped-attribute/#comments</comments>
+		<pubDate>Tue, 13 Sep 2011 13:30:57 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[semantics]]></category>
+		<category><![CDATA[style]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634</guid>
+		<description><![CDATA[<p>The scoped attribute for the style element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>scoped</code> attribute for the <code>&lt;style&gt;</code> element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p>
+
+<p>Let’s take a quick look at the spec:</p>
+
+<blockquote>
+<p>The <code>scoped</code> attribute is a boolean attribute. If set, it indicates that the styles are intended just for the subtree rooted at the style element’s parent element, as opposed to the whole Document.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-scoped" title="Scoped attribute — HTML5">WHATWG</a></cite></footer>
+</blockquote>
+
+<section id="bad">
+<h2>Isn’t this bad practice?</h2>
+<p>For years, we’ve been told (and have actively told others) to separate content and presentation layers. So why would we introduce something that seems to go against everything we’ve been preaching?</p>
+
+<p>The separation of these layers is still vitally important, but let’s look at a few use cases to shed some light on why this attribute has been introduced. Scoped style provides a W3C-approved way to:</p> 
+
+<ul>
+  <li>Add one-off CSS styles.</li>
+  <li>Add user-defined styles to wiki or CMS content.</li>
+  <li>Add theme-defined styles via CMS plugins.</li>
+  <li>Keep syndicated content together (e.g., keeping example code together with the example).</li>
+</ul>
+</section>
+
+<section id="how-does">
+<h2>How does it work?</h2>
+<p>In this section, I’ll show you how this new attribute will work when it gets rolled out to browsers.</p>
+
+<section id="starting">
+<h3>Our starting point</h3>
+
+<p>We’ll be using the following code sample as a starting point:</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<p>This is a basic example, with two headings and two paragraphs set within the article element.</p>
+</section>
+
+<section id="addingscope">
+<h3>Adding the <code>scoped</code> attribute</h3>
+
+<p>In the next example, we’ll change the foreground color of the second paragraph to red (from whatever was defined in the master CSS file):</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;style <mark>scoped</mark>&#62;
+      p { color: red; }
+    &#60;/style&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<aside class="sidenote"><p>It’s worth noting that the <code>scoped</code> attribute can’t be the first attribute of the body element. I also received a validation error using <code>&#60;body style="..."&#62;</code>.</p></aside>
+
+<p id="example">This screenshot shows how things might render in the browser:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/09/scoped1.gif" alt="" title="scoped" width="526" height="297" class="alignnone size-full wp-image-3735" />
+<figcaption>How the <code>scoped</code> attribute will render</figcaption>
+</figure>
+</section>
+</section>
+
+<section id="link">
+<h2>Can I apply <code>scoped</code> to &#60;link&#62;?</h2>
+<p>While I was writing this article, Dr. Rich asked whether it was possible to add this attribute to <code>&lt;link&gt;</code> elements. Turns out you can’t, but I stumbled across this tidbit in the WHATWG mailing list:</p>
+
+<blockquote>
+  <p>You can use &#60;style scoped&#62;@import url(whatever);&#60;/style&#62;</p>
+  <p>And this even enables you to add some specific styles ([be they embedded] or from another external sheet) on a per-use basis if the need arises. For example, a long dissertation relying on many quotes may benefit from adding stronger visual highlights on the &#60;em&#62; elements within the last quote to reinforce the final conclusion.</p>
+  <footer>— <cite><a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2011-March/031049.html"> Eduard Pascuals WHATWG mailing list response #031049</a></cite></footer>
+</blockquote>
+</section>
+
+<section id="compatibility">
+<h2>Backwards compatibility</h2>	
+<p>Unfortunately, scoped style isn’t all puppy dogs and kittens.</p>
+
+<p>Since this newly introduced attribute isn’t understood by current browsers, CSS rules in <code>&#60;style scoped&#62;</code> are just added to the page’s CSS. Therefore, if you were to include a <code>scoped</code> style block mid-page, its declarations would be applied to every matching element in the document, regardless of whether the element were inside or outside of the scope’s range.</p>
+
+<p>For the sake of backwards compatibility, Louis Lazaris has suggested <a href="http://www.impressivewebs.com/scoped-styles-html5/">a brand new element called <code>&#60;scopedstyle&#62;</code></a>. This new element would only be recognised by supporting browsers and ignored by everything else. This way, scoped styles wouldn’t be added to the whole document. Instead, the browser would just throw away the unrecognised <code>&lt;scopedstyle&gt;</code> element and move on.</p>
+</section>
+
+<section id="support">
+<h2>Browser support</h2>
+
+<table class="wide">
+<caption>Browser support for <code>&lt;style scoped&gt;</code> <i>(as of <time datetime="2011-09-06">6th September, 2011</time>)</i></caption>
+<thead>
+<tr>
+<th scope="col">Browser</th>
+<th scope="col">Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <th scope="row">Chrome 13</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Safari 5</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Firefox 6</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Opera 11.51</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Internet Explorer 9</th>
+  <td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>Currently, the <code>scoped</code> attribute isn’t working in any of the browser alpha versions (Opera.Next, Mozilla Aurora, or WebKit nightly builds). There’s work in progress by <a href="https://bugs.webkit.org/show_bug.cgi?id=49142">Roland Steiner for support in WebKit</a>.</p>
+</section>
+
+<section id="using-today">
+<h2>Using <code>&#60;style scoped&#62;</code> today</h2>
+<p>So you’ve read this article and decided that you <em>need</em> scoped style in your life. What now? Well, just like every other new HTML5 thing, we have a polyfill for it. <a href="http://twitter.com/#!/thingsinjars">Simon Madine</a> has created a <a href="https://github.com/thingsinjars/jQuery-Scoped-CSS-plugin">jQuery scoped CSS plugin on GitHub</a>.</p>
+
+<aside class="sidenote"><p>Please note that Oli used a wrapper <code>&lt;div&gt;</code> because of <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13102">validation problems explained in this bug</a>.</p></aside>
+
+<p>You could also assign a CSS prefix to target the section of your document you want to style. You’d still be able to stick your styles inline, but you’ve also provided a fallback for the older browsers. In fact, Dr. Oli has done just that on his <a href="http://html5doctor.com/blockquote-q-cite/">latest article</a>. (View source and search for <code>&#60;div class="faint"&#62;</code>.)</p>
+</section>
+
+<section id="opinions">
+<h2>Opinions</h2>
+
+<p>There’s no denying that we’re breaking backwards compatibility by introducing <code>&lt;style scoped&gt;</code>. To me, this just doesn’t make any sense. I feel this needs to be addressed by either creating a new element like <code>&lt;scopedstyle&gt;</code> or using some protective mechanism like the <code>&#60;!--</code> and <code>--&#62;</code> delimiters that have been used within <code>&lt;style&gt;</code> and <code>&lt;script&gt;</code> elements.</p>
+
+<p>Let’s not end this article with negative sentiment, though. As with anything, it’s what you make of it. Scoped style is pretty plain vanilla, but if people abuse it, it’ll end up with a bad rap. <a href="http://html5doctor.com/author/olib/">Dr. Oli</a> has spoken at length about his love for this attribute as it allows him to have live code examples with the CSS in <code>&#60;pre&#62;</code> and also in a <code>&#60;style scoped&#62;</code> within a <code>&#60;figure&#62;</code>.</p>
+
+<p>So now it’s time for you to express your views. What do you think about the new <code>scoped</code> attribute? Do you think it has a future? Should it be fast-tracked into the spec? Or do you think it’s a waste of time that could ultimately end up mixing our content and presentation layers together again? Let us know in the comments!</p>
+</section><p><a href="http://html5doctor.com/the-scoped-attribute/" rel="bookmark">The scoped attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 13, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-scoped-attribute/feed/</wfw:commentRss>
+		<slash:comments>85</slash:comments>
+		</item>
+	</channel>
+</rss>

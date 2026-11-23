@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; cors</title>
+	<atom:link href="http://html5doctor.com/tag/cors/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 18 Aug 2015 18:11:14 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Methods of communication</title>
+		<link>http://html5doctor.com/methods-of-communication/</link>
+		<comments>http://html5doctor.com/methods-of-communication/#comments</comments>
+		<pubDate>Tue, 18 Jan 2011 14:30:41 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[apis]]></category>
+		<category><![CDATA[cors]]></category>
+		<category><![CDATA[eventsource]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[messaging]]></category>
+		<category><![CDATA[websockets]]></category>
+		<category><![CDATA[xhr]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847</guid>
+		<description><![CDATA[By now, you've surely realised that 'HTML5' is so much more than just markup. There's also an army of associated JavaScript APIs. Among the ranks are a few new technologies that open up how we communicate between client and server and across documents. Let's take a look.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/"     class="crp_title">Taking Web Audio Offline in iOS 6 Safari</a></li><li><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/"     class="crp_title">Interview with Ian Hickson, HTML editor</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>By now, you&#8217;ve surely realised that &#8220;<abbr>HTML</abbr>5&#8221; is so much more than just markup. There&#8217;s also an army of associated JavaScript <abbr>API</abbr>s. Among the ranks are a few new technologies that open up how we communicate between client and server and across documents. Let&#8217;s take a look.</p>
+
+<p>This post will be an overview of the technologies available, how well they&#8217;re currently supported, and, where possible, live demos. I&#8217;m going to touch on the following technologies:</p>
+
+<ul>
+<li><abbr title="XML HTTP Request">XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr title="Cross-Origin Resource Sharing">CORS</abbr></li>
+<li>Web Messaging</li>
+<li>Web Sockets</li>
+<li>Server Sent Events</li>
+<li>Web Workers</li>
+</ul>
+
+<p>Before I get on to the <abbr>API</abbr>s, I want to outline a fairly common communication model that several of these <abbr>API</abbr>s use. </p>
+
+<h2 id="a_common_communication_event_model">A common communication event model</h2>
+
+<p>All event handlers (with the exception of <abbr>XHR</abbr>) receive an <code>event</code> object containing a <code>data</code> property. This property includes the data sent as part of the message.</p>
+
+<p>The event model (again with the exception of <abbr>XHR</abbr>) is <em>mostly</em> based around <code>onmessage</code> and <code>postMessage</code> or <code>send</code>. For example:</p>
+
+<pre><code>// in the recipient code
+recipient.onmessage = function (event) {
+  console.log('received message: ' + event.data);
+};
+
+// from the sender code
+recipient.postMessage('hi there'); // or recipient.send('hi there');
+</code></pre>
+
+<p>This is just a common model and isn&#8217;t the exactly the same among all these technologies. The two key similarities are that they use:</p>
+
+<ul>
+<li>a sending method (<code>postMessage</code> or <code>send</code>) on the recipient object, and</li>
+<li>an event handler that listens for the <code>message</code> event and receives an <code>event</code> object containing a <code>data</code> property.</li>
+</ul>
+
+<p>Very importantly, <em>most</em> browsers only support sending strings from sender to recipient, so we often need to <abbr>JSON</abbr> <code>stringify</code> and <code>parse</code> if we want to send anything other than a string.</p>
+
+<h2 id="xhr_xhr2_with_cors"><abbr>XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr>CORS</abbr></h2>
+
+<p><abbr>XHR</abbr> can be both synchronous and asynchronous. <abbr>XHR</abbr> is the only <abbr>API</abbr> that (purposely) supports synchronous requests, meaning the execution of code will block until the callback fires. </p>
+
+<p>There&#8217;s nothing particularly new about <abbr>XHR</abbr>, but in <abbr>XHR</abbr>2 we can handle uploads, and there&#8217;s a <code>progress</code> event to tell you how the upload or download is getting on.  </p>
+
+<p>The super shiny new toy in <abbr>XHR</abbr>2 is its support for <a href="http://www.w3.org/TR/cors/">Cross-Origin Resource Sharing</a> (CORS). This means you can make an <abbr>XHR</abbr> request across domains, but <strong>only if the server you&#8217;re connecting to allows it</strong>.</p>
+
+<p>The request is as you&#8217;d expect from <abbr>XHR</abbr>:</p>
+
+<pre><code>var client = new XMLHttpRequest();
+client.onreadystatechange = function () {
+  if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    alert('The most awesome-est person to follow: ' + this.responseText);
+  }
+};
+client.open('GET', '/no-cors');
+client.send();</code></pre>
+
+<p>If our server responds with a <abbr>CORS</abbr> header, however, we can put our <abbr>XHR</abbr> responder on another server. So on the <abbr>URL</abbr> <a href="http://remysharp.com/demo/cors.php">http://remysharp.com/demo/cors.php</a>, I have the following PHP script:</p>
+
+<pre><code>&lt;?php
+header('Access-Control-Allow-Origin: *');
+?&gt;
+@rem
+</code></pre>
+
+<p>This says that anyone can make an <abbr>XHR</abbr> request to this particular script. Now when I run the following code in a browser that supports <abbr>XHR</abbr>2, the cross domain request succeeds! <div style="position:absolute; top:689px; left:-1146px"><a href="http://www.cotawa.org.au/2015/04/propecia-online-usa/">propecia online usa</a></div></p>
+
+<pre><code>var client = new XMLHttpRequest();
+client.onreadystatechange = function () {
+  if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    alert('The most awesome-est person to follow: ' + this.responseText);
+  }
+};
+client.open('GET', 'http://remysharp.com/demo/cors.php');
+client.send();</code></pre>
+
+<p>Here&#8217;s a <a href="http://jsbin.com/oxiyi4">live example of CORS</a>. (You can also <a href="http://jsbin.com/oxiyi4/edit">edit it here</a>.)</p>
+
+<p>Note that <abbr>IE</abbr>8 supports <abbr>CORS</abbr>, but not <abbr>XHR</abbr>2 (no surprise there then). You need to use their proprietary (booo!) <code>XDomainRequest</code> object. Nicholas C. Zakas has <a href="http://www.nczonline.net/blog/2010/05/25/cross-domain-ajax-with-cross-origin-resource-sharing/">an excellent article</a> explaining how to handle these differences.</p>
+
+<p><abbr>XHR</abbr> usage is pretty common already, but <abbr>XHR</abbr>2 with <abbr>CORS</abbr> is a winner over <abbr>JSON-P</abbr>, particularly as you have finer control over the request, can handle timeouts, and can handle errors correctly.</p>
+
+<h3 id="support_for_xhr_xhr2_with_cors">Support for <abbr>XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr>CORS</abbr></h3>
+
+<ul>
+<li><abbr>XHR</abbr> support is pretty solid nowadays (even though <abbr>IE</abbr>6 uses <code>ActiveXObject</code> to get it going)</li>
+<li><abbr>XHR</abbr>2 with <abbr>CORS</abbr>: Safari &amp; MobileSafari, Firefox 3.5, Chrome and <abbr>IE</abbr>8 (via XDomainRequest)</li>
+</ul>
+
+<h2 id="postmessage">postMessage</h2>
+
+<p>This <abbr>API</abbr> is older, but it&#8217;s very useful if you want to get around the <abbr>XHR</abbr> same-origin rules. If you have an <code>&lt;iframe&gt;</code> document that can accept <code>onmessage</code> events from your origin (i.e., your site), then you can communicate across domains (and origins).</p>
+
+<p>For example, a page that accepts an <code>onmessage</code> event might contain code such as this:</p>
+
+<pre><code>window.onmessage = function (event) {
+  if (event.origin == 'mytrustedsite.com') {
+    alert('my trusted site said: ' + event.data);
+  }
+};
+</code></pre>
+
+<p>Now you can include an <code>&lt;iframe&gt;</code> that contains that code, and using the <code>&lt;iframe&gt;</code> <abbr>DOM</abbr> node, you can post to the <code>&lt;iframe&gt;</code>:</p>
+
+<pre><code>// where iframe is the actual iframe DOM node
+iframe.contentWindow.postMessage("hello there", location.host);
+</code></pre>
+
+<p>This gives you the ability to send strings across two mutually trusted domains. (Remember that you can use <code>JSON.stringify</code> and <code>JSON.parse</code> to convert to an object to and from string format.)</p>
+
+<h3 id="support_for_postmessage">Support for postMessage</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Firefox</li>
+<li>IE8</li>
+</ul>
+
+<p>Here&#8217;s a <a href="http://html5demos.com/postmessage2">demo using <code>postMessage</code></a>.</p>
+
+<p>There&#8217;s also a project called <a href="http://easyxdm.net/" title="easyXDM - Cross-domain messaging made easy">EasyXDM</a>, which adds cross domain messaging to <abbr>IE</abbr>6 and upwards (along with all the other browsers) through the library&#8217;s abstraction.  Definitely worth a look if this is a route you need to take.</p>
+
+<h2 id="web_sockets">Web Sockets</h2>
+
+<p>It&#8217;s my opinion that Web Sockets replaces Comet. Comet is a way of hacking the browser to giving us real-time server messages. The Web Sockets API provides that natively.</p>
+
+<p>Web Sockets are used to send messages to <em>and</em> from the server — i.e., a bi-directional socket. In contrast to other similar technologies, with Web Sockets, you <em>can</em> go across domains, and you&#8217;re not bound by the same-origin policy. This means you can host your normal &#8220;apps&#8221; server while another server is for streaming content. Or you could host your own pages and connect to a live Twitter stream if your users turn on Web Socket support.</p>
+
+<p>You can only send messages once the socket is open (duh). The communication model looks like this:</p>
+
+<pre><code>var ws = new WebSocket('ws://somesite.com/updates');
+
+ws.onmessage = function (event) {
+  alert(event.data);
+};
+
+ws.onopen = function () {
+  ws.send('yay! we connected!');
+};
+</code></pre>
+
+<p>Once the socket is closed, you can&#8217;t reuse it. Similarly, there&#8217;s no explicit method for opening a socket. That just happens when you create the <code>WebSocket</code> object.</p>
+
+<p>This <abbr>API</abbr> is extremely simple. I most often get asked, &#8220;What do you put on the server side?&#8221; I personally use <a href="http://nodejs.org">Node</a>, but you could use an <a href="http://nginx.net/" title="nginx news">Nginx</a> server or something like <a href="http://www.mortbay.org/" title="jetty - Jetty WebServer">Jetty</a>. I&#8217;m no expert on the latter servers, but I can vouch that a Node-based server is very, very simple to get going. The live demo below also includes a link to the code that I used to run the server.</p>
+
+<p>Check out this <a href="http://html5demos.com/web-socket">demo of Web Sockets</a>.</p>
+
+<h3 id="support_for_web_sockets">Support for Web Sockets</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari &amp; MobileSafari</li>
+</ul>
+
+<p>There&#8217;s also an excellent Flash poly-fill called <a href="https://github.com/gimite/web-socket-js/">web-socket-js</a>. Drop this into an application and it provides Web Sockets support as if it were native. I&#8217;ve used this on a few projects of my own, and it works very well.</p>
+
+<p>In early December 2010, there was a security notice posted about Web Sockets, and both Firefox and Opera pulled it from their upcoming releases. Mozilla have said that they expect Web Sockets to be back in Firefox by version 4.0.1.</p>
+
+<h2 id="server_sent_events">Server-Sent Events</h2>
+
+<p>The <a href="http://dev.w3.org/html5/eventsource/">Server-Sent Events</a> <abbr>API</abbr> is something that originated from Opera back in 2006 and is used for pushing events from the server to the client. Note that the client cannot send messages to the server through an <code>EventSource</code> (<abbr>SSE</abbr>) — it can only listen for messages.  </p>
+
+<p>This <abbr>API</abbr> uses the <code>onmessage</code> model. It&#8217;s constructed using the <code>EventSource</code> object and is limited by the same origin rules:</p>
+
+<pre><code>var es = new EventSource('/sse');
+es.onopen = function () {
+  console.log('opened stream');
+};
+
+es.onmessage = function (event) {
+  console.log('new message: ' + event.data);
+};
+</code></pre>
+
+<p>The <abbr>SSE</abbr> automatically connects when you create the object (similar to Web Sockets), and once open will trigger the <code>onopen</code> event. </p>
+
+<p>Here&#8217;s a live <a href="http://node.remysharp.com:8001/sse-client.html">demo of Server-Sent Events</a></p>
+
+<p>Here&#8217;s how this is to work: when a new message is pushed from the server to the client, it triggers the <code>onmessage</code> callback.</p>
+
+<p>The key to your server is ensuring it doesn't close the connection on the client - the browser. Most of the examples around the web are doing this: closing the connection which tells the API to switch in to polling mode (note that this is the exact problem I hit when I first published this article).</p>
+
+<p>When the API is in polling mode, it's no more different from an XHR poll, and the <code>onopen</code> will continually fire.</p>
+
+Al the code the server side can be viewed here: <a href="http://node.remysharp.com:8001/custom-echo.js">custom-echo.js</a> (note that it's running on a <a href="http://nodejs.org/" title="node.js">Node.js</a> server).  There's a bit more code than you'd expect, because it's doing a few things:
+
+1. Handling HTTP requests for files (and therefore is able to serve itself)
+2. Handling the server-sent events and <strong>not</strong> closing the connection
+3. Setting up a Web Socket server, and when a new connection comes in, it sends a server-sent event to all the currently connected sessions.
+
+<h3 id="support_for_server_sent_events">Support for Server-Sent Events</h3>
+
+<ul>
+<li>Opera 11</li>
+<li>Safari &amp; MobileSafari</li>
+<li>Chrome</li>
+</ul>
+
+<h2 id="web_workers">Web Workers</h2>
+
+<p>Web Workers are a way of creating a new thread of execution inside the browser. I&#8217;m including this because you still need to communicate with your Web Workers, and the method of communication is similar to some of those techniques discussed above. Do note, however, that this is not a method communicating from a client (browser) to a server. It&#8217;s more like there&#8217;s another browser window executing a particular block of JavaScript.</p>
+
+<p>As an example of when to use a Web Worker, say you&#8217;re running a lot of JavaScript and the <abbr>UI</abbr> becomes unresponsive. The browser <abbr>UI</abbr> hangs because, in a way, it&#8217;s a &#8220;single-threaded application&#8221;. (Under the hood it isn&#8217;t really, but from a rendering and JavaScript perspective it is). This JavaScript task could be given to a Web Worker so that the <abbr>UI</abbr> can continue functioning.</p>
+
+<p>It&#8217;s vital to understand that a Web Worker lives in a sand-boxed environment that doesn&#8217;t have access to things like the <abbr>DOM</abbr>. What&#8217;s more, you can only communicate with it using the <code>onmessage</code> and <code>postMessage</code> functions.</p>
+
+<p>Our application can create and send messages to a worker using the following code:</p>
+
+<pre><code>var worker = new Worker('bigjob.js');
+worker.onmessage = function (event) {
+  alert('Message from worker: ' + event.data); // remember event.data is a string!
+};
+
+worker.postMessage('task=job1');
+</code></pre>
+
+<p>In the JavaScript file <code>bigjob.js</code>, we run some computationally intensive task and listen for messages in a way similar to what we&#8217;ve done in the previous examples. We can also post messages back to the invoking application:</p>
+
+<pre><code>this.onmessage = function (event) {
+  var job = event.data;
+  if (job == 'task=job1') {
+    job1();
+  } else if (job == 'task=job2') {
+    job2();
+  }
+};
+
+// just a pseudo example
+function job1() {
+  // do some big task
+  while (working) {
+    // continue task
+    this.postMessage('job1 ' + amountComplete + '% complete');
+  }
+  this.postMessage('job1 100% complete');
+}
+</code></pre>
+
+<p>There&#8217;s a lot more to Web Workers than just running a couple of small tasks, and no doubt we <abbr>HTML</abbr>5 Doctors will be posting a detailed article soon. This example just demonstrates how to communicate with Web Workers and how similar that is to the other technologies we&#8217;ve discussed here.</p>
+
+<h3 id="support_for_web_workers">Support for Web Workers</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Firefox</li>
+</ul>
+
+<h2 id="a_final_word">A final word</h2>
+
+<p>Hopefully you agree that this is just the tip of the iceberg of communicating between client and server in <abbr>HTML</abbr>5. We&#8217;re no longer stuck with the same origin policy we had with vanilla Ajax. In fact, when you think about it, since <abbr>IE</abbr>8, we&#8217;ve actually had decent cross-domain messaging.</p>
+
+<p>I&#8217;m personally most excited about Web Sockets and the support of <abbr>CORS</abbr> in services that have <abbr>API</abbr>s, like Flickr, Twitter, and <abbr>URL</abbr> shorteners. What could you build with this?</p>
+<p><a href="http://html5doctor.com/methods-of-communication/" rel="bookmark">Methods of communication</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 18, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/"     class="crp_title">Taking Web Audio Offline in iOS 6 Safari</a></li><li><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/"     class="crp_title">Interview with Ian Hickson, HTML editor</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/methods-of-communication/feed/</wfw:commentRss>
+		<slash:comments>15</slash:comments>
+		</item>
+	</channel>
+</rss>

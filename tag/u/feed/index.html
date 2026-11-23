@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; u</title>
+	<atom:link href="http://html5doctor.com/tag/u/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>The return of the u element</title>
+		<link>http://html5doctor.com/u-element/</link>
+		<comments>http://html5doctor.com/u-element/#comments</comments>
+		<pubDate>Tue, 25 Oct 2011 14:00:37 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[u]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3862</guid>
+		<description><![CDATA[<p>The <code>&#60;u&#62;</code> element was deprecated in HTML 4 and non-conforming in HTML5, but a couple of use cases have seen it return from the dead. Are the use cases enough to persuade you that it’s a phoenix not a zombie?</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/"     class="crp_title">Simplequiz #7: Pinterest</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>Presentational elements like <a href="http://html5doctor.com/i-b-em-strong-element/" title="The i, b, em, &amp; strong elements | HTML5 Doctor"><code>&lt;i&gt;</code>, <code>&lt;b&gt;</code></a>, <a href="http://html5doctor.com/small-hr-element/" title="The small &amp; hr elements | HTML5 Doctor"><code>&lt;small&gt;</code> and <code>&lt;hr&gt;</code></a> have been redefined in HTML5 with semantic meanings, or, in a couple of cases, made non-conforming. The <code>&lt;u&gt;</code> element had been in the non-conforming camp, but a couple of semantic use cases led it back into the fold. While most of us will never need it (and some will jeer), on the odd occasion, it might be just the element you need.</p>
+
+<p>Before HTML5, <code>&lt;u&gt;</code> was solely for applying a presentational style of <em>underlining</em> to text. <a href="http://www.w3.org/TR/html401/present/graphics.html#h-15.2" title="Alignment, font styles, and horizontal rules in HTML documents">HTML 4 discouraged “font-style” or presentational elements</a>, and even <a href="http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated" title="HTML 4 Changes">deprecated <code>&lt;u&gt;</code></a>, advising us to use CSS instead. Even before this, <code>&lt;u&gt;</code> was frowned upon as underlines are the browser default for links, and making normal text look like links gives users a bad case of clicky-clicky frustration. <code>&lt;u&gt;</code> was initially non-conforming in HTML5.</p>
+
+<p>There are, however, a couple of non-link places where text <em>is</em> traditionally underlined to convey meaning, as the HTML5 specification’s definition mentions:</p>
+
+<blockquote>
+<p>The <code>u</code> element represents a span of text with an unarticulated, though explicitly rendered, non-textual annotation, such as labeling the text as being a proper name in Chinese text (a Chinese proper name mark), or labeling the text as being misspelt.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/complete/text-level-semantics.html#the-u-element" title="4.6 Text-level semantics &#8212; Web Applications 1.0"><abbr title="">WHATWG</abbr> HTML5 specification</a></cite></footer>
+</blockquote>
+
+<p>Before we get to them, let’s quickly cover <em>an unarticulated, though explicitly rendered, non-textual annotation</em>. This means <q><code>&lt;u&gt;</code> is for when you are annotating something, but not explicitly saying what it is</q> (<cite><a href="http://krijnhoetmer.nl/irc-logs/whatwg/20110930#l-916" title="IRC logs: freenode / #whatwg / 20110930">WHATWG IRC</a></cite>, Ian Hickson) — the annotation’s meaning is implied by context.</p>
+
+<section id="proper-name-mark">
+<h2>Chinese proper name marks <a class="permalink" href="#proper-name-mark">#</a></h2>
+
+<p>And what exactly are those you ask? I had to ask Wikipedia myself:</p>
+
+<blockquote>
+<p>In Chinese writing, a proper name mark (Simplified Chinese: <span lang="Hans">专名号</span>, <span lang="zh-Latn">zhuānmínghào</span>; Traditional Chinese: <span lang="Hant">專名號</span>) is an underline used to mark proper names, such as the names of people, places, dynasties, organizations. … This method of recognizing proper names in text is similar to the English use of a capital letter.</p>
+<footer>— <cite><a href="http://en.wikipedia.org/wiki/Proper_name_mark" title="Proper name mark - Wikipedia, the free encyclopedia">Proper name mark</a></cite>, Wikipedia</footer>
+</blockquote>
+
+<p>Wikipedia gives the following example, which I’ve formatted using <code>&lt;u&gt;</code>:</p>
+
+<figure id="pnm">
+<style scoped>#pnm .pnm, #pnm .bnm {text-decoration: underline;}
+#pnm .bnm {
+  -moz-text-decoration-style: wavy;
+  text-decoration-style: wavy;
+}
+#pnm p[lang="zh"] cite {font-style: normal;}</style>
+<pre><code lang="zh">&lt;u class="pnm"&gt;屈原&lt;/u&gt;放逐，乃賦&lt;cite class="bnm"&gt;離騒&lt;/cite&gt;。&lt;u class="pnm"&gt;左丘&lt;/u&gt;失明，厥有&lt;cite class="bnm"&gt;國語&lt;/cite&gt;。（司馬遷 《&lt;cite&gt;報任安書&lt;/cite&gt;》）</code></pre>
+<p lang="zh"><u class="pnm">屈原</u>放逐，乃賦<cite class="bnm">離騒</cite>。<u class="pnm">左丘</u>失明，厥有<cite class="bnm">國語</cite>。（司馬遷 《<cite>報任安書</cite>》）</p>
+<!-- The source doesn’t use proper and book name marks for the citation because modern usage is only to use guillemets for the title — only the quoted text is classical -->
+<p><mark lang="zh">Qu Yuan</mark> was exiled, and thus composed the <mark lang="zh"><cite>Li Sao</cite></mark>. <mark lang="zh">Zuo Qiu</mark> lost his sight, hence there is the <mark lang="zh"><cite>Guo Yu</cite></mark>. (<span lang="zh">Sima Qian</span>, “<cite>Letter to <span lang="zh">Ren'an</span></cite>”)</p>
+<figcaption>Using <code>&lt;u&gt;</code> for Chinese proper name marks where appropriate</figcaption>
+</figure>
+
+<p>If you’re using Firefox 6+ you’ll also see the appropriate wavy underline for a Chinese book name mark on the quote’s source, courtesy of CSS3’s <code>text-decoration-style: wavy;</code>. I’ve used <code>&lt;cite&gt;</code> for book name marks as it’s more appropriate than <code>&lt;u&gt;</code>. You can find out more about <code>wavy</code> in <a href="http://dev.w3.org/csswg/css3-text/Overview.html#decoration" title="CSS Text Level 3">CSS Text Level 3</a>.</p>
+
+<!-- /#proper-name-mark --></section>
+
+<section id="spell-check">
+<h2>Using <code>&lt;u&gt;</code> for spell-checking feedback <a class="permalink" href="#spell-check">#</a></h2>
+
+<p>While you’re probably not marking up classical Chinese prose, a more familiar use case is for a spell-checker to indicate incorrect text. The default formatting in word processors is typically a red underline for spelling errors, and a green underline for grammatical errors:</p>
+
+<figure id="spelling">
+<style scoped>#spelling .spelling-error {
+  text-decoration: none;
+  border-bottom: 1px dashed red;
+}
+#spelling .grammatical-error {
+  text-decoration: none;
+  border-bottom: 1px dashed green;
+}</style>
+<pre><code>.spelling-error {
+  text-decoration: none;
+  border-bottom: 1px dashed red;
+}
+.grammatical-error {
+  text-decoration: none;
+  border-bottom: 1px dashed green;
+}
+&lt;p&gt;hello doctor i am having a huge body &lt;u class="spelling-error"&gt;oder&lt;/u&gt; &lt;u class="grammatical-error"&gt;it is smell really bad&lt;/u&gt;&lt;/p&gt;</code></pre>
+<p>hello doctor i am having a huge body <u class="spelling-error">oder</u> <u class="grammatical-error">it is smell really bad</u></p>
+<figcaption>Using <code>&lt;u&gt;</code> for annotating spell checker feedback</figcaption>
+</figure>
+
+<p>While we’ve turned off the default <code>text-decoration</code> style, <code>&lt;u&gt;</code> will back us up if CSS is disabled, and potentially provide more information for assistive technology. After all, if it’s semantic it should be in HTML, not CSS.</p>
+
+<p>Some word processors use wavy underlines. This CSS would have the same effect in a supporting browser:</p>
+
+<pre><code>.spelling-error {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: red;
+}
+.grammatical-error {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: green;
+}</code></pre>
+
+<p>Or, using <code>text-decoration</code> as a shorthand property, and adding a default declaration for non-supporting browsers:</p>
+
+<pre><code>.spelling-error {
+  text-decoration: underline; /* for backwards compatibility */
+  text-decoration: underline wavy red;
+}
+.grammatical-error {
+  text-decoration: underline; /* for backwards compatibility */
+  text-decoration: underline wavy green;
+}</code></pre>
+
+<p>Again, you can read more about the upgraded <code>text-decoration</code> properties in <a href="http://dev.w3.org/csswg/css3-text/Overview.html#decoration" title="CSS Text Level 3">CSS Text Level 3</a>.</p>
+
+<!-- /#spell-check --></section>
+
+<section id="family-names">
+<h2>Using <code>&lt;u&gt;</code> for indicating family names <a class="permalink" href="#family-names">#</a></h2>
+
+<p>Another use for <code>&lt;u&gt;</code> is to annotate a family name when this might be confusing — Chinese, Japanese, Korean and Vietnamese (among others) all traditionally write names in a different order than the western-centric “given-name family-name”. While applying a blanket western ordering is fairly common (especially when publishing in English), it’s good form to use culturally appropriate ordering. If the audience might misunderstand, the family name can be underlined, capitalised, or otherwise annotated to make the name order explicit. For example, the <abbr title="Central Intelligence Agency">CIA</abbr>’s World Fact Book capitalises the family name:</p>
+
+<blockquote>
+<p>After World War II, the Communists under <mark>MAO Zedong</mark> established an autocratic socialist system …</p>
+<footer>— <cite><a href="https://www.cia.gov/library/publications/the-world-factbook/geos/ch.html">The World Factbook</a></cite>, <abbr title="Central Intelligence Agency">CIA</abbr></footer>
+</blockquote>
+
+<p>This ties in nicely with <a href="http://html5doctor.com/microformats/#hcard" title="Extending HTML5 — Microformats | HTML5 Doctor">the hCard microformat</a>, as the “implied <code>n</code> optimisation” doesn’t work with these non-western ordered names, and we need a wrapper element to indicate each part of the name anyhow.</p>
+
+<figure id="family-name1">
+<style scoped>#family-name1 .family-name {text-decoration: underline;}</style>
+<pre><code>&lt;style&gt;
+  .family-name {text-decoration: underline;}
+&lt;/style&gt;
+&lt;p&gt;
+  &lt;span class="vcard" lang="ja-latn"&gt;
+    &lt;span class="fn n"&gt;
+      &lt;u class="family-name"&gt;Son&lt;/u&gt; &lt;span class="given-name"&gt;Goku&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+   is the main protagonist in 
+  &lt;span class="vcard" lang="ja-latn"&gt;
+    &lt;span class="fn n"&gt;
+      &lt;span class="given-name"&gt;Akira&lt;/span&gt; &lt;u class="family-name"&gt;Toriyama&lt;/u&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;’s &lt;i lang="ja-latn"&gt;manga&lt;/i&gt; “Dragon Ball”.
+&lt;/p&gt;</code></pre>
+<p><span class="vcard" lang="ja-latn"><span class="fn n"><u class="family-name">Son</u> <span class="given-name">Goku</span></span></span> is the main protagonist in <span class="vcard" lang="ja-latn"><span class="fn n"><span class="given-name">Akira</span> <u class="family-name">Toriyama</u></span></span>’s <i lang="ja-latn">manga</i> “Dragon Ball”.</p>
+<figcaption>Using <code>&lt;u&gt;</code> to indicate the family name in non-western names via underlining</figcaption>
+</figure>
+
+<p>Of course you can then change the style via CSS, for example</p>
+
+<figure id="family-name2">
+<style scoped>#family-name2 .family-name {
+  text-decoration: none;
+  text-transform: uppercase;
+}</style>
+<pre><code>.family-name {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+</code></pre>
+<p><span class="vcard" lang="ja-latn"><span class="fn n"><u class="family-name">Son</u> <span class="given-name">Goku</span></span></span> is the main protagonist in <span class="vcard" lang="ja-latn"><span class="fn n"><span class="given-name">Akira</span> <u class="family-name">Toriyama</u></span></span>’s <i lang="ja-latn">manga</i> “Dragon Ball”.</p>
+<figcaption>Using <code>&lt;u&gt;</code> to indicate the family name in non-western names via capitalisation</figcaption>
+</figure>
+
+<p>The benefit of using <code>&lt;u&gt;</code> for this is the family name will be indicated even when CSS is disabled, ensuring the annotation isn’t lost. Assistive technology may also be able to inform the user of this in the future.</p>
+
+<!-- /#family-names --></section>
+
+<section id="do-we-need-u">
+<h2>But do we need <code>&lt;u&gt;</code>? <a class="permalink" href="#do-we-need-u">#</a></h2>
+
+<p>A lot of people bitten by the web standardista bug have somewhat of an allergic reaction to ex-presentational elements in HTML5, after influential articles like Tantek Çelik’s “<a href="http://tantek.com/log/2002/10.html#L20021022t1432" title="tantek/log/2002/10"><code>&lt;b&gt;</code>ed and <code>&lt;br&gt;</code>eakfast markup</a>”. Given <code>&lt;u&gt;</code>’s ignoble past, I expect the reaction to its return will also lead to some poo-pooing. As we already mentioned, however, <em>if it imparts meaning, it should be in HTML</em>. These use cases involve semantic meaning, and even without assistive technology support, <code>&lt;u&gt;</code> conveys some meaning to sighted users via the browser-default style <code>text-decoration: underline;</code>.</p>
+
+<p>Regardless of whether an element is deprecated (HTML 4, XHTML 1)  or non-conforming (HTML5) or just plain uncool, browser makers still have to support it for backward compatibility with all those awesome web pages from the days when <code>&lt;blink&gt;</code> was hawt. Because of this, if there’s a semantic use case for an ex-presentational element, it’s definitely better to reform it rather than minting a new element with no backward compatibility. You might think <code>&lt;mark&gt;</code> sounds pretty similar, but the default browser styling would be completely wrong for proper name marks, and <a href="http://krijnhoetmer.nl/irc-logs/whatwg/20110930#l-890" title="IRC logs: freenode / #whatwg / 20110930">semantically less appropriate for spelling errors</a> too.</p>
+
+<p>As Ian Hickson explains:</p>
+
+<blockquote>
+<p>The presentational markup that was <code>&lt;u&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;font&gt;</code>, <code>&lt;small&gt;</code>, etc, is gone. However, there are certain use cases that did not yet have elements yet were important enough to warrant us supporting them. By reusing existing elements, we are able to support them without having to wait for new elements to be implemented. By doing so in a way that closely matches how those elements were actually used in practice (at least to the same extent as other elements have been correctly used in practice) we can not only have older UAs support these new elements automatically, but we can do so in a way that does not introduce an undue volume of invalid pages.</p>
+<footer>— <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032715.html" title="[whatwg] sic element">WHATWG email list</a>, Ian Hickson</footer>
+</blockquote>
+
+<!-- /#do-we-need-u --></section>
+
+<section id="conclusion">
+<h2>Conclusion</h2>
+
+<p>Given the potential to confuse underlined text with links, using <code>text-decoration: underline;</code> on anything other than <code>&lt;a&gt;</code> is bad pretty much all the time. <strong>Generally <code>&lt;u&gt;</code> is not the element you’re looking for</strong>, even for Chinese book name marks (<code>&lt;cite&gt;</code> would be more appropriate). <em>However</em>, for at least these three use cases, it’s good to have a semantic option, something better than <code>&lt;span&gt;</code>.</p>
+
+<p>So…in a hypothetical world where you did need to code for one of these situations, would you use <code>&lt;u&gt;</code> or something else like <code>&lt;span&gt;</code>? Let us know in the comments!</p>
+
+<!-- /#conclusion --></section>
+<p><a href="http://html5doctor.com/u-element/" rel="bookmark">The return of the u element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 25, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/"     class="crp_title">Simplequiz #7: Pinterest</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/u-element/feed/</wfw:commentRss>
+		<slash:comments>36</slash:comments>
+		</item>
+	</channel>
+</rss>

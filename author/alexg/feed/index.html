@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Alex Gibson &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/author/alexg/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Taking Web Audio Offline in iOS 6 Safari</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/</link>
+		<comments>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comments</comments>
+		<pubDate>Tue, 27 Nov 2012 13:30:20 +0000</pubDate>
+		<dc:creator><![CDATA[Alex Gibson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[ios]]></category>
+		<category><![CDATA[offline]]></category>
+		<category><![CDATA[webkit]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812</guid>
+		<description><![CDATA[Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be mission impossible. But with the advent of the WebKit-only, it is now finally achievable — although you still need to jump through a few hoops.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be <a href="http://happyworm.com/blog/2012/05/29/playing-web-audio-offline-on-mobile-safari-mission-impossible/">mission impossible</a>. But with the advent of the (WebKit-only) <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">Web Audio API</a>, it is now finally achievable — although you still need to jump through a few hoops.</p>
+
+<p>The bad news is that you still can&#8217;t cache an MP3 file using <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a> and then simply load it using an <code>XmlHttpRequest</code>. Safari on iOS 6 will cache the MP3 but then refuse to play it and fail silently (how useful!).</p>
+
+<p>But all is not lost…</p>
+
+<p><section id="base64">
+<h2>Base64 to the Rescue <a href="#base64" class="permalink">#</a></h2></p>
+
+<p>Because the Web Audio API offers developers direct control over the <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioBufferSourceNode">AudioBuffer</a>, you can now convert data formats on-the-fly and feed them directly to the Web Audio API for playback. For example, if you encode an MP3 file as a Base64 string, you can then decode it to an <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a> and convert the raw audio data.
+</section></p>
+
+<p><section id="encoding">
+<h2>Encoding an Audio File <a href="#encoding" class="permalink">#</a></h2></p>
+
+<p>You can easily convert an MP3 file to a Base64 string using <a href="http://www.openssl.org/">OpenSSL</a>. If you are on Mac OS X, it comes pre-installed, so just open up Terminal.app and type the following command:</p>
+
+<p><figure></p>
+
+<pre><code>openssl base64 -in [infile] -out [outfile]
+</code></pre>
+
+<p></figure></p>
+
+<p>Make sure to replace <code>[infile]</code> with the path to your MP3 and <code>[outfile]</code> with your chosen destination for the encoded data.</p>
+
+<p>This will output a Base64-encoded string representation of your sound file. You can then cache the string using any form of web storage you choose (e.g., <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a>, <a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/">localStorage</a>, or <a href="http://html5doctor.com/introducing-web-sql-databases/">webSQL</a>).
+</section></p>
+
+<p><section id="decoding">
+<h2>Base64 to ArrayBuffer <a href="#decoding" class="permalink">#</a></h2></p>
+
+<p>In order to decode the Base64 string back into an <code>ArrayBuffer</code>, you&#8217;ll need to use a custom method. Check out Daniele Guerrero&#8217;s <a href="https://github.com/danguer/blog-examples/blob/master/js/base64-binary.js">base64-binary.js</a> as a good script that can be used exactly for this purpose. It decodes a Base64 string into a <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint8Array">Uint8Array</a> typed array and stores it in an <code>ArrayBuffer</code>.</p>
+
+<p>Once this is done, you can simply decode the audio data using the Web Audio API&#8217;s <code>decodeAudioData()</code> method:</p>
+
+<p><figure></p>
+
+<pre><code>var buff = Base64Binary.decodeArrayBuffer(sound);
+
+myAudioContext.decodeAudioData(buff, function(audioData) {
+  myBuffer = audioData;
+});
+</code></pre>
+
+<p></figure></p>
+
+<p>Once you have the audio data decoded, pass it to your audio buffer source and play the sound:</p>
+
+<p><figure></p>
+
+<pre><code>mySource = myAudioContext.createBufferSource();
+mySource.buffer = myBuffer;
+mySource.connect(myAudioContext.destination);
+mySource.noteOn(0);
+</code></pre>
+
+<p></figure></p>
+
+<p></section></p>
+
+<p><section id="demo">
+<h2>Full Demo and Source Code <a href="#demo" class="permalink">#</a></h2></p>
+
+<p>Check out the <a href="http://alxgbsn.co.uk/offlinewebaudio/">online demo</a> and <a href="https://github.com/alexgibson/offlinewebaudio">source code</a> for a complete example of the techniques discussed in this article.
+</section></p>
+
+<p><section id="support">
+<h2>Browser Support <a href="#support" class="permalink">#</a></h2></p>
+
+<p>Currently the demo works in Safari 6, Chrome Desktop, and iOS 6 Safari. The technique has potential to work in any browser that supports Web Audio API, so hopefully Chrome Mobile can soon add support as well.</p>
+
+<p>The W3C is currently pursuing the Web Audio API <a href="http://www.w3.org/2011/audio/wiki/W3C_Audio_Publications_and_Milestones">as a standard</a>.
+</section></p>
+<p><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/" rel="bookmark">Taking Web Audio Offline in iOS 6 Safari</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 27, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/feed/</wfw:commentRss>
+		<slash:comments>12</slash:comments>
+		</item>
+	</channel>
+</rss>

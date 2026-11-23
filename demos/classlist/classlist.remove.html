@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<title>classList.remove() demo</title>
+
+		<style>
+			.beryl {
+				background: transparent url(images/beryl-reid.jpg) 0 0 no-repeat;
+				padding-left: 260px;
+				height: 250px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p id="bad-joke" class="oh my giddy aunt beryl">Two dogs are in the park. One says, "Nice day, isn't it?" The other says, "Holy crap, a talking dog!"</p>
+
+		<button id="button">Remove a class</button>
+
+		<script>
+			(function(doc) {
+				var joke = doc.getElementById('bad-joke'),
+					button = doc.getElementById('button'),
+					remove_beryl = function() {
+						joke.classList.remove('beryl');
+					};
+
+				button.addEventListener('click',remove_beryl, false);
+			})(document);
+		</script>
+	</body>
+</html>

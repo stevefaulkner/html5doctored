@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; application</title>
+	<atom:link href="http://html5doctor.com/tag/application/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Go offline with application cache</title>
+		<link>http://html5doctor.com/go-offline-with-application-cache/</link>
+		<comments>http://html5doctor.com/go-offline-with-application-cache/#comments</comments>
+		<pubDate>Tue, 25 Jan 2011 15:00:48 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[application]]></category>
+		<category><![CDATA[cache]]></category>
+		<category><![CDATA[manifest]]></category>
+		<category><![CDATA[offline]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2729</guid>
+		<description><![CDATA[<p>HTML5 introduces new methods for enabling a web site or web application to function without a network connection. When you're working on a mobile connection and your signal drops, or you just have no connection to the internet for whatever reason, having some level of access is better than nothing. In this article, we'll look at how the application cache can store resources to be used by the browser when it's offline, granting your users partial access to your web site or application.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><abbr>HTML</abbr>5 introduces new methods for enabling a web site or web application to function without a network connection. When you&#8217;re working on a mobile connection and your signal drops, or you just have no connection to the internet for whatever reason, having some level of access is better than nothing. In this article, we&#8217;ll look at how the application cache can store resources to be used by the browser when it&#8217;s offline, granting your users partial access to your web site or application.</p>
+
+<p>The <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html">application cache</a> is controlled by a plain text file called a manifest, which contains a list of resources to be stored for use when there is no network connectivity. The list can also define the conditions for caching, such as which pages should never be cached and even what to show the user when he follows a link to an uncached page.</p>
+
+<p>If the user goes offline but has visited the site while online, the cached resources will be loaded so the user can still view the site in a limited form. By carefully considering the contents of your manifest file, you can offer a suitable web experience to a disconnected user.</p>
+
+<section id="manifest">
+  <h2>The manifest file</h2>
+  <p>Let&#8217;s start with an example of a full manifest file. (Don&#8217;t worry, I&#8217;ll explain it all in detail!)</p>
+  
+  <figure>
+    <pre><code>CACHE MANIFEST
+      
+# This is a comment
+
+CACHE:
+/css/screen.css
+/css/offline.css
+/js/screen.js
+/img/logo.png
+http://example.com/css/styles.css
+
+FALLBACK:
+/ /offline.html
+
+NETWORK:
+*
+</code></pre>
+    <figcaption>An example application cache manifest file</figcaption>
+  </figure>
+  
+  <p>Each directive is placed on a new line, with comments prefixed by a hash (#). The first line, <code>CACHE MANIFEST</code>, tells the browser that this is a manifest file. The uppercased lines with trailing colons are section headings.</p>
+  
+  <p>There are three different sections in a manifest file:</p>
+  
+  <dl>
+    <dt>CACHE</dt>
+    <dd>A list of explicit <abbr>URL</abbr>s to request and store</dd>
+    <dt>FALLBACK</dt>
+    <dd>What to do when an offline user attempts to access an uncached file</dd>
+    <dt>NETWORK</dt>
+    <dd>Which resources are available only while online</dd>
+  </dl>
+  
+  <p>Each section serves a specific purpose that you must understand in order to successfully and effectively cache your resources.</p>
+  
+  <section id="cache">
+    <h3>CACHE</h3>
+    <p>The <code>CACHE</code> section is considered the default — i.e., if no section heading has been defined, the browser will assume this is the <code>CACHE</code> section. Beneath this heading, you can list <abbr>URI</abbr>s to resources you want the browser to download and cache for offline use, including <abbr>URI</abbr>s hosted externally.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+/css/screen.css
+/css/offline.css
+/js/screen.js
+/img/logo.png
+http://example.com/css/widget.css</code></pre>
+      <figcaption>Telling the browser to cache some stylesheets, an image, and a JavaScript file</figcaption>
+    </figure>
+  
+    <p>In this example, I&#8217;ve omitted the <code>CACHE:</code> heading to take advantage of the default behaviour. I have provided the browser with four paths relative to the root of the domain plus one external resource. When the browser downloads the cache manifest file, it will read these five resources, fetch them over <abbr>HTTP</abbr>, and store them for later use.</p>
+  
+    <p>Every single resource that you want to cache explicitly should be listed here, right down to the last image. The browser is not aware of a resource unless you provide the full path to it. This means <strong>you can&#8217;t use wildcards</strong>. If you list <code>/images/*</code> as a resource, the browser will request that <abbr>URI</abbr> as if you typed it into your address bar.</p>
+  
+    <p>But don&#8217;t run off and shove <abbr>URI</abbr>s for every single page on your site into your manifest! When a user visits a page that points to the manifest file, that page will also be cached. This means that if you want to allow users access to pages they&#8217;ve already viewed, just make those pages point to the manifest file and the browser will cache them appropriately.</p>
+  
+    <p>Now let&#8217;s tell the browser what to do with uncached resources.</p>
+  </section>
+  
+  <section id="fallback">
+    <h3>FALLBACK</h3>
+  
+    <p>The <code>FALLBACK</code> section tells the browser what to serve when the user tries to access an uncached resource while offline. Because of this, it looks a bit different than <code>CACHE</code> and <code>NETWORK</code>. It contains two values per line, separated by a space. The first value is the request <abbr>URI</abbr> to match, and the second is the resource sent upon matching. It caches the resource on the right for offline use, so this should be an explicit path.</p>
+    
+    <p>Lost? Take a look at this example:</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/status.html /offline.html</code></pre>
+      <figcaption>Declaring a <code>FALLBACK</code> section</figcaption>
+    </figure>
+  
+    <p>On the line below <code>FALLBACK:</code>, we have the <abbr>URI</abbr> &#8220;/status.html&#8221; followed by a second <abbr>URI</abbr>, &#8220;/offline.html&#8221;. We&#8217;re telling the browser that when an offline user requests a <abbr>URI</abbr> matching &#8220;/status.html&#8221;, it should instead serve the cached file &#8220;offline.html&#8221;.</p>
+    
+    <p>However, the <code>FALLBACK</code> section can be far more powerful:</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/ /offline.html</code></pre>
+      <figcaption>Matching all resources</figcaption>
+    </figure>
+  
+    <p>In this example, I&#8217;ve dropped &#8220;status.html&#8221; and simply provided &#8220;/&#8221; as the request <abbr>URI</abbr> to match. Now when an offline user requests a resource that matches &#8220;/&#8221;, he will be served &#8220;offline.html&#8221; in its place. So if the user clicked on a link for &#8220;/status.html&#8221;, &#8220;/about.html&#8221;, or even &#8220;/my/nested/resource.html&#8221;, the browser would match the &#8220;/&#8221; at the start and serve up &#8220;offline.html&#8221;. Since I&#8217;ve used the root path, every uncached resource under this domain will point to &#8220;offline.html&#8221;.</p>
+  
+    <p class="disclaimer"><strong>Errata 23 June 2011:</strong> this article has been corrected as you <em>can&#8217;t</em> use a wildcard with the <code>FALLBACK</code> or <code>NETWORK</code> namespaces &#8211; though you can use the asterisk symbol under <code>NETWORK</code> as it&#8217;s a special flag to indicate all urls should be whitelisted.</p>
+
+    <p>The <code>CACHE</code> section, both the <code>FALLBACK</code> and <code>NETWORK</code> namespaces support a prefix rule that aid their <abbr>URI</abbr> matching. In that any requests to the <code>/avatar</code> directory, whilst offline, if the asset is unavailable the browser can serve up an alternative.</p>
+    
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/images/avatars/ /offline_avatar.png</code></pre>
+      <figcaption>A smarter fallback declaration</figcaption>
+    </figure>
+  
+    <p>The first line tells the browser to serve &#8220;/offline_avatar.png&#8221; in place of user-uploaded avatars.</p>
+  
+    <p>Remember when I said that any document referencing the manifest will also be cached? Well, you can use this to your advantage! You can cache each page the user visits while online so that they will have access to that page while offline. Then anything they didn&#8217;t view will be caught by the <code>FALLBACK</code> section. This keeps you from explicitly stating you want all your pages cached, and, more importantly, avoids the huge performance penalty of serving all the resources you want cached every time someone first visits your site.</p>
+  </section>
+  
+  <section id="network">
+    <h3>NETWORK</h3>
+    <p>Finally, we have the <code>NETWORK</code> section, used to tell the browser explicitly which resources are only available while online. By default, this uses the asterisk <code>*</code> symbol, meaning all resources that are not cached will require a connection. Alternatively we can whitelist specific url prefixes, like all the avatars if we wish.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+NETWORK:
+*</code></pre>
+      <figcaption>Adding a <code>NETWORK</code> section</figcaption>
+    </figure>
+  
+    <p>You can explicitly define resources not to cache by providing a list of <abbr>URI</abbr>s — essentially a whitelist of online-only assets.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+NETWORK:
+register.php
+login.php</code></pre>
+      <figcaption>Excluding certain pages from caching</figcaption>
+    </figure>
+  </section>
+
+</section>
+
+<section id="serving-manifest">
+  <h2>Serving the manifest</h2>
+  
+  <p>You can reference a manifest file on a web page by adding the <code>manifest</code> attribute to your opening <code>&lt;html&gt;</code> tag. The browser will only cache pages that include this attribute (in addition to those specified in the manifest itself, though in that instance, the user would have to visit a page including the manifest in order for the browser to be aware of it).</p>
+  
+  <figure>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" manifest="/offline.appcache"&gt;
+  // your html document
+&lt;/html&gt;
+</code></pre>
+    <figcaption>Referencing the manifest file from an <abbr>HTML</abbr> page</figcaption>
+  </figure>
+
+  <p>The linked file should also be served with a <abbr>MIME</abbr>-type of <code>text/cache-manifest</code>. If you&#8217;re using <a href="http://httpd.apache.org/">Apache</a> as your web server, add this to your <code>.htaccess</code> file:</p>
+  
+  <figure>
+    <pre><code>AddType text/cache-manifest .appcache
+</code></pre>
+  </figure>
+  
+  <p>And there you have it! Supporting browsers will retrieve the manifest file and cache each item on the list for offline use. Won&#8217;t your parents be proud?</p>
+</section>
+
+<section id="trigger-refresh">
+  <h2>Triggering a cache refresh</h2>
+  
+  <p>Once a cache has been successfully downloaded, the browser will retain those assets until either the user clears the cache or you trigger an update. Triggering an update with your manifest file requires that the contents of that file change, not just the assets themselves.</p>
+  
+  <p><strong>Updating the assets on your server will not trigger a cache update. You must modify the manifest file.</strong></p>
+  
+  <p>If you&#8217;re adding or removing resources completely, you&#8217;ll have to edit your manifest file anyway. But what if you&#8217;re just amending an already cached stylesheet?</p>
+  
+  <p>This is where comments come in handy. Just throw in a simple version number comment that you change when you want to trigger an update:</p>
+  
+  <figure>
+    <pre><code>CACHE MANIFEST
+      
+# Version 9
+
+CACHE:
+/css/screen.css</code></pre>
+    <figcaption>A version comment in a manifest file</figcaption>
+  </figure>
+
+  <p>The next time you want to trigger a cache refresh, just increment the version number. When the user next visits the online version of a page including this manifest, it will re-download the manifest file, notice the change, download the listed assets, and purge the existing cache.</p>
+  
+  <p><strong>Browser bug:</strong> Firefox caches the manifest file itself and will not update it even if the manifest has changed on the server. With some server config wizardry, you can tell browsers that the cache of the manifest file is instantly invalidated and should be requested from the server every time it&#8217;s referenced. Add this to your <code>.htaccess</code> to put Firefox in its place:</p>
+  
+  <figure>
+    <pre><code>&lt;IfModule mod_expires.c&gt;
+  ExpiresActive On
+  ExpiresByType text/cache-manifest "access plus 0 seconds"
+&lt;/IfModule&gt;
+</code></pre>
+  </figure>
+</section>
+
+<section id="conclusion">
+  <h2>Conclusion</h2>
+  
+  <p>The application cache is a powerful beast, and to tame it you need to be clear on what&#8217;s involved. Give thought to your <code>CACHE</code>, <code>FALLBACK</code>, and <code>NETWORK</code> sections to provide a suitable offline experience to your users.</p>
+  
+  <p>In a future article, we&#8217;ll show you how to use the <code>applicationCache</code> JavaScript object to manipulate the cache. Until then, this should be enough to get you started on the path to offline web content.</p>
+  
+  <p>You can see a live demo using the application cache over on Doctor Remy&#8217;s <a href="http://html5demos.com/offlineapp">HTML5 Demos</a>. Happy caching!</p>
+</section>
+<p><a href="http://html5doctor.com/go-offline-with-application-cache/" rel="bookmark">Go offline with application cache</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 25, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/go-offline-with-application-cache/feed/</wfw:commentRss>
+		<slash:comments>34</slash:comments>
+		</item>
+	</channel>
+</rss>

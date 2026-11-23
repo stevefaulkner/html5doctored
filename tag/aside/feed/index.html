@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; aside</title>
+	<atom:link href="http://html5doctor.com/tag/aside/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 21 Jan 2015 14:57:35 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>Your Questions #16</title>
+		<link>http://html5doctor.com/your-questions-16/</link>
+		<comments>http://html5doctor.com/your-questions-16/#comments</comments>
+		<pubDate>Tue, 01 Mar 2011 14:30:38 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[b]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[i]]></category>
+		<category><![CDATA[nav]]></category>
+		<category><![CDATA[section]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2748</guid>
+		<description><![CDATA[<p>The clinic is getting busy with more HTML5 ailments! This week, we'll cover the separation of formatting and content, custom elements, using aside for social links, sections with no visible titles, and canvas in the DOM.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is getting busy with more <abbr>HTML</abbr>5 ailments! This week, we&#8217;ll cover the separation of formatting and content, custom elements, using <code>&lt;aside&gt;</code> for social links, sections with no visible titles, and <code>&lt;canvas&gt;</code> in the <abbr>DOM</abbr>.</p>
+<section>
+<h2>Separation of formatting and content</h2>
+<p>Graham asked:</p>
+<blockquote>
+<p>When I first started learning html and <abbr>CSS</abbr> I was constantly told not to use <code>b</code> or <code>i</code> tags as the idea was to completely separate formatting from content. Is this now not the case?</p>
+</blockquote>
+<p>In <abbr>HTML</abbr> 4 (and <abbr>XHTML</abbr> 1.x), the elements <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> (plus some others) were presentational — they only had visual meaning. This doesn’t work so well for blind users, for example.</p>
+<p>In <abbr>HTML</abbr>5, presentational elements have either been cut or, as in the case of <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code>, given semantic meanings to make them media-independent. You can find out more here: <a href="http://html5doctor.com/i-b-em-strong-element/">The <code>&lt;i&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;em&gt;</code>, and <code>&lt;strong&gt;</code> elements</a> and <a href="http://html5doctor.com/small-hr-element/">The <code>&lt;small&gt;</code> and <code>&lt;hr&gt;</code> elements</a>.</p>
+<p>So to directly answer your question, in <abbr>HTML</abbr>5, <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> are now content (semantic), not formatting (presentational).</p>
+<p>peace &#8211; Oli</p>
+</section>
+<section>
+<h2>Custom elements</h2>
+<p>Eric asked:</p>
+<blockquote>
+<p>It is possible to use custom elements in <abbr>HTML</abbr>5 to be more semantic; however, is it ill-advised? For example:</p>
+<p>    <code>
+<pre>&lt;footer id="page-footer"&gt;
+&lt;copyright&gt;Copyright ©...&lt;/copyright&gt;
+&lt;/footer&gt;</pre>
+<p></code></p>
+</blockquote>
+<p>Umm, no, <abbr>HTML</abbr>5 doesn&#8217;t allow &#8220;custom elements&#8221;. While browsers will try to recover gracefully if you do this, making stuff up is definitely ill-advised — something like <code>&lt;copyright&gt;</code> will have no meaning for browsers and could lead to problems in <abbr>IE</abbr>.</p>
+<p>If you want an element for a copyright statement or other short legalese, there’s already a perfectly <a href="http://html5doctor.com/small-hr-element/">good one in <code>&lt;small&gt;</code></a>.</p>
+<p>If you can’t find a more semantically appropriate element, use <code>&lt;span&gt;</code> for phrasing (inline) content, <code>&lt;p&gt;</code> for a block of phrasing content, or <code>&lt;div&gt;</code> for flow (block-level) content, and add a class name that indicates the semantics — e.g. <code>&lt;span class="lorem"&gt;Lorem ipsum&lt;/span&gt;</code>.</p>
+<p>Hope that helps!</p>
+<p>peace &#8211; Oli</p>
+</section>
+<section>
+<h2>Marking up social links</h2>
+<p>A reader asked:</p>
+<blockquote>
+<p>Could a list of share icons (twitter, facebook, etc) be considered a candidate for use of the nav element? and do links in a <code>nav</code> element <strong>have to be</strong> into the same domain name&#8221;?</p>
+</blockquote>
+<p><code>&lt;nav&gt;</code> is for navigation around your content. On my personal site, I have a link to my Flickr photostream marked up in the same container as links to my own contact page, etc. I think the link to Flickr is conceptually no different to navigation within my personal site: it&#8217;s all <em>my</em> content. If my photos were on my own domain (as they used to be), I wouldn&#8217;t hesitate to include them in <code>&lt;nav&gt;</code>, and I wouldn&#8217;t hesitate to include this same content within <code>&lt;nav&gt;</code> today.</p>
+<p>A list of share icons isn&#8217;t <code>&lt;nav&gt;</code> for two separate reasons.</p>
+<p>First, they aren&#8217;t meant to take you somewhere else. They&#8217;re designed to perform an action of tweeting/&#8221;liking&#8221; a link to a page.</p>
+<p>Second, and most importantly, they&#8217;re not navigation around your content. As the <a href="http://dev.w3.org/html5/spec/sections.html#the-nav-element">spec says</a> <q>&#8220;Not all groups of links on a page need to be in a nav element — only sections that consist of major navigation blocks are appropriate for the nav element.&#8221;</q></p>
+<p>As a list of share icons is tangential to your content, I&#8217;d probably use <a href="http://dev.w3.org/html5/spec/sections.html#the-nav-element">the <code>&lt;aside&gt;</code> element</a>: <q>&#8220;The aside element represents a section of a page that consists of content that is tangentially related to the content around the aside element, and which could be considered separate from that content. Such sections are often represented as sidebars in printed typography&#8221;</q>. For more details, check out our <a href="http://html5doctor.com/aside-revisited/"><code>&lt;aside&gt;</code> revisited</a> article.</p>
+<p>Social links are the kind of thing that could be cut from a feed reader without diminishing the value of the content. As an additional note, remember that you can also place an <code>&lt;aside&gt;</code> at the end of an article, like a footer. In spite of its name, <code>&lt;aside&gt;</code> doesn&#8217;t have to be a sidebar.</p>
+<p>Thanks, Bruce and Mike</p>
+</section>
+<section>
+<h2>Sections with no visible titles</h2>
+<p>Francesco asked:</p>
+<blockquote>
+<p>I have some divs, in a page, that semantically would make more sense as sections as there are natural headings for them, but they&#8217;re not written *inside* them, they&#8217;re outside. There are tabs to switch the visibility of these sections, and the tab navigation is on their left&#8230; so the actual title is only there, and not repeated inside of the sections. But besides that they really are sections&#8230; they even had &#8220;class=section&#8221; in the old version. :-)</p>
+<p>What would the best solution be? Put an <code>h1</code> in there with <code>display:none</code>? It would make the outline correct, but it looks like a hack.</p>
+</blockquote>
+<p>You should reorganise your markup to ensure the headings are within the section. Then you can use some <abbr>CSS</abbr> positioning trickery to move them into place. Don&#8217;t use <code>display:none</code>, though, as that&#8217;s invisible to everyone, including assistive technologies like screen readers.</p>
+<p>Cheers, Rich</p>
+</section>
+<section>
+<h2><abbr>HTML</abbr>5 <code>&lt;canvas&gt;</code> and the <abbr>DOM</abbr></h2>
+<p>Elango asked:</p>
+<blockquote>
+<p>Is it possible to get the elements i have drawn into the canvas using some API. Say for eg i draw 2 circle and 2 lines is that possible for me to get these information from Canvas by using DOM API&#8217;s</p>
+</blockquote>
+<p>No. Think of a canvas like a canvas you would physically paint on. If you paint a red stroke and then paint over that in blue, you can&#8217;t get back to the original red stroke. The canvas <abbr>API</abbr> works the same way: once your <strong>pixels</strong> are committed, you can&#8217;t go back.</p>
+<p>You want <abbr>SVG</abbr> (or try out <a href="http://raphaeljs.com">Raphaël</a>).</p>
+<p>Cheers, Remy</p>
+</section>
+<section>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-16/" rel="bookmark">Your Questions #16</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on March 1, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-16/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions #14</title>
+		<link>http://html5doctor.com/your-questions-14/</link>
+		<comments>http://html5doctor.com/your-questions-14/#comments</comments>
+		<pubDate>Fri, 26 Nov 2010 14:30:07 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[article]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[footer]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[id]]></category>
+		<category><![CDATA[nav]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[stylesheets]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2543</guid>
+		<description><![CDATA[<p>The clinic is getting busy with more <abbr>HTML</abbr>5 ailments. This week, we'll cover questions about aside, blogging platforms, stylesheet links, id attribute validation and a mammoth semantic journey.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is getting busy with more <abbr>HTML</abbr>5 ailments. This week, we&#8217;ll cover questions about <code>&lt;aside&gt;</code>, blogging platforms, stylesheet links, <code>id</code> attribute validation, and take a mammoth semantic journey.</p>
+
+<section>
+  <h2>Aside question</h2>
+  <p>Lukasz asked:</p>
+  <blockquote>
+    <p>I wonder if such use of aside tag inside <code>section</code> would be correct:</p>
+<pre><code>&lt;section id="about"&gt;
+  &lt;h1&gt;about me&lt;/h1&gt;
+  &lt;p&gt;blablabla&lt;/p&gt;
+  &lt;aside&gt;
+    &lt;h2&gt;you can also find me on:&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#"&gt;twitter&lt;/a&gt;&lt;/li&gt;
+      ...
+    &lt;/ul&gt;
+  &lt;/aside&gt;
+&lt;/section&gt;</code></pre>
+    <p>Thanks in advance for any help and keep up the good work!</p>
+  </blockquote>
+  <p>Hard to give definitive advice without seeing the whole page, but it seems fine to me. See <a href="http://html5doctor.com/aside-revisited/">Mike&#8217;s article on <code>&lt;aside&gt;</code></a>.</p> 
+
+	<p>In general, use <code>&lt;aside&gt;</code> for a section of a page that consists of content that is tangentially <em>related to</em> but <em>separate from</em> the surrounding content. In print, this would be a sidebar, pull-quote, or footnote. On a weblog article, this could be article metadata in the margin or the comments section.</p>
+
+	<p>If your social network links are main content, then <code>&lt;aside&gt;</code> isn&#8217;t the element (maybe <code>&lt;section&gt;</code>, maybe <code>&lt;nav&gt;</code>). If they&#8217;re just related content (i.e., they could be omitted when showing this page in a feed reader), then <code>&lt;aside&gt;</code> is a good choice.</p>
+
+	<p>peace &#8211; Oli</p>
+</section>
+
+<section>
+  <h2>Blogging services</h2>
+  <p>Patrick asked:</p>
+  <blockquote>
+    <p>Do you have any suggestions to people implementing <abbr>HTML</abbr>5 on blogging services like Tumblr? The last time I checked, there are problems making <abbr>HTML</abbr>5 blogs on these sites:</p>
+    <ul>
+      <li>Tumblr &#8211; inserted iframe breaks <abbr>HTML</abbr>5 conformance</li>
+      <li>Posterous &#8211; no Javascript allowed at the moment (according to their doc)</li>
+      <li>Blogger &#8211; it doesn&#8217;t preserve my <abbr>HTML</abbr>5 DOCTYPE</li>
+    </ul>
+		<p>Are there blogging services that don&#8217;t mess with the <abbr>HTML</abbr>5 markup?</p>
+  </blockquote>
+  <p>I used to use Tumblr, and you can use <abbr>HTML</abbr>5 in your templates. But any new <abbr>HTML</abbr>5 elements (e.g., <code>&lt;section&gt;</code>) in your articles get munged, even
+using the “Raw <abbr>HTML</abbr>” setting. Unfortunately, I think that managed blogging services will probably be a little slow to adopt <abbr>HTML</abbr>5 (= fix the <abbr>HTML</abbr>5 errors they/their tools have), and you&#8217;ll have to use your own <abbr>CMS</abbr> for that level of control.</p>
+
+	<p>You can of course build your own theme for something like WordPress, and a little birdie did tell me that the latest version of WordPress has <em>some</em> <abbr>HTML</abbr>5 in its default template, so this might carry over into their hosted service. If you can&#8217;t wait and don&#8217;t have a server, remember that <abbr>HTML</abbr>5 is a sliding scale — I was using <code>&lt;div class="section"&gt;</code> with Tumblr for a while.</p>
+
+	<p>peace &#8211; Oli</p>
+</section>
+
+<section>
+  <h2>Link stylesheet</h2>
+  <p>Steve asked:</p>
+  <blockquote>
+    <p>Hello, can we get rid of type=&#8221;text/css&#8221; when declaring a link rel=&#8221;stylesheet&#8221;?</p>
+
+		<p>Thank you and long live the web.</p>
+  </blockquote>
+  <p>You certainly can do that. Same with including JavaScript:</p>
+
+<pre><code>&lt;link rel="stylesheet" media="screen, projection" href="http://html5doctor.com/css/style.css"&gt;
+&lt;script src="http://html5doctor.com/js/html5.js"&gt;&lt;/script&gt;</code></pre>
+
+  <p>Thanks, Tom</p>
+</section>
+
+<section>
+  <h2>ID attribute validation</h2>
+  <p>Andrés asked:</p>
+  <blockquote>
+    <p>Does the id attribute allows to begin with a number or a hyphen, unlike previous specs? Is there any set of character that aren&#8217;t allowed, besides space character?</p>
+  </blockquote>
+  <p>There are three rules for the value of the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-id-attribute">ID attribute</a>:</p>
+
+  <ol>
+    <li>It must be at least one character long,</li>
+    <li>it must contain no space characters, and</li>
+    <li>it must be unique within the page.</li>
+  </ol>
+
+	<p>So a hyphen would be valid as an ID value. It validates too. However, you may run into legacy stuff that hasn&#8217;t been updated yet (<abbr>HTML</abbr> Tidy, <abbr>WYSIWYG</abbr> plugins for a <abbr>CMS</abbr>, etc), so I&#8217;d advise testing within your workflow and in a browser (no idea if <abbr>IE</abbr> would barf on that, and it wouldn’t surprise me if it did).</p>
+
+	<p>peace &#8211; Oli</p>
+</section>
+
+<section>
+  <h2>I&#8217;m so confused &#8211; article, header, footer, nav?</h2>
+  <p>Benjamin asked:</p>
+  <blockquote>
+    <p>Hey Doctor(s), I&#8217;m so confused right now.</p>
+
+		<p>I&#8217;ve been trying to implement <abbr>HTML</abbr>5 for my new blog and <abbr>CMS</abbr>, but having difficulties trying to figure out where advanced content should go. All the demonstrations and examples about <abbr>HTML</abbr>5 are over-simplified and just don&#8217;t include any real world information. For example, an article typically includes (in no particular order):</p>
+
+    <ul>
+      <li>Article
+        <ul>
+          <li>Title</li>
+          <li>Tagline</li>
+          <li>Tags</li>
+          <li>Avatar</li>
+          <li>Content</li>
+          <li>Links to child articles (eg. download, docs, demo)
+            <ul>
+              <li>Link Title</li>
+              <li>Link Avatar</li>
+              <li>Link Author Name</li>
+            </ul>
+          </li>
+          <li>Links to recommended articles (related content)
+            <ul>
+              <li>Link Title</li>
+              <li>Link Avatar</li>
+              <li>Link Author Name</li>
+            </ul>
+          </li>
+          <li>Article Author Details
+            <ul>
+              <li>Author Name</li>
+              <li>Author Avatar</li>
+            </ul>
+          </li>
+          <li>Article Details
+            <ul>
+              <li>Published Date</li>
+              <li>Modified Date</li>
+            </ul>
+          </li>
+          <li>Share Buttons</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>So all in all, way more complicated than the typical:</p>
+    <ul>
+      <li>Article
+        <ul>
+          <li>Article Title</li>
+          <li>Article Content</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>So say for example, where should all the stuff in the complicated (real-world) example go? Should the avatar go in the header, the article, or the footer? Or maybe even a details element? Should the navigation links to other articles be like: nav &gt; ul &gt; li &gt; article &gt; header &gt; a &gt; h1 With the a containing the link, and the h1 containing the article header? Should the post details (despite we want them display perhaps underneath the title, and before the content) be in a details element? And should that be within the header element or be below the header element? Should they use for example:</p>
+
+<pre><code>&lt;dl&gt;
+  &lt;dt class="published"&gt;Published At:&lt;/dt&gt;
+  &lt;dd class="published"&gt;...&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+
+    <p>or:</p>
+
+<pre><code>&lt;ul&gt;
+  &lt;li class="published"&gt;
+    &lt;label&gt;Published At:&lt;/label&gt;
+    &lt;span&gt;...&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+    <p>or something else? The second example seems to remove the duplication of the css class, but seems to add more complications though. Should those tag and article links in nav elements be inside the header? Or footer? Or just article? How many footers and headers can be in article?</p>
+
+    <p>I&#8217;m soo confused. Any help would be greatly appreciated? Perhaps the best help out there would be a detailed HTML5 example of the real-world article structure I posted above.</p>
+  </blockquote>
+  <p>OK now, take a deeeep breath and relax. There, feeling a little better? ;)</p>
+
+  <p>That&#8217;s a mammoth e-mail, so here are some basics to get you started:</p>
+
+  <ul>
+    <li>Start with a basic page before attempting something complex — don&#8217;t jump in the deep end.</li>
+    <li>Look at websites in <a href="http://html5gallery.com"><abbr>HTML</abbr>5 Gallery</a> and check their code.</li>
+    <li>Look at the code for this site. Granted, it&#8217;s not perfect, but it&#8217;s pretty good, and we have a lot of the content you list.</li>
+    <li>Use the most appropriate element for each piece of content, even if it&#8217;s not one of the new ones. (Hopefully it ends up being what you used before.) Perhaps <a href="http://html5doctor.com/happy-1st-birthday-us/">our handy flowchart</a> might help for that.</li>
+  </ul>
+
+  <p>Some more specific answers:</p>
+  
+  <p><q>&#8220;Should the navigation links to other articles be like: nav &gt; ul &gt; li &gt; article &gt; header &gt; a &gt; h1 With the a containing the link, and the h1 containing the article header?&#8221;</q> The title of an article is not the same as an article, so it&#8217;d be wrong to use <code>&lt;article&gt;</code> or <code>&lt;header&gt;</code> here. I assume you didn’t use <code>&lt;h1&gt;</code> in <a href="http://html5doctor.com/nav-element/">navigation</a> lists before, right?</p>
+
+  <p><q>&#8220;Should the post details (despite we want them display perhaps underneath the title, and before the content) be in a details element?&#8221;</q> Possibly, if you wanted that interaction, but likely not as you probably want them visible all the time. See what the <a href="http://dev.w3.org/html5/markup/details">spec says about <code>&lt;details&gt;</code></a>. Decide on the semantics of each piece of content first. Worry about styling later.</p>
+
+  <p><q>&#8220;And should that be within the header element or be below the header element?&#8221;</q> <a href="http://html5doctor.com/the-header-element/">Header</a> or <a href="http://html5doctor.com/the-footer-element/">footer</a> seem like good places to put them. <code>&lt;label&gt;</code> is a caption for a form control, not an element to use whenever you need to label something.</p>
+
+  <p>I recommend you start with your <abbr>HTML</abbr>4 or <abbr>XHTML</abbr>1 knowledge and build on it. <abbr>HTML</abbr>5 is an evolution, not a revolution. In fact, I’d recommend you start out making a site in <abbr>HTML</abbr>4 with the <abbr>HTML</abbr>5 doctype (and validate it as <abbr>HTML</abbr>5), then change bits over time as you read each article on <a href="http://html5doctor.com"><abbr>HTML</abbr>5 Doctor</a> and learn more ;-)</p>
+
+  <p>peace &#8211; Oli</p>
+</section>
+
+<section>
+	<h2>Got a question for us?</h2>
+	<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-14/" rel="bookmark">Your Questions #14</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 26, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-14/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered #7</title>
+		<link>http://html5doctor.com/your-questions-answered-7/</link>
+		<comments>http://html5doctor.com/your-questions-answered-7/#comments</comments>
+		<pubDate>Tue, 20 Apr 2010 14:10:51 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[ajax]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[div]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[ie]]></category>
+		<category><![CDATA[ie6]]></category>
+		<category><![CDATA[section]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1584</guid>
+		<description><![CDATA[Here we are again with another round up of  patient questions about <abbr>HTML</abbr>5. In this article, we'll be covering a host of topics including <abbr>AJAX</abbr>, the eternal question of <code>div</code> or <code>section</code>, how to markup multiple blocks of content in a sidebar and using <code>header</code> with <code>hgroup</code>.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> Here we are again with another round of patient questions about <abbr>HTML</abbr>5. In this article, we&#8217;ll be covering AJAX, the eternal question of <code>&lt;div&gt;</code> or <code>&lt;section&gt;</code>, our old friend Internet Explorer, how to mark up multiple blocks of content in a sidebar, and using <code>&lt;header&gt;</code> with <code>&lt;hgroup&gt;</code>.</p>
+<h2><abbr>HTML</abbr> and AJAX</h2>
+<p>Arie asked:</p>
+<blockquote><p>I&#8217;m still learning about <abbr>html</abbr>5 and javascript, I&#8217;m wondering how <abbr>html</abbr>5 makes doing a lot of the things currently done in ajax and javascript more simple.  Is it by providing things like the canvas that unify ideas?</p>
+</blockquote>
+<p>Certain parts of <abbr>HTML</abbr>5 will indeed simplify or reduce the need for JavaScript. One such area of improvement is Web Forms 2.0, which will handle client-side form validation in the browser and provide new input types (like <code>&lt;input type="email"&gt;</code> that checks for a valid email address). Of course, you&#8217;ll still need to validate your forms on the server, but at least the browser will catch the most obvious mistakes before the user actually submits the form.</p>
+<p>Other parts of <abbr>HTML</abbr>5, like <a href="http://html5doctor.com/introducing-web-sql-databases/">Web SQL Databases</a> and <code>&lt;canvas&gt;</code>, are essentially JavaScript <abbr>API</abbr>s. They may not cut down on your need for JavaScript, but they do provide a consistent interface to some powerful functionality and will enable your application or site to do more things within (or outside of) the browser.</p>
+<p>Cheers, Rich</p>
+<h2><code>&lt;div&gt;</code> or <code>&lt;section&gt;</code>?</h2>
+<p>Paul asked:</p>
+<blockquote><p>Hello</p>
+<p>I see you are using divs on your website, I thought divs should be replaced by more semantic tags such as sections or article. what did I miss?</p>
+<p>Thanks</p>
+</blockquote>
+<p>Hi Paul,</p>
+<p>Just like with <abbr>HTML</abbr>4, you shouldn&#8217;t use <code>&lt;div&gt;</code>s or <code>&lt;span&gt;</code>s where another, more precise element would fit the bill. But for grouping arbitrary content, <code>&lt;div&gt;</code>s and <code>&lt;span&gt;</code>s remain the way to go.</p>
+<p>Thanks, Bruce</p>
+<h2><abbr>HTML</abbr>5 and <abbr>IE</abbr>6</h2>
+<p>Adam asked:</p>
+<blockquote><p>Greetings HTML5 Doctor,</p>
+<p>Is it at all possible to have a <abbr>HTML</abbr>5 layout while 30% of our users are running <abbr>IE</abbr>6? We are an <abbr>IT</abbr> company and our website is very large so having separate versions is completely impractical. <abbr>HTML</abbr>5 would allow us to move on and keep our markup a lot simpler but with no concrete guarantees regarding universal support is <abbr>HTML</abbr>5 ever going to get off the ground within 5 years while not having to resort to javascript solutions?</p>
+</blockquote>
+<p>Simply change the doctype and you&#8217;ll be writing <abbr>HTML</abbr>5! If you want to use new elements, however, you&#8217;ll need to use JavaScript to support them (for all versions of <abbr>IE</abbr> up to <abbr>IE</abbr>8). The best place to start? Read <a href="http://html5doctor.com/author/remys/">Remy&#8217;s</a> article on <a href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/">How to get <abbr>HTML</abbr>5 working in <abbr>IE</abbr> and Firefox 2</a>.</p>
+<p>I think we&#8217;re in a position to do something about this. By using the new doctype, block-level links, and new form input types (that degrade gracefully), we can start promoting <abbr>HTML</abbr>5 <em>right now</em>.</p>
+<p>Cheers, Rich</p>
+<h2>Multiple blocks in a sidebar</h2>
+<p>Bart asked:</p>
+<blockquote><p>On my page (revora.net) I have a sidebar with content that I deem appropriate for the <code>aside</code> element. The sidebar contains several blocks of content. I&#8217;ve currently made the whole bar <code>aside</code> and made the blocks <code>div</code>. Is this correct, or should I do it the other way around?</p>
+</blockquote>
+<p>It sounds like your first approach is correct. The <code>&lt;div&gt;</code>s might be <code>&lt;section&gt;</code>s or maybe <code>&lt;nav&gt;</code> elements though, depending on their content. I suggest you read our article (and the comments) on <a href="http://html5doctor.com/aside-revisited/">the <code>&lt;aside&gt;</code> element</a>.</p>
+<p>Thanks, Tom</p>
+<h2>Header with <code>&lt;hgroup&gt;</code></h2>
+<p>Diego asked:</p>
+<blockquote><p>Hi,</p>
+<p>This structure is right?</p>
+<pre><code>&lt;section id="choose-tip"&gt;
+   &lt;header&gt;
+       &lt;hgroup&gt;
+           &lt;h1&gt;Foo Bar&lt;/h1&gt;
+           &lt;h2&gt;Baz Bat Qux&lt;/h2&gt;
+       &lt;/hgroup&gt;
+   &lt;/header&gt;
+   &lt;p&gt;lorem ipsum&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+<p>What I mean is, if I have a HEADER with just 2 H(n) I need to put these into a HGROUP ? Or&#8230; I can remove the HEADER and leave just a HGROUP? What&#8217;s the better solutions for it?</p>
+<p>Thanks for all,</p>
+<p>Diego Tres</p>
+</blockquote>
+<p>What you have is correct. Basically, in the document outline, you will only see &#8220;Foo Bar&#8221; as the heading for that section. &#8220;Baz Bat Qux&#8221; will be hidden from the outline.</p>
+<p>You don&#8217;t <em>have</em> to use a <code>&lt;header&gt;</code> within your <code>&lt;section&gt;</code> or an <code>&lt;hgroup&gt;</code> within your <code>&lt;header&gt;</code>. Similarly, you don&#8217;t <em>have</em> to use a <code>&lt;header&gt;</code> around your <code>&lt;hgroup&gt;</code>.</p>
+<p>To summarise, the best solution (if you don&#8217;t require the <code>&lt;h2&gt;</code> to appear in the document outline) is what you&#8217;ve already got.</p>
+<p>Cheers, Rich</p>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions! If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+<p><a href="http://html5doctor.com/your-questions-answered-7/" rel="bookmark">Your Questions Answered #7</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 20, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-7/feed/</wfw:commentRss>
+		<slash:comments>14</slash:comments>
+		</item>
+		<item>
+		<title>The figure &amp; figcaption elements</title>
+		<link>http://html5doctor.com/the-figure-figcaption-elements/</link>
+		<comments>http://html5doctor.com/the-figure-figcaption-elements/#comments</comments>
+		<pubDate>Tue, 13 Apr 2010 13:45:20 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1646</guid>
+		<description><![CDATA[<p>In traditional printed material like books and magazines, an image, chart, or code example would be accompanied by a caption. Before now, we didn't have a way of semantically marking up this sort of content directly in our <abbr>HTML</abbr>, instead resorting to <abbr>CSS</abbr> class names. <abbr>HTML</abbr>5 hopes to solve that problem by introducing the <code>&#60;figure&#62;</code> and <code>&#60;figcaption&#62;</code> elements. Let's explore!</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/"     class="crp_title">Simplequiz #7: Pinterest</a></li><li><a href="http://html5doctor.com/latest-news-an-awards-win-and-duckduckgo-plugin/"     class="crp_title">Latest News: An awards win and DuckDuckGo plugin</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>In traditional printed material like books and magazines, an image, chart, or code example would be accompanied by a caption. Before now, we didn&#8217;t have a way of semantically marking up this sort of content directly in our <abbr>HTML</abbr>, instead resorting to <abbr>CSS</abbr> class names. <abbr>HTML</abbr>5 hopes to solve that problem by introducing the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements. Let&#8217;s explore!</p>
+
+<h2>The <code>&lt;figure&gt;</code> element</h2>
+
+<p>The <code>&lt;figure&gt;</code> element is intended to be used in conjunction with the <code>&lt;figcaption&gt;</code> element to mark up diagrams, illustrations, photos, and code examples (among other things). The spec says this about <code>&lt;figure&gt;</code>:</p>
+
+<blockquote><p>The figure element represents a unit of content, optionally with a caption, that is self-contained, that is typically referenced as a single unit from the main flow of the document, and that can be moved away from the main flow of the document without affecting the document’s meaning.</p><footer><cite><a href="http://dev.w3.org/html5/markup/figure.html">W3C Specification</a></cite></footer></blockquote>
+
+<h2>The <code>&lt;figcaption&gt;</code> element</h2>
+
+<p>The <code>&lt;figcaption&gt;</code> element has been the <a href="http://adactio.com/journal/1604/">subject</a> of <a href="http://remysharp.com/2009/08/12/saving-figure-detail/">much</a> <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">debate</a>. The spec initially wanted to repurpose <code>&lt;legend&gt;</code> rather than introduce a new element. Other suggestions included <code>&lt;label&gt;</code>, <code>&lt;caption&gt;</code>, <code>&lt;p&gt;</code> or the <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> elements. <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/"><code>&lt;legend&gt;</code> was changed</a>, so we then used a combination of <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> inside <code>&lt;figure&gt;</code> at <a href="http://twitter.com/adactio">Jeremy&#8217;s</a> suggestion. Most of these suggestions failed since there was no backwards compatibility for styling with <abbr>CSS</abbr>.</p>
+
+<p>Regular readers will know that <a href="http://html5doctor.com/summary-figcaption-element/">a new element was recently introduced</a>, namely <code>&lt;figcaption&gt;</code>. Who knows if it&#8217;ll stick, but for now here&#8217;s what the spec says about <code>&lt;figcaption&gt;</code>:</p>
+
+<blockquote><p>The figcaption element represents a caption or legend for a figure.</p><footer><cite><a href="http://dev.w3.org/html5/markup/figcaption.html">W3C Specification</a></cite></footer></blockquote>
+
+<p>The <code>&lt;figcaption&gt;</code> element is optional and can appear before <em>or</em> after the content within the <code>&lt;figure&gt;</code>. Only one <code>&lt;figcaption&gt;</code> element may be nested within a <code>&lt;figure&gt;</code>, although the <code>&lt;figure&gt;</code> element itself may contain multiple other child elements (e.g., <code>&lt;img&gt;</code> or <code>&lt;code&gt;</code>).</p>
+
+<h2>Using <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code></h2>
+
+<p>So we&#8217;ve seen what the spec says about these elements. How do we use them? Let&#8217;s look at some examples.</p>
+
+<h3>Figure with an image</h3>
+
+<p>An image within a <code>&lt;figure&gt;</code> element without a caption:</p>
+
+<figure><img src="http://html5doctor.com/wp-content/uploads/2010/03/orang-utan.jpg" alt="Baby Orang Utan hanging from a rope"></figure>
+
+<p>Here&#8217;s the code for that:</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;img src="/orang-utan.jpg" alt="Baby Orang Utan hanging from a rope"&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>Figure with an image and caption</h3>
+
+<p>An image within a <code>&lt;figure&gt;</code> element with an explanatory caption:</p>
+
+<figure><img src="http://html5doctor.com/wp-content/uploads/2010/03/macaque.jpg" alt="Macaque in the trees"><figcaption>A cheeky macaque, Lower Kintaganban River, Borneo. Original by <a href="http://www.flickr.com/photos/rclark/102352241/in/set-72057594082373448/">Richard Clark</a></figcaption>
+</figure>
+
+<p>and the code that we used:</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;img src="/macaque.jpg" alt="Macaque in the trees"&gt;
+  &lt;figcaption&gt;A cheeky macaque, Lower Kintaganban River, Borneo. Original by &lt;a href="http://www.flickr.com/photos/rclark/"&gt;Richard Clark&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>A figure with multiple images</h3>
+
+<p>Nesting multiple images within one <code>&lt;figure&gt;</code> element with a single caption:</p>
+
+<figure class="trptych"><img src="http://html5doctor.com/wp-content/uploads/2010/03/kookaburra.jpg" alt="Kooaburra"><img src="http://html5doctor.com/wp-content/uploads/2010/03/pelican.jpg" alt="Pelican stood on the beach"><img src="http://html5doctor.com/wp-content/uploads/2010/03/lorikeet.jpg" alt="Cheeky looking Rainbow Lorikeet"><figcaption>Australian Birds. From left to right, Kookburra, Pelican and Rainbow Lorikeet.<br />Originals by <a href="http://www.flickr.com/photos/rclark/">Richard Clark</a></figcaption>
+</figure>
+
+<p>The code:</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;img src="/kookaburra.jpg" alt="Kooaburra"&gt;
+  &lt;img src="/pelican.jpg" alt="Pelican stood on the beach"&gt;
+  &lt;img src="/lorikeet.jpg" alt="Cheeky looking Rainbow Lorikeet"&gt;
+  &lt;figcaption&gt;Australian Birds. From left to right, Kookburra, Pelican and Rainbow Lorikeet. Originals by &lt;a href="http://www.flickr.com/photos/rclark/"&gt;Richard Clark&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>Figure with a code block</h3>
+
+<p>The <code>&lt;figure&gt;</code> element may also be used for code examples:</p>
+
+<figure><blockquote><p><code>&lt;small&gt;&lt;a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share-alike license&lt;/a&gt;&lt;/small&gt;</code></p></blockquote>
+<figcaption>Using <code>&lt;small&gt;</code> around a <a href="http://creativecommons.org/choose/" title="Choose a License">Creative Commons license</a> link with <code>rel="license"</code></figcaption></figure>
+
+<p>Here&#8217;s the code for that:</p>
+
+<pre><code>&lt;figure&gt;
+&lt;blockquote&gt;&lt;p&gt;&lt;code&gt;&amp;lt;small&amp;gt;&amp;lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by-sa/3.0/&quot;&amp;gt;Creative Commons Attribution Share-alike license&amp;lt;/a&amp;gt;&amp;lt;/small&amp;gt;&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;figcaption&gt;Using &lt;code&gt;&amp;lt;small&amp;gt;&lt;/code&gt; around a &lt;a href="http://creativecommons.org/choose/" title="Choose a License"&gt;Creative Commons license&lt;/a&gt; link with &lt;code&gt;rel="license"&lt;/code&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>Differences between <code>&lt;figure&gt;</code> and <code>&lt;aside&gt;</code></h3>
+
+<p><a href="http://html5doctor.com/aside-revisited/">We covered <code>&lt;aside&gt;</code> in an earlier article</a>, but it is important to note the difference between the two. You should choose between <code>&lt;aside&gt;</code> or <code>&lt;figure&gt;</code> by asking yourself if the content is essential to understanding the section:</p>
+
+<ul>
+  <li>If the content is simply related and not essential, use <code>&lt;aside&gt;</code>.</li>
+  <li>If the content is essential but its position in the flow of content isn’t important, use <code>&lt;figure&gt;</code>.</li>
+</ul>
+
+<p>Having said that, if its position relates to previous and subsequent content, use a more appropriate element — e.g., a <code>&lt;div&gt;</code>, a plain old <code>&lt;img&gt;</code>, a <code>&lt;blockquote&gt;</code>, or possibly even <code>&lt;canvas&gt;</code>, depending on its content.</p>
+
+<h2>Don&#8217;t stop there!</h2>
+
+<p>No need to constrain your <code>&lt;figure&gt;</code>s to images and code examples. Other content suitable for use in <code>&lt;figure&gt;</code> includes audio, video, charts (perhaps using <code>&lt;canvas&gt;</code> or <code>&lt;svg&gt;</code>), poems, or tables of statistics.</p>
+
+<p>It may not always be appropriate to use the <code>&lt;figure&gt;</code> element, though. For example, a graphic banner should not be marked up with <code>&lt;figure&gt;</code>. Instead, simply use the <code>&lt;img&gt;</code> element.</p>
+
+<h2>Summary</h2>
+
+<p>As we&#8217;ve illustrated in this article, there are a lot of possibilities for the <code>&lt;figure&gt;</code> element. Just remember to make sure it&#8217;s the most appropriate element for the job. But you already do that for all your markup, right? :)</p>
+<p><a href="http://html5doctor.com/the-figure-figcaption-elements/" rel="bookmark">The figure &#038; figcaption elements</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 13, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/"     class="crp_title">Simplequiz #7: Pinterest</a></li><li><a href="http://html5doctor.com/latest-news-an-awards-win-and-duckduckgo-plugin/"     class="crp_title">Latest News: An awards win and DuckDuckGo plugin</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-figure-figcaption-elements/feed/</wfw:commentRss>
+		<slash:comments>124</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered #5</title>
+		<link>http://html5doctor.com/your-questions-5/</link>
+		<comments>http://html5doctor.com/your-questions-5/#comments</comments>
+		<pubDate>Tue, 02 Mar 2010 14:30:55 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[img]]></category>
+		<category><![CDATA[nav]]></category>
+		<category><![CDATA[outline]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[sectioning]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1400</guid>
+		<description><![CDATA[We're back with our first round up of your questions for 2010. In this article we'll be covering a range of topics including sections and sectioning, the <code>img</code> element, scaling video and a proposal for a <code>field</code> element. <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> We&#8217;re back with our first roundup of your questions for 2010. In this article, we&#8217;ll be covering a range of topics including sections and sectioning, the <code>&lt;img&gt;</code> element, scaling video, and a proposal for a <code>&lt;field&gt;</code> element. </p>
+<h2>Headers and sidebars</h2>
+<p>Ad asked:</p>
+<blockquote><p>Hello,</p>
+<p>I have 2 questions:</p>
+<p>1. If I have my main navigation above the masterhead would best practise be having the nav tag inside of a header tag with the h1 and h2 in a hgroup? Or should the nav and header tag be separate?</p>
+<p>2. I am building a blog in HTML5. It has a blog-like sidebar with articles, contact info and about info in it. Would the best tag to wrap this in be section or aside?</p>
+<p>Thank you so much for your time,<br />
+Ad Taylor</p></blockquote>
+<p>Placing your <code>&lt;nav&gt;</code> within your <code>&lt;header&gt;</code> is fine and valid. However, if it makes more sense to leave it outside, then you can do that too. You don&#8217;t need to put the <code>&lt;hgroup&gt;</code> inside the <code>&lt;nav&gt;</code> though.</p>
+<p>See our articles on <a href="http://html5doctor.com/the-header-element/"><code>&lt;header&gt;</code></a> and <a href="http://html5doctor.com/nav-element/"><code>&lt;nav&gt;</code></a> for more on this.</p>
+<p>Regarding your second question, I would use <code>&lt;aside&gt;</code> (as we&#8217;ve done on the HTML5 doctor site) and then use multiple sections within that. Also see Bruce&#8217;s article on <a href="http://html5doctor.com/designing-a-blog-with-html5/">Designing a blog with HTML5</a>.</p>
+<p>Hope that helps.</p>
+<p>Cheers, Rich</p>
+<h2>HTML5 <code>&lt;img&gt;</code> element</h2>
+<p>Martijn asked:</p>
+<blockquote><p>As you are, according to the slogan, &#8220;helping [me] implement HTML5 today,&#8221; I thought to bother you people with a spec. related question.</p>
+<p>What should an UA do with an image without specified width and height attributes?</p>
+<p>The dimension attributes part of the specification keeps stating &#8220;if specified&#8221; for every rule but doesn&#8217;t give any &#8220;if not specified&#8221;.</p>
+<p>The part of the specification defining the img element itself does not state anything of importance about the dimension attributes apart from how the attributes in the DOM should be created by the UA.</p>
+<p>Interesting is to note that they have omitted these attributes in all their img element examples.</p>
+<p>In the dimension attribute section they go state the following.</p>
+<p> &#8211; The dimension attributes are not intended to be used to stretch the image.</p>
+<p>So we can only use them to make images smaller? This is odd as well so let&#8217;s say by stretch they mean to say both expending and shrinking in size. In this case the attributes can only be used for two cases:</p>
+<p>1. To state the exact width and height of the image. Something that seems redundant unless not using those attributes means the UA can display the image at any size (which it might, as nothing about this is defined in the spec.).</p>
+<p>2. To give a 0 in both attributes. By this I am telling the UA that the image is not to be seen by the user.</p>
+<p>Am I missing something or is the specification missing this?</p>
+<p>Looking forward to getting your prescription ;)</p>
+<p>Kind Regards, Martijn</p></blockquote>
+<p>If no dimension attributes are specified, the browser will leave no space for the image, and once the image has been loaded (after the rest of the page), it will then need to reflow the entire page, as that&#8217;s the first time it knows the size of the image. This can cause the content you&#8217;re reading scrolling off the page.</p>
+<p>If you give the size of the image as attributes in the HTML, the browser will leave space and render the image there once it&#8217;s loaded without reflowing the page. On a mobile phone, reflowing the page unnecessarily drains the battery, and users can get vertigo from the page&#8217;s text jumping around to accommodate images.</p>
+<p>Thanks, Bruce</p>
+<h2>Section and Sectioning</h2>
+<p>Yanoo asked:</p>
+<blockquote><p>Hi,</p>
+<p>What do you mean when you are talking about &#8220;sectioning&#8221;? And why don&#8217;t header and footer require sectioning?</p>
+<p>I think about section and sectioning like about part of something defined. News, comment, page content, sidebar, *header*, and *footer*. Is it bad representation?</p></blockquote>
+<p>Sectioning relates to the headings in some block of related content and defining what is related to what in a hierarchy of headings (<code>&lt;h1&gt;</code>&ndash;<code>&lt;h6&gt;</code>). The outlining algorithm can produce a table of contents from the nested <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, and <code>&lt;aside&gt;</code> elements.</p>
+<p>Headers and footers themselves do not change the outline; a header or footer may contain no headings. If a header or footer <em>does</em> contain a heading, then that heading does come into the outline. See our article on <a href="http://html5doctor.com/the-section-element/">the section element</a>.</p>
+<p>Thanks, Bruce</p>
+<h2>Scaling the Video</h2>
+<p>Ian asked:</p>
+<blockquote><p>Hi there,</p>
+<p>Not sure if this question is an appropriate one, but any help would be really appreciated.</p>
+<p>I&#8217;m going about updating my video website, chutney.ie, and would love to implement HTML5. I am interested in replicating the scaling effect/style used on the <a href="http://www.mozilla.com/en-US/firefox/3.5/firstrun/">Mozilla welcome page</a>.</p>
+<p>Not being overly knowledgeable in this area, I would love to know how to begin &mdash; is this effect a Flash based animation, or something that can be achieved with HTML alone?</p>
+<p>Again, any nudge in the right direction would be great.</p>
+<p>Many thanks,</p>
+<p>Ian</p></blockquote>
+<p>I&#8217;m not sure how Mozilla did it, but you can use some of the Webkit and Mozilla transforms on the <code>&lt;video&gt;</code> element. For example, you can cause the video to grow on hover &mdash; <a href="http://people.opera.com/patrickl/articles/introduction-html5-video/transitions/">see this example in Chrome, Safari, or Opera</a>. You can also use the <code>:target</code> pseudoclass to initiate animations. Alternatively, you can use a JavaScript <code>onClick</code> event to create the same effect. </p>
+<p>You can also combine <code>&lt;video&gt;</code> and <code>&lt;canvas&gt;</code> to provide some interesting results (laying the <code>&lt;canvas&gt;</code> over the <code>&lt;video&gt;</code>). For more on the <code>&lt;video&gt;</code> element and what it can do, please read the <a href="http://dev.opera.com/articles/view/introduction-html5-video/">Introduction to <abbr>HTML</abbr>5 Video</a> on dev Opera written by <a href="http://twitter.com/brucel">Bruce Lawson</a> and <a href="http://twitter.com/patrick_h_lauke">Patrick Lauke</a>.</p>
+<p>Cheers, Rich</p>
+<h2>We need a <code>&lt;field&gt;</code> tag</h2>
+<p>John wrote in and proposed a field element:</p>
+<blockquote><p>Hey there. First off thanks for the site. I was excited to find it. I spent a little time on the W3C site and honestly couldn&#8217;t figure out how to submit suggestions there. So going to submit mine to you guys and maybe you can pass it on (if it is good) or point me to someone that can help. Ok to the point:</p>
+<p>We are getting nice new tags to with HTML5 (nav, footer, etc) to help us create more semantic code. I think what we really need is a <code>field</code> tag &mdash; after all what are fieldsets sets of?</p>
+<p>Everyone wraps up their labels and inputs with some element. Some of us do this with UL, some people do it with DT/DD, some with DIVs and some people out there insist that a form is tabular data.</p>
+<p>We are all just bastardizing these elements because there is no clear semantic wrapper for field elements of a form.</p>
+<p>I think you get the point. I&#8217;m trying to keep this email short. If you think there is anything to this argument, I have a more detailed summary (with example code) at:</p>
+<p><a href="http://john.mirick.me/2009/10/what-is-really-set-of-shouldnt-we-have.html">http://john.mirick.me/2009/10/what-is-really-set-of-shouldnt-we-have.html</a></p>
+<p>I would love to hear your thoughts on this.</p>
+<p>Thanks!<br />
+John</p></blockquote>
+<p>While a field element would be nice &mdash; it would stop the argument over how best to mark-up forms &mdash; you have to ask yourself whether or not it actually adds any semantic or functional value to an HTML document. Yes, wrapping inputs and their labels in a field would make things easier to read and drop the need for the <code>for</code> attribute on the label (since the relationship can be assumed), but doing so would not be backwards compatible. In theory, we could continue to add <code>for</code> until there is a suitable time to drop it, but again I question the value of such a tag.</p>
+<p>The purpose of wrapping form input/label pairs is generally to ease styling. My personal stance is that unless there are case studies showing how such an element can add more value to HTML forms, this proposal won&#8217;t make it very far.</p>
+<p>Regards, Mike</p>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions. If you&#8217;ve got a query about the HTML5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help. </p>
+<p><a href="http://html5doctor.com/your-questions-5/" rel="bookmark">Your Questions Answered #5</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on March 2, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-5/feed/</wfw:commentRss>
+		<slash:comments>12</slash:comments>
+		</item>
+		<item>
+		<title>Aside Revisited</title>
+		<link>http://html5doctor.com/aside-revisited/</link>
+		<comments>http://html5doctor.com/aside-revisited/#comments</comments>
+		<pubDate>Wed, 28 Oct 2009 14:23:57 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[article]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1015</guid>
+		<description><![CDATA[Since the <abbr>HTML</abbr>5 specification is not yet final, we can expect changes to improve on the good bits and cut out the bad bits. <code>aside</code> &#8212; a misunderstood good bit &#8212; has now been tweaked based on feedback from the web development community. In this article, we'll take a look at what's changed.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/"     class="crp_title">HTML5 adaptive images: end of round one</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>Since the <abbr>HTML</abbr>5 specification is not yet final, we can expect changes to improve on the good bits and cut out the bad bits. <code>aside</code> &#8212; a misunderstood good bit &#8212; has now been tweaked based on feedback from the web development community. In this article, we&#8217;ll take a look at what&#8217;s changed.</p>
+<h2>Aside redefined</h2>
+<p>When we previously discussed <code>aside</code> in &#8220;<a href="/understanding-aside/">Understanding Aside</a>&#8220;, its definition suggested that it should be used for content tangentially related to the content surrounding it, such as related reading links and glossaries. It did <em>not</em> appear to be an appropriate element for holding secondary content related to the site as a whole, typically known as a &#8220;sidebar&#8221;.</p>
+<p>From the comments here and elsewhere, you can see this definition was not accepted by developers. The spec writers listened, and <code>aside</code> is now acceptable for secondary content when not nested within an <code>article</code> element.</p>
+<h2>Examples of <code>aside</code> in two different contexts</h2>
+<p>With the new definition of <code>aside</code>, it&#8217;s crucial to remain aware of its context. When used <em>within</em> an <code>article</code> element, the contents should be specifically related to that article (e.g., a glossary). When used <em>outside</em> of an <code>article</code> element, the contents should be related to the site (e.g., a blogroll, groups of additional <a href="/nav-element/">navigation</a>, and even advertising if that content is related to the page).</p>
+<p>The two uses of <code>aside</code> can be best illustrated with an example:</p>
+<pre><code>&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;My Blog&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;article&gt;
+    &lt;h1&gt;My Blog Post&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua.&lt;/p&gt;
+    &lt;aside&gt;
+      &lt;!-- Since this aside is contained within an article, a parser
+      should understand that the content of this aside is directly related
+      to the article itself. --&gt;
+      &lt;h1&gt;Glossary&lt;/h1&gt;
+      &lt;dl&gt;
+        &lt;dt&gt;Lorem&lt;/dt&gt;
+        &lt;dd&gt;ipsum dolor sit amet&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/aside&gt;
+  &lt;/article&gt;
+  &lt;aside&gt;
+    &lt;!-- This aside is outside of the article. Its content is related
+    to the page, but not as closely related to the above article --&gt;
+    &lt;h2&gt;Blogroll&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;My Friend&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;My Other Friend&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;My Best Friend&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/aside&gt;
+&lt;/body&gt;
+</code></pre>
+<h2>Conclusion</h2>
+<p>The <code>aside</code> element can now represent secondary content when used outside of an <code>article</code>. Keep in mind that <code>aside</code> &#8212; and, more generally, secondary content &#8212; does not <em>necessarily</em> mean &#8220;sidebar&#8221;. The style of the content should not dictate the use of the element. For content that is not the primary focus of an article (or page) but is still <em>related</em> to the article (or page), <code>aside</code> is what you need, regardless of its visual design.</p>
+<p><a href="http://html5doctor.com/aside-revisited/" rel="bookmark">Aside Revisited</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 28, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/"     class="crp_title">HTML5 adaptive images: end of round one</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/aside-revisited/feed/</wfw:commentRss>
+		<slash:comments>96</slash:comments>
+		</item>
+		<item>
+		<title>Designing a blog with html5</title>
+		<link>http://html5doctor.com/designing-a-blog-with-html5/</link>
+		<comments>http://html5doctor.com/designing-a-blog-with-html5/#comments</comments>
+		<pubDate>Tue, 30 Jun 2009 14:00:21 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[article]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[footer]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[time]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=47</guid>
+		<description><![CDATA[This article was updated 27 May 2014 to use the &#60;main&#62; element to denote the main content of the page (was previously &#60;div&#62;). Much of HTML 5&#8242;s feature set involves JavaScript APIs that make it easier to develop interactive web pages but there are a slew of new elements that allow you extra semantics in [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p class="warning">This article was updated 27 May 2014 to use the <a href="http://html5doctor.com/the-main-element/">&lt;main&gt; element</a> to denote the main content of the page (was previously &lt;div&gt;).</p>
+<p>Much of <abbr>HTML</abbr> 5&#8242;s feature set involves JavaScript <abbr>API</abbr>s that make it easier to develop interactive web pages but there are a slew of new elements that allow you extra semantics in your conventional Web 1.0 pages. In order to investigate these, let&#8217;s look at marking up a blog.</p>
+<p>Firstly what we&#8217;ll do is use the <code>header</code>, <code>footer</code>, <code>main</code> and <code>nav</code> elements to mark up the broad structure of the page. <strong>Doing this will make your site <a href="http://www.brucelawson.co.uk/2014/should-you-use-html5-header-and-footer/">more accessible to real people</a> who use some assistive technologies.</strong></p>
+<p>Next, we&#8217;ll make the blog comments form much smarter by using the new data types and built-in validation available in <abbr>HTML</abbr> 5-aware browsers. </p>
+<p>Then we&#8217;ll do some work on the guts of the page, using <abbr>HTML</abbr> 5&#8217;s <code>article</code> elements to better mark up blog posts and comments and show how to use the sectioning elements to better structure accessible hierarchical headings on sites that are <abbr>CMS</abbr>-driven. As blogs are chronologically ordered, we&#8217;ll  see what <abbr>HTML 5</abbr> offers us for representing dates and times.</p>
+<p>So take the phone of the hook, and make a cup of tea and we&#8217;ll get started.</p>
+<section>
+<h2>Setting the DOCTYPE</h2>
+<p><abbr>HTML</abbr> 5, when used as plain <abbr>HTML</abbr> rather than its <abbr>XHTML</abbr> 5 sibling doesn&#8217;t need a DOCTYPE. But all browsers do, otherwise they go into <a href="http://en.wikipedia.org/wiki/Quirks_mode">Quirksmode</a>, which you don&#8217;t want: the collision of <abbr>HTML</abbr> 5 and Quirksmode is like matter and anti-matter meeting, and will cause a negative reality inversion that will make your underwear catch fire. </p>
+<p>You&#8217;ve been warned, so at the top of your document, you need the line <code>&lt;!DOCTYPE html&gt;</code>.</p>
+<p>Some sites &#8220;use&#8221; <abbr>HTML</abbr> 5, when in actual fact all they&#8217;ve done is take their existing code and change the DOCTYPE. That&#8217;s fine and dandy if you&#8217;ve been using valid, semantic code as <abbr>HTML</abbr> 5 is very similar to valid <abbr>HTML</abbr> 4.01. <a href="http://meyerweb.com/eric/thoughts/2009/01/02/an-event-apart-and-html-5/">Eric Meyer mentions small differences</a> like &#8220;not permitting a value attribute on an image submit&#8221;, and there are a few differences between the languages, summarised in the document <a href="http://dev.w3.org/html5/html4-differences/">HTML 5 differences from HTML 4</a>.</p>
+<p>However, I don&#8217;t want simply to  rebadge my existing code, but to use some of the new structural elements now.</p>
+</section>
+<section>
+<h2>Using some new structural elements</h2>
+<p>My blog &#8211; like millions of others &#8211; has a header denoted by <code>&lt;div id="header"&gt;</code>, a footer <code>&lt;div id="footer"&gt;</code>, some articles (wrapped by an area called &#8220;content&#8221;, <code>&lt;div id="content"&gt;</code>) and some navigation (wrapped up in an area called &#8220;sidebar&#8221; <code>&lt;div id="sidebar"&gt;</code>). Most sites on the Web have similar constructs, although depending on your choice they might be called &quot;branding&quot; or &quot;info&quot; or &quot;menu&quot;, or you might use the equivalent words in your own language. </p>
+<p>Although these all have very different functions within the page, they  use  the same generic <code>div</code> in the markup. as <abbr>HTML 4</abbr> has no other way to code them. <abbr>HTML</abbr> 5 has new elements for distinguishing  these logical areas: <code>header</code>, <code>nav</code>, <code>footer</code> and friends. (There&#8217;s  more on this in an artice by Lachlan Hunt on A List Apart: <a href="http://www.alistapart.com/articles/previewofhtml5">A Preview of <abbr>HTML</abbr> 5</a>.)</p>
+<p>The overall aim is to replace this structure:</p>
+<p><img src="/wp-content/uploads/2009/06/html5-before1.gif" alt="structure chart before redesign"></p>
+<p>with this:</p>
+<p><img src="/wp-content/uploads/2009/06/html5-after12.gif" alt="structure chart after redesign"></p>
+<p>It&#8217;s a simple matter to change the <abbr>HTML</abbr> <code>div</code>s into the new elements. The only difficulty I had was deciding which element to use to mark up my sidebar, as it also includes a search field and &#8220;colophon&#8221; information as well as site-wide navigation. I decided against the <code>aside</code> element,  as <a href="http://dev.w3.org/html5/spec/Overview.html#the-aside-element">the spec says</a> it &#8220;represents a section of a page that consists of content that is tangentially related to the content around the aside element, and which could be considered separate from that content&#8221;, but it&#8217;s nevertheless <em>content</em> rather than navigation. So I decided to go for the <code>nav</code> element as the closest fit.</p>
+<p>I&#8217;ve wrapped the main content in a <a href="http://html5doctor.com/the-main-element/">&lt;main&gt; element</a>, which maps to the ARIA <code>role=main</code> so that screenreaders and other assistive technologies can easily find the main content. Note that you should only use this element once per page.</p>
+<h2>New form attributes</h2>
+<p>As well as the main structural item on the page, I&#8217;ve added some new attributes on <code>input</code> elements in the comments form.</p>
+<p><abbr>HTML</abbr> 5 was designed to reflect what developers actually do rather than to reflect a philosophical purity, and that&#8217;s very clearly manifested in the new attributes which mean the browser takes up much of the work currently done by developers re-inventing validation routines in JavaScript. (Extending forms functionality was <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/introduction.html#history-0">how the <abbr>HTML</abbr> 5 spec began</a>).</p>
+<p>So I amended the email input field in the comments to be <code>input type="email"</code> which means that when the user submits the form, an <abbr>HTML</abbr> 5-aware browser will use built-in validation routines to check that it&#8217;s in the correct format, without any JavaScript. Check it out in the current version of <a href="http://www.opera.com/">Opera</a>, as that the only full implementation at the time of writing (June 2009), and note that it also adds a &#8220;mail&#8221; icon in the input field as a cue to the user.</p>
+<p>There are similar input validation routines triggered by some of the  new <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/forms.html#attr-input-type"><code>input</code> types</a>, such as <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/forms.html#url-state"><code>url</code></a> (which I use on the field that asks for the user&#8217;s web address), <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/forms.html#number-state"><code>number</code></a> and <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/forms.html#attr-input-pattern"><code>pattern</code></a> which compares the input with an arbitrary regular expression.</p>
+<p>Another good example is <code>input type="date"</code>, which pops up a calendar widget/ date picker when the user focusses on the input field. You can <a href="http://people.opera.com/brucel/demo/html5-forms-demo.html">test the date picker</a>, or here&#8217;s a screenshot from Opera 9.6:</p>
+<p><img src="/wp-content/uploads/2009/06/html5-form-date.gif" alt="date picker pops up next to input field"></p>
+<p>A very useful new attribute I used on both <code>input</code> fields for commenter&#8217;s name and email address, and the comment <code>textarea</code> was <code>type="required"</code> which generates a message on submission if the fields are left blank. Each different localisation of a browser would need to have a different message, and it&#8217;s not (so far) customisable by the developer. </p>
+<p><img src="/wp-content/uploads/2009/06/html5-required-feedback.gif" alt="red-bordered browser message 'You have to specify a value' next to unfilled required field"></p>
+<p>The good thing with all this new form fabulousness is it&#8217;s all formed around new attributes on an exisiting element, so people using older browsers just see a plain old <code>input</code> field.</p>
+<section>
+<h3>A note on screenreaders and <abbr>HTML 5</abbr></h3>
+<p>I hope screenreaders are ready for these new interactions; I asked the html 5 group to formally <a href="http://lists.w3.org/Archives/Public/public-html/2007Jul/1249.html">invite screenreader vendors to participate</a> in the specification; to my knowledge, <a href="http://lists.w3.org/Archives/Public/public-html/2008Aug/0795.html">none have done so</a>. However, using &lt;header&lt;, &lt;footer>, &lt;nav> and &lt;main> gives <a href="http://www.brucelawson.co.uk/2014/should-you-use-html5-header-and-footer/">real benefits to some assistive technology users</a>.</p>
+</section>
+</section>
+<section>
+<h2>Laying out the new elements</h2>
+<p>It&#8217;s not too hard to layout the new elements. In all the non-<abbr>IE</abbr> browsers, you can lay out anything using <abbr>CSS</abbr> &#8211; even a <a href="http://people.opera.com/brucel/demo/html5-nonsense-element.html">nonsense element</a>. One gotcha  is that that the current crop of browsers have no &#8220;knowledge&#8221; of these elements, although <a href="http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML_5)">support is improving all the time</a>.</p>
+<p>All browsers have default settings for the elements they &#8220;know about&#8221;&mdash;how much padding, margin they element gets, does it display as a block or inline?. (Here&#8217;s a <a href="http://www.w3.org/TR/CSS2/sample.html">sample default stylesheet</a>.) Unless over-ridden by <abbr>CSS</abbr>, these defaults apply. But the browsers don&#8217;t know about <code>header</code>, <code>nav</code> and the like, so have no defaults to apply to them.</p>
+<p>I got terrible rendering oddities until I explicitly told the browsers </p>
+<pre><code>header, footer, nav, article, main {display:block;}</code></pre>
+<section>
+<h3><abbr>IE</abbr> layout</h3>
+<p>There&#8217;s one gotcha about styling <abbr>HTML</abbr> 5 pages in <abbr>IE</abbr>: it doesn&#8217;t work. You can force it to quite easily with a JavaScript hack <code>document.createElement('element name')</code>. (Lachlan Hunt gets to the bottom of <a href="http://blog.whatwg.org/supporting-new-elements-in-ie">why IE needs this</a>.)</p>
+<p>For your convenience, Remy Sharp has written an <a href="http://remysharp.com/2009/01/07/html5-enabling-script/"><abbr>HTML</abbr> 5 enabling script</a> which I use in the header to conjure all the missing elements into existence all at once.</p>
+<p>But let&#8217;s be clear: <strong>this won&#8217;t work if your <abbr>IE</abbr> user doesn&#8217;t have JavaScript turned on</strong>. How much of that&#8217;s a big deal that is for you to decide. Pragmatically, it seems to me that the sites that will benefit the most from HTML 5’s new “Ajax”-style features, such as drag-and-drop, are the sites that currently have no hope of working without JavaScript. </p>
+</section>
+<section>
+<h3>Firefox 2 and Camino 1 layout</h3>
+<p>Firefox 2 and Camino 1 both use Gecko 1.9 which has a bug and so gets grumpy if you don&#8217;t serve the page as <abbr>XHTML</abbr>. (Go figure; that&#8217;s almost enough to trigger a negative reality inversion and you know how bad that can be). However, Firefox and Camino users upgrade frequently so Firefox is in version 3, while Camino 2 beta is out, so the problem will soon cease to exist. (Read more at <a href="/how-to-get-html5-working-in-ie-and-firefox-2/">How to get HTML5 working in IE and Firefox 22</a> by Remy Sharp.)</p>
+</section>
+</section>
+<section>
+<h2>What&#8217;s the point of those new structural elements?</h2>
+<p>Well, they add semantics to the page. The browser now knows which area of your site is the header or the footer because there are <code>header</code> and <code>footer</code> elements, whereas <code>div</code> might be called &#8220;branding&#8221; and &#8220;legal&#8221;, or even  &#8220;<span lang="fr">en-tete</span>&#8221; and &#8220;<span lang="fr">pied-de-page</span>&#8221; or &#8220;<span lang="de">kopfzeile</span>&#8221; and &#8220;<span lang="de">fusszeile</span>&#8220;.</p>
+<p>But <em>so what</em>?</p>
+<p>Robin Berjon expressed it beautifully in a <a href="http://www.alistapart.com/comments/semanticsinhtml5?page=2#12">comment on <cite>A List Apart</cite></a>: </p>
+<blockquote cite="http://www.alistapart.com/comments/semanticsinhtml5?page=2#12">
+<p>Pretty much everyone in the Web community agrees that “semantics are yummy, and will get you cookies”, and that’s probably true. But once you start digging a little bit further, it becomes clear that very few people can actually articulate a reason why. So before we all go another round on this, I have to ask: what’s it you wanna do with them darn semantics?</p>
+<p>The general answer is “to repurpose content”. That’s fine on the surface, but you quickly reach a point where you have to ask “repurpose to what?” &hellip; I think <abbr>HTML</abbr> should add only elements that either expose functionality that would be pretty much meaningless otherwise (e.g. <code>canvas</code>) or that provide semantics that help repurpose for Web browsing uses.</p>
+</blockquote>
+<p>In my view, there are a couple of things I want to do with those semantics. The first is for search engine use; it&#8217;s easy to imagine Messrs Google or Yahoo! giving lower weighting to content in <code>footer</code> elements, or extra weight to content in the <code>header</code>. The second reason is to make the site navigable for people with disabilities. People with learning difficulties might instruct their browser always to put the articles before the navigation, for example. User agents might very well have a keyboard shortcut which jumped straight to the <code>nav</code> for example, or jumped straight past the navigation, in a programmatic implementation of &#8220;<a href="http://juicystudio.com/article/skip-links.php">skip links</a>&#8220;.</p>
+<p>Which brings me to&hellip;</p>
+</section>
+<section>
+<h2>Further refining the <abbr>HTML</abbr> 5 structure</h2>
+<section>
+<h3>The blog home page</h3>
+<p>An interesting thing about a blog homepage is that there are generally the last 5 or so posts, each with a heading, a &quot;body&quot; and data about the post (time, who wrote it, how many comments etc.) and usually a link to another page that has the full blog post (if the homepage just showed an excerpt) and its comments.</p>
+<p><abbr>HTML</abbr> 5 has an <a href="http://dev.w3.org/html5/spec/Overview.html#the-article-element"><code>article</code> element</a> which I use to wrap each story: </p>
+<blockquote cite="http://dev.w3.org/html5/spec/Overview.html#the-article-element">
+<p>The article element represents a section of a page that consists of a composition that forms an independent part of a document, page, or site. This could be a forum post, a magazine or newspaper article, a Web log entry, a user-submitted comment, or any other independent item of content.</p>
+</blockquote>
+<p>Let&#8217;s look in more detail at the guts of how I mark up each blogpost.</p>
+<h3>Anatomy of a blog post</h3>
+<p><img src="/wp-content/uploads/2009/06/html5-article-outline.gif" alt="diagram of article structure; explanation follows"></p>
+<p>The wrapper is no longer a generic <code>div</code> but an <code>article</code>. Within that is a <code>header</code>, comprising a heading (the title of the blogpost) and then the time of publication,  marked up using the <code>time</code> element.</p>
+<p>Then there are the pearls of wit and wisdom that consitute each of my posts, marked up as paragraphs, blockquotes etc., and is pulled unchanged out of the database. Following that is data about the blog post (category, how many comments) marked up as a footer and, in the case of pages that show a single blogpost, there are comments expressing undying admiration and love. Finally, there may be navigation from one article to the next.</p>
+<section>
+<h4>Data about the article</h4>
+<p>Following the content there is some &#8220;metadata&#8221; about the post: what category it&#8217;s in, how many comments there are. I&#8217;ve marked this up as <code>footer</code>.  I previously used <a href="http://www.whatwg.org/specs/web-apps/current-work/#the-aside-element"><code>aside</code></a> which &#8220;represents a section of a page that consists of content that is tangentially related to the content around the aside element, and which could be considered separate from that content&#8221; but decided that it was too much of a stretch; data <em>about</em> a post is intimately related.</p>
+<p><a href="http://www.whatwg.org/specs/web-apps/current-work/#the-footer-element"><code>footer</code></a> is a much better fit: &#8220;A footer typically contains information about its section such as who wrote it, links to related documents, copyright data, and the like.&#8221; I was initially thrown off-course by the presentational name of the element; my use here isn&#8217;t at the bottom of the page, or even at the bottom of the article, but it certainly seems to fit the bill &#8211; it&#8217;s information about its section, containing author name, links to related documents (comments) and the like. There&#8217;s no reason that you can&#8217;t have more than one <code>footer</code> on page; the spec&#8217;s description says &quot;the footer element represents a footer for the section it applies to&quot; and a page may have any number of sections. The spec also says &quot;Footers don&#8217;t necessarily have to appear at the end of a section, though they usually do.&quot;</p>
+</section>
+<section>
+<h4>Comments</h4>
+<p>I&#8217;ve marked up comments as <code>article</code>s, too, as the spec says that an <code>article</code> could be &#8220;a user-submitted comment&#8221;, but nested these inside the parent <code>article</code>. The spec says</p>
+<blockquote cite="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-article-element"><p>When article elements are nested, the inner article elements represent articles that are in principle related to the contents of the outer article. For instance, a Web log entry on a site that accepts user-submitted comments could represent the comments as article elements nested within the article element for the Web log entry.</p></blockquote>
+<p>These are headed with the  date and the time of the comment and name of its author&mdash;if you want, you can wrap these in a <code>header</code>, too, but to me it seems like markup for the sake of it.</p>
+</section>
+<section>
+<h4>Times and dates</h4>
+<p>Most blogs, news sites and the like provide dates of article publication.</p>
+<p>Microformats people, the most vocal advocates of marking up dates and times, believe that  computer-formatted dates are best for people: their <a href="http://microformats.org/wiki/index.php?title=date-design-pattern&#038;diff=37974&#038;oldid=34166">wiki  says</a> &#8220;the ISO8601 YYYY-MM-DD format for dates is the best choice that is the most accurately readable for the most people worldwide, and thus the most accessible as well&#8221;. I don&#8217;t agree (and neither do candidates in my vox pop of non-geeks, my wife, brother and parents). </p>
+<p>I do agree with the microformats people that <a href="http://microformats.org/wiki/principles">hidden metadata is not as good as visible, human-readable data</a> and therefore elected not to use the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-article-element"><code>pubdate</code> attribute of <code>article</code></a>.</p>
+<p>Therefore I&#8217;ve used the <abbr>HTML</abbr> 5 <code>time</code> element to give a  machine parsable date to computers, while giving people a human-readable date. Blog posts get the date, while comments get the date and time.</p>
+<p>The spec is quite hard to understand, in my opinion, but the format you use is 2004-02-28T15:19:21+00:00, where T separates the date and the time, and the + (or a -) is the offset from <a href="http://en.wikipedia.org/wiki/Coordinated_Universal_Time"><abbr>UTC</abbr></a>. Dates on their own don&#8217;t need a timezone; full datetimes do. Oddly, the spec suggests that if you use a time without a date, you don&#8217;t need a timezone either.</p>
+<p>There&#8217;s considerable controversy over the time element at the moment. Recently one of the inner circle, <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-March/018687.html">Henri Sivonen, wrote</a> that it&#8217;s for marking up future events only and not for timestamping blogs or news items: &#8220;The expected use cases of hCalendar are mainly transferring <i>future</i> event entries from a Web page into an application like iCal.&quot; This seems very silly to me; if there is a <code>time</code> element, why not allow me to mark up any time or date? </p>
+<p>The <a href="http://dev.w3.org/html5/spec/Overview.html#the-time-element">spec for <code>time</code></a> does not mention the future event-only restriction: &quot;The time element represents a precise date and/or a time in the proleptic Gregorian calendar&quot; and gives three examples, two of which are about the past and none of which are &quot;future events&quot;. Although the spec doesn&#8217;t (currently) limit use of the element, it does limit format to precise dates in &quot;the proleptic Gregorian calendar&quot;. This means I can mark up an archive page for &quot;all blog posts today&quot; using time, but not &quot;all July 2008 posts&quot; as that&#8217;s not a full YYYY-MM-DD date. Neither can you mark up precise, but ancient dates, so the date of Julius Ceasar&#8217;s assassination, <a href="http://en.wikipedia.org/wiki/Ides_of_March">15 March 44 <abbr>BC</abbr></a> is not compatible.</p>
+<p>I don&#8217;t expect this to be resolved. If you think as I do, feel free to <a href="http://www.whatwg.org/mailing-list#specs">mail the Working Group</a> to express your feeling!</p>
+</section>
+</section>
+<p>Hopefully, this brief article (geddit?) has given you a quick overview of how to use some of the new semantic elements. Let me know what you think!</p>
+<p><a href="http://html5doctor.com/designing-a-blog-with-html5/" rel="bookmark">Designing a blog with html5</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 30, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/designing-a-blog-with-html5/feed/</wfw:commentRss>
+		<slash:comments>143</slash:comments>
+		</item>
+		<item>
+		<title>Understanding aside</title>
+		<link>http://html5doctor.com/understanding-aside/</link>
+		<comments>http://html5doctor.com/understanding-aside/#comments</comments>
+		<pubDate>Fri, 19 Jun 2009 13:00:21 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[article]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[HTML 5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=154</guid>
+		<description><![CDATA[HTML 5 offers a new element to mark additional information that can enhance an article but isn&#8217;t necessarily key to understanding it. However, in the interpretation of &#60;aside&#62; there lies confusion as to how it can be used, and with that there is demand for the Doctor to step up and clear the air. In [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><abbr title="Hypertext Mark-up Language">HTML</abbr> 5 offers a new element to mark additional information that can enhance an article but isn&#8217;t necessarily key to understanding it. However, in the interpretation of <code>&lt;aside&gt;</code> there lies confusion as to how it can be used, and with that there is demand for the Doctor to step up and clear the air. In this article I will look at what <code>&lt;aside&gt;</code> was created for, including sample uses and how not to use this useful, misunderstood element.<span id="more-154"></span></p>
+<p>First, a look at how the HTML 5 specification defines <code>&lt;aside&gt;</code>:</p>
+<blockquote><p>The aside element represents a section of a page that consists of content that is tangentially related to the content around the aside element, and which could be considered separate from that content. Such sections are often represented as sidebars in printed typography.</p></blockquote>
+<p>What can often trip-up someone reading the specification is the use of the word &#8220;sidebar&#8221;. I will go into detail about this later in the article, for now you should be aware that what is said there might not quite mean what you first think. Content within an <code>&lt;aside&gt;</code> should be stand-alone information that is related to the article in context. If your <code>&lt;aside&gt;</code> content meets this requirement, then you have a useful element to not only semantically wrap that content but to even hook <abbr title="Cascading Style Sheet">CSS</abbr> styles on.</p>
+<p>How strict should this relationship be? Very. Good <code>&lt;aside&gt;</code> content examples include pull-quotes, a glossary or even related links.</p>
+<h2>Example Uses</h2>
+<p>As suggested in the specification, a pull-quote is an excellent example of a piece of content that is separate from the main article body but still related. Points of interest highlighted.</p>
+<pre><code>&lt;article&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Lorem Ipsum Dolor Sit Amets&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;p&gt;Aliquam erat volutpat. Vestibulum eleifend pellentesque urna, at 
+    sodales est faucibus sit amet. Praesent in mi dui. <strong>&lt;q&gt;Aliquam sed 
+    bibendum nisl. Mauris pharetra enim sit amet ipsum dictum placerat. Sed 
+    lacinia pulvinar iaculis. Nam sit amet hendrerit purus.&lt;/q&gt;</strong> Sed a urna 
+    laoreet lorem pulvinar fermentum. Aenean vel luctus libero. Ut tincidunt 
+    metus sagittis ante viverra feugiat.&lt;/p&gt;
+    <strong>&lt;aside&gt;
+        &lt;q&gt;Mauris pharetra enim sit amet ipsum dictum placerat.&lt;/q&gt;
+    &lt;/aside&gt;</strong>
+    &lt;p&gt;Nulla quis lacus non quam luctus vestibulum. Pellentesque imperdiet 
+    risus gravida ante consectetur fermentum. Vivamus et est nec risus volutpat 
+    elementum. Ut faucibus, lectus consectetur volutpat dapibus, quam diam 
+    luctus enim, vitae mollis enim purus non ante.&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+<p>For more about the <code>&lt;header&gt;</code> element see Richard&#8217;s article, &#8220;<a href="http://html5doctor.com/the-header-element/">The &lt;header&gt; Element</a>.</p>
+<p>On a styled web page or, more common, in a printed article this would be represented visually as a highlighted quote to the side of the main article. This <code>&lt;aside&gt;</code> is related to the content but does not need to be part of the article body as it can be understood without the extra information, or in this case without the duplicate quote.</p>
+<p>Another example would be a glossary of terminologies used in an article:</p>
+<pre><code>&lt;article&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Web Technologies&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;p&gt;Curabitur dignissim lorem a <strong>CSS</strong> diam posuere tempor. Nam hendrerit, 
+    eros vel condimentum tempor, ipsum justo cursus justo, quis vestibulum 
+    turpis turpis sit amet tellus. Quisque quis <strong>PHP</strong> magna eget ipsum faucibus 
+    bibendum at non diam. Sed sapien est, cursus ac ullamcorper id, egestas vel 
+    urna <strong>JavaScript</strong>. Nullam aliquam dolor vitae quam pharetra auctor.&lt;/p&gt;
+    &lt;aside&gt;
+        &lt;dl&gt;
+            &lt;dt&gt;CSS&lt;/dt&gt;
+            &lt;dd&gt;A set of standards for styling documents presented on the 
+            World Wide Web.&lt;/dd&gt;
+            &lt;dt&gt;PHP&lt;/dt&gt;
+            &lt;dd&gt;A server-side scripting language suited to dynamic HTML document 
+            generation for the web.&lt;/dd&gt;
+            &lt;dt&gt;JavaScript&lt;/dt&gt;
+            &lt;dd&gt;A client-side scripting language used for manipulating HTML documents 
+            within a browser.&lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/aside&gt;
+&lt;/article&gt;</code></pre>
+<h2>Incorrect use of <code>&lt;aside&gt;</code></h2>
+<p>It is easy to confuse this element for something it isn&#8217;t, and as mentioned earlier the definition of <code>&lt;aside&gt;</code> can trip-up a few developers. The most common misconception of how this element should be used is for the standard sidebar. While there is usually a degree of relation between sidebar content and the content in an article, it is not enough to be considered fit for an <code>&lt;aside&gt;</code>. Navigation, ads, search boxes, blogrolls and so on are not directly related to the article and therefore do not justify the use of an <code>&lt;aside&gt;</code>.</p>
+<p>In the definition of <code>&lt;aside&gt;</code> it is key to note that it refers to sidebars in printed media, such as a magazine or leaflet. A &#8220;sidebar&#8221; in a magazine might contain additional notes on the article in context, translating this to HTML 5 would consider this an <code>&lt;aside&gt;</code>. If the printed article on <abbr title="Hypertext Pre-Processor">PHP</abbr> had an ad for &#8220;Superior, Cheap, Web Hosting&#8221; as a sidebar, this would not be classified as an <code>&lt;aside&gt;</code>. In such cases, look at other elements for more semantic mark-up.</p>
+<h2>Closing Thoughts</h2>
+<p>Like any HTML element, when used correctly the <code>&lt;aside&gt;</code> element can be very useful in semantically marking-up page content. An <code>&lt;aside&gt;</code> can be used to enhance an article with additional information, or highlighting parts that the reader may find interesting. Asides are stand-alone, non-essential as part of an article but when used correctly it can be an extra level of information for your content. Don&#8217;t try to force content into an <code>&lt;aside&gt;</code>, if it&#8217;s not tangentially related to the article then it shouldn&#8217;t be there. HTML 5 offers many new elements to mark-up your web pages, use them wisely.</p>
+<p><a href="http://html5doctor.com/understanding-aside/" rel="bookmark">Understanding aside</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 19, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/understanding-aside/feed/</wfw:commentRss>
+		<slash:comments>62</slash:comments>
+		</item>
+	</channel>
+</rss>

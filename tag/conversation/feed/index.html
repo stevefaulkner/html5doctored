@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; conversation</title>
+	<atom:link href="http://html5doctor.com/tag/conversation/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 18 Aug 2015 18:11:14 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>A little more conversation with dialog</title>
+		<link>http://html5doctor.com/a-little-more-conversation-with-dialog/</link>
+		<comments>http://html5doctor.com/a-little-more-conversation-with-dialog/#comments</comments>
+		<pubDate>Wed, 12 Aug 2009 13:57:12 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[conversation]]></category>
+		<category><![CDATA[dd]]></category>
+		<category><![CDATA[dialog]]></category>
+		<category><![CDATA[dt]]></category>
+		<category><![CDATA[HTML 5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=707</guid>
+		<description><![CDATA[Less action, more conversation. That's how that Elvis song went, right? OK, perhaps not. Regardless, the new dialog element introduced in HTML 5 is all about marking up the conversation, and it uses a couple of elements you may have already heard of. Sure, it's a little less action than something like audio, but it is still a useful element to semantically mark up many forms of dialogue.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Less action, more conversation. That&#8217;s how that <a href="http://en.wikipedia.org/wiki/A_Little_Less_Conversation">Elvis song</a> went, right? OK, perhaps not. Regardless, the new <code>dialog</code> element introduced in <abbr title="Hypertext Mark-up Language">HTML</abbr> 5 is all about marking up the conversation, and it uses a couple of elements you may have already heard of. Sure, it&#8217;s a little less action than something like <a href="http://html5doctor.com/native-audio-in-the-browser/"><code>audio</code></a>, but it is still a useful element to semantically mark up many forms of dialogue.<span id="more-707"></span></p>
+<h2>Defining dialog</h2>
+<p>The <a href="http://dev.w3.org/html5/spec/Overview.html">HTML 5 specification</a> defines <code>dialog</code> as follows:</p>
+<blockquote><p>The dialog element represents a conversation, meeting minutes, a chat transcript, a dialog in a screenplay, an instant message log, or some other construct in which different players take turns in discourse.</p>
+</blockquote>
+<p>That&#8217;s a lot of different types of dialogue that can be marked up. A <code>dialog</code> element contains the <code>dt</code> element for a speaker&#8217;s name, and <code>dd</code> for what they said. That&#8217;s right, <code>dialog</code> borrows two elements from <code>dl</code> to pair up a speaker and what they say. The definition of a <code>dl</code> itself has changed in HTML 5 to become an association list, pairing names (<code>dt</code>) with values (<code>dd</code>). <code>dialog</code> uses this in a similar way, pairing a name of a speaker with whatever they said.</p>
+<p>This means that the <code>dt</code> is the source (speaker) of what is within the following <code>dd</code>, and the <code>dd</code> contains a quotation from that source. Therefore, <code>dialog</code> does not require the use of <code>cite</code>, <code>blockquote</code> or <code>q</code>. The only time a <code>q</code> would be appropriate within <code>dialog</code> would be if what one person said contained a quotation from someone else. It is also possible to use <code>p</code> within a <code>dd</code>, should you need to mark-up large responses as paragraphs.</p>
+<p>Also, despite the fact both <code>dialog</code> and <code>dl</code> share <code>dt</code> and <code>dd</code>, a dialogue should never be marked up with a <code>dl</code>. However, appropriate uses of <code>dl</code> is beyond the scope of this article and will be revisited in a separate article.</p>
+<h2>Enough talk, let&#8217;s get practical</h2>
+<h3>Marked Up Humour</h3>
+<p>My first example is very straight forward. Using <code>dialog</code>, I will mark up a hilarious &#8220;Knock, Knock&#8221; joke.</p>
+<pre><code>&lt;dialog&gt;
+  &lt;dt&gt;Sam&lt;/dt&gt;
+  &lt;dd&gt;Knock, Knock.&lt;/dd&gt;
+  &lt;dt&gt;Eric&lt;/dt&gt;
+  &lt;dd&gt;Who&apos;s there?&lt;/dd&gt;
+  &lt;dt&gt;Sam&lt;/dt&gt;
+  &lt;dd&gt;Justin.&lt;/dd&gt;
+  &lt;dt&gt;Eric&lt;/dt&gt;
+  &lt;dd&gt;Justin who?&lt;/dd&gt;
+  &lt;dt&gt;Sam&lt;/dt&gt;
+  &lt;dd&gt;Justin time for dinner!&lt;/dd&gt;
+&lt;/dialog&gt;
+</code></pre>
+<p>Note that two people are in this conversation, Sam and Eric. Their names are marked up with <code>dt</code> and what they said is placed in <code>dd</code>. Wrap it all up in a the fresh <code>dialog</code>, and you have a semantically marked up conversation!</p>
+<p>Once your sides have stopped splitting, I&#8217;d like to direct you to something a little more complex: how <a href="http://twitter.com">Twitter</a> can take advantage of <code>dialog</code>.</p>
+<h3>A Twitter Conversation</h3>
+<p>Twitter is a prime example of where <code>dialog</code> can be used in the real world. When a user posts a tweet, other users can reply by starting their tweet with @username, where username is whoever they are responding to.</p>
+<pre><code>&lt;dialog&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt;, &lt;time datetime="2009-08-11T12:35:54"&gt;13 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;Where is a good place to eat in town?&lt;/dd&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/brucel"&gt;@brucel&lt;/a&gt;, &lt;time datetime="2009-08-11T12:37:56"&gt;11 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt; Have your tried The Swine's Flu pub lunches?&lt;/dd&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/Rich_Clark"&gt;@Rich_Clark&lt;/a&gt;, &lt;time datetime="2009-08-11T12:38:04"&gt;11 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt; If you like seafood, try the restaurants at the waterfront&lt;/dd&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/jackosborne"&gt;@jackosborne&lt;/a&gt;, &lt;time datetime="2009-08-11T12:40:02"&gt;9 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt; What &lt;a href="http://twitter.com/brucel"&gt;@brucel&lt;/a&gt; said, or there are lots of good bakeries on the high street.&lt;/dd&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/spambot148"&gt;@spambot148&lt;/a&gt;, &lt;time datetime="2009-08-11T12:45:16"&gt;4 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt; Gain 1000 followers in 5 minutes!&lt;/dd&gt;
+&lt;/dialog&gt;
+</code></pre>
+<p><a href="http://jsbin.com/obazi">View a live example</a></p>
+<p>Here, I have marked up an example of a conversation on Twitter, with users replying to the original speakers tweet. Once again, each person has had their name marked up in a <code>dt</code> but also uses the new <code>time</code> element to define the time of the tweet. In the new <a href="http://dev.w3.org/html5/spec/Overview.html#the-dt-element">definition</a> of <code>dt</code>, there is an example of using <code>time</code> this. Finally, the content of each tweet is placed in a <code>dd</code>. This shows how <code>dialog</code> could be used today in even some of the most popular services on the web.</p>
+<h2>Wrapping up</h2>
+<p><code>dialog</code> is quite an easy element to grasp, and you&#8217;ll quickly find yourself marking up conversations, chat logs and more with this new element. As seen with the Twitter example, there is scope to add extra value to dialogue used in the real world. Now, go forth and have conversations knowing that you can easily mark them up in HTML 5!</p>
+<p><a href="http://html5doctor.com/a-little-more-conversation-with-dialog/" rel="bookmark">A little more conversation with dialog</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 12, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/a-little-more-conversation-with-dialog/feed/</wfw:commentRss>
+		<slash:comments>25</slash:comments>
+		</item>
+	</channel>
+</rss>

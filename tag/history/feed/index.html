@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>history &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/history/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Pushing and Popping with the History API</title>
+		<link>http://html5doctor.com/history-api/</link>
+		<comments>http://html5doctor.com/history-api/#comments</comments>
+		<pubDate>Tue, 15 Nov 2011 13:09:47 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[history]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3897</guid>
+		<description><![CDATA[Until recently, we developers couldn’t to do much with the state and history of the browser. We could check the number of items in the history and push users forwards and backwards, but this provides little benefit to the user. With the rise of more dynamic web pages, we need more control. Thankfully, HTML5 gives [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Until recently, we developers couldn’t to do much with the state and history of the browser. We could check the number of items in the history and push users forwards and backwards, but this provides little benefit to the user. With the rise of more dynamic web pages, we need more control. Thankfully, HTML5 gives us that control by extending the JavaScript History API.</p>
+<section id="the-point">
+<h2>What’s the point? <a class="permalink" href="#the-point">#</a></h2>
+<p>It goes without saying that URLs are important. They’re <em>the</em> method of accessing the vast collections of information and resources on the web, and more recently, they’ve begun representing the intended state of a web application. You can copy these URLs and share them with your friends or use them to create links from any HTML document. They’re the veins of the web, and they need to be looked after.</p>
+<p>Previously, the JavaScript History API offered some very simple functionality:</p>
+<pre><code>// Check the length of the history stack
+console.log(history.length);
+
+// Send the user agent forward
+console.log(history.forward());
+
+// Send the user agent back
+console.log(history.back());
+
+// Send the user agent back (negative) or forward (positive)
+// by a given number of items
+console.log(history.go(-3));
+</code></pre>
+<p>With dynamic Ajax web applications, where the browser updates the page in parts instead of changing location entirely, it’s difficult to give the user a URL to bookmark or share the current application state. <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-id-attribute">Fragment identifiers</a>, like those used on this article’s headings via the <code>id</code> attribute, provide some state information, but they’re entirely dependent on client-side scripts.</p>
+<p>The changes to the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html">History API</a> are intended to give developers ways to push history items to the browser so the native back and forward actions can cycle through those items. These history items can also hold data that you can later extract to restore the page state.</p>
+<blockquote>
+<p>Pages can <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#dom-history-pushstate" title="dom-history-pushState">add</a> <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#state-object" title="state object">state objects</a> between their entry in the session history and the next (“forward”) entry. These are then <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#event-popstate" title="event-popstate">returned to the script</a> when the user (or script) goes back in the history, thus enabling authors to use the “navigation” metaphor even in one-page applications.</p>
+<footer>&#8211; <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html" title="6.4 Session history and navigation">WHATWG</a></cite></footer>
+</blockquote>
+<p>If the user copies or bookmarks a stateful URL and visits it later, your back-end can be configured to interpret such a URL and jump the user right to the correct page and/or state.</p>
+<p>In this article, I’ll cover the client-side use of the History API, so make sure you set up your server to work with the new URLs. If you’ve already built an accessible website that provide these entry points, you’re laughing!</p>
+<section id="those-fking-hashbangs">
+<h4>Those <em>f#!king</em> hashbangs… <a class="permalink" href="#those-fking-hashbangs">#</a></h4>
+<p>You may have already seen articles fussing over the adoption of the “hashbang” (#!) pattern on sites like <a href="http://twitter.com">Twitter</a>. This technique updates the address bar with a fragment identifier that can then be used by JavaScript to determine which page and state should be displayed.</p>
+<p>This works as a method of creating a bookmarkable, shareable URL for a page’s state in the absense of a standard API. While the Twitter implementation accepts both <code>http://twitter.com/#!/akamike</code> and <code>http://twitter.com/akamike</code>, it has some disadvantages:</p>
+<ul>
+<li>The fragment identifier is only accessible on the client side. This means that only JavaScript can utilise it, so browsers without JavaScript enabled are out of luck.</li>
+<li>As the server does not receive the path following the hashbang, removing that JavaScript drops support for all those URLs. That’s a lot of broken links, so you’re stuck with that JavaScript <em>forever</em>.</li>
+<li>It’s ugly. It’s a hack and it looks like one.</li>
+</ul>
+<p>The hashbang was never intended to be a long-term solution, so don’t rely on it. If you do use hashbangs, be prepared to deal with the consequences (and possible backlash from web purists).</p>
+</section>
+</section>
+<section id="making-history">
+<h2>Making History <a class="permalink" href="#making-history">#</a></h2>
+<p>These examples will build on top of each other. We’ll start with a <a href="http://html5doctor.com/wp-content/uploads/2011/10/history_base.html">basic HTML document</a> with some inline styles and scripts for your convenience.</p>
+<aside class="sidenote">
+<p>For a simple HTTP server, open the command line, <code>cd</code> to the directory you would like to serve, run <code>python -m SimpleHTTPServer 8080</code>, then open <code>localhost:8080</code> in your browser. Alternatively, try a bundled setup like <a href="http://www.apachefriends.org/en/xampp.html">XAMPP</a> or <a href="http://www.mamp.info/en/index.html">MAMP</a>.</p>
+</aside>
+<p>Save this file and open it in your favourite editor. It must be accessed via HTTP, so that means you need either a local server (e.g. <code>http://localhost/</code>) or an online web server you can upload to. <strong>Viewing the file directly using your browser’s Open File function will not work</strong>, since it uses the <code>file://</code> protocol and not HTTP. Also be sure to update the <code>href</code> attributes on each of the navigation links to ensure the correct directory structure is used. Personally, I’m viewing the demo locally at <code>http://localhost/history</code>.</p>
+<p>We’ll be working exclusively within the <code>&lt;script&gt;</code> element at the end of the <code>&lt;body&gt;</code>. The code includes some simple styles and dynamically changes the content as you click the links. In reality, this could be loaded from your server via <code>XMLHttpRequest</code>, but for the purposes of this demonstration I’ve bundled it up into a self-contained file. The important part is that we have a quick-and-dirty dynamic page to work with, so let the fun begin!</p>
+<p>At the moment there, is no bookmarkable URL for the different states of this page. If you click around the navigation items, then click Back in your browser, you won’t be taken back to the previous state and may even be taken away from the page to whatever you viewed before (depending on your browser). It would be nice if you could share “Socks” with your friends, right? We can do that via <code>history.pushState()</code>.</p>
+<p>The <code>history.pushState()</code> method takes three parameters:</p>
+<dl>
+<dt><code>data</code></dt>
+<dd>Some structured data, such as settings or content, assigned to the history item.</dd>
+<dt><code>title</code></dt>
+<dd>The name of the item in the history drop-down shown by the browser’s back and forward buttons. (Note: this is not currently supported by any major browsers.)</dd>
+<dt><code>url</code> <em>(optional)</em></dt>
+<dd>The URL to this state that should be displayed in the address bar.</dd>
+</dl>
+<p>With these parameters, you can define the state of the page, give that state a name, and even provide a bookmarkable address, as if the page had reloaded entirely. Let’s dive right in and add this to the <code>clickHandler</code> function, right above the <code>return</code> statement:</p>
+<figure>
+<pre><code>function clickHandler(e) {
+  /* Snip... */
+
+  // Add an item to the history log
+  history.pushState(data, event.target.textContent, event.target.href);
+
+  return event.preventDefault();
+}
+</code></pre>
+</figure>
+<p>The single line of code we added informs the <code>history</code> object that:</p>
+<ul>
+<li>we want to add an item to the log,</li>
+<li>it should remember the data that we’ve already loaded,</li>
+<li>it should assign a name to this state based on the text of the link we clicked (even though this isn’t used — it’s good to get into the habit of recording a name for the state), and</li>
+<li>it should update the address bar with the <code>href</code> attribute of that link.</li>
+</ul>
+<p>Reload the page in your browser and click a few of the links, keeping an eye on the address bar. Notice how it changes on each click, despite the fact that you aren’t actually navigating away from this page. If you also have a look at your history log, you’ll see a long list of page titles (in this case ”Kittens!” over and over). Provided your server is set up to serve the correct page upon access, the user could copy that URL and paste it into a new browser window to jump straight to that kitten.</p>
+<p>At the moment, clicking the back button will pop you through the history items, but the page won’t react to these changes. That&#8217;s because so far, we’ve only created the history records. How can we allow active users to return to a previous state? We listen to the <code>popstate</code> event.</p>
+</section>
+<section id="historical-events">
+<h2>Historical Events in Navigation <a class="permalink" href="#historical-events">#</a></h2>
+<p>The user agent fires a <code>popstate</code> event when the user navigates through their history, whether backwards or forwards, provided it isn’t taking the user away from the current page. That is, all those <code>pushState</code>s we called will keep the user on the current page, so the <code>popstate</code> event will fire for each history item they pop through.</p>
+<p>Before the closing <code>&lt;/script&gt;</code> tag, add a new listener for the <code>popstate</code> event:</p>
+<figure>
+<pre><code>// Revert to a previously saved state
+window.addEventListener('popstate', function(event) {
+  console.log('popstate fired!');
+
+  updateContent(event.state);
+});
+</code></pre>
+</figure>
+<p>We attach the event listener to the <code>window</code>, which is responsible for firing the event, and pass this event into our handler. We log a message (so we can see when this event is firing), and then we update the content using the state we saved previously. The state is attached to the <code>event</code> object via the <code>state</code> property.</p>
+<p>Open up the page fresh in your browser, click around like before, and then click back. As before, the URL in the address bar changes as you cycle through states, but now the content is also restored back to what it should be. Click forward, and the content is likewise correctly restored.</p>
+<div class="callout warning-block">
+<p>If you look at the developer console in Chrome when you load the page for the first time, you’ll see the <code>popstate</code> event fired immediately, before you’ve even clicked a link. This is because Chrome considers the initial page load to be a change in state, and so it fires the event. In this instance, the <code>state</code> property is <code>null</code>, but thankfully the <code>updateContent</code> function deals with this. Keep this in mind when developing as it could catch you out, especially if other browsers assume this behavior.</p>
+</p></div>
+</section>
+<section id="rewriting-history">
+<h2>Rewriting history <a class="permalink" href="#rewriting-history">#</a></h2>
+<p>Unfortunately, as fantastic as HTML5 is, it doesn’t allow us actual time travel. If it did, I would be going back to my childhood and telling a younger me, “Yes, you should have a slice of cake”. Take that as you will.</p>
+<p>The History API does, however, allow us to make amends to our history log items. For example, we could update the current state in response to fresh user input in a form. We can do this with <code>history.replaceState</code>.</p>
+<p><code>replaceState</code> works just as <code>pushState</code> does, with the exact same parameters, except that it updates the current entry instead of adding a new one. I can think of one situation in our demo where this could be used: the initial page load. If you click back for long enough, you’ll find that going back to the original URL doesn’t provide you the original content. Let’s fix that by adding the following to the bottom of our script:</p>
+<figure>
+<pre><code>// Store the initial content so we can revisit it later
+history.replaceState({
+  content: contentEl.textContent,
+  photo: photoEl.src
+}, document.title, document.location.href);
+</code></pre>
+</figure>
+<p>As this runs when the page loads, it saves the initial page state. We can later load this state when the user browses back to this point via the event listener we set up previously. You can try it out by loading up the page, clicking a few links, and then hitting back until you return to the original URL. The initial content has returned!</p>
+</section>
+<section id="demo">
+<h2>Demo <a class="permalink" href="#demo">#</a></h2>
+<p>I’ve set up a demo of our completed code. I’ve also added a little back-end magic to make our <code>history.pushState</code> URLs work like a real site. Remember that the URLs you push should be live URLs that the user can bookmark and share as real entry points to your site.</p>
+<p class="btn half"><a href="http://html5doctor.com/demos/history/">View the History API demo</a></p>
+</section>
+<section id="browser-support">
+<h2>Browser support <a class="permalink" href="#browser-support">#</a></h2>
+<p>Up-to-date copies of Chrome (5+), Safari (5.0+), Firefox (4.0+), and Opera (11.50+) have support for the new History API. Even some mobile browsers work just fine, like Mobile Safari on iOS 4+. Unfortunately, IE 9 and below lack support, but it  when it arrives.</p>
+<p>Safari 5.0 sometimes exhibits one oddity: navigating between states causes the loading spinner to appear and stay even when the state has been loaded. This stops when you navigate away using a link or action that does not involve a state saved by the History API.</p>
+<section id="polyfill">
+<h3>Polyfill <a class="permalink" href="#polyfill">#</a></h3>
+<p>A polyfill does exist for the History API. The aptly named <a href="https://github.com/balupton/history.js">History.js</a> uses HTML4’s <code>hashchange</code> event with document fragment identifiers to mimic the history API in older browsers. If one of the hash URLs is used by a modern browser, it uses <code>replaceState</code> to quietly correct the URL.</p>
+<p>It sounds like magic, but make sure you’re aware of the consequences of using fragment identifiers, as mentioned previously in this article. As such, the author of History.js has put together a guide titled <a href="https://github.com/balupton/history.js/wiki/Intelligent-State-Handling">Intelligent State Handling</a>.</p>
+</section>
+</section>
+<section id="closing">
+<h2>Closing thoughts <a class="permalink" href="#closing">#</a></h2>
+<p>URLs go beyond just the browsing session of a user. They’re historically important markers for resources that could very well remain in use for many years to come. Before you embark on developing your site’s JavaScript, you should give thought to the <a href="http://warpspire.com/posts/url-design/">design of your URLs</a>. Make them meaningful and organised. Make sure you can directly access them without JavaScript. Only then should you add your JavaScript to enhance the browsing experience.</p>
+</section>
+<p><a href="http://html5doctor.com/history-api/" rel="bookmark">Pushing and Popping with the History API</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 15, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/history-api/feed/</wfw:commentRss>
+		<slash:comments>26</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  Goodbye time, datetime, and pubdate. Hello data and value. | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Goodbye time, datetime, and pubdate. Hello data and value. Comments Feed" href="http://html5doctor.com/time-and-data-element/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='The return of the u element' href='http://html5doctor.com/u-element/' />
+<link rel='next' title='Pushing and Popping with the History API' href='http://html5doctor.com/history-api/' />
+<link rel="canonical" href="http://html5doctor.com/time-and-data-element/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=4071' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Ftime-and-data-element%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Ftime-and-data-element%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+	  
+  
+	</head>
+<body class="single single-post postid-4071 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-4071 post type-post status-publish format-standard hentry category-accessibility category-attributes category-elements category-specification-changes" id="post-4071">
+                 <h1>Goodbye time, datetime, and pubdate. Hello data and value. </h1>
+                <small><time datetime="2011-11-02" pubdate>Wednesday, November 2nd, 2011</time> by <a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme" rel="author">Oli Studholme</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		
+                <p class=disclaimer>Please note that since this was written, <code>&lt;time&gt;</code>, <code>datetime</code> and (possibly) <code>pubdate</code> have been reinstated, and made more powerful. Doctor Bruce has the low-down in his blogpost <a href="http://www.brucelawson.co.uk/2012/best-of-time/">The best of &lt;time&gt;s</a>. We preserve this merely to show our grandchildren that we played a role in the Time Wars.</p>
+<p>We’ve come a long way in the HTML5 specification’s steady march towards ratification and implementation. The WHATWG’s energy has recently been more on <em>post</em>-HTML5 features that are being added to “<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/" title="HTML Standard">HTML The Living Standard</a>”, plus tidying up HTML5 for Last Call. However we’re still not past losing (or gaining) an element, with last week seeing <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13240" title="Bug 13240 &ndash; Consider replacing &lt;time&gt; with &lt;data&gt;">the removal of <code>&lt;time&gt;</code> and the addition of <code>&lt;data&gt;</code></a>.</p>
+
+<div id="2011-11-13" class="callout changed-block">
+<p><em><time datetime="2011-11-13T23:36:24+09:00">2011-11-13</time>:</em> As per the <a href="http://lists.w3.org/Archives/Public/public-html/2011Nov/0098.html" title="HTML5 spec reverted to cvs r1.5431, svn r6782 [was: Revert request  for r6783] from Michael[tm] Smith on 2011-11-10 (public-html@w3.org from November 2011)">HTML Working Group Chairs request</a>, the <a href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-time-element" title="4.6 Text-level semantics &#8212; HTML5">W3 HTML5 Editor’s Draft spec</a> has been reverted to include <code>&lt;time&gt;</code>. Note this means it no longer includes <code>&lt;data&gt;</code>. The <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-data-element" title="4.6 Text-level semantics &#8212; HTML Standard">WHATWG HTML: Living Standard spec</a> is currently the opposite, still retaining <code>&lt;data&gt;</code> but with no <code>&lt;time&gt;</code>. According to <a href="http://blog.whatwg.org/weekly-tpac-2011" title="The WHATWG Blog  — WHATWG Weekly: TPAC 2011">Anne Van Kesteren’s post on the WHATWG Weblog</a>, <code>&lt;time&gt;</code> will return to the WHATWG spec taking into account <a href="http://wiki.whatwg.org/wiki/Time_element" title="Time element - WHATWG Wiki">new use cases on the WHATWG Wiki</a>.</p>
+<p>TL;DR — it looks like <code>&lt;time&gt;</code> will remain, probably with more permissive <code>datetime</code>s, and <code>&lt;data&gt;</code> will also remain, but it’ll take a little while before the dust settles.</p>
+</div>
+
+<p><code>&lt;time&gt;</code> was originally added to allow dates and times to be machine readable, via the <code>datetime</code> attribute. This gives us human-readable content (“yesterday”) plus hidden machine-readable content (“2011-11-02”) with no accessibility problems. It allows for e.g. browsers to offer to localise dates. The <code>pubdate</code> attribute indicating an article’s date of publication was added for HTML to Atom conversion (also removed from HTML5 in this change), and would make it easy for search engines to sort by date. Having <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#dates-and-times">permitted dates and times specified in HTML5</a> (a subset of ISO 8601) allows a validator to check a <code>datetime</code> value is valid.</p>
+
+<p><code>&lt;time&gt;</code> has been one of the easier elements to understand for authors, as it’s semantically obvious. By comparison the <a href="http://microformats.org/wiki/value-class-pattern">microformats Class-Value pattern</a> for datetimes is clunky.</p>
+
+<p>HTML5 <code>&lt;time&gt;</code> element:</p>
+<pre class="callout"><code>&lt;time class="dtstart" datetime="2011-10-05T09:00Z"&gt;9am on October 5&lt;/time&gt;</code></pre>
+
+<p>Microformats Value-Class pattern:</p>
+<pre class="callout"><code>&lt;span class="dtstart"&gt;&lt;abbr class="value" title="09:00"&gt;9am&lt;/abbr&gt; on &lt;abbr class="value" title="2011-10-05"&gt;October 5&lt;/abbr&gt;&lt;/span&gt;</code></pre>
+
+<p><code>&lt;time&gt;</code> has been pretty widely used for weblog article publication dates, and has made it into WordPress and Drupal <del title="Removing due to lack of evidence, as the example I found can also be explained by Google just munging text for patterns.">plus being used by Google for search results</del>.</p>
+
+<p><a href="http://wiki.whatwg.org/wiki/Time">The issues raised about <code>&lt;time&gt;</code></a> by authors were mainly that it didn’t do <em>everything</em>: it didn’t cover ancient and vague times, time durations, and there was no “last updated” attribute equivalent to <code>pubdate</code>. The other problem is there are a bunch of other less common but similar kinds of data that would also benefit from being machine readable and validatable, such as weights and prices. Minting a new element for each one would (arguably) be a lot of work, so Ian Hickson has added a generic element for these use cases instead — the <code>&lt;data&gt;</code> element, with a required <code>value</code> attribute.</p>
+
+<blockquote>
+<p>The data element represents its contents, along with a machine-readable form of those contents in the value attribute.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-data-element" title="4.6 Text-level semantics &#8212; HTML Standard">WHATWG HTML Living Standard specification</a></cite> </footer>
+</blockquote>
+
+<p>The <code>value</code> attribute contains the machine-readable equivalent of the element’s content. The <code>&lt;data&gt;</code> element can be used as-is as an element equivalent of <code>data-*</code> for marking up private data for scripts (although without the dataset <abbr>API</abbr>). It can also be used in conjunction with <a href="http://html5doctor.com/microdata/" title="Extending HTML5 — Microdata | HTML5 Doctor">microdata vocabularies</a> (and potentially <a href="http://html5doctor.com/microformats/" title="Extending HTML5 — Microformats | HTML5 Doctor">microformats</a>), in which case the format of the <code>value</code> attribute is specified by the vocabulary.</p>
+
+<p>This is a welcome addition as it gives us an easy way to duplicate microformats’ Value-Class pattern for more than just the datetimes <code>&lt;time&gt;</code> allowed. However as part of introducing <code>&lt;data&gt;</code>, <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13240"><code>&lt;time&gt;</code> together with <code>datetime</code> and <code>pubdate</code> have been dropped</a>.</p>
+
+<p>This is controversial, with :</p>
+
+<blockquote>
+<p>I think this is a bad decision</p>
+</blockquote>
+
+<p><a href="http://lists.w3.org/Archives/Public/public-html/2011Oct/0163.html">Steve Faulkner has requested this change be reverted</a>, and <a href="https://twitter.com/#!/search/occupyhtml5">comments on the Twitters</a> and blogs (<a href="http://www.brucelawson.co.uk/2011/goodbye-html5-time-hello-data/#comments">Bruce</a>, <a href="http://www.webmonkey.com/2011/10/html5-drops-the-time-element/#comments">WebMonkey</a>, <a href="http://www.zeldman.com/2011/10/31/goodbye-html5-element/#comments">Zeldman</a>) have been mostly ranging from shock to outrage.</p>
+
+<p>This is because while <code>&lt;time&gt;</code> is semantically obvious, <code>&lt;data&gt;</code> is seen as an equivalent to <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code>. However, “semantics for the sake of it” isn’t enough to justify being in the spec, despite the benefits. Another reason for the dismay is many people have had trouble pushing to use HTML5, and having an element removed gives fuel to anyone arguing HTML5 isn’t suitable for production.</p>
+
+<section id="problems">
+<h2>What’s wrong with this picture <a class="permalink" href="#problems">#</a></h2>
+
+<p>In <a href="http://meiert.com/en/blog/20111026/on-semantics-in-html/">On Semantics in HTML</a>, <a href="https://twitter.com/j9t">Jens Meiert</a> lists five types of semantics in HTML markup, ordered from most to least meaningful:</p>
+
+<ul>
+<li>Standards bodies: elements, attributes</li>
+<li>Communities: microdata and microformats vocabularies, <abbr title="plain old semantic HTML">POSH</abbr> formats</li>
+<li>Common sense: functional ID and class names</li>
+<li>Generic names</li>
+<li>Obfuscated, random, or presentational names</li>
+</ul>
+
+<p>Demoting datetimes from spec-specified to vocabulary-specified has several effects. For one, it’s more complex. Compare these two examples using <code>&lt;time&gt;</code> and <code>&lt;data&gt;</code> respectively:</p>
+
+<p>Using <code>&lt;time&gt;</code>:</p>
+<pre class="callout"><code>&lt;article&gt;
+ …
+ &lt;footer&gt;Published <mark>&lt;time pubdate datetime="2011-11-03"&gt;</mark>today<mark>&lt;/time&gt;</mark>.&lt;/footer&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p>Using <code>&lt;data&gt;</code> plus the <a href="http://schema.org/BlogPosting" title="BlogPosting  - schema.org">BlogPosting schema.org microdata vocabulary</a>:</p>
+<pre class="callout"><code>&lt;article <mark>itemscope itemtype="http://schema.org/BlogPosting"</mark>&gt;
+ …
+ &lt;footer&gt;Published <mark>&lt;data itemprop="datePublished" value="2011-11-03"&gt;</mark>today<mark>&lt;/data&gt;</mark>.&lt;/footer&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p>While Google would no doubt love everyone to start using schema.org vocabularies, it’s a big increase in complexity. Adding <code>&lt;time datetime="…" pubdate&gt;</code> is fairly straightforward — learning and implementing microdata plus an appropriate schema.org vocabulary … not so much. Because of this fewer people will implement machine-readable article published dates.</p>
+
+<p>To make matters worse, Google’s Rich Snippets Testing Tool (so presumably Google Search too) understandably <a href="http://www.google.com/webmasters/tools/richsnippets?url=http%3A%2F%2Foli.jp%2Ftest%2Fmicrodata%2Fblogposting.html&amp;view=" title="Webmaster Tools - Rich Snippets Testing Tool">does not yet know about <code>&lt;data&gt;</code></a>. This means if you use <code>&lt;data&gt;</code> to replace <code>&lt;time&gt;</code> now, Google will only see the <em>human</em>-readable text. <code>&lt;data itemprop="datePublished" value="2011-11-03"&gt;today&lt;/data&gt;</code> is interpreted as <code>datePublished = <mark>today</mark></code>, not <code>datePublished = 2011-11-03</code>.</p>
+
+<p>Also, now that specifying a datetime is not part of HTML5 we (presumably) can no longer validate datetime values using the HTML5 validator. Instead our only option is currently doing the two-step with Google’s Rich Snippets Testing Tool. Ironically as <a href="http://schema.org/Date" title="Date  - schema.org">schema.org defined dates using ISO 8601</a>, the imprecise dates and durations requested for <code>&lt;time&gt;</code> are now valid for <code>datePublished</code>, even though <code>pubdate</code> is the one usage of <code>datetime</code> everyone agreed on.</p>
+
+<!-- /#problems --></section>
+
+<section id="swings-roundabouts">
+<h2>Pros &amp; Cons <a class="permalink" href="#swings-roundabouts">#</a></h2>
+
+<p>Ian Hickson and, it seems, browser makers in general are for this change, whereas authors are in general against it (ahem, <a href="http://www.w3.org/TR/html-design-principles/#priority-of-constituencies" title="HTML Design Principles">priority of constituencies</a>). A couple of options would be:</p>
+
+<ol>
+<li>Scrap <code>&lt;data&gt;</code> and allow the <code>value</code> attribute on any element</li>
+<li>Add a <code>type</code> attribute to <code>&lt;data&gt;</code> to make it more semantic</li>
+<li>Bring back <code>&lt;time&gt;</code></li>
+</ol>
+
+<p>Unfortunately there are pros and cons for each of these options:</p>
+
+<section id="value-everywhere">
+<h3>Allow <code>value</code> on any element <a class="permalink" href="#value-everywhere">#</a></h3>
+
+<p>This conflicts with microdata, where the values of some elements are their URLs rather than their content. For example, currently <code>&lt;img itemprop="photo" src="http://oli.jp/photo.jpg"&gt;</code> gives the microdata output of <code>photo = "http://oli.jp/photo.jpg"</code>. Adding <code>value</code> to the mix means there’d be two machine-readable values, so authors would need to know <a href="http://html5doctor.com/microdata/#itemprop-value" title="Extending HTML5 — Microdata | HTML5 Doctor">which elements couldn’t accept <code>value</code></a>.</p>
+
+<!-- /#value-everywhere --></section>
+
+<section id="type-attribute">
+<h3>Add a <code>type</code> attribute to <code>&lt;data&gt;</code> <a class="permalink" href="#type-attribute">#</a></h3>
+
+<p>This means the HTML5 specification has to specify each approved <code>type</code> value. While not as much work for implementers as a new element for each type of data, it’s still a bunch of work if the browsers actually do anything with that knowledge (like auto-converting <code>type="money"</code> into your currency). If <code>type</code> is required it also limits <code>&lt;data&gt;</code> to the types that are defined.</p>
+
+<!-- /#type-attribute --></section>
+
+<section id="more-time">
+<h3>Bring back <code>&lt;time&gt;</code> <a class="permalink" href="#more-time">#</a></h3>
+
+<p>The easiest way to make everyone happy is to keep <code>&lt;time&gt;</code> <em>in addition to</em> adding <code>&lt;data&gt;</code>. However the cons for this are we’d have two confusingly similar but not always interchangeable ways to mark up datetimes, potentially with different rules on what’s a valid datetime. For example, we’d need to mark up an article’s published date and updated date using different syntax. Special cases and exceptions make things harder to teach and learn.</p>
+
+<!-- /#more-time --></section>
+
+<!-- /#swings-roundabouts --></section>
+
+
+<section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+
+<p>While our private conversation between doctors about this has tended towards the <abbr>WTF</abbr> end of the spectrum, I’m personally up in the air about it. Despite the easy response (“bring back <code>&lt;time&gt;</code>!”), this is one of those thorny problems where there’s no simple right answer. <abbr>WHATWG</abbr> is performing a delicate balancing act: pragmatically adding only features that have a lot of value, and <a href="http://wiki.whatwg.org/wiki/FAQ#Is_there_a_process_for_removing_bad_ideas_from_a_specification.3F" title="FAQ - WHATWG Wiki">removing any that don’t make the grade</a>. In this case Hixie decided the cons of <code>&lt;time&gt;</code> (and of removing it from HTML5) outweighed the pros, and <code>&lt;data&gt;</code> is the result.</p>
+
+<p>The one thing that bothers me about Hixie’s argument is that while datetimes are similar to other types of data that <code>&lt;data&gt;</code> now lets us mark up, they’re orders of magnitude more common on the web. Regardless of how it’s marked up, almost all weblog posts have the published date, and the majority of sites have a copyright date in the footer. In these use cases <code>&lt;time&gt;</code> was perfect, and definitely covered the 80%.</p>
+
+<p>In my ideal world I’d like <code>&lt;time&gt;</code> to return, with the addition of a “<code>pubupdate</code>” attribute, and for all <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#dates-and-times" title="2.5 Common microsyntaxes &#8212; HTML Standard">dates and times that fall inside HTML5’s definition</a> to use <code>&lt;time&gt;</code>. For datetimes that <code>&lt;time&gt;</code> currently doesn’t cover, and for general use, we’d have <code>&lt;data&gt;</code>. Then again, I’m not sure I’d want to try teaching such intricacies to someone.</p>
+
+<p>What do you think about this? While you’re welcome to just jump on the hogpile, I’d be interested to hear people consider all the pros and cons, and try to come up with a better (or less problematic) solution.</p>
+
+<!-- /#conclusion --></section>
+
+<footer><small>(Thanks to <a href="https://twitter.com/estellevw">Estelle Weyl</a>, <a href="https://twitter.com/annevk">Anne van Kesteren</a> and <a href="https://twitter.com/foolip">Philip Jägenstedt</a> for their feedback.)</small></footer>                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/accessibility/" rel="category tag">Accessibility</a></li><li><a href="http://html5doctor.com/category/attributes/" rel="category tag">Attributes</a></li><li><a href="http://html5doctor.com/category/elements/" rel="category tag">Elements</a></li><li><a href="http://html5doctor.com/category/specification-changes/" rel="category tag">Specification Changes</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                                            </li>
+                </ul>
+
+		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme" rel="author">Oli Studholme</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme" rel="author">Oli Studholme</a></span>. He works as a developer for <a href="http://informationarchitects.net/" title="Information Architects | iA plans, designs and implements digital products.">Information Architects, Inc.</a> in Tokyo, Japan. He wrote “<a href="http://thewebevolved.com/" title="Beginning HTML5 and CSS3 — The Web Evolved (a book by Richard Clark, Oli Studholme, Divya Manian, and Christopher Murphy)">Beginning HTML5 and CSS3—The Web Evolved</a>” (Apress) with Rich Clark, Divya Manian, and Christopher Murphy. He also writes at <a href="http://oli.jp/" title="Oli.jp — Writing &amp; such by Oli Studholme (@boblet)">oli.jp</a> and tweets as <a href="http://twitter.com/boblet" title="Follow @boblet on Twitter">@boblet</a>. 宜しくね！＾＾</p>
+                    <img alt='' src='http://1.gravatar.com/avatar/75690a036a5769d87b86e9c36a80357e?s=128&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/75690a036a5769d87b86e9c36a80357e?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>60 Responses on the article “Goodbye time, datetime, and pubdate. Hello data and value.”</h3>
+
+		<li class="comment even thread-even depth-1" id="comment-18292">
+				<div id="div-comment-18292" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/352dadbe545b3abaf830984fb9682155?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/352dadbe545b3abaf830984fb9682155?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://meyerweb.com/' rel='external nofollow' class='url'>Eric Meyer</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18292">
+			November 2, 2011 at 6:19 pm</a>		</div>
+
+		<p><code>&lt;time&gt;</code> needs to come back.  As you say, it&#8217;s far, far too common a content pattern to exclude.  Dropping it now, this far down the road, just compounds the error.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18292#respond' onclick='return addComment.moveForm( "div-comment-18292", "18292", "respond", "4071" )' aria-label='Reply to Eric Meyer'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18293">
+				<div id="div-comment-18293" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/12625d789e470c5b65bc8df4004100c3?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/12625d789e470c5b65bc8df4004100c3?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://alastairc.ac/' rel='external nofollow' class='url'>AlastairC</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18293">
+			November 2, 2011 at 7:31 pm</a>		</div>
+
+		<p>As a data point:  I&#8217;ve developed one HTML5 website (i.e. using HTML5 elements), from a cursory read of an HTML5 book, including the time element.</p>
+<p>It was fairly easy. I&#8217;m going to re-read the book and review the site as I&#8217;m sure the section-type elements could do with improvement, however, using time for the published articles was a no-brainer, and slotted in very easily. </p>
+<p>The data element does not seem nearly so easy or obvious to use. </p>
+<p>Also, I don&#8217;t understand how one value attribute on such an element is that useful? If anything, shouldn&#8217;t we add an &#8216;updated&#8217; attribute to time that takes a data-time value?</p>
+<p>Also(2), the time element nicely solved the accessibility issues with the microformats datetime-design-pattern, it doesn&#8217;t appear that data will solve that as nicely?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18293#respond' onclick='return addComment.moveForm( "div-comment-18293", "18293", "respond", "4071" )' aria-label='Reply to AlastairC'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18294">
+				<div id="div-comment-18294" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/bb46143bab1e79ebcba1f3184ce0ad72?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/bb46143bab1e79ebcba1f3184ce0ad72?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://twitter.com/#!/RealAlanDalton' rel='external nofollow' class='url'>Alan Dalton</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18294">
+			November 2, 2011 at 7:41 pm</a>		</div>
+
+		<p>Use of the <code>time</code> element is a practice that is already widespread among authors who use HTML5. I recommend keeping it rather than forbidding it or inventing something new.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18294#respond' onclick='return addComment.moveForm( "div-comment-18294", "18294", "respond", "4071" )' aria-label='Reply to Alan Dalton'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18295">
+				<div id="div-comment-18295" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.brucelawson.co.uk/' rel='external nofollow' class='url'>bruce</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18295">
+			November 2, 2011 at 7:41 pm</a>		</div>
+
+		<p>Yup. I&#8217;m not opposed to  <code>&lt;data&gt;</code> in addition to <code>&lt;time&gt;</code>, only as a replacement.</p>
+<p>Re <code>pubupdate</code> There was an attribute <code>revdate</code> for revision date that could go on <code>&lt;article&gt;</code>s. Can&#8217;t remember when it was dropped.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18295#respond' onclick='return addComment.moveForm( "div-comment-18295", "18295", "respond", "4071" )' aria-label='Reply to bruce'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18296">
+				<div id="div-comment-18296" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/960f682def9ad8393698629eab3b4734?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/960f682def9ad8393698629eab3b4734?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">boris</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18296">
+			November 2, 2011 at 8:04 pm</a>		</div>
+
+		<p>Now to find out which data are times, an agent has to consult a proprietary schema on some external website? How do I markup a time that isn&#8217;t part of a schema? How do I markup a time if I don&#8217;t use microdata? Note that microdata aren&#8217;t part of HTML5, they are only one of the vocabularies that can be used with HTML5. So HTML5 shouldn&#8217;t require them.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18296#respond' onclick='return addComment.moveForm( "div-comment-18296", "18296", "respond", "4071" )' aria-label='Reply to boris'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18298">
+				<div id="div-comment-18298" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3096150acf7ee7351b71d11859db0243?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3096150acf7ee7351b71d11859db0243?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://john.foliot.ca' rel='external nofollow' class='url'>John Foliot</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18298">
+			November 2, 2011 at 8:15 pm</a>		</div>
+
+		<p>Clearly, with this decision, the overwhelming consensus, not only from web heavyweights such as <a href="http://www.zeldman.com/2011/10/31/goodbye-html5-element/#comment-60751" rel="nofollow">Zeldman</a>, <a href="http://www.brucelawson.co.uk/2011/goodbye-html5-time-hello-data/" rel="nofollow">Dr. Bruce</a>, <a href="http://html5doctor.com/time-and-data-element/#comment-18292" rel="nofollow">Eric Meyer</a>, and <a href="http://adactio.com/journal/4982/" rel="nofollow">Jeremy Keith</a> but <a href="http://twitter.com/#!/search/occupyhtml5" rel="nofollow">the larger web author community</a> is that this is a bad idea,  a horrible idea, a genuine WTF idea.  Yet today it is seemingly being imposed on the web, and *you* dear reader, by one person, King-for-Life of the WHAT WG Mr. Ian Hickson.  Prop up a dictator, and this is what you get.</p>
+<p>I am an unabashed fan of the W3C. Yes, the W3C moves slower (an issue/problem that the W3C is grappling with), but the W3C *does* weigh all points of view and arrives at their decisions using a consensus based process.  If the larger web-authoring community grasped (embraced?) the fact that building consensus takes time and discussion and real work, then perhaps you could better understand why the W3C doesn&#8217;t turn on a dime. Supporting a consensus based process has a cost, yes, but the alternative cost is having one person impose (or try) his decision on you, with no real recourse. Welcome to the world of the WHAT WG.</p>
+<p>It&#8217;s not too late. The Mighty Steve Faulkner has <a href="http://lists.w3.org/Archives/Public/public-html/2011Oct/0163.html" rel="nofollow">requested a revert request</a> to the W3C spec, a request that will likely be agreed to, especially given the overwhelming evidence and sentiment that this was an abuse of editing power by hixie.  </p>
+<p>But here&#8217;s my challenge to you: add your voice to the W3C process, and express your outrage, frustration or disappointment about this move to the W3C.  It&#8217;s simple, it&#8217;s easy, it&#8217;s significantly more democratic, and it&#8217;s consensus-based.  Send an email to <a href="mailto:public-html-comments@w3.org" rel="nofollow">public-html-comments@w3.org</a> and speak up. Lend your support to Steve&#8217;s revert request.</p>
+<p>And next time you are sitting around, slagging off the W3C as being a bunch of old out-of-touch gray-beards, think back to this day, this move, and contemplate what the real value of the W3C is to you: it let&#8217;s *you* have some ownership of the Open Web, and doesn&#8217;t hand off all your rights to one not-always-perfect editor.</p>
+<p>Just sayin&#8217;&#8230;.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18298#respond' onclick='return addComment.moveForm( "div-comment-18298", "18298", "respond", "4071" )' aria-label='Reply to John Foliot'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18299">
+				<div id="div-comment-18299" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/58ad0d3d6bcd45647191189dcdaa094c?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/58ad0d3d6bcd45647191189dcdaa094c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Scott</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18299">
+			November 2, 2011 at 8:16 pm</a>		</div>
+
+		<p>They made a poor decision.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18299#respond' onclick='return addComment.moveForm( "div-comment-18299", "18299", "respond", "4071" )' aria-label='Reply to Scott'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18300">
+				<div id="div-comment-18300" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/641ea3a1515e5c9b69571b5f8ee581e6?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/641ea3a1515e5c9b69571b5f8ee581e6?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Josh T.</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18300">
+			November 2, 2011 at 8:16 pm</a>		</div>
+
+		<p>Personally, I&#8217;m all for the idea of using a type attribute. However, I don&#8217;t see why this would cause a problem. If the type attribute is absent, then the element would work as it is defined now. If  is used, then it would work exactly as the  element used to.</p>
+<p>The way I see it is that the  element could work like the  element, where changing the type attribute makes it behave like a completely different element.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18300#respond' onclick='return addComment.moveForm( "div-comment-18300", "18300", "respond", "4071" )' aria-label='Reply to Josh T.'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18301">
+				<div id="div-comment-18301" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c2089bb2bef3c16a21800c166d1a7a8a?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c2089bb2bef3c16a21800c166d1a7a8a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Roman Blöth</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18301">
+			November 2, 2011 at 9:27 pm</a>		</div>
+
+		<p>Well, that&#8217;s what you&#8217;d expect from a &#8220;living standard&#8221;. Living things change. Who&#8217;s about to decide how we have to live? If we want to use a common language, we also have to accept that at some point there has to be someone to decide things that we don&#8217;t approve. If we want &#8220;our&#8221; HTML, we have to create it all by ourselves and ship the proprietary browser with it.<br />
+Of course yelling might change things, too, so I would not condemn it. But maybe there should be a &#8220;on hold&#8221; phase for every new decision, so we, the users, can give some feedback to them, the browsers.<br />
+This might lower the waves a bit.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18301#respond' onclick='return addComment.moveForm( "div-comment-18301", "18301", "respond", "4071" )' aria-label='Reply to Roman Blöth'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18302">
+				<div id="div-comment-18302" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a10b90f02de555598b35eaad757275d5?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a10b90f02de555598b35eaad757275d5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://peteschuster.com' rel='external nofollow' class='url'>Pete</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18302">
+			November 2, 2011 at 9:27 pm</a>		</div>
+
+		<p>I can see the advantage of using a more universal &#8220;data&#8221; field, but there definitely needs to be a way of indicating what the data is, and its role. My vote is for &#8220;type.&#8221;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18302#respond' onclick='return addComment.moveForm( "div-comment-18302", "18302", "respond", "4071" )' aria-label='Reply to Pete'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18303">
+				<div id="div-comment-18303" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8f163120341854b69991cff1c39829ad?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8f163120341854b69991cff1c39829ad?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://twofishcreative.com/michael/blog' rel='external nofollow' class='url'>Michael C. Harris</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18303">
+			November 2, 2011 at 10:19 pm</a>		</div>
+
+		<p>You say, &#8220;browser makers in general are for this change, whereas authors are in general against it&#8221; but provide no reference. I&#8217;m not doubting you, but out of interest is that documented? I understand Opera does support &lt;time&gt;.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18303#respond' onclick='return addComment.moveForm( "div-comment-18303", "18303", "respond", "4071" )' aria-label='Reply to Michael C. Harris'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18305">
+				<div id="div-comment-18305" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7364c28e08b5ab84efc79ebe3272e6fb?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7364c28e08b5ab84efc79ebe3272e6fb?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://neverspace.net/' rel='external nofollow' class='url'>Niklas Lindström</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18305">
+			November 2, 2011 at 11:28 pm</a>		</div>
+
+		<p>Regarding the last ideas of a <code>value</code> and <code>type</code> attributes: this is already possible by using RDFa. (Those names cannot be used though, as there are elements which already use them for different purposes.)</p>
+<p>RDFa defines two attributes, <code>content</code> and <code>datatype</code>, for this very purpose. They are applicable on any element. Combined with <code>property</code> you can then use any property URI (such as the Dublin Core terms <code>dc:issued</code>, <code>dc:created</code>, <code>dc:updated</code> and so on), and any datatype URI (commonly <code>xsd:date</code> or <code>xsd:dateTime</code>). Fully decentralized regarding which vocabulary you use, and precise regarding the datatype of the value.</p>
+<p>(Regarding capturing links, RDFa uses <code>rel</code> for that. There is some debate going on now regarding making the mechanism &#8220;smarter&#8221; in 1.1, for those not understanding the difference to <code>property</code>. Suffice to say, currently RDFa can capture both a rel+link and a property+literal on the same element.)</p>
+<p>This has been a W3C Recommendation since October 2008.</p>
+<p>The RDFa 1.1 working group is currently working hard to accomodate any ideas to further ease the use of RDFa in HTML5. (Also note that in RDFa 1.1, common prefixes like <code>xsd:</code> and <code>dc:</code> will be predefined.)</p>
+<p>In general, I think that the semantics of document structure and the semantics of the content (message) are quite different. It&#8217;s a bit like the difference between sentences of words in a specific language and the various categories of writing (formal, lyrics, scientific and so on).</p>
+<p>This difference can be captured by using RDFa with all kinds of vocabularies, enabling a means for expressing semantics orthogonal to the structure of a web page document (or application). Kind of like using semantic marker pens of different colors to enrich a paper article.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18305#respond' onclick='return addComment.moveForm( "div-comment-18305", "18305", "respond", "4071" )' aria-label='Reply to Niklas Lindström'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18306">
+				<div id="div-comment-18306" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/899342d1ff532340125ae00d33c250c6?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/899342d1ff532340125ae00d33c250c6?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.iandevlin.com/blog/' rel='external nofollow' class='url'>Ian Devlin</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18306">
+			November 2, 2011 at 11:42 pm</a>		</div>
+
+		<p>Like bruce, I have nothing at all against the data element but I do think that time should make a return, with the pubdate attribute intact.</p>
+<p>As others have said, it&#8217;s very useful and already has a lot of use as it&#8217;s quite simple to understand.</p>
+<p>Removing time was a bad decision that needs to be reversed.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18306#respond' onclick='return addComment.moveForm( "div-comment-18306", "18306", "respond", "4071" )' aria-label='Reply to Ian Devlin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18308">
+				<div id="div-comment-18308" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/357a20e8c56e69d6f9734d23ef9517e8?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/357a20e8c56e69d6f9734d23ef9517e8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='https://twitter.com/mattur' rel='external nofollow' class='url'>mattur</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18308">
+			November 3, 2011 at 12:19 am</a>		</div>
+
+		<p>We&#8217;re all doomed.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18308#respond' onclick='return addComment.moveForm( "div-comment-18308", "18308", "respond", "4071" )' aria-label='Reply to mattur'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18309">
+				<div id="div-comment-18309" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f5934485a0863578733c447016505547?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f5934485a0863578733c447016505547?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://chris.improbable.org' rel='external nofollow' class='url'>Chris Adams</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18309">
+			November 3, 2011 at 2:23 am</a>		</div>
+
+		<p>I&#8217;m disappointed for two reasons: the first is simply that time is immediately useful, one of the simplest HTML5 elements, and solves aptly solves minor but daily real-world problems &#8211; an example of what I&#8217;d hope HTML5 is about, making the web a better place. As has also been noted, the problems seem overblown: I work with ancient, ranged and fuzzy dates every day and there&#8217;s a repeated answer to the questions on the wiki: “Follow ISO-8601. They were not unaware of this need.”</p>
+<p>My bigger cause for dismay was the arbitrary rush: just a simple fait accompli without a comprehensible justification. As has been freuently noted, the reasoning could apply to any semantic element: why  and not ? The idea that something useful can disappear arbitrarily without much discussion or a compelling emergency makes me think that the spec is going to end up needing to be forked by less mercurial maintainers, which would be a rather unfortunate distraction. I can&#8217;t imagine this episode won&#8217;t increase hesitation about adopting HTML5 heavily: who knows what&#8217;s next?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18309#respond' onclick='return addComment.moveForm( "div-comment-18309", "18309", "respond", "4071" )' aria-label='Reply to Chris Adams'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18310">
+				<div id="div-comment-18310" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/95f937c781b55dc676a94a9bc46473d7?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/95f937c781b55dc676a94a9bc46473d7?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://brad.is' rel='external nofollow' class='url'>Brad Dougherty</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18310">
+			November 3, 2011 at 2:54 am</a>		</div>
+
+		<p>If HTML5 is truly about <a href="http://www.w3.org/TR/html-design-principles/#pave-the-cowpaths" rel="nofollow">paving the cowpaths</a>,<code>&lt;time&gt;</code> will make its way back in. If it&#8217;s truly in widespread use, it will have to be codified in the spec.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18310#respond' onclick='return addComment.moveForm( "div-comment-18310", "18310", "respond", "4071" )' aria-label='Reply to Brad Dougherty'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18311">
+				<div id="div-comment-18311" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6f27b608ee033850ca8ced581773664c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6f27b608ee033850ca8ced581773664c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.webtechnepal.com' rel='external nofollow' class='url'>webtechnepal</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18311">
+			November 3, 2011 at 5:39 am</a>		</div>
+
+		<p>Great !! Lets say Goodbye time, datetime, and pubdate.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18311#respond' onclick='return addComment.moveForm( "div-comment-18311", "18311", "respond", "4071" )' aria-label='Reply to webtechnepal'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-olib bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-18313">
+				<div id="div-comment-18313" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/75690a036a5769d87b86e9c36a80357e?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/75690a036a5769d87b86e9c36a80357e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://oli.jp' rel='external nofollow' class='url'>Oli Studholme</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18313">
+			November 3, 2011 at 9:42 am</a>		</div>
+
+		<p>(I’ve made some minor copyedits and clarifications to the article, just FYI)</p>
+<p>@AlastairC — <code>value</code> alone is useful for your own scripts. For something like an article’s published or updated date, you’d need to use a microdata vocabulary or similar eg <code>itemprop="datePublished"</code>. Regarding accessibility, <code>&lt;data&gt;</code> is equivalent to <code>&lt;time&gt;</code> — users get the element’s content, and the machine value is hidden in an attribute.</p>
+<p>@boris — why would you want to do any of those things (find all the datetimes on a page etc)? Or to phrase it another way, what benefit do you want to get from marking up datetimes? There’s no requirement to use microdata vocabularies with <code>&lt;data&gt;</code>, but not doing so means you’d be using it like <code>data-*</code>.</p>
+<p>@Michael C. Harris — this is inferred by the lack of dissension from implementers in the bug, including Opera who’ve actually implemented <code>&lt;time&gt;</code>.</p>
+<p>@Niklas Lindström — I’d be interested to see the minimal RDFa equivalent of <a href="http://html5doctor.com/time-and-data-element/#problems" rel="nofollow">declaring an article’s published date example</a> in the “What’s wrong with this picture” section above.</p>
+<p>@Chris Adams — dates and times in HTML5 were a strictly defined subset of ISO 8601, so using e.g. vague dates in <code>datetime</code> was never valid (not sure I understood you though). Also, the bug was open for 3+ months, during which <code>&lt;time&gt;</code> was marked as “at risk”, so I don’t think the change was rushed (unless you only heard about it now :)</p>
+<p>I’m guessing you wrote something like “why <code>&lt;time&gt;</code> and not <code>&lt;article&gt;</code>”. <code>&lt;article&gt;</code> and other structural elements have benefits beyond semantics, such as the outline algorithm, <abbr>ARIA</abbr> role equivalence (accessibility), and being easier to author. <code>&lt;time&gt;</code> also has accessibility and ease of authoring benefits, but disadvantages too.</p>
+<p>Final comment: In “<a href="http://adactio.com/journal/4982/" title="Adactio: Journal&mdash;Timeless" rel="nofollow">Timeless</a>” Jeremy Keith writes in more detail about the priority of constituencies. I suspect there may now be another level in this — the web platform itself. I think Hixie made this change for the long-term benefit of HTML, and I don’t think it’s cut and dried (I could personally argue for either side). If you want to change Hixie’s mind, providing real-world use cases <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13240#c55" rel="nofollow">like Ben Buchanan is</a> would be the way to do it.</p>
+<p>I also note <code>&lt;time&gt;</code> hasn’t been added to the spec’s <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html" rel="nofollow">obsolete features section</a>.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18313#respond' onclick='return addComment.moveForm( "div-comment-18313", "18313", "respond", "4071" )' aria-label='Reply to Oli Studholme'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18314">
+				<div id="div-comment-18314" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3ecc5b206c5ee7f702cd087faf5a6c23?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3ecc5b206c5ee7f702cd087faf5a6c23?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ben Aveling</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18314">
+			November 3, 2011 at 10:06 am</a>		</div>
+
+		<p>My prediction: enough people will support and use  that everyone else will have to do so as well &#8211; whether it is formally in the spec or not &#8211; might as well put it in.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18314#respond' onclick='return addComment.moveForm( "div-comment-18314", "18314", "respond", "4071" )' aria-label='Reply to Ben Aveling'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18316">
+				<div id="div-comment-18316" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/651dcfe41723207fbb0aa044a4f7c07f?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/651dcfe41723207fbb0aa044a4f7c07f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://mariusz.cc' rel='external nofollow' class='url'>Mariusz</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18316">
+			November 3, 2011 at 10:37 am</a>		</div>
+
+		<p>Using <code>&lt;data itemprop="datePublished" &gt;</code> for describing date and time is confusing and overly complicated and generally feels like using wrong tool for the job. <code>&lt;time&gt;</code> is already there, widely used (I think Bruce pointed out that WordPress blogs use it in the default template, for example) and feels like the right tool for the job.</p>
+<p>We are the 99%, occupy the W3C, bring the <code>&lt;time&gt;</code> element back! ;)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18316#respond' onclick='return addComment.moveForm( "div-comment-18316", "18316", "respond", "4071" )' aria-label='Reply to Mariusz'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18317">
+				<div id="div-comment-18317" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9dccf2a751c11554bada76aca483892b?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9dccf2a751c11554bada76aca483892b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.karltynan.co.uk' rel='external nofollow' class='url'>Karl Tynan</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18317">
+			November 3, 2011 at 11:14 am</a>		</div>
+
+		<p>I don&#8217;t think the arguments put forward for removing <code>&lt;time&gt;</code> are justified. Surely <code>&lt;time&gt;</code> (in the majority of uses) will be for modern dates that ideally should be machine and human readable. It is more likely to be used than say pricing or other data ideas.</p>
+<p>I don&#8217;t see why we can&#8217;t have both <code>&lt;time&gt;</code> and <code>&lt;data&gt;</code>.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18317#respond' onclick='return addComment.moveForm( "div-comment-18317", "18317", "respond", "4071" )' aria-label='Reply to Karl Tynan'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18318">
+				<div id="div-comment-18318" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/654c927f9b14e7c11c794239610091a9?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/654c927f9b14e7c11c794239610091a9?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.betleywhitehorne.com' rel='external nofollow' class='url'>Richard Le Poidevin</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18318">
+			November 3, 2011 at 12:04 pm</a>		</div>
+
+		<p>I would bring back &lt;time&gt; as so much is based on time on the Internet as it&#8217;s a giant publishing platform. I think it deserves it&#8217;s own tag. However it should be made broader in scope to cover ancient dates etc. I can&#8217;t see any reason why the date range should be limited.</p>
+<p>&lt;data&gt; should also be kept for marking up other types of information. For example measurements are not always as important as a date &#8211; they often exist only in their own context such as the dimensions of a room. I would add a type attribute to &lt;data&gt; that covered a large range of types. Think of the massive differences in what the type attribute does on &lt;input&gt; tags. I would like to visit a site and have the measurements shown in metric for me by the browser, or some easy way to convert. I want weights (well mass really, just everyone uses the wrong word!) on cooking sites to be converted to metric too, or my mum might want imperial. This sort of automation would be amazing and make building sites easier, we wouldn&#8217;t need cookies or logins to remember people&#8217;s user preferences. I&#8217;m making an estate agent website where automatic conversion would be great for room sizes.</p>
+<p>I also think &lt;data&gt; should accept microdata vocabs for more advanced marking up. The type attribute would cover the basis like dimensions, weights, temperatures that can be understood by themselves but for something more complicated where several bits of information work together to create the entire context such as events, or the other stuff here: <a href="http://schema.org/docs/full.html" rel="nofollow">http://schema.org/docs/full.html</a> then schemas should be used.</p>
+<p>This way we have granular control over what we need &#8211; simple markup for simple data and complete markup for complex data.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18318#respond' onclick='return addComment.moveForm( "div-comment-18318", "18318", "respond", "4071" )' aria-label='Reply to Richard Le Poidevin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18319">
+				<div id="div-comment-18319" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f5934485a0863578733c447016505547?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f5934485a0863578733c447016505547?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://chris.improbable.org' rel='external nofollow' class='url'>Chris Adams</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18319">
+			November 3, 2011 at 12:12 pm</a>		</div>
+
+		<p>Oli: my point regarding ISO8601 was simply that it seemed that most of the questions could be addressed by allowing a more complete subset of the spec.</p>
+<p>I will definitely admit not hearing about the issue by now but it appears that was fairly common among people who were affected, suggesting that communications is an area for improvement, particularly for backwards-incompatible changes. It certainly didn&#8217;t feel like feedback mattered on e.g. the rapidly rebutted claim that nobody used .</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18319#respond' onclick='return addComment.moveForm( "div-comment-18319", "18319", "respond", "4071" )' aria-label='Reply to Chris Adams'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18321">
+				<div id="div-comment-18321" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c0866060bbd63730723bc5036643f337?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c0866060bbd63730723bc5036643f337?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://brothercake.com' rel='external nofollow' class='url'>brothercake</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18321">
+			November 3, 2011 at 1:57 pm</a>		</div>
+
+		<p>What&#8217;s often missing in discussions like this (though not necessarily this one!) is semantic context – who are element semantics actually for? They&#8217;re for machine readers (bots, ATs..) not humans. The time element may have more obvious human- comprehensible semantics, but since humans never get to see them it makes no difference at all – as far as humans are concerned, it wouldn&#8217;t matter if we still built table based layouts.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18321#respond' onclick='return addComment.moveForm( "div-comment-18321", "18321", "respond", "4071" )' aria-label='Reply to brothercake'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18322">
+				<div id="div-comment-18322" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f5934485a0863578733c447016505547?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f5934485a0863578733c447016505547?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://chris.improbable.org' rel='external nofollow' class='url'>Chris Adams</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18322">
+			November 3, 2011 at 2:26 pm</a>		</div>
+
+		<p>brothercake: all of those clients are running on behalf of humans, however, who presumably benefit from making them more reliable. In this case there&#8217;s also the obvious possibility of human-visible benefits such as a browser being able to display  using the user&#8217;s preferred formatting conventions.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18322#respond' onclick='return addComment.moveForm( "div-comment-18322", "18322", "respond", "4071" )' aria-label='Reply to Chris Adams'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18323">
+				<div id="div-comment-18323" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/12625d789e470c5b65bc8df4004100c3?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/12625d789e470c5b65bc8df4004100c3?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://alastairc.ac/' rel='external nofollow' class='url'>AlastairC</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18323">
+			November 3, 2011 at 2:30 pm</a>		</div>
+
+		<p>@brothercake But humans have to author them. If you are a developer looking down a list of elements to use in templates, <code>time</code> is easy to understand.</p>
+<p>You probably wouldn&#8217;t even look at <code>data</code> unless you were doing a web-app.</p>
+<p>I guess I&#8217;m just annoyed because I&#8217;ve already started using it! But then, so have WordPress &amp; Drupal, so millions of other sites are to.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18323#respond' onclick='return addComment.moveForm( "div-comment-18323", "18323", "respond", "4071" )' aria-label='Reply to AlastairC'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18327">
+				<div id="div-comment-18327" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/362d76980ecd7c38c494ee67a7f049e0?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/362d76980ecd7c38c494ee67a7f049e0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Daniel</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18327">
+			November 3, 2011 at 7:39 pm</a>		</div>
+
+		<p>+1 for bringing the elements back. They are easy to understand and easy to implement. The data element is just one of those theoretical nuisances that no one will implement.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18327#respond' onclick='return addComment.moveForm( "div-comment-18327", "18327", "respond", "4071" )' aria-label='Reply to Daniel'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18328">
+				<div id="div-comment-18328" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3096150acf7ee7351b71d11859db0243?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3096150acf7ee7351b71d11859db0243?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://john.foliot.ca' rel='external nofollow' class='url'>John Foliot</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18328">
+			November 3, 2011 at 10:23 pm</a>		</div>
+
+		<blockquote><p>And next time you are sitting around, slagging off the W3C as being a bunch of old out-of-touch gray-beards, think back to this day, this move, and contemplate what the real value of the W3C is to you: it let’s *you* have some ownership of the Open Web, and doesn’t hand off all your rights to one not-always-perfect editor.</p></blockquote>
+<p>On Thursday November 3rd the chairs of the W3C HTML WG instructed the editor of the W3C specification to revert this change and reinstate <code>&lt;time></code> back into the spec. Whether or not this will also be reflected in the WHAT WG spec remains to be seen, but in the consensus-driven process that is the W3C, the process won the day.</p>
+<p>See: <a href="http://lists.w3.org/Archives/Public/public-html/2011Nov/0011.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-html/2011Nov/0011.html</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18328#respond' onclick='return addComment.moveForm( "div-comment-18328", "18328", "respond", "4071" )' aria-label='Reply to John Foliot'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18329">
+				<div id="div-comment-18329" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3a34497f7086bef699c79890fd390b76?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3a34497f7086bef699c79890fd390b76?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Binyamin</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18329">
+			November 3, 2011 at 10:34 pm</a>		</div>
+
+		<p>Lets return <code>&lt;time pubdate datetime=2010-11-03&gt;today&lt;/time&gt;</code> and to include it in schema.org standards.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18329#respond' onclick='return addComment.moveForm( "div-comment-18329", "18329", "respond", "4071" )' aria-label='Reply to Binyamin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18331">
+				<div id="div-comment-18331" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d40236dfabc90040e0dc40dab0e32831?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d40236dfabc90040e0dc40dab0e32831?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">ITSTIMEFORTIME</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18331">
+			November 4, 2011 at 3:52 am</a>		</div>
+
+		<p>Time is back!<br />
+<a href="http://lists.w3.org/Archives/Public/public-html/2011Nov/0011.html" rel="nofollow">http://lists.w3.org/Archives/Public/public-html/2011Nov/0011.html</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18331#respond' onclick='return addComment.moveForm( "div-comment-18331", "18331", "respond", "4071" )' aria-label='Reply to ITSTIMEFORTIME'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18335">
+				<div id="div-comment-18335" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/259469ed60f945161a150e79a381b26c?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/259469ed60f945161a150e79a381b26c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Chad Ostrowski</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18335">
+			November 4, 2011 at 2:18 pm</a>		</div>
+
+		<p>I dislike having both <code>&lt;time&gt;</code> AND <code>&lt;data&gt;</code> intensely. It feels hacky and underthought, like having <code>&lt;link&gt;</code> be the way you include a separate stylesheet instead of <code>&lt;style src="blah"/&gt;</code>. We can and should do better than that now.</p>
+<p>So I like the compromise of adding lots of <code>type</code>s to the <code>&lt;data&gt;</code> element, which browsers can eventually treat differently and helpfully.</p>
+<p>But I wonder if supporting lots of <code>type</code>s of <code>&lt;data&gt;</code> is really so much easier for the browsers than supporting lots of types of data-elements. None of them are doing fancy conversions with <code>&lt;time&gt;</code> yet, anyhow. Would adding <code>&lt;currency&gt;</code>, <code>&lt;distance&gt;</code>, <code>&lt;mass&gt;</code>, etc really be that much harder than adding all of these as <code>type</code>s to <code>&lt;data&gt;</code>?</p>
+<p>I like the simplicity of using <code>&lt;time&gt;</code>. I like the ideal of supporting all kinds of data more. But I really wouldn&#8217;t mind having a whole slew of data-elements, all of them just as easy to use as <code>&lt;time&gt;</code>. If that&#8217;s outrageous, then I think <code>&lt;time&gt;</code> should be sacrificed to make way for a cleaner, more useful future full of all kinds of <code>&lt;data&gt;</code>.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18335#respond' onclick='return addComment.moveForm( "div-comment-18335", "18335", "respond", "4071" )' aria-label='Reply to Chad Ostrowski'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18336">
+				<div id="div-comment-18336" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6285ff8f79ce11a5c9161011137258bc?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6285ff8f79ce11a5c9161011137258bc?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Scott</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18336">
+			November 4, 2011 at 4:09 pm</a>		</div>
+
+		<p>I disagree with your criticism of using the type attribute. The spec doesn&#8217;t need to specify <i>every</i> value, just a handful of important ones like &#8220;datetime&#8221;. Then authors can use any other type they feel like and it would just fall back to acting like a span tag (similar to how using unsupported input types falls back to a text box).</p>
+<p>Also just wondering, how have Opera &#8220;supported the time element&#8221;? What special thing do they do with it?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18336#respond' onclick='return addComment.moveForm( "div-comment-18336", "18336", "respond", "4071" )' aria-label='Reply to Scott'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18339">
+				<div id="div-comment-18339" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/dd0118d8dbe6c6cac0739a632948a1f0?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/dd0118d8dbe6c6cac0739a632948a1f0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Samuel Milton</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18339">
+			November 4, 2011 at 7:26 pm</a>		</div>
+
+		<p>It semantic is not enough I&#8217;d like to make an proposal: Remove all of the elements in the spec and replace them with <code>&lt;data></code>.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18339#respond' onclick='return addComment.moveForm( "div-comment-18339", "18339", "respond", "4071" )' aria-label='Reply to Samuel Milton'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18355">
+				<div id="div-comment-18355" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d9a6de56720540b203522bfddc835b66?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d9a6de56720540b203522bfddc835b66?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.natehunzaker.com' rel='external nofollow' class='url'>Nate Hunzaker</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18355">
+			November 6, 2011 at 12:02 am</a>		</div>
+
+		<p>Every time I read about this change I keep thinking of how this will  interact with (and obfuscate the use of) data-attributes. </p>
+<p>Having said that, it&#8217;s good to see that  is back!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18355#respond' onclick='return addComment.moveForm( "div-comment-18355", "18355", "respond", "4071" )' aria-label='Reply to Nate Hunzaker'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18356">
+				<div id="div-comment-18356" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/831324d88a6ef67cf360768cbe3dd30a?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/831324d88a6ef67cf360768cbe3dd30a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.teamgunmetal.com/' rel='external nofollow' class='url'>James Greene</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18356">
+			November 6, 2011 at 2:51 am</a>		</div>
+
+		<p>I&#8217;d prefer to have the data element with a type attribute and ditch the time element&#8230; seemed too specific to me.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18356#respond' onclick='return addComment.moveForm( "div-comment-18356", "18356", "respond", "4071" )' aria-label='Reply to James Greene'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18358">
+				<div id="div-comment-18358" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/74b5fb13f9bec107c37253566b3249f0?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/74b5fb13f9bec107c37253566b3249f0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.thomasdigby.co.uk' rel='external nofollow' class='url'>Thomas Digby</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18358">
+			November 6, 2011 at 10:29 am</a>		</div>
+
+		<p>Glad to hear that <code>&lt;time&gt;</code> will be back in the spec as of November the 8th. From a semantic point of view data never appeared to make any sense to me, as surely everything in a web page is data of some form.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18358#respond' onclick='return addComment.moveForm( "div-comment-18358", "18358", "respond", "4071" )' aria-label='Reply to Thomas Digby'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18381">
+				<div id="div-comment-18381" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2f62a7b0550059cfbf7a9efd4cb60c30?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2f62a7b0550059cfbf7a9efd4cb60c30?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.kfawhaf511.com' rel='external nofollow' class='url'>Fawkes</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18381">
+			November 8, 2011 at 5:36 pm</a>		</div>
+
+		<p>Ho-ly shit.</p>
+<p>Ever see someone build a house on top of shoddy foundations? Yeah, should be the same on the web.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18381#respond' onclick='return addComment.moveForm( "div-comment-18381", "18381", "respond", "4071" )' aria-label='Reply to Fawkes'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18383">
+				<div id="div-comment-18383" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7edfa93fbf3df7f4c6f3282bf2d33e47?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7edfa93fbf3df7f4c6f3282bf2d33e47?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://spathon.com' rel='external nofollow' class='url'>Patrik</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18383">
+			November 8, 2011 at 11:00 pm</a>		</div>
+
+		<p><code>&lt;time></code> is really easy for every one to understand what it means and is really commonly used so I would vote for keeping it in the spec.<br />
+And use the <code>&lt;data></code> for everything else like weights and prices.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18383#respond' onclick='return addComment.moveForm( "div-comment-18383", "18383", "respond", "4071" )' aria-label='Reply to Patrik'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18387">
+				<div id="div-comment-18387" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/79423fa8e584336a0015f0a61213e48c?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/79423fa8e584336a0015f0a61213e48c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://binrui.me' rel='external nofollow' class='url'>binrui</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18387">
+			November 9, 2011 at 5:21 am</a>		</div>
+
+		<p>Yor are right, <code>&lt;time&gt;</code> should be back~ &#8211;!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18387#respond' onclick='return addComment.moveForm( "div-comment-18387", "18387", "respond", "4071" )' aria-label='Reply to binrui'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-18434">
+				<div id="div-comment-18434" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://angelmechanics.com/blog/2011/11/10/on-the-interwebs-3' rel='external nofollow' class='url'>On the interwebs #3 - Angel Mechanics</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18434">
+			November 10, 2011 at 4:36 pm</a>		</div>
+
+		<p>[&#8230;] Goodbye time, datetime, and pubdate. Hello data and value. &#8211; The &lt;time&gt; tag has been removed from the HTML5 spec. and is replaced by &lt;data&gt;. &lt;time&gt; was originally added to allow dates and times to be machine readable, via the datetime attribute. This gives us human-readable content (“yesterday”) plus hidden machine-readable content (“2011-11-02”) with no accessibility problems. [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18434#respond' onclick='return addComment.moveForm( "div-comment-18434", "18434", "respond", "4071" )' aria-label='Reply to On the interwebs #3 - Angel Mechanics'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18454">
+				<div id="div-comment-18454" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7364c28e08b5ab84efc79ebe3272e6fb?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7364c28e08b5ab84efc79ebe3272e6fb?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://neverspace.net/' rel='external nofollow' class='url'>Niklas Lindström</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18454">
+			November 11, 2011 at 10:49 am</a>		</div>
+
+		<p>@Oli Studholme — Of course. The minimal RDFa required to express the publication date would be:</p>
+<p><code>&lt;span property="dc:issued" content="2011-11-11"&gt;today&lt;/span&gt;</code></p>
+<p>But I&#8217;d recommmend to be precise about the date datatype and use:</p>
+<p><code>&lt;span property="dc:issued" datatype="xsd:date" content="2011-11-11"&gt;today&lt;/span&gt;</code></p>
+<p>Of course, a shorthand for this in the form of <code>&lt;time property="dc:issued" datetime="2011-11-11"&gt;today&lt;/time&gt;</code> would be nice, so the return of <code>&lt;time&gt;</code> is good. We&#8217;re <a href="http://lists.w3.org/Archives/Public/public-rdfa-wg/2011Nov/0037.html" rel="nofollow">currently discussing</a> how RDFa 1.1 will interpret <code>@datetime</code> (e.g. its datatype).</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18454#respond' onclick='return addComment.moveForm( "div-comment-18454", "18454", "respond", "4071" )' aria-label='Reply to Niklas Lindström'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-olib bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-18511">
+				<div id="div-comment-18511" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/75690a036a5769d87b86e9c36a80357e?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/75690a036a5769d87b86e9c36a80357e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://oli.jp' rel='external nofollow' class='url'>Oli Studholme</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18511">
+			November 13, 2011 at 3:59 pm</a>		</div>
+
+		<p>Briefly, the W3 spec has been reverted to include <code>&lt;time></code>. I’ve added <a href="http://html5doctor.com/time-and-data-element/#2011-11-13" rel="nofollow">some details on the change</a> to the start of this article, and will update as required.</p>
+<p>Please help write the spec by providing feedback (here, the WHATWG or HTML WG email lists etc) and use cases (on the WHATWG wiki) — you can contribute to how both <code>&lt;time></code> and <code>&lt;data></code> end up!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18511#respond' onclick='return addComment.moveForm( "div-comment-18511", "18511", "respond", "4071" )' aria-label='Reply to Oli Studholme'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18558">
+				<div id="div-comment-18558" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/08bdea47fe2b2f5b898ceebd14c12fde?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/08bdea47fe2b2f5b898ceebd14c12fde?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.e-sushi.net/' rel='external nofollow' class='url'>Mike Edward Moras (e-sushi™)</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18558">
+			November 15, 2011 at 3:17 am</a>		</div>
+
+		<p>Include, exclude, include again&#8230; reads like someone has to make up his (or her) mind.</p>
+<p>As long as major browsers still fail to support CSS 2.1 to the fullest, and as long as not every SVG and EMACScript is supported&#8230; who cares for specs anyway? Been there, used them, and ended up shouting at browser developing companies.</p>
+<p>Same with html5. From my origins, I once was an xhtml fanboy. Then html5 came around the bend and I saw filesizes shrink &#8211; which I still think is a good thing. Next you know all those  and  tags show up, which started to give me a bad deja-vu of eye-burning  and  tags from the 90s. Are we going back to our caves? Sure looks like it.</p>
+<p>Why not simply give us usable (read: css stylable)  forms, support for what the specs promised us &#8220;back in the days&#8221; while we&#8217;re at it? </p>
+<p>Meanwhile I&#8217;m convinced we don&#8217;t need new specs to keep us busy, we need new browsers that do what they should be doing. If I would release software that needs &#8220;fixes&#8221; and &#8220;workarounds&#8221;, people would call it &#8220;trash&#8221;. Now tell me, what do you call browsers that don&#8217;t fully support CSS2.1? By &#8220;major browser&#8221; league, even you are losing in that section. And now that CSS3 is coming in, there&#8217;s more room for them to mess things up.</p>
+<p>Let&#8217;s just hope html5 won&#8217;t end up where html2 went&#8230; it was nice while we were at it, but when html4 came around the bend, we all went &#8220;yippie&#8221; because browser developers said: &#8220;we can solve all problems by using that one&#8221;! Yeah, right. IE6 sound familiar? LOL</p>
+<p>And what about today? General support for HTML4 and CSS2.1 is around 82% while HTML5 and CSS3 readyness is lower than 40%. That&#8217;s nothing a shiny, orange logo can cover up. But hey, browser vendors say it&#8217;s gonna be the coolest thing ever, so why not trust them?</p>
+<p>And while we&#8217;re at it&#8230; let&#8217;s talk about the fact that in a not-too-far future, html6 is really gonna rock by &#8220;dumping all the useless tags&#8221;? ;) </p>
+<p>No thanks. I&#8217;m stepping of the train before I fall back on supporting Netscape again. [EOF]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18558#respond' onclick='return addComment.moveForm( "div-comment-18558", "18558", "respond", "4071" )' aria-label='Reply to Mike Edward Moras (e-sushi™)'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18559">
+				<div id="div-comment-18559" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/08bdea47fe2b2f5b898ceebd14c12fde?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/08bdea47fe2b2f5b898ceebd14c12fde?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.e-sushi.net/' rel='external nofollow' class='url'>Mike Edward Moras (e-sushi™)</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18559">
+			November 15, 2011 at 3:22 am</a>		</div>
+
+		<p>I couldn&#8217;t have said it better&#8230; RT @danielalbu: Let&#8217;s just shut down the web for 3 years and 77 days, until the #HTML5 specification is final.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18559#respond' onclick='return addComment.moveForm( "div-comment-18559", "18559", "respond", "4071" )' aria-label='Reply to Mike Edward Moras (e-sushi™)'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-18754">
+				<div id="div-comment-18754" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3a93c5a0f975385738c1f27848f3b50a?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3a93c5a0f975385738c1f27848f3b50a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Charlie Clark</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-18754">
+			November 20, 2011 at 8:05 pm</a>		</div>
+
+		<p>The real benefit of time will come when browsers actually implement rendering it. Only then will we see whether we need a more stricter interpretation, ie. whether there maybe a difference between the machine readable attribute and the text.</p>
+<p>I think we all need to know what a compliant browser will do with:</p>
+<p><code>Now</code></p>
+<p>My understanding is at the moment &#8220;Now&#8221; should be rendered which will would contradict the supplied data. If things remain as they are I don&#8217;t see this being helpful for authors (unexpected results) or browser makes (thankless task). I would like to keep the time element and see it extended with useful formatting options such as long, short, etc. Maybe it should lose enclosed text altogether to avoid any confusion and allow for some dressing up?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=18754#respond' onclick='return addComment.moveForm( "div-comment-18754", "18754", "respond", "4071" )' aria-label='Reply to Charlie Clark'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-19015">
+				<div id="div-comment-19015" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://coding.smashingmagazine.com/2011/11/18/html5-semantics/' rel='external nofollow' class='url'>HTML5 Semantics - Smashing Coding</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-19015">
+			November 25, 2011 at 12:00 am</a>		</div>
+
+		<p>[&#8230;] new data element, which replaces time, has a value attribute that passes machine-readable information, but it has no required or implied [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=19015#respond' onclick='return addComment.moveForm( "div-comment-19015", "19015", "respond", "4071" )' aria-label='Reply to HTML5 Semantics - Smashing Coding'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-20234">
+				<div id="div-comment-20234" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/01eb16bf3dbe5de6ff28ae50320345b0?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/01eb16bf3dbe5de6ff28ae50320345b0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Missy</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-20234">
+			December 8, 2011 at 5:01 pm</a>		</div>
+
+		<p>The more I read this site (the best I have found on HTML5 so far) the more I am inclined to believe that many of the new elements are geared specifically towards blogs or other sites where the structure and content varies little from page to page.</p>
+<p>My view is that we should have both &lt;time&gt; and &lt;data&gt; using each in the most appropriate context.  While I think data is fine for complex date/timestamp information it seems to be ridiculously cumbersome approach for situations such as returning a  time selected from a form &#8211; a likely scenario on an app or ecommerce site.</p>
+<p>&#8220;Time&#8221; is about as semantic as you can get.  Why have a more confusing element that needs to be qualified with a type.   Browser vendors will most likely implement it differently (at least to start with) and I dare not even think what Microsoft might end up implementing&#8230;.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=20234#respond' onclick='return addComment.moveForm( "div-comment-20234", "20234", "respond", "4071" )' aria-label='Reply to Missy'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-21203">
+				<div id="div-comment-21203" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://swx.com.br/2011/11/html5-adeus-time-datetime-e-pubdate/' rel='external nofollow' class='url'>HTML5: Adeus time, datetime e pubdate | SWX Softwares - Desenvolvimento e Design Web</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-21203">
+			January 5, 2012 at 6:58 pm</a>		</div>
+
+		<p>[&#8230;] Traduzido de: html5doctor.com [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=21203#respond' onclick='return addComment.moveForm( "div-comment-21203", "21203", "respond", "4071" )' aria-label='Reply to HTML5: Adeus time, datetime e pubdate | SWX Softwares - Desenvolvimento e Design Web'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-25382">
+				<div id="div-comment-25382" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://vivienchen.me/2011/12/html5-semantics/' rel='external nofollow' class='url'>HTML5语义探讨 | Vivien&#039;s blog</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-25382">
+			May 3, 2012 at 9:30 am</a>		</div>
+
+		<p>[&#8230;] 替代了time的这个新元素data，还算是比较有价值的，归咎于它通过了仅机器可识别的信息。但是有个问题，它没有特定要求的或应用的格式，所以浏览器或搜索引擎很难去读取，如，1936-10-19 究竟是一个数据呢，还是一串数字还是一个邮政编码？ [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=25382#respond' onclick='return addComment.moveForm( "div-comment-25382", "25382", "respond", "4071" )' aria-label='Reply to HTML5语义探讨 | Vivien&#039;s blog'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-25399">
+				<div id="div-comment-25399" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://bigdog-studio.com/html5-semantics/' rel='external nofollow' class='url'>HTML5 Semantics | BigDogStudio</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-25399">
+			May 4, 2012 at 5:25 am</a>		</div>
+
+		<p>[&#8230;] new data element, which replaces time, has a value attribute that passes machine-readable information, but it has no required or implied [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=25399#respond' onclick='return addComment.moveForm( "div-comment-25399", "25399", "respond", "4071" )' aria-label='Reply to HTML5 Semantics | BigDogStudio'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-28678">
+				<div id="div-comment-28678" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://layout2html.com/coding/html/our-pointless-pursuit-of-semantic-value/' rel='external nofollow' class='url'>Our Pointless Pursuit Of Semantic Value |Layout to HTML</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-28678">
+			July 15, 2012 at 8:20 pm</a>		</div>
+
+		<p>[&#8230;] recent debate (or debacle?) on the &lt;time&gt; element is just more proof of the impermanence of the semantic meanings associated with [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=28678#respond' onclick='return addComment.moveForm( "div-comment-28678", "28678", "respond", "4071" )' aria-label='Reply to Our Pointless Pursuit Of Semantic Value |Layout to HTML'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28819">
+				<div id="div-comment-28819" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/265fbda5e9c5e3499204a6d0f0011772?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/265fbda5e9c5e3499204a6d0f0011772?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://newbramj.com' rel='external nofollow' class='url'>kasm saleh</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-28819">
+			August 10, 2012 at 4:56 pm</a>		</div>
+
+		<p>I test my website on w3 then result is 11 Errors 10 are related to pubdate. it would be more if page contain more 10 posts.<br />
+mmm and thats too bad I think the solution is only by wordpress TM by releasing update specific to this problem.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=28819#respond' onclick='return addComment.moveForm( "div-comment-28819", "28819", "respond", "4071" )' aria-label='Reply to kasm saleh'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-29334">
+				<div id="div-comment-29334" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/06633d351990006c034bbe022cf20afa?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/06633d351990006c034bbe022cf20afa?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.measureddesigns.com/' rel='external nofollow' class='url'>Andrew Taylor</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-29334">
+			November 22, 2012 at 4:29 pm</a>		</div>
+
+		<p>I love the &#8220;played a role in the Time Wars&#8221; prefix.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=29334#respond' onclick='return addComment.moveForm( "div-comment-29334", "29334", "respond", "4071" )' aria-label='Reply to Andrew Taylor'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-29419">
+				<div id="div-comment-29419" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/86be1ace8d7992370e7b502a0eef4dc6?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/86be1ace8d7992370e7b502a0eef4dc6?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='https://subrosa.xxx/' rel='external nofollow' class='url'>Donovan</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-29419">
+			December 12, 2012 at 7:42 am</a>		</div>
+
+		<p>Ok we&#8217;re now heading into 2013, this article was written in 2011 has there been any development on the use of  vs . I for one have always used  but using  really isnt an issue to me in regards to additional time spent in development but the whole reason I would use it is that it&#8217;s semantically correct &#8220;at this time&#8221; but if Google doesn&#8217;t pic up the correct value for the datePublished that pretty much is a killer for me.</p>
+<p>Any new news on this?</p>
+<p>Great article Oli thank you!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=29419#respond' onclick='return addComment.moveForm( "div-comment-29419", "29419", "respond", "4071" )' aria-label='Reply to Donovan'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-48488">
+				<div id="div-comment-48488" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://www.int-business.com/pointless-pursuit-semantic-value' rel='external nofollow' class='url'>Our Pointless Pursuit Of Semantic Value - Internet Business</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-48488">
+			February 24, 2014 at 10:37 am</a>		</div>
+
+		<p>[&#8230;] recent debate (or debacle?) on the &lt;time&gt; element is just more proof of the impermanence of the semantic meanings associated with [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=48488#respond' onclick='return addComment.moveForm( "div-comment-48488", "48488", "respond", "4071" )' aria-label='Reply to Our Pointless Pursuit Of Semantic Value - Internet Business'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-48490">
+				<div id="div-comment-48490" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://www.int-business.com/html5-semantics' rel='external nofollow' class='url'>HTML5 Semantics - Internet Business</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-48490">
+			February 24, 2014 at 10:45 am</a>		</div>
+
+		<p>[&#8230;] new data element, which replaces time, has a value attribute that passes machine-readable information, but it has no required or implied [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=48490#respond' onclick='return addComment.moveForm( "div-comment-48490", "48490", "respond", "4071" )' aria-label='Reply to HTML5 Semantics - Internet Business'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-48603">
+				<div id="div-comment-48603" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/34c026e8532a4260747d3818ae7e78df?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/34c026e8532a4260747d3818ae7e78df?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Andrew</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-48603">
+			March 7, 2014 at 10:41 pm</a>		</div>
+
+		<p>BUT I LOVE THE TIME ELEMENT DAMNIT!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=48603#respond' onclick='return addComment.moveForm( "div-comment-48603", "48603", "respond", "4071" )' aria-label='Reply to Andrew'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-48954">
+				<div id="div-comment-48954" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/5d28ecb2a02a7832727af9d77a467d93?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/5d28ecb2a02a7832727af9d77a467d93?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://holy.be' rel='external nofollow' class='url'>Tomas</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-48954">
+			April 9, 2014 at 4:14 pm</a>		</div>
+
+		<p>My site is not a blog, it collets lots of ancient book, all I know about the publish date for the books is &#8220;year&#8221;. For example, a book&#8217;s release year is 1917,  if I use &lt;time&gt;1917 &lt;/time&gt; for the page, can Google identify it? Or it is just meaningless?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=48954#respond' onclick='return addComment.moveForm( "div-comment-48954", "48954", "respond", "4071" )' aria-label='Reply to Tomas'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback even thread-even depth-1" id="comment-49055">
+				<div id="div-comment-49055" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://www.smashingmagazine.com/2011/11/11/our-pointless-pursuit-of-semantic-value-2/' rel='external nofollow' class='url'>Our Pointless Pursuit Of Semantic Value | Smashing Magazine</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-49055">
+			April 17, 2014 at 12:22 pm</a>		</div>
+
+		<p>[&#8230;] recent debate (or debacle?) on the &lt;time&gt; element is just more proof of the impermanence of the semantic meanings associated with [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=49055#respond' onclick='return addComment.moveForm( "div-comment-49055", "49055", "respond", "4071" )' aria-label='Reply to Our Pointless Pursuit Of Semantic Value | Smashing Magazine'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-49058">
+				<div id="div-comment-49058" class="comment-body">
+				<div class="comment-author vcard">
+						<cite class="fn"><a href='http://www.smashingmagazine.com/2011/11/18/html5-semantics-2/' rel='external nofollow' class='url'>HTML5 Semantics | Smashing Magazine</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/time-and-data-element/#comment-49058">
+			April 17, 2014 at 2:25 pm</a>		</div>
+
+		<p>[&#8230;] new data element, which replaces time, has a value attribute that passes machine-readable information, but it has no required or implied [&#8230;]</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/time-and-data-element/?replytocom=49058#respond' onclick='return addComment.moveForm( "div-comment-49058", "49058", "respond", "4071" )' aria-label='Reply to HTML5 Semantics | Smashing Magazine'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/time-and-data-element/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='4071' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="63909cc855" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="237"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>
+<!-- Dynamic page generated in 2.015 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-11-24 18:57:02 -->
+
+<!-- super cache -->

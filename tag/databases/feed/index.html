@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; databases</title>
+	<atom:link href="http://html5doctor.com/tag/databases/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>Introducing Web SQL Databases</title>
+		<link>http://html5doctor.com/introducing-web-sql-databases/</link>
+		<comments>http://html5doctor.com/introducing-web-sql-databases/#comments</comments>
+		<pubDate>Wed, 24 Feb 2010 10:15:39 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[databases]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[sql]]></category>
+		<category><![CDATA[storage]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1408</guid>
+		<description><![CDATA[The Web SQL database API isn't actually part of the HTML5 specification, but it is part of the suite of specifications that allows us developers to build fully fledged web applications, so it was about time we dug around and checked out the deal.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/"     class="crp_title">Taking Web Audio Offline in iOS 6 Safari</a></li><li><a href="http://html5doctor.com/drag-and-drop-to-server/"     class="crp_title">Drag and Drop and Automatically Send to the Server</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>The Web SQL database API isn&#8217;t actually part of the HTML5 specification, but it is part of the suite of specifications that allows us developers to build fully fledged web applications, so it&#8217;s about time we dig in and check it out.</p>
+
+<p><span id="more-1408"></span></p>
+
+<h2>What&#8217;s in the box?</h2>
+
+<p>If you haven&#8217;t guessed from the overly verbose specification title, Web SQL Databases is a spec that brings SQL to the client side. If you have a back-end developer&#8217;s background, then you&#8217;ll probably be familiar with SQL and happy as a pig in muck. If not, you might want to learn some SQL before you start hacking around, Google&#8217;s your friend here.</p>
+
+<p>The specification is based around SQLite (3.1.19), but having come from MySQL myself, it&#8217;s all pretty much the same (sorry for the sweeping statement!).</p>
+
+<p>For an example of Web SQL Databases working, have a look at the <a href="http://rem.im/html5-tweet-time-range.html">Twitter HTML5 chatter demo</a> I put together. It uses SQL and the WHERE clause to narrow down the recent chat about HTML5 on Twitter (it will work in Safari, Chrome and Opera 10.50).</p>
+
+<p>There are three core methods in the spec that I&#8217;m going to cover in this article:</p>
+
+<ol>
+<li><code>openDatabase</code></li>
+<li><code>transaction</code></li>
+<li><code>executeSql</code></li>
+</ol>
+
+<p>Support is a little patchy at the moment. Only Webkit (Safari, SafariMobile and Chrome) and Opera 10.50 (<abbr title="at time of writing">ATOW</abbr> alpha on Mac) support web databases. Fellow Doctor <a href="http://html5doctor.com/author/brucel/">Bruce Lawson</a> has told me that Firefox are holding off as they feel there&#8217;s a better implementation than SQLite (though I hope it&#8217;s similar, whatever they pick). Either way, I&#8217;d definitely recommend checking out the <a href="http://sqlite.org">SQLite</a> documentation for the functions that are available.</p>
+
+<p>Because of this patchy support and the simple fact that Webkit had implemented the database spec some time ago, the spec on the W3C is now slightly ahead of the implementations in Safari, while Webkit is still catching up. On the other hand, since Opera has only just added support, it&#8217;s closer to the spec (I&#8217;ll mention the differences as we go along).</p>
+
+<p>Nonetheless, it&#8217;s fun to play with, so let&#8217;s get playing!</p>
+
+<h2>Creating and Opening Databases</h2>
+
+<p>If you try to open a database that doesn&#8217;t exist, the API will create it on the fly for you. You also don&#8217;t have to worry about closing databases.</p>
+
+<p>To create and open a database, use the following code:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);</code></pre>
+
+<p>I&#8217;ve passed four arguments to the <code>openDatabase</code> method. These are:</p>
+
+<ol>
+<li>Database name</li>
+<li>Version number</li>
+<li>Text description</li>
+<li>Estimated size of database</li>
+</ol>
+
+<p>The missing feature of <code>openDatabase</code> (I&#8217;m not sure when it was added) is the fifth argument:</p>
+
+<ol start="5"><li>Creation callback</li></ol>
+
+<p>The creation callback will be called if the database is being created. Without this feature, however, the databases are still being created on the fly and correctly versioned.</p>
+
+<p>The return value from <code>openDatabase</code> contains the transaction methods, so we&#8217;ll need to capture this to be able to perform SQL queries.</p>
+
+<h3>Estimated database size</h3>
+
+<p>From the tests I&#8217;ve run, only Safari prompts the user if you try to create a database over the size of the default database size, 5MB. The prompt is shown the image below, asking whether you want to grant the database permission to scale up to the next size of database &#8212; 5, 10, 50, 100 and 500MB. Opera, on the other hand, builds the database without complaining, which I expect might change later as it&#8217;s still in alpha.</p>
+
+<p><img src="http://html5doctor.com/wp-content/uploads/2010/02/webkit-db-size-prompt-e1266517048880.png" alt="Webkit database size prompt" title="Webkit database size prompt" /></p>
+
+<h3>Versions</h3>
+
+<p>I could be wrong, but everything I&#8217;ve tested so far says that versioning in SQL databases is borked. The problem is this:</p>
+
+<p>If you upgrade your database to version 2.0 (e.g., there are some important schema changes since version 1.0), how do you know which visitors are on version 1.0 and which are on version 2.0?</p>
+
+<p>The version number is a <strong>required</strong> argument to <code>openDatabase</code>, so you must <em>know</em> the version number before you try to open it. Otherwise, an exception is thrown.</p>
+
+<p>Also, <code>changeVersion</code>, the method to change the database version, is not fully supported in Webkit. It works in Chrome and Opera, but not in Safari or Webkit. Regardless, if I can&#8217;t determine which version of database the user is on, then I can&#8217;t upgrade the user.</p>
+
+<p>A possible workaround is to maintain a state database, something like the &#8216;mysql&#8217; database in MySQL. This way, you would only have <strong>one</strong> version of this state database, and within this you would record the current version of any databases that control your application. It&#8217;s a hack, but it works.</p>
+
+<h2>Transactions</h2>
+
+<p>Now that we&#8217;ve opened our database, we can create transactions. Why bother with transactions instead of just running our SQL? Transactions give us the ability to <em>rollback</em>. This means that if a transaction &#8212; which could contain one or more SQL statements &#8212; fails (either the SQL or the code in the transaction), the updates to the database are never committed &#8212; i.e. it&#8217;s as if the transaction <em>never happened</em>.</p>
+
+<p>There are also error and success callbacks on the transaction, so you can manage errors, but it&#8217;s important to understand that transactions have the ability to rollback changes.</p>
+
+<p>The transaction is simply a function that contains <em>some code</em>:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  // here be the transaction
+  // do SQL magic here using the tx object
+});</code></pre>
+
+<p>I recently uploaded a demo to <a href="http://html5demos.com">html5demos.com</a> that demonstrates a transaction rollback in  action: <a href="http://html5demos.com/database-rollback">Web SQL database rollback demo</a></p>
+
+<p>In the nightly builds of the browsers, we also have <code>db.readTransaction</code>, which allows only read statements to run on the database. I assume there are performance benefits to using a read-only <code>readTransaction</code> instead of a read/write <code>transaction</code>, most probably to do with table locking.</p>
+
+<p>Now that we&#8217;ve got our transaction object (named <code>tx</code> in my example) we&#8217;re ready to run some SQL!</p>
+
+<h2>executeSql</h2>
+
+<p>This is the funnel of love for all your SQL goodness. <code>executeSql</code> is used for both read and write statements, includes SQL injection projection, and provides a callback method to process the results of any queries you may have written.</p>
+
+<p>Once we have a transaction object, we can call <code>executeSql</code>:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE foo (id unique, text)');
+});</code></pre>
+
+<p>This will now create a simple table called &#8220;foo&#8221; in our database called &#8220;mydb&#8221;. Note that if the database already exists the transaction will fail, so any successive SQL wouldn&#8217;t run. So we can either use another transaction, or we can only create the table if it doesn&#8217;t exist, which I&#8217;ll do now so I can insert a new row in the same transaction:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE IF NOT EXISTS foo (id unique, text)');
+  tx.executeSql('INSERT INTO foo (id, text) VALUES (1, "synergies")');
+});</code></pre>
+
+<p>Now our table has a single row inside it. What if we want to capture the text from the user or some external source? We&#8217;d want to ensure it can&#8217;t compromise the security of our database (using something nasty like SQL injection). The second argument to <code>executeSql</code> maps field data to the query, like so:</p>
+
+<pre><code>tx.executeSql('INSERT INTO foo (id, text) VALUES (?, ?)', [id, userValue]);</code></pre>
+
+<p><code>id</code> and <code>userValue</code> are external variables, and <code>executeSql</code> maps each item in the array argument to the <abbr title="question mark">&#8220;?&#8221;</abbr>s.</p>
+
+<p>Finally, if we want to select values from the table, we use a callback to capture the results:</p>
+
+<pre><code>tx.executeSql('SELECT * FROM foo', [], function (tx, results) {
+  var len = results.rows.length, i;
+  for (i = 0; i &lt; len; i++) {
+    alert(results.rows.item(i).text);
+  }
+});</code></pre>
+
+<p>(Notice that in this query, there are no fields being mapped, but in order to use the third argument, I need to pass in an empty array for the second argument.)</p>
+
+<p>The callback receives the transaction object (again) and the results object. The results object contains a <code>rows</code> object, which is array-like but <strong>isn&#8217;t</strong> an array. It has a length, but to get to the individual rows, you need to use <code>results.rows.item(i)</code>, where <code>i</code> is the index of the row. This will return an object representation of the row. For example, if your database has a <code>name</code> and an <code>age</code> field, the row will contain a <code>name</code> and an <code>age</code> property. The value of the <code>age</code> field could be accessed using <code>results.rows.item(i).age</code>.</p>
+
+<p>That&#8217;s all you should need to get started with Web SQL Databases. I&#8217;m certain that mini JavaScript libraries are going to emerge to help support working with databases. If you want to find out more about SQL databases (shameless self promotion begins) I just finished the storage chapter for <a href="http://www.amazon.com/Introduction-Html-5-Bruce-Lawson/dp/0321687299">Introducing HTML5</a>, which I&#8217;m writing with fellow Doc Bruce, so check that bad boy out too!</p>
+
+<h2>Demos</h2>
+
+<ul>
+<li><a href="http://html5demos.com/database">HTML5 demo showing simple database usage</a></li>
+<li><a href="http://html5demos.com/database-rollback">HTML5 demonstration of a transaction rolling back</a></li>
+<li><a href="http://rem.im/html5-tweet-time-range.html">Demo showing time range selection using SQLite</a></li>
+</ul>
+<p><a href="http://html5doctor.com/introducing-web-sql-databases/" rel="bookmark">Introducing Web SQL Databases</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 24, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/"     class="crp_title">Taking Web Audio Offline in iOS 6 Safari</a></li><li><a href="http://html5doctor.com/drag-and-drop-to-server/"     class="crp_title">Drag and Drop and Automatically Send to the Server</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/introducing-web-sql-databases/feed/</wfw:commentRss>
+		<slash:comments>94</slash:comments>
+		</item>
+	</channel>
+</rss>

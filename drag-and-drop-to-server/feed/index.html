@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Drag and Drop and Automatically Send to the Server</title>
+	<atom:link href="http://html5doctor.com/drag-and-drop-to-server/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/drag-and-drop-to-server/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Thu, 28 Jul 2016 17:36:34 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: ducle</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-1828606</link>
+		<dc:creator><![CDATA[ducle]]></dc:creator>
+		<pubDate>Fri, 03 Apr 2015 03:26:34 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-1828606</guid>
+		<description><![CDATA[This source code not work on google chrome. e.dataTranfer.files.lengh = 0. How can fix this bug???]]></description>
+		<content:encoded><![CDATA[<p>This source code not work on google chrome. e.dataTranfer.files.lengh = 0. How can fix this bug???</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Jon Squire</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-1125785</link>
+		<dc:creator><![CDATA[Jon Squire]]></dc:creator>
+		<pubDate>Wed, 03 Dec 2014 03:14:24 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-1125785</guid>
+		<description><![CDATA[Rather than drag and drop, can you make
+file upload work on Linux from user selecting file from
+a directory?
+
+
+
+
+Upload Files using XMLHttpRequest - Minimal
+
+
+  function fileSelected()
+  {
+    var file = document.getElementById(&#039;fileToUpload&#039;).files[0];
+    if (file)
+    {
+      var fileSize = 0;
+      if (file.size &#062; 1024 * 1024)
+        fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString\
+() + &#039;MB&#039;;
+      else
+        fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + &#039;KB&#039;\
+;
+
+      document.getElementById(&#039;fileName&#039;).innerHTML = &#039;Name: &#039; + file.name;
+      document.getElementById(&#039;fileSize&#039;).innerHTML = &#039;Size: &#039; + fileSize;
+      document.getElementById(&#039;fileType&#039;).innerHTML = &#039;Type: &#039; + file.type;
+    }
+  }
+
+  function uploadFile() {
+    var fd = new FormData();
+    fd.append(&quot;fileToUpload&quot;, document.getElementById(&#039;fileToUpload&#039;).files[0])\
+;
+    var xhr = new XMLHttpRequest();
+    xhr.upload.addEventListener(&quot;progress&quot;, uploadProgress, false);
+    xhr.addEventListener(&quot;load&quot;, uploadComplete, false);
+    xhr.addEventListener(&quot;error&quot;, uploadFailed, false);
+    xhr.addEventListener(&quot;abort&quot;, uploadCanceled, false);
+    xhr.open(&quot;POST&quot;, &quot;UploadMinimal.aspx&quot;);
+    xhr.send(fd);
+  }
+
+   function uploadProgress(evt)
+  {
+    if (evt.lengthComputable)
+    {
+      var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+      document.getElementById(&#039;progressNumber&#039;).innerHTML = percentComplete.toS\
+tring() + &#039;%&#039;;
+    }
+    else
+    {
+      document.getElementById(&#039;progressNumber&#039;).innerHTML = &#039;unable to compute&#039;\
+;
+    }
+  }
+
+  function uploadComplete(evt)
+  {
+    /* This event is raised when the server send back a response */
+    alert(evt.target.responseText);
+  }
+
+  function uploadFailed(evt)
+  {
+    alert(&quot;There was an error attempting to upload the file.&quot;);
+  }
+
+  function uploadCanceled(evt)
+  {
+    alert(&quot;The upload has been canceled by the user or the browser dropped the \
+connection.&quot;);
+  }
+
+
+
+
+Upload Files using XMLHttpRequest - Minimal
+
+
+  
+    Select a File to Upload
+    
+  
+  
+  
+  
+  
+    
+  
+  
+
+
+]]></description>
+		<content:encoded><![CDATA[<p>Rather than drag and drop, can you make<br />
+file upload work on Linux from user selecting file from<br />
+a directory?</p>
+<p>Upload Files using XMLHttpRequest &#8211; Minimal</p>
+<p>  function fileSelected()<br />
+  {<br />
+    var file = document.getElementById(&#8216;fileToUpload&#8217;).files[0];<br />
+    if (file)<br />
+    {<br />
+      var fileSize = 0;<br />
+      if (file.size &gt; 1024 * 1024)<br />
+        fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString\<br />
+() + &#8216;MB&#8217;;<br />
+      else<br />
+        fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + &#8216;KB&#8217;\<br />
+;</p>
+<p>      document.getElementById(&#8216;fileName&#8217;).innerHTML = &#8216;Name: &#8216; + file.name;<br />
+      document.getElementById(&#8216;fileSize&#8217;).innerHTML = &#8216;Size: &#8216; + fileSize;<br />
+      document.getElementById(&#8216;fileType&#8217;).innerHTML = &#8216;Type: &#8216; + file.type;<br />
+    }<br />
+  }</p>
+<p>  function uploadFile() {<br />
+    var fd = new FormData();<br />
+    fd.append(&#8220;fileToUpload&#8221;, document.getElementById(&#8216;fileToUpload&#8217;).files[0])\<br />
+;<br />
+    var xhr = new XMLHttpRequest();<br />
+    xhr.upload.addEventListener(&#8220;progress&#8221;, uploadProgress, false);<br />
+    xhr.addEventListener(&#8220;load&#8221;, uploadComplete, false);<br />
+    xhr.addEventListener(&#8220;error&#8221;, uploadFailed, false);<br />
+    xhr.addEventListener(&#8220;abort&#8221;, uploadCanceled, false);<br />
+    xhr.open(&#8220;POST&#8221;, &#8220;UploadMinimal.aspx&#8221;);<br />
+    xhr.send(fd);<br />
+  }</p>
+<p>   function uploadProgress(evt)<br />
+  {<br />
+    if (evt.lengthComputable)<br />
+    {<br />
+      var percentComplete = Math.round(evt.loaded * 100 / evt.total);<br />
+      document.getElementById(&#8216;progressNumber&#8217;).innerHTML = percentComplete.toS\<br />
+tring() + &#8216;%&#8217;;<br />
+    }<br />
+    else<br />
+    {<br />
+      document.getElementById(&#8216;progressNumber&#8217;).innerHTML = &#8216;unable to compute&#8217;\<br />
+;<br />
+    }<br />
+  }</p>
+<p>  function uploadComplete(evt)<br />
+  {<br />
+    /* This event is raised when the server send back a response */<br />
+    alert(evt.target.responseText);<br />
+  }</p>
+<p>  function uploadFailed(evt)<br />
+  {<br />
+    alert(&#8220;There was an error attempting to upload the file.&#8221;);<br />
+  }</p>
+<p>  function uploadCanceled(evt)<br />
+  {<br />
+    alert(&#8220;The upload has been canceled by the user or the browser dropped the \<br />
+connection.&#8221;);<br />
+  }</p>
+<p>Upload Files using XMLHttpRequest &#8211; Minimal</p>
+<p>    Select a File to Upload</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: harshitha</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-203031</link>
+		<dc:creator><![CDATA[harshitha]]></dc:creator>
+		<pubDate>Thu, 07 Aug 2014 13:46:35 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-203031</guid>
+		<description><![CDATA[Sir can u please help me in getting full path of the image/file being dragged and I am not using any server to do this. It has to be completely client side, I browsed through Google but all my effort went in vain because all I could get was only the name of the image/file but not full path. Please can you tell me how to get the full path of the Dragged image, since it has to be stored somewhere when it is being dragged.
+
+
+Thank you]]></description>
+		<content:encoded><![CDATA[<p>Sir can u please help me in getting full path of the image/file being dragged and I am not using any server to do this. It has to be completely client side, I browsed through Google but all my effort went in vain because all I could get was only the name of the image/file but not full path. Please can you tell me how to get the full path of the Dragged image, since it has to be stored somewhere when it is being dragged.</p>
+<p>Thank you</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Aish</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-44383</link>
+		<dc:creator><![CDATA[Aish]]></dc:creator>
+		<pubDate>Tue, 14 Jan 2014 10:18:11 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-44383</guid>
+		<description><![CDATA[Sir,
+Please tell me how to arrange images horizontally when we r dragging them.
+
+In example they are getting arranged vertically.
+
+I wan to make horizontal tile.]]></description>
+		<content:encoded><![CDATA[<p>Sir,<br />
+Please tell me how to arrange images horizontally when we r dragging them.</p>
+<p>In example they are getting arranged vertically.</p>
+<p>I wan to make horizontal tile.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ian Yang</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-37612</link>
+		<dc:creator><![CDATA[Ian Yang]]></dc:creator>
+		<pubDate>Wed, 28 Aug 2013 04:16:51 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-37612</guid>
+		<description><![CDATA[It turned out to be the file size limit in the php script which caused the issue. Thanks all. No action needed.]]></description>
+		<content:encoded><![CDATA[<p>It turned out to be the file size limit in the php script which caused the issue. Thanks all. No action needed.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ian Yang</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-37610</link>
+		<dc:creator><![CDATA[Ian Yang]]></dc:creator>
+		<pubDate>Wed, 28 Aug 2013 02:46:42 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-37610</guid>
+		<description><![CDATA[I used the php script &lt;a href=&quot;http://www.w3schools.com/php/php_file_upload.asp&quot; rel=&quot;nofollow&quot;&gt;here&lt;/a&gt;, but can&#039;t see the uploaded file in the /upload folder.
+
+I changed  XHR request to upload.php in the js code. And the progress can go to 100%. But I just don&#039;t see the uploaded image in /upload folder.
+
+Could anyone help? Thanks.]]></description>
+		<content:encoded><![CDATA[<p>I used the php script <a href="http://www.w3schools.com/php/php_file_upload.asp" rel="nofollow">here</a>, but can&#8217;t see the uploaded file in the /upload folder.</p>
+<p>I changed  XHR request to upload.php in the js code. And the progress can go to 100%. But I just don&#8217;t see the uploaded image in /upload folder.</p>
+<p>Could anyone help? Thanks.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Yohn</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-37245</link>
+		<dc:creator><![CDATA[Yohn]]></dc:creator>
+		<pubDate>Mon, 05 Aug 2013 20:29:24 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-37245</guid>
+		<description><![CDATA[for multiple file upload I changed one of your lines in the javascript -&#062; formData.append(&#039;file[]&#039;, files[i]); &#060;- added the [] in the statement and I was able to get the multiple file uploads to work correctly :) Thanks for the script! its awesome]]></description>
+		<content:encoded><![CDATA[<p>for multiple file upload I changed one of your lines in the javascript -&gt; formData.append(&#8216;file[]&#8217;, files[i]); &lt;- added the [] in the statement and I was able to get the multiple file uploads to work correctly :) Thanks for the script! its awesome</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Hershel Pearl</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-36841</link>
+		<dc:creator><![CDATA[Hershel Pearl]]></dc:creator>
+		<pubDate>Tue, 23 Jul 2013 19:54:59 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-36841</guid>
+		<description><![CDATA[Remy,
+ 
+Could I use this to D&#038;D routine to drag (copy or cut(?)) a record that was acquired from the database, from a column to another column, then with a webmethod postback the update/change to the server&#039;s database, then update the client with the results?]]></description>
+		<content:encoded><![CDATA[<p>Remy,</p>
+<p>Could I use this to D&amp;D routine to drag (copy or cut(?)) a record that was acquired from the database, from a column to another column, then with a webmethod postback the update/change to the server&#8217;s database, then update the client with the results?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Chintan Patel</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-35097</link>
+		<dc:creator><![CDATA[Chintan Patel]]></dc:creator>
+		<pubDate>Fri, 14 Jun 2013 14:25:37 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-35097</guid>
+		<description><![CDATA[Hi Remy,
+
+I am working on java - spring mvc. I am submitting my data through JSON.
+
+What I want to do is:
+I want to upload an image instantly in to temporary folder on my server using , and show what is to be uploaded.
+
+On final submit all data including uploaded image path (temporary folder&#039; path) will be passed to my spring controller through JSON object, then transfer image from temporary directory to actual directory &#038; saved all data in to a database.
+
+There are few questions:
+1. Where the file is to be uploaded (location)? 
+2. Where to give folder path?
+
+I would be appreciated if you can hep me.
+
+Thanks in advance.]]></description>
+		<content:encoded><![CDATA[<p>Hi Remy,</p>
+<p>I am working on java &#8211; spring mvc. I am submitting my data through JSON.</p>
+<p>What I want to do is:<br />
+I want to upload an image instantly in to temporary folder on my server using , and show what is to be uploaded.</p>
+<p>On final submit all data including uploaded image path (temporary folder&#8217; path) will be passed to my spring controller through JSON object, then transfer image from temporary directory to actual directory &amp; saved all data in to a database.</p>
+<p>There are few questions:<br />
+1. Where the file is to be uploaded (location)?<br />
+2. Where to give folder path?</p>
+<p>I would be appreciated if you can hep me.</p>
+<p>Thanks in advance.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Greg</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/#comment-34688</link>
+		<dc:creator><![CDATA[Greg]]></dc:creator>
+		<pubDate>Mon, 27 May 2013 17:10:53 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500#comment-34688</guid>
+		<description><![CDATA[Wanted to pop in and thank you for a great start you gave me; I took it a different direction and thought that your readers might be interested:
+
+- The files list is inside the event, so if you don&#039;t need to pass it into formData, you can post each individual file and get information from each file&#039;s xhr2 object. This will allow you to do things like per-file progress updates. So, instead of pushing into the formData object, you can just use the event directly (in the case of a change event, it is event.target.files).
+
+- The &quot;fallback&quot; to the file input button is a great idea. We decided to do something like this, but instead of &quot;one or the other&quot;, we always provide the input node. Only the drop area is optional and available on detection.
+
+To streamline everything, we therefore only trigger the upload from a &quot;change&quot; event on the input node. The drop widget takes the files object and throws it over to the input node (document.getElementById(&#039;files-upload&#039;).files = event.originalEvent.dataTransfer.files;), which triggers the change event.
+
+Hope that&#039;s some sort of benefit to someone!]]></description>
+		<content:encoded><![CDATA[<p>Wanted to pop in and thank you for a great start you gave me; I took it a different direction and thought that your readers might be interested:</p>
+<p>&#8211; The files list is inside the event, so if you don&#8217;t need to pass it into formData, you can post each individual file and get information from each file&#8217;s xhr2 object. This will allow you to do things like per-file progress updates. So, instead of pushing into the formData object, you can just use the event directly (in the case of a change event, it is event.target.files).</p>
+<p>&#8211; The &#8220;fallback&#8221; to the file input button is a great idea. We decided to do something like this, but instead of &#8220;one or the other&#8221;, we always provide the input node. Only the drop area is optional and available on detection.</p>
+<p>To streamline everything, we therefore only trigger the upload from a &#8220;change&#8221; event on the input node. The drop widget takes the files object and throws it over to the input node (document.getElementById(&#8216;files-upload&#8217;).files = event.originalEvent.dataTransfer.files;), which triggers the change event.</p>
+<p>Hope that&#8217;s some sort of benefit to someone!</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

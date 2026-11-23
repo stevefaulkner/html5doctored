@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; webm</title>
+	<atom:link href="http://html5doctor.com/tag/webm/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 18 Aug 2015 18:11:14 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Video: the track element and webM codec</title>
+		<link>http://html5doctor.com/video-the-track-element-and-webm-codec/</link>
+		<comments>http://html5doctor.com/video-the-track-element-and-webm-codec/#comments</comments>
+		<pubDate>Thu, 24 Jun 2010 13:45:42 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[codec]]></category>
+		<category><![CDATA[track]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webm]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2089</guid>
+		<description><![CDATA[There are a couple of interesting developments in the world of HTML5 multimedia that you'll be interested in&#8212;the webM video format, and a proposed solution to HTML5 multimedia accessibility.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/"     class="crp_title">Review: Pro HTML5 Accessibility by Joshue O Connor</a></li><li><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/"     class="crp_title">Taking Web Audio Offline in iOS 6 Safari</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>There are a couple of interesting developments in the world of <abbr>HTML</abbr>5 multimedia that you&#8217;ll be interested in. The first is the new <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#the-track-element"><code>&lt;track&gt;</code> element</a> (currently only in the WHAT-WG spec due to political stuff).</p>
+
+<p><code>&lt;track&gt;</code> is a child of a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element that links to a <b>timed track</b>, or time-based data. The kind of data is set via a <code>kind</code> attribute, which can take values of <code>subtitles</code>, <code>captions</code>, <code>descriptions</code>, <code>chapters</code> or <code>metadata</code>, depending on the type of information you&#8217;re adding to your media. These point to a source file containing timed text that the browser will expose via some kind of user interface, if the visitor requires additional data.</p>
+
+<p>This will allow for &#8220;write once, use everywhere&#8221; accessibility; anyone linking to that file with a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element that includes the element can access your information.</p>
+
+<pre><code>&lt;track kind=captions src=blah.srt&gt;</code></pre>
+
+<p>The file format is a new format called <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#websrt">WebSRT</a>, which competes with about <a href="http://wiki.whatwg.org/wiki/Timed_track_formats">50 other timed formats</a>, including some W3C formats (hence the omission of <code>&lt;track&gt;</code> from the W3C spec).</p><p>Added 9 July 2010: Here&#8217;s a readable <a href="http://www.delphiki.com/websrt/">overview of the SRT format</a>.</p>
+
+<p>Given that the format itself isn&#8217;t fully specified yet, it will be a while until we see implementation in browsers. But it&#8217;s good to know that there will be an official way to add accessibility information to media. Until then, I have a <a href="http://dev.opera.com/articles/view/accessible-html5-video-with-javascripted-captions/">JavaScript hack</a> to take timed <code>&lt;span&gt;</code>s out of an in-page transcript to superimpose over a video.</p>
+
+<h2>WebM video format</h2>
+<p>The big news of the last month is that Google open-sourced the VP8 video codec that it acquired when it <a href="http://investor.google.com/releases/2010/0219.html">took over On2 Technologies</a>. When combined with the Vorbis audio codec (that Spotify uses) and wrapped in a subset of the <a href="http://en.wikipedia.org/wiki/Matroska">Matroska container format</a>, it&#8217;s collectively known as <a href="http://www.webmproject.org/">WebM</a>.</p>
+
+<p>All YouTube videos are being transcoded to WebM, and Adobe have also announced they will include it in their Flash player. It&#8217;s available in an <a href="http://www.opera.com/browser/next">Opera 10.60 beta</a>, a <a href="http://nightly.mozilla.org/webm/">Firefox testing build</a>, and a <a href="http://www.chromium.org/getting-involved/dev-channel">Chromium dev channel</a>. Even Microsoft have said that IE9 will support it if the codec is installed on the computer.</p>
+
+<p>The <a href="http://www.streamingmedia.com/Articles/Editorial/Featured-Articles/First-Look-H.264-and-VP8-Compared-67266.aspx">VP8 video codec itself is high-quality</a> (Google had said that Ogg Theora wasn&#8217;t good enough compression-to-quality for YouTube, but Theora was based on the VP3 precursor to VP8). It&#8217;s available for <a href="http://zaheer.merali.org/articles/2010/06/02/webm-and-vp8-streaming-live-from-flumotion/">streaming</a> too.</p>
+
+<p>If you want to encode to WebM, you can try the <a href="http://www.mirovideoconverter.com/">Miro Video Converter</a> utility. Although it doesn&#8217;t allow you to optimise settings, it&#8217;s very easy to use. As the codec becomes more widespread, expect to see many more tools for content creation, editing, and transcoding.</p>
+
+<p>Once production versions of the browsers are available, you should encode your videos with WebM as the first option, Ogg for older versions of Opera, Firefox and Chrome, falling back to royalty-encumbered H.264 for Safari and links to downloads or a Flash player for legacy browsers:</p>
+
+<pre><code>&lt;video controls&gt;
+&lt;source src=video.webm type='video/webm; codecs="vorbis,vp8"'&gt;
+&lt;source src=video.mp4 type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'&gt;
+&lt;source src=video.ogv type='video/ogg; codecs="theora, vorbis"'&gt;
+&lt;!-- embed Flash here --&gt;
+&lt;p&gt;Your browser does not support video; download the &lt;a href=&quot;video.webm&quot;&gt;WebM&lt;/a&gt;, &lt;a href=&quot;video.mp4&quot;&gt;mp4&lt;/a&gt; or &lt;a href=&quot;video.ogg&quot;&gt;Ogg&lt;/a&gt; video for off-line viewing.&lt;/p&gt;
+&lt;/video&gt;</code>
+</pre>
+
+<p>If, however, you&#8217;re having problems with the iPad, put the MP4 version first in the <code>&lt;source&gt;</code> element; apparently there&#8217;s a bug that causes the iPad only to see the first <code>&lt;source&gt;</code> element.</p>
+
+<p>It’s a long haul, and it’s not over yet, but <code>&lt;track&gt;</code> and .webM show significant progress towards our goal of accessible, open, and royalty-free video playing natively in the browser.</p>
+<p><a href="http://html5doctor.com/video-the-track-element-and-webm-codec/" rel="bookmark">Video: the track element and webM codec</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 24, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/"     class="crp_title">Review: Pro HTML5 Accessibility by Joshue O Connor</a></li><li><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/"     class="crp_title">Taking Web Audio Offline in iOS 6 Safari</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/video-the-track-element-and-webm-codec/feed/</wfw:commentRss>
+		<slash:comments>33</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 0.710 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-09-10 04:43:50 -->

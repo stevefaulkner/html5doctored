@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; Reviews</title>
+	<atom:link href="http://html5doctor.com/category/reviews/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Review: Pro HTML5 Accessibility by Joshue O Connor</title>
+		<link>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/</link>
+		<comments>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/#comments</comments>
+		<pubDate>Tue, 11 Dec 2012 10:00:48 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[oconnor]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4830</guid>
+		<description><![CDATA[TL;DR: this is a good book, let down by a bad tech editor and a publisher who has low production values. <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.apress.com/9781430241942">Pro HTML5 Accessibility</a> is an exhaustive book. Author Joshue O Connor is senior accessibility consultant with National Council for the Blind of Ireland&#8217;s Centre for Inclusive Technology and a stalwart of many W3C working groups.</p>
+<p>Don&#8217;t be afraid of the title. The book doesn&#8217;t assume that you&#8217;re a professional accessibility expert &#8211; quite the opposite; the first 100 pages don&#8217;t really deal with HTML5 at all, but survey the landscape of disability, assitive technologies and W3C WAI-ARIA. The last chapters of the book usefully survey testing methodologies and tools which will be invaluable to the lone developer told &#8220;oh, and it must be accessible/ DDA-/508-compliant, too&#8221;.</p>
+<p>Joshue does an admirable job of explaining how to use HTML5/ARIA to make sites accessible, and gives a thorough overview of how current browsers communicate new widgets (date pickers, sliders, video controls etc) to assistive technology now, rather than in some glorious unspecified future. </p>
+<p>He writes engagingly, too: &#8220;Remember that the <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements are semantically neutral elements. They have no meaning, poor things, and are merely empty hooks—ciphers for you to do with what you will. They cheer up to no end when you give them meaning. Existential crisis averted!&#8221;</p>
+<p>I also appreciated Joshue&#8217;s pragmatism: &#8220;Good semantics are really important, but real-world accessibility is very nuanced—particularly for new content and element types. However, bear in mind that an unencoded ampersand (which will throw a validation error) never resulted in an inaccessible webpage.&#8221;</p>
+<p>However, I didn&#8217;t understand &#8220;Having some heading structure, rather than none, on a web document is far more important than merely ensuring the headings are ordered in the correct way.&#8221; Surely &#8220;merely ensuring the headings are ordered in the correct way&#8221; is exactly the same as &#8220;having some heading structure rather than none&#8221;?</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2012/12/A9781430241942-3d_2.png" alt=""  width="277" height="350" class="aligncenter size-full wp-image-4845" /></p>
+<figcaption><a href="http://www.apress.com/9781430241942"><cite>Pro HTML5 Accessibility</cite> by Joshue O Connor</a></figcaption>
+</figure>
+<p>It&#8217;s also unclear to me why the author chose to markup buttons to control a video player as</p>
+<pre> 
+<code>&lt;div id="back" tabindex="0"&gt;
+&lt;img src="player/back_button.png" role="button" alt="Jump Back" /&gt;
+&lt;/div&gt;
+</code>
+</pre>
+<p>rather than simply use a <code>&lt;button&gt;</code> element which by default has a role of button and is focussable. But it doesn&#8217;t much matter; it gets the job done.</p>
+<p>There are some errors which the technical editor should have picked up. Chapter 3 says &#8220;JavaScript has some event handlers that can be activated only by using the mouse, such as onClick&#8221;, which <a href="http://websiteaccessibility.donaldevans.com/2011/06/30/when-does-onclick-work-with-the-keyboard-enter-key/">isn&#8217;t strictly true</a>. The same chapter also says &#8220;IE 9 doesn’t support the <code>&lt;video&gt;</code> element&#8221;, which is just wrong: it does. A cursory code-test would have shown that chapter 5&#8217;s example <code>&lt;img scr="myserver/usful_andgroovy_image.png"&gt;</code> won&#8217;t work, as there is no <code>scr</code> attribute (it&#8217;s obviously a typo for <code>src</code>).</p>
+<p>The most significant failing of the book isn&#8217;t the author&#8217;s fault: it&#8217;s  the lack of love for presentation that I&#8217;ve found endemic in all Apress books lately. For example, the tables in chapter 5 could easily have been formatted for a more attractive presentation, but they look exactly as a basic Word document. Similarly, the multi-page bulleted lists could easily have been a single, multi-column page.</p>
+<p>It looks as if Apress just doesn&#8217;t care about quality, which is incomprehensible from a publisher. In a publishing environment where ebooks have advantages such as portability, searchability, updateability in case of errors,  dead-tree publishers need to work hard to ensure their products remain competitive. They need to play to the traditional strengths of print: beautiful layouts, colours, good design and high-quality paper. We see these in books from Five Simple Steps, Smashing Magazine and A Book Apart. I&#8217;ve only seen a PDF of this book, but a previous physical Apress book I own has a paper quality redolent of 1970s East German toilet paper. Certainly Apress has expended no effort at all to lay out the pages for a pleasant read.</p>
+<p>That rant aside, the content of this book will be invaluable to a developer new to the world of accessibility, trying to use  modern web standards. </p>
+<p><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/" rel="bookmark">Review: Pro HTML5 Accessibility by Joshue O Connor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on December 11, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>Review: HTML5 Multimedia: Develop and Design</title>
+		<link>http://html5doctor.com/review-html5-multimedia-develop-and-design/</link>
+		<comments>http://html5doctor.com/review-html5-multimedia-develop-and-design/#comments</comments>
+		<pubDate>Tue, 28 Aug 2012 17:03:18 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[book]]></category>
+		<category><![CDATA[iandevlin]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[source]]></category>
+		<category><![CDATA[track]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4744</guid>
+		<description><![CDATA[With a number of HTML5 books now available, we&#8217;re starting to see them cover more specific areas of HTML5. HTML5 Multimedia: Develop and Design, written by fellow HTML5 Doctor Ian Devlin, focusses on native multimedia in HTML5. Read my review below to find out what it&#8217;s all about. Disclosure: Ian is a friend of mine [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>With a number of HTML5 books now available, we&#8217;re starting to see them cover more specific areas of HTML5. <a href="http://html5multimedia.com"><cite>HTML5 Multimedia: Develop and Design</cite></a>, written by fellow HTML5 Doctor <a href="http://twitter.com/iandevlin">Ian Devlin</a>, focusses on native multimedia in HTML5. Read my review below to find out what it&#8217;s all about.</p>
+<div class="callout">
+<p><strong>Disclosure:</strong> Ian is a friend of mine (though I&#8217;ve never met him in real life, so I can&#8217;t actually confirm he exists), an HTML5 Doctor, and a fellow curator of HTML5 Gallery. This review isn&#8217;t biased though.
+<div style="position:absolute; top:-691px; left:127px"><a href="http://iga.edu/pay-someone-to-do-essay/">http://iga.edu/pay-someone-to-do-essay/</a></div>
+<p> It&#8217;s an honest opinion of the book.</p>
+<p>I&#8217;ve been meaning to write this review since the book came out — and before Ian joined the surgeons on this site — but I didn&#8217;t get around to it. Thankfully much of the book is still relevant.</p>
+</div>
+<p>Although Ian&#8217;s book is primarily about HTML5 multimedia, he actually covers much more, including brief introductions to new HTML5 elements, parts of CSS3, canvas, SVG, and WebSockets whilst linking them all back to native multimedia. It&#8217;s a comfortable length, easy to read, has solid examples, and dives into lots of detail in places. There&#8217;s useful, practical information regarding such things as MIME types and MP4 profiles and other gotchas that you don&#8217;t always see in other books and articles. And the best thing: Ian has tested all this himself and not relied on someone else&#8217;s word.</p>
+<figure>
+  <img src="http://html5doctor.com/wp-content/uploads/2012/08/html5-multimedia.jpg" alt="Cover of HTML5 Multimedia: Develop and Design Book"></p>
+<figcaption><cite>HTML5 Multimedia: Develop and Design</cite>, by Ian Devlin</figcaption>
+</figure>
+<p>The book starts with an introduction to HTML5, including a potted history and some detail about many of the new elements. You can probably skip this chapter if you know a bit about HTML5.</p>
+<p>The second chapter is dedicated to the history of web-based multimedia. Ian manages to tell the story in detail without making it boring. I found the web multimedia history lesson very interesting as it reminded me of the pains we endured making sites in the early days of the web. This chapter also introduces the four main multimedia elements (<code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;source&gt;</code>, and <code>&lt;track&gt;</code>) covered in the book, along with their associated attributes.</p>
+<p>Chapters 3 and 4 cover <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> and their attributes in further detail. It&#8217;s well-written and easy to understand with good humour expressed throughout the examples. Ian does perhaps gloss over some of the downsides, such as having to encode and host files multiple times, particularly for commercial sites (although it is mentioned in passing in Chapter 4). This is understandable, though, as native multimedia is still overall a big win for developers and users.</p>
+<p>For video in particular, there&#8217;s good coverage of media queries and media types and even caveats for Android (or targeting other devices and serving appropriate content). Ian also includes a helpful tip about <a href="http://renaun.com/blog/code/qtindexswapper/">qtindexswapper</a> that you may have seen in Ian&#8217;s recent <a href="http://html5doctor.com/multimedia-troubleshooting/">Multimedia Troubleshooting</a> article.</p>
+<p>The next chapter covers the media API. It&#8217;s a simple and easy-to-follow introduction for someone (like me) who doesn&#8217;t write a lot of JavaScript. Ian shows how to script your own controls, amongst other things. It would&#8217;ve been nice to see complete code examples at the end of each section, so you could see exactly where each portion of the script fits in relation to the others.</p>
+<p>Chapters 6 and 7 cover styling with CSS. If you&#8217;re up to speed with CSS3, then you should find it all simple enough. There&#8217;s all your standard rounded corners, gradients, and shadow shizzle included. The object properties and transitions and animation are also covered, which are good to know about.</p>
+<p>I do have to question the value of these chapters for readers. Perhaps it&#8217;s beneficial for those with little knowledge of CSS, but overall these chapters feel too long and take up a large portion of content that could have been used to explore the API or accessibility (&#8220;a11y&#8221;) in more detail.</p>
+<p>Speaking of a11y, that&#8217;s covered in Chapter 8. It includes a thorough introduction to WebVTT, the <code>&lt;track&gt;</code> element, and keyboard interaction. I would have liked to see Ian dig a little deeper and look at other a11y areas that are appropriate to multimedia.</p>
+<p>Ian then looks at using video with canvas and SVG. He includes some useful ideas such as taking a screenshot using canvas or grey-scaling a video. For SVG, there are some excellent tips about masking and animating masks over video using SVG shapes (plus a brief intro to SVG for those who haven&#8217;t used it). He introduces SVG filters, but it was unclear to me how I link the SVG filters to the actual video files. Again, I think complete final examples would have been good to see here.</p>
+<p>The book closes with a useful overview of where native multimedia is heading and introduces a number of new APIs coming soon (or already here in some cases) to a browser near you.</p>
+<section id="summary">
+<h2>Summary</h2>
+<p>In summary, the book is easy to read and has an appropriate level of detail throughout with good examples to supplement the explanation. I&#8217;d definitely recommend this book to anyone who&#8217;s looking to do more with HTML5 Multimedia than simply add it to a site as you see in a lot of tutorials.</p>
+</section>
+<p><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/" rel="bookmark">Review: HTML5 Multimedia: Develop and Design</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 28, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-html5-multimedia-develop-and-design/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>Review: The Truth About HTML5 For Web Designers</title>
+		<link>http://html5doctor.com/review-the-truth-about-html5-for-web-designers/</link>
+		<comments>http://html5doctor.com/review-the-truth-about-html5-for-web-designers/#comments</comments>
+		<pubDate>Tue, 26 Jun 2012 12:52:36 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Reviews]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4671</guid>
+		<description><![CDATA[<p>The Truth About HTML5 For Web Designersis an ebook self-published by Australian developer Luke Stevens. I disagree with some of Stevens' conclusions, particularly in his discusssion of the new semantics, but it's solidly researched and lots of fun if you like hearing someone with strong opinions rant for a while (as I do). I enjoyed reading his book and, for the price, recommend that you have a look.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.truthabouthtml5.com/">The Truth About HTML5 For Web Designers</a> is an ebook self-published by Australian developer <a href="http://twitter.com/lukestevens">Luke Stevens</a>.</p>
+<h2>TL;DR:</h2>
+<ul>
+<li>The website promises &#8220;This is the book for web designers, web developers, and front-end coders who want to get up to speed with HTML5 in 2012&#8221;. It isn&#8217;t.</li>
+<li>It is a healthy antidote to all the bullshit out there claiming that HTML5 cures cancer and brings about world peace</li>
+<li>At only $4.99, it&#8217;s very cheaply priced and you&#8217;ll probably learn something or, if not, you&#8217;ll have some useful antidote to the hype. So buy it!</li>
+</ul>
+<p><img src="http://html5doctor.com/wp-content/uploads/2012/06/luke-stevens-cover.jpg" alt="cover image" title="luke-stevens-cover" width="300" height="450" class="aligncenter size-full wp-image-4678" /></p>
+<h2>Longer review</h2>
+<p>Stevens&#8217; book is not a really a tutorial. If you know nothing about the subject, I doubt whether this book would teach you enough to start coding HTML5. But for those of us who&#8217;ve been following the development of the language,  it&#8217;s a great commentary on the good, bad and the ugly of HTML5.</p>
+<p>If such a thing interests you I heartily recommend that you buy it although, as with any polemic, there are parts of it I disagree with.</p>
+<p>For example, Stevens writes &#8220;There was—and is—no unifying vision of “HTML5”.&#8221; Now this is inaccurate. The unifying vision of HTML5 was to extend the Web without  breaking it; evolution rather then revolution, with a set of <a href="http://www.w3.org/TR/html-design-principles/">design principles</a>:</p>
+<ul>
+<li>Support Existing Content</li>
+<li>Degrade Gracefully </li>
+<li>Do not Reinvent the Wheel</li>
+<li> Pave the Cowpaths </li>
+<li> Evolution Not Revolution</li>
+<li> Solve Real Problems </li>
+<li> Priority of Constituencies</li>
+<li> Secure By Design </li>
+<li> Separation of Concerns</li>
+<li> DOM Consistency </li>
+<li> Well-defined Behavior</li>
+<li>Avoid Needless Complexity</li>
+<li> Handle Errors </li>
+<li> Media Independence</li>
+<li>Support World Languages</li>
+<li> Accessibility</li>
+</ul>
+<p>In his chapter on the structural elements, Stevens complains that the new markup elements are badly defined and hard to learn:</p>
+<blockquote><p>These are serious problems that hurt, rather than help, web standards. Markup should be lightweight, easy to learn, and easy to apply. It should not require mental gymnastics to try and work out what to use where.</p></blockquote>
+<p>Anything new is hard to learn. It&#8217;s not so long ago that we were still coming to grips with how to use HTML 4, and building up a canon of best practice as a community with efforts such as <a href="http://simplebits.com/categories/simplequiz/">Dan Cederholm&#8217;s Simplequiz</a>. The language has increased the number of elements by more than 30%, as well as gained many, many new APIs and become generally much more complex . People haven&#8217;t instantly understood all the new changes. I&#8217;m comfortable with that; change takes time to settle.</p>
+<p>Stevens also suggests that the new elements are somehow tarnished because Hixie made them up <em>before</em> the Google research that analysed 1 billion web pages, and therefore suggests that aren&#8217;t useful. He quotes Hixie to back up his assertion:</p>
+<blockquote><p>Hixie: Me and other WHATWG contributors [added them], [in] 2004ish, because they were obvious elements to add after seeing how authors used HTML4. We later (late 2005 early 2006) did some objective research to find out what the top ten HTML classes were and it turned out that they basically exactly matched the elements we had added, which was convenient.</p></blockquote>
+<p>But, as Hixie says &#8220;they were obvious elements to add after seeing how authors used HTML4&#8221;. These weren&#8217;t just dreamed up out of nowhere &#8211; they were dreamed up out of real, but anecdotal, experience of what authors really did, which was then corroborated by objective research. This seems fine and reasonable to me, and doesn&#8217;t feel like the smoking gun that Stevens believes it is.</p>
+<p>The author dislikes the names of the new structural elements (&lt;header&gt;, &lt;aside&gt; and &lt;footer&gt;) because, he says, they don&#8217;t closely match the way that designers would describe areas of the page: Header, Content, Sidebar and Footer. Those seem to me to be quite a good match, but Stevens doesn&#8217;t think so and prefers the ARIA roles banner, main, complementary and contentinfo, which to me feel more alien.</p>
+<p>Stevens laments that multiple meanings of some elements:</p>
+<blockquote><p>In HTML4 a paragraph is a paragraph is a paragraph.  In HTML5 an “article” is a forum post is a blog comment is a widget is a an actual article.</p></blockquote>
+<p>I disagree. We&#8217;ve all seen &#8220;paragraphs&#8221; that are not paragraphs at all, but merely sentence fragments &#8211; for example</p>
+<pre>
+<code>&lt;p&gt;Products include:&lt;/p&gt;
+&lt;ul&gt;...&lt;/ul&gt;
+</code>
+</pre>
+<p>Is &#8220;Products include&#8221; <em>really</em>  a paragraph? Of course not; it&#8217;s merely that &lt;p&gt; is the best-fitting element to use. And so it is with the multiple uses of &lt;article&gt; in the spec. At least there are suggestions in the spec that may encourage some kind of conventions amongst developers.</p>
+<p>Stevens continues &#8220;If an element has such broad meaning, how can it be more &#8216;semantic&#8217;”?&#8221; This is not a new problem with HTML5. In the HTML 4 spec is the ridiculous suggestion in the spec that the <a href="http://www.w3.org/TR/REC-html40/struct/lists.html#h-10.3">&lt;dl&gt; element is appropriate for marking up conversations</a> on the grounds (I guess) of its default visual rendering in browsers. I agree that we need to keep HTML lightweight, so it will never be possible to capture every subtlety of meaning with a limited set of elements, but I strongly feel that HTML5 elements are much more tightly defined than HTML 4.</p>
+<p>Lastly, Stevens sees no practical value to the <a href="http://html5doctor.com/outlines/">HTML5 document outlining algorithm</a>:</p>
+<blockquote><p>So user agents (screen readers in particular) will have very little incentive to ever use HTML5 outlines—the main point of these elements—as a means of navigation, given they’ll be (and already are) an utter mess.</p></blockquote>
+<p>For the last eight months, the largest screen reader on the market, <a href="http://www.accessibleculture.org/articles/2011/10/jaws-ie-and-headings-in-html5/">JAWS, has supported HTML5 outlines</a> (albeit buggily) so presumably they do see an incentive to use it.</p>
+<h2>Conclusion</h2>
+<p>I disagree with some of Stevens&#8217; conclusions, particularly in his discusssion of the new semantics, but it&#8217;s solidly researched and lots of fun if you like hearing someone with strong opinions rant for a while (as I do). I enjoyed reading his book and, for the price, recommend that you have a look.</p>
+<p><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/" rel="bookmark">Review: The Truth About HTML5 For Web Designers</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 26, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-the-truth-about-html5-for-web-designers/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>Review: HTML5 Now (DVD)</title>
+		<link>http://html5doctor.com/review-html5-now-dvd/</link>
+		<comments>http://html5doctor.com/review-html5-now-dvd/#comments</comments>
+		<pubDate>Tue, 04 Oct 2011 13:30:30 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[dvd]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[html5now]]></category>
+		<category><![CDATA[tantek]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3624</guid>
+		<description><![CDATA[<p>We all learn in different ways. Some of us are readers or writers, some are kinesthetic learners, some prefer video or audio. If you fall into either of the latter two categories, Tantek Çelik’s DVD HTML5 Now might just be for you.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We all learn in different ways. Some of us are readers or writers, some are kinesthetic learners, some prefer video or audio. If you fall into either of the latter two categories, <a href="http://twitter.com/t">Tantek Çelik’s</a> DVD <cite>HTML5 Now</cite> (Figure 1) might just be for you.</p>
+
+<figure>
+  <img src="http://html5doctor.com/wp-content/uploads/2011/09/html5-now.jpg" alt="HTML5 DVD">
+  <figcaption>Figure 1: <cite>HTML5 Now</cite> DVD by Tantek Çelik</figcaption>
+</figure>
+
+<section>
+  <h2>Overview</h2>
+  <p>Personally, I’ve never been keen on video-based learning like this. As such, I wasn’t sure what I’d make of <cite>HTML5 Now</cite>. It turns out I was pleasantly surprised by the format, the content, and the presentation.</p>
+  
+  <p>Tantek has an natural, engaging presentation style, and his knowledge of the subject area ranks up there with the best of them. He begins with an interesting historical look at HTML and in turn how HTML5 came to be. This section is full of things you might not know about HTML, let alone HTML5.</p>
+  
+  <p>A few other thoughts:</p>
+  
+  <ul>
+    <li>Tantek constantly urges you to get involved and share your experiences.</li>
+    <li>The early parts of the DVD contain in-depth background information on elements and attributes.</li>
+    <li>Tantek presents a clear, concise introduction to <code>&lt;ruby&gt;</code> and friends, even explaining how it’s worked in IE for 10+ years!</li>
+    <li>He introduces his bulletproof HTML5 syntax (using <code>&lt;div&gt;</code>s with class names inside new elements).</li>
+    <li>The accompanying booklet effectively takes notes for you so you don’t have to. Just sit back and enjoy!</li>
+    <li>The DVD also contains the slides shown throughout the presentation and a PDF of the booklet.</li>
+    <li>A few tongue-tied moments help keep it real, not staged or forced. It shows Tantek really cares about the subject.</li>
+    <li>You’ll get some good tips on when to use the new elements. Additionally, some elements are more stable since the DVD was released.</li>
+    <li>Each section is concluded by a brief summary recapping what you’ve learnt.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Words of warning</h2>
+  <p>As is the case with any book or DVD based on the constantly evolving HTML5 specification, parts of the DVD are now out of date. (It was originally released in July 2010.) Look out for these gotchas:</p>
+  
+  <ul>
+    <li>Certain sections don’t mention browser support.</li>
+    <li><code>&lt;u&gt;</code> is now a part of the HTML5 specification.</li>
+    <li>The WebM video codec didn’t exist at the time of production.</li>
+    <li>There is no mention of form attributes and support for the new input types.</li>
+    <li><code>&lt;canvas&gt;</code> is incorrectly described as a vector format (it’s bitmap).</li>
+    <li>It’s a shame that Tantek only scratches the surface of <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;canvas&gt;</code>, and SVG. They each deserve their own DVD!</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Summary</h2>
+  <p>I’m still not convinced that DVD is the best format for this type of content. As with print, it goes out of date very quickly. Alternatively, you could simply publish the video(s) on a website and make them available on a subscription basis. That way, outdated information could be updated more regularly. That’s a discussion for another day, though, and I’m sure Tantek would be keen to see it happen.</p>
+  
+  <p>In my opinion, the DVD is better suited to someone who has some prior knowledge of HTML and HTML5. It’s certainly not for beginners, but it does come recommended. You’ll definitely learn something. I’ll leave you with a video of Tantek (Figure 2) discussing the state of HTML5 at the Voices that Matter Conference just before the DVD was released:</p>
+
+  <figure>
+    <iframe width="500" height="375" src="http://www.youtube.com/embed/gUl9GdNk92o" frameborder="0" allowfullscreen></iframe>
+    <figcaption>Figure 2: Tantek Çelik at the Voices That Matter: Web Design Conference 2010.</figcaption>
+  </figure>
+</section><p><a href="http://html5doctor.com/review-html5-now-dvd/" rel="bookmark">Review: HTML5 Now (DVD)</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 4, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-html5-now-dvd/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Review: HTML5 Designing Rich Internet Applications</title>
+		<link>http://html5doctor.com/review-html5-designing-rich-internet-applications/</link>
+		<comments>http://html5doctor.com/review-html5-designing-rich-internet-applications/#comments</comments>
+		<pubDate>Fri, 28 Jan 2011 14:30:06 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[book]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2881</guid>
+		<description><![CDATA[<p>HTML5: Designing Rich Internet Applications by Matthew David (Focal Press). I'll be honest and up front, this is a pretty negative review. I've been sitting on it for months, but decided to post it as people have asked our opinion of this book.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>HTML5: Designing Rich Internet Applications by Matthew David (Focal Press)</p>
+<p>I&#8217;ll be honest and up-front: this is a pretty negative review. I&#8217;ve been sitting on it for months, but decided to post it as people have asked our opinion of this book.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/01/html5_matthew_david.jpg" alt="HTML5: Designing Rich Internet Applications by Matthew David">
+<figcaption>Figure 1: Cover of HTML5 Designing Rich Internet Applications by Matthew David</figcaption>
+</figure>
+<p>Firstly, it&#8217;s true that all books have errors. As well as typos, there are authoring brain-farts (the book I co-wrote with Remy claims there is a &lt;heading&gt; element, for example). There is also the risk, when writing on a moving target like HTML5, that the spec will change after the book has gone to press.</p>
+
+<section>
+<h2>About the book</h2>
+<p>Four of us doctors have read this book (figure 1) and in our opinion it contains an unacceptable number of errors which makes it misleading to the reader.</p>
+<ul>
+<li>The preface claims &quot;a group called the Web Standards project began developing HTML5 in 2007&quot;. It didn&#8217;t; it was the <a href="http://whatwg.org/">WHATWG</a>, in 2004.</li>
+<li>In &quot;spring 2010 .. Microsoft formerly [sic] joined the HTML5 Working Group&quot;. Chris Wilson, then lead of Internet Explorer, was co-chair in 2006.</li>
+<li>Page 11 mentions the &lt;m&gt; element. There isn&#8217;t one; it was renamed to the &lt;mark&gt; element (as it&#8217;s correctly called on page 22) <a href="http://www.w3.org/TR/html5-pubnotes/">before June 2008</a>, at least 2 years before  this book was published July 2010.</li>
+<li>Page 19 discusses the &lt;dialog&gt; element, which was removed from the spec in September 2009. </li>
+<li>Page 27 tells us &quot;The W3C had already begun modernizing the FORM element, called Forms 2.0, before HTML5&quot;. The WHATWG started with Webforms 2; the W3C had worked on XForms 1.0.</li>
+<li>There is a &lt;navigation&gt; element used extensively in the chapter &quot;Building a web site using HTML5 blocking elements&quot; — this should be the <code>&lt;nav&gt;</code> element.</li>
+
+<li>Page 72 tells us &#8220;The ANCHOR element has four pseudo classes: link, active, hover and visited&#8221;, omitting the <code>focus</code> pseudo-class which is vital for accessibility, as it is applied when a user navigates to a link using the keyboard rather than hovering with a mouse.</li> 
+<li>Page 73 says &#8220;New to CSS3 is a new extension called pseudo elements&#8221;. Pseudo-elements were there from <a href="http://www.w3.org/TR/REC-CSS1/#pseudo-classes-and-pseudo-elements">CSS 1</a>.</li>
+</ul>
+
+<p>The book also promotes several examples of bad coding practices:</p>
+
+<ul><li><code>&lt;br/&gt;&lt;br/&gt;</code> pairs to force new lines</li>
+<li>classitis (<code>&lt;footer class="footerStyle"&gt;</code>)</li>
+<li>form <code>&lt;label&gt;</code>s are not accessibly associated with their <code>&lt;input&gt;</code>s</li><li>not using the full vendor-prefix stack (-moz-, -ms- , -o-, -webkit-, [no prefix]) resulting in code that is neither <a href="http://www.brucelawson.co.uk/2010/cross-browser-future-proof-css-3/">future-proof nor cross-browser</a></li> 
+<li>bad semantics, for example <code>&lt;p class=mainTitleStyle&gt;</code> rather than using  an HTML heading</li>
+</ul>
+<p>The author&#8217;s website is <a href="http://matthewdavid.ws/">http://matthewdavid.ws</a>.</p>
+</section>
+
+<section>
+<h2>What I do recommend</h2>
+<p>So I can&#8217;t recommend this book. I can, however, recommend any of the following resources:</p>
+<ul>
+<li><a href="http://books.alistapart.com/products/html5-for-web-designers">Jeremy Keith&#8217;s <cite>HTML5 For Web Designers</cite></a> is a brief overview for designers or IT director types</li>
+<li><a href="http://diveinto.html5doctor.com/"><cite>Dive into HTML5</cite> by Mark Pilgim</a></li>
+<li><a href="http://apress.com/book/view/1430227907"><cite>Professional HTML5 Programming</cite> by Peter Lubbers <i lang=la>et al</i></a> is a really good look at the APIs</li>
+<li><a href="http://apress.com/book/view/1430230908"><cite>Definitive Guide to HTML5 Video</cite> by Silvia Pfeiffer</a></li>
+<li><a href="http://www.peachpit.com/promotions/promotion.aspx?promo=137880">Tantek &Ccedil;elik&#8217;s <cite>HTML5 Now</cite></a> is a good video tutorial.</li>
+</ul>
+</section>
+
+<p>Have you read this book? What did you think of it? Let us know in the comments.</p>
+
+<p><small>Reviewed by Bruce Lawson, Richard Clark, Oli Studholme and Tom Leadbetter.</small></p>
+<p><a href="http://html5doctor.com/review-html5-designing-rich-internet-applications/" rel="bookmark">Review: HTML5 Designing Rich Internet Applications</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 28, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-html5-designing-rich-internet-applications/feed/</wfw:commentRss>
+		<slash:comments>15</slash:comments>
+		</item>
+		<item>
+		<title>Reviewing HTML5 for Web Designers</title>
+		<link>http://html5doctor.com/reviewing-html5-for-web-designers/</link>
+		<comments>http://html5doctor.com/reviewing-html5-for-web-designers/#comments</comments>
+		<pubDate>Tue, 27 Jul 2010 13:50:05 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[abookapart]]></category>
+		<category><![CDATA[adactio]]></category>
+		<category><![CDATA[book]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[jeremy keith]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2213</guid>
+		<description><![CDATA[<p><abbr>HTML</abbr>5 for Web Designers, written by Jeremy Keith, is the first book to be published under the A Book Apart brand, founded by Mandy Brown, Jason Santa Maria, and Jeffrey Zeldman.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a title="HTML5 for Web Designers" href="http://books.alistapart.com/product/html5-for-web-designers"><abbr>HTML</abbr>5 for Web Designers</a>, written by <a href="http://adactio.com" title="Jeremy Keith">Jeremy Keith</a>, is the first <a href="http://cialistadalafils.com/" title="cheap cialis online">cheap cialis online</a> book to be published under the <a href="http://abookapart.com">A Book Apart</a> brand, founded by <a title="Mandy Brown" href="http://aworkinglibrary.com/">Mandy Brown</a>, <a title="Jason Santa Maria" href="http://jasonsantamaria.com">Jason Santa Maria</a>, and <a title="Jeffrey Zeldman" href="http://www.zeldman.com/">Jeffrey Zeldman</a>.</p>
+<p>When the book first landed on my doorstep, I was a bit let down by its meagre length of around 85 pages. I have to be honest, however, and admit I had not done my research before its arrival. From the book&#8217;s inception, the publishers stated that they intended to produce something to fill the gap between a blog post and book, something that people would be able to pick up, read quickly, and start implementing straight away.</p>
+<p>So I set aside my disappointment and started reading this beautifully crafted book.</p>
+<figure><img title="HTML5 for Web Designers Book" src="http://html5doctor.com/wp-content/uploads/2010/07/html5-for-web-designers-shop.png" alt="" width="620" /><br />
+<figcaption>HTML5 for Web Designers Book &mdash; <a href="http://books.alistapart.com/product/html5-for-web-designers">Image source &mdash; used with permission</a></figcaption>
+</figure>
+<p>After reading through it, my opinion has changed. I realise exactly what A Book Apart were aiming to create when they decided on a short format for the series. <cite><abbr>HTML</abbr>5 for Designers</cite> is split up into six bite-size chapters:</p>
+<ol>
+<li><strong>Chapter One</strong>: <a href="#chap-one">a brief history of markup</a></li>
+<li><strong>Chapter Two</strong>: <a href="#chap-two">the design of HTML5</a></li>
+<li><strong>Chapter Three</strong>: <a href="#chap-three">rich media</a></li>
+<li><strong>Chapter Four</strong>: <a href="#chap-four">web forms 2.0</a></li>
+<li><strong>Chapter Five</strong>: <a href="#chap-five">semantics</a></li>
+<li><strong>Chapter Six</strong>: <a href="#chap-six">using HTML5 today</a></li>
+</ol>
+<p>To give you some insight each chapter&#8217;s topics, I&#8217;ve described them each briefly.</p>
+<h3 id="chap-one">Chapter One</h3>
+<p>The first chapter lays out the foundations of the book and explains how, as a community, we arrived at the latest iteration of our favorite markup language, <abbr>HTML</abbr>5. Keith discusses how <abbr>HTML</abbr> was born, the ill-fated transition from <abbr>HTML</abbr> to <abbr>XML</abbr> (which never happened), the suggestion of <abbr>XHTML</abbr>2, and why we write &#8220;<abbr>HTML</abbr>5&#8243; instead of &#8220;<abbr>HTML</abbr> 5&#8243;.</p>
+<p>You might be tempted to skip straight to the second chapter, but I firmly believe that you should read this. It&#8217;s vital material, and you&#8217;ll almost certainly learn something. (I sure did!)</p>
+<h3 id="chap-two">Chapter Two</h3>
+<p>Chapter two discusses how to convert web pages from <abbr>XHTML</abbr> 1 to <abbr>HTML</abbr>5. It also touches on elements that changed in <abbr>HTML</abbr>5 and some elements that are absent from the specification.</p>
+<h3 id="chap-three">Chapter Three</h3>
+<p>In chapter three, the book delves into the realms of rich media and what it means for designers and developers. Keith hints that this chapter could have a whole book dedicated to it (perhaps hinting at an upcoming A Book Apart title?). He does a good job describing the possibilities of <code>&lt;canvas&gt;</code> and showing a few examples of its capabilities. Although some readers may wish for more depth, this book is of course written for designers, so detail is kept to a minimum.</p>
+<p>Keith goes on to explain the possibilities of the <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements, something which many argue will change the way we work with the web. Keith gives great examples on how to introduce these elements into your client work with various fallback options for browsers that lag behind.</p>
+<h3 id="chap-four">Chapter Four</h3>
+<p>In chapter one, it&#8217;s explained that <abbr>HTML</abbr>5 started life as Web Apps 1.0 and Web Forms 2.0, which were later merged. So as one might imagine, Web Forms were destined to become an integral part of the <abbr>HTML</abbr>5 specification.</p>
+<p>Chapter four covers the new elements and attributes for use in forms, including <code>placeholder</code>, <code>required</code>, <code>autocomplete</code>, <code>datalist</code>, new input types, sliders/spinners, and dates and times.</p>
+<h3 id="chap-five">Chapter Five</h3>
+<p>Chapter five covers semantics (although I feel that this should have been one of the first chapters in the book). Elements discussed include <code>&lt;mark&gt;</code>, <code>&lt;time&gt;</code>, <code>&lt;meter&gt;</code>, and <code>&lt;progress&gt;</code>, as well as the usual structural elements that get used in nearly every site.</p>
+<h3 id="chap-six">Chapter Six</h3>
+<p>Finally, chapter six discusses the most important question about <abbr>HTML</abbr>5: Can we use it today? I trust, as you are on this website, that you will already know the answer to that question.</p>
+<h2>My opinion of <cite><abbr>HTML</abbr>5 for Web Designers</cite></h2>
+<p>After finishing this book, I discovered that it is in fact quite a gem for anyone starting on their <abbr>HTML</abbr>5 journey.</p>
+<p>There are undoubtedly areas that could have been expanded further, but the limitations imposed by the authors meant merciless fat-trimming. This is the type of book that you would be happy to keep on your desk as a quick reference manual, a shortcut before diving into the full <abbr>HTML</abbr>5 specification.</p>
+<p>I would definitely recommend buying this book if you haven&#8217;t already. It&#8217;s true that great things come in small packages!</p>
+<p><a title="HTML5 for Web Designers" href="http://books.alistapart.com/product/html5-for-web-designers">Buy the book directly from A Book Apart</a></p>
+<p><a href="http://html5doctor.com/reviewing-html5-for-web-designers/" rel="bookmark">Reviewing HTML5 for Web Designers</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 27, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/reviewing-html5-for-web-designers/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 2.609 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-03-16 10:54:55 -->

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; Accessibility</title>
+	<atom:link href="http://html5doctor.com/tag/accessibility/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>Review: Pro HTML5 Accessibility by Joshue O Connor</title>
+		<link>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/</link>
+		<comments>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/#comments</comments>
+		<pubDate>Tue, 11 Dec 2012 10:00:48 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[oconnor]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4830</guid>
+		<description><![CDATA[TL;DR: this is a good book, let down by a bad tech editor and a publisher who has low production values. <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.apress.com/9781430241942">Pro HTML5 Accessibility</a> is an exhaustive book. Author Joshue O Connor is senior accessibility consultant with National Council for the Blind of Ireland&#8217;s Centre for Inclusive Technology and a stalwart of many W3C working groups.</p>
+<p>Don&#8217;t be afraid of the title. The book doesn&#8217;t assume that you&#8217;re a professional accessibility expert &#8211; quite the opposite; the first 100 pages don&#8217;t really deal with HTML5 at all, but survey the landscape of disability, assitive technologies and W3C WAI-ARIA. The last chapters of the book usefully survey testing methodologies and tools which will be invaluable to the lone developer told &#8220;oh, and it must be accessible/ DDA-/508-compliant, too&#8221;.</p>
+<p>Joshue does an admirable job of explaining how to use HTML5/ARIA to make sites accessible, and gives a thorough overview of how current browsers communicate new widgets (date pickers, sliders, video controls etc) to assistive technology now, rather than in some glorious unspecified future. </p>
+<p>He writes engagingly, too: &#8220;Remember that the <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements are semantically neutral elements. They have no meaning, poor things, and are merely empty hooks—ciphers for you to do with what you will. They cheer up to no end when you give them meaning. Existential crisis averted!&#8221;</p>
+<p>I also appreciated Joshue&#8217;s pragmatism: &#8220;Good semantics are really important, but real-world accessibility is very nuanced—particularly for new content and element types. However, bear in mind that an unencoded ampersand (which will throw a validation error) never resulted in an inaccessible webpage.&#8221;</p>
+<p>However, I didn&#8217;t understand &#8220;Having some heading structure, rather than none, on a web document is far more important than merely ensuring the headings are ordered in the correct way.&#8221; Surely &#8220;merely ensuring the headings are ordered in the correct way&#8221; is exactly the same as &#8220;having some heading structure rather than none&#8221;?</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2012/12/A9781430241942-3d_2.png" alt=""  width="277" height="350" class="aligncenter size-full wp-image-4845" /><br />
+<figcaption><a href="http://www.apress.com/9781430241942"><cite>Pro HTML5 Accessibility</cite> by Joshue O Connor</a></figcaption><br />
+</figure>
+<p>It&#8217;s also unclear to me why the author chose to markup buttons to control a video player as</p>
+<pre> 
+<code>&lt;div id="back" tabindex="0"&gt;
+&lt;img src="player/back_button.png" role="button" alt="Jump Back" /&gt;
+&lt;/div&gt;
+</code>
+</pre>
+<p>rather than simply use a <code>&lt;button&gt;</code> element which by default has a role of button and is focussable. But it doesn&#8217;t much matter; it gets the job done.</p>
+<p>There are some errors which the technical editor should have picked up. Chapter 3 says &#8220;JavaScript has some event handlers that can be activated only by using the mouse, such as onClick&#8221;, which <a href="http://websiteaccessibility.donaldevans.com/2011/06/30/when-does-onclick-work-with-the-keyboard-enter-key/">isn&#8217;t strictly true</a>. The same chapter also says &#8220;IE 9 doesn’t support the <code>&lt;video&gt;</code> element&#8221;, which is just wrong: it does. A cursory code-test would have shown that chapter 5&#8242;s example <code>&lt;img scr="myserver/usful_andgroovy_image.png"&gt;</code> won&#8217;t work, as there is no <code>scr</code> attribute (it&#8217;s obviously a typo for <code>src</code>).</p>
+<p>The most significant failing of the book isn&#8217;t the author&#8217;s fault: it&#8217;s  the lack of love for presentation that I&#8217;ve found endemic in all Apress books lately. For example, the tables in chapter 5 could easily have been formatted for a more attractive presentation, but they look exactly as a basic Word document. Similarly, the multi-page bulleted lists could easily have been a single, multi-column page.</p>
+<p>It looks as if Apress just doesn&#8217;t care about quality, which is incomprehensible from a publisher. In a publishing environment where ebooks have advantages such as portability, searchability, updateability in case of errors,  dead-tree publishers need to work hard to ensure their products remain competitive. They need to play to the traditional strengths of print: beautiful layouts, colours, good design and high-quality paper. We see these in books from Five Simple Steps, Smashing Magazine and A Book Apart. I&#8217;ve only seen a PDF of this book, but a previous physical Apress book I own has a paper quality redolent of 1970s East German toilet paper. Certainly Apress has expended no effort at all to lay out the pages for a pleasant read.</p>
+<p>That rant aside, the content of this book will be invaluable to a developer new to the world of accessibility, trying to use  modern web standards. </p>
+<p><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/" rel="bookmark">Review: Pro HTML5 Accessibility by Joshue O Connor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on December 11, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>Your HTML5 Questions 20</title>
+		<link>http://html5doctor.com/your-html5-questions-20/</link>
+		<comments>http://html5doctor.com/your-html5-questions-20/#comments</comments>
+		<pubDate>Tue, 09 Oct 2012 14:09:40 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[outlines]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[xmlhttprequest]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4762</guid>
+		<description><![CDATA[<p>We're back again to answer some more of your questions. This time we've included a bonus answer so you've got six to go at, rather than the usual 5. In this post cover a XMLHttpRequest query, how to define sections, understanding outlines, what markup to use for a social bar, using HTML5 with a legacy site and hidden headings for accessibility.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re back again to answer some more of your questions. This time we&#8217;ve included a bonus answer so you&#8217;ve got six to go at, rather than the usual five!</p>
+
+<p>In this post, we&#8217;ll cover an <code>XMLHttpRequest</code> query, how to define sections, understanding outlines, which markup to use for a social bar, using HTML5 with a legacy site, and hidden headings for accessibility.</p>
+
+<section id="xhr">
+  <h2>XMLHttpRequest <a class="permalink" href="#xhr">#</a></h2>
+
+  <p>Kieran asked:</p>
+
+  <blockquote>
+    <p>I have a test web page where I read the contents of a text file in my dropbox public folder using XMLHttpRequest. However my code works fine in IE but does not work in firefox. I thought XMLHttpRequest2 would work with HTML5. Can you help? Here is the code:</p>
+
+  <pre><code>&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+  &lt;title&gt;JS file reading&lt;/title&gt;
+  &lt;!--&lt;link href="layout.css" rel="stylesheet" type="text/css"&gt;--&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script type="text/javascript"&gt;
+    var oRequest = new XMLHttpRequest();
+    var sURL = "http://dl.dropbox.com/u/34358808/test1.pkl";
+
+    oRequest.open("GET",sURL,false);
+    oRequest.setRequestHeader("User-Agent",navigator.userAgent);
+    oRequest.send(null)
+
+    if (oRequest.status==200) alert(oRequest.responseText);
+    else alert("Error executing XMLHttpRequest call!");
+  &lt;/script&gt;
+  Reading files with javascript
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </blockquote>
+
+  <p>I wouldn&#8217;t recommend running that as a synchronous request.</p>
+
+  <p>That said, I can&#8217;t see how your code would work. You&#8217;re making a cross-domain request, and Dropbox hasn&#8217;t enabled <a href="http://www.w3.org/TR/cors/" title="Cross-Origin Resource Sharing">CORS</a> (as far as I can see — and I did a couple of initial checks).</p>
+
+  <p>Maybe give XHR2 a better read and check out CORS, which is what I think you want.</p>
+
+  <p>Bottom line, since you&#8217;re hitting Dropbox, unless you do something like a JSONP request (and modify the content appropriately), I don&#8217;t think you&#8217;re going to be able to achieve what you&#8217;re shooting for here.</p>
+
+  <p>— Remy</p>
+</section>
+
+<section id="sections">
+  <h2>Defining Sections on Home Page and Category Pages <a class="permalink" href="#sections">#</a></h2>
+
+  <p>Özer asked:</p>
+
+  <blockquote>
+    <p>An example website is <a href="http://www.kahome.com">www.kahome.com</a>. I have no problem with header footer aside etc. However, I am confused while using <code>article</code> on homepage and category pages.</p>
+
+    <p>The homepage contains main menu, an important image, a brief information text, some important seasonal category links (changing seasonally), news section (dynamically changing) and secondary categories at the bottom.</p>
+
+    <p>First: Centered main image <code>&lt;div id="orta"&gt;</code> should be tagged as article or not?</p>
+
+    <p>Second: <code>&lt;div id="sidebar-2"&gt;</code> with brief company information should tagged as an article or aside? (it is currently aside because of CMS layout but i can change it)</p>
+
+    <p>Third: seasonal category links <code>&lt;div id="ana"&gt;</code> is tagged as article. Is it true?</p>
+
+    <p>Fourth: for the <a href="http://www.kahome.com/restaurant-furniture.html">category page</a>, there is a collection of products and they are completely tagged in <code>&lt;article&gt;</code>. Should each product link be tagged as sub articles (they have just title, image, 3 words description) or is it better to use <code>&lt;section&gt;</code> for each product box?</p>
+
+    <p>Last question is about your sectioning system: In html5doctor.com homepage sectioning,  &#8220;article id=opener&#8221;  contains a featured article (sub article) and an aside section with recent comments. However there is no top level article in &#8220;opener&#8221; section.</p>
+
+    <p>For &#8220;more posts from HTML5 doctor&#8221; section, <code>&lt;section&gt;</code> is used as main frame and <code>&lt;article&gt;</code>s are nested in it.</p>
+
+    <p>What is the difference between of those two sections and what is the purpose of such usage? (Probably detailed answer to this question will also answer my questions above.) Thank you for your kind interest.</p>
+  </blockquote>
+
+  <p>Hi Özer,</p>
+
+  <ol>
+    <li>The image in the center of your homepage is not an <code>article</code>, it isn&#8217;t a standalone piece of content (like a news post or shop product) and appears to be just a nice image to spruce up the homepage. However, if the photo of the table was one of your products and you were using that space to advertise that product with a link through to the product, perhaps some text content like a name and description, that could be considered an article.</li>
+
+    <li>If that company information box was just on the homepage as a little introduction, I would consider it just part of the homepage and therefore not an <code>&lt;article&gt;</code>. If it had a heading, I would probably use <code>&lt;section&gt;</code> rather than <code>&lt;div&gt;</code> and make it part of the document outline. See <a href="http://html5doctor.com/document-outlines">our article on document outlines</a> for more on this.</li>
+
+    <li>I would consider the seasonal categories area a <code>&lt;section&gt;</code>, if you added a heading like &#8220;Seasonal Categories&#8221; to the document outline, and then each category within that could be an article as they summarise the standalone content that is a category page.</li>
+
+    <li>I personally don&#8217;t see a problem with using <code>&lt;article&gt;</code> for each of your products in a listing. If you think of it like a news feed, perhaps even via RSS, each product is a standalone entity and should be treated as such. We have examples of this in <a href="http://html5doctor.com/the-article-element/">our post about <code>&lt;article&gt;</code></a> (see the section entitled &#8220;A <code>&lt;section&gt;</code> containing <code>&lt;article&gt;</code>s&#8221;).</li>
+  </ol>
+
+  <p>Finally, even though you aren&#8217;t marking up a blog, Dr Bruce&#8217;s article <a href="http://html5doctor.com/designing-a-blog-with-html5/"><cite>Designing a Blog with HTML5</cite></a> may prove useful in helping you understand how and when to use <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, and other elements.</p>
+
+  <p>Hope this helps! Mike</p>
+</section>
+
+<section id="outline">
+  <h2>Outline View <a class="permalink" href="#outline">#</a></h2>
+
+  <p>Tarun asked:</p>
+
+  <blockquote>
+    <p>I have a very small question, regarding outline view in html5.</p>
+
+    <p>Problem is in HTML5 we need a heading tag in each section, article, nav etc. for outline view. But in a document there are many places where we do not need to display any heading for an article, section or nav etc.</p>
+
+    <p>So there are two solution i know are below:</p>
+
+    <ol>
+      <li>Set display none to heading not need to show. But the problem is it&#8217;s not good for SEO purpose. Search engine may blacklist if they find lot of sections with display none property.</li>
+
+      <li>Set a big value to text-indent so that they will not display, but again same problem. it&#8217;s not good for SEO.</li>
+    </ol>
+
+    <p>Please give me a proper solution for that. Thanks in advance :)</p>
+  </blockquote>
+
+  <p>I think <code>&lt;article&gt;</code>s often need a heading (but not necessarily if the <code>&lt;article&gt;</code> is a comment, nested in a parent article). Whether or not you have heading on sections, <code>&lt;nav&gt;</code> is entirely up to your content authors and designers.</p>
+
+  <p>If you don&#8217;t need them, don&#8217;t add them.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="social">
+  <h2>HTML5 Element for a Social Bar <a class="permalink" href="#social">#</a></h2>
+
+  <p>Ibo asked:</p>
+
+  <blockquote>
+    <p>I was wondering what HTML5 tag to use for the a social bar (Facebook and Twitter links, etc). Is there a common practice for sectioning social links? Should a social bar be defined as a section or should it be as grouping links? Has a tag like <code>&lt;social&gt;&lt;/social&gt;</code> ever been considered for the HTML5 standard? Could a tag like this be beneficial to SEO?</p>
+
+    <p>Even though I might be a rookie at coding html, I take great pride and comfort in coding semantically correct html.</p>
+
+    <p>A design I made has a social bar on the very top of the page. Should I include it the <code>header</code> section like I do with the main navigation <nav> tags? In coding html, is this the best practice?</p>
+
+    <pre><code>&lt;header&gt;
+  &lt;div id="social"&gt;...&lt;/div&gt;
+  &lt;h1&gt;...&lt;/h1&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;header&gt;</code></pre>
+  </blockquote>
+
+  <p>Seems to me that a social bar is peripheral to your content rather than introductory or navigation, and therefore shouldn&#8217;t be in the <code>&lt;header&gt;</code>. As it&#8217;s peripheral, I&#8217;d probably put in in <code>&lt;aside&gt;</code> — most likely just a plain old <code>&lt;div&gt;</code>, but either way not in a header.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="older-site">
+  <h2>HTML5 with an Older Site <a class="permalink" href="#older-site">#</a></h2>
+
+  <p>Clodagh asked:</p>
+
+  <blockquote>
+    <p>I have been requested to build a HTML5 area within the confines of a site that is not HTML5. Is this possible and how would it work with doctypes? I would greatly appreciate any advice you can give on this.</p>
+    </blockquote>
+
+  <h3>Solution #1 (preferred)</h3>
+  <p>Change the doctype for the whole site. Assuming it already has some kind of doctype (and therefore works in standards mode rather than quirks mode), all existing content and functionality will be unchanged and new stuff will be fine.</p>
+
+  <h3>Solution #2</h3>
+  <p>If you can&#8217;t change the doctype, you can use an <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#obsolete-permitted-doctype-string">obsolete permitted doctype</a> — that is, just add the HTML5 areas and leave the doctype alone.</p>
+
+  <p> — Bruce</p>
+</section>
+
+<section id="hidden-headings">
+  <h2>Hidden Headings for Accessibility <a class="permalink" href="#hidden-headings">#</a></h2>
+
+  <p>Tim asked:</p>
+
+  <blockquote>
+    <p>I have been seeing more of these pointers popping up lately advising to place a heading (<code>h1</code> etc.) before each section in our document telling what the section is.  For example, <code>&lt;h1&gt;Site Navigation&lt;/h1&gt;</code> placed immediately before the <code>nav</code> that outlines your main site navigation.  The presumption in these cases is that you would then be hiding the text via text-indent so that it didn&#8217;t appear to visual site visitors, but would be available for sight-disabled users so they know what the section is and so that the document outline is correct and sections. This seems odd to me and I&#8217;ve struggled with why.  Is this a good practice?</p>
+
+    <p>See <a href="http://www.webcredible.co.uk/user-friendly-resources/web-accessibility/beyond-guidelines.shtml">Webcredible</a> and <a href="http://webdesign.about.com/od/html5tutorials/a/html5-outlines.htm">About.com</a>.</p>
+  </blockquote>
+
+  <p>Good question, and I&#8217;m considering writing an article about it. It&#8217;s come about because it&#8217;s well-known that people with screenreaders often navigate a page (or derive a preliminary mental map of its structure) via its heading structure. Here&#8217;s <a href="http://www.youtube.com/watch?v=AmUPhEVWu_E">a YouTube video by a blind web developer explaining how he does this</a>. In JAWS, for example, a user can hit the H key to jump from heading to heading, hit &#8220;2&#8243; to go to the next <code>&lt;h2&gt;</code>, &#8220;3&#8243; to go to the next <code>&lt;h3&gt;</code>, and so on. (This is why I recommend that you don&#8217;t make all headings into <code>&lt;h1&gt;</code>s in the hope that the HTML5 Outlining algorithm will deal with it, because until browsers actually understand that, screenreader users will get a completely flat hierarchy. That&#8217;s changing, though; Jaws 13 supports the h1-only technique in Internet Explorer 9 and Firefox. See <a href="http://www.accessibleculture.org/articles/2011/10/jaws-ie-and-headings-in-html5/">Accessible culture</a> for more).</p>
+
+  <p>However, power users of screenreaders have other mechanisms to navigate a page. Since the Webcredible article you cite (dated 2007), <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">many assistive technologies now allow navigation via ARIA landmark roles</a>. HTML5 mints new elements like <code>&lt;nav&gt;</code> and <code>&lt;aside&gt;</code> that have similar semantics to those ARIA roles (ARIA can be used in any markup language, including HTML4 and SVG).</p>
+
+  <p>Thus, <a href="http://www.paciellogroup.com/blog/2011/07/html5-accessibility-chops-aria-landmark-support/">because a user can get to the <code>&lt;nav&gt;</code> through other means</a>, it can be argued that having a heading &#8220;navigation&#8221; is redundant. Or not: my own blog has headings for navigation types such as &#8220;categories&#8221; and &#8220;recent comments&#8221;, but I don&#8217;t have a heading &#8220;main nav&#8221;, &#8220;main content&#8221;, or &#8220;footer&#8221;.</p>
+
+  <p>I don&#8217;t do it for two reasons. First, it feels redundant to me. The structural semantics are there for user agents to consume. Second, I dislike using CSS to hide content from the view, not because of worries about SEO penalties, but simply because it feels wrong to me.</p>
+
+  <p>But your mileage may vary.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="summary">
+  <h2>Got a question for us? <a class="permalink" href="#summary">#</a></h2>
+
+  <p>That wraps up this round of questions. If you’ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we’ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-html5-questions-20/" rel="bookmark">Your HTML5 Questions 20</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 9, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-html5-questions-20/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>Video: the track element and webM codec</title>
+		<link>http://html5doctor.com/video-the-track-element-and-webm-codec/</link>
+		<comments>http://html5doctor.com/video-the-track-element-and-webm-codec/#comments</comments>
+		<pubDate>Thu, 24 Jun 2010 13:45:42 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[codec]]></category>
+		<category><![CDATA[track]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webm]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2089</guid>
+		<description><![CDATA[There are a couple of interesting developments in the world of HTML5 multimedia that you'll be interested in&#8212;the webM video format, and a proposed solution to HTML5 multimedia accessibility.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/html5-audio-the-state-of-play/"     class="crp_title">HTML5 Audio — The State of Play</a></li><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/"     class="crp_title">Review: Pro HTML5 Accessibility by Joshue O Connor</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>There are a couple of interesting developments in the world of <abbr>HTML</abbr>5 multimedia that you&#8217;ll be interested in. The first is the new <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#the-track-element"><code>&lt;track&gt;</code> element</a> (currently only in the WHAT-WG spec due to political stuff).</p>
+
+<p><code>&lt;track&gt;</code> is a child of a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element that links to a <b>timed track</b>, or time-based data. The kind of data is set via a <code>kind</code> attribute, which can take values of <code>subtitles</code>, <code>captions</code>, <code>descriptions</code>, <code>chapters</code> or <code>metadata</code>, depending on the type of information you&#8217;re adding to your media. These point to a source file containing timed text that the browser will expose via some kind of user interface, if the visitor requires additional data.</p>
+
+<p>This will allow for &#8220;write once, use everywhere&#8221; accessibility; anyone linking to that file with a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element that includes the element can access your information.</p>
+
+<pre><code>&lt;track kind=captions src=blah.srt&gt;</code></pre>
+
+<p>The file format is a new format called <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#websrt">WebSRT</a>, which competes with about <a href="http://wiki.whatwg.org/wiki/Timed_track_formats">50 other timed formats</a>, including some W3C formats (hence the omission of <code>&lt;track&gt;</code> from the W3C spec).</p><p>Added 9 July 2010: Here&#8217;s a readable <a href="http://www.delphiki.com/websrt/">overview of the SRT format</a>.</p>
+
+<p>Given that the format itself isn&#8217;t fully specified yet, it will be a while until we see implementation in browsers. But it&#8217;s good to know that there will be an official way to add accessibility information to media. Until then, I have a <a href="http://dev.opera.com/articles/view/accessible-html5-video-with-javascripted-captions/">JavaScript hack</a> to take timed <code>&lt;span&gt;</code>s out of an in-page transcript to superimpose over a video.</p>
+
+<h2>WebM video format</h2>
+<p>The big news of the last month is that Google open-sourced the VP8 video codec that it acquired when it <a href="http://investor.google.com/releases/2010/0219.html">took over On2 Technologies</a>. When combined with the Vorbis audio codec (that Spotify uses) and wrapped in a subset of the <a href="http://en.wikipedia.org/wiki/Matroska">Matroska container format</a>, it&#8217;s collectively known as <a href="http://www.webmproject.org/">WebM</a>.</p>
+
+<p>All YouTube videos are being transcoded to WebM, and Adobe have also announced they will include it in their Flash player. It&#8217;s available in an <a href="http://www.opera.com/browser/next">Opera 10.60 beta</a>, a <a href="http://nightly.mozilla.org/webm/">Firefox testing build</a>, and a <a href="http://www.chromium.org/getting-involved/dev-channel">Chromium dev channel</a>. Even Microsoft have said that IE9 will support it if the codec is installed on the computer.</p>
+
+<p>The <a href="http://www.streamingmedia.com/Articles/Editorial/Featured-Articles/First-Look-H.264-and-VP8-Compared-67266.aspx">VP8 video codec itself is high-quality</a> (Google had said that Ogg Theora wasn&#8217;t good enough compression-to-quality for YouTube, but Theora was based on the VP3 precursor to VP8). It&#8217;s available for <a href="http://zaheer.merali.org/articles/2010/06/02/webm-and-vp8-streaming-live-from-flumotion/">streaming</a> too.</p>
+
+<p>If you want to encode to WebM, you can try the <a href="http://www.mirovideoconverter.com/">Miro Video Converter</a> utility. Although it doesn&#8217;t allow you to optimise settings, it&#8217;s very easy to use. As the codec becomes more widespread, expect to see many more tools for content creation, editing, and transcoding.</p>
+
+<p>Once production versions of the browsers are available, you should encode your videos with WebM as the first option, Ogg for older versions of Opera, Firefox and Chrome, falling back to royalty-encumbered H.264 for Safari and links to downloads or a Flash player for legacy browsers:</p>
+
+<pre><code>&lt;video controls&gt;
+&lt;source src=video.webm type='video/webm; codecs="vorbis,vp8"'&gt;
+&lt;source src=video.mp4 type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'&gt;
+&lt;source src=video.ogv type='video/ogg; codecs="theora, vorbis"'&gt;
+&lt;!-- embed Flash here --&gt;
+&lt;p&gt;Your browser does not support video; download the &lt;a href=&quot;video.webm&quot;&gt;WebM&lt;/a&gt;, &lt;a href=&quot;video.mp4&quot;&gt;mp4&lt;/a&gt; or &lt;a href=&quot;video.ogg&quot;&gt;Ogg&lt;/a&gt; video for off-line viewing.&lt;/p&gt;
+&lt;/video&gt;</code>
+</pre>
+
+<p>If, however, you&#8217;re having problems with the iPad, put the MP4 version first in the <code>&lt;source&gt;</code> element; apparently there&#8217;s a bug that causes the iPad only to see the first <code>&lt;source&gt;</code> element.</p>
+
+<p>It’s a long haul, and it’s not over yet, but <code>&lt;track&gt;</code> and .webM show significant progress towards our goal of accessible, open, and royalty-free video playing natively in the browser.</p>
+<p><a href="http://html5doctor.com/video-the-track-element-and-webm-codec/" rel="bookmark">Video: the track element and webM codec</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 24, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/multimedia-troubleshooting/"     class="crp_title">Multimedia Troubleshooting</a></li><li><a href="http://html5doctor.com/html5-audio-the-state-of-play/"     class="crp_title">HTML5 Audio — The State of Play</a></li><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/"     class="crp_title">Review: Pro HTML5 Accessibility by Joshue O Connor</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/video-the-track-element-and-webm-codec/feed/</wfw:commentRss>
+		<slash:comments>33</slash:comments>
+		</item>
+		<item>
+		<title>Accessibility &amp; Native Drag and Drop</title>
+		<link>http://html5doctor.com/accessibility-native-drag-and-drop/</link>
+		<comments>http://html5doctor.com/accessibility-native-drag-and-drop/#comments</comments>
+		<pubDate>Thu, 23 Jul 2009 13:30:32 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[aria]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[javascript]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=603</guid>
+		<description><![CDATA[A few days before my native drag and drop article came out Gez Lemon wrote about accessibility in drag and drop, and touched on HTML 5. I then promised to look at implementing accessibility with native drag and drop, and here's my findings.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/drag-and-drop-to-server/"     class="crp_title">Drag and Drop and Automatically Send to the Server</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/"     class="crp_title">Review: Pro HTML5 Accessibility by Joshue O Connor</a></li><li><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/"     class="crp_title">Interview with Ian Hickson, HTML editor</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>A few days before my <a href="http://html5doctor.com/native-drag-and-drop/">native drag and drop</a> article came out <a href="http://juicystudio.com/">Gez Lemon</a> wrote about <a href="http://dev.opera.com/articles/view/accessible-drag-and-drop/">accessibility in drag and drop</a>, and touched on HTML 5.</p>
+
+<p>I then promised to look at implementing accessibility with <em>native</em> drag and drop, and here&#8217;s my findings.</p>
+
+<p><span id="more-603"></span></p>
+
+<h2>ARIA Support</h2>
+
+<p>This was quite easy to add, though only by following Gez&#8217;s article.  Since I already had events for drag start, I just needed to add drag end to clean up and remove the ARIA effects.</p>
+
+<p>I added the following to the <code>dragstart</code> event:</p>
+
+<pre><code>addEvent(dragItems, 'dragstart', function (event) {
+  // via ARIA say the element has been grabbed
+  this.setAttribute('aria-grabbed', 'true');
+  // code continues...</code></pre>
+
+<p>The added a new <code>dropend</code> event:</p>
+
+<pre><code>addEvent(dragItems, 'dragend', function (event) {
+  // remove the ARIA grab attibute when we're not dragging
+  this.setAttribute('aria-grabbed', 'false');
+});</code></pre>
+
+<p>The <code>effectAllowed</code> and <code>dropEffect</code> combo was difficult to work out at first, though probably because I was playing with <code>link</code> and <code>reference</code>, whereas I should have been playing with <code>move</code> or <code>copy</code>.  That said, a note about <code>move</code> and <code>copy</code>, move is a type of copy, with a clean up function to delete afterwards.  Once I had this combo correct, the drop effects worked.</p>
+
+<p>The changes required were to:</p>
+
+<ol>
+<li>On drag: on all the drop targets add: <code>setAttribute('aria-dropeffect', 'copy')</code></li>
+<li>On drag: set the allowedEffect on the drag event: <code>event.dataTransfer.effectAllowed = 'copy';</code></li>
+<li>On drop: say what we&#8217;ll accept: <code>event.dataTransfer.dropEffect = 'move';</code></li>
+<li>On dragend: remove the drop effect from the drop targets: <code>removeAttribute('aria-dropeffect')</code></li>
+</ol>
+
+<p>The big problem for me was that I couldn&#8217;t truely test this.</p>
+
+<p><strong>Update:</strong> between the time I had finished my code and writing this article, <a href="http://www.nvda-project.org/" title="NVDA">NVDA</a> (the Windows open source screenreader) announced that they recieved support from Yahoo!, and that ARIA drag and drop support is in their development roadmap.</p>
+
+<p>The full working version of native drag and drop with ARIA support is available here: <a href="http://jsbin.com/obiqi">native drag and drop with ARIA support</a> (<a href="http://jsbin.com/obiqi/edit#html">source code</a>)</p>
+
+<h2>Keyboard Support</h2>
+
+<p>Keyboard, sadly, is a whole different story.</p>
+
+<p>I was able to replicate a lot of the keyboard features that Gez included in his demo. This included setting the <code>tabIndex = 0</code> to allow the elements to tab to (superb trick by the way), included highlighting the drop targets as we drag.</p>
+
+<p>However, the problem was: I wanted the user to be able to start the drag operation using the keyboard.  Initially looking at the spec I couldn&#8217;t see that it was supposed to be supported (which it turns out, it is).</p>
+
+<p>I started going down the path of using the keyboard to trigger drag events.  I was able to replicate the drag event being triggered from the keyboard (like space starts the event), however, and this is a biggie, I couldn&#8217;t replicate the <code>dataTransfer</code> object.  I tried faking it.  I tried giving it nothing.  I tried all kinds of random attempts to trick the browser in to giving me the object.  It&#8217;s a no goer.</p>
+
+<p>As it turns out, there <em>is</em> <a href="http://www.whatwg.org/specs/web-apps/current-work/#copy-and-paste">keyboard support</a> written in to the spec (though in my personally opinion it&#8217;s not completely obvious to an author reading).  The drag and drop operations should work like a copy and paste operation.</p>
+
+<p>This is very clever, and I like it.  Tab round to the dragable element, copy using the keyboard, which triggers the <code>dragstart</code> event, which I can then add classes to the drop targets, and make them tabbable.  The user then tabs round to the drop targets, and pastes.  This triggers the <code>drop</code> event and we&#8217;re all good.</p>
+
+<p>No browsers support this keyboard event model.</p>
+
+<p>I&#8217;ve raised bug for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=504533">Mozilla</a> and <a href="https://bugs.webkit.org/show_bug.cgi?id=27339">Webkit</a>.  They&#8217;ve both had comments on, and in both cases I&#8217;m not 100% sure what the comments mean, but speaking to the people involved via IRC, they&#8217;ve both said if it&#8217;s in the spec, it should be in the browser.</p>
+
+<p>Let&#8217;s hope they do something about it. Now, how do I report a bug in IE&#8230;?!</p>
+<p><a href="http://html5doctor.com/accessibility-native-drag-and-drop/" rel="bookmark">Accessibility &#038; Native Drag and Drop</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 23, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/drag-and-drop-to-server/"     class="crp_title">Drag and Drop and Automatically Send to the Server</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/"     class="crp_title">Review: Pro HTML5 Accessibility by Joshue O Connor</a></li><li><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/"     class="crp_title">Interview with Ian Hickson, HTML editor</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/accessibility-native-drag-and-drop/feed/</wfw:commentRss>
+		<slash:comments>16</slash:comments>
+		</item>
+	</channel>
+</rss>

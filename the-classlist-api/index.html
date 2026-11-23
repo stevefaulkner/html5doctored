@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  The classList API | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; The classList API Comments Feed" href="http://html5doctor.com/the-classlist-api/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='The main element' href='http://html5doctor.com/the-main-element/' />
+<link rel='next' title='Comparing and contrasting ins, del, and s' href='http://html5doctor.com/ins-del-s/' />
+<link rel="canonical" href="http://html5doctor.com/the-classlist-api/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=5206' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-classlist-api%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-classlist-api%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+	  
+  
+	</head>
+<body class="single single-post postid-5206 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-5206 post type-post status-publish format-standard hentry category-javascript-apis tag-classlist" id="post-5206">
+                 <h1>The classList API </h1>
+                <small><time datetime="2013-07-30" pubdate>Tuesday, July 30th, 2013</time> by <a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson" rel="author">Derek Johnson</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		
+                <p>I have to be honest with you: I feel like a fraud writing about JavaScript for HTML5 Doctor. I would feel like a fraud writing about JavaScript for a click-driven ad-splattered content farm, never mind HTML5 Doctor.</p>
+
+<p>The thing is though, I&#8217;m writing about the <code>classList</code> API, and it&#8217;s super easy. If your JavaScript-fu isn&#8217;t great and you&#8217;re wary of HTML5 APIs, this one is at the perfect temperature for toe-dipping, and it&#8217;ll leave you pleasantly surprised at just how easy it is.</p>
+
+<p>The <code>classList</code> API is a &#8220;does exactly what it says on the tin&#8221; API. It gets a list of the classes on an HTML element and uses JavaScript to manipulate it.</p>
+
+<p>Before this nugget of HTML5 came along, working with classes was a royal pain, but what was once a twisty overgrown cowpath with wolves lurking in thickets is now a bright sunlit path fit for rollerskating.</p>
+
+<section id="getting-the-classlist">
+<h2>Getting the classList <a class="permalink" href="#getting-the-classlist">#</a></h2>
+<p>Getting the <code>classList</code> is a simple matter of <code>element.classList</code>, like so:</p>
+
+<figure>
+<pre><code>&lt;p id="bad-joke" class="oh my giddy aunt"&gt;Two dogs are in the park. One says, "Nice day, isn't it?" The other says, "Holy crap, a talking dog!"&lt;/p&gt;
+
+&lt;script&gt;
+    var joke = document.getElementById('bad-joke');
+    console.log(joke.classList);
+&lt;/script&gt;</code></pre>
+</figure>
+
+<p>That will log something like <code>["oh", "my", "giddy", "aunt"]</code>. The output style varies between browsers, but it will be an object containing a list of the classes on the element.</p>
+
+<p>More accurately, it&#8217;s an object that stringifies to the value of the class attribute on the element in question. <a href="http://html5doctor.com/demos/classlist/classlist.html">Try it yourself with the console open.</a></p>
+
+<figure>
+<pre><code>{
+    0: "oh",
+    1: "my",
+    2: "giddy",
+    3: "aunt"
+}</code></pre>
+</figure>
+
+<p>There is no specification for <code>classList</code> per se (<a href="http://www.w3.org/TR/dom/#dom-element-classlist">it gets a sentence in the DOM4 spec</a>), but there is for <code>DOMTokenList</code>, which is <code>classList</code>&#8216;s type, so look at the <a href="http://dom.spec.whatwg.org/#domtokenlist"><code>DOMTokenList</code> specification</a> to find out how to work with lists of classes.</p>
+
+<section class="callout" id="classlist-type">
+<h3>The Type of classList <a class="permalink" href="#classlist-type">#</a></h3>
+
+<p>If you&#8217;re looking to confirm the type of <code>classList</code>, you&#8217;ll need to do <code>element.classList instanceof DOMTokenList</code>, which returns <code>true</code>. <code>typeof element.classList</code> returns &#8220;object&#8221;, which, given that everything in JavaScript is an object, isn&#8217;t particularly informative.</p>
+
+</section></section><section id="doing-things">
+<h2>Doing Things with our List of Classes <a class="permalink" href="#doing-things">#</a></h2>
+
+<p>The <code>DOMTokenList</code> spec provides a number of methods that can be used on the <code>classList</code>:</p>
+<ul>
+	<li><a href="#add"><code>add()</code></a> for adding a class to the list</li>
+	<li><a href="#remove"><code>remove()</code></a> for removing a class from the list</li>
+	<li><a href="#contains"><code>contains()</code></a> to check if a class is in the list</li>
+	<li><a href="#toggle"><code>toggle()</code></a> for toggling a class in and out of the list (with a twist)</li>
+	<li><a href="#item"><code>item()</code></a> to return the class at a specified position in the list</li>
+	<li><a href="#tostring"><code>toString()</code></a> for turning the list into a string</li>
+	<li><a href="#length"><code>length</code></a> to return the number of classes in the list</li>
+	<li><a href="#value"><code>value</code></a> to add custom properties and methods to the <code>classList</code> object</li>
+</ul>
+<section id="add">
+<h3>classList.add() <a class="permalink" href="#add">#</a></h3>
+
+<p>It couldn&#8217;t be easier to add a class to an element. Just supply the class you want to add as an argument to the <code>add()</code> method.</p>
+
+<figure>
+<pre><code>joke.classList.add('beryl');</code></pre>
+</figure>
+
+<p>If you <a href="http://html5doctor.com/demos/classlist/classlist.add.html">view the demo</a> and look at the opening <code>&lt;p&gt;</code> tag in your favourite inspector before and after pressing the button, you&#8217;ll see it change from <code>&lt;p id="bad-joke" class="oh my giddy aunt"&gt;</code> to <code>&lt;p id="bad-joke" class="oh my giddy aunt beryl"&gt;</code>.</p>
+
+<p>Adding a class to the <code>&lt;p&gt;</code> is all done with that one line. No need to inject inline styles or anything messy like that.</p>
+
+<p>The corresponding <code>classList</code> object is:</p>
+
+<figure>
+<pre><code>{
+    0: "oh",
+    1: "my",
+    2: "giddy",
+    3: "aunt",
+    4: "beryl"
+}</code></pre>
+</figure>
+</section>
+
+<section id="remove">
+<h3>classList.remove() <a class="permalink" href="#remove">#</a></h3>
+
+<p>Removing a class is just as easy. <code>joke.classList.remove('beryl')</code> brings us back to where we started.</p>
+
+<a href="http://html5doctor.com/demos/classlist/classlist.remove.html">View demo.</a></p>
+
+</section>
+
+<section id="multiple-classes">
+<h3>Adding and Removing Multiple Classes <a class="permalink" href="#multiple-classes">#</a></h3>
+
+<p>The <code>DOMTokenList</code> spec refers to &#8220;tokens&#8221;, plural when describing how the <code>add()</code> and <code>remove()</code> methods should be run.</p>
+
+<blockquote>The add(tokens…) method […] If one of <em>tokens</em> is the empty string […] If one of <em>tokens</em> contains any ASCII whitespace […] For each <em>token</em> in <em>tokens</em>
+
+<footer>— <cite><a href="http://dom.spec.whatwg.org/#dom-domtokenlist-add">The DOM Spec</a></cite></footer></blockquote>
+
+<p><del>No browser so far has implemented a native method of adding/removing more than one class at a time, but it&#8217;s trivial to extend the <code>DOMTokenList</code> object prototype with a hand rolled function:</del></p>
+
+<p><ins>It&#8217;s possible to add and remove multiple classes in the Blink powered browsers with <code>element.classList.add('oh','my')</code>, and it&#8217;s trivial to extend the <code>DOMTokenList</code> object prototype with a hand rolled function until support is more widespread:</ins></p>
+
+<p>Thanks to David and Kalley for pointing that out in the comments.</p>
+
+<figure>
+<pre><code>DOMTokenList.prototype.addmany = function(classes) {
+    var classes = classes.split(' '),
+        i = 0,
+        ii = classes.length;
+
+    for(i; i&lt;ii; i++) {
+        this.add(classes[i]);
+    }
+}</code></pre>
+</figure>
+
+<p>Same goes for remove:</p>
+
+<figure>
+<pre><code>DOMTokenList.prototype.removemany = function(classes) {
+    var classes = classes.split(' '),
+        i = 0,
+        ii = classes.length;
+
+    for(i; i&lt;ii; i++) {
+        this.remove(classes[i]);
+    }
+}</code></pre>
+</figure>
+
+<p><a href="http://html5doctor.com/demos/classlist/classlist.add-remove-many.html">Here&#8217;s a demo where you can add and remove multiple classes at once.</a></p>
+
+<p>A <a href="http://lists.w3.org/Archives/Public/public-html-bugzilla/2011Sep/0032.html">bug was filed</a> in 2011 (against a document that no longer exists) suggesting allowing a space separated list or an array in <code>classList.add()</code> and <code>classList.remove()</code>.</p>
+
+<p>The use of the plural &#8220;tokens&#8221; could be interpreted as allowing an array, but it doesn&#8217;t work. <code>InvalidCharacterError</code> is still specified as the exception to throw if there are any spaces in &#8220;tokens&#8221;, so that&#8217;s definitely not going to work.</p>
+
+<p>If you want to replace an entire <code>classList</code> with a completely different set of classes, you could use these two functions.</p>
+
+</section><section id="contains">
+<h3>classList.contains() <a class="permalink" href="#contains">#</a></h3>
+<p>This method returns a Boolean <code>true</code> or <code>false</code> when checking for the presence of a class in the list.</p>
+
+<p>In our example:</p>
+
+<figure>
+<pre><code>joke.classList.contains('aunt') === true;
+joke.classList.contains('uncle') === false;</code></pre>
+</figure>
+
+<p><code>contains()</code> is useful for checking if a class is in a list before performing an action that depends on its presence (or otherwise):</p>
+
+<figure>
+<pre><code>if(joke.classList.contains('beryl') {
+    joke.classList.remove('beryl');
+}</code></pre>
+</figure>
+
+<p>We can use <code>contains()</code> to make our previous functions for adding and removing multiple classes better by ensuring they do not try to add duplicate classes on the element or remove classes that don&#8217;t exist on it:</p>
+
+<figure>
+<pre><code>DOMTokenList.prototype.addmany = function(classes) {
+    var classes = classes.split(' '),
+        i = 0,
+        ii = classes.length;
+
+    for(i; i&lt;ii; i++) {
+        if(!this.contains(classes[i])) {
+            this.add(classes[i]);
+        }
+    }
+}</code></pre>
+</figure>
+
+<p>and:</p>
+
+<figure>
+<pre><code>DOMTokenList.prototype.removemany = function(classes) {
+    var classes = classes.split(' '),
+        i = 0,
+        ii = classes.length;
+
+    for(i; i&lt;ii; i++) {
+        if(this.contains(classes[i])) {
+            this.remove(classes[i]);
+        }
+    }
+}</code></pre>
+</figure>
+</section>
+<section id="toggle">
+
+<h3>classList.toggle() <a class="permalink" href="#toggle">#</a></h3>
+
+<p>For most use cases, <code>classList.toggle()</code> is very straightforward too. Typically, an action by the program or the user will trigger a function that adds or removes a class depending on whether it&#8217;s already in the list.</p>
+
+<p>A simple show/hide is a good example of this:</p>
+
+<figure>
+<pre><code>button.addEventListener('click', function() { element.classList.toggle('is-visible'); }, false);</code></pre>
+</figure>
+
+<p><a href="http://html5doctor.com/demos/classlist/classlist.toggle.html">View a demo of a two-level menu</a> that takes up a little less room in smaller viewports by using <code>classList.toggle()</code> to enhance sub-menus.</p>
+
+<section id="toggle-force">
+<h4>force <a class="permalink" href="#toggle-force">#</a></h4>
+
+<p>There&#8217;s a little twist to <code>toggle()</code>, though. It can take an optional second parameter, <code>force</code>.</p>
+
+<p>If <code>force</code> is set to <code>true</code>, the class will be added but not removed. If it&#8217;s <code>false</code>, the opposite will happen — the class will be removed but not added.</p>
+
+<p>Now that sounds a lot like <code>add()</code> and <code>remove()</code>, but there is a crucial difference: <code>toggle()</code> with <code>force</code> returns <code>true</code> when a class is added, and <code>false</code> when it&#8217;s removed — <code>add()</code> and <code>remove()</code> return <code>undefined</code>.</p>
+
+<p>At the time of writing, only the Blink powered browsers honour the <code>force</code> parameter, so view <a href="http://html5doctor.com/demos/classlist/classlist.toggle-true.html">the demo with true</a> and <a href="http://html5doctor.com/demos/classlist/classlist.toggle-false.html">the demo with false</a> in Opera 15, Opera for Android, or the latest Chrome to see it working.</p>
+
+<p>Browsers that don&#8217;t support <code>force</code> completely ignore it and merrily toggle the class name on and off without throwing exceptions.</p>
+
+<p>When it&#8217;s more widely supported, we can use a slightly leaner syntax for ensuring the presence or absence of a class in the list. Instead of:</p>
+
+<figure>
+<pre><code>var foo = function() {
+    joke.classList.add('beryl');
+}
+
+foo();
+
+if(joke.classList.contains('beryl')) {
+    // do stuff
+}</code></pre>
+</figure>
+
+<p>we could write:</p>
+
+<figure>
+<pre><code>var foo = function() {
+    return joke.classList.toggle('beryl', true);
+}
+
+if(foo()) {
+    // do stuff
+}</code></pre>
+</figure>
+</section>
+</section>
+<section id="item">
+<h3>classList.item() <a class="permalink" href="#item">#</a></h3>
+<p>The <code>item()</code> method can be found elsewhere in JavaScript, usually on NodeList objects. It returns the value of the item at <code>index</code> counting from zero.</p>
+
+<p>In our example:</p>
+
+<figure>
+<pre><code>&lt;div id="bad-joke" class="oh my giddy aunt"&gt;
+    &lt;p&gt;"Knock knock."&lt;/p&gt;
+    &lt;p&gt;"Come on in, the door's open."&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    var joke = document.getElementById('bad-joke'),
+
+        whats_item_0 = function() {
+            return joke.classList.item(0);
+        },
+
+        whats_item_2 = function() {
+            return joke.classList.item(2);
+        };
+
+    console.log(whats_item_0()); // logs "oh"
+    console.log(whats_item_2()); // logs "giddy"
+&lt;/script&gt;</code></pre>
+</figure>
+
+<p><a href="http://html5doctor.com/demos/classlist/classlist.item.html">View the demo.</a></p>
+
+<p><code>classList.item()</code> cannot be used for assignment, so <code>joke.classList.item(3) = 'uncle'</code> will throw an error.</p>
+
+<p>If you were hoping <code>classList.item()</code> could assign values to items at specific positions in the list, I&#8217;m afraid you&#8217;ll be disappointed. There&#8217;s no <code>DOMTokenList</code> method that gives that level of control over the list.</p>
+
+</section><section id="tostring">
+<h3>classList.toString() <a class="permalink" href="#tostring">#</a></h3>
+<p>If you ever need the <code>classList</code> turned into a string use this method. <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-9.8"><code>toString()</code></a> is another built in JavaScript method that isn&#8217;t specific to <code>DOMTokenList</code>.</p>
+
+<p>All the W3C spec says on the subject is that <q>DOMTokenList objects must stringify to the underlying string.</q> WHATWG leaves it at <q>The stringifier must return the result of the set serializer for the associated list of tokens.</q></p>
+
+<p>The only difference between the two is the amount of plain English used.</p>
+
+<p>It takes no parameters when used with <code>classList</code> and returns all the classes on the element as a space separated string:</p>
+
+<figure>
+<pre><code>joke.classList.toString();
+// returns "oh my giddy aunt";</code></pre>
+</figure>
+
+</section>
+<section id="length">
+<h3>classList.length <a class="permalink" href="#length">#</a></h3>
+<p><code>length</code> is also a built-in JavaScript property. It returns the number of characters in a string, the number of items in an array, the number of arguments expected in a function, or (in our case) the number of classes in <code>classList</code>. In our example using &#8220;oh my giddy aunt&#8221;, it&#8217;s <code>4</code>.</p>
+
+<figure>
+<pre><code>joke.classList.length
+// returns 4</code></pre>
+</figure>
+
+<p>Simple and obvious, hopefully.</p>
+
+</section><section id="value">
+<h3>classList.value <a class="permalink" href="#value">#</a></h3>
+<p>On their own, the <code>item()</code>, <code>toString()</code>, and <code>length</code> methods aren&#8217;t especially useful. They can, however, be used in conjunction with each other and the rest of the methods of <code>DOMTokenList</code> to solve some of the problems I mentioned earlier.</p>
+
+<p>Remember that <code>classList</code> is a regular JavaScript object, so we can add properties to it the same as any other object:</p>
+
+<figure>
+<pre><code>classList.use_in_production = false;
+classList.id = 5;
+classList.roof = 'thatch';</code></pre>
+</figure>
+
+<p>And of course we can add methods. Here&#8217;s a method that replaces the entire list with a new one using <code>length</code>, <code>toString()</code>, <code>add()</code>, and <code>remove()</code>:</p>
+
+<figure>
+<pre><code>element.classList.replace = function(classes) {
+    var i = 0,
+        ii = this.length,
+        old_string = this.toString(),
+        old_array = old_string.split(' '),
+        new_array = classes.split(' '),
+        j = 0,
+        jj = new_array.length;
+
+    // remove all the existing classes
+    for(i; i&lt;ii; i++) {
+        this.remove(old_array[i]);
+    }
+
+    // add the new ones
+    for(j; j&lt;jj; j++) {
+        this.add(new_array[j]);
+    }
+};</code></pre>
+</figure>
+
+<p>And here&#8217;s a method that inserts a class in any position in the list you want. It uses <code>contains()</code>, <code>item()</code>, <code>remove()</code>, <code>toString()</code>, and the <code>replace()</code> method we just made:</p>
+
+<figure>
+<pre><code>element.classList.insert = function(insert,position) {
+    // check if the class is already in classList
+    if(this.contains(insert)) {
+        if(this.item(position) === insert) {
+            // if it is already at the right position there's no need to continue
+            return;
+        } else {
+            // remove it, we don't want it here
+            this.remove(insert);
+        }
+    }
+
+    var classes = this.toString(),
+        classes_array = classes.split(' ');
+
+        classes_array.splice(position, 0, insert);
+
+        new_list = classes_array.join(' ');
+
+        // use the custom replace method to replace the current classList
+        this.replace(new_list);
+};</code></pre>
+</figure>
+
+<p>Being realistic, methods like these would probably be better used to extend <code>DOMTokenList</code> like we did with <code>addmany()</code> and <code>removemany()</code>, but if you ever need something specific to a particular <code>classList</code> you&#8217;re working on, you can use <code>value</code>.</p>
+
+</section>
+<section id="browser-support">
+<h2>Browser Support and Polyfills <a class="permalink" href="#browser-support">#</a></h2>
+
+<p>The <code>classList</code> API <a href="http://caniuse.com/#search=classlist">works in pretty much every up-to-date browser version</a>. Basic support at least has been in since Firefox 3.6, Opera 11.50, Chrome 8, and Safari 5.1.</p>
+
+<p>The big holes are IE9 and earlier and the <a href="http://developer.android.com/about/dashboards/index.html">still widely used Android 2.3</a> and earlier.</p>
+
+<p><a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills#classlist">There are at least two polyfills</a> available that can fill these holes.</p>
+
+<p><a href="https://gist.github.com/devongovett/1381839">Devon Govett&#8217;s</a> was written quickly to add support to IE9 only, and it&#8217;s worth reading the comments for some good cross-browser JavaScript info.</p>
+
+<p><a href="https://github.com/eligrey/classList.js">Eli Grey&#8217;s polyfill</a> has wider browser support. It works in IE8, and it provides basic <code>classList.add()</code>, <code>classList.remove()</code>, and <code>classList.toggle()</code> support to at least as far back as Android 2.1.</p>
+
+<p>There&#8217;s also a <a href="https://gist.github.com/termi/3952026">polyfill for adding <code>force</code> support</a> by <i>Егор Халимоненко</i> to browsers that support <code>classList</code> but not <code>force</code> on <code>toggle()</code>.</p>
+
+<p>If you only need a simple feature test you can use:</p>
+
+<figure>
+<pre><code>if('classList' in document.createElement('a')) {
+    // use classList API
+}</code></pre>
+</figure>
+</section>
+<section id="summary">
+
+<h2>Summary <a class="permalink" href="#summary">#</a></h2>
+<p>You can think of the <code>classList</code> API on two levels. For most uses, it&#8217;s a simple way to add, remove, toggle, and check for the presence of single classes in an HTML element. I use it in every project I work on now and very rarely need to stray beyond these basic methods. I can&#8217;t think of any use for <code>item()</code>, <code>length</code>, or <code>toString()</code> as stand-alone methods, so don&#8217;t fret about them.</p>
+
+<p>On another level, it&#8217;s about objects, it&#8217;s about finding powerful ways to manipulate the state of web pages, it&#8217;s about separation of concerns, it&#8217;s about progressive enhancement.</p>
+
+<p>How far you take it is up to you, but as I said at the start, it&#8217;s an easy one to get into and makes what was hard, easy. I encourage you to take what I&#8217;ve written here and experiment in your own projects if you&#8217;re new to it, and take to the comments to tell me where I could have said it better if you&#8217;re already familiar with it.</p>
+
+<p>Thank you!</p>
+
+</section></section>                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/javascript-apis/" rel="category tag">JavaScript APIs</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                        <ul class="semantic-list"><li><h3>Tags</h3></li><li><a href="http://html5doctor.com/tag/classlist/" rel="tag">classList</a></li></ul>                    </li>
+                </ul>
+
+		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson" rel="author">Derek Johnson</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson" rel="author">Derek Johnson</a></span>. Derek works as a senior web developer at <a href="http://www.piercecommunications.co.uk/">Pierce Communications</a> in Belfast. He writes on his own blog at <a href="http://nostrongbeliefs.com/">nostrongbeliefs.com</a> and tweets <a href="https://twitter.com/derekjohnson">@derekjohnson</a>.</p>
+                    <img alt='' src='http://1.gravatar.com/avatar/dbf9d407093d0e978ffc2c1088c04844?s=128&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/dbf9d407093d0e978ffc2c1088c04844?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>20 Responses on the article “The classList API”</h3>
+
+		<li class="comment even thread-even depth-1" id="comment-37012">
+				<div id="div-comment-37012" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7c96918ba38b567b53764af02e71d016?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7c96918ba38b567b53764af02e71d016?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://twitter.com/hzr' rel='external nofollow' class='url'>David Håsäther</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37012">
+			July 30, 2013 at 3:32 pm</a>		</div>
+
+		<p>add() and remove() can take several arguments, e.g. add(&#8220;a&#8221;, &#8220;b&#8221;). Supported in WebKit and Blink.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37012#respond' onclick='return addComment.moveForm( "div-comment-37012", "37012", "respond", "5206" )' aria-label='Reply to David Håsäther'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-37013">
+				<div id="div-comment-37013" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/397a3934acb0d8e2dd90c79240d81a3c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/397a3934acb0d8e2dd90c79240d81a3c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://kevinsweeney.info' rel='external nofollow' class='url'>Kevin Sweeney</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37013">
+			July 30, 2013 at 3:53 pm</a>		</div>
+
+		<p>Great summary, Derek! I think it’s worth pointing out that best-practices suggest that we first test for the existence of a method on the prototype of a standard object like DOMTokenList before attempting to extend it so that we don’t run the risk of breaking future implementations that may include such a method:</p>
+<p><code><br />
+if (!DOMTokenList.prototype.replace) {<br />
+    DOMTokenList.prototype.replace = function() {<br />
+        // etc.<br />
+    }<br />
+}<br />
+</code></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37013#respond' onclick='return addComment.moveForm( "div-comment-37013", "37013", "respond", "5206" )' aria-label='Reply to Kevin Sweeney'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-37025">
+				<div id="div-comment-37025" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/175142db401a3f4d350552aa991ff626?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/175142db401a3f4d350552aa991ff626?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Kalley</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37025">
+			July 31, 2013 at 4:07 am</a>		</div>
+
+		<p>On Chrome 28, both <code>add</code> and <code>remove</code> let you do the following for multiple classes:</p>
+<p><code>element.classList.add('one', 'two', 'three');</code></p>
+<p>Firefox 22 and Safari 6 will only add the first one if used like that.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37025#respond' onclick='return addComment.moveForm( "div-comment-37025", "37025", "respond", "5206" )' aria-label='Reply to Kalley'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-derekj bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-37031">
+				<div id="div-comment-37031" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/dbf9d407093d0e978ffc2c1088c04844?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/dbf9d407093d0e978ffc2c1088c04844?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Derek Johnson</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37031">
+			July 31, 2013 at 10:11 am</a>		</div>
+
+		<p>Thanks Kevin, excellent point.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37031#respond' onclick='return addComment.moveForm( "div-comment-37031", "37031", "respond", "5206" )' aria-label='Reply to Derek Johnson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-37040">
+				<div id="div-comment-37040" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/248d820c4cc1b6eb7924c658c45443b5?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/248d820c4cc1b6eb7924c658c45443b5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://zzzzbov.com' rel='external nofollow' class='url'>zzzzBov</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37040">
+			July 31, 2013 at 2:39 pm</a>		</div>
+
+		<p>If you&#8217;re making the (foolish) choice to extend the <code>DOMTokenList</code> prototype with your own custom functions, be sure to follow the specification on class names. Classes may be separated by whitespace characters, which include: space, tab, newline, carriage return, and form feed characters.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37040#respond' onclick='return addComment.moveForm( "div-comment-37040", "37040", "respond", "5206" )' aria-label='Reply to zzzzBov'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-derekj bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-37042">
+				<div id="div-comment-37042" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/dbf9d407093d0e978ffc2c1088c04844?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/dbf9d407093d0e978ffc2c1088c04844?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Derek Johnson</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37042">
+			July 31, 2013 at 4:30 pm</a>		</div>
+
+		<p>@Kalley and David,</p>
+<p>Thanks for that, I&#8217;ve updated the article.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37042#respond' onclick='return addComment.moveForm( "div-comment-37042", "37042", "respond", "5206" )' aria-label='Reply to Derek Johnson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-37043">
+				<div id="div-comment-37043" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d6c3cf6e6f5a603a903adda6252cb1e5?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d6c3cf6e6f5a603a903adda6252cb1e5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Hans B PUFAL</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37043">
+			July 31, 2013 at 4:38 pm</a>		</div>
+
+		<p>I wrote an extension function which allows you to add, delete or toggle styles in any combination all from one call. In addition you can do all that for a list of nodes :</p>
+<p><code><br />
+    function classOps (list) {<br />
+      var ops = [].slice.call (arguments, 1).join (',');<br />
+      if (list.constructor == NodeList) {<br />
+        [].forEach.call (list) (function (node) { classOps (node.classList, ops); });<br />
+        return;<br />
+      }</code></p>
+<p>       ops.split (/(?:\s*,\s*|\s+)/).forEach (function (cl) {<br />
+        (cl = cl.match (/^([-+^])([_a-z]+[_a-z0-9-]*$/i) || [cl]).length &gt; 1 ?<br />
+          list[classOps.map[cl[1]]].call (list, cl[2]) :<br />
+          console.log ('Invalid class op : ' + cl, list);<br />
+      });<br />
+    }<br />
+    classOps.map = {'-': 'remove', '+': 'add', '^': 'toggle'};<br />
+</p>
+<p>Typical calls :<br />
+<code><br />
+    classOps (node, '+newClass', '-gone', '^peek-a-booe');</code></p>
+<p>    classOps (querySelectorAll ('.toggle'), '+toggled ^toggle');<br />
+</p>
+<p>The first will add  a class &#8216;newClass&#8217;, remove the class &#8216;gone&#8217; and toggle the class &#8216;peek-a-boo&#8217;.</p>
+<p>The second will add class &#8216;toggled&#8217; and toggle class &#8216;toggle&#8217; on all nodes which have a class of &#8216;toggle&#8217;.</p>
+<p>The classops may be specified in as any number of string parameters each containing a comma or space delimited list of classops.</p>
+<p>The list may be a single element reference or a NodeList as returned, for example, from querySelectorAll.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37043#respond' onclick='return addComment.moveForm( "div-comment-37043", "37043", "respond", "5206" )' aria-label='Reply to Hans B PUFAL'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-37232">
+				<div id="div-comment-37232" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d63323c2bb71fa602f56f2c612f74a80?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d63323c2bb71fa602f56f2c612f74a80?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.spinxwebdesign.com/' rel='external nofollow' class='url'>Alan Smith</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37232">
+			August 5, 2013 at 10:01 am</a>		</div>
+
+		<p>Do you have video tutorial for &#8220;force&#8221; ? So, i can understand more.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37232#respond' onclick='return addComment.moveForm( "div-comment-37232", "37232", "respond", "5206" )' aria-label='Reply to Alan Smith'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-derekj bypostauthor even thread-even depth-1" id="comment-37328">
+				<div id="div-comment-37328" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/dbf9d407093d0e978ffc2c1088c04844?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/dbf9d407093d0e978ffc2c1088c04844?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Derek Johnson</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37328">
+			August 8, 2013 at 7:50 am</a>		</div>
+
+		<p>@Alan, I don&#8217;t know of any video tutorials. What is there in the demo you&#8217;re not sure about?</p>
+<p>@zzzzBof Can you explain why it&#8217;s foolish to extend DOMTokenList if we take precautions like Kevin Sweeney pointed out?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37328#respond' onclick='return addComment.moveForm( "div-comment-37328", "37328", "respond", "5206" )' aria-label='Reply to Derek Johnson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-37329">
+				<div id="div-comment-37329" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7a4334b0f93e189071d54541999bf98a?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7a4334b0f93e189071d54541999bf98a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://twitter.com/TweetsOfSumit' rel='external nofollow' class='url'>Sumit</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37329">
+			August 8, 2013 at 8:29 am</a>		</div>
+
+		<p>Nice article. Sadly i can&#8217;t use this API as long as i need to support IE8 in almost every project. The libraries provided here don&#8217;t give me an advantage over jQuery which I use anyway most of the time.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37329#respond' onclick='return addComment.moveForm( "div-comment-37329", "37329", "respond", "5206" )' aria-label='Reply to Sumit'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-37336">
+				<div id="div-comment-37336" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/248d820c4cc1b6eb7924c658c45443b5?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/248d820c4cc1b6eb7924c658c45443b5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://zzzzbov.com' rel='external nofollow' class='url'>zzzzBov</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37336">
+			August 8, 2013 at 3:43 pm</a>		</div>
+
+		<p>@Derek Johnson, if the future implementation is not compatible with the implementation provided by the prototype extension, your usage of the prototype extension will break.</p>
+<p>Worse, if you then decide to use a library that uses feature detection for features on the <code>classList</code> API, the library will be tricked into believing that the browser supports features that it doesn&#8217;t, and would then use the incompatible implementation.</p>
+<p>You&#8217;re better off making a utility class or set of functions to fill in the gaps, while not interfering with the browser&#8217;s native objects.</p>
+<p>A good example is how Historyjs creates the <code>History</code> object which calls the native <code>history</code> object if it exists.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37336#respond' onclick='return addComment.moveForm( "div-comment-37336", "37336", "respond", "5206" )' aria-label='Reply to zzzzBov'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-37412">
+				<div id="div-comment-37412" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3a34497f7086bef699c79890fd390b76?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3a34497f7086bef699c79890fd390b76?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://laukstein.com' rel='external nofollow' class='url'>Binyamin</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37412">
+			August 13, 2013 at 8:12 am</a>		</div>
+
+		<p>Both<br />
+<code>element.classList.remove('one', 'two', 'three');</code><br />
+and<br />
+<code>element.classList.add('one', 'two', 'three');</code><br />
+are supported on Chrome 28 stable and Opera 15.<br />
+Multiple classes remove/add not supported even on Firefox Nightly.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37412#respond' onclick='return addComment.moveForm( "div-comment-37412", "37412", "respond", "5206" )' aria-label='Reply to Binyamin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-37413">
+				<div id="div-comment-37413" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3a34497f7086bef699c79890fd390b76?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3a34497f7086bef699c79890fd390b76?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://laukstein.com' rel='external nofollow' class='url'>Binyamin</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-37413">
+			August 13, 2013 at 8:17 am</a>		</div>
+
+		<p>Cannot toggle multiple classes <code>element.classList.toggle('one', 'two')</code>.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=37413#respond' onclick='return addComment.moveForm( "div-comment-37413", "37413", "respond", "5206" )' aria-label='Reply to Binyamin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-39670">
+				<div id="div-comment-39670" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8529ff692a793f0ff11e4433282f5544?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8529ff692a793f0ff11e4433282f5544?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.tallit.com/' rel='external nofollow' class='url'>Judaica</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-39670">
+			November 13, 2013 at 10:56 pm</a>		</div>
+
+		<p>The classlist. certainly does it for me. A great way to manipulate and allow interaction. I&#8217;m all for it.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=39670#respond' onclick='return addComment.moveForm( "div-comment-39670", "39670", "respond", "5206" )' aria-label='Reply to Judaica'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-48734">
+				<div id="div-comment-48734" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/20ca14a1b79a979d839f14746a2b4245?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/20ca14a1b79a979d839f14746a2b4245?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='https://plus.google.com/u/0/+SerkanSipahi/' rel='external nofollow' class='url'>Serkan Sipahi</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-48734">
+			March 17, 2014 at 10:55 am</a>		</div>
+
+		<p>hi,</p>
+<p>and if you want to find/know where come &#8220;DOMTokenList&#8221; then you can do this: </p>
+<p>var r = document.createElement(&#8216;div&#8217;).classList.constructor.name;</p>
+<p>r === &#8220;DOMTokenList&#8221; // :)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=48734#respond' onclick='return addComment.moveForm( "div-comment-48734", "48734", "respond", "5206" )' aria-label='Reply to Serkan Sipahi'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-49077">
+				<div id="div-comment-49077" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/32d082ac02ba1d516eabbeb8ea50fd98?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/32d082ac02ba1d516eabbeb8ea50fd98?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://cs.northwestern.edu/~riesbeck/' rel='external nofollow' class='url'>Chris Riesbeck</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-49077">
+			April 18, 2014 at 9:28 pm</a>		</div>
+
+		<p>Nice writeup and so happy to find classList exists. But to remove all classes or replace with a new list, why not simply set className? No loops needed at all.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=49077#respond' onclick='return addComment.moveForm( "div-comment-49077", "49077", "respond", "5206" )' aria-label='Reply to Chris Riesbeck'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-49872">
+				<div id="div-comment-49872" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/4929abc377f053538f6a1c5e137d9d8d?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/4929abc377f053538f6a1c5e137d9d8d?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Uxus</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-49872">
+			May 28, 2014 at 7:13 am</a>		</div>
+
+		<p>You have duplicate declaration of `classes` variable in your `addmany` and `removemany` methods. The var keyword is not necessary there cause `classes` variable is already declared. And I modified the mthods so they don&#8217;t have explicit variable declarations:<br />
+<code><br />
+DOMTokenList.prototype.addmany = function(classes) {<br />
+    classes.split(' ').forEach(function(cls){<br />
+        if(!this.contains(cls)){<br />
+            this.remove(cls);<br />
+        }<br />
+    }, this);<br />
+};<br />
+</code><br />
+This of course not so fast as `for loop` but more readable.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=49872#respond' onclick='return addComment.moveForm( "div-comment-49872", "49872", "respond", "5206" )' aria-label='Reply to Uxus'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2054135">
+				<div id="div-comment-2054135" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9c32c2de48d4c4a60d4ceb862d472d49?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9c32c2de48d4c4a60d4ceb862d472d49?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.richardhunter.co.uk' rel='external nofollow' class='url'>Richard Hunter</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-2054135">
+			November 7, 2015 at 8:54 pm</a>		</div>
+
+		<p>It would be nice if add() would take an array of classes but it seems to only half work( i.e. not at all!)  producing a weird comma separated string.</p>
+<p>You can use apply() though to do the same thing:</p>
+<p><code></code></p>
+<p>var el = document.getElementById('myel');</p>
+<p>el.classList.add.apply(el.classList,  ['red', 'green']);</p>
+<p></p>
+<p>Js fiddle demonstrating this here:</p>
+<p><a href='http://jsfiddle.net/Richardinho/7n7jwasb/1/' rel="nofollow">here</a></p>
+<p>Works in latest desktop Safari, Chrome and Firefox at least.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=2054135#respond' onclick='return addComment.moveForm( "div-comment-2054135", "2054135", "respond", "5206" )' aria-label='Reply to Richard Hunter'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2131370">
+				<div id="div-comment-2131370" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/ee2fcf37777e0166f3ffdf5066ff53d5?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/ee2fcf37777e0166f3ffdf5066ff53d5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">allonestring</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-2131370">
+			July 4, 2016 at 9:20 pm</a>		</div>
+
+		<p>classList.item() was just what I needed &#8211; thank you ☺</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=2131370#respond' onclick='return addComment.moveForm( "div-comment-2131370", "2131370", "respond", "5206" )' aria-label='Reply to allonestring'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2131947">
+				<div id="div-comment-2131947" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c356a005a06d951b792761dae74b9ef7?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c356a005a06d951b792761dae74b9ef7?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Jan</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-classlist-api/#comment-2131947">
+			July 10, 2016 at 3:54 am</a>		</div>
+
+		<p>From the following page:</p>
+<p><a href="https://github.com/eligrey/classList.js" rel="nofollow">https://github.com/eligrey/classList.js</a></p>
+<p>I saved the classList.js script in the same folder as my web page, and reference it like this:</p>
+<p>But IE8 still gives error on the following line:</p>
+<p>document.getElementById(&#8220;myDropdown1&#8221;).classList.toggle(&#8220;show&#8221;);</p>
+<p>Any input on this would be appreciated!</p>
+<p>Thanks.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-classlist-api/?replytocom=2131947#respond' onclick='return addComment.moveForm( "div-comment-2131947", "2131947", "respond", "5206" )' aria-label='Reply to Jan'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/the-classlist-api/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='5206' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="2b235e72ea" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="213"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>

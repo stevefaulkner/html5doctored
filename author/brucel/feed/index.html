@@ -1,0 +1,1043 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; Bruce Lawson</title>
+	<atom:link href="http://html5doctor.com/author/brucel/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The Web Manifest specification</title>
+		<link>http://html5doctor.com/web-manifest-specification/</link>
+		<comments>http://html5doctor.com/web-manifest-specification/#comments</comments>
+		<pubDate>Tue, 29 Jul 2014 09:51:22 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5515</guid>
+		<description><![CDATA[By Marcos Cáceres and Bruce Lawson. Update 26 September 2014 The initial work for Manifest in Chromium M39 is done, and Marcos (more or less) finished coding the processor a few months ago. &#8220;I&#8217;m hoping to see it in fxos 2.2&#8220;, he said from the pool of his gorgeous Malibu home.) Update 11 November 2014 [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><b>By <a href="http://twitter.com/marcosc">Marcos Cáceres</a> and Bruce Lawson.</b></p>
+<p><b>Update 26 September 2014</b> The initial work for <a href="https://code.google.com/p/chromium/issues/detail?id=366145">Manifest in Chromium M39</a> is done, and Marcos (more or less) finished  coding the processor a few months ago. &#8220;<a href="https://twitter.com/marcosc/status/515417766762143744">I&#8217;m hoping to see it in fxos 2.2</a>&#8220;, he said from the pool of his gorgeous Malibu home.)</p>
+<p><b>Update 11 November 2014</b> <a href="http://updates.html5rocks.com/2014/11/Support-for-installable-web-apps-with-webapp-manifest-in-chrome-38-for-Android">Web Application Manifest is in Chrome 38</a>.</p>
+<p><b>Update 9 April 2015</b> Updated implementation status to note App Install banners in Chrome, Opera Android implementation underway. Also show how to link to the manifest (thanks @mathias!) and remove some scary &#8220;this may all change&#8221; warnings.</p>
+<p><b>Update 18 August 2015</b> François Beaufort pointed out that &#8220;According to the spec https://w3c.github.io/manifest/#h-density-member, the density should actually be a number (not a string)&#8221; &#8211; amended accordingly.</p>
+<p><b>Update 7 December 2015</b> Link to my blogpost declaring Progressive Web Apps &#8220;ready for primetime&#8221;; remove stuff about <code>service_worker</code> manifest member, as it&#8217;s gone now because it was useless</p>
+<h2>Manifest? Eh? What? Why?</h2>
+<p>Many of us who work on the web are actively working to narrow “the gap” between native applications and web applications. (Disclosure: your humble authors, Marcos Caceres and Bruce Lawson work for browser vendors &#8211; Mozilla and Opera respectively &#8211; and therefore have mortgage-related reasons to convince you this stuff is a good idea.)</p>
+<p>But what is that gap? Just a few years ago, that gap was largely technological. If you wanted access to a device’s GPS, you had to write a native app. Nowadays, the situation is improving somewhat: we can now access devices sensors like GPS, camera, and orientation sensors &#8211; though we still have a long way to go. Thanks to recent advances in the web platform we now have a platform that can compete with native applications on a more equal footing. </p>
+<p>Nowadays, the primary gaps between native and web is not so much technological. It’s user experience. Users simply love installing apps, which live snugly on the homescreen (or the desktop) waiting to be tickled into life with the tap of a finger or the click of a mouse. </p>
+<p>Furthermore, native apps work offline by default, and integrate with the facilities provided by the underlying operating system: consider being able to see installed applications in the task switcher. Or being able to control an app’s privacy settings in the same place as apps installed from an app store. In browser land, we are still fumbling around trying to find opened tabs and having to type long and boring URLs to get anything done. </p>
+<p>What we need is a method of “installing” web apps so they are indistinguishable from any other app installed on a user’s device. But at the same time, we don’t want to lose the powerful features that are central to the web platform: linkability, view source, and the ability to host our own stuff.</p>
+<h2>What is “installation”?</h2>
+<p>At its most basic, “installation” of a web app means “bookmarking” the web application to the homescreen or adding it to an application launcher. There are some pretty obvious things that  you, as a developer, would need to provide to the browser so that it can treat your website as an app: the name, icons, etc. There are then more advanced features that you would need, like being able to indicate the preferred orientation and if you want your app to be fullscreen. </p>
+<p>The <a href="https://w3c.github.io/manifest/">Manifest specification</a> aims to give you a standardised way to do this using JSON. In the HTML page to be &#8220;installed&#8221;, simply link to a manifest file, thus:</p>
+<pre><code>&lt;link rel="manifest" href="/manifest.json"></code></pre>
+<p>But what&#8217;s in this mysterious manifest file? Glad you asked!</p>
+<h3 id="appname">Application name</h3>
+<p>The application needs a real name or set of names (which is usually not the same as the title element of a document). For this you use the name and the short_name properties.</p>
+<pre><code>{
+name: “My totally awesome photo app”
+short_name: “Photos”
+}</code></pre>
+<p>The short_name serves as the name for the application when displayed in contexts with constrained space (e.g., under an icon on the homescreen of a phone). The name can then be a bit longer, fully capturing the name of the application. This also provides an alternative way for users to search your app on their phone. So, typing ‘awesome’ or ‘photo’ would find the application on a user’s device. </p>
+<p>If you omit the name, the browser just falls back to using &lt;meta name=”application-name”>, and failing that, the &lt;title> element. </p>
+<h3>Icons</h3>
+<p>There needs to be an icon associated with a web app, rather than the browser’s icon. To handle this, the manifest has an icons property. This takes a list of icons and their sizes, format, and target screen density. Having these optional properties makes icon selection really powerful, because it provides a responsive image solution for icons &#8211; which can help avoid unnecessary downloads and helps to make sure your icons always look great across a range of devices and screen densities.  </p>
+<pre><code>{
+   "icons": [{
+        "src": "icon/lowres",
+        "sizes": "64x64",
+        "type": "image/webp"
+      }, {
+        "src": "icon/hd_small",
+        "sizes": "64x64"
+      }, {
+        "src": "icon/hd_hi",
+        "sizes": "128x128",
+        "density": 2
+      }]
+}</code></pre>
+<p>If you omit the icons, the browser just falls back to looking for &lt;link rel=”icon”>, the favicon.ico or, failing that, may even use a screenshot of your website. </p>
+<h3>Display modes and orientation</h3>
+<p>Apps need to be able to control how they are to be displayed when they starts-up. If it’s a game, it might need to be in full-screen and possibly in landscape mode. In order to do this, the manifest format provides you with two properties. </p>
+<pre><code>{
+ "display": "fullscreen",
+ "orientation": "landscape"
+}</code></pre>
+<p>For the display modes, the options that you have are:</p>
+<ul>
+<li><code>fullscreen</code>: take over the whole screen.
+<li><code>standalone</code>: opens the app with a status bar.
+<li><code>minimal-ui</code>: like on iOS, the app is fullscreen, but certain actions can cause the navigation bar and back/forward buttons to reappear.
+<li><code>browser</code>: opens your app with normal browser toolbars and buttons.
+</ul>
+<p>The nice thing with orientation is that it serves as the “default orientation” for the scope of the application. So, as you navigate from one page to another, your app stays in the correct orientation. You can override the default orientation using the Screen Lock API.  </p>
+<h3>Start URL</h3>
+<p>Sometimes you want to make sure that when the user starts up an app, they always go to a particular page first. The start_url property gives you a way of indicating this. </p>
+<pre><code>{
+ start_url: “/start_screen.html”
+}</code></pre>
+<h3>“Scope” of the app</h3>
+<p>Native applications have clear “boundaries”: as a user, you know when you open a native application that it won&#8217;t suddenly open a different application without you noticing. When switching from one native application to another is often pretty clear that you’ve switched applications. These visual cues are often provided by the underlying operating system (think of bringing up the task manager and picking a different application &#8211; or pressing “command/alt-tab” on your desktop machine).</p>
+<p>The web is very different: it’s a huge hypertextual system where web applications can span multiple domains: you can seamlessly jump from “gmail.com” to “docs.google.com” and as a  user have no idea that you’ve jumped form one “origin” to another. In fact, the whole idea that there are boundaries to an application is totally foreign on the Web as, in reality, a web application is just a series of HTML documents (think, “a series of tubes”&#8230; no, don’t think that!). </p>
+<p>On the web, the only reason we know that we’ve left the scope of one application and entered into another application is because the web designers have been kind enough to make their websites look uniquely different. In case where they haven’t, a lot of users have also been tricked by sites masquerading as another site (the ol’ “phishing attack”). </p>
+<p>The manifest format assist with this problem by allowing you to specify a “URL scope” for your application. This scope sets a boundary for an app. It can either be a domain or a directory within that domain.   </p>
+<pre><code>{
+    “scope”: “/myapp”
+}</code></pre>
+<h2>How can I detect if the user “installed” my app?</h2>
+<p>As a developer, you really should not have to worry about this &#8211; the browser will take care of it for you. Firstly, bugging users to install your app is annoying. We’ve all seen this happen in iOS with sites asking users to “add my app to the homescreen”. </p>
+<p>Instead, the approach that we take with the manifest is that “installing” is a progressive enhancement. Focus on creating the optimum experience based on what “display mode” the application is in. You will be able to detect and style this with CSS.</p>
+<pre><code>@media all and (display-mode: standalone){ ...}</code></pre>
+<p>You can use JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.matchMedia">matchMedia</a> to test that media query in JavaScript.</p>
+<p>Addendum June 2015: In Chromium, you can <a href="https://developers.google.com/web/updates/2015/03/increasing-engagement-with-app-install-banners-in-chrome-for-android#action">detect whether a user accepted or dismissed</a> an install banner.</p>
+<h2>What’s wrong with &lt;meta> tags?</h2>
+<p>During the specification discussions, it was hotly debated whether to use &lt;meta> tags in HTML rather than make a new format. After all, the Chrome implementation of <a href="https://developer.chrome.com/multidevice/android/installtohomescreen">Add to Homescreen</a> uses &lt;meta> tags, and this has been the natural home for proprietary flimflam since the web began. </p>
+<p>The reasons for including a separate file are</p>
+<ul>
+<li>it saves loading every page of an installable app/site with tons of header info
+<li>once downloaded, the file sits in the browsers’s HTTP cache.
+<li>Marcos loves JSON because he’s totally rad
+</ul>
+<h2>Who is implementing this</h2>
+<p>The manifest, and Progressive Web Apps are implemented in Chrome and Opera for Android. Implementation is <a href="https://platform-status.mozilla.org/#app-manifest">underway in Firefox</a>. You can kinda-sorta do this is a <a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">non-standard way in Safari/iOS</a>, too. </p>
+<p><a href="http://www.brucelawson.co.uk/2015/progressive-web-apps-ready-for-primetime/">Progressive Web Apps are ready for primetime</a>, I believe. </p>
+<aside id="author-bio" style="margin-left:-165px;">
+<h4><a href="http://marcosc.com/" rel="author">Marcos Cáceres&#8217;</a></h4>
+<div class="author-blurb author">
+<p class="vcard">This article was co-written by <span class="fn">Marcos Cáceres</a></span>. Marcos is a web platform engineer and standardista at Mozilla. He writes technical specifications, prototypes ideas, and generally fiddles with Web related things. You can find him on <a href="https://github.com/marcoscaceres">GitHub</a> and <a href="https://twitter.com/marcosc">Twitter</a>.
+            </div>
+</aside>
+<p><a href="http://html5doctor.com/web-manifest-specification/" rel="bookmark">The Web Manifest specification</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 29, 2014.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/web-manifest-specification/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+		<item>
+		<title>Responsive images – end of year report</title>
+		<link>http://html5doctor.com/responsive-images-end-of-year-report/</link>
+		<comments>http://html5doctor.com/responsive-images-end-of-year-report/#comments</comments>
+		<pubDate>Tue, 12 Nov 2013 17:12:26 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5352</guid>
+		<description><![CDATA[It’s nearly two years since I suggested a &#60;picture&#62; element as a strawman proposal as a way to solve the problem of responsive images, so let’s have a look at how we’re doing.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>It&#8217;s nearly two years since <a href="http://www.brucelawson.co.uk/2011/notes-on-adaptive-images-yet-again/">I suggested a &lt;picture&gt; element</a> as a strawman proposal as a way to solve the problem of responsive images, so let&#8217;s have a look at how we&#8217;re doing.</p>
+<p>In September there was a big meetup at Mozilla&#8217;s Paris office organised by Mozilla&#8217;s Marvellous Mr <a href="http://twitter.com/marcosc">Marcos</a> who&#8217;s been very active in the Responsive Images Community Group and did the hard work of actually turning the &lt;picture&gt; strawman into a spec. Such is the combined allure of Marcos and Paris that a rep from Apple showed up &#8211; kudos to <a href="http://twitter.com/hober">Edward O&#8217;Connor</a>.</p>
+<p>The outcome of the meeting was that &lt;picture&gt; isn&#8217;t a viable option. Browser makers don&#8217;t like the fact that it&#8217;s a new element that does the same as &lt;img&gt; (or what &lt;img&gt; should do if we were speccing it today), and that it depends on multiple nested children. I&#8217;d based this on the HTML5 &lt;video&gt; and &lt;source&gt; pattern, but <a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/#comment-29831">Ian Hickson already said</a> &#8220;we learnt with &lt;video&gt; and &lt;source&gt; that having multiple elements for selecting a resource is a huge design pitfall&#8221;.</p>
+<p>The Paris meetup&#8217;s most immediate outcome was agreement that <code>srcset</code> + DPR-switching is the right initial step forward (i.e., the 2x, 3x, etc. syntax). (See <a href="http://www.w3.org/community/respimg/2013/09/18/paris-responsive-images-meetup/">Marcos&#8217; full write-up</a> for more fun.)</p>
+<p><code>srcset</code> was specified as part of the WHATWG specification and <a href="http://www.w3.org/html/wg/drafts/srcset/w3c-srcset/">a draft extension to HTML5</a>, based on Edward O&#8217;Connor&#8217;s <code>imgset</code> in CSS that&#8217;s already implemented in WebKit. It&#8217;s fair to say that the syntax hasn&#8217;t been received with enthusiasm by developers, as it is ugly and unintuitive. But for the simple case of sending a large image to high-dpi displays and not to 1x dpi displays, it&#8217;s simple:</p>
+<p><code>&lt;img src="normal.png" srcset="retina.png 2x" alt="otter vomiting"&gt;</code></p>
+<p>Browsers with two or more device pixels per CSS pixels (&#8220;retina&#8221;) get the 2x image; other browsers, including those that don&#8217;t understand <code>srcset</code> get normal.png as specified in the traditional <code>src</code> attribute. Hurrah!</p>
+<p>This limited version of <code>srcset</code> is already implemented in WebKit nightly, but not shipping, and was about to be implemented in Gecko and Blink when a proposal from Tab Atkins and John Mellor of Google <a href="http://tabatkins.github.io/specs/respimg/Overview.html"> called <code>src-N</code></a> made a fashionably late entrance.</p>
+<p>It&#8217;s not the easiest syntax in the world, either, but <code>src-N</code> does address the three main usecases:</p>
+<ul>
+<li>devicePixelRatio based resolution switching
+<li> viewport-size based resolution switching
+<li>art direction
+</ul>
+<p>The simplest incarnation &#8211; serving high-dpi images only to browsers that can deal with them is</p>
+<p><code>&lt;img src="normal.png" src-1="normal.png 1x picHigh.png 2x" alt="narwhal regurgitating"&gt;</code></p>
+<p>An explainer email shows <a href="http://lists.w3.org/Archives/Public/public-respimg/2013Sep/0087.html">how verbose &lt;picture&gt; can be</a> for a real sites, while a blog post from Tab <a href="http://www.xanthir.com/b4Su0">Explaining The Last Clause of the src-n Grammar</a> shows a more verbose example of <code>src-N</code> while comparing it with its <code>srcset</code> analogue which is, Tab says, &#8220;fucking terrible&#8221; &#8211; much longer and harder to maintain, requiring non-trivial maths.</p>
+<p>All the proposals are verbose and tricky. I suspect that this is simply because it&#8217;s a really hard problem, but it is one that needs solving. Tim Kadlec&#8217;s posts on <a href="http://timkadlec.com/2013/11/why-we-need-responsive-images-part-deux/">Why We Need Responsive Images</a> quantify the bandwidth that we currently waste, and wasted bandwidth costs money and slows down the site for users which has a measurable and significant impact on your sales.</p>
+<p>Since <code>src-N</code> has been proposed, both Blink and Gecko have decided not to implement <code>srcset</code> which is currently not yet shipping in WebKit. A representative of Apple called <code>src-N</code>&lsquo;s use of multiple attribute &#8220;<a href="http://permalink.gmane.org/gmane.os.opendarwin.webkit.devel/25817">a grotesque perversion of the HTML language</a>&#8220;, which implies they&#8217;re not eager to implement it. (We&#8217;ll ignore the irony that the company which gave us a meta tag in HTML to control presentation is accusing others of perverting HTML).</p>
+<p>Meanwhile, the <code>src-N</code> explainer says &#8220;Ideally, browsers that have already implemented the basic srcset syntax would remove that as soon as possible before sites start to depend on it&#8221;, but goes on to note &#8220;it would be possible for such browsers to integrate srcset, just like src acts as a fallback&#8221;.</p>
+<p>Adam Barth, a Blink rep, <a  href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2013-November/041389.html">writes</a> &#8220;I&#8217;d rather ship something that&#8217;s useful today and iterate to improve it in the future than not ship anything for a long time&#8221;, which is fair enough &#8211; but Henri Sivonen of Mozilla <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2013-November/041400.html">counters</a> &#8220;I think srcset should be taken out of the spec ASAP before WebKit ships it and we get stuck with something that doesn&#8217;t allow iteration&#8221;. The bone of contention &#8211; is <code>srcset</code> subsequently extensible?</p>
+<p>Given that <code>src-N</code> addresses more usecases than WebKit&#8217;s proposed dpi-switching <code>srcset</code> and the similarity of syntax, I wish WebKit would simply alias their nightly code and ship the minimal dpi-switching <code>src-N</code> given above (so <code>src-1</code> instead of <code>srcset</code>) and <s>argue about</s> discuss extending it later.</p>
+<p>But <a href="https://twitter.com/tabatkins/status/400302907968331776">no</a>. So, once again, impasse. Our doctors&#8217; report: <em>must try harder</em>.</p>
+<p><b>Added 13 November 2013:</b> It&#8217;s been pointed out to me that <code>srcset</code> is also implemented in Blink, behind the &#8220;experimental features&#8221; flag. <a href="http://www.webkit.org/demos/srcset/">Demo</a>. The point, however, is that it&#8217;s not shipping anywhere so no websites rely in it, and it&#8217;s not in Firefox or IE.</p>
+<p id="pic"><b>Added 2 January 2014:</b> Given the impasse described above, the proposed &lt;picture&gt; element has been revived again and <a href="http://picture.responsiveimages.org/">new  &lt;picture&gt; specification</a> is under development that combines the best features of all proposals. The most important difference from &#8220;old&#8221; &lt;picture&gt; is that the &lt;source&gt; elements control the <code>src</code> of the &lt;img&gt; element; thus, &lt;img&gt; is an integral part of the construct rather than simply fallback (and thus is unlikely to be omitted by authors, so &#8220;old&#8221; browsers won&#8217;t be left out.)</p>
+<p><a href="http://html5doctor.com/responsive-images-end-of-year-report/" rel="bookmark">Responsive images – end of year report</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 12, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/responsive-images-end-of-year-report/feed/</wfw:commentRss>
+		<slash:comments>76</slash:comments>
+		</item>
+		<item>
+		<title>Interview with Steve Faulkner: HTML5 editor and new doctor</title>
+		<link>http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/</link>
+		<comments>http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/#comments</comments>
+		<pubDate>Tue, 19 Mar 2013 13:59:06 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[interviews]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5039</guid>
+		<description><![CDATA[Steve Faulkner &#8211; invariably prefixed by the honorific &#8220;The Mighty&#8221; by those who know him &#8211; is Australian living in London with his wife and two kids. He works for The Paciello Group, a well-known web accessibility consultancy, and is a co-editor of the HTML5 spec at W3C Today, we&#8217;re pleased to announce that he&#8217;s [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Steve Faulkner &#8211; invariably prefixed by the honorific &#8220;The Mighty&#8221; by those who know him &#8211; is Australian living in London with his wife and two kids. He works for <a href="http://www.paciellogroup.com">The Paciello Group</a>, a well-known web accessibility consultancy, and is a co-editor of the HTML5 spec at W3C Today, we&#8217;re pleased to announce that he&#8217;s joining the HTML5 Doctor team, with special focus on accessibility and didgeridoo.</p>
+<p>Bruce grills him mercilessly; some questions were contributed over Twitter and co-interrogators are acknowledged below.</p>
+<figure><img class="aligncenter size-full" alt="" src="http://html5doctor.com/wp-content/uploads/2013/03/mighty-steve-faulkner.jpg" width="300" height="381" /><br />
+<figcaption>The Mighty Steve Faulkner, and a UFO</figcaption>
+</figure>
+<dl>
+<dt>What&#8217;s your connection with HTML5?</dt>
+<dd>I’ve been participating in the <a href="http://www.w3.org/html/wg/">HTML Working Group</a> since 2007 after reading <a href="http://www.456bereastreet.com/archive/200705/help_keep_accessibility_and_semantics_in_html/">a post </a> by Roger Johansson. I have recently taken on the roles of <a href="http://www.w3.org/WAI/PF/HTML/wiki/Main_Page">HTML accessibility task force </a> chair and co-editor of the <a href="http://www.w3.org/html/wg/drafts/html/master/">HTML specification</a>. I also edit <a href="https://dvcs.w3.org/hg/aria-unofficial/raw-file/tip/index.html">Using ARIA in HTML</a>, <a href="http://dev.w3.org/html5/alt-techniques/">HTML5: Techniques for Providing Useful Text Alternatives</a> and <a href="http://dvcs.w3.org/hg/html-api-map/raw-file/tip/Overview.html">HTML to Platform Accessibility APIs Implementation Guide</a> I also <a href="http://blog.paciellogroup.com/">blog</a> on accessibility and web standards.</p>
+</dd>
+<dt>Some people call you &#8220;the accessibility guy&#8221;. What do you call yourself?</dt>
+<dd>I have lots of ways to self identify these days. The most important is being a dad to Clara and Eloisa.</p>
+</dd>
+<dt>What&#8217;s your day job?</dt>
+<dd>I work as an accessibility engineer/director/consultant/curmudgeon at <a href="http://www.paciellogroup.com">The Paciello Group</a>. On a typical day I may be writing code, testing a site or application, reviewing the work of colleagues, talking with clients, (tor)mentoring colleagues (can’t wait until <a href="http://twitter.com/patrick_h_lauke">Patrick Lauke</a> starts), working on the free testing tools we develop, editing the HTML spec or one of the other specs I edit, writing a blog post, filing bug reports on browsers or AT and as I work from home I try to squeeze in a kip (nap), while keeping an ear open for my boss Charlie pinging me on skype.</p>
+</dd>
+<dt>How did you get into the world of accessibility?</dt>
+<dd>When I went back to Australia in 2001 after a 2 year stint as a HTML code cutter in London, I applied for a job at <a href="http://www.visionaustralia.org/">vision australia</a> which combined my technical and social work interests (in a previous life I studied psychology at Sydney Uni and then worked with people with disabilities).</p>
+<p>The job at vision australia was (I thought) as developer on their web site, but on the first day my then boss Brian Hardy threw a copy of <a href="http://www.w3.org/WAI/intro/wcag">WCAG 1.0</a> at me and said &#8220;read this&#8221;, and it started from there.</p>
+</dd>
+<dt>What&#8217;s the difference between W3C HTML5 and WHATWG HTML Living Standard?</dt>
+<dd>The W3C has  <a href="http://www.w3.org/TR/html5/">HTML5</a> CR (Candidate Recommendation) which is a <a href="http://www.w3.org/QA/2012/12/html5_smile_its_a_snapshot.html">snapshot</a> (also read <a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/">Robin’s interview </a> for more detail) and <a href="http://www.w3.org/html/wg/drafts/html/master/">HTML 5.1</a> which is akin to the WHATWG spec in that it is up to date and includes new/unstable feature proposals. HTML 5.1 takes up most commits from the WHATWG spec unless there is disagreement in the HTML WG about a change.</p>
+<p>HTML 5.1 is also modularised, meaning some features are developed as extension specifications within the “HTML5 family of specifications” This is the case for features such as <a href="http://www.w3.org/html/wg/drafts/2dcontext/html5_canvas/">HTML Canvas 2d context</a> and some controversial new features (the <a href="http://www.w3.org/TR/html-picture-element/">&lt;picture&gt; element</a> and <a href="http://www.w3.org/html/wg/drafts/srcset/w3c-srcset/">srcset attribute</a> being examples).</p>
+<p>Once one or both new feature proposals get implemented they may well be moved into the core HTML spec. Another example is the <a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-main-element">&lt;main&gt; element</a>. It started life as an an extension spec, but was pretty quickly integrated into HTML 5.1 as implementations occurred. It should be noted that the &lt;main&gt; element should be included in the HTML5 CR spec before it becomes irrevocably frozen, as it already meets the criteria of two interoperable implementations. It should also be noted that the text of HTML5 CR is not yet untouchable. It is still updated with bug fixes and I have a queue of <a href="https://github.com/stevefaulkner?tab=activity">changes</a> to feature definitions, currently in HTML 5.1, to commit. More details about how the HTML recommendation process works can be found in: <a href="http://dev.w3.org/html5/decision-policy/html5-2014-plan.html">Plan 2014</a>.</p>
+</dd>
+<dt>Which mailing list should I be subscribed to for W3C HTML? (Steve Fenton)</dt>
+<dd>I recommend you <a href="http://blog.paciellogroup.com/2011/12/how-you-can-join-the-w3c-html5-working-group-in-4-easy-steps/">join the HTML WG</a> &#8211; anybody can. When you join, you are subscribed to a number of lists; the two to watch and contribute to are <a href="http://lists.w3.org/Archives/Public/public-html/">Public-HTML </a> for technical discussion and <a href="http://lists.w3.org/Archives/Public/public-html-admin/">Public-HTML-admin</a> for process/admin stuff related to technical discussion.</p>
+</dd>
+<dt>How do you get a new element/ feature added to HTML? (Dr Rich Clark)</dt>
+<dd>Lots of hard work, research, data gathering, use cases, discussion, haggling, etc. To get a feature added to HTML that involves implementation in browsers (i.e. vast majority) you need to get implementers to interested.</p>
+<p>What I did for the &lt;main&gt; element was talk to as many implementers (both general browser implementers and accessibility implementers), developers, authors and users as I could and got advice and input from them. I went where the various people hung out; on IRC, mailing lists, twitter, blogs, conferences &#8211; anywhere.</p>
+<p>Robin Berjon has written a useful <a href="http://www.w3.org/html/wg/wiki/ExtensionHowTo">HowTo</a> on extension specifications which is a route you can use at the W3C (I used it for &lt;main&gt;). The WHATWG also <a href="http://wiki.whatwg.org/wiki/FAQ#Is_there_a_process_for_adding_new_features_to_a_specification.3F">provide info</a> on how to do it via their process.</p>
+</dd>
+<dt>What drives you to push proposals through in the face of stiff opposition? (Steve Fenton)</dt>
+<dd>A passion for pain mostly :-) also a desire to improve the web.</p>
+</dd>
+<dt>Do you plan to work on getting your changes upstreamed to the WHATWG spec? Do you coordinate with the upstream? (Henri Sivonen)</dt>
+<dd>The way it currently works is that the WHATWG spec is a (major) source for the HTML 5.1 spec. We cherry-pick commits to the WHATWG spec to add to the HTML spec. Uncontroversial changes such as bug fixes, editorial tweaks, new features proposals that the HTML WG members have no issue with, get added on a weekly basis. We also do our own commits to the spec, for example I make improvements to the authoring advice and requirements and accessibility implementation stuff after discussions on the HTML list or in response to <a href="https://www.w3.org/Bugs/Public/buglist.cgi?product=HTML%20WG&amp;component=HTML5%20spec&amp;resolution=---&amp;list_id=6207">bug reports</a>.</p>
+<p>Co-ordination is a thorny issue the WHATWG is an important contributor to HTML and I have have reached out, but with limited success so far. Its safe to say that like HTML, the relationship between the WHATWG and the W3C is a work in progress.</p>
+<p>I think the most important thing is that the HTML 5.1 spec reflects implementations and that includes advice and requirements on how authors should use HTML as implemented, to maximise the benefit to users.</p>
+</dd>
+<dt>Are you worried about WHATWG/ W3C specs diverging?</dt>
+<dd>I used to worry a lot more about this. Implementation stuff is not diverging, authoring advice and requirements and advice are diverging as improvements are made to HTML 5.1. Ideally the WHATWG spec and the HTML 5.1 spec would not contain contrary advice, but I don’t think the threat of divergence, should stop us from making improvements to HTML that benefit authors and users. Its better to have the improvements out there for people to make use of rather than have two specs that agree, both of which contain advice fictions based not on implementation reality but on future possibilities.</p>
+<p>Rephrasing from <a href="http://wiki.whatwg.org/wiki/FAQ#Isn.27t_it_bad_that_the_specs_have_forked.3F">Isn&#8217;t it bad that the specs have forked?</a>:</p>
+<p>“The plan is to just do a better job with the HTML 5.1 spec, such that it becomes the logical and obvious choice for anyone wanting to figure out which spec they should use.”</p>
+</dd>
+<dt>What are the skills of a good editor?</dt>
+<dd>Unsure about that, I don’t know. What I try to do is get as much feedback on stuff as possible, so I go out to where people are and badger them. I realise that I don’t know it all and therefore want to engage others to contribute their knowledge and am myself only an editor in a team contributing to the development of HTML. I also realise that HTML is a vast and complex specification and limit my editing to those areas that I feel knowledgeable and confident enough to contribute to (luckily I am part of a team).</p>
+</dd>
+<dt>Is the spec readable/ useful enough for authors?</dt>
+<dd>I think the spec needs work to make the authoring advice contained in it more useful, usable and accurate. I am working on it. I have already committed changes to HTML 5.1 in response to feedback from authors, developers and users. I read a lot of articles and blogs picking up issues with the spec and discuss stuff with authors/developers who use the spec and book authors such as you who use it as source material. But really, it&#8217;s the users of the spec that decide if it&#8217;s readable/ useful enough, so I seek out and appreciate any feedback from them.</p>
+</dd>
+<dt>Why hasn&#8217;t the HTML5 outlining model really been implemented? (Marc Drummond)</dt>
+<dd>My understanding is that the outline algorithm as currently defined is not intended to be implemented in browsers. Meanwhile it has sort of been implemented by the JAWS screen reader, but in a borked way. It is a proposed feature that  implementers in general have not shown an interest in. for this reason it is a feature <a href="http://www.w3.org/html/wg/wiki/HTML5.0AtRiskFeatures">at risk</a> in the HTML5 CR specification and will likely be dropped before it becomes a Recommendation, it will probably live on in HTML 5.1 as a proposed feature and we will see how it goes.</p>
+</dd>
+<dt><a href="/the-hgroup-element/">&lt;hgroup&gt;</a>: rubbish or not?</dt>
+<dd>Good question! I think it&#8217;s a feature in search of a use case. The only use case cited for it is to <a href="http://wiki.whatwg.org/wiki/Rationale#hgroup_and_other_heading_elements">mask subheadings </a> from the unimplemented outline algorithm (see above). I don’t think it&#8217;s a good enough reason to add a new element to HTML. Also, its accessibility mappings are defined such that any content in it becomes one big heading. But it is there, so we have some choices: make it more useful by changing how it is defined and fixing the accessibility mappings, obsolete it and replace it with something that is more useful, obsolete it and replace it with advice on how to mark up subheadings using current features, or just leave as is&#8230;</p>
+</dd>
+<dt>Do you agree with <a href="http://www.webdesignerdepot.com/2013/01/the-harsh-truth-about-html5s-structural-semantics-part-1/">Luke Stevens</a> that the new structural elements miss the mark and we should just use &lt;div&gt;s with ARIA roles instead?</dt>
+<dd>No. I think that there is improvement needed in how the elements are defined and how they are explained, but do not think that using divs and roles is the way forward. Some people imbue HTML structural features with magical properties that in reality are not present. What I try to do is look at how such features are used and work in practice, for users that actually consume the semantics and, where needed, modify the feature definitions to benefit users.</p>
+</dd>
+<dt>I asked Hixie <a href="/interview-with-ian-hickson-html-editor/">why most of his fights are with accessibility practitioners</a>. He said didn&#8217;t know. Have you got any ideas?</dt>
+<dd>Hixie has strong opinions about how HTML should be defined; other people disagree with him. Conflict ensues at times. I believe the new development process for HTML at the W3C takes a lot of heat out of these disagreements providing a constructive environment for contributions from a wide range of stakeholders to the further development of the language of the web.</p>
+</dd>
+<dt>Now you&#8217;re an HTML5 doctor, what (apart from fame, glory and the adultation of beautiful people) do you hope to get from it and contribute?</dt>
+<dd>Once I get over the shock and honour of being bestowed with a HTML5Doctorate, I hope to contribute by writing articles on the bits of HTML/ARIA I know best. I would also very much like to get as much input/feedback as possible from the good readers of HTML5Doctor and seek their collaboration in improving HTML 5.1.</p>
+</dd>
+<dt>The all-important grooming question: Blue Stratos or Old Spice?</dt>
+<dd>I used to be a Blue Stratos kinda guy, but have switched to the far superior male fragrance <a href="http://www.youtube.com/watch?v=jtwh3nQP5Uo">Hai Karate</a> after your recommendation.</dd>
+</dl>
+<p><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/" rel="bookmark">Interview with Steve Faulkner: HTML5 editor and new doctor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on March 19, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+		<item>
+		<title>Interview with Ian Hickson, HTML editor</title>
+		<link>http://html5doctor.com/interview-with-ian-hickson-html-editor/</link>
+		<comments>http://html5doctor.com/interview-with-ian-hickson-html-editor/#comments</comments>
+		<pubDate>Tue, 08 Jan 2013 13:58:20 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[interviews]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4868</guid>
+		<description><![CDATA[Hot on the heels of our <a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/">interview with Robin Berjon</a>, editor of HTML5 at W3C, over the weekend I interviewed Ian Hickson, editor of HTML "The Living Standard" at WHATWG and, arguably, the most influential individual working on the Web today. Hickson, known as "Hixie", works for Google and previously worked for Opera (my employer) and Netscape.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.publickey1.jp/blog/13/hixie_html5hixie.html">Japanese translation</a>, thanks <a href="http://twitter.com/jniino">Junichi Niino</a>.</p>
+<p>Hot on the heels of our <a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/">interview with Robin Berjon</a>, editor of HTML5 at W3C, over the weekend I interviewed Ian Hickson, editor of HTML &#8220;The Living Standard&#8221; at WHATWG and, arguably, the most influential individual working on the Web today. Hickson, known as &#8220;Hixie&#8221;, works for Google and previously worked for Opera (my employer) and Netscape.</p>
+<p>Some of questions were suggested by web developers over Twitter, where indicated.</p>
+<figure>
+  <img src="http://html5doctor.com/wp-content/uploads/2013/01/Ian_Hickson_at_CSS_Working_Group_Meeting_Day_Three.jpeg" alt="" width="201" height="211" class="aligncenter size-full" /></p>
+<figcaption>Ian Hickson</figcaption>
+</figure>
+<dl>
+<dt>If you could wipe out any web technologies from existence, which would you choose? (from @webr3)</dt>
+<dd>
+<p>HTML, JavaScript, DOM, anything I&#8217;ve ever invented, SVG, XML, JSON, CSS — basically anything that anyone uses! The Web technology stack is a complete mess. The problem is: what would you replace it with?</p>
+<p>The Web&#8217;s technology stack is one of the only (maybe the only? I&#8217;m hard pressed to come up with another example) platform that is completely vendor-neutral and not centrally developed. Anyone can invent a new feature and if the market agrees, can get that feature to be a de facto part of the platform. <code>XMLHttpRequest</code> is a classic example. A browser cannot be a serious competitor on the Web without supporting it now, yet it was initially just made up and shipped by one vendor without any consultation with anyone. Even the features that are designed in public with wide review end up implemented and used before they&#8217;re &#8220;done&#8221;, and once they&#8217;re used they can&#8217;t be changed — which leads to APIs that make no sense, like <code>pushState()</code>, which has a required argument that is ignored.</p>
+<p>The hardest part of this is that we can&#8217;t tell if something we&#8217;ve designed is any good without testing it in real world sites, and by the time it&#8217;s been properly tested, it&#8217;s too late to change it. <code>pushState()</code> happened like this (where we learnt that the second of the three arguments should be dropped only after there were already pages depending on using the first and third arguments), but there are even bigger examples: the CSS cascade and specificity mechanism, for example, which was a great idea but that doesn&#8217;t quite work at the end of the day, or even XML and specifically XML namespaces, which are widely recognised as a disaster but which whole layers of the Web platform depend on.</p>
+<p>This isn&#8217;t helped by the way that certain parts of the platform that are now absolutely core central pillars, like JavaScript, essentially started as experiments; or the way that other features, like the offline application cache API, were designed with a very limited understanding of how authors would eventually use them. (Appcache works great if you want to do what it was designed for, but it turns out most people want     to do something different enough that appcache feels horrible to them.)</p>
+<p>In the end, the most horrible parts of the Web are also the most successful, because it&#8217;s the most successful parts that get extended by the most people, and so that have the least coordination in terms of their long-term evolution, which is how things end up being horrible.</p>
+</dd>
+<dt>HTML5 vs. the &#8220;living standard&#8221;: how do I know which elements will be around ten years from now, so I can safely use them in client work? (from @szafranek)</dt>
+<dd>
+<p>You know what will be around ten years from now by looking at what is implemented in two browsers today. If it&#8217;s implemented in two browsers today, I can almost guarantee it&#8217;ll still be around in ten years. If it&#8217;s not, all bets are off.</p>
+<p>This has nothing to do with &#8220;living standard&#8221; vs. versioned specs, though. HTML4 has all kinds of features that aren&#8217;t in HTML anymore — for example, <code>&lt;object declare&gt;</code> and <code>&lt;a coords&gt;</code>.</p>
+</dd>
+<dt>Do you feel there&#8217;s enough innovation within the user agent market, since most are virtually equivalent in every way? (From @webr3)</dt>
+<dd>
+<p>I don&#8217;t really agree with the premise of the question. Browsers differ in many important ways. One of the reasons they might seem to be &#8220;virtually equivalent&#8221;, though, is that they often adopt features from each other. Another is that one of the key features they&#8217;ve all been trying for is &#8220;get out of the way and let the Web shine through&#8221;, which means you see less and less of the browser itself.</p>
+<p>In the area of browser development that I&#8217;m most familiar with — namely the Web technology stack — there&#8217;s a lot of innovation going on. I get a lot of e-mails from browser vendors asking me to spec their new invention so that it has a spec and can be implemented by everyone else also. In fact, it&#8217;s gotten to the point where I have to track these requests to make sure I only spec those with multiple vendors on board. (I don&#8217;t want to end up with a spec where each section is only implemented by one browser. That would be a waste of everyone&#8217;s time.)</p>
+<p>The browser space right now has more active competition than it ever has had in the past, especially on desktops. It&#8217;s a great time for users.</p>
+</dd>
+<dt>Why are you the one who always says &#8220;no&#8221;? Casing the <code>&lt;picture&gt;</code> and <code>&lt;main&gt;</code> elements here (from @helloanselm). Why so grumpy? (from @steve_fenton)</dt>
+<dd>
+<p>The short answer is, it&#8217;s my job!</p>
+<p>There&#8217;s really two questions here. First, why do we in general say &#8220;no&#8221; so often? And second, why is it that it&#8217;s so often me that says it?</p>
+<p>The first one is a combination of prioritisation and design.</p>
+<p>First, let&#8217;s look at prioritisation. There are very limited resources available to add features to the Web. Every feature has a cost:</p>
+<ul>
+<li>Implementation: someone has to write code for it in each browser</li>
+<li>Testing: someone has to write the tests to check the feature is working</li>
+<li>QA: someone has to regularly run the tests to make sure the feature doesn&#8217;t regress</li>
+<li>Code maintenance: when browser vendors refactor code, they have to refactor more code if there are more features</li>
+<li>Tutorials: people who write tutorials have to include the feature, or handle feedback asking for them to do so</li>
+<li>Cognitive load: authors learning the platform have more documentation to wade through, even if they don&#8217;t care about the feature</li>
+<li>Page maintenance: authors have to know how to maintain the feature if other people have used it in pages they now maintain</li>
+<li>Spec writing: someone has to write the spec for the feature and ensure it&#8217;s maintained</li>
+<li>Bug fixing: when bugs are found in the spec or implementations, they have to be maintained</li>
+<li>Code size: each feature increases the size of browsers (both on-disk binaries and in-memory resident size)</li>
+</ul>
+<p>(This list comes from <a href="http://wiki.whatwg.org/wiki/FAQ#Where.27s_the_harm_in_adding.E2.80.94">our FAQ</a>.)</p>
+<p>We get an absolute torrent of feature requests, from authors, users, browser vendors, etc. So we have to prioritise:</p>
+<ul>
+<li>Is the feature going to be implemented by more than one browser? If no browser has signed up, or if only one has signed up and no other browsers have shown any interest, then I add it to the <a href="http://wiki.whatwg.org/wiki/New_Features_Awaiting_Implementation_Interest">page of notes</a> I mentioned earlier, and move on.</li>
+<li>Is the feature a game changer, or is it merely incremental? If the feature does no more than save a line of code every now and then, then its value probably doesn&#8217;t warrant its cost.</li>
+<li>Is the feature compatible with the Web philosophy? If the request is for a way to force the user to read something the way the author wants, it&#8217;s likely to be a non-starter. If it&#8217;s something that enables the user to control the page better, that&#8217;s more likely to be a winner.</li>
+<li>Is it more important than everything else? This is a great way to filter ideas: is your idea the most important thing we can do to improve the Web? There&#8217;s not always a direct tradeoff. The people who work on a browser&#8217;s JavaScript engine are often not the same people who work on a browser&#8217;s canvas API, for instance. But there&#8217;s always an opportunity cost — adding one feature means we won&#8217;t have the time or resources to add another.</li>
+</ul>
+<p>So that&#8217;s the first part of the answer: we say &#8220;no&#8221; because we don&#8217;t have time to add everything. <code>&lt;main&gt;</code> is a great example of this. In my opinion, the value it adds is so minimal that it just isn&#8217;t worth the cost.</p>
+<p>Next, let&#8217;s look at design. The way we usually approach ideas is that we describe the problem, then we come up with solutions to the problem and compare them by evaluating them against the problem. This is where most concrete proposals run into a &#8220;no&#8221;, because something else got the &#8220;yes&#8221; instead.</p>
+<p><code>&lt;picture&gt;</code> is an example of this. We described the problem (that took a few months of back and forth), and then once we had a problem description, I looked at the various proposals and synthesised a solution based on those that addressed the problems adequately while trying to avoid some common design pitfalls based on lessons we&#8217;d learnt from previous ideas. So for example with <code>&lt;picture&gt;</code>, we learnt with <code>&lt;video&gt;</code> and <code>&lt;source&gt;</code> that having multiple elements for selecting a resource is a huge design pitfall, so when designing a solution to the problem here, I avoided that (hence the <code>srcset=""</code> design based on CSS&#8217;s <code>image-set()</code> proposal).</p>
+<p>So that&#8217;s the second part of the answer. We say &#8220;no&#8221; to some specific proposals because we&#8217;ve come up with other (better) solutions instead.</p>
+<p>The second implicit question here was why do <em>I</em> say &#8220;no&#8221; so much, as opposed to other people. This is basically politics. It&#8217;s hard to say &#8220;no&#8221;, in part because of human nature, but also in part because when you say &#8220;no&#8221; in this kind of context you tend to invite argument. Most browser vendors don&#8217;t have time to have these arguments. I do. It&#8217;s my job, and I&#8217;ve gotten pretty good at saying &#8220;no&#8221; over the years. So a lot of the veteran browser engineers will just redirect people to me and expect me to say &#8220;no&#8221; for them. This lets them get on with their job of writing a browser, redirecting all the ire and arguments to me, whose job it is to field them. Or they&#8217;ll see an e-mail to the WHATWG list, think &#8220;oh my, that&#8217;s crazy&#8221;, but just stay silent because &#8220;Hixie will deal with it&#8221;.</p>
+<p>In reality, I can&#8217;t really say either &#8220;yes&#8221; or &#8220;no&#8221;. What I say doesn&#8217;t mean anything: I don&#8217;t write any browsers. The browser vendors say &#8220;no&#8221; to me all the time by not implementing what I&#8217;ve specced. Just last week I revamped part of the spec (on context menus) because none of the browser vendors implemented it. One of the specs I spent years of my life on — XBL2 — has gone precisely nowhere because the browser vendors just don&#8217;t want to implement it. (My main mistake with XBL was trying to solve the whole problem at once, rather than doing it in incremental steps that implementors could more easily deal with.)</p>
+<p>Similarly, there&#8217;s stuff that was never specced, indeed stuff that I&#8217;ve said &#8220;no&#8221; to myself, which the browser vendors nonetheless implemented. Again with the context menu example: Gecko implemented it by having an element called <code>&lt;menuitem&gt;</code>, which I argued forcefully was a bad design. They disagreed with my arguments and implemented it anyway, and so (eventually) I updated the spec to have <code>&lt;menuitem&gt;</code>. (This isn&#8217;t a criticism of Mozilla. It&#8217;s how these things are done. They did nothing wrong here.)</p>
+</dd>
+<dt>Do you feel there&#8217;s enough feedback from HTML authors, rather than vendors, getting through to specification editors/authors? (from @webr3)</dt>
+<dd>
+<p>I don&#8217;t know about &#8220;enough&#8221;. Is there ever &#8220;enough&#8221; feedback?</p>
+<p>We do get a lot of feedback from Web developers, but it&#8217;s true that most of it has to be collected by seeking it out on forums, sites like Reddit, Twitter, Google+, people&#8217;s blogs, etc. I have some Google Alerts that lead me to a lot of places where people are complaining about HTML in one way or another, which I use as feedback. It&#8217;s almost certainly not enough. I wish we had more authors participating directly by either filing bugs or participating in the WHATWG list. People probably don&#8217;t realise how much feedback we get from developers, because they don&#8217;t see me reading the blogs and so on. Also, a lot of the feedback browser vendors send us is actually of the form &#8220;Web developers tell us that…&#8221; (though they often don&#8217;t say that explicitly).</p>
+<p>The problem, to be honest, is that most authors don&#8217;t know what they want. Many years ago, Google actually paid for a usability study for one of the features I was speccing (microdata) and it was absolutely fascinating to see how people&#8217;s actual performance was so divergent from their impressions. We&#8217;d ask them questions like, &#8220;Which would be simpler, this or that?&#8221;, and then we&#8217;d actually test them by having them use the options, and there was just no relationship between what people said they wanted and what people were actually able to use.</p>
+<p>Often when people send feedback (not just authors; pretty much anyone who hasn&#8217;t been in the process for a long time starts this way), they send feedback along the lines of &#8220;I want to add feature X&#8221; or &#8220;I want feature X to be extended in manner Y&#8221;. But when we drill down and ask them, &#8220;What problem are you trying to solve?&#8221;, or, &#8220;What&#8217;s your use case?&#8221; (same question but phrased differently), we often find that either (a) they actually don&#8217;t have a real problem and just thought that it would be a good idea, or (b) their solution wouldn&#8217;t actually solve their problem. Often we&#8217;re able to come up with much simpler solutions (or point to already existing solutions), which is quite satisfying.</p>
+</dd>
+<dt>Two and a half years ago, <a href="http://www.webstandards.org/2009/05/13/interview-with-ian-hickson-editor-of-the-html-5-specification/">I asked you, &#8220;Would you like to be the HTML 6 editor?&#8221;</a>. You replied, &#8220;I might want a change of pace when we&#8217;re done with HTML 5.&#8221; How come you decided not to take that holiday and continue editing HTML?</dt>
+<dd>
+<p>We&#8217;re not done yet. I still have 238 e-mails and 163 bugs remaining.</p>
+</dd>
+<dt>Do you have an exit strategy, or would you like to edit HTML for the forseeable future?</dt>
+<dd>
+<p>Well, I could stop any time, really. So long as I find it interesting and implementors respect my work, though, why stop? We have a severe lack of spec writers who are able to write good specs.</p>
+</dd>
+<dt>For styling form components, we were told to wait for XBL, then to wait for Web Components. Anne van Kesteren said, &#8220;After a decade of waiting for this, I think it might be time to start calling this vaporware.&#8221; Thoughts?</dt>
+<dd>
+<p>If anyone has a better proposal, I&#8217;m all ears.</p>
+</dd>
+<dt>You work for Google, which has a widely deployed browser, a mobile operating system, and massive web properties. Do your employers require you to align specifications to their business objectives or otherwise influence your specification decisions?</dt>
+<dd>
+<p>No, quite the opposite. When I started, I was given very explicit instructions to the effect that I should put the Web&#8217;s long-term interests ahead of any of Google&#8217;s short-term interests.</p>
+<p>Having said that, of course, one of the reasons I wanted to work for Google is the unique perspective one can get from working here and from having access to the data Google has. There&#8217;s no question that that has influenced my decisions.</p>
+</dd>
+<dt>Do you have other duties apart from specification?</dt>
+<dd>
+<p>I basically work on the HTML spec full-time, but yes, I have some <a href="http://ian.hixie.ch/career/resume.html">other duties</a> internally.</p>
+</dd>
+<dt>Is the Web Platform becoming too complex (Web Components, shadow DOM, etc.)? </dt>
+<dd>
+<p>Too complex for what?</p>
+</dd>
+<dt>For the amateur with something to say, rather than professional coder? Or new entrants — e.g., <a href="http://the-pastry-box-project.net/geri-coady/2013-january-3/">Geri Coady&#8217;s Pastry Box article</a>?</dt>
+<dd>
+<p>The platform has been too complex for any one person to fully understand for a long time already. Heck, there are parts of the Web platform that I haven&#8217;t even tried to grok — for example, WebGL or IndexDB — and parts that I continually find to be incredibly complicated despite my efforts at understanding them — like the Unicode bidirectional text algorithm or the subtler aspects of JavaScript&#8217;s prototype model. I&#8217;m pretty sure most authors don&#8217;t understand the precise details of margin collapsing in the presence of floats and divs with <code>clear</code> set, or the inline box model.</p>
+<p>This isn&#8217;t surprising, though. If you define the &#8220;Windows&#8221; platform as everything from the NT kernel API to the Direct3D API and everything in between, I&#8217;m pretty sure you&#8217;d quickly come to the conclusion that nobody understood that whole platform either.</p>
+<p>I don&#8217;t think this is a problem.</p>
+</dd>
+<dt>The WHATWG began because the W3C told you, &#8220;HTML was dead. If you want to do something like HTML5, you should go elsewhere.&#8221; Now that the W3C has come to its senses, is it time for the WHATWG to hang up its spurs and for its participants to work inside W3C to continue the development of the web platform?</dt>
+<dd>
+<p>We tried (2007–2012). It didn&#8217;t work out. In fact, we ended up spinning more specs out of the W3C! The WHATWG has about <a href="http://whatwg.org/specs/">12 specs</a> spread amongst eight or so editors now.</p>
+</dd>
+<dt>In what sense didn&#8217;t it work out, and why?</dt>
+<dd>
+<p>We have different priorities, different visions, different approaches. I&#8217;m probably not the right person to give an objective answer, though.</p>
+</dd>
+<dt>You seem to have most of your spats with people who work in the field of accessibility. Why is that?</dt>
+<dd>
+<p>I don&#8217;t know. I wish I did.</p>
+</dd>
+<dt>You told me, &#8220;People with disabilities are just as important to me in my work on HTML5 as is anyone else&#8221;, but I guess they would say you don&#8217;t pay enough attention to the needs of disabled people (<code>longdesc</code>, table <code>summary</code>, re-writing rules for alt text). Presumably therefore you feel that disabled people are better served by removing these features. What do you base that assumption on?</dt>
+<dd>
+<p>The premise of the question is that there&#8217;s one accessibility community that speaks with one voice and has one opinion, and that they entirely represent the exact homogeneous desires of all disabled people. But none of that is true. There are multiple Web standards accessibility communities. People within those communities often don&#8217;t agree with each other. There are lots of disabled people with lots of different opinions and different needs. The accessibility communities don&#8217;t always represent all the disabled people&#8217;s needs. And so forth.</p>
+<p>Taking the specific features you list:</p>
+<ul>
+<li><code>longdesc=""</code> is a solution in search of a problem, which virtually no author uses, and which those who do use almost entirely use incorrectly, and which therefore users have long ignored. Discouraging its continued use means authors are more likely to spend time on things that are more likely to improve accessibility. Mark Pilgrim, author of &#8220;Dive Into Accessibility&#8221;, <a href=" http://blog.whatwg.org/the-longdesc-lottery">wrote a post about this</a>.</li>
+<li>Table summaries: check out the <a href="http://whatwg.org/html/#the-table-element">HTML spec for &lt;table&gt;</a>. The first paragraph says that <code>&lt;table&gt;</code> is for representing tabular data (incidentally discouraging the use of <code>&lt;table&gt;</code> for layout tables, which is good for accessibility). The second paragraph says what tabular data is (a grid). The third paragraph provides a link to the section that defines what the table model is. The fourth paragraph encourages authors to &#8220;provide information describing how to interpret complex tables&#8221; and links to <em>an entire section</em> describing how to give table summaries. That section has six different suggestions for how to do it.</li>
+<li>Rules for alternative text for images: the section on <code>&lt;img&gt;</code> first says that <code>&lt;img&gt;</code> represents an image, then briefly says that how you give the URL for the image (it goes into more detail for that again later), and then the <em>third sentence</em> points at the section on <code>alt=""</code> — which consists of literally a dozen different subsections on how best to give alternative text for images in a wide variety of cases. When this was first written, it was probably by far the most detailed description for how to write alternative text ever published.</li>
+</ul>
+<p>So we didn&#8217;t remove two of those three features. We expanded them dramatically. The one feature we removed was really a misfeature, and we have the data to back that up.</p>
+</dd>
+<dt>What&#8217;s been your biggest mistake? What are you most proud of?</dt>
+<dd>
+<p>I&#8217;m probably most proud of the HTML parser specification. Years ago it seemed like such a preposterously absurd task to take on that I said I would never do it. And it was huge (and we&#8217;re not quite done yet; there&#8217;s at least one major outstanding bug). But this, more than anything, has been the crowning achievement of the HTML spec. We went from a world where four browser engines had four completely different approaches with radically different behaviours in every edge case, to a world where the browsers agree so closely on their behaviour that we have an almost unheard of level of interoperability. There have been academic papers written about it. It&#8217;s completely changed how we write parser specifications, and I expect the knock-on effects on other specs will continue for years. It used to be that people said that specs should only define how to parse conforming content and should do so in a declarative fashion. But now saying that sounds hopelessly naive and old-fashioned.</p>
+<p id="appcache">My biggest mistake…there are so many to choose from! <code>pushState()</code> is my favourite mistake, for the sheer silliness of ending up with an API that has a useless argument and being forced to keep it because the feature was so desired that people used it on major sites before we were ready to call it done, preventing us from changing lest we break it. <code>postMessage()</code>&#8216;s security model is so poorly designed that it&#8217;s had academic papers written about how dumb I was, so that&#8217;s a pretty big mistake. (It&#8217;s possible to use <code>postMessage()</code> safely. It&#8217;s just that the easiest thing to do is not the safe way, so people get it wrong all the time.) The appcache API is another big mistake. It&#8217;s the best example of not understanding the problem before designing a solution, and I&#8217;m still trying to fix that mess.</p>
+<p>At the less-technical and more-political level, I think taking WebSockets to the IETF was a huge mistake. It ended up delaying the spec for literally a year without any resulting improvements, and they made a number of changes that IMHO reduce the protocol&#8217;s security. (Again, it&#8217;s possible to use it safely, it&#8217;s just not as easy as it was before the IETF got involved. Ironically, they broke the very things we learnt to do right after getting them wrong with <code>postMessage()</code>.) We&#8217;re still waiting for things like compression and multiplexing, which we would probably have had a long time ago if we hadn&#8217;t gone to the IETF.</p>
+<p>Also, when I designed the Web Storage API I made a horrible mistake by making the API synchronous and requiring consistency during a script&#8217;s execution, which essentially became the one place in the whole Web platform where, in theory, browsers are required to block cross-process. Since browsers don&#8217;t implement that, we instead have an API where there&#8217;s no consistency guarantee, which is rather scary.</p>
+<p>Outside of the HTML spec, one of my biggest mistakes was not realising, back when I was first in the CSS working group, that specifications were not immutable. CSS2 had these vague rules about margin collapsing and about the inline box model which David Baron and I took as essentially immutable constraints around which we were to strictly define the margin collapsing model and the inline box model. We succeeded, in that now the spec has mostly well-defined models for both those things, but boy are they insanely complicated. What we should have done instead is just break the constraints and come up with something simpler, ideally something that more closely matched what browsers implemented at the time.</p>
+<p>One of the side-effects of that kind of thinking (not directly my mistake, though I didn&#8217;t argue against it as far as I recall) is that we ended up with &#8220;Quirks Mode&#8221; and DOCTYPE switching. What we should have done is just made the specs match browsers and not bothered with all these modes.</p>
+<p>I also made mistakes with the Acid tests, wherein I tested things that the specs required but which in retrospect it would have been better to ignore, which ended up encouraging browsers to implement things that we later realised it would have been better all around if we had skipped. Some of those we were able to mitigate, others not so much. Acid3 had some stuff around SVG fonts that we should have never had. Acid2 had some crazy stuff around SGML comments that we were thankfully later able to totally abandon.</p>
+<p>I made a number of mistakes in the development of XBL2 (as mentioned earlier), but since the result of those mistakes was that it&#8217;s getting ignored, the only real long-term cost has been the opportunity cost and delay in getting a solution in that space.</p>
+<p>I&#8217;m sure I&#8217;m forgetting some huge mistake I&#8217;ve made that everyone is yelling at me for. (I asked for suggestions for this question on IRC, and after we were done enumerating a bunch of mistakes, Anne asked, &#8220;That&#8217;s a long list. Why do we trust this guy again?&#8221; D&#8217;oh.)</p>
+</dd>
+<dt>Urban geek legend has it that you invented Web Sockets because you wanted to control your model trains through the browser and couldn&#8217;t. True or false?</dt>
+<dd>
+<p>Obviously there&#8217;s a lot of demand for something like Web Sockets, so it&#8217;s not like it was only because I want to control my trains that we worked on that, but it was definitely a key motivating factor for me. Without Web Sockets I was forced to use hanging GETs and all the other techniques people will be familiar with, which introduces precious milliseconds of latency that can be so destructive when you have two locomotives speeding towards each other. I&#8217;ve since used Web Sockets in pretty much every non-trivial development project I&#8217;ve done.</p>
+</dd>
+<dt>You specified microdata, which even you dislike, because RDFa was ugly and hard to write…</dt>
+<dd>
+<p>It&#8217;s not so much that I dislike microdata so much as I don&#8217;t think the problem microdata (and RDF, etc.) solves is an interesting problem that should be solved. Of course, enough people think it is a problem that should be solved that I approached it like all the other problems. It&#8217;s a good example of how the HTML spec is not just a reflection of my wishes.</p>
+</dd>
+<dt>…The WHATWG shot across RDFa&#8217;s bow worked. <a href="http://manu.sporny.org/2012/mythical-differences/">RDFa Lite now does everything microdata does</a>, while also being compatible with Facebook&#8217;s Open Graph Protocol…</dt>
+<dd>
+<p>RDFa Lite doesn&#8217;t do everything microdata does. There&#8217;s a number of things that microdata does (or doesn&#8217;t do) that are absolutely key:</p>
+<ul>
+<li>not have anything to do with RDF</li>
+<li>not have any support for any prefixing mechanism</li>
+<li>have integration with the drag-and-drop API</li>
+</ul>
+<p>There are probably others, too, but I haven&#8217;t studied RDFa Lite carefully.</p>
+</dd>
+<dt>Why is &#8220;not have anything to do with RDF&#8221; key?</dt>
+<dd>
+<p>It&#8217;s where microdata and microformats get most of their simplicity compared to RDF-based technologies.</p>
+</dd>
+<dt>…To avoid fragmentation, are you going to withdraw microdata as a spec, add an RDFa API, and use RDFa Lite instead? If not, why not?</dt>
+<dd>
+<p>Well, at this point microdata is in wide use, so there&#8217;s no way to remove it even if we wanted to. But since RDFa still doesn&#8217;t solve the same problems, it hasn&#8217;t come up.</p>
+<p>RDFa (or rather, RDF) and microdata have fundamentally different data models. RDF is a triple (quad, really) database. Microdata represents tree structures. Microdata has more in common with JSON than RDF.</p>
+<dt>What are your thoughts on angle brackets…</dt>
+<dd>
+<p>They&#8217;re pointy? I don&#8217;t know. Are angle brackets something people have thoughts on?</p>
+</dd>
+<dt>…and how does HTML stand up to JSON? (from @pal_nes)</dt>
+<dd>
+<p>Different solutions to different problems.</p>
+<p>JSON&#8217;s missing one major feature that I wish it would get, which is defined error handling (even if it&#8217;s only XML-style &#8220;you must abandon the parse if it there is an error&#8221;). Right now, handling of broken JSON seems to vary from parser to parser.</p>
+<p>Other than that, I like JSON and often use it. I think people get very attached to generic syntaxes, though. Sometimes the best syntax is just newline-separated strings in a plain text file. Sometimes it&#8217;s a nested tree like JSON. Other times it&#8217;s a nested annotated tree like XML. Sometimes it&#8217;s a binary bitmap. I think people shy away from defining their own syntaxes more than they should. Writing a parser is easy and is a very, <em>very</em> well studied part of computer science. Using something like JSON makes sense if what you want to serialise is a static JavaScript structure with no cross-references. If your data structure is something else, then using JSON doesn&#8217;t generally make more sense than using a dedicated format — either way, you&#8217;re going to have to get the data out and piece it back together into your own internal representation.</p>
+<p>Also, often when people define generic syntaxes, they go a bit crazy. When you&#8217;re defining a dedicated format (or a vocabulary for a generic format, same thing really), you usually don&#8217;t have time to go crazy and define wild features, because your motivation is to solve your original problem and designing the language is a necessary evil, not the end goal.</p>
+</dd>
+<dt>Is it a problem if people have no markup in the <code>&lt;body&gt;</code> and generate the DOM with script?</dt>
+<dd>
+<p>It&#8217;s obviously a problem for users who have scripting disabled, but other than that, it&#8217;s just an authoring choice.</p>
+<p>There are significant advantages to having a static description of markup. You can validate it, for example, to catch semantic errors (such as accidentally putting an <code>&lt;input&gt;</code> in a <code>&lt;select&gt;</code> instead of using <code>&lt;option&gt;</code>). HTML these days has several features to make it easier to do this while writing a Web app — e.g., <code>hidden=""</code>, DOM cloning, etc.</p>
+<p>But equally there are advantages to generating things from script. For one, if you want to generate several instances of something, right now the easiest way is to describe the structure in JavaScript calls with the data you want to substitute into your template being right there.</p>
+<p>Personally, when I write Web apps (mostly games), I tend to use static HTML for the parts of the app that don&#8217;t change or that only appear once, and JavaScript calls to generate the parts that appear more than once. For example, one of the games I&#8217;m working on has a list of maps, and so the <code>&lt;ol&gt;</code> for the list is hard-coded in the HTML, but the <code>&lt;li&gt;</code>s are generated dynamically.</p>
+</dd>
+<dt>Talking of script, what do you think of DART?</dt>
+<dd>
+<p>I haven&#8217;t studied it (or the newer JS proposals, for that matter) enough to have an opinion. If it&#8217;s intended to replace JavaScript as the Web&#8217;s language, they have an uphill battle ahead of them, though. Replacing any part of the Web is extremely hard.</p>
+<p>I wrote about <a href="https://plus.google.com/107429617152575897589/posts/SiLdNL9MsFw">the difficulty of replacing the whole Web</a> last year. Replacing any part of the Web (as opposed to extending it) is similar in difficulty, though on a proportionally smaller scale.</p>
+</dd>
+<dt>How do you think the long-term development of devices and interaction models will impact the development of web standards? (from @wcagtest)</dt>
+<dd>
+<p>I don&#8217;t think it&#8217;ll affect the development at all. There&#8217;s no difference between new interaction models and any other new feature. The Web and Web standards themselves will obviously be impacted, but I have no idea how. I&#8217;m fascinated to find out how the Web will evolve in the face of projects like Google&#8217;s Glass or devices like the Pebble.</p>
+<p>I am sad that the Web didn&#8217;t handle small screens — and later, touch UI — that well. I would&#8217;ve hoped that the Web&#8217;s media-independent nature would have made that work better. For small screens, honestly, I mostly blame Web designers for assuming big screens and not thinking flexibly. We&#8217;re seeing that change now. For touch, though, I wish we had done a better job of mapping the UI to the Web&#8217;s generic events. A touch gets mapped to a &#8220;click&#8221; event easily enough, but drag-and-drop never got mapped, pinch gestures didn&#8217;t get mapped to wheel events, etc. Mainly I think this is because the first truly successful touch browser set the standard, and it was developed mostly in secret with a small team many of whom, as I understand it, weren&#8217;t Web veterans.</p>
+</dd>
+<dt>Will native apps triumph over the Web on mobile devices?</dt>
+<dd>
+<p>Native platforms and the Web have very different characteristics. The Web is by design radically vendor-neutral, and (to a lesser extent in practice) device-neutral. This has huge benefits: nobody can single-handedly kill the Web, for example. If you write a Web page or application today, and then tomorrow your desktop operating system vendor or your mobile phone handset vendor goes bankrupt, you can just buy another device and your page still works. If you target a proprietary platform — e.g., Amiga or OS/2 — that then loses the support of its vendor, the result is that your application is no longer usable.</p>
+<p>The <em>cost</em> of having a system immune from the whims of a single vendor is that by and large, innovation doesn&#8217;t happen in multi-vendor discussions. If you have a proprietary platform, it&#8217;s easy to add features to it: you just do it. No need to argue with anyone. On the Web, a feature can only be added if every major implementor agrees it&#8217;s worth adding, and that usually only happens once it&#8217;s been proven in a native platform. So native platforms have the edge when things are rapidly innovating.</p>
+<p>This is why the mobile world today has so much focus on native apps. Every new generation brings radical new features, and the Web will always be behind on those. So the cutting edge is native.</p>
+<p>You can see this on the desktop. Innovation on desktop operating systems has slowed down dramatically, and as a result the Web has been able to mature there. The result is that on desktop, Web apps are doing great (so great that it&#8217;s viable to create a desktop OS that does nothing but bring up a Web browser, in fact). Mobile is where desktop was a decade or two ago, in terms of innovation.</p>
+</dd>
+<dt>What&#8217;s the biggest danger to a free, open Web at the moment?</dt>
+<dd>
+<p>Patents.</p>
+</dd>
+<dt>What&#8217;s the very next thing on your to-do list?</dt>
+<dd>
+<p>The top thing on my bugs list is &#8220;Spec for document.open() doesn&#8217;t match reality when the parser is script-created&#8221;. That sounds like a hard one. Let&#8217;s see…top thing on my e-mail pile right now is…some even harder stuff do with the HTML parser and feedback from [Boris Zbarsky] about some very subtle aspects of the security implications of certain DOM APIs. Yikes. Maybe I&#8217;ll do lunch instead…</p>
+</dd>
+<p><a href="http://html5doctor.com/interview-with-ian-hickson-html-editor/" rel="bookmark">Interview with Ian Hickson, HTML editor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 8, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/interview-with-ian-hickson-html-editor/feed/</wfw:commentRss>
+		<slash:comments>26</slash:comments>
+		</item>
+		<item>
+		<title>Review: Pro HTML5 Accessibility by Joshue O Connor</title>
+		<link>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/</link>
+		<comments>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/#comments</comments>
+		<pubDate>Tue, 11 Dec 2012 10:00:48 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[oconnor]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4830</guid>
+		<description><![CDATA[TL;DR: this is a good book, let down by a bad tech editor and a publisher who has low production values. <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.apress.com/9781430241942">Pro HTML5 Accessibility</a> is an exhaustive book. Author Joshue O Connor is senior accessibility consultant with National Council for the Blind of Ireland&#8217;s Centre for Inclusive Technology and a stalwart of many W3C working groups.</p>
+<p>Don&#8217;t be afraid of the title. The book doesn&#8217;t assume that you&#8217;re a professional accessibility expert &#8211; quite the opposite; the first 100 pages don&#8217;t really deal with HTML5 at all, but survey the landscape of disability, assitive technologies and W3C WAI-ARIA. The last chapters of the book usefully survey testing methodologies and tools which will be invaluable to the lone developer told &#8220;oh, and it must be accessible/ DDA-/508-compliant, too&#8221;.</p>
+<p>Joshue does an admirable job of explaining how to use HTML5/ARIA to make sites accessible, and gives a thorough overview of how current browsers communicate new widgets (date pickers, sliders, video controls etc) to assistive technology now, rather than in some glorious unspecified future. </p>
+<p>He writes engagingly, too: &#8220;Remember that the <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements are semantically neutral elements. They have no meaning, poor things, and are merely empty hooks—ciphers for you to do with what you will. They cheer up to no end when you give them meaning. Existential crisis averted!&#8221;</p>
+<p>I also appreciated Joshue&#8217;s pragmatism: &#8220;Good semantics are really important, but real-world accessibility is very nuanced—particularly for new content and element types. However, bear in mind that an unencoded ampersand (which will throw a validation error) never resulted in an inaccessible webpage.&#8221;</p>
+<p>However, I didn&#8217;t understand &#8220;Having some heading structure, rather than none, on a web document is far more important than merely ensuring the headings are ordered in the correct way.&#8221; Surely &#8220;merely ensuring the headings are ordered in the correct way&#8221; is exactly the same as &#8220;having some heading structure rather than none&#8221;?</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2012/12/A9781430241942-3d_2.png" alt=""  width="277" height="350" class="aligncenter size-full wp-image-4845" /></p>
+<figcaption><a href="http://www.apress.com/9781430241942"><cite>Pro HTML5 Accessibility</cite> by Joshue O Connor</a></figcaption>
+</figure>
+<p>It&#8217;s also unclear to me why the author chose to markup buttons to control a video player as</p>
+<pre> 
+<code>&lt;div id="back" tabindex="0"&gt;
+&lt;img src="player/back_button.png" role="button" alt="Jump Back" /&gt;
+&lt;/div&gt;
+</code>
+</pre>
+<p>rather than simply use a <code>&lt;button&gt;</code> element which by default has a role of button and is focussable. But it doesn&#8217;t much matter; it gets the job done.</p>
+<p>There are some errors which the technical editor should have picked up. Chapter 3 says &#8220;JavaScript has some event handlers that can be activated only by using the mouse, such as onClick&#8221;, which <a href="http://websiteaccessibility.donaldevans.com/2011/06/30/when-does-onclick-work-with-the-keyboard-enter-key/">isn&#8217;t strictly true</a>. The same chapter also says &#8220;IE 9 doesn’t support the <code>&lt;video&gt;</code> element&#8221;, which is just wrong: it does. A cursory code-test would have shown that chapter 5&#8217;s example <code>&lt;img scr="myserver/usful_andgroovy_image.png"&gt;</code> won&#8217;t work, as there is no <code>scr</code> attribute (it&#8217;s obviously a typo for <code>src</code>).</p>
+<p>The most significant failing of the book isn&#8217;t the author&#8217;s fault: it&#8217;s  the lack of love for presentation that I&#8217;ve found endemic in all Apress books lately. For example, the tables in chapter 5 could easily have been formatted for a more attractive presentation, but they look exactly as a basic Word document. Similarly, the multi-page bulleted lists could easily have been a single, multi-column page.</p>
+<p>It looks as if Apress just doesn&#8217;t care about quality, which is incomprehensible from a publisher. In a publishing environment where ebooks have advantages such as portability, searchability, updateability in case of errors,  dead-tree publishers need to work hard to ensure their products remain competitive. They need to play to the traditional strengths of print: beautiful layouts, colours, good design and high-quality paper. We see these in books from Five Simple Steps, Smashing Magazine and A Book Apart. I&#8217;ve only seen a PDF of this book, but a previous physical Apress book I own has a paper quality redolent of 1970s East German toilet paper. Certainly Apress has expended no effort at all to lay out the pages for a pleasant read.</p>
+<p>That rant aside, the content of this book will be invaluable to a developer new to the world of accessibility, trying to use  modern web standards. </p>
+<p><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/" rel="bookmark">Review: Pro HTML5 Accessibility by Joshue O Connor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on December 11, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>Interview with Robin Berjon, HTML5 editor</title>
+		<link>http://html5doctor.com/interview-with-robin-berjon-html5-editor/</link>
+		<comments>http://html5doctor.com/interview-with-robin-berjon-html5-editor/#comments</comments>
+		<pubDate>Tue, 13 Nov 2012 14:05:26 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[interviews]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4788</guid>
+		<description><![CDATA[At the recent Apps World expo in London, Doctor Bruce spoke on a panel with Robin Berjon, recently appointed W3C HTML5 editor. He took the opportunity to ask Robin some questions on process, living standards and male grooming.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>At the recent Apps World expo in London, Doctor Bruce spoke on a panel with Robin Berjon, recently appointed W3C HTML5 editor. He took the opportunity to ask Robin some questions on process, living standards and male grooming.</p>
+<figure> <img class="aligncenter size-full wp-image-4796" src="http://html5doctor.com/wp-content/uploads/2012/11/berjon.jpg" alt="Bruce Lawson and Robin Berjon" width="300" height="321" /><br />
+<figcaption>Bruce and Robin</figcaption>
+</figure>
+<p>&nbsp;</p>
+<dl>
+<dt>Tell us about yourself.</dt>
+<dd>My name is Robin Berjon (<a href="http://twitter.com/robinberjon">@robinberjon</a>, <a href="http://berjon.com/">berjon.com</a>) and I live in Paris with wife, daughter, and cat. I&#8217;ve been hacking Web and open source stuff since 1996. A little over ten years ago I started becoming involved in standards with the hope of helping make hacking with Web technology as cool as I thought it could be. I hadn&#8217;t realised that &#8220;as cool as it could be&#8221; would be notion prone to evolving so fast over time.</p>
+</dd>
+<dt>How long have you been editor of HTML5?</dt>
+<dd>Since September, so a touch over two months by now.</p>
+</dd>
+<dt>But isn&#8217;t Hixie editor?</dt>
+<dd>Hixie is the editor of the WHATWG HTML specification; I&#8217;m part of the W3C team of HTML editors. Essentially the same source document is used by everyone, but we produce different views on it. The WHATWG view is a single document containing features at varying levels of maturity; the W3C publishes that document as multiple separate specifications and currently focuses on a more stable subset of features.</p>
+<p>It&#8217;s a big document — there&#8217;s room enough for a broad community to collectively figure out the future of HTML.</p>
+</dd>
+<dt>What does the job entail? Just tidying up and getting tests written? Isn&#8217;t that terribly boring?</dt>
+<dd>Our goal is two-fold. First, we are on track to producing a stable snapshot of HTML5 by 2014. The first step in getting there is to produce a draft that is ready for intensive testing, which is the next step in the W3C process. In parallel, we will shortly start publishing drafts on the HTML.next track (also known as HTML 5.1) including a number of new features. This basically corresponds to switching to something that resembles software development best practices in which one can choose either to use a stable release or the nightly build.</p>
+<p>Based on the stable snapshot, we will ramp up our testing effort in earnest. To some, testing is a tedious occupation but I beg to differ. With testing, you get to break stuff. And other people&#8217;s stuff, too! And those people then thank you for it. Remember all that time spent working around browser bugs? Well with specification testing you get to turn that around, find the bugs instead of avoid them, and then wait as the browser vendors fix them. It&#8217;s Web developer payback time!</p>
+<p>And there&#8217;s a host of things to be done for HTML 5.1 such as <a href="http://www.w3.org/community/fixing-appcache/">fixing AppCache</a> (with our friends from WebApps) or evaluating the various proposals for responsive images. There&#8217;s no point in waiting for a finished specification to start work on the next one, and one thing that I find particularly exciting is that a lot of the novel stuff is exciting tech that&#8217;s brought to us by the community.</p>
+</dd>
+<dt>It&#8217;s not all just mopping up, though, is it? You&#8217;re already looking at new features. For example, W3C is considering &lt;picture&gt; element; WHATWG isn&#8217;t. Is there a danger of differing specs for the same markup language?</dt>
+<dd>I&#8217;m not really worried about differing specifications because there&#8217;s a reality test: what&#8217;s really implemented out there? If you have two specifications saying different things about the same feature, and that feature happens to be reasonably reliably implemented, then one of those specifications is wrong. And it&#8217;s pretty hard to stay relevant while being wrong.</p>
+<p>I would actually like to see more variation in input rather than less. It can be rather daunting for a group of Web people who care a lot about one specific feature to start contributing to any standards group. A lot goes on there, there tends to be a fair bit of email, the mailing list&#8217;s culture can be hard to grasp even if it&#8217;s not downright aggressive. This puts a high bar on such contributions, high enough that it is too rarely turned into a reality.</p>
+<p>At the same time, it is difficult for even seasoned Web hackers to draft specification text without input from browser vendors and experienced standardistas, which in turn can lead to frustration as carefully crafted and nurtured work is turned down.</p>
+<p>So we need to figure out how to make this type of group working on a specific improvement work more easily, more often. We already have a lot of the technical infrastructure with Community Groups, but getting the human bits to work is always the hardest part. I think that the work going on in the <a href="http://www.w3.org/community/respimg/">Responsive Images Community Group</a> is a truly great experiment (even if it means occasional drama) and that the experience they are building up will serve to guide a lot of subsequent groups working in a similar fashion.</p>
+<p>I bring this up because successful open projects are those that can keep bringing in new contributors over time. The Web standards community as a whole needs to do a better job there — and we will! So no, I&#8217;m not worried about differing specs. So long as we can figure out how to get all the browsers on the same page one way or another, the more input the sexier.</p>
+</dd>
+<dt>I recall someone saying that 20,000 test cases will be needed? That&#8217;s a lot &#8211; how are you going to do it all?</dt>
+<dd>It&#8217;s probably a fair bit more than 20,000 since we already have over 11,000 and aren&#8217;t anywhere near satisfied yet. But the exact number is not as important as the fact that the number will be big. In order to pull this off, it would be tremendously helpful to benefit from broad community involvement.</p>
+<p>And as it happens, that&#8217;s precisely something that&#8217;s been ramping up. You&#8217;re of course familiar with Move The Web Forward, the grassroots movement that&#8217;s pushing for a better Web. A part of that is <a href="http://testthewebforward.org/">Test The Web Forward</a>. It&#8217;s a series of events specifically dedicated to making the Web a better place for all through testing. There was a first event in San Francisco last summer, and we&#8217;ve just recently had one in Beijing this week, and another in Paris. The TestTWF folks are looking into more events in other locations, so if you&#8217;re interested in having one in your city make your voice heard.</p>
+<p>What happens there is that we kick off with a few presentations to explain how testing works, and then we all get our hands dirty in a hackathon with ample help from testing experts. For developers it&#8217;s a<br />
+great way to learn more about Web technologies and to get involved in a project that gives back to the Web. Plus: payback!</p>
+<p>I was at the Paris TestTWF a couple weeks ago, and I have to say that I&#8217;ve been overwhelmed with how good the participants were. The turn-out was great, and people there just showed up, asked great questions, and immediately started crunching on tests. It&#8217;s not as if I didn&#8217;t already know that the Web community rocks, but it&#8217;s still amazing to see just how much people care and how dedicated so many are to improving the Web.</p>
+</dd>
+<dt>The w3c has &#8220;chopped up&#8221; HTML into modular specs; WHATWG hasn&#8217;t. Why?</dt>
+<dd>A lot of people, including spec reviewers, test writers, and implementers have told us that they find it easier to handle smaller specifications because they&#8217;re easier to swap into one&#8217;s brain, and because you can more easily have someone work on a well-defined area. I think that <a href="http://www.w3.org/QA/2008/01/modularity.html">Tim Berners-Lee explained it well a few years ago</a>.</p>
+<p>Of course, a lot of the Web platform is intricately meshed together so that cutting things into smaller pieces can be difficult, and at times risks hiding vital information. This is particularly true of existing features; for new features we certainly intend to try hard to make things as modular as possible. That&#8217;s why we expect a lot of the new features developed in the HTML WG to be created as extension<br />
+specifications. This does not mean that they have lesser status that the “core” HTML specification, rather it becomes a logical, modular way of adding new functionality. It also makes it easier for third parties, such as smaller, more focused communities or even individuals with a good ideas, to provide very concrete input that can more readily be reviewed by the group. Great examples of this include the <a href="http://responsiveimages.org/">Responsive Images work</a> or the <a href="https://dvcs.w3.org/hg/html-extensions/raw-file/tip/maincontent/index.html">&lt;main&gt; element</a>.</p>
+<p>At the end of the day a lot of it boils down to taste, or perhaps more importantly to how your work in relation to those specifications is organised. If you&#8217;re working on all of it at once, it may be simpler to keep it all in one place; but if you&#8217;re trying split work off in a larger team you might prefer some predefined boundaries between documents. At least that&#8217;s the impression I get from the input people provide whenever this topic crops up. As far as I&#8217;m concerned I find that the extension specification model is more conducive to community contributions and so it definitely has my preference.</p>
+</dd>
+<dt>Why do we need W3C snapshots and versions, instead of a &#8220;living standard&#8221;?</dt>
+<dd>It&#8217;s a big Web out there and a lot of people are involved in it in different ways. Again, whether you prefer snapshots or the bleeding edge document likely depends on what you&#8217;re doing with it. If you&#8217;re continuously working on and with the spec, producing snapshots is a drag. At the other end of the spectrum if you&#8217;re burning the implementation into silicon and you need to interoperate with others who are doing the same, you want something that&#8217;s almost literally carved in stone. In between those extremes, the specifics of your situation as a user of the spec will make you fall on either side of the fence.</p>
+<p>One of the notable costs of a document that changes continuously is that for any work you do with it you need to track it with equal continuity, which can be quite taxing. In order to enable more loosely coordinated work on improving the Web platform, producing snapshots (e.g. for test writing or implementing) can help a fair bit.</p>
+<p>It&#8217;s important to notice that stability is important for legal reasons: companies like to know what their commitments are and what others have committed as well. W3C&#8217;s <a href="http://www.w3.org/2004/02/05-patentsummary.html">Royalty-Free patent policy</a> helps ensure that these commitments make it possible for anyone to implement Web standards without paying royalties. Snapshots help us keep the Web free.</p>
+<p>That&#8217;s why we&#8217;re working on making both possible in parallel. The setup we&#8217;ve progressively been putting together enables us to have a continuously updated document and snapshots taken from it at regular intervals. This just might be one of those cases in which we can actually make everyone happy.</p>
+</dd>
+<dt>You&#8217;ve put the <a href="https://github.com/w3c/html">HTML spec on github</a>. Why?</dt>
+<dd>We wanted to go with git anyway since its branching features are a great match for the approach we&#8217;re taking in which we have a stable branch that is used to produce snapshots and a more advanced branch into which new features go.</p>
+<p>If you mix that with our desire to involve the community more in the standards process, then GitHub was the logical choice: that&#8217;s where our community is.</p>
+</dd>
+<dt>Do you communicate much with WHATWG? Some of them aren&#8217;t great fans of W3C.</dt>
+<dd>Several of us hang out permanently on the #whatwg channel, and on the WHAT&#8217;s mailing lists. I can&#8217;t say that it has been anything other than friendly and pleasant.</p>
+<p>Some people in the WHAT community have criticism of how the W3C operates. A lot of that criticism is constructive, and I am more than happy to relay it inside. W3C has a long history of doing the right thing with respect to opening up the standards process (e.g. with its RF policy or working in public). I&#8217;m confident that the consortium will continue in this vein, even if it can occasionally take time for some things to change.</p>
+<p>And on the rare occasions when such criticism veers towards trolling, everyone&#8217;s experienced enough with online discussion not to bite.</p>
+</dd>
+<dt>Is it time for Hixie et al to disband WHATWG and return HTML to the W3C fold, now they&#8217;ve won?</dt>
+<dd>You&#8217;d really have to ask them that!</p>
+<p>The WHATWG has certainly done an astounding job of bringing HTML back to life and making it the biggest blip on anyone&#8217;s radar. I don&#8217;t think that that necessarily entails that it should close shop just yet, if ever. As I said, I believe we should ideally have more decentralised work on improvement, not less — even if it&#8217;s difficult.</p>
+</dd>
+<dt>Is it true that Tim Berners-Lee comes to you for tips on male grooming?</dt>
+<dd>I can&#8217;t possibly disclose the list of those who come to me for advice, but it is certainly true that since my breakthrough feature in GQ France an increasing number of Web hackers have been asking how to approach the ruggedly handsome magnetism of these roguish good looks.</p>
+</dd>
+</dl>
+<p>Thank you very much Robin. (Evidence of Robin&#8217;s &#8220;ruggedly handsome magnetism&#8221; may be seen in his <a href="http://vimeo.com/52750334">TPAC dance-off</a>.)</p>
+<p><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/" rel="bookmark">Interview with Robin Berjon, HTML5 editor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 13, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/interview-with-robin-berjon-html5-editor/feed/</wfw:commentRss>
+		<slash:comments>7</slash:comments>
+		</item>
+		<item>
+		<title>Review: The Truth About HTML5 For Web Designers</title>
+		<link>http://html5doctor.com/review-the-truth-about-html5-for-web-designers/</link>
+		<comments>http://html5doctor.com/review-the-truth-about-html5-for-web-designers/#comments</comments>
+		<pubDate>Tue, 26 Jun 2012 12:52:36 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Reviews]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4671</guid>
+		<description><![CDATA[<p>The Truth About HTML5 For Web Designersis an ebook self-published by Australian developer Luke Stevens. I disagree with some of Stevens' conclusions, particularly in his discusssion of the new semantics, but it's solidly researched and lots of fun if you like hearing someone with strong opinions rant for a while (as I do). I enjoyed reading his book and, for the price, recommend that you have a look.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.truthabouthtml5.com/">The Truth About HTML5 For Web Designers</a> is an ebook self-published by Australian developer <a href="http://twitter.com/lukestevens">Luke Stevens</a>.</p>
+<h2>TL;DR:</h2>
+<ul>
+<li>The website promises &#8220;This is the book for web designers, web developers, and front-end coders who want to get up to speed with HTML5 in 2012&#8221;. It isn&#8217;t.</li>
+<li>It is a healthy antidote to all the bullshit out there claiming that HTML5 cures cancer and brings about world peace</li>
+<li>At only $4.99, it&#8217;s very cheaply priced and you&#8217;ll probably learn something or, if not, you&#8217;ll have some useful antidote to the hype. So buy it!</li>
+</ul>
+<p><img src="http://html5doctor.com/wp-content/uploads/2012/06/luke-stevens-cover.jpg" alt="cover image" title="luke-stevens-cover" width="300" height="450" class="aligncenter size-full wp-image-4678" /></p>
+<h2>Longer review</h2>
+<p>Stevens&#8217; book is not a really a tutorial. If you know nothing about the subject, I doubt whether this book would teach you enough to start coding HTML5. But for those of us who&#8217;ve been following the development of the language,  it&#8217;s a great commentary on the good, bad and the ugly of HTML5.</p>
+<p>If such a thing interests you I heartily recommend that you buy it although, as with any polemic, there are parts of it I disagree with.</p>
+<p>For example, Stevens writes &#8220;There was—and is—no unifying vision of “HTML5”.&#8221; Now this is inaccurate. The unifying vision of HTML5 was to extend the Web without  breaking it; evolution rather then revolution, with a set of <a href="http://www.w3.org/TR/html-design-principles/">design principles</a>:</p>
+<ul>
+<li>Support Existing Content</li>
+<li>Degrade Gracefully </li>
+<li>Do not Reinvent the Wheel</li>
+<li> Pave the Cowpaths </li>
+<li> Evolution Not Revolution</li>
+<li> Solve Real Problems </li>
+<li> Priority of Constituencies</li>
+<li> Secure By Design </li>
+<li> Separation of Concerns</li>
+<li> DOM Consistency </li>
+<li> Well-defined Behavior</li>
+<li>Avoid Needless Complexity</li>
+<li> Handle Errors </li>
+<li> Media Independence</li>
+<li>Support World Languages</li>
+<li> Accessibility</li>
+</ul>
+<p>In his chapter on the structural elements, Stevens complains that the new markup elements are badly defined and hard to learn:</p>
+<blockquote><p>These are serious problems that hurt, rather than help, web standards. Markup should be lightweight, easy to learn, and easy to apply. It should not require mental gymnastics to try and work out what to use where.</p></blockquote>
+<p>Anything new is hard to learn. It&#8217;s not so long ago that we were still coming to grips with how to use HTML 4, and building up a canon of best practice as a community with efforts such as <a href="http://simplebits.com/categories/simplequiz/">Dan Cederholm&#8217;s Simplequiz</a>. The language has increased the number of elements by more than 30%, as well as gained many, many new APIs and become generally much more complex . People haven&#8217;t instantly understood all the new changes. I&#8217;m comfortable with that; change takes time to settle.</p>
+<p>Stevens also suggests that the new elements are somehow tarnished because Hixie made them up <em>before</em> the Google research that analysed 1 billion web pages, and therefore suggests that aren&#8217;t useful. He quotes Hixie to back up his assertion:</p>
+<blockquote><p>Hixie: Me and other WHATWG contributors [added them], [in] 2004ish, because they were obvious elements to add after seeing how authors used HTML4. We later (late 2005 early 2006) did some objective research to find out what the top ten HTML classes were and it turned out that they basically exactly matched the elements we had added, which was convenient.</p></blockquote>
+<p>But, as Hixie says &#8220;they were obvious elements to add after seeing how authors used HTML4&#8221;. These weren&#8217;t just dreamed up out of nowhere &#8211; they were dreamed up out of real, but anecdotal, experience of what authors really did, which was then corroborated by objective research. This seems fine and reasonable to me, and doesn&#8217;t feel like the smoking gun that Stevens believes it is.</p>
+<p>The author dislikes the names of the new structural elements (&lt;header&gt;, &lt;aside&gt; and &lt;footer&gt;) because, he says, they don&#8217;t closely match the way that designers would describe areas of the page: Header, Content, Sidebar and Footer. Those seem to me to be quite a good match, but Stevens doesn&#8217;t think so and prefers the ARIA roles banner, main, complementary and contentinfo, which to me feel more alien.</p>
+<p>Stevens laments that multiple meanings of some elements:</p>
+<blockquote><p>In HTML4 a paragraph is a paragraph is a paragraph.  In HTML5 an “article” is a forum post is a blog comment is a widget is a an actual article.</p></blockquote>
+<p>I disagree. We&#8217;ve all seen &#8220;paragraphs&#8221; that are not paragraphs at all, but merely sentence fragments &#8211; for example</p>
+<pre>
+<code>&lt;p&gt;Products include:&lt;/p&gt;
+&lt;ul&gt;...&lt;/ul&gt;
+</code>
+</pre>
+<p>Is &#8220;Products include&#8221; <em>really</em>  a paragraph? Of course not; it&#8217;s merely that &lt;p&gt; is the best-fitting element to use. And so it is with the multiple uses of &lt;article&gt; in the spec. At least there are suggestions in the spec that may encourage some kind of conventions amongst developers.</p>
+<p>Stevens continues &#8220;If an element has such broad meaning, how can it be more &#8216;semantic&#8217;”?&#8221; This is not a new problem with HTML5. In the HTML 4 spec is the ridiculous suggestion in the spec that the <a href="http://www.w3.org/TR/REC-html40/struct/lists.html#h-10.3">&lt;dl&gt; element is appropriate for marking up conversations</a> on the grounds (I guess) of its default visual rendering in browsers. I agree that we need to keep HTML lightweight, so it will never be possible to capture every subtlety of meaning with a limited set of elements, but I strongly feel that HTML5 elements are much more tightly defined than HTML 4.</p>
+<p>Lastly, Stevens sees no practical value to the <a href="http://html5doctor.com/outlines/">HTML5 document outlining algorithm</a>:</p>
+<blockquote><p>So user agents (screen readers in particular) will have very little incentive to ever use HTML5 outlines—the main point of these elements—as a means of navigation, given they’ll be (and already are) an utter mess.</p></blockquote>
+<p>For the last eight months, the largest screen reader on the market, <a href="http://www.accessibleculture.org/articles/2011/10/jaws-ie-and-headings-in-html5/">JAWS, has supported HTML5 outlines</a> (albeit buggily) so presumably they do see an incentive to use it.</p>
+<h2>Conclusion</h2>
+<p>I disagree with some of Stevens&#8217; conclusions, particularly in his discusssion of the new semantics, but it&#8217;s solidly researched and lots of fun if you like hearing someone with strong opinions rant for a while (as I do). I enjoyed reading his book and, for the price, recommend that you have a look.</p>
+<p><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/" rel="bookmark">Review: The Truth About HTML5 For Web Designers</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 26, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-the-truth-about-html5-for-web-designers/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 adaptive images: end of round one</title>
+		<link>http://html5doctor.com/html5-adaptive-images-end-of-round-one/</link>
+		<comments>http://html5doctor.com/html5-adaptive-images-end-of-round-one/#comments</comments>
+		<pubDate>Wed, 16 May 2012 10:36:45 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4645</guid>
+		<description><![CDATA[<p>After The Great Vendor Prefix Hullaballoo of April 2012 comes The Great Responsive Images Brouhaha of May 2012. We look at the main competing formats for adding adaptive images to HTML - the <code>&#60;picture&#62;</code> element, and the <code>&#60;img srcset=""&#62;</code> attribute.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p class="disclaimer">This article is now superseded. A newer version of the &lt;picture> element is being implemented in Blink, WebKit, Firefox. Read <a href="http://www.smashingmagazine.com/2014/05/14/responsive-images-done-right-guide-picture-srcset/">Responsive Images Done Right: A Guide To &lt;picture&gt; And srcset</a> for more.</p>
+<p>After <a href="http://dev.opera.com/articles/view/opera-mobile-emulator-experimental-webkit-prefix-support/">The Great Vendor Prefix Hullaballoo of April 2012</a> comes The Great Responsive Images Brouhaha of May 2012. </p>
+<p>Adaptive images are the next unsolved mystery of Responsive Web Design. Do you send large high-res images suitable for retina dispays, which are scaled down on smaller, lower res devices and which therefore waste bandwidth? Or do you send low-res images, whch look grotty when scaled up to large screens or high-res displays? Authors have had to rely on <a href="http://css-tricks.com/which-responsive-images-solution-should-you-use/">elaborate hacks</a> to send different content images (that is <code>&lt;img&gt;</code> in HTML rather than CSS background images) to different types of devices.</p>
+<p>By November 2011, I was so frustrated that no specification body was considering the problem that <a href="http://www.brucelawson.co.uk/2011/notes-on-adaptive-images-yet-again/">I proposed a strawman &lt;picture&gt; element</a> that re-used the mechanism of HTML5 &lt;video&gt; with its media queries to swap in different source files:</p>
+<pre><code>
+&lt;picture alt=&quot;angry pirate&quot;&gt;
+   &lt;source src=hires.png media=&quot;min-width:800px&quot;&gt;
+   &lt;source src=midres.png media=&quot;min-width:480px&quot;&gt;
+   &lt;source src=lores.png&gt;
+      &lt;!-- fallback for browsers without support --&gt;
+      &lt;img src=midres.png alt=&quot;angry pirate&quot;&gt;
+&lt;/picture&gt;</code>
+</pre>
+<p>Around the same time, others <a href="http://www.w3.org/community/respimg/2012/02/23/picture-for-existing-browsers/">independently came to the same idea</a> and were advised to set up a <a href="http://www.w3.org/community/respimg/">W3C community group</a> to discuss it which they did. However, in January, the HTML5 editor, <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2012-January/034490.html">Ian Hickson, had said</a></p>
+<blockquote>What&#8217;s the use case for doing it for images in &lt;img&gt; elements? Typically &lt;img&gt; elements are for content images, where you don&#8217;t usually want to adapt anything.</blockquote>
+<p>Those web authors in the W3C Resposive Images Community Group  soldiered on in frustration that they were they being ignored  because the problem itself wasn&#8217;t seen as a problem. Then this week, Edward O&#8217;Connor of Apple suggested another method, using a <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2012-May/035746.html">new <code>srcset</code> attribute</a> on the &lt;img&gt; element. This complemented a similar suggestion of his from February for <a href="http://lists.w3.org/Archives/Public/www-style/2012Feb/1103.html">img-set in CSS</a> that is already being added to WebKit:</p>
+<pre><code>&lt;img src="foo-lores.jpg"
+     srcset="foo-hires.jpg 2x, foo-superduperhires.jpg 6.5x"
+     alt="decent alt text for foo."&gt;</code></pre>
+     <p>The numbers &#8220;2&#8221; and &#8220;6.5x&#8221; tell the browser the relative resolutions; foo-hires.jpg is 2x the resolution of foo-lores.jpg.</p>
+<p>Only a few days later, a variant of Apple&#8217;s suggestion was <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2012-May/035855.html">added to the spec</a>.</p>
+<p>There are two major differences between &lt;picture&gt; and srcset. The most obvious is that srcset uses the &lt;img&gt; element, which is great because that&#8217;s the natural place for images, adaptive or not. (You can&#8217;t re-use the &lt;video&gt; + &lt;source&gt; pattern with &lt;img&gt; because it is an empty element so can&#8217;t have child elements. O&#8217;Connor&#8217;s solution uses attributes, which are fine.)</p>
+<p>The other major difference is that it doesn&#8217;t use Media Queries. With Media Queries, the author is reponsible for thinking up every permuations of viewport size, orientation, dpi, colour depth, aspect ratio and the like, deciding how to cater for them (if at all), identifing the breakpoints and coding them up. This requires a lot of consideration by the author, and makes for verbose code; a page with 20 pictures, each with 5 Media Queries on 5 &lt;source&gt; elements quickly becomes a lot of code.</p><p>O&#8217;Connor wrote</p>
+<blockquote>
+<p>Why provide a scale factor and not a media query? Well, media queries are claims about UA state, whereas here we&#8217;re asserting something about the relationship between the image assets. Also, User Agents should be free to use whichever asset they deem best suited to their current situation, taking into account not just &#8220;media-queriable things&#8221; like device resolution but also any scaling applied to the &lt;img&gt; with CSS, its width=&#8221;&#8221; and height=&#8221;&#8221; attributes, or even things like the current page zoom level.</p>
+
+</blockquote>
+<p>I have a lot of sympathy with allowing the browser to make decisions about what it knows of the environment (network speed, latency, pixel density, orientation) to choose the best image for the job. The idea is that the author shouldn&#8217;t be expected to anticipate and cater for all those variables. What she can do is describe the things she knows about -the images, their size and pixel density- and the browser will make its choice.</p><p>That way, when we&#8217;re all living in space and looking a 3D holograms, the proximity to a black hole can be detected by the iDroid3000 device (black holes notoriously cause Web hologram negative timespace inversions) and the right image chosen; we don&#8217;t need to invent new media queries for event horizon proximity and retrospectively add it to our websites.</p>
+<p>There are two problems with the srcset suggestion. The first is highly subjective, but many feel the same: as it exists in the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#attr-img-srcset">current, first draft of the spec</a>, the syntax is revolting:</p>
+<pre><code>&lt;img src="face-600-200-at-1.jpeg" alt=""
+srcset="face-600-200-at-1.jpeg 600w 200h 1x,
+face-600-200-at-2.jpeg 600w 200h 2x,
+face-icon.png 200w 200h"&gt;</code></pre>
+<p>Of course, this can be improved, and must be. This isn&#8217;t just about aesthetics. If the syntax is too weird, it will be used wrongly. As <a href="https://twitter.com/#!/rem/status/202306584880234496">Dr Remy wrote</a>, &#8220;Good to see authors have <em>another</em> microsyntax to learn. It&#8217;s not like they had any trouble with vendor-prefixes.&#8221;</p>
+	
+<p>The second problem is that authors don&#8217;t want to relinquish control. There are questions of art direction (see the section headed <a href="http://css-tricks.com/which-responsive-images-solution-should-you-use/">Do I care about art direction?</a>), and many remain unconvinced that the Apple suggestion addresses that; proponents of srcset are convinced that <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2012-May/035907.html">it does address those use cases</a>. </p> 
+<p>Debate continues, with a <a href="http://www.cartoonstock.com/directory/e/exchange_of_views.asp">full and frank exchange of views</a>. There are understandably <a href="http://timkadlec.com/2012/05/wtfwg/">hurt feelings</a>, too, because some of those who laboured in the Community Group feel that <a href="http://www.alistapart.com/articles/responsive-images-and-web-standards-at-the-turning-point/">their wishes and work have been ignored</a>.</p> 
+<p>As one of those who proposed &lt;picture&gt;, I have a degree of attachment to it. That&#8217;s ego. (In fact, I&#8217;d be delighted if it were called the &lt;yayBruce&gt; element, but I&#8217;m resigned to the unfairness of life.) But I don&#8217;t really care which syntax makes the spec, as long as it addresses the majority of use cases and it is usable by authors. I&#8217;m just glad we&#8217;re discussing the adaptive image problem at all.</p>
+<p>So, get involved. Read the discussions and say your piece. And once the dust has settled and the specification is looking stable, we Doctors will write up our diagnosis.</p> <p><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/" rel="bookmark">HTML5 adaptive images: end of round one</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 16, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-adaptive-images-end-of-round-one/feed/</wfw:commentRss>
+		<slash:comments>61</slash:comments>
+		</item>
+		<item>
+		<title>It&#039;s Curtains for Marital Strife Thanks to getUserMedia</title>
+		<link>http://html5doctor.com/getusermedia/</link>
+		<comments>http://html5doctor.com/getusermedia/#comments</comments>
+		<pubDate>Tue, 07 Feb 2012 14:56:03 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[getusermedia]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webrtc]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4335</guid>
+		<description><![CDATA[<p>HTML5 (or now, the WebRTC spec) gives us getUserMedia, a way for JavaScript to access streams from a device's camera and microphone. Find out how to use it and normalise the syntax differences between Opera and Chrome with the gUMshield.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>True story: I was tasked by the lovely Mrs Lawson to buy some curtains that match our carpet during the January sales. I dutifully did so — and had to return to the shop straight away because they didn&#8217;t match at all. Mrs Lawson accompanied me, and with a withering glance at her incompetent mate, immediately found some correctly hued fabric, and all was well.</p>
+
+<p>But what&#8217;s a middle-aged colour-blind bloke to do? I had early in the curtain procurement process decided against cutting a hole in the carpet in order that I may take a sample with me. (All other mistakes aside, this was a correct decision.)</p>
+
+<p>So, in order to ensure that I would never again repeat the mistake, I set out to make an app that would allow me to capture the colour of an image straight from my camera. Of course, it had to be a web app rather than a native app, because we&#8217;re web angels, not proprietary devils.</p>
+
+<section id="intro">
+  <h2><code>getUserMedia</code> <a href="#intro" class="permalink">#</a></h2>
+
+  <p><a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html"><code>getUserMedia</code></a> is an API that gives a web page access to a user&#8217;s camera and microphone via JavaScript. It&#8217;s supported in Opera 12 and Opera Mobile 12 for Android, and WebKit in <a href="http://tools.google.com/dlpage/chromesxs?platform=win">Chrome Canary</a> builds (<a href="https://sites.google.com/site/webrtc/running-the-demos">instructions</a>).</p>
+
+  <p>Like many other APIs, it&#8217;s not part of the &#8220;real&#8221; HTML5 spec. It started life as the HTML5 <code>&lt;device&gt;</code> element, then got moved into the W3C as part of the <a href="http://www.w3.org/TR/webrtc/">webRTC</a> specifications. But let&#8217;s not taxonomise when we could be having fun.</p>
+
+  <p>The first thing we need to do when using super-cool new UIs is detect whether it&#8217;s supported:</p>
+
+  <figure>
+    <pre><code> if (navigator.getUserMedia) {
+  // do something cool
+} else {
+  // fallback code
+}</code></pre>
+    <figcaption>Basic usage of <code>getUserMedia</code></figcaption>
+  </figure>
+
+  <p>For this article, our &#8220;do something cool&#8221; will be to grab the dominant colour of the current input stream from the camera. As a fallback, we have several options.</p>
+
+  <p>One option, if we&#8217;re using the default Android browser, is to show a form that automatically starts the camera when focussed:</p>
+
+  <figure>
+    <pre><code>&lt;form enctype="multipart/form-data" method="post"&gt;
+  &lt;input type="file" accept="video/*;capture=camera" /&gt;
+&lt;/form&gt;</code></pre>
+    <figcaption>Fallback code for Android</figcaption>
+  </figure>
+
+  <p>There&#8217;s also the <a href="http://www.w3.org/TR/2011/WD-html-media-capture-20110414/#captureparam"><code>capture</code> attribute</a>, a proposed extension from the <a href="http://www.w3.org/TR/html-media-capture/">W3C Device API Media Capture API</a> that tells a user agent where to get the input data. Android extends the <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#attr-input-accept"><code>accept</code> attribute</a>. See more in <a href="http://davidbcalhoun.com/2011/android-3-0-honeycomb-is-first-to-implement-the-device-api">David Calhoun&#8217;s Device API article</a>. Alternative capture arguments are <code>camcorder</code> (for video), <code>microphone</code>, and <code>filesystem</code>.</p>
+
+  <p>Browsers that don&#8217;t understand the still-draft Media Capture API will simply ignore the <code>capture</code> attrbute and prompt the user to browse to a file on their file system for uploading.</p>
+
+  <p>Users on iOS are out of luck, as their devices don&#8217;t allow access to the file system.</p>
+
+  <section id="differences-from-media-capture">
+    <h3>Differences Between the Media Capture API and <code>getUserMedia</code> <a href="#differences-from-media-capture" class="permalink">#</a></h3>
+
+    <p>Robin Berjon, co-chair of the Device API (DAP) Working Group explains: The markup-only Media Capture API is a simpler, low-hanging-fruit version that can work easily for a lot of use cases. It also has a very simple security model (just a file upload).</p>
+
+    <p>In fact, it works exactly like <code>&lt;input type=file&gt;</code>, except that it knows to allow the user to grab a pic from the camera by default instead of hitting the filesystem. But just like with <code>&lt;input type=file&gt;</code>, once a picture has been taken (i.e., a file selected), you can access it and read from it using the File API, which means you can stuff it in an <code>&lt;img&gt;</code> or a <code>&lt;canvas&gt;</code> and do nasty things to it without annoying any faraway server.</p>
+
+    <p>But of course, if it&#8217;s part of a form and you submit it, it gets submitted just like a regular file upload.</p>
+
+    <p>The thing is, though, it&#8217;s always a snapshot. Even if you use it to take a video (which you can), the page only gets it after you&#8217;ve finished shooting. With <code>getUserMedia</code> (<b>gUM</b>), you get the live stream, which you can modify, record, or stream elsewhere. The gUM approach is more powerful but more complex, and it has more severe security issues.</p>
+  </section>
+</section>
+
+<section id="api">
+  <h2><code>getUserMedia</code> API <a href="#api" class="permalink">#</a></h2>
+
+  <p>Let&#8217;s assume (because we&#8217;re optimists) that your user has a <code>getUserMedia</code>-enabled device. The API is nice and simple, as all Web APIs should be.</p>
+
+  <p><code>navigator.getUserMedia</code> accepts two required arguments and an optional third.</p>
+
+  <p>The first argument tells the device <b>which media you require access to</b>, and it&#8217;s passed as a JavaScript object. So, if you only require access to the microphone, the first argument would be <code>{audio: true}</code>; for video-chatting, you would use <code>{audio: true, video: true}</code>.</p>
+
+  <p>The device decides which camera to use: <q>User agents are encouraged to default to using the user&#8217;s primary or system default camera and/or microphone (as appropriate) to generate the media stream.</q></p>
+
+  <p>A previous version of the specification allowed hints to user agents about which camera to use. The API could specify &#8220;user&#8221; (the front camera on a phone) or &#8220;environment&#8221; (the rear camera on a phone). Debate continues about whether to reinstate this (<a href="http://lists.w3.org/Archives/Public/public-media-capture/2012Jan/0014.html">read the ongoing conversation</a>). One argument against is that letting sites know what cameras a device has could help Dr Malice of Evil Corp. fingerprint users after luring them to his site (which I find to be overly-cautious). <a href="http://lists.w3.org/Archives/Public/public-media-capture/2012Jan/0018.html">Harald Alvestrand poses a conundrum</a>: <q>conferencing units may have a room camera, a document camera and a lectern camera, neither of which is attached to the physical box; which one of these is <q>front</q>?</q></p>
+
+  <p>But let&#8217;s not worry at the moment. Devices with more than one camera generally have a mechanism that allow the user to choose which one is used, so this gives the user control. Note also that the spec says <q>User agents may allow users to use any media source, including pre-recorded media files.</q></p>
+
+  <p>The second argument is the <b>success callback</b>, the function to be executed on success, assuming that the user allows access and the device supports your request.</p>
+
+  <p>There is an optional third argument. This is the <b>failure callback</b>, the function to be executed if something went wrong. It&#8217;s optional, but only optional in the sense that washing your hands before you eat is optional: if you don&#8217;t do it, you leave yourself open to all sorts of bugs and your mum will shout at you.</p>
+
+  <p>Of course, it&#8217;s important to do feature detection before making an API call to ensure that the browser and device are capable, but even if feature detection succeeds, there is still much that can cause failure. For example, the user could deny permission or turn off the camera via a hardware switch, or the device itself could disable the camera.</p>
+
+  <p>So here&#8217;s how we recommend you use the API:</p>
+
+  <figure>
+    <pre><code>navigator.getUserMedia({audio: true, video: true}, success, error);
+
+function success(stream) { 
+  // ... use 'stream' ... 
+} 
+
+function error(){ 
+  // display fallback content 
+}</code></pre>
+    <figcaption>Using the gUM API</figcaption>
+  </figure>
+
+  <p>To check whether it&#8217;s working correctly, we can attach the output of the camera&#8217;s stream to the input of an HTML5 video on the page, like this:</p>
+
+  <figure>
+    <pre><code>&lt;video autoplay&gt;&lt;/video&gt;
+&lt;script&gt;
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({audio: true, video: true}, success, error);
+  function success(stream)
+  { 
+    // ... use 'stream' ...
+    var video = document.getElementsByTagName('video')[];
+    video.src = stream; 
+  }
+  // ...
+&lt;/script&gt;</code></pre>
+    <figcaption>Streaming captured video to an HTML5 <code>&lt;video&gt;</code> element</figcaption>
+  </figure>
+
+  <section id="differences-between-webkit-and-opera">
+    <h3>Differences Between Webkit and Opera <a href="#differences-between-webkit-and-opera" class="permalink">#</a></h3>
+
+    <p>The two rendering engines that implement getUserMedia do so in two different ways. Hopefully, they&#8217;ll harmonise when the features reach the released browsers.</p>
+
+    <p>The differences:</p>
+
+    <ul>
+      <li>WebKit uses a prefix — <code>navigator.webkitGetUserMedia</code> — while Opera doesn&#8217;t.</li>
+      <li>
+        WebKit implements the options according to an old version of the spec, in which audio and video were passed as strings:
+        <pre><code>navigator.webkitGetUserMedia("video, audio", /* ... */)</code></pre>
+        whereas Opera implements the most recent version of the specification which uses JavaScript objects:
+        <pre><code>navigator.getUserMedia({video: true, audio: true}, /* ... */)</code></pre> (Added June 2012: Chrome 20+ uses the ({video: true, audio: true} syntax.)
+      </li>
+      <li>
+        WebKit attaches the resulting stream like this:
+        <pre><code>video.src = window.webkitURL.createObjectURL(stream);</code></pre>
+        which is according to the current version of the spec. Opera uses:
+        <pre><code>video.src = stream;</code></pre>
+        and has proposed simplifying the spec (but discussion continues).
+      </li>
+    </ul>
+
+    <p>But this fragmentation, even though it&#8217;s only in experimental browser releases is, like, a total drag, man.</p>
+  </section>
+
+  <section id="gUM-shield">
+    <h3>Introducing The gUM Shield <a href="#gUM-shield" class="permalink">#</a></h3>
+
+    <p>Fortunately, we&#8217;ve got your back. Two of the finest minds I know — actually, two of the finest <em>Mikes</em>, Doctor <a href="http://twitter.com/akamike">Mike Robinson</a> and Opera&#8217;s <a href="http://twitter.com/miketaylr">Mike Taylor</a> — have created a snippet of script that you can copy to shield you from these annoying differences. We&#8217;ve named this <code>getUserMedia</code> syntax normalisation script snippet <a href="https://gist.github.com/f2ac64ed7fc467ccdfe3">The gUM Shield</a>.
+
+    <p>It assumes that there&#8217;s a variable called <var>video</var> to which you&#8217;ve assigned a reference to the <code>&lt;video&gt;</code> element you&#8217;ll stream to. Do this with some mechanism like:</p>
+
+    <pre><code>video = document.getElementById('video');</code></pre>
+
+    <p>Simply <a href="https://gist.github.com/f2ac64ed7fc467ccdfe3">hit the &#8216;Hub</a>, download it, plug it into your script, and <a href="http://jsbin.com/avaxaq/edit#preview">check it out</a>!</p>
+
+    <p>Note that it&#8217;s <em>experimental</em>. Who knows what&#8217;ll happen when Mozilla, Microsoft, and Apple implement it, but please, have a play. Fork it and improve it!</p>
+  </section>
+</section>
+
+<sectino id="exciting">
+  <h2>Doing Exciting Things with the Video Stream <a href="#exciting" class="permalink">#</a></h2>
+
+  <p>So far, we&#8217;re only echoing the video stream. But, as you&#8217;ll know from Tab Atkins&#8217; guest article <a href="http://html5doctor.com/video-canvas-magic/">video + canvas = magic</a>, if we copy the video into a canvas, we can manipulate it:</p>
+
+  <figure>
+    <pre><code>var video = document.querySelector('video');
+var canvas = document.querySelector('canvas');
+var ctx = canvas.getContext('2d');
+
+ctx.drawImage(video, 0, 0, video.width, video.height,
+  0, 0, canvas.width, canvas.height);</code></pre>
+    <figcaption>Canvas and video magic</figcaption>
+  </figure>
+
+  <p>A common mistake is assuming that this somehow establishes a &#8220;live connection&#8221; between the video stream and the canvas. It doesn&#8217;t. It only grabs the current frame. So you need to grab the current frame repeatedly in order to replicate a video. The magical number is 15 times a second (or every 67 milliseconds), but a slower frame rate would probably be okay for this demo:</p>
+
+  <figure>
+    <pre><code>setInterval(function () { 
+  ctx.drawImage(video, 0, 0, video.width, video.height,
+  0, 0, canvas.width, canvas.height);
+},  67);</code></pre>
+    <figcaption>Live updating of <code>&lt;canvas&gt;</code> from a <code>&lt;video&gt;</code></figcaption>
+  </figure>
+
+  <p>See the <a href="http://jsbin.com/ahozok/edit#html,live">working demo</a>.</p>
+
+  <p>What I want to do now is to grab the dominant colour from the canvas. I&#8217;m stealing <a href="http://experimenting.in/exp/real-life-color-picker/">a demo by Shwetank Dixit</a> (who borrowed from <a href="http://www.lokeshdhakar.com/">Lokesh Dhakar</a>&#8216;s <a href="http://www.lokeshdhakar.com/2011/11/03/color-thief/">Color Thief demo</a>). We won&#8217;t look at how it determines the dominant colour (because that&#8217;s nothing to do with getUserMedia).</p>
+
+  <p><a href="http://html5doctor.com/demos/getusermedia/dominantcolor/">Try this in Opera Labs and Chrome Canary</a>!</p>
+
+  <p>Unfortunately, this works splendidly in Opera but it occasionally fails in Chrome, and we&#8217;re not sure why. (We&#8217;ve emailed the Chrome team to ask them.) Apart from the rather anti-climactic end to an article, you shouldn&#8217;t be dismayed by this. <code>getUserMedia</code> is only available in experimental builds that have plenty of work to be done before they hit production.</p>
+
+  <p>Back to our demo. Once you&#8217;ve got the dominant colour, you could prompt the user for a name for that colour (&#8220;carpet&#8221;, for example) and store that in local storage using its name as a key. Then, when you find a pair of curtains in the shop, you can find their dominant colour and easily compare it with that stored against &#8220;carpet&#8221; from earlier.</p>
+
+  <p>And you can return home, confident of delighting the love of your life with your chromatically appropriate choice of soft furnishings. That&#8217;s HTML5: enriching marriages since 2004.</p>
+
+  <img src="http://html5doctor.com/wp-content/uploads/2012/01/getUserMedia1.jpg" alt="woman says &#039;hey daddy-o, the curtains really razz my berries, ya dig?&#039;. Man replies &#039;Baby, I totally dig. Early night?&#039;. A thought bubble shows him thinking &#039;Thank you, getUserMedia&#039;" width="570" height="390" class="aligncenter size-full wp-image-4336" />
+</section>
+
+<section id="harshing-your-mellow">
+  <h2>Harshing Your Mellow <a href="#harshing-your-mellow" class="permalink">#</a></h2>
+
+  <p>Things need refining before web apps with <code>getUserMedia</code> are on a par with native applications. At the moment, there is no way of controlling which camera is to be used (and no agreement that a developer should be able to). The camera&#8217;s <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032471.html">flash mechanism isn&#8217;t programmatically controllable</a>, which could harm the user experience. Most importantly are the privacy implications of web pages being able to access your camera. Opera has an <a href="http://dev.opera.com/articles/view/getusermedia-access-camera-privacy-ui/">experimental privacy UI</a>, but Chrome has no UI yet.</p>
+</section>
+
+<section id="demos">
+  <h2>More Demos <a href="#demos" class="permalink">#</a></h2>
+
+  <p>See Paul Neave&#8217;s <a href="http://neave.com/webcam/html5/">HTML5 Webcam Toy</a> and the links at the foot of my <a href="http://dev.opera.com/articles/view/getusermedia-access-camera-privacy-ui/">Opera Labs article</a>.</p>
+</section>
+
+<section id="thanks">
+  <h2>Thanks <a href="#thanks" class="permalink">#</a></h2>
+
+  <p>Thank for help and code are due to <a href="http://twitter.com/robinberjon">Robin Berjon</a>, <a href="http://twitter.com/shwetank">Shwetank Dixit</a>, <a href="http://twitter.com/ourmaninjapan">Daniel Davis</a>, <a href="http://www.lokeshdhakar.com/">Lokesh Dhakar</a>, <a href="http://twitter.com/miketaylr">Mike Taylor</a>, <a href="http://twitter.com/akamike">Mike Robinson</a>, and .</p>
+</section>
+<section>
+<h2>Addy Osmani&#8217;s Polyfill</h2>
+<p>Added 13 March 2012: Addy Osmani has published a <a href="https://github.com/addyosmani/getUserMedia.js">getUserMedia polyfill</a> called getUserMedia.js, which uses Flash if gUM isn&#8217;t available. It&#8217;s not ready for production yet, as IE is still being tested. Forkers may hit the &#8216;hub.
+</section><p><a href="http://html5doctor.com/getusermedia/" rel="bookmark">It&#039;s Curtains for Marital Strife Thanks to getUserMedia</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 7, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/getusermedia/feed/</wfw:commentRss>
+		<slash:comments>28</slash:comments>
+		</item>
+		<item>
+		<title>HTML5: briefing notes for journalists and analysts</title>
+		<link>http://html5doctor.com/html5-briefing-notes-journalists-analysts/</link>
+		<comments>http://html5doctor.com/html5-briefing-notes-journalists-analysts/#comments</comments>
+		<pubDate>Tue, 20 Sep 2011 06:54:13 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Marketing]]></category>
+		<category><![CDATA[Misc]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3547</guid>
+		<description><![CDATA[<p>Your friendly neighbourhood doctors are often contacted by  journalists and analysts who have questions about HTML5, usually from a consumer of business perspective. This is great, as we spend many more hours every week mutely shaking our heads while reading the ill-informed columns from journalists or analysts who haven't contacted us.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Your friendly neighbourhood doctors are often contacted by  journalists and analysts who have questions about HTML5, usually from a consumer or business perspective. This is great, as we spend many more hours every week mutely shaking our heads while reading the <a href="http://www.brucelawson.co.uk/2011/html5-notes-for-analysts-and-journalists/">ill-informed columns</a> from journalists or analysts who haven&#8217;t contacted us.</p>
+<p>Here are the most common questions we&#8217;re asked, with non-technical answers. Journos &#8211; you&#8217;re welcome to use these answers (a citation would be nice but isn&#8217;t required).</p>
+<p>We&#8217;ll add new questions and answers as they are asked.</p>
+<h2>What is HTML5?</h2>
+<p>Depends what you mean. There are 3 different uses of the phrase &quot;HTML5&quot;:</p>
+<h3>The HTML5 specification</h3>
+<p>The most accurate meaning of HTML5 is the specification that is developed by two groups, the <a href="http://en.wikipedia.org/wiki/World_Wide_Web_Consortium">W3C</a> and <a href="http://en.wikipedia.org/wiki/Whatwg">WHATWG</a>, together. There are <a href="http://html5doctor.com/html5-for-web-developers/">different versions</a> of the core HTML5 specification.
+<p>It is a much-needed evolution of the language that web pages are written in, and is designed for writing Web <strong>applications</strong> (dynamic interactive web pages that do something). Its predecessor, HTML4, dating from the late 1990s, was written for  Web <strong>Pages</strong> (static, hyperlinked documents of text, images, forms).
+<p>Key facts:
+<ul>
+  <li>It&#8217;s designed to make web pages interoperable across browsers. These days, people use multiple browsers (For example, IE at work, Safari/ Opera on their phone, Opera/ Firefox at home) and it&#8217;s stupid and annoying if a website doesn&#8217;t work everywhere.</li>
+  <li>All the browser manufacturers &#8211; Opera, Mozilla (Firefox), Apple (Safari), Microsoft (Internet Explorer), Google (Chrome) &#8211; are working together, along with loads of other individuals and organisations: Netflix, Adobe, IBM, HP, BBC etc.</li>
+  <li>It&#8217;s designed to extend the capabilities of the current web, without breaking existing web pages </li>
+  <li>It competes with plugins like Microsoft Silverlight and Adobe Flash (which themselves were developed to plug the holes in fossilized HTML4 standard)</li>
+</ul>
+
+<h3>HTML5 and close friends</h3>
+<p>In addition to the core HTML5 specification, the WHATWG developed other specifications such as
+
+
+<a href="http://en.wikipedia.org/wiki/Web_Workers">Web Workers</a>, <a href="http://dev.w3.org/html5/websockets/">Web Sockets</a>, <a href="http://www.w3.org/TR/webdatabase/">Web Database</a>. These add more features useful in applications, games and the like.
+<p>(Many of these have been part of the core spec at some point, but moved out for procedural/ organisational reasons. They are all grouped together in a specification called <a href="http://www.whatwg.org/specs/web-apps/current-work/complete/">Web Applications 1.0)</a>.
+<h3>New, Exciting Web Technologies</h3>
+<p>When most non-developers (and many less-informed developers) say &#8220;HTML5&#8221; they are referring to a whole slew of technologies: Core HTML5, its friends and others entirely unrelated technologies, such as  <a href="/finding-your-position-with-geolocation/">Geolocation</a> (the ability for your browser to &#8220;know&#8221; its location), Device Orientation, Touch Events, CSS3 animations (that can replace very simple Flash animations), SVG (a way of describing graphics that look crisp and unpixellated at any screensize) and, the new kid on the block, <a href="http://en.wikipedia.org/wiki/WebGL">WebGL</a>, a port of a popular 3D graphics library to the Web that allows 3D graphics and games in the browser.</p>
+<P>Many of these are developed by the W3C; WebGL is developed by <a href="http://en.wikipedia.org/wiki/Khronos_Group">Khronos Group</a>.</p>
+<p>It&#8217;s also important to note that many so-called &quot;HTML5&quot; demos are nothing to do with HTML5 at all; many Google Doodles, for example, use <a href="http://en.wikipedia.org/wiki/Dhtml">DHTML</a> &#8211; an HTML 4 technology from the turn of the millennium.
+<h2>Why has HTML5 been invented?</h2>
+<p>HTML 4 was creaking at the seams for the new breed of applications. Some things were impossible and needed plugins like Adobe Flash or Microsoft Silverlight; other things required elaborate hacks on undocumented features, which wasn&#8217;t a robust foundation for websites that make money for their owners.</p>
+<h2>How many HTML5-compliant browsers are there?</h2>
+<p>It depends on your definition. Because HTML5 extends HTML4, by definition all browsers have some HTML5 features.</p>
+<p>If, on the other hand, you want to know which browsers include all Core HTML5 features, none of them do. They are all implementing pieces of the specification (which is 700+ pages long) but none implement all.</p>
+<p>Disregarding all the hype, the modern versions of the browsers are all around the same level of implementation (although different browsers implement different features at different times, depending on the needs of their customers).</p>
+<h2>Who&#8217;s driving HTML5?</h2>
+<p>It began in Opera, in 2004, edited by Ian Hickson. Gradually all the other browser manufacturers joined. Hickson left Opera and joined Google, where he continues to edit the spec. </p>
+<p>It&#8217;s fairest to say that browser manufacturers collaboratively drive the spec, with the W3C and many other organisations and individuals. Ultimately, it&#8217;s driven by the needs of  Web developers.</p>
+<h2>Who&#8217;s using HTML5?</h2>
+<p>Lots of people &#8211; not just tech companies: <a href="http://www.bostonglobe.com/">Boston Globe Newspaper</a>; <a href="http://www.nationwide.co.uk/default.htm">Nationwide Building Society</a>, <a href="http://www.yell.com/">Yell.com</a> and hundreds more. <a href="http://html5gallery.com/">HTML5gallery.com</a> showcases many HTML5 sites.</p>
+<h2 id=ready>When will HTML5 be ready?</h2>
+<p>Perhaps 2012. Perhaps 2022. It doesn&#8217;t matter; what matters is that a lot of it is implemented in browsers now, so it can be used now.</p>
+<p>Saying that we can&#8217;t use HTML5 because it isn&#8217;t finished is like saying we can&#8217;t speak English because it isn&#8217;t finished.</p>
+<h2>Is HTML5 incompatible with Internet Explorer?</h2>
+<p>Nope. IE9 has good support. Support for some APIs can be patched into older browsers with a technique called <b>polyfilling</b> with JavaScript, or with plugins like Flash and Silverlight. Support for <code>&lt;canvas&gt;</code> can be faked in IE&lt;9. It&#8217;s generally the slow JavaScript engines in older browsers that cause problems. Video content can use a Flash fallback in older versions of all browsers.</p>
+<p>It&#8217;s worth noting that many of the features in HTML5 (like <code>contenteditable</code>, 
+the Drag and Drop API) were invented by  Microsoft and were included in IE5.</p>
+<h2>Is HTML5 just about mobile?</h2>
+<p>Absolutely not. Behind HTML5 are some <a href="http://www.w3.org/TR/html-design-principles/">Design Principles</a>, one of which states that it&#8217;s about <a href="http://www.w3.org/TR/html-design-principles/#universal-access">universal access</a>:</p>
+<blockquote>
+  <p>Features should be designed for universal access&hellip;Features should, when possible, work across different platforms, devices, and media.</p>
+</blockquote>
+<p>That said, there are several features that are useful on Mobile. If you&#8217;re looking at &quot;real&quot; HTML5, then the ability to continue to interact with a website even when offline via <a href="/go-offline-with-application-cache/">Application Cache (&#8220;Appcache&#8221;)</a> is a useful one. 
+<p>The fact that you can use HTML5 &lt;canvas&gt; for animations on devices that, by choice or necessity, can&#8217;t use Adobe Flash can be advantageous.
+<p>In the broader &quot;New Exciting Web Techologies&quot; definition of HTML5, Geolocation is a huge feature.
+<h2>Will HTML5  kill Adobe Flash?</h2>
+<p>No &#8211; or we hope not. For years Flash was the only way to add video to a page; now there is HTML5. This competition means both are getting better, which is great for developers. </p>
+<p>Apple decided not to allow Flash on their iOS devices, which is what gave HTML5 video a great boost. It&#8217;s important to note that HTML5 multimedia on iOS is hardly a perfect platform:</p><ul>
+<li><a href="http://blog.millermedeiros.com/2011/03/html5-video-issues-on-the-ipad-and-how-to-solve-them/">HTML5 video issues on the iPad and how to solve them</a></li>
+<li><a href="http://blog.millermedeiros.com/2011/04/unsolved-html5-video-issues-on-ios/">Unsolved HTML5 video issues on iOS</a></li>
+<li><a href="http://remysharp.com/2010/12/23/audio-sprites/">Audio Sprites (and fixes for iOS)</a></li>
+</ul>
+<p>For video that uses adaptive bit-rate streaming,  or Digital Rights Management (DRM), Flash remains a useful cross-browser tool.</p>
+
+<p>It&#8217;s also necessary to realise that Flash does more than simply video. Some its basic functions like simple gaming have been usurped by HTML5 &lt;canvas&gt;, and the kind of trivial animations that it used to be used for (things spinning on hover, for example) are moved into <a href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS 3</a>. However, for ease of authoring sophisticated animated content like  games and cartoons, it&#8217;s much easier for authors to write in Flash as Adobe&#8217;s authoring environment has many tools (tweening, timelines) that make it easy for visual developers. This will change as companies develop pleasant authoring environments for &lt;canvas&gt;, but it isn&#8217;t there yet.</p>
+<p>(Adobe recently released a preview of a timeline-driven authoring environment for non-Flash animations called . Ignore its claims to be &quot;HTML5&quot;; in its current early incarnation, it&#8217;s simply flying HTML 4&lt;div&gt;s around with JavaScript.)</p>
+<h2>Will HTML5  kill mobile Apps?</h2>
+<p>HTML5 (in the broadest sense of &quot;New Exciting Web Technologies&quot;) significantly enhance the capabilities of the Web. Two years ago, to access the Global Positioning System on the phone, you had to write a native app in C++ or Java or.NET or Objective C depending on platform. If you wanted to target all platforms, you write the same app multiple times. Now, you can access Geolocation data from JavaScript on every platform (and on laptops too!), by the user visiting a URL rather than downloading an app.</p>
+<p>Open web technologies are providing access to the <a href="http://my.opera.com/core/blog/2011/03/23/webcam-orientation-preview">device&#8217;s camera and orientation</a>, the system <a href="https://mozillalabs.com/blog/2010/03/contacts-in-the-browser/">contact book</a>, peer-to-peer <a href="http://www.webrtc.org/">in-browser video conferencing</a>, the devices&#8217; file system, and many more. JavaScript engines are becoming almost as fast as native code, so the technical niche for native applications on high-end smartphones still exists, but is becoming smaller. On less sophisticated devices that can&#8217;t run fast JavaScript or a full web browser, native apps are still an important product.</p>
+<p>There are non-technical reasons for apps, too. Operators like them very much: they can control distribution and therefore extract money from both purchasers and vendors. Whereas many people dislike the idea of a monolithic appstore and app approval process, some consumers value it. Appstores offer curation &#8211; consumers feel that the apps are vetted and therefore won&#8217;t wreck their phones, steal their identities or (shudder) expose them to Internet smut.</p>
+<p>Apps built for one specific device can be highly integrated with the User Interface and User Experience conventions of that device. Some people see this as a compelling advantage. However, uptake of the Web doesn&#8217;t seem to have suffered because authors make one single website rather than  different websites for Linux, Mac and Windows. </p>
+<h2>Any further questions?</h2>
+<p>If you have any further questions, you can <a href="/ask-the-doctor/">ask the doctor</a>, or <a href="http://www.brucelawson.co.uk/contact/"> analysts/ accredited journalists can ask your author for a briefing</a>.</p>
+<p><a href="http://html5doctor.com/html5-briefing-notes-journalists-analysts/" rel="bookmark">HTML5: briefing notes for journalists and analysts</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 20, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-briefing-notes-journalists-analysts/feed/</wfw:commentRss>
+		<slash:comments>16</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 3.186 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-03-16 10:53:18 -->

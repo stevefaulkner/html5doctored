@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Computer says NO to HTML5 document outline</title>
+	<atom:link href="http://html5doctor.com/computer-says-no-to-html5-document-outline/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Thu, 28 Jul 2016 17:36:34 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Mark Simon</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2130593</link>
+		<dc:creator><![CDATA[Mark Simon]]></dc:creator>
+		<pubDate>Wed, 29 Jun 2016 01:58:29 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2130593</guid>
+		<description><![CDATA[OK, I’ve put a lot of thought into this, and I think that the original concept can be rescued.
+
+To my mind, there are two approaches to implementing a document outline:
+
+The approach taken by word processors is have a linear document, but to imply the outline from the heading levels. This is also the approach taken in HTML using the &lt;code&gt;h1 … h6&lt;/code&gt; elements, though HTML has not traditionally done anything else with.
+
+A more structure approach is to explicitly construct the outline using nested structures. This is the approach that HTML5 seeks to introduce.
+
+The problem arises when &lt;em&gt;both&lt;/em&gt; are being used. In principal, you could imply an outline using the heading levels, or create one using nested sections and only &lt;code&gt;h1&lt;/code&gt; headings (creating virtually level-less headings). However, if you start nesting heading levels as well, there is a conflict in interpretation.
+
+One approach is to disallow heading levels, but, at this point,  I think that is an unnatural approach — many people create their document linearly rather than from an outline.
+
+I think a better approach is to require that all nested sections &lt;em&gt;begin&lt;/em&gt; their heading levels from &lt;code&gt;h1&lt;/code&gt; and work downwards. To get to the next level, you either have a lower level heading, or nest a new section element and start again.
+
+A simple outlining algorithm could be calculated as follows:
+
+&lt;code&gt;level = heading level + nesting depth&lt;/code&gt;
+
+This would imply that &lt;code&gt;h2&lt;/code&gt; in the &lt;code&gt;body&lt;/code&gt; is at the same level as &lt;code&gt;h1&lt;/code&gt; in a nested section, and I think that is intuitive.
+
+What about starting nested sections with a lower level? Browsers have always forgiven sloppy coding, and I think that this should be an example of such. I don’t think they should be expected to re-number level headings.
+
+I know this is not currently advised, but I think it would be easy to understand and implement.]]></description>
+		<content:encoded><![CDATA[<p>OK, I’ve put a lot of thought into this, and I think that the original concept can be rescued.</p>
+<p>To my mind, there are two approaches to implementing a document outline:</p>
+<p>The approach taken by word processors is have a linear document, but to imply the outline from the heading levels. This is also the approach taken in HTML using the <code>h1 … h6</code> elements, though HTML has not traditionally done anything else with.</p>
+<p>A more structure approach is to explicitly construct the outline using nested structures. This is the approach that HTML5 seeks to introduce.</p>
+<p>The problem arises when <em>both</em> are being used. In principal, you could imply an outline using the heading levels, or create one using nested sections and only <code>h1</code> headings (creating virtually level-less headings). However, if you start nesting heading levels as well, there is a conflict in interpretation.</p>
+<p>One approach is to disallow heading levels, but, at this point,  I think that is an unnatural approach — many people create their document linearly rather than from an outline.</p>
+<p>I think a better approach is to require that all nested sections <em>begin</em> their heading levels from <code>h1</code> and work downwards. To get to the next level, you either have a lower level heading, or nest a new section element and start again.</p>
+<p>A simple outlining algorithm could be calculated as follows:</p>
+<p><code>level = heading level + nesting depth</code></p>
+<p>This would imply that <code>h2</code> in the <code>body</code> is at the same level as <code>h1</code> in a nested section, and I think that is intuitive.</p>
+<p>What about starting nested sections with a lower level? Browsers have always forgiven sloppy coding, and I think that this should be an example of such. I don’t think they should be expected to re-number level headings.</p>
+<p>I know this is not currently advised, but I think it would be easy to understand and implement.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Steve Faulkner</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2129805</link>
+		<dc:creator><![CDATA[Steve Faulkner]]></dc:creator>
+		<pubDate>Thu, 23 Jun 2016 13:06:36 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2129805</guid>
+		<description><![CDATA[&lt;blockquote&gt;I may have misunderstood the intent of outlining.&lt;/blockquote&gt;
+
+Yes you have, like many other people.
+
+A simple illustration of how the outline algorthm works is by running the &lt;a href=&quot;https://validator.w3.org/nu/?showoutline=yes&amp;doc=http%3A%2F%2Fs.codepen.io%2Fstevef%2Fdebug%2FBzLqww&quot; rel=&quot;nofollow&quot;&gt;demo page&lt;/a&gt; I provided through the W3C HTML checker- this provides 2 outline views. If you look at the second outline view (the HTML5 outline algorithm implementation) you will see that the 2 headings are on the same level.]]></description>
+		<content:encoded><![CDATA[<blockquote><p>I may have misunderstood the intent of outlining.</p></blockquote>
+<p>Yes you have, like many other people.</p>
+<p>A simple illustration of how the outline algorthm works is by running the <a href="https://validator.w3.org/nu/?showoutline=yes&#038;doc=http%3A%2F%2Fs.codepen.io%2Fstevef%2Fdebug%2FBzLqww" rel="nofollow">demo page</a> I provided through the W3C HTML checker- this provides 2 outline views. If you look at the second outline view (the HTML5 outline algorithm implementation) you will see that the 2 headings are on the same level.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Alohci</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2129692</link>
+		<dc:creator><![CDATA[Alohci]]></dc:creator>
+		<pubDate>Thu, 23 Jun 2016 00:50:18 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2129692</guid>
+		<description><![CDATA[&quot;there is no suggestion that a nested h6 would be ranked higher in the absence of higher level headings.&quot;
+
+And yet that is what the outline algorithm, rightly or wrongly, requires. Which is why the half-arsed styling applied by the user-agent style sheet for h1 elements inside article elements is so misleading and ultimately unhelpful.]]></description>
+		<content:encoded><![CDATA[<p>&#8220;there is no suggestion that a nested h6 would be ranked higher in the absence of higher level headings.&#8221;</p>
+<p>And yet that is what the outline algorithm, rightly or wrongly, requires. Which is why the half-arsed styling applied by the user-agent style sheet for h1 elements inside article elements is so misleading and ultimately unhelpful.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Mark Simon</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2129664</link>
+		<dc:creator><![CDATA[Mark Simon]]></dc:creator>
+		<pubDate>Wed, 22 Jun 2016 21:48:25 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2129664</guid>
+		<description><![CDATA[I may have misunderstood the intent of outlining.
+
+I thought that while a nested &lt;code&gt;h1&lt;/code&gt; would be ranked lower, there is no suggestion that a nested &lt;code&gt;h6&lt;/code&gt; would be ranked &lt;em&gt;higher&lt;/em&gt; in the absence of higher level headings. The observed behaviour of the major browsers (Firefox, Chrome and Safara – I haven’t tested this on IE or Edge) would be as expected.
+
+The same would apply even without using sectioning elements. Beginning your page with an &lt;code&gt;h4&lt;/code&gt; and going down from there was tolerated but never recommended. You should always start with &lt;code&gt;h1&lt;/code&gt; and work downwards from there.
+
+The notion of the HTML5 outlined applied the same logic to so-called section elements, and you would be expected to start with &lt;code&gt;h1&lt;/code&gt; again. Starting lower would be creating orphans.
+
+I do think, however, exposing the outline, say as a JavaScript object, would have been helpful.]]></description>
+		<content:encoded><![CDATA[<p>I may have misunderstood the intent of outlining.</p>
+<p>I thought that while a nested <code>h1</code> would be ranked lower, there is no suggestion that a nested <code>h6</code> would be ranked <em>higher</em> in the absence of higher level headings. The observed behaviour of the major browsers (Firefox, Chrome and Safara – I haven’t tested this on IE or Edge) would be as expected.</p>
+<p>The same would apply even without using sectioning elements. Beginning your page with an <code>h4</code> and going down from there was tolerated but never recommended. You should always start with <code>h1</code> and work downwards from there.</p>
+<p>The notion of the HTML5 outlined applied the same logic to so-called section elements, and you would be expected to start with <code>h1</code> again. Starting lower would be creating orphans.</p>
+<p>I do think, however, exposing the outline, say as a JavaScript object, would have been helpful.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Steve Faulkner</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2129596</link>
+		<dc:creator><![CDATA[Steve Faulkner]]></dc:creator>
+		<pubDate>Wed, 22 Jun 2016 08:25:58 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2129596</guid>
+		<description><![CDATA[&lt;blockquote&gt;This a seriously missed opportunity.&lt;/blockquote&gt;
+I think we all pretty much agree that in theory the outline algorithm is a good thing. But it has been damaging in practice as it has been evangelized before its time (if there ever will be a time).
+
+&lt;blockquote&gt;However, I thought that some browsers were outline-aware. Firefox, for example, will show &lt;code&gt;article&gt;h1&lt;/code&gt; elements in a smaller font, indicating that it knows about the outline.&lt;/blockquote&gt;
+
+Some browsers implement CSS rendering of nested &lt;code&gt;h1&lt;/code&gt;&#039;s as per the algorithm, but thats it. It&#039;s brittle. In this &lt;a href=&quot;http://s.codepen.io/stevef/debug/BzLqww&quot; rel=&quot;nofollow&quot;&gt;demo&lt;/a&gt; the outline algorithm dictates that the 2 headings (&lt;code&gt;h1&lt;/code&gt; and &lt;code&gt;h6&lt;/code&gt;) in the &lt;code&gt;article&lt;/code&gt; elements both have a rank of 2 (as they are nested 1 deep) and therefore should be displayed with the same size to reflect this. But they aren&#039;t... Furthermore size does not convey the semantics robustly at all.
+
+
+
+&lt;blockquote&gt;The point is, is it no longer correct to begin an article (or aside etc) with an h1 element?&lt;/blockquote&gt;
+
+A heading in an &lt;code&gt;body&gt;h1&gt;article&lt;/code&gt; element has a rank of 2 so should be a &lt;code&gt;h2&lt;/code&gt;. The only caveat to this is when you have one or more &lt;code&gt;article&lt;/code&gt; elements on a page that has no &lt;code&gt;h1&lt;/code&gt; scoped to body &lt;code&gt;body&gt;article&lt;/code&gt;]]></description>
+		<content:encoded><![CDATA[<blockquote><p>This a seriously missed opportunity.</p></blockquote>
+<p>I think we all pretty much agree that in theory the outline algorithm is a good thing. But it has been damaging in practice as it has been evangelized before its time (if there ever will be a time).</p>
+<blockquote><p>However, I thought that some browsers were outline-aware. Firefox, for example, will show <code>article>h1</code> elements in a smaller font, indicating that it knows about the outline.</p></blockquote>
+<p>Some browsers implement CSS rendering of nested <code>h1</code>&#8216;s as per the algorithm, but thats it. It&#8217;s brittle. In this <a href="http://s.codepen.io/stevef/debug/BzLqww" rel="nofollow">demo</a> the outline algorithm dictates that the 2 headings (<code>h1</code> and <code>h6</code>) in the <code>article</code> elements both have a rank of 2 (as they are nested 1 deep) and therefore should be displayed with the same size to reflect this. But they aren&#8217;t&#8230; Furthermore size does not convey the semantics robustly at all.</p>
+<blockquote><p>The point is, is it no longer correct to begin an article (or aside etc) with an h1 element?</p></blockquote>
+<p>A heading in an <code>body>h1>article</code> element has a rank of 2 so should be a <code>h2</code>. The only caveat to this is when you have one or more <code>article</code> elements on a page that has no <code>h1</code> scoped to body <code>body>article</code></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Mark Simon</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2129287</link>
+		<dc:creator><![CDATA[Mark Simon]]></dc:creator>
+		<pubDate>Mon, 20 Jun 2016 02:43:48 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2129287</guid>
+		<description><![CDATA[This a seriously missed opportunity.
+
+The whole point of the outlining concept, as far as I can discern, is to allow, for example, an &lt;code&gt;article&lt;/code&gt; element to nestle inside a &lt;code&gt;section&lt;/code&gt; element without having to re-number the heading level.
+
+I think the real problem is that consensus my not have been as clear as it seemed from the outside. After all, it’s not as if the browser manufacturers were left out of the picture. Many of actual the specifications are a bit fuzzy, and appear the be the result of compromise rather that consensus.
+
+However, I thought that some browsers were outline-aware. Firefox, for example, will show &lt;code&gt;article&#062;h1&lt;/code&gt; elements in a smaller font, indicating that it knows about the outline.
+
+The point is, is it no longer correct to begin an article (or aside etc) with an &lt;code&gt;h1&lt;/code&gt; element?]]></description>
+		<content:encoded><![CDATA[<p>This a seriously missed opportunity.</p>
+<p>The whole point of the outlining concept, as far as I can discern, is to allow, for example, an <code>article</code> element to nestle inside a <code>section</code> element without having to re-number the heading level.</p>
+<p>I think the real problem is that consensus my not have been as clear as it seemed from the outside. After all, it’s not as if the browser manufacturers were left out of the picture. Many of actual the specifications are a bit fuzzy, and appear the be the result of compromise rather that consensus.</p>
+<p>However, I thought that some browsers were outline-aware. Firefox, for example, will show <code>article&gt;h1</code> elements in a smaller font, indicating that it knows about the outline.</p>
+<p>The point is, is it no longer correct to begin an article (or aside etc) with an <code>h1</code> element?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Steve Faulkner</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2129006</link>
+		<dc:creator><![CDATA[Steve Faulkner]]></dc:creator>
+		<pubDate>Fri, 17 Jun 2016 18:04:56 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2129006</guid>
+		<description><![CDATA[Well Steve, what we do know is that anything nested in a sectioning element is going to represent at least a &lt;code&gt;h2&lt;/code&gt; as only headings scoped to body are equivalent to &lt;code&gt;h1&lt;/code&gt;, so if you are advocating fucking users at least fuck them with a &lt;code&gt;h2&lt;/code&gt;.]]></description>
+		<content:encoded><![CDATA[<p>Well Steve, what we do know is that anything nested in a sectioning element is going to represent at least a <code>h2</code> as only headings scoped to body are equivalent to <code>h1</code>, so if you are advocating fucking users at least fuck them with a <code>h2</code>.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Steven Vachon</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2128994</link>
+		<dc:creator><![CDATA[Steven Vachon]]></dc:creator>
+		<pubDate>Fri, 17 Jun 2016 16:14:41 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2128994</guid>
+		<description><![CDATA[F*** them -- I&#039;m doing it anyway. When you have reusable components with no understanding of its parent structure, outline semantics are a necessity.]]></description>
+		<content:encoded><![CDATA[<p>F*** them &#8212; I&#8217;m doing it anyway. When you have reusable components with no understanding of its parent structure, outline semantics are a necessity.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Henrik Ståhl</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2128844</link>
+		<dc:creator><![CDATA[Henrik Ståhl]]></dc:creator>
+		<pubDate>Thu, 16 Jun 2016 19:47:08 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2128844</guid>
+		<description><![CDATA[I&#039;m a journalist turned product owner who&#039;s trying to learn programming, markup and other interesting things, and for the last couple of weeks I have been devouring everything I&#039;ve been able to come across regarding HTML5 and CSS3. 
+
+I adopted the concept of document outline and the nesting level in sectioning elements relatively quickly. The reason for that is quite simple:
+
+It makes sense.
+
+(Super sad Puss in Boots face)
+
+Well oh well. Hopefully I can become a Markup Master anyway, somehow.]]></description>
+		<content:encoded><![CDATA[<p>I&#8217;m a journalist turned product owner who&#8217;s trying to learn programming, markup and other interesting things, and for the last couple of weeks I have been devouring everything I&#8217;ve been able to come across regarding HTML5 and CSS3. </p>
+<p>I adopted the concept of document outline and the nesting level in sectioning elements relatively quickly. The reason for that is quite simple:</p>
+<p>It makes sense.</p>
+<p>(Super sad Puss in Boots face)</p>
+<p>Well oh well. Hopefully I can become a Markup Master anyway, somehow.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Bill</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comment-2128779</link>
+		<dc:creator><![CDATA[Bill]]></dc:creator>
+		<pubDate>Thu, 16 Jun 2016 14:32:14 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030#comment-2128779</guid>
+		<description><![CDATA[Seems like an alternate implementation could be  sectionheader or articleheader.]]></description>
+		<content:encoded><![CDATA[<p>Seems like an alternate implementation could be  sectionheader or articleheader.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
+
+<!-- Dynamic page generated in 0.601 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-11-07 04:29:28 -->

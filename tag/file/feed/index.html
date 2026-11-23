@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; file</title>
+	<atom:link href="http://html5doctor.com/tag/file/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Drag and Drop and Automatically Send to the Server</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/</link>
+		<comments>http://html5doctor.com/drag-and-drop-to-server/#comments</comments>
+		<pubDate>Tue, 03 Apr 2012 13:30:17 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[file]]></category>
+		<category><![CDATA[filereader]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[meter]]></category>
+		<category><![CDATA[xhr2]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500</guid>
+		<description><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. <div style="position:absolute; top:1897px; left:-1505px"><a href="http://www.daikin-china.com.cn/wp-content/evaluation-essay.html" title="custom essay station">custom essay station</a></div> They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p>
+
+<p>I'll walk you through <a href="http://html5demos.com/dnd-upload">an example that you can play with</a>: drag a file into the web page, and it'll be uploaded to the server instantly.</p>
+
+<section id="tasks">
+  <h2>Tasks <a href="#tasks" class="permalink">#</a></h2>
+
+  <p>Let's break this process down into specific tasks:</p>
+
+  <ol>
+    <li>Capture the drop event and read its data.</li>
+    <li>Post that binary data to the server.</li>
+    <li>Provide feedback on the progress of the upload.</li>
+    <li>Optionally render a preview of what's being uploaded and its status.</li>
+  </ol>
+
+  <p>To achieve all of this, we need the following HTML5 and non-HTML5 APIs:</p>
+
+  <ol>
+    <li><a href="http://www.w3.org/TR/html5/dnd.html">Drag and Drop</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#the-formdata-interface">FormData</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#handler-xhr-onprogress">XHR progress event</a></li>
+    <li><a href="http://www.w3.org/TR/FileAPI/#dfn-filereader">FileReader</a></li>
+  </ol>
+
+  <p>Keep in mind that not all browsers support all of this technology today, but they're getting close. I just wanted to create a clear and complete tutorial on how to go the whole hog and upload that dropped file.</p>
+
+  <p>The end result: we're able to drop the file anywhere in the browser, we get a preview and progress of the upload, and it's a slick experience.</p>
+
+  <figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/03/dnd-upload.jpg" alt="Drag and drop upload" title="" />
+    <figcaption>Our drag-and-drop example page</figcaption>
+  </figure>
+</section>
+
+<section id="dnd">
+  <h2>Drag and Drop <a href="#dnd" class="permalink">#</a></h2>
+
+  <p>Just as a forewarning, drag-and-drop has been known to be a bit of a killjoy. In fact, it's a nightmare, but I won't repeat what's been <a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">said</a> <a href="http://html5doctor.com/native-drag-and-drop/">before</a>.</p>
+
+  <p>Our example is going to allow you to drag-and-drop a file anywhere within the browser. To achieve that, we need to attach our event listeners to the <code>body</code> or <code>documentElement</code> (i.e., the root HTML node). By listening on the <code>documentElement</code>, this code <em>could</em> be anywhere in the page, as <code>documentElement</code> will always exist. You can only listen on <code>body</code> once the <code>&lt;body&gt;</code> element has been encountered.</p>
+
+  <p>Here's the pattern of code we need to capture the drop event on the entire document:</p>
+
+  <figure>
+    <pre><code>var doc = document.documentElement;
+doc.ondragover = function () { this.className = 'hover'; return false; };
+doc.ondragend = function () { this.className = ''; return false; };
+doc.ondrop = function (event) {
+  event.preventDefault &amp;&amp; event.preventDefault();
+  this.className = '';
+
+  // now do something with:
+  var files = event.dataTransfer.files;
+
+  return false;
+};</code></pre>
+    <figcaption>Basic pattern for capturing drop events</figcaption>
+  </figure>
+
+  <p>I'm using the <code>hover</code> class so that I can toggle a tip explaining to the user that the file can be dropped on the page.</p>
+
+  <p>Inside the <code>drop</code> event, we can access the dropped files via <code>event.dataTransfer.files</code>.</p>
+
+  <section id="alternative">
+    <h3>An Alternative to Drag and Drop <a href="#alternative" class="permalink">#</a></h3>
+
+    <p>Annoyingly, as I write this, I realise this combination of API requirements is currently only met by Chrome and Firefox. So, taking the test from <a href="http://modernizr.com">Modernizr</a>, we can test for support and provide our alternative:</p>
+
+    <figure>
+      <pre><code>var dndSupported = function () {
+  var div = document.createElement('div');
+  return ('draggable' in div) || ('ondragstart' in div &amp;&amp; 'ondrop' in div);
+};
+
+if (!dndSupported()) {
+  // take alternative route
+}</code></pre>
+      <figcaption>Testing for drag-and-drop support</figcaption>
+    </figure>
+
+    <p>Instead of drag-and-drop, we can insert a file input element (I've given it an <code>id</code> of "upload"), and when its value is changed, the file can be scooped in:</p>
+
+    <figure>
+      <pre><code>document.getElementById('upload').onchange = function (event) {
+  // `this` refers to the element the event fired upon
+  var files = this.files;
+};</code></pre>
+      <figcaption>An alternative to native drag-and-drop</figcaption>
+    </figure>
+
+    <p>You can see the equivalent is simply the <code>files</code> property of the <code>HTMLInputElement</code> object. This will give us access to the same file as the <code>event.dataTransfer.files</code> from the drop event.</p>
+  </section>
+</section>
+
+<section id="uploading">
+  <h2>Automatically Uploading the File <a href="#uploading" class="permalink">#</a></h2>
+
+  <p>This is the neat bit, and it's painfully simple. We use a feature of the XHR2 spec: <code>FormData</code>. Once we create an instance of <code>FormData</code>, we can append items to it:</p>
+
+  <figure>
+    <pre><code>var formData = new FormData();
+for (var i = 0; i &lt; files.length; i++) {
+  formData.append('file', files[i]);
+}
+
+// now post a new XHR request
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/upload');
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};
+
+xhr.send(formData);</code></pre>
+    <figcaption>Creating and posting <code>FormData</code></figcaption>
+  </figure>
+
+  <p>Yeah, that's it.†</p>
+
+  <aside class="sidenote">† As with everything and anything, a caveat: <code>FormData</code> isn't in Opera (nor .next) at time of writing, but I'm sure they'll catch up.</aside>
+
+  <p>Let's look at a couple of key things that are going on the above code.</p>
+
+  <pre><code>formData.append('file', files[i]);</code></pre>
+
+  <p>We're sending named parameters to our server, specifically an array of values called <code>file</code>. Obviously, you can call it what you want, but the <code>file</code> is the name your server will be looking for when it saves the uploaded file (or files).</p>
+
+  <pre><code>xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};</code></pre>
+
+  <p>If you're familiar with XHR, you'll notice we aren't listening to <code>onreadystatechange</code>, only <code>onload</code> — which is (in effect) a convenience function to let you know when the <code>readyState</code> is 4 (i.e., loaded!). You should still check and respond appropriately to the status code of the request to ensure it's 200 OK, rather than a 500 (internal server error) or 404 (not found) or anything else.</p>
+
+  <pre><code>xhr.send(formData);</code></pre>
+
+  <p>The nice trick here is that XHR has automatically set the encoding of the posted data to <code>multipart/form-data</code>. This encoding allows your server to read and save the files. It's like the encoding used when you send an attachment in an email.</p>
+</section>
+
+<section id="feedback">
+  <h2>Providing Feedback to the User <a href="#feedback" class="permalink">#</a></h2>
+
+  <p>XHR2 now (flippin' finally) comes with a <code>progress</code> event. So if you're sending or retrieving a large file via XHR, you can tell the user how far along you are.</p>
+
+  <p>It's pretty simple. If you want to track the progress of the XHR request, listen to the <code>progress</code> event. One gotcha that caught me out for some time: I needed to track the progress of the <em>upload</em>, not the download. To do this properly, you need to listen for progress on the <strong>XHR upload</strong> object, as so:</p>
+
+  <figure>
+    <pre><code>xhr.upload.onprogress = function (event) {
+  if (event.lengthComputable) {
+    var complete = (event.loaded / event.total * 100 | 0);
+    progress.value = progress.innerHTML = complete;
+  }
+};
+
+xhr.onload = function () {
+  // just in case we get stuck around 99%
+  progress.value = progress.innerHTML = 100;
+};</code></pre>
+    <figcaption>Providing feedback with XHR2's <code>progress</code> event</figcaption>
+  </figure>
+
+  <aside class="sidenote">The funky <code>| 0</code> syntax is bitwise shift to floor the value — for example, 2.69 becomes 2.</aside>
+
+  <p>Note that instead of <code>xhr.onprogress</code>, we use <code>xhr.upload.onprogess</code>. When this event fires, we check that the event supports calculating the amount of data uploaded (the <code>lengthComputable</code> part), and then calculate the amount completed.</p>
+
+  <p>In my HTML, I'm using a <code>&lt;progress&gt;</code> element (similar to the <code>&lt;meter&gt;</code> element, but more semantically appropriate as we're presenting the progress of a task) to show the user how much of their file has been uploaded:</p>
+
+  <pre><code>&lt;progress id="progress" min="0" max="100" value="0"&gt;0&lt;/progress&gt;</code></pre>
+
+  <p>Note that I'm using <code>innerHTML</code> for browsers that don't yet support <code>&lt;progress&gt;</code>. Then with a dash of CSS-generated content, both the <code>innerHTML</code> and <code>value</code> of the progress can be the same (perhaps an over optimisation, but I was rather proud of myself at the time!).</p>
+</section>
+
+<section id="preview">
+  <h2>And Finally, Rendering a Preview <a href="#preview" class="permalink">#</a></h2>
+
+  <p>As a nice addition, we'll give the user a preview of what we're uploading for them. It requires the <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> — specifically the <code>FileReader</code> API.</p>
+
+  <p>As the drag-and-drop operation (or the <code>input[type=file]</code>) contains a file object, we can hand this over to the <code>FileReader</code> to get the contents of the file. If it's something like an image, we can get the Base64 data and give the user a preview. Or if it's text, we could render it in a <code>&lt;div&gt;</code>. The MIME type for the file is available as the <code>type</code> property on the file object.</p>
+
+  <p>So let's assume we only accept images. Here's the preview part that runs after the file has been received by the browser:</p>
+
+  <figure>
+    <pre><code>var acceptedTypes = {
+  'image/png': true,
+  'image/jpeg': true,
+  'image/gif': true
+};
+
+if (acceptedTypes[file.type] === true) {
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    var image = new Image();
+    image.src = event.target.result;
+    image.width = 100; // a fake resize
+    document.body.appendChild(image);
+  };
+
+  reader.readAsDataURL(file);
+}</code></pre>
+    <figcaption>Rendering a preview of an uploaded image</figcaption>
+  </figure>
+
+  <p>We create the <code>FileReader</code> and give it a file to read. In the above example, I've used <code>readAsDataURL</code>, but you can also read files in plain text and binary formats (<a href="http://www.w3.org/TR/FileAPI/#FileReader-interface">as per the spec</a>).</p>
+
+  <p>When the reader has read the file and the data is available, it fires the <code>load</code> event, which in turn creates our new image.</p>
+
+  <p>The <em>result</em> of the file read action is in the <code>event.target.result</code> property. In the case of the <code>readAsDataURL</code>, the value is along the lines of <code>data:image/png;base64,ABC...</code>.</p>
+</section>
+
+<section id="finale">
+  <h2>Using All the Tools in the Shed <a href="#finale" class="permalink">#</a></h2>
+
+  <p>This example may be a little contrived for the article that I wanted to write. I've used many different technologies to do something that's a fairly common pattern on the web. In fact, it was because I had trouble finding a definitive source on uploading to the <em>actual</em> server (except, of course, as I wrote this article I found <a href="http://www.profilepicture.co.uk/tutorials/ajax-file-upload-xmlhttprequest-level-2/">this example</a> from back in late 2010!).</p>
+
+  <p>Hopefully, you'll see how each bit of tech can work together to create an application, but equally I hope that you can see where this would work if none or just some of the technology wasn't available. Make sure you detect functionality. Make sure you provide fallbacks. Make sure you develop responsibly.</p>
+
+  <p>Here's the final <a href="http://html5demos.com/dnd-upload">drag-and-drop and upload demo</a> for you to play with.</p>
+</section><p><a href="http://html5doctor.com/drag-and-drop-to-server/" rel="bookmark">Drag and Drop and Automatically Send to the Server</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 3, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/drag-and-drop-to-server/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+	</channel>
+</rss>

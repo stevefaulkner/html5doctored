@@ -1,0 +1,1829 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; html5</title>
+	<atom:link href="http://html5doctor.com/tag/html5/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>cite and blockquote &#8211; reloaded</title>
+		<link>http://html5doctor.com/cite-and-blockquote-reloaded/</link>
+		<comments>http://html5doctor.com/cite-and-blockquote-reloaded/#comments</comments>
+		<pubDate>Mon, 04 Nov 2013 17:20:54 +0000</pubDate>
+		<dc:creator><![CDATA[Steve Faulkner]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[blockquote]]></category>
+		<category><![CDATA[cite]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5283</guid>
+		<description><![CDATA[The definitions of the blockquote and cite elements in the HTML specification have recently been updated. This article explains what the changes mean for developers. Russian translation: Сite и blockquote: перезагрузка blockquote definition updated The blockquote element represents content that  is quoted from another source, optionally with a citation which must be within a footer [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>The definitions of the <code>blockquote</code> and <code>cite</code> elements in the <a href="http://www.w3.org/html/wg/drafts/html/master/">HTML specification</a> have recently been updated. This article explains what the changes mean for developers.<br />
+<span id="more-5283"></span></p>
+<p class="callout">Russian translation: <a lang="ru" href="http://web-standards.ru/articles/cite-blockquote-reloaded/">Сite и blockquote: перезагрузка</a></p>
+<h2>blockquote definition updated</h2>
+<blockquote><p>The <code>blockquote</code> element represents content that  is quoted from another source, <strong>optionally</strong> with a citation which <strong>must</strong> be within a <code>footer</code> or <code>cite</code> element, and <strong>optionally</strong> with in-line changes such as annotations and abbreviations.<br />
+Content inside a <code>blockquote</code> other than citations and in-line changes <strong>must</strong> be quoted from another source, whose address, if it has one, <strong>may</strong> be cited in the <code>cite</code> attribute. [emphasis mine]<br />
+&#8211; <cite><a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-blockquote-element">4.51 the Blockquote element</a> , Berjon et al. 2013 </cite></p></blockquote>
+<p class="callout">Note the added emphasis indicated via an inline note using square brackets &#8220;[emphasis mine]&#8221;</p>
+<h3>What the changes to blockquote mean for developers</h3>
+<p><a href="http://www.w3.org/TR/html5/">Previously in HTML5</a> it is was not conforming to include citations within <code>blockquote</code> elements. Now it is, as long as the citation content is within a <code>cite</code> or <code>footer</code> element. Citations inside <code>blockquote</code> elements are a common markup pattern (data indicates approximately <a href="http://lists.w3.org/Archives/Public/public-html/2013Aug/0100.html">60% of <code>blockquote</code> elements</a> include citations), the change to the <a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-blockquote-element">HTML spec</a> acknowledges this and provides semantic mechanisms to differentiate quoted content from citations.</p>
+<h4>Example of <code>footer</code> and <code>cite</code> used inside a <code>blockquote</code>:</h4>
+<pre>&lt;blockquote&gt;
+&lt;p&gt;As my fellow HTML5 Doctor, Oli Studholme has showed, people seldom quote exactly 
+– so sacrosanctity of the quoted text isn’t a useful ideal – and in print etc, 
+citations almost always appear as part of the quotation – it’s highly conventional.&lt;/p&gt;
+&lt;footer&gt;
+— &lt;cite&gt;&lt;a href="http://www.brucelawson.co.uk/2013/on-citing-quotations-again/"&gt;Bruce Lawson&lt;/a&gt;&lt;/cite&gt;
+&lt;/footer&gt;
+&lt;/blockquote&gt;</pre>
+<p>The above example is indicative of what authors are doing anyway, so rather than maintain a <a href="http://www.w3.org/TR/html-design-principles/#priority-of-constituencies">theoretical purity</a> which serves no one, the definition has been modified to <a href="http://www.w3.org/TR/html-design-principles/#solve-real-problems">solve a real problem</a> using existing HTML features, rather than <a href="http://www.w3.org/TR/html-design-principles/#do-not-reinvent-the-wheel">re-inventing the wheel</a>.</p>
+<h3>An edge case</h3>
+<p>One of the arguments against allowing use of <code>cite</code> and <code>footer</code> in <code>blockquote</code> to identify citation content is that the quoted content itself may contain these elements. The simple reason for dismissing this argument is that the vast majority of instances of quotations in <code>blockquote</code> elements this will not be the case. Denying the utility of <code>cite</code> and <code>footer</code> for an edge case is another example of <a href="http://ln.hixie.ch/?start=1154950069&amp;count=1">theoretical purity</a> that serves  minimal practical purpose.</p>
+<p><del>If the case does arise for you, one method the <a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-blockquote-element">HTML speccurrently suggests</a> is you comment out the elements from the source (This is still an <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=23175">open issue</a> and advice may change):</del></p>
+<p class="callout">(added 20/11/13) In response to feedback the suggestion in the <a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-blockquote-element">HTML spec</a> is to use a <code>class</code> attribute (a <a href="http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#extensibility">defined extensibility mechanism</a>) on the <code>cite</code> element to identify it as an inclusion from the quoted source:</p>
+<pre>  &lt;blockquote&gt;
+  &lt;p&gt;My favorite book is <mark>&lt;cite class="from-quote"&gt;At Swim-Two-Birds&lt;/cite&gt;</mark>&lt;/p&gt;
+  &lt;footer&gt;- &lt;cite&gt;Mike[tm]Smith&lt;/cite&gt;&lt;/footer&gt;
+  &lt;/blockquote&gt;</pre>
+<h2>cite definition updated</h2>
+<blockquote><p>The <code><a href="http://www.w3.org/html/wg/drafts/html/master/text-level-semantics.html#the-cite-element">cite</a></code> element <a href="http://www.w3.org/html/wg/drafts/html/master/dom.html#represents">represents</a> a reference to a creative work. It <strong>must</strong> include the title of the work or the name of the author (person, people or organization) or an URL reference, which <strong>may</strong> be in an abbreviated form as per the conventions used for the addition of citation metadata. [emphasis mine]<br />
+&#8211; <cite><a href="http://www.w3.org/html/wg/drafts/html/master/text-level-semantics.html#the-cite-element">4.51 the Cite element</a> , Berjon et al. 2013 </cite></p></blockquote>
+<h3>What the changes to cite mean for developers</h3>
+<p><a href="http://www.w3.org/TR/html5/">Previously in HTML5</a> it is was not conforming to cite an author by name or include other reference information for a creative work in a cite element, the use of cite was reserved (theoretically) to identify the title of a creative work. This was an attempt to rip up a cow path, that authors had created over the last <a href="http://www.w3.org/TR/REC-html40/">14 years of the cite elements existence</a>.</p>
+<p>Authors railed against the change in definition:</p>
+<blockquote><p>Join me in a campaign of civil disobedience against the unnecessarily restrictive, backwards-incompatible change to the <code>cite</code> element. Start using HTML5 but start using it sensibly. Let’s ensure that bad advice remains fictitious.</p>
+<p><a href="http://24ways.org/2009/incite-a-riot/"><cite>Jeremy Keith, 2009</cite></a></p></blockquote>
+<p>They also provided <a href="http://wiki.whatwg.org/wiki/Cite_element">use cases</a> and <a href="http://oli.jp/example/blockquote-metadata/">real world examples</a> of citation usage. As a result of <a href="https://dl.dropboxusercontent.com/u/377471/cite1.html">research</a>, <a href="http://lists.w3.org/Archives/Public/public-html/2013Aug/0100.html">data analysis</a> and <a href="http://www.w3.org/Search/Mail/Public/search?keywords=%3Cblockquote%3E+%3Ccite%3E&amp;hdr-1-name=subject&amp;hdr-1-query=&amp;index-grp=Public_FULL&amp;index-type=t&amp;type-index=public-html">discussion,</a> authors can now, again, use the <code>cite</code> element to identify a wider range of references to a creative work; <q>the title of the work or the name of the author (person, people or organization) or an URL reference</q>. What we lose in theoretical purity we gain in utility:</p>
+<blockquote class="twitter-tweet"><p>part of the reason why &lt;cite&gt; can now be used with an URL (not to mention <a href="https://twitter.com/bing">@bing</a>&#8216;s identical use. <a href="http://t.co/h3qp3ujfzX">http://t.co/h3qp3ujfzX</a></p>
+<p>— Steve Faulkner (@stevefaulkner) <a href="https://twitter.com/stevefaulkner/statuses/392645777874370560">October 22, 2013</a></p></blockquote>
+<h3>What do you think?</h3>
+<p>Please read the definitions in HTML 5.1, your feedback as always is welcome!</p>
+<ul>
+<li><a href="http://www.w3.org/html/wg/drafts/html/master/text-level-semantics.html#the-cite-element"><span class="secno">4.6.6 </span>The <dfn><code>cite</code></dfn> element</a></li>
+<li><a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-blockquote-element"><span class="secno">4.5.4 </span>The <dfn><code>blockquote</code></dfn> element</a></li>
+</ul>
+<p class="callout"><strong>Big up!</strong> to Doctor Oli whose <a href="http://oli.jp/2011/blockquote/">research</a> helped mold the changes made to the <code>cite</code> and <code>blockquote</code> elements. And to Doctor Bruce for <a href="http://www.brucelawson.co.uk/2013/on-citing-quotations-again/">insisting</a> that it his right to <em>cite</em> his mum.</p>
+<p><a href="http://html5doctor.com/cite-and-blockquote-reloaded/" rel="bookmark">cite and blockquote &#8211; reloaded</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 4, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/cite-and-blockquote-reloaded/feed/</wfw:commentRss>
+		<slash:comments>35</slash:comments>
+		</item>
+		<item>
+		<title>The main element</title>
+		<link>http://html5doctor.com/the-main-element/</link>
+		<comments>http://html5doctor.com/the-main-element/#comments</comments>
+		<pubDate>Wed, 26 Jun 2013 08:33:59 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[aria]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[main]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5081</guid>
+		<description><![CDATA[<p>Recently, main was formally added to the W3C HTML specification. Now that the dust has settled, it's about time we dive in to find out where and when it's appropriate to use main. Let's get started.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Recently, <code>&lt;main&gt;</code> was formally added to the W3C HTML specification. Now that the dust has settled, it&#8217;s about time we dive in to find out where and when it&#8217;s appropriate to use <code>&lt;main&gt;</code>. Let&#8217;s get started.</p>
+
+<h2>History</h2>
+
+<p>The inclusion of a main element (or similar) has long been debated in the working groups with authors and others often questioning why we had new elements such as <code>&lt;header&gt;</code>, <code>&lt;article&gt;</code>, and <code>&lt;footer&gt;</code> but no element to accurately describe the primary content of a page.</p>
+
+<p><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/">Steve Faulkner</a>, an accessibility consultant and new doctor in residence, undertook the hard graft of carrying out research, gathering data and use cases, and speaking to implementers to get them interested. As Steve explains, he talked to:</p>
+
+<blockquote>
+<p>as many implementers (both general browser implementers and accessibility implementers), developers, authors and users as I could and got advice and input from them. I went where the various people hung out; on IRC, mailing lists, twitter, blogs, conferences — anywhere.</p>
+<footer><cite><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/">Steve Faulkner</a></cite></footer>
+</blockquote>
+
+<p>This led to his writing an <a href="https://dvcs.w3.org/hg/html-extensions/raw-file/tip/maincontent/index.html">extension specification for <code>&lt;main&gt;</code></a> and a thorough <a href="http://www.w3.org/html/wg/wiki/User:Sfaulkne/main-usecases#Introduction">use case rationale</a>.</p>
+
+<p>The proposal <a href="http://lists.w3.org/Archives/Public/public-html/2012Nov/0232.html">was accepted in November 2012</a>, and <code>&lt;main&gt;</code> was then rolled into the HTML5.1 specification. Recently, it was added to the HTML5 specification following no objections. Lets have a look at how the spec describes <code>&lt;main&gt;</code>.</p>
+
+<h2>W3C Specification</h2>
+
+<p><aside class="sidenote">You should still use the ARIA role until all browsers map the role to the <code>&lt;main&gt;</code> element.</aside></p>
+
+<p>The primary purpose of <code>&lt;main&gt;</code> is to map <a href="http://www.w3.org/TR/wai-aria/roles#landmark_roles">ARIA&#8217;s landmark role <code>main</code></a> to an element in HTML. This will help screen readers and other assistive technologies understand where the main content begins. The W3C spec describes <code>&lt;main&gt;</code> as representing:</p>
+
+<blockquote>
+<p>The main content of the body of a document or application. The main content area consists of content that is directly related to or expands upon the central topic of a document or central functionality of an application.</p>
+
+<footer><cite><a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-main-element">W3C HTML Editors Draft</a></cite></footer>
+</blockquote>
+
+<p>Since the <code>&lt;main&gt;</code> element is now included in the HTML specification, the <code>&lt;body&gt;</code> element has reverted to its HTML4 definition:</p>
+
+<blockquote>
+<p>The body element represents the content of the document.</p>
+
+<footer><cite><a href="http://www.w3.org/html/wg/drafts/html/master/sections.html#the-body-element">W3C HTML Editors Draft</a></cite></footer>
+</blockquote>
+
+<h3>More Details</h3>
+
+<p>One important facet of <code>&lt;main&gt;</code> is that it can only be used once per page. <a href="http://lists.w3.org/Archives/Public/public-html/2013Jan/0230.html">Jeremy Keith wrote to the working group</a> to understand why this is the case (rather than allowing multiple <code>&lt;main&gt;</code>s). Although I won&#8217;t go into detail, the discussion is an interesting read.</p>
+
+<p>As per the spec, the <a href="http://validator.w3.org/nu/">W3C validator</a> throws an error if you attempt to use multiple <code>&lt;main&gt;</code> elements per document.</p>
+
+<p>Another stipulation of <code>&lt;main&gt;</code> is that it can&#8217;t be used as a descendant of an <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;header&gt;</code>, or <code>&lt;nav&gt;</code> element.</p>
+
+<p>Because <code>&lt;main&gt;</code> isn&#8217;t <a href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0">sectioning content</a>, it doesn&#8217;t affect the document outline in the same way <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, or <code>&lt;section&gt;</code> do.</p>
+
+<h2>Getting Going</h2>
+
+<p>Just as with the introduction of many other new HTML5 elements, not all browsers recognise <code>&lt;main&gt;</code> or have preset styles for it. You&#8217;ll need to ensure it displays as a block level element in your CSS:</p>
+
+<p><code><pre>main {display:block;}</code></pre></p>
+
+<p>For the time being, you'll also need to use JavaScript to create the element for older versions of IE:</p>
+
+<p><code><pre>&lt;script&gt;document.createElement('main');&lt;/script&gt;</code></pre></p>
+
+<p>Of course, if you use the <a href="https://github.com/aFarkas/html5shiv">html5shiv</a>, <code>&lt;main&gt;</code> is now baked in directly.</p>
+
+<h2>Implementing <code>&lt;main&gt;</code> on HTML5 Doctor</h2>
+
+<p>The easiest way to implement <code>&lt;main&gt;</code> is to replace that <code>&lt;div&gt;</code> that you've likely got with an <code>id</code> or <code>class</code> of something like <code>main</code> or <code>content</code>.</p>
+
+<p>So what does that look like in practice? Well, here's our pre-<code>&lt;main&gt;</code> markup on HTML5 Doctor:</p>
+
+<pre><code>&lt;body&gt;
+&lt;header role="banner"&gt;
+[...]
+&lt;/header&gt;
+
+&lt;div id="content" class="group" role="main"&gt;
+[...]
+&lt;/div&gt;
+
+&lt;footer role="contentinfo"&gt;
+    [...]
+&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+<p>And here's what it's like now:</p>
+
+<p><aside class="sidenote">We'll get around to removing the <code>id="content"</code> at some point too.</aside></p>
+
+<pre><code>&lt;body&gt;
+&lt;header role="banner"&gt;
+[...]
+&lt;/header&gt;
+
+&lt;main id="content" class="group" role="main"&gt;
+[...]
+&lt;/main&gt;
+
+&lt;footer role="contentinfo"&gt;
+    [...]
+&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+<p>Yes, it's really that simple. With any luck, it'll take you less than five minutes to implement.</p>
+
+<h2>The WHATWG Version</h2>
+
+<p>The WHATWG definition of <code>&lt;main&gt;</code> differs from the W3C version in that the element has no meaning. It's merely a styling hook (like a <code>&lt;div&gt;</code> with a new name) and represents its children.</p>
+
+<blockquote>
+<p>The main element can be used as a container for the dominant contents of another element. It represents its children.</p>
+
+<footer><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-main-element">WHATWG HTML</a></cite></footer>
+</blockquote>
+
+<p>We recommend using the W3C version of <code>&lt;main&gt;</code> as described above.</p>
+
+<h2>Browser Support</h2>
+
+<p><a href="http://www.mozilla.org/en-US/firefox/21.0/releasenotes/">Firefox 21</a>, Chrome 26, and a <a href="http://nightly.webkit.org/builds/trunk/mac/14">WebKit r140374</a> have all implemented basic support for <code>&lt;main&gt;</code>.</p>
+
+<p>They have all mapped the ARIA <code>role="main"</code> to the <code>&lt;main&gt;</code> element so assistive technologies can now recognise the <code>&lt;main&gt;</code> element without issue.</p>
+
+<h2>Summary</h2>
+
+<p>As you've seen, it's super easy to get up and running with <code>&lt;main&gt;</code>. It only takes a few minutes, so now really is the time to start adding it to the sites you're developing.</p>
+
+<p>If you aren't sure when or where to use <code>&lt;main&gt;</code>, be sure to ask us in the comments and one of us will try to help you out.</p>
+
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="http://www.sitepoint.com/html5-main-element/">Sitepoint — HTML5 Main Element</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/HTML/Element/main">MDN — main</a></li>
+<li><a href="http://www.iandevlin.com/blog/2013/01/html5/the-main-element">Ian Devlin — The main element</a></li>
+<li><a href="http://www.brucelawson.co.uk/2013/the-main-element/">Bruce Lawson — Using the main element</a></li>
+<li><a href="http://filamentgroup.com/lab/the_main_element/">Filament Group — The main element</a></li>
+<li><a href="http://www.w3.org/html/wg/wiki/User:Sfaulkne/main-usecases#Introduction">W3C — main element use cases</a></li>
+<li><a href="http://www.webmonkey.com/2013/02/main-element-lands-a-starring-role-in-html/">Web Monkey — The main element lands a starring role in html</a></li>
+<li><a href="http://www.webmonkey.com/2012/12/proposed-main-element-would-help-html-get-to-the-point/">Web Monkey — The main element would help HTML get to the point</a></li>
+</ul>
+<p><a href="http://html5doctor.com/the-main-element/" rel="bookmark">The main element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 26, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-main-element/feed/</wfw:commentRss>
+		<slash:comments>100</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 forms input types</title>
+		<link>http://html5doctor.com/html5-forms-input-types/</link>
+		<comments>http://html5doctor.com/html5-forms-input-types/#comments</comments>
+		<pubDate>Thu, 28 Feb 2013 14:00:01 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[color]]></category>
+		<category><![CDATA[date]]></category>
+		<category><![CDATA[email]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[number]]></category>
+		<category><![CDATA[range]]></category>
+		<category><![CDATA[search]]></category>
+		<category><![CDATA[tel]]></category>
+		<category><![CDATA[url]]></category>
+		<category><![CDATA[web forms 2.0]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4993</guid>
+		<description><![CDATA[	<p>In the <a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/">first article in this series</a> we looked at the history of HTML5 forms and many of the new attributes available to us. In this second and final part of the series, we'll look at the new input types available in HTML5. As we'll see, these new features will go a long way toward making your life easier while delivering a delightful user experience. The best thing about all this? You can start using them now.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[	<p>In the <a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/">first article in this series</a> we looked at the history of HTML5 forms and many of the new attributes available to us. In this second and final part of the series, we&#8217;ll look at the new input types available in HTML5. As we&#8217;ll see, these new features will go a long way toward making your life easier while delivering a delightful user experience. The best thing about all this? You can start using them now.</p>
+	
+	<div class="callout highlight-block">
+		
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p>Note: As this article is a book excerpt, browser renderings of attributes and input types may have altered since the screenshots were taken. Additionally, browser support may have increased since publication so please refer to the links at the end of the article for the current state of browser support.</p>
+		
+	</div>
+	
+	<section id="input-types">
+		<h2>New input types</h2>
+		
+		<p>HTML5 introduces no less than a baker&#8217;s dozen (yes, that&#8217;s 13!) new input types for forms. We&#8217;re going to take a brief look at each of them and explain why you should be using them right now. These new input types have dual benefits: using them means less development time and an improved user experience. The new input types we&#8217;ll be looking at are:</p>
+		
+		<ul class="columns">
+			<li><a href="#input-search"><code>search</code></a></li>
+			<li><a href="#input-email"><code>email</code></a></li>
+			<li><a href="#input-url"><code>url</code></a></li>
+			<li><a href="#input-tel"><code>tel</code></a></li>
+			<li><a href="#input-number"><code>number</code></a></li>
+			<li><a href="#input-range"><code>range</code></a></li>
+			<li><a href="#input-date"><code>date</code></a></li>
+			<li><a href="#input-month"><code>month</code></a></li>
+			<li><a href="#input-week"><code>week</code></a></li>
+			<li><a href="#input-time"><code>time</code></a></li>
+			<li><a href="#input-datetime"><code>datetime</code></a></li>
+			<li><a href="#input-datetime-local"><code>datetime-local</code></a></li>
+			<li><a href="#input-color"><code>color</code></a></li>
+		</ul>
+
+		<section id="input-search">
+			<h3>search</h3>
+		
+			<p>Search seems like an appropriate place to start our foray into HTML5 input types. When we talk about search, we&#8217;re not just talking about Google, Bing, or Yahoo. We&#8217;re talking about the search field on that e-commerce site you just made a purchase from, on Wikipedia, and even on your personal blog. It&#8217;s probably the most common action performed on the Web every day, yet it&#8217;s not marked up very semantically, is it? We all tend to write something like this:</p>
+
+			<pre><code>&lt;input type="text" name="search"&gt;</code></pre>
+			
+			<p>Well, what if we could write something like &hellip;</p>
+
+			<pre><code>&lt;input type="search" name="search"&gt;</code></pre>
+
+			<p>With HTML5 we can. Feels much better, doesn&#8217;t it? Desktop browsers will render this in a similar way to a standard text field—until you start typing, that is. At this point, a small cross appears on the right side of the field. Notice the x in Figure 1. This lets you quickly clear the field, just like Safari&#8217;s built-in search field.</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-6.png" alt="Screenshot of a search input box in Safari for Windows with a value of html4.01 and an 'x' appearing in the right of the text box" />
+				<figcaption>Figure 1. <code>type="search"</code> as displayed in Safari for Windows</figcaption>
+			</figure>
+
+			<p>On a mobile device, however, things start to get interesting. Take the example iPhone shown in Figure 2; when you focus on an input using <code>type="search"</code>, notice the keyboard, specifically the action button on the keyboard (bottom right). Did you spot that it says &#8220;Search&#8221; rather than the regular &#8220;Go&#8221;? It&#8217;s a subtle difference that most users won&#8217;t even notice, but those who do will afford themselves a wry smile.</p>
+
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-7.png" alt="Screenshot of an iPhone with dynamic keyboard and the action button saying 'Search'" />
+				<figcaption>Figure 2. <code>type="search"</code> on the iPhone</figcaption>
+			</figure>
+ 
+			<p>As you&#8217;ve seen with the new attributes, browsers that don&#8217;t understand them will simply degrade gracefully. The same applies to all of the new input types discussed here. If a browser doesn&#8217;t understand <code>type="search"</code>, it will default to <code>type="text"</code>. This means you&#8217;re not losing anything. In fact, you&#8217;re using progressive enhancement and helping users to have a better experience. Let&#8217;s face it: filling out web forms isn&#8217;t very fun, so anything you can add to ensure a smoother experience, the better.</p>
+
+		</section>
+		
+		<section id="input-email">
+			<h3>email</h3>
+		
+			<p>In rendering terms, the email input type is no different than a standard text input type and allows for one or more e-mail addresses to be entered. Combined with the <code>required</code> attribute, the browser is then able to look for patterns to ensure a valid e-mail address has been entered. Naturally, this checking is rudimentary, perhaps looking for an @ character or a period (.) and not allowing spaces. Opera 9.5+, Firefox 4+, Internet Explorer 10 and Chrome 5+ have already implemented this basic validation. The browser goes as far as presenting the user with an error message (see Opera in Figure 3) if the e-mail address entered isn’t valid. You can style the field for when an value is entered using the <code>:valid</code>, <code>:invalid</code> or <code>:required</code> pseudo class (assuming you have the required attribute on the input) just like <a href="">Locum Dr. Peter explained</a>.</p>
+			
+			<pre><code>&lt;input type="email" name="email" required&gt;</code></pre>
+
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-8.png" alt="Screenshot of an email input field in Opera with an error message stating 'Please enter a valid email address' with 'gordo' written in the field" />
+				<figcaption>Figure 3. Opera e-mail address error messaging</figcaption>
+			</figure>
+
+			<aside class="sidenote">
+				<p>For more on styling forms using pseudo-classes the &#8220;CSS Ninja&#8221;, Ryan Seddon, has put together a great demonstration on <a href="http://j.mp/alaninja">A List Apart</a>.</p>
+			</aside>
+
+			<p>The specification details that one or more e-mail addresses are allowed. This means that the multiple attribute could be used with <code>type="email"</code> too.</p>
+				
+			<p>Pretty cool, huh? Again, this highlights how HTML5 forms help to cut down the amount of JavaScript that you have to write when carrying out form validation.</p>
+
+			<div class="callout warning-block">
+
+				<p>There&#8217;s always a catch, though, right? At the time of writing, there is an internationalization issue with <code>type="email"</code>. When using it with double-byte internationalized domain names, the browsers invalidate them; so this example</p>
+				
+				<pre><code>&lt;input type="email" name="email" value="gordo@日本.jp"&gt;</code></pre>
+
+				<p>isn’t valid in Firefox, Safari, or Chrome (there is no issue in Opera). However, a workaround has been created by Kyle Barrow that uses <code>type="text"</code> with the <code>pattern</code> attribute, as shown here:</p>
+
+				<pre><code>&lt;input type="text" name="email" value="gordo@日本.jp" pattern="[^ @]*@[^ @]*"&gt;</code></pre>
+				
+				<p>An alternative solution is to continue using <code>type="email"</code> with the <code>formnovalidate</code> attribute on the submit button, as follows. This ensures that no validation will be carried out on form submission, which may or may not be suitable for your needs.</p>
+
+				<pre><code>&lt;form action="process.php"&gt;
+&lt;label for="email"&gt;Email:&lt;/label&gt;
+&lt;input type="email" name="email" value="gordo@日本.jp"&gt;
+&lt;input type="submit" formnovalidate value="Submit"&gt;
+Or you could use the novalidate attribute on your form, like so:
+
+&lt;form action="process.php" novalidate&gt; &lt;label for="email"&gt;Email:&lt;/label&gt;
+&lt;input type="email" name="email" value="gordo@日本.jp"&gt;
+&lt;input type="submit" value="Submit"&gt;</code></pre>
+
+			</div>
+  
+			<p>Internationalization issues aside, remember how we said there are dual benefits to HTML5&#8217;s input types—less development time and better user experience? Let’s go back and look at the iPhone once more, as shown in Figure 4.</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-9.png" alt="Screenshot of an iPhone with dynamic keyboard and the action button saying 'Go' when focussed on the email input field" />
+				<figcaption>Figure 4. The iPhone displays a custom keyboard when using type=&#8221;email&#8221;. </figcaption>
+			</figure>
+ 
+			<p>Did you notice it this time? No? Look at the keyboard again. That&#8217;s right, the keyboard is different. There are dedicated keys for the @ and . characters to help you complete the field more efficiently. As we discussed with <code>type="search"</code>, there is no downside to using <code>type="email"</code> right now. If a browser doesn’t support it, it will degrade to <code>type="text"</code>. And in some browsers, users will get a helping hand.</p>
+
+		</section>
+		
+		<section id="input-url">
+			<h3>url</h3>
+
+			<aside class="sidenote">
+				<p>There is currently some debate about whether the user has to enter http:// into a field
+using <code>input="url"</code>. Browser vendors are discussing the possibility of pre-pending http:// to a URL following a check upon form submission. For up-to-date information, refer to the HTML5 specification.</p>
+			</aside>
+		
+			<p>The <code>url</code> input type, as you might expect, is for web addresses. You can use the <code>multiple</code> attribute to enter more than one URL. Like <code>type="email"</code>, a browser will carry out simple validation on these fields and present an error message on form submission. This is likely to include looking for forward slashes, periods, and spaces, and possibly detecting a valid top-level domain (such as .com or .co.uk). Use the <code>url</code> input type like so:</p>
+			
+			<pre><code>&lt;input type="url" name="url" required&gt;</code></pre>
+			
+			<p>Again, we&#8217;ll take a look at how the iPhone renders <code>type="url"</code>. As you can see in Figure 5, it has again updated the onscreen keyboard to ensure that completing the field is as simple as possible for the user by swapping the default space key for period, forward slash, and .com keys. (To access more endings like .org and .net, tap and hold the .com key.)</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-10.png" alt="Screenshot of an iPhone with dynamic keyboard and the action button saying 'Go' when focussed on the URL input field" />
+				<figcaption>Figure 5. type=&#8221;url&#8221; activates a URL-specific keyboard on the iPhone.</figcaption>
+			</figure>
+
+		</section>
+		
+		<section id="input-tel">
+			<h3>tel</h3>
+		
+			<p><code>tel</code> differs from <code>email</code> and <code>url</code> in that no particular syntax is enforced. Phone numbers differ around the world, making it difficult to guarantee any type of specific notation except for allowing only numbers and perhaps a + symbol to be entered. It’s possible that you can validate specific phone numbers (if you can guarantee the format) using client-side validation. <code>type="tel"</code> is marked up as follows:</p>
+			
+			<pre><code>&lt;input type="tel" name="tel" id="tel" required&gt;</code></pre>
+			
+			<p>Once more, the iPhone recognises <code>type="tel"</code>, only this time it goes one step further and completely changes the keyboard to the standard phone keyboard, as shown on the left in Figure 6. In addition to the iPhone, some Android devices (such as HTC Desire, shown on the right in Figure 6) also display a numeric keyboard for <code>type="tel"</code>. That’s pretty handy, don’t you think? Nice, big keys for entering a phone number help you to get that big, nasty form completed quickly.</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-11.png" alt="Screenshot of an iPhone and Android device with dynamic keyboard changing to a number input when the user is focussed on a tel input field" />
+				<figcaption>Figure 6. <code>type="tel"</code> on the iPhone and some Android devices dynamically changes the keyboard to a numeric keypad. (Android screenshot provided by Stuart Langridge).</figcaption>
+			</figure>
+
+		</section>
+		
+		<section id="input-number">
+			<h3>number</h3>
+		
+			<p><code>number</code>, as you might expect, is used for specifying a numerical value. As with the majority of these new input types, Opera was the first to implement <code>type="number"</code>. It, Safari, and Chrome render the input as a spinbox control (see Figure 7) whereby you can click the arrows to move up or down. Or if you prefer, you can type directly into the field. Firefox, on the other hand, renders the field like a standard text box. Support for type=&#8221;number&#8221; is in IE 10 also, although if you enter a non-numerical character the field empties when focus is lost and no feedback is provided to the user.</p>
+
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-12.png" alt="Screenshot of the Opera browser rendering of a number input field for 'showe size' the value is 9 and there are up and down arrows to the right of the field." />
+				<figcaption>Figure 7. <code>type="number"</code> in Opera</figcaption>
+			</figure>
+
+			<p>With the additional attributes <code>min</code>, <code>max</code>, and <code>step</code> we can change the default step value of this spinbox control as well as set minimum, maximum, and starting values (using the standard HTML <code>value</code> attribute). This example shows how these attributes work:</p>
+			
+			<pre><code>&lt;input type="number" min="5" max="18" step="0.5" value="9" name="shoe-size"&gt;</code></pre>
+			
+			<p>In this example, min represents the minimum value the field will accept, and max represents the maximum value. If we reach the maximum or minimum value, the appropriate arrow on the spinbox control will be greyed out so you can no longer interact with it. step is the increment that the value should adjust up or down, with the default step value being 1. This means we can include negative values or step up in increments of 0.5 or 5. value is that attribute you’re used to from previous versions of HTML. Each of the attributes are optional, with defaults being set if they aren&#8217;t used.</p>
+
+			<p>In contrast to Opera&#8217;s implementation, the iPhone (Figure 8) and some Android devices (such as HTC Desire, shown on the right in Figure 6-13) simply render the field as a standard text box but optimize the keyboard for easy input.</p>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-13.png" alt="Screenshot of an iPhone and Android device with dynamic keyboard changing to a number input when the user is focussed on a number input field" />
+				<figcaption>Figure 8. <code>type="number"</code> on iPhone and Android HTC Desire (Android screenshot provided by Stuart Langridge)</figcaption>
+			</figure>
+			
+			<p>To make the iPhone render with the standard telephone keypad as we saw for <code>type="text"</code> Chris Coyier, of CSS Tricks devised a little hoax you can use. Rather than using type=&#8221;number&#8221;, use a standard <code>type="text"</code> input and add a pattern attribute that accepts only numbers, as shown below. This solution isn’t ideal but if you think it could be useful, <a href="http://j.mp/numbertrick">Chris has put a short video together showing it in action</a>.</p>
+
+			<pre><code>&lt;input type="text" pattern="[0-9]*" name="shoe-size"&gt;</code></pre>
+			
+			<p>Chris’ technique may soon become absolete though with the introduction of the <code>inputmode</code> attribute. The attribute, recently added to the specification will allow users to specify the type of input mechanism that is most useful for users. When implemented, you will be able to choose between numeric, latin, email, or kana input modes.</p>
+
+		</section>
+		
+		<section id="input-range">
+			<h3>range</h3>
+		
+			<aside class="sidenote">
+				<p>Note: For browsers that don’t support <code>type="range"</code>, Remy Sharp has created a JavaScript polyfill to plug the gaps. You can find out more about it <a href="http://j.mp/rangepolyfill">on his blog</a>.</p>
+			</aside>
+		
+			<p>The <code>range</code> input type is similar to number but more specific. It represents a numerical value within a given range. Why the difference, I hear you cry? Because when you’re using <code>range</code>, the exact value isn’t important. It also allows browsers to offer a simpler control than for <code>number</code>. In Opera, Safari, Internet Explorer 10 and Chrome, <code>type="range"</code> renders as a slider (see Figure 6-14). When moving the slider in IE 10 a tooltip appears showing the current value. Additionally, in Opera, if the CSS defines the height greater than the width, the slider control will be rendered vertically as opposed to the standard horizontal rendering.</p>
+			
+			<p>The following code shows how we might mark up our skill level on a scale of 1 to 100 by setting the <code>min</code> and <code>max</code> attributes (see Figure 9). We can also set the starting point for <code>range</code> using the <code>value</code> attribute.</p>
+			
+			<pre><code>&lt;input id="skill" type="range" min="1" max="100" value="0"&gt;</code></pre>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-14.png" alt="Screenshot of the range input type for Flying Skill level as rendered by Opera." />
+				<figcaption>Figure 9. <code>type="range"</code> in Chrome</figcaption>
+			</figure>
+
+		</section>
+		
+		<section id="dates-and-times">
+			<h3>Dates and times</h3>
+		
+			<aside class="sidenote">
+				<p>You may have noticed that there isn&#8217;t a <code>type="year"</code> input type defined in HTML5. The reason for this is a lack of relevant use cases. All the use cases for a year input type that have been proposed can be achieved using <code>type="number"</code>.</p>
+			</aside>
+
+			<p>If you&#8217;ve ever booked tickets online, you will have come across date pickers to help you quickly and easily choose the date you require. Perhaps you’ve even implemented a date picker on your own website. Generally, this is done using a JavaScript library such as jQuery, Dojo, or YUI. It can be a pain when you need to load a whole library and associated plug-ins just to implement a simple date picker. Well, with HTML5 we get that functionality baked into the browser. Not only that, but we don&#8217;t have to stop at just electing a single date; we can select a week, month, time, date and time, and even date and time with a time zone using the different input types. The markup is pretty straightforward.</p>
+			
+			<pre><code>&lt;input id="dob" name="dob" type="date"&gt;</code></pre>
+			
+			<p>You can go a step further by using the <code>min</code> and <code>max</code> attributes to ensure the user can only choose from a specified date range.</p>
+			
+			<pre><code>&lt;input id="startdate" name="startdate" min="2012-01-01" max="2013-01-01" type="date"&gt;</code></pre>
+			
+			<p>As with many of the other form implementations, Opera leads the way (support in other browsers is varied). Let&#8217;s take a look next at how browsers render these input types.</p>
+
+			<section id="input-date">
+				<h4>date</h4>
+				
+				<p>Figure 10 shows Opera 10.5&#8217;s rendering of <code>type="date"</code>.</p>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-15.png" alt="Screenshot of the date input type rendered by Opera. There is a dropdown for the date and a calendar widget shown." />
+					<figcaption>Figure 10. <code>type="date"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+				<p>These date pickers aren&#8217;t restricted to desktop devices; some Blackberry devices and Chrome for Android render its internal date picker when used with <code>type="date"</code> (see Figure 11).</p>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-16.png" alt="Screenshot of the date input type as rendered on a Blackberry. There are three spinners, one for day, one for month and another for year." />
+					<figcaption>Figure 11. <code>type="date"</code> on Blackberry (screenshot provided by Terence Eden)</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-month">
+				<h4>month</h4>
+				
+				<p>Next up, Figure 12 shows <code>type="month"</code>, which might, for example, be used for a credit card expiry date.</p>
+
+				<pre><code>&lt;input id="expiry" name="expiry" type="month" required&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-17.png" alt="Screenshot of the month input type rendered by Opera. There is a dropdown for the date and a calendar widget shown with the current month highlighted." />
+					<figcaption>Figure 12. <code>type="month"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-week">
+				<h4>week</h4>
+				
+				<p>You can also drill down to <code>type="week"</code>. Notice how Opera highlights a specific week using the same date picker control, as shown in Figure 13.</p>
+				
+				<pre><code>&lt;input id="vacation" name="vacation" type="week"&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-18.png" alt="Screenshot of the week input type rendered by Opera. There is a dropdown for the date and a calendar widget shown with the current week highlighted." />
+					<figcaption>Figure 13. <code>type="week"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-time">
+				<h4>time</h4>
+				
+				<p>You can see in Figure 14 that <code>type="time"</code> renders a spinbox similar to that used earlier for selecting the precise time.</p>
+
+				<pre><code>&lt;input id="exit-time" name="exit-time" type="time"&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-19.png" alt="Screenshot of the time input type rendered by Opera. There is an input with a value of 14:10 and up and down arrows to the right of the input." />
+					<figcaption>Figure 14. <code>type="time"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-datetime">
+				<h4>datetime</h4>
+				
+				<p>We can combine the date and time by using <code>type="datetime"</code> for specifying a precise time on a given day, as shown in Figure 15.</p>
+
+				<pre><code>&lt;input id="entry-day-time" name="entry-day-time" type="datetime"&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-20.png" alt="Screenshot of the datetime input type rendered by Opera. There is a dropdown for the date and a calendar widget shown with the current day highlighted. There is an input with a value of 12:08 and up and down arrows to the right of the input along with the text 'UTC'." />
+					<figcaption>Figure 15. <code>type="datetime"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<section id="input-datetime-local">
+				<h4>datetime-local</h4>
+				
+				<p>Finally, Figure 16 shows that we can achieve slightly more granular control by selecting a precise time on a given day with a local time zone variation using <code>type="datetime-local"</code>.</p>
+
+				<pre><code>&lt;input id="arrival-time" name="arrival-time " type="datetime-local"&gt;</code></pre>
+				
+				<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-21.png" alt="Screenshot of the datetime-local input type rendered by Opera. There is a dropdown for the date and a calendar widget shown with the current day highlighted. There is an input with a value of 17:08 and up and down arrows to the right." />
+					<figcaption>Figure 16. <code>type="datetime-local"</code> in Opera 10.5</figcaption>
+				</figure>
+				
+			</section>
+			
+			<div class="callout warning-block">
+				<h4>Date and time caveats</h4>
+				
+				<p>There are two caveats with these implementations. First, with the current implementation, it isn&#8217;t possible to type a date into the field (in all browsers). The date picker is keyboard accessible, though. However, we can foresee a potential issue; if implemented on a form that a data entry clerk regularly completes, they are likely to be quicker at typing the date than tabbing through with the keyboard or selecting from a date picker. Second, it isn&#8217;t possible to style the look of the date picker. We tend to think that this is a good thing, as users will receive a common experience across all websites they visit (provided they use the same browser all the time). Undoubtedly, though, corporations will require a branded date picker. Safari 5 and Chrome 5 have implemented these input types, but, unfortunately, they aren’t very user friendly. Dates have to be entered in the same format as the time element that we met earlier in the book. So for dates, the format would be YYYY-MM-DD, and for dates with time, a user would have to enter YYYYMM-DDT00:00Z, which is not very friendly at all.</p>
+
+				<p>As with the other new input types, if a browser doesn&#8217;t recognize them, it will simply default back to <code>type="text"</code> and let the user continue to use your JavaScript date picker.</p>
+			</div>
+
+		</section><!-- end date/time -->
+		
+		<section id="input-color">
+			<h3>color</h3>
+		
+			<p>The color input type is pretty self-explanatory: it allows the user to select a color and returns the hex value for that color. It is anticipated that users will either be able to type the value or select from a color picker, which will either be native to the operating system or a browser’s own implementation. Opera 11 has implemented type=&#8221;color&#8221; with a simple color picker that offers a number of standard color choices or the option to select Other, which brings up the operating system color picker (shown on the right in Figure 17).</p>
+			
+			<pre><code>&lt;input id="color" name="color" type="color"&gt;</code></pre>
+			
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-22.png" alt="Screenshot of the color input type as rendered by Opera. There is a colour dropdown which when clicked shows a range of colours with an 'other' button. The right shows the dialog box opened when the user clicks 'Other' which is a standard operating system color dialog." />
+				<figcaption>Figure 17. <code>type="color"</code> in Opera on the left and the result of clicking Other shown on the right</figcaption>
+			</figure>
+			
+			<p>In contrast, certain Blackberry devices have implemented the <code>color</code> input type that renders a color picker, as shown in Figure 18.</p>
+			
+			<figure>
+					<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-23.png" alt="Screenshot of the color input type as rendered on a Blackberry. There is a colour spectrum with a hue box and a color preview alongside an 'OK' button." />
+				<figcaption>Figure 18. <code>type="color"</code> on Blackberry (screenshot provided by Terence Eden)</figcaption>
+			</figure>
+
+		</section>
+		
+
+	</section><!--// end input types-->
+	
+	
+	<section>
+		<h2>Input types summary</h2>
+		
+		<p>By using HTML5&#8217;s new form input types right now, we can enhance the user&#8217;s experience, future-proof our site, and make our life as developers easier. Obviously, we can&#8217;t just leave the browsers that don&#8217;t support all these new features hanging, and in Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3</a> we take a look at how to detect support for these form features using JavaScript.</p>
+		
+		<p>You can find a dummy form, using some of the examples we&#8217;ve shown in this article at our <a href="http://html5doctor.com/demos/forms/forms-example.html">HTML5 forms demo page</a>.</p>
+		
+		<p>We&#8217;ve hinted throughout the article at which browsers have support for HTML5 forms input types and attributes. With new versions of browsers being released at an ever-increasing rate, it can be difficult to keep up with what is or isn&#8217;t supported. If you want to keep an eye on the current progress, we suggest visiting When <a href="http://j.mp/caniuse">can I use &#133;</a> or <a href="http://j.mp/findmebyip">FindMeByIP</a> or <a href="http://j.mp/wufooh5">Wufoo&#8217;s HTML5 forms research</a>.</p>
+		
+		<p>If you missed the first article in this series on HTML5 forms, why not read <a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/">a brief History of HTML5 forms and learn all about the new attributes introduced</a>.</p>
+		
+	</section>
+	
+	<div class="callout highlight-block">
+		
+		<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p></p>
+		
+	</div><p><a href="http://html5doctor.com/html5-forms-input-types/" rel="bookmark">HTML5 forms input types</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 28, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-forms-input-types/feed/</wfw:commentRss>
+		<slash:comments>20</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 forms introduction and new attributes</title>
+		<link>http://html5doctor.com/html5-forms-introduction-and-new-attributes/</link>
+		<comments>http://html5doctor.com/html5-forms-introduction-and-new-attributes/#comments</comments>
+		<pubDate>Tue, 26 Feb 2013 14:30:58 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[autocomplete]]></category>
+		<category><![CDATA[autofocus]]></category>
+		<category><![CDATA[datalist]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[list]]></category>
+		<category><![CDATA[multiple]]></category>
+		<category><![CDATA[pattern]]></category>
+		<category><![CDATA[placeholder]]></category>
+		<category><![CDATA[required]]></category>
+		<category><![CDATA[web forms 2.0]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5001</guid>
+		<description><![CDATA[	<p>No doubt you interact with at least one form on the Web every day. Whether you're searching for content or logging in to your e-mail account or Facebook page, using online forms is one of the most common tasks performed on the Web. As designers and developers, creating forms has a certain monotony about it, particularly writing validation scripts for them. HTML5 introduces a number of new attributes, input types, and other elements for your markup toolkit. In this article we'll be focussing on the new attributes with a future article looking at the new input types.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[	<p>No doubt you interact with at least one form on the Web every day. Whether you&#8217;re searching for content or logging in to your e-mail account or Facebook page, using online forms is one of the most common tasks performed on the Web. As designers and developers, creating forms has a certain monotony about it, particularly writing validation scripts for them. HTML5 introduces a number of new attributes, input types, and other elements for your markup toolkit. In this article we&#8217;ll be focussing on the new attributes with <a href="http://html5doctor.com/html5-forms-input-types/">a future article looking at the new input types</a>.</p>
+
+	<p>As we&#8217;ll see, these new features will go a long way toward making your life easier while delivering a delightful user experience. The best thing about all this? You can start using them now. We&#8217;ll start with a (very) brief history of HTML5 forms though.</p> 
+	
+	<div class="callout highlight-block">
+		
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p>Note: As this article is a book excerpt, browser renderings of attributes and input types may have altered since the screenshots were taken. Additionally, browser support may have increased since publication so please refer to the links at the end of the article for the current state of browser support.</p>
+		
+	</div>
+	
+	<section id="history">
+		<h2>A history of HTML5 forms</h2>
+		
+		<p>The forms section of HTML5 was originally a specification titled <a href="http://j.mp/web-forms">Web Forms 2.0</a> that added new types of controls for forms. Started by Opera and edited by then-Opera employee Ian Hickson, it was <a href="http://j.mp/opera-forms">submitted to the W3C in early 2005</a>.  The work was initially carried out under the W3C. It was then combined with the Web Applications 1.0 specification to create the basis of the breakaway Web Hypertext Application Technology Working Group (WHATWG) HTML5 specification.</p>
+
+	</section>
+	
+	<section id="principles">
+		<h2>Using HTML5 design principles</h2>
+		
+		<p>One of the best things about HTML5 forms is that you can use almost all of these new input types and attributes right now. They don’t even need any shivs, hacks, or workarounds. That isn’t to say they&#8217;re all &#8220;supported&#8221; right now, but they do cool things in modern browsers that do support them-and degrade gracefully in browsers that don&#8217;t understand them. This is thanks to <a href="http://j.mp/designprinciples">HTML5&#8217;s design principles</a>. In this instance we’re specifically referring to the principle of graceful degradation. In essence, this means that there’s no excuse for not using these features right now. In fact, it means you&#8217;re ahead of the curve.</p>
+
+	</section>
+	
+	<section id="attributes">
+	
+	<h2>HTML5 form attributes</h2>
+	
+	<p>There are 14 new attributes that we&#8217;ll be looking at in this article.</p>
+	
+	<ul class="columns">
+		<li><a href="#placeholder"><code>placeholder</code></a></li>
+		<li><a href="#autofocus"><code>autofocus</code></a></li>
+		<li><a href="#autocomplete"><code>autocomplete</code></a></li>
+		<li><a href="#required"><code>required</code></a></li>
+		<li><a href="#pattern"><code>pattern</code></a></li>
+		<li><a href="#list-datalist"><code>list</code></a></li>
+		<li><a href="#multiple"><code>multiple</code></a></li>
+		<li><a href="#novalidate"><code>novalidate</code></a></li>
+		<li><a href="#novalidate"><code>formnovalidate</code></a></li>
+		<li><a href="#attr-form"><code>form</code></a></li>
+		<li><a href="#formaction"><code>formaction</code></a></li>
+		<li><a href="#formenctype"><code>formenctype</code></a></li>
+		<li><a href="#formmethod"><code>formmethod</code></a></li>
+		<li><a href="#formtarget"><code>formtarget</code></a></li>
+	</ul>
+	
+	<section id="placeholder">
+		<h3>placeholder</h3>
+		
+		<p>First up is the <code>placeholder</code> attribute, which allows us to set placeholder text as we would currently do in
+HTML4 with the <code>value</code> attribute. It should only be used for short descriptions. For anything longer, use the title attribute. The difference from HTML4 is that the text is only displayed when the field is empty and hasn&#8217;t received focus. Once the field receives focus (e.g., you click or tab to the field), and you begin to type, the text simply disappears. It&#8217;s very similar to the search box you see in Safari (see Figure 1).</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-1.png" alt="Screenshot of the browser search box in Safari with and without focus" />
+			<figcaption>Figure 1. Browser search box in Safari without and with focus</figcaption>
+		</figure>
+		
+		<p>Let&#8217;s have a look at how to implement the <code>placeholder</code> attribute.</p>
+		
+		<pre><code>&lt;input type="text" name="user-name" id="user-name" placeholder="at least 3 characters"&gt;</code></pre>
+		
+		<p>That&#8217;s it! We can hear you thinking, “What&#8217;s so great about that? I&#8217;ve been doing it with JavaScript for years.” Yes, that&#8217;s true. However, with HTML5, it’s part of the browser, meaning less scripting is required for a more accessible, cross-browser solution (even when JavaScript is disabled). Figure 2 shows the <code>placeholder</code> attribute working in Chrome.</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-2.png" alt="Screenshot of an input field in Chrome with and without focus, so showing and not showing the placeholder" />
+			<figcaption>Figure 2. Placeholder attribute support in Chrome, unfocused and focused</figcaption>
+		</figure>
+		
+		<p>Browsers that don&#8217;t support the placeholder attribute ignore it, so it won&#8217;t render. By including it, though, you&#8217;re providing an enhanced user experience for those users who have browser support and you&#8217;re “future proofing” your site. All modern browsers support <code>placeholder</code>.</p>
+		
+		<div class="callout highlight-block">
+			<p>Note: There is no official pseudo-class for styling placeholder text but both Mozilla (makers of Firefox) and WebKit offer vendor prefixed properties for styling (-mozplaceholder and –webkit-input-placeholder). This makes it safe to assume that a pseudo-class will become standard for styling placeholder text. For further detail there is <a href="http://j.mp/pseudoplaceholder">a thread on the WHATWG mailing list about this topic</a>.</p>
+		</div>
+
+	</section>
+	
+	<section id="autofocus">
+		<h3>autofocus</h3>
+		
+		<p><code>autofocus</code> does exactly what it says on the tin. Adding it to an input automatically focuses that field when the page is rendered. As with <code>placeholder</code>, <code>autofocus</code> is something that we used JavaScript for in the past.</p>
+		
+		<p>Traditional JavaScript methods do, though, have some serious usability problems. For example, if a user begins completing the form before the script loads, they will (jarringly) be returned to the first form field when the script is loaded. The <code>autofocus</code> attribute in HTML5 gets around this issue by focusing as soon as the document loads, without having to wait for the JavaScript to be loaded. However, we only recommend using it for pages whose sole purpose is the form (like Google) to prevent the usability issues.</p>
+		
+		<p>It is a Boolean attribute (except if you are writing XHTML5; see the note) and is implemented as follows:</p>
+		
+		<pre><code>&lt;input type="text" name="first-name" id="first-name" autofocus&gt;</code></pre>
+		
+		<p>All modern browsers support the attribute and, like <code>placeholder</code>, browsers that don&#8217;t support the <code>autofocus</code> attribute simply ignore it.</p>
+		
+		<div class="callout highlight-block">
+			<p>Note: Several new HTML5 form attributes are Boolean attributes. This just means they&#8217;re set if they&#8217;re present and not set if they’re absent. They can be written several ways in HTML5.</p>
+			
+			<pre><code>autofocus
+autofocus=""
+autofocus="autofocus"</code></pre>
+
+			<p>However, if you are writing XHTML5, you have to use the <code>autofocus="autofocus"</code> style.</p>
+		</div>
+		
+	</section>
+	
+	<section id="autocomplete">
+		<h3>autocomplete</h3>
+		
+		<p>The <code>autocomplete</code> attribute helps users complete forms based on earlier input. The attribute has been around since IE5.5 but has finally been standardized as part of HTML5. The default state is set to on. This means that generally we won’t have to use it. However, if you want to insist that a form field be entered each time a form is completed (as opposed to the browser autofilling the field), you would implement it like so:</p>
+		
+		<pre><code>&lt;input type="text" name="tracking-code" id="tracking-code" autocomplete="off"&gt;</code></pre>
+		
+		<p>The <code>autocomplete</code> state on a field overrides any <code>autocomplete</code> state set on the containing <code>form</code> element.</p>
+		
+	</section>
+	
+	<section id="required">
+		<h3>required</h3>
+		
+		<p>The <code>required</code> attribute doesn&#8217;t need much introduction; like <code>autofocus</code>, it does exactly what you&#8217;d expect. By adding it to a form field, the browser requires the user to enter data into that field before submitting the form. This replaces the basic form validation currently implemented with JavaScript, making things a little more usable and saving us a little more development time. <code>required</code> is a Boolean attribute, like <code>autofocus</code>. Let’s see it in action.</p>
+		
+		<pre><code>&lt;input type="text" id="given-name" name="given-name" required&gt;</code></pre>
+		
+		<p><code>required</code> is currently implemented only in Opera 9.5+, Firefox 4+, Safari 5+, Internet Explorer 10 and Chrome 5+, so for the
+time being you need to continue writing a script to check that fields are completed on the client side in other browsers (*cough* IE!). Opera, Chrome, and Firefox show the user an error message (see Figure 3) upon form submission. In most browsers, the errors are then localized based on the declared language. Safari doesn’t show an error message on submit, but instead places focus on that field.</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-3.png" alt="Screenshot from Opera showing an error message on an input field" />
+			<figcaption>Figure 3. Form field with required attribute displaying a browser-generated error message in Opera</figcaption>
+		</figure>
+		
+		<aside class="sidenote">
+			<p>Since the book was published, Bruce has <a href="http://www.brucelawson.co.uk/2013/on-the-styling-of-forms/">written a little more on the styling of forms</a> and there is <a href="http://www.broken-links.com/2011/03/28/html5-form-validation/">another post from Peter</a> that is useful reading.</p>
+		</aside>
+		
+		<p>The default rendering of “required” error messages depends on the individual browser; at present the error message bubble can’t be styled with CSS in all browsers. Chrome, however, does have a proprietary property that you can use to style the error bubble. <a href="http://j.mp/stylingformerrors">Peter Gasston has written an article about the syntax</a>. You can also style the input <a href="http://j.mp/pseudoforms">using the :required pseudo-class</a>. An alternative is to override the wording and styling using the <code>setCustomValidity()</code> method in JavaScript. Importantly, don&#8217;t forget that this browser validation is no substitute for validating on the server as well.</p>
+		
+	</section>
+	
+	<section id="pattern">
+		<h3>pattern</h3>
+		
+		<aside class="sidenote">
+			<p>A regular expression (regex or regexp) provides a way to match entered strings of text to particular patterns. A regex might be used to check a particular format for a product or ZIP code. They can be used with a number of programming languages, some of which (Perl, Ruby) have them built into their syntax. Regex is where the <code>pattern</code> attribute originates.</p>
+		</aside>
+		
+		<p>The <code>pattern</code> attribute is likely to get a lot of developers very excited (well, as excited as you can get about form attributes). It specifies a JavaScript regular expression for the field’s value to be checked against. <code>pattern</code> makes it easy for us to implement specific validation for product codes, invoice numbers, and so on. The possibilities for <code>pattern</code> are wide-ranging, and this is just one simple example using a product number.</p>
+		
+		<pre><code>&lt;label&gt;Product Number:
+&lt;input pattern="[0-9][A-Z]{3}" name="product" type="text" title="Single digit followed by three uppercase letters."/&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>This pattern prescribes that the product number should be a single digit [0-9] followed by three uppercase letters [A-Z]{3}. For more examples, the <a href="http://j.mp/html5p">HTML5 Pattern website</a> lists common regex style patterns to help get you started.</p>
+		
+		<p>As with required, Opera 9.5+, Firefox 4+, Safari 5+, Internet Explorer 10 and Chrome 5+ are the only browsers with support for pattern at present. However, with the browser market moving at a fast pace, the others will soon catch up.</p>
+		
+	</section>
+	
+	<section id="list">
+		<h3>list and the datalist element</h3>
+		
+		<p>The <code>list</code> attribute enables the user to associate a list of options with a particular field. The value of the <code>list</code> attribute must be the same as the ID of a <code>datalist</code> element that resides in the same document. The <code>datalist</code> element is new in HTML5 and represents a predefined list of options for form controls. It works in a similar way to the in-browser search boxes that autocomplete as you type (see Figure 4).</p>
+		
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-4.png" alt="Screenshot Google's autosuggest functionality in Safaris search box" />
+			<figcaption>Figure 4. Google search autosuggestions in Safari</figcaption>
+		</figure>
+		
+		<p>The following example shows how <code>list</code> and <code>datalist</code> are combined (see Figure 5):</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+  &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+  &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+  &lt;!-- … --&gt;
+&lt;/datalist&gt;
+If other, please specify:
+  &lt;input type="text" name="fruit" list="fruits"&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>By adding a <code>select</code> element inside the <code>datalist</code> you can provide superior graceful degradation than by simply using an option element. This is an elegant markup pattern <a href="http://j.mp/datalistpattern">designed by Jeremy Keith</a> that adheres perfectly with HTML5&#8217;s principle of degrading gracefully.</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;select name="fruits"&gt;
+    &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+    &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+    &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+    &lt;!-- … --&gt;
+  &lt;/select&gt;
+If other, please specify:
+&lt;/datalist&gt;
+  &lt;input type="text" name="fruit" list="fruits"&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>Browser support for <code>list</code> and <code>datalist</code> is currently limited to Opera 9.5+ (see Figure 5), Chrome 20+, Internet Explorer 10 and Firefox 4+.</p>
+		
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-5.png" alt="Screenshot of the list attribute and datalist element in Opera" />
+			<figcaption>Figure 5. The datalist element rendered in Opera</figcaption>
+		</figure>
+		
+	</section>
+	
+	<section id="multiple">
+		<h3>multiple</h3>
+		
+		<p>We can take our <code>list</code>s and <code>datalist</code>s one step further by applying the Boolean attribute <code>multiple</code> to allow more than one value to be entered from the <code>datalist</code>. Here is an example.</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;select name="fruits"&gt;
+    &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+    &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+    &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+    &lt;!-- … --&gt;
+  &lt;/select&gt;
+If other, please specify:
+&lt;/datalist&gt;
+  &lt;input type="text" name="fruit" list="fruits" multiple&gt;
+&lt;/label&gt;</code></pre>
+
+		<p><code>multiple</code> isn&#8217;t exclusively for use with <code>datalist</code>s, though. A further example for <code>multiple</code> might be for email addresses when sending items to friend or the attachment of files, as shown here:</p>
+		
+		<pre><code>&lt;label&gt;Upload files:
+&lt;input type="file" multiple name="upload"&gt;&lt;/label&gt;</code></pre>
+
+		<p><code>multiple</code> is supported in Firefox 3.6+, Safari 4+, Opera 11.5+, Internet Explorer 10 and Chrome 4+.</p>
+		
+	</section>
+
+	<section id="novalidate">
+		<h3>novalidate and formnovalidate</h3>
+		
+		<p>The <code>novalidate</code> and <code>formnovalidate</code> attributes indicate that the form shouldn&#8217;t be validated when submitted. They are both Boolean attributes. <code>formnovalidate</code> can be applied to submit or image input types. The <code>novalidate</code> attribute can be set only on the <code>form</code> element.</p>
+
+		<p>An example use case for the <code>formnovalidate</code> attribute could be on a &#8220;save draft&#8221; button, where the form has fields that are required for submitting the draft but aren&#8217;t required for saving the draft. <code>novalidate</code> would be used in cases where you don&#8217;t want to validate the form but do want to take advantage of the more useful user interface enhancements that the new input types offer.</p>
+		
+		<p>The following example shows how to use <code>formnovalidate</code>:</p>
+		
+		<pre><code>&lt;form action="process.php"&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="text" name="email" value="gordo@example.com"&gt;
+  &lt;input type="submit" formnovalidate value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+
+		<p>And this example shows how to use <code>novalidate</code>:</p>
+		
+		<pre><code>&lt;form action="process.php" novalidate&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="text" name="email" value="gordo@example.com"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+	
+	</section>
+	
+	<section id="attr-form">
+		<h3>form</h3>
+		
+		<p>The <code>form</code> attribute is used to associate an <code>input</code>, <code>select</code>, or <code>textarea</code> element with a form (known as its <em>form owner</em>). Using <code>form</code> means that the element doesn&#8217;t need to be a child of the associated form and can be moved away from it in the source. The primary use case for this is that input buttons that are placed within tables can now be associated with a form.</p>
+		
+		<pre><code>&lt;input type="button" name="sort-l-h" form="sort"&gt;</code></pre>
+		
+	</section>
+	
+	<section>
+		<h2>formaction, formenctype, formmethod, and formtarget</h2>
+		
+		<p>The <code>formaction</code>, <code>formenctype</code>, <code>formmethod</code>, and <code>formtarget</code> attributes each have a corresponding attribute on the <code>form</code> element, which you&#8217;ll be familiar with from HTML4, so let&#8217;s run through each of them briefly. These new attributes have been introduced primarily because you may require alternative actions for different submit buttons, as opposed to having several forms in a document.</p>
+		
+		<section id="formaction">
+			<h4>formaction</h4>
+			
+			<p><code>formaction</code> specifies the file or application that will submit the form. It has the same effect as the <code>action</code> attribute on the <code>form</code> element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>). When the form is submitted, the browser first checks for a <code>formaction</code> attribute; if that isn&#8217;t present, it proceeds to look for an <code>action</code> attribute on the form.</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formaction="process.php"&gt;</code></pre>
+			
+		</section>
+		
+		<section id="formenctype">
+			<h4>formenctype</h4>
+			
+			<p><code>formenctype</code> details how the form data is encoded with the POST method type. It has the same effect as the <code>enctype</code> attribute on the form element and can only be used with a submit or image button
+(<code>type="submit"</code> or <code>type="image"</code>). The default value if not included is <code>application/x-www-formurlencoded</code>.</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formenctype="application/x-www-form-urlencoded"&gt;</code></pre>
+			
+		</section>
+		
+		<section id="formmethod">
+			<h4>formmethod</h4>
+			
+			<p><code>formmethod</code> specifies which HTTP method (GET, POST, PUT, DELETE) will be used to submit the form data. It has the same effect as the method attribute on the form element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>).</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formmethod="POST"&gt;</code></pre>
+			
+			
+		</section>
+		
+		<section id="formtarget">
+			<h4>formtarget</h4>
+			
+			<p><code>formtarget</code> specifies the target window for the form results. It has the same effect as the target attribute on the <code>form</code> element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>).</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formtarget="_self"&gt;</code></pre>
+			
+		</section>
+		
+	</section>
+	
+	</section>
+	
+	<section id="summary">
+		<h2>Form attributes summary</h2>
+		
+		<p>We&#8217;ve looked at several new form attributes that help improve user experience and save you development time. There are some more new attributes to discuss, which are covered together with <a href="http://html5doctor.com/html5-forms-input-types/">HTML5&#8217;s new input types in the next article in this series</a>.</p>
+		
+		<p>You can find a dummy form, using some of the examples we&#8217;ve shown in this article at our <a href="http://html5doctor.com/demos/forms/forms-example.html">HTML5 forms demo page</a>.</p>
+		
+		<p>We&#8217;ve hinted throughout the article at which browsers have support for HTML5 forms input types and attributes. With new versions of browsers being released at an ever-increasing rate, it can be difficult to keep up with what is or isn&#8217;t supported. If you want to keep an eye on the current progress, we suggest visiting When <a href="http://j.mp/caniuse">can I use &#133;</a> or <a href="http://j.mp/findmebyip">FindMeByIP</a> or <a href="http://j.mp/wufooh5">Wufoo&#8217;s HTML5 forms research</a>.</p>
+		
+	</section>
+		
+	<div class="callout highlight-block">
+		
+		<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p></p>
+		
+	</div><p><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/" rel="bookmark">HTML5 forms introduction and new attributes</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 26, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-forms-introduction-and-new-attributes/feed/</wfw:commentRss>
+		<slash:comments>22</slash:comments>
+		</item>
+		<item>
+		<title>The progress element</title>
+		<link>http://html5doctor.com/the-progress-element/</link>
+		<comments>http://html5doctor.com/the-progress-element/#comments</comments>
+		<pubDate>Tue, 12 Feb 2013 14:30:16 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[file api]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[progress]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4927</guid>
+		<description><![CDATA[When building web sites and web applications, we often need to provide essential feedback to a user informing them of the progress of their request or task, be it uploading a file, playing a video, or importing data. HTML5 makes life easier for us by defining an element whose sole purpose is just that: the [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>When building web sites and web applications, we often need to provide essential feedback to a user informing them of the progress of their request or task, be it uploading a file, playing a video, or importing data.</p>
+<p>HTML5 makes life easier for us by defining an element whose sole purpose is just that: the <code>&lt;progress&gt;</code> element.</p>
+<p>The <a href="http://www.w3.org/TR/html5-author/the-progress-element.html"><abbr title="HyperText Markup Language 5">HTML5</abbr> specification</a> describes it best:</p>
+<blockquote><p>The progress element represents the completion progress of a task.</p></blockquote>
+<p>The task itself is irrelevant, but displaying its progress is not.</p>
+<section id="attributes">
+<h2>Attributes <a href="#attributes" class="permalink">#</a></h2>
+<p>There are four attributes that are specified for the <code>&lt;progress&gt;</code> element: <code>max</code>, <code>value</code>, <code>position</code>, and <code>labels</code>. Before taking a look at each of theses attributes in turn, here are a few important notes on them:</p>
+<ul>
+<li>If the <code>value</code> attribute exists, then the progress bar is considered to be <strong>determinate</strong> (i.e., it has exact limits). Otherwise it is considered to be <strong>indeterminate</strong>.</li>
+<li>If the <code>max</code> attribute is not included, the default acceptable range for the progress bar is between 0.0 and 1.0 inclusive.</li>
+<li>Authors are encouraged always to include the current value and the maximum value (if used) as inline text to the <code>&lt;progress&gt;</code> element so that the information is still visible to users of legacy browsers.</li>
+</ul>
+<p>And now let&#8217;s take a closer look at the attributes themselves:</p>
+<dl>
+<dt>Max</dt>
+<dd>The <code>max</code> attribute is a floating point number that indicates how much work the relevant task requires in total before it can be considered complete. The default value is 1.0.</dd>
+<dt>Value</dt>
+<dd>This is a floating point number that represents the current progress of the relevant task. Its value must be greater than or equal to 0.0 and less than or equal to 1.0 <strong>or</strong> the value of the <code>max</code> attribute if present.</dd>
+<dt>Position</dt>
+<dd>This is a read-only attribute that returns the current position of the <code>&lt;progress&gt;</code> element. This value is equal to <code>value / max</code> for a determinate progress bar and -1 for an indeterminate progress bar (as the position can&#8217;t accurately be determined).</dd>
+<dt>Labels</dt>
+<dd>This is also a read-only attribute that returns a list of the <code>&lt;progress&gt;</code> element&#8217;s <code>label</code>s (if there are any).</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples <a href="#examples" class="permalink">#</a></h2>
+<p>Let&#8217;s now take a look at some examples of how the <code>&lt;progress&gt;</code> element might be used, including how it might be updated via JavaScript.</p>
+<section id="indeterminate-progress-bar">
+<h3>Simple Indeterminate Progress Bar <a class="permalink" href="#indeterminate-progress-bar">#</a></h3>
+<pre><code>&lt;progress id='p'&gt;&lt;/progress&gt;</code></pre>
+<p>Since we have no idea how long the task in hand will take, the browser will simply display the progress bar until the task is complete and we either hide it or replace it with a &#8216;task complete&#8217; message.</p>
+</section>
+<section id="determinate-progress-bar">
+<h3>Simple Determinate Progress Bar <a class="permalink" href="#determinate-progress-bar">#</a></h3>
+<pre><code>&lt;progress id='p' max='70'&gt;&lt;span&gt;0&lt;/span&gt;%&lt;/progress&gt;</code></pre>
+<p>And the JavaScript for updating it:</p>
+<pre><code>var pBar = document.getElementById('p');
+var updateProgress = function(value) {
+  pBar.value = value;
+  pBar.getElementsByTagName('span')[0].innerHTML = Math.floor((100 / 70) * value);
+}</code></pre>
+<p>Note that here the progress bar can have a maximum value of 70, so calls to <code>updateProgress</code> will have values between 0 and 70 and that the value is also displayed within the <code>&lt;progress&gt;</code> element so that it is visible as a simple percentage string for users of legacy browsers.</p>
+</p>
+</section>
+<section id="video">
+<h3>Using <code>&lt;progress&gt;</code> with HTML5 Video <a class="permalink" href="#video">#</a></h3>
+<p>A good example of using the <code>&lt;progress&gt;</code> element is with an HTML5 video, informing the user how much of the video has been played. This won&#8217;t be a full example but will just show the necessary HTML and JavaScript.</p>
+<p>Given a <code>&lt;video&gt;</code> element with an id of &#8216;v&#8217;:</p>
+<pre><code>&lt;progress id='p' max='100' value='0'&gt;&lt;span&gt;0&lt;/span&gt;% played&lt;/progress&gt;</code></pre>
+<p>Use this JavaScript:</p>
+<pre><code>var video = document.getElementById('v');
+var pBar = document.getElementById('p');
+video.addEventListener('timeupdate', function() {
+  var percent = Math.floor((100 / video.duration) * video.currentTime);
+  pBar.value = percent;
+  pBar.getElementsByTagName('span')[0].innerHTML = percent;
+}, false);</code></pre>
+<p>The JavaScript uses the <code>timeupdate</code> event, which is constantly triggered as the video is being played. The value is converted into a percentage value using the video&#8217;s <code>duration</code> (full length) and <code>currentTime</code> (where in the video it currently is).</p>
+</section>
+<section id="file-api">
+<h3>Using <code>&lt;progress&gt;</code> with the File API <a class="permalink" href="#file-api">#</a></h3>
+<p>Another useful example is how the <code>&lt;progress&gt;</code> element might be used with the <a href="http://www.w3.org/TR/FileAPI/">File API</a>. Again, this is not a complete example, assuming the existence of a file input and upload button and <code>&lt;progress&gt;</code> element, and code for reading the file. The <a href="http://www.w3.org/TR/FileAPI/">specification itself</a> has some good code examples of this.</p>
+<pre><code>var p = document.getElementById('p');
+// 'reader' is of type FileReader
+reader.addEventListener('loadstart', function(evt) {
+  if (evt.lengthComputable) p.max = evt.total;
+}, false);
+reader.addEventListener('progress', function(evt) {
+  if (evt.lengthComputable) p.value = evt.loaded;
+}, false);</code></pre>
+<p>Here the <code>loadstart</code> event is used to set the <code>max</code> attribute of the <code>&lt;progress&gt;</code> element, and then the <code>progress</code> event is used to update the <code>&lt;progress&gt;</code> element&#8217;s <code>value</code> attribute.</p>
+</section>
+</section>
+<section id="browser-support">
+<h2>Browser Support <a class="permalink" href="#browser-support">#</a></h2>
+<p>The <code>&lt;progress&gt;</code> element is <a href="http://caniuse.com/#feat=progressmeter">fairly well-supported</a> in today&#8217;s major browsers, although only in version 6+ of Safari (so not on Windows, as the last version there was 5.1) and only in version 10+ of Internet Explorer.</p>
+</section>
+<section id="styling">
+<h2>Styling <a class="permalink" href="#styling">#</a></h2>
+<p>As is usual with such elements, browsers have their own unique styling for the <code>&lt;progress&gt;</code> element. You can, however, override this to a certain extent using simple CSS.</p>
+<p>The default styling tends to consist of an element with rounded corners, a grey background colour, and a green gradient for the actual progress marker.</p>
+<figure>
+     <img src="http://html5doctor.com/wp-content/uploads/2013/02/progress-element-firefox.jpg" alt="A screenshot of the progress element in Firefox" /></p>
+<figcaption>The default styling for the progress element in Firefox 18.0.2.</figcaption>
+</figure>
+<p>Let&#8217;s say we want to style our progress bar for the HTML5 Doctor website, so that it fits in with the design. We&#8217;ll remove the bevel and the gradients using only solid colours. The code below will almost do that:</p>
+<pre><code>progress {
+  color: #0063a6;
+  font-size: .6em;
+  line-height: 1.5em;
+  text-indent: .5em;
+  width: 15em;
+  height: 1.8em;
+  border: 1px solid #0063a6;
+  background: #fff;
+}</code></pre>
+<p>This, however, won&#8217;t change the colour of the progress bar itself, which will remain a green colour. We can change this in Firefox, Internet Explorer 10, Chrome, and Safari using a variety of methods which are outlined below.</p>
+<section id="styling-firefox">
+<h3>Firefox <a class="permalink" href="#styling-firefox">#</a></h3>
+<p>All we need to use here is:</p>
+<pre><code>progress::-moz-progress-bar { background: #0063a6; }</code></pre>
+<p>and Firefox will display the colour correctly.</p>
+<figure>
+      <img src="http://html5doctor.com/wp-content/uploads/2013/02/progress-element-styled.jpg" alt="A screenshot of the progress bar after custom styling" /></p>
+<figcaption>The progress bar as it appears in Firefox 18.0.2 after being styled.</figcaption>
+</figure>
+</section>
+<aside id="styling-opera">
+<h3>Update &#8211; <time datetime="2013-02-13">13th February 2013</time></h3>
+<p>Opera have just <a href="http://www.opera.com/press/releases/2013/02/13/">announced their move to using WebKit</a> as their rendering engine, so eventually the WebKit specifc styling rules will also work in Opera.</p>
+</aside>
+<section id="styling-webkit">
+<h3>Chrome and Safari <a class="permalink" href="#styling-webkit">#</a></h3>
+<p>For Chrome and Safari, we need to use <code>progress::-webkit-progress-value</code> to specify the progress bar colour and <code>progress::-webkit-progress-bar</code> to specify the background colour of the <code>&lt;progress&gt;</code> element itself:</p>
+<pre><code>progress::-webkit-progress-bar { background: #fff; }
+progress::-webkit-progress-value { background: #0063a6; }</code></pre>
+</section>
+<section id="styling-ie">
+<h3>Internet Explorer 10 <a class="permalink" href="#styling-ie">#</a></h3>
+<p>Actually the CSS above will be fine to style the <code>&lt;progress&gt;</code> element in IE10, but it&#8217;s worth noting that this browser interprets the <code>&lt;progress&gt;</code> element&#8217;s <code>color</code> value as the colour of the progress bar.</p>
+</section>
+<p>I&#8217;ve uploaded some <a href="/demos/progress/progress-element.html">working examples</a> of determinate and indeterminate progress bars for you to see.</p>
+</section>
+<section id="summary">
+<h2>Summary <a class="permalink" href="#summary">#</a></h2>
+<p>The <code>&lt;progress&gt;</code> element may seem very similar to the <a href="http://html5doctor.com/measure-up-with-the-meter-tag/"><code>&lt;meter&gt;</code> element</a> — which was also introduced in HTML5 — but it can be seen as a more specific kind of <code>&lt;meter&gt;</code> element that&#8217;s only used to measure progress of a task. It&#8217;s worth bearing this in mind when deciding which one to use.</p>
+<p>Since browser support is pretty good, it&#8217;s definitely worth using the <code>&lt;progress&gt;</code> element where appropriate, but you should also ensure that you provide textual fallback for legacy browsers as has been outlined above.</p>
+</section>
+<p><a href="http://html5doctor.com/the-progress-element/" rel="bookmark">The progress element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 12, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-progress-element/feed/</wfw:commentRss>
+		<slash:comments>21</slash:comments>
+		</item>
+		<item>
+		<title>Simplequiz #7: Pinterest</title>
+		<link>http://html5doctor.com/html5-simplequiz-7-pinterest/</link>
+		<comments>http://html5doctor.com/html5-simplequiz-7-pinterest/#comments</comments>
+		<pubDate>Tue, 22 Jan 2013 15:22:02 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Simplequiz]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[pinterest]]></category>
+		<category><![CDATA[simplequiz]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4776</guid>
+		<description><![CDATA[<p>One of our readers commented on an article a while ago (I won't tell you which one just now ;) asking about marking up items on Pinterest. It struck me that this would be a prime candidate for a Simplequiz, so here we are.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>One of our readers commented on an article a while ago (I won&#8217;t tell you which one just now ;) asking about marking up items on Pinterest. It struck me that this would be a prime candidate for a Simplequiz, so here we are.</p>
+
+<p><a href="http://pinterest.com">Pinterest</a>, for the uninitiated of you, allows you to organise and share things you love — mostly food, drink, and kittens.</p>
+
+<figure>
+  <img src="http://html5doctor.com/wp-content/uploads/2013/01/Pinterest-Home1.jpg" alt="Pinterest Homepage Screengrab" />
+  <figcaption>A distinct lack of kittens on Pinterest&#8217;s homepage in this screengrab</figcaption>
+</figure>
+
+<p>We&#8217;re going to look at how to mark up a single pinned item, as shown below:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2013/01/Screen-Shot-2013-01-22-at-14.54.15.png" alt="Individual pinned item on Pinterest" /><img src="http://html5doctor.com/wp-content/uploads/2013/01/Screen-Shot-2013-01-22-at-14.54.21.png" alt="Individual pinned item on Pinterest" />
+  <figcaption>The item we&#8217;ll be marking up (bottom image is the hovered state)</figcaption>
+</figure>
+
+<p>The existing markup is below (I&#8217;ve simplified it a little to make it easier to read):</p>
+
+<pre><code>&lt;div class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;div class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;a href="me/cat/"&gt;
+      &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Awesome cat description.&lt;/p&gt;
+  &lt;p class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/p&gt;
+  &lt;div class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>So, all&#8217;s well and good, but how should it be marked up in HTML5? As the saying goes, there are a hundred ways to skin a cat (excuse the pun). We&#8217;ve created five possible options, one of which achieved some consensus amongst the Doctors. Be warned: some of the differences between options are small and may be difficult to spot. Look carefully at each option!</p>
+
+<p>Let us know which answer you would go with (or roll your own) in the comments. Make sure you show your working out. Also, please escape your HTML (or use pseudo code), or we’ll put a <del>severed unicorn head</del> <ins>skinned cat</ins> in your bed.</p>
+
+<section id="answer-a">
+  <h2>Answer A: <a class="permalink" href="#answer-a">#</a></h2>
+  <p>An <code>&lt;article&gt;</code>, with <code>&lt;nav&gt;</code> and <code>&lt;aside&gt;</code> elements:</p>
+
+  <pre><code>&lt;article class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;nav class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;a href="me/cat/"&gt;
+      &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Awesome cat description.&lt;/p&gt;
+  &lt;aside class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/aside&gt;
+  &lt;article class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section id="answer-b">
+  <h2>Answer B: <a class="permalink" href="#answer-b">#</a></h2>
+  <p>An <code>&lt;article&gt;</code>, with <code>&lt;aside&gt;</code> elements:</p>
+
+  <pre><code>&lt;article class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;aside class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/aside&gt;
+    &lt;a href="me/cat/"&gt;
+      &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Awesome cat description.&lt;/p&gt;
+  &lt;aside class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/aside&gt;
+  &lt;article class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section id="answer-c">
+  <h2>Answer C: <a class="permalink" href="#answer-c">#</a></h2>
+  <p>An <code>&lt;article&gt;</code>, with <code>&lt;nav&gt;</code>, <code>&lt;figure&gt;</code>, and <code>&lt;aside&gt;</code> elements:</p>
+
+  <pre><code>&lt;article class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;nav class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;figure&gt;
+      &lt;a href="me/cat/"&gt;
+        &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+        &lt;figcaption&gt;Awesome cat description.&lt;/figcaption&gt;
+      &lt;/a&gt;
+    &lt;/figure&gt;
+  &lt;/div&gt;
+  &lt;aside class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/aside&gt;
+  &lt;article class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section id="answer-d">
+  <h2>Answer D: <a class="permalink" href="#answer-d">#</a></h2>
+  <p>A <code>&lt;section&gt;</code>, with <code>&lt;aside&gt;</code> and <code>&lt;figure&gt;</code> elements:</p>
+
+  <pre><code>&lt;section class="pin"&gt;
+  &lt;div class="pin-holder"&gt;
+    &lt;aside class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/aside&gt;
+    &lt;figure&gt;
+      &lt;a href="me/cat/"&gt;
+        &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+        &lt;figcaption&gt;Awesome cat description.&lt;/figcaption&gt;
+      &lt;/a&gt;
+    &lt;/figure&gt;
+  &lt;/div&gt;
+  &lt;p class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/p&gt;
+  &lt;div class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+</section>
+
+<section id="answer-e">
+  <h2>Answer E: <a class="permalink" href="#answer-e">#</a></h2>
+  <p>A <code>&lt;div&gt;</code>, with child <code>&lt;article&gt;</code> and <code>&lt;aside&gt;</code> elements:</p>
+
+  <pre><code>&lt;div class="pin"&gt;
+  &lt;article class="pin-holder"&gt;
+    &lt;aside class="actions"&gt;
+      &lt;a href="#repin"&gt;Repin&lt;/a&gt;
+      &lt;a href="#like"&gt;Like&lt;/a&gt;
+      &lt;a href="#comment"&gt;Comment&lt;/a&gt;
+    &lt;/aside&gt;
+    &lt;a href="me/cat/"&gt;
+      &lt;img src="cat.jpg" alt="My awesome cat"&gt;
+      &lt;p&gt;Awesome cat description.&lt;/p&gt;
+    &lt;/a&gt;
+  &lt;/article&gt;
+  &lt;aside class="stats"&gt;
+    &lt;span&gt;25 likes&lt;/span&gt;
+    &lt;span&gt;2 comments&lt;/span&gt;
+    &lt;span&gt;100 repins&lt;/span&gt;
+  &lt;/aside&gt;
+  &lt;div class="convo"&gt;
+    &lt;a href="/me/"&gt;
+      &lt;img src="me.jpg" alt="Profile picture of me"&gt;
+    &lt;/a&gt;
+    &lt;p&gt;&lt;a href="/me/"&gt;Me&lt;/a&gt; onto &lt;a href="/here/"&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</section>
+
+<p>Your answers below, please, with your rationale, by Tuesday, 29th January.</p><p><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/" rel="bookmark">Simplequiz #7: Pinterest</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 22, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-simplequiz-7-pinterest/feed/</wfw:commentRss>
+		<slash:comments>64</slash:comments>
+		</item>
+		<item>
+		<title>Review: Pro HTML5 Accessibility by Joshue O Connor</title>
+		<link>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/</link>
+		<comments>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/#comments</comments>
+		<pubDate>Tue, 11 Dec 2012 10:00:48 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[oconnor]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4830</guid>
+		<description><![CDATA[TL;DR: this is a good book, let down by a bad tech editor and a publisher who has low production values. <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.apress.com/9781430241942">Pro HTML5 Accessibility</a> is an exhaustive book. Author Joshue O Connor is senior accessibility consultant with National Council for the Blind of Ireland&#8217;s Centre for Inclusive Technology and a stalwart of many W3C working groups.</p>
+<p>Don&#8217;t be afraid of the title. The book doesn&#8217;t assume that you&#8217;re a professional accessibility expert &#8211; quite the opposite; the first 100 pages don&#8217;t really deal with HTML5 at all, but survey the landscape of disability, assitive technologies and W3C WAI-ARIA. The last chapters of the book usefully survey testing methodologies and tools which will be invaluable to the lone developer told &#8220;oh, and it must be accessible/ DDA-/508-compliant, too&#8221;.</p>
+<p>Joshue does an admirable job of explaining how to use HTML5/ARIA to make sites accessible, and gives a thorough overview of how current browsers communicate new widgets (date pickers, sliders, video controls etc) to assistive technology now, rather than in some glorious unspecified future. </p>
+<p>He writes engagingly, too: &#8220;Remember that the <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements are semantically neutral elements. They have no meaning, poor things, and are merely empty hooks—ciphers for you to do with what you will. They cheer up to no end when you give them meaning. Existential crisis averted!&#8221;</p>
+<p>I also appreciated Joshue&#8217;s pragmatism: &#8220;Good semantics are really important, but real-world accessibility is very nuanced—particularly for new content and element types. However, bear in mind that an unencoded ampersand (which will throw a validation error) never resulted in an inaccessible webpage.&#8221;</p>
+<p>However, I didn&#8217;t understand &#8220;Having some heading structure, rather than none, on a web document is far more important than merely ensuring the headings are ordered in the correct way.&#8221; Surely &#8220;merely ensuring the headings are ordered in the correct way&#8221; is exactly the same as &#8220;having some heading structure rather than none&#8221;?</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2012/12/A9781430241942-3d_2.png" alt=""  width="277" height="350" class="aligncenter size-full wp-image-4845" /></p>
+<figcaption><a href="http://www.apress.com/9781430241942"><cite>Pro HTML5 Accessibility</cite> by Joshue O Connor</a></figcaption>
+</figure>
+<p>It&#8217;s also unclear to me why the author chose to markup buttons to control a video player as</p>
+<pre> 
+<code>&lt;div id="back" tabindex="0"&gt;
+&lt;img src="player/back_button.png" role="button" alt="Jump Back" /&gt;
+&lt;/div&gt;
+</code>
+</pre>
+<p>rather than simply use a <code>&lt;button&gt;</code> element which by default has a role of button and is focussable. But it doesn&#8217;t much matter; it gets the job done.</p>
+<p>There are some errors which the technical editor should have picked up. Chapter 3 says &#8220;JavaScript has some event handlers that can be activated only by using the mouse, such as onClick&#8221;, which <a href="http://websiteaccessibility.donaldevans.com/2011/06/30/when-does-onclick-work-with-the-keyboard-enter-key/">isn&#8217;t strictly true</a>. The same chapter also says &#8220;IE 9 doesn’t support the <code>&lt;video&gt;</code> element&#8221;, which is just wrong: it does. A cursory code-test would have shown that chapter 5&#8217;s example <code>&lt;img scr="myserver/usful_andgroovy_image.png"&gt;</code> won&#8217;t work, as there is no <code>scr</code> attribute (it&#8217;s obviously a typo for <code>src</code>).</p>
+<p>The most significant failing of the book isn&#8217;t the author&#8217;s fault: it&#8217;s  the lack of love for presentation that I&#8217;ve found endemic in all Apress books lately. For example, the tables in chapter 5 could easily have been formatted for a more attractive presentation, but they look exactly as a basic Word document. Similarly, the multi-page bulleted lists could easily have been a single, multi-column page.</p>
+<p>It looks as if Apress just doesn&#8217;t care about quality, which is incomprehensible from a publisher. In a publishing environment where ebooks have advantages such as portability, searchability, updateability in case of errors,  dead-tree publishers need to work hard to ensure their products remain competitive. They need to play to the traditional strengths of print: beautiful layouts, colours, good design and high-quality paper. We see these in books from Five Simple Steps, Smashing Magazine and A Book Apart. I&#8217;ve only seen a PDF of this book, but a previous physical Apress book I own has a paper quality redolent of 1970s East German toilet paper. Certainly Apress has expended no effort at all to lay out the pages for a pleasant read.</p>
+<p>That rant aside, the content of this book will be invaluable to a developer new to the world of accessibility, trying to use  modern web standards. </p>
+<p><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/" rel="bookmark">Review: Pro HTML5 Accessibility by Joshue O Connor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on December 11, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>Taking Web Audio Offline in iOS 6 Safari</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/</link>
+		<comments>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comments</comments>
+		<pubDate>Tue, 27 Nov 2012 13:30:20 +0000</pubDate>
+		<dc:creator><![CDATA[Alex Gibson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[ios]]></category>
+		<category><![CDATA[offline]]></category>
+		<category><![CDATA[webkit]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812</guid>
+		<description><![CDATA[Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be mission impossible. But with the advent of the WebKit-only, it is now finally achievable — although you still need to jump through a few hoops.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be <a href="http://happyworm.com/blog/2012/05/29/playing-web-audio-offline-on-mobile-safari-mission-impossible/">mission impossible</a>. But with the advent of the (WebKit-only) <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">Web Audio API</a>, it is now finally achievable — although you still need to jump through a few hoops.</p>
+
+<p>The bad news is that you still can&#8217;t cache an MP3 file using <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a> and then simply load it using an <code>XmlHttpRequest</code>. Safari on iOS 6 will cache the MP3 but then refuse to play it and fail silently (how useful!).</p>
+
+<p>But all is not lost…</p>
+
+<p><section id="base64">
+<h2>Base64 to the Rescue <a href="#base64" class="permalink">#</a></h2></p>
+
+<p>Because the Web Audio API offers developers direct control over the <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioBufferSourceNode">AudioBuffer</a>, you can now convert data formats on-the-fly and feed them directly to the Web Audio API for playback. For example, if you encode an MP3 file as a Base64 string, you can then decode it to an <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a> and convert the raw audio data.
+</section></p>
+
+<p><section id="encoding">
+<h2>Encoding an Audio File <a href="#encoding" class="permalink">#</a></h2></p>
+
+<p>You can easily convert an MP3 file to a Base64 string using <a href="http://www.openssl.org/">OpenSSL</a>. If you are on Mac OS X, it comes pre-installed, so just open up Terminal.app and type the following command:</p>
+
+<p><figure></p>
+
+<pre><code>openssl base64 -in [infile] -out [outfile]
+</code></pre>
+
+<p></figure></p>
+
+<p>Make sure to replace <code>[infile]</code> with the path to your MP3 and <code>[outfile]</code> with your chosen destination for the encoded data.</p>
+
+<p>This will output a Base64-encoded string representation of your sound file. You can then cache the string using any form of web storage you choose (e.g., <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a>, <a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/">localStorage</a>, or <a href="http://html5doctor.com/introducing-web-sql-databases/">webSQL</a>).
+</section></p>
+
+<p><section id="decoding">
+<h2>Base64 to ArrayBuffer <a href="#decoding" class="permalink">#</a></h2></p>
+
+<p>In order to decode the Base64 string back into an <code>ArrayBuffer</code>, you&#8217;ll need to use a custom method. Check out Daniele Guerrero&#8217;s <a href="https://github.com/danguer/blog-examples/blob/master/js/base64-binary.js">base64-binary.js</a> as a good script that can be used exactly for this purpose. It decodes a Base64 string into a <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint8Array">Uint8Array</a> typed array and stores it in an <code>ArrayBuffer</code>.</p>
+
+<p>Once this is done, you can simply decode the audio data using the Web Audio API&#8217;s <code>decodeAudioData()</code> method:</p>
+
+<p><figure></p>
+
+<pre><code>var buff = Base64Binary.decodeArrayBuffer(sound);
+
+myAudioContext.decodeAudioData(buff, function(audioData) {
+  myBuffer = audioData;
+});
+</code></pre>
+
+<p></figure></p>
+
+<p>Once you have the audio data decoded, pass it to your audio buffer source and play the sound:</p>
+
+<p><figure></p>
+
+<pre><code>mySource = myAudioContext.createBufferSource();
+mySource.buffer = myBuffer;
+mySource.connect(myAudioContext.destination);
+mySource.noteOn(0);
+</code></pre>
+
+<p></figure></p>
+
+<p></section></p>
+
+<p><section id="demo">
+<h2>Full Demo and Source Code <a href="#demo" class="permalink">#</a></h2></p>
+
+<p>Check out the <a href="http://alxgbsn.co.uk/offlinewebaudio/">online demo</a> and <a href="https://github.com/alexgibson/offlinewebaudio">source code</a> for a complete example of the techniques discussed in this article.
+</section></p>
+
+<p><section id="support">
+<h2>Browser Support <a href="#support" class="permalink">#</a></h2></p>
+
+<p>Currently the demo works in Safari 6, Chrome Desktop, and iOS 6 Safari. The technique has potential to work in any browser that supports Web Audio API, so hopefully Chrome Mobile can soon add support as well.</p>
+
+<p>The W3C is currently pursuing the Web Audio API <a href="http://www.w3.org/2011/audio/wiki/W3C_Audio_Publications_and_Milestones">as a standard</a>.
+</section></p>
+<p><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/" rel="bookmark">Taking Web Audio Offline in iOS 6 Safari</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 27, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>Your HTML5 Questions 20</title>
+		<link>http://html5doctor.com/your-html5-questions-20/</link>
+		<comments>http://html5doctor.com/your-html5-questions-20/#comments</comments>
+		<pubDate>Tue, 09 Oct 2012 14:09:40 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[outlines]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[xmlhttprequest]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4762</guid>
+		<description><![CDATA[<p>We're back again to answer some more of your questions. This time we've included a bonus answer so you've got six to go at, rather than the usual 5. In this post cover a XMLHttpRequest query, how to define sections, understanding outlines, what markup to use for a social bar, using HTML5 with a legacy site and hidden headings for accessibility.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re back again to answer some more of your questions. This time we&#8217;ve included a bonus answer so you&#8217;ve got six to go at, rather than the usual five!</p>
+
+<p>In this post, we&#8217;ll cover an <code>XMLHttpRequest</code> query, how to define sections, understanding outlines, which markup to use for a social bar, using HTML5 with a legacy site, and hidden headings for accessibility.</p>
+
+<section id="xhr">
+  <h2>XMLHttpRequest <a class="permalink" href="#xhr">#</a></h2>
+
+  <p>Kieran asked:</p>
+
+  <blockquote>
+    <p>I have a test web page where I read the contents of a text file in my dropbox public folder using XMLHttpRequest. However my code works fine in IE but does not work in firefox. I thought XMLHttpRequest2 would work with HTML5. Can you help? Here is the code:</p>
+
+  <pre><code>&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+  &lt;title&gt;JS file reading&lt;/title&gt;
+  &lt;!--&lt;link href="layout.css" rel="stylesheet" type="text/css"&gt;--&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script type="text/javascript"&gt;
+    var oRequest = new XMLHttpRequest();
+    var sURL = "http://dl.dropbox.com/u/34358808/test1.pkl";
+
+    oRequest.open("GET",sURL,false);
+    oRequest.setRequestHeader("User-Agent",navigator.userAgent);
+    oRequest.send(null)
+
+    if (oRequest.status==200) alert(oRequest.responseText);
+    else alert("Error executing XMLHttpRequest call!");
+  &lt;/script&gt;
+  Reading files with javascript
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </blockquote>
+
+  <p>I wouldn&#8217;t recommend running that as a synchronous request.</p>
+
+  <p>That said, I can&#8217;t see how your code would work. You&#8217;re making a cross-domain request, and Dropbox hasn&#8217;t enabled <a href="http://www.w3.org/TR/cors/" title="Cross-Origin Resource Sharing">CORS</a> (as far as I can see — and I did a couple of initial checks).</p>
+
+  <p>Maybe give XHR2 a better read and check out CORS, which is what I think you want.</p>
+
+  <p>Bottom line, since you&#8217;re hitting Dropbox, unless you do something like a JSONP request (and modify the content appropriately), I don&#8217;t think you&#8217;re going to be able to achieve what you&#8217;re shooting for here.</p>
+
+  <p>— Remy</p>
+</section>
+
+<section id="sections">
+  <h2>Defining Sections on Home Page and Category Pages <a class="permalink" href="#sections">#</a></h2>
+
+  <p>Özer asked:</p>
+
+  <blockquote>
+    <p>An example website is <a href="http://www.kahome.com">www.kahome.com</a>. I have no problem with header footer aside etc. However, I am confused while using <code>article</code> on homepage and category pages.</p>
+
+    <p>The homepage contains main menu, an important image, a brief information text, some important seasonal category links (changing seasonally), news section (dynamically changing) and secondary categories at the bottom.</p>
+
+    <p>First: Centered main image <code>&lt;div id="orta"&gt;</code> should be tagged as article or not?</p>
+
+    <p>Second: <code>&lt;div id="sidebar-2"&gt;</code> with brief company information should tagged as an article or aside? (it is currently aside because of CMS layout but i can change it)</p>
+
+    <p>Third: seasonal category links <code>&lt;div id="ana"&gt;</code> is tagged as article. Is it true?</p>
+
+    <p>Fourth: for the <a href="http://www.kahome.com/restaurant-furniture.html">category page</a>, there is a collection of products and they are completely tagged in <code>&lt;article&gt;</code>. Should each product link be tagged as sub articles (they have just title, image, 3 words description) or is it better to use <code>&lt;section&gt;</code> for each product box?</p>
+
+    <p>Last question is about your sectioning system: In html5doctor.com homepage sectioning,  &#8220;article id=opener&#8221;  contains a featured article (sub article) and an aside section with recent comments. However there is no top level article in &#8220;opener&#8221; section.</p>
+
+    <p>For &#8220;more posts from HTML5 doctor&#8221; section, <code>&lt;section&gt;</code> is used as main frame and <code>&lt;article&gt;</code>s are nested in it.</p>
+
+    <p>What is the difference between of those two sections and what is the purpose of such usage? (Probably detailed answer to this question will also answer my questions above.) Thank you for your kind interest.</p>
+  </blockquote>
+
+  <p>Hi Özer,</p>
+
+  <ol>
+    <li>The image in the center of your homepage is not an <code>article</code>, it isn&#8217;t a standalone piece of content (like a news post or shop product) and appears to be just a nice image to spruce up the homepage. However, if the photo of the table was one of your products and you were using that space to advertise that product with a link through to the product, perhaps some text content like a name and description, that could be considered an article.</li>
+
+    <li>If that company information box was just on the homepage as a little introduction, I would consider it just part of the homepage and therefore not an <code>&lt;article&gt;</code>. If it had a heading, I would probably use <code>&lt;section&gt;</code> rather than <code>&lt;div&gt;</code> and make it part of the document outline. See <a href="http://html5doctor.com/document-outlines">our article on document outlines</a> for more on this.</li>
+
+    <li>I would consider the seasonal categories area a <code>&lt;section&gt;</code>, if you added a heading like &#8220;Seasonal Categories&#8221; to the document outline, and then each category within that could be an article as they summarise the standalone content that is a category page.</li>
+
+    <li>I personally don&#8217;t see a problem with using <code>&lt;article&gt;</code> for each of your products in a listing. If you think of it like a news feed, perhaps even via RSS, each product is a standalone entity and should be treated as such. We have examples of this in <a href="http://html5doctor.com/the-article-element/">our post about <code>&lt;article&gt;</code></a> (see the section entitled &#8220;A <code>&lt;section&gt;</code> containing <code>&lt;article&gt;</code>s&#8221;).</li>
+  </ol>
+
+  <p>Finally, even though you aren&#8217;t marking up a blog, Dr Bruce&#8217;s article <a href="http://html5doctor.com/designing-a-blog-with-html5/"><cite>Designing a Blog with HTML5</cite></a> may prove useful in helping you understand how and when to use <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, and other elements.</p>
+
+  <p>Hope this helps! Mike</p>
+</section>
+
+<section id="outline">
+  <h2>Outline View <a class="permalink" href="#outline">#</a></h2>
+
+  <p>Tarun asked:</p>
+
+  <blockquote>
+    <p>I have a very small question, regarding outline view in html5.</p>
+
+    <p>Problem is in HTML5 we need a heading tag in each section, article, nav etc. for outline view. But in a document there are many places where we do not need to display any heading for an article, section or nav etc.</p>
+
+    <p>So there are two solution i know are below:</p>
+
+    <ol>
+      <li>Set display none to heading not need to show. But the problem is it&#8217;s not good for SEO purpose. Search engine may blacklist if they find lot of sections with display none property.</li>
+
+      <li>Set a big value to text-indent so that they will not display, but again same problem. it&#8217;s not good for SEO.</li>
+    </ol>
+
+    <p>Please give me a proper solution for that. Thanks in advance :)</p>
+  </blockquote>
+
+  <p>I think <code>&lt;article&gt;</code>s often need a heading (but not necessarily if the <code>&lt;article&gt;</code> is a comment, nested in a parent article). Whether or not you have heading on sections, <code>&lt;nav&gt;</code> is entirely up to your content authors and designers.</p>
+
+  <p>If you don&#8217;t need them, don&#8217;t add them.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="social">
+  <h2>HTML5 Element for a Social Bar <a class="permalink" href="#social">#</a></h2>
+
+  <p>Ibo asked:</p>
+
+  <blockquote>
+    <p>I was wondering what HTML5 tag to use for the a social bar (Facebook and Twitter links, etc). Is there a common practice for sectioning social links? Should a social bar be defined as a section or should it be as grouping links? Has a tag like <code>&lt;social&gt;&lt;/social&gt;</code> ever been considered for the HTML5 standard? Could a tag like this be beneficial to SEO?</p>
+
+    <p>Even though I might be a rookie at coding html, I take great pride and comfort in coding semantically correct html.</p>
+
+    <p>A design I made has a social bar on the very top of the page. Should I include it the <code>header</code> section like I do with the main navigation <nav> tags? In coding html, is this the best practice?</p>
+
+    <pre><code>&lt;header&gt;
+  &lt;div id="social"&gt;...&lt;/div&gt;
+  &lt;h1&gt;...&lt;/h1&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;header&gt;</code></pre>
+  </blockquote>
+
+  <p>Seems to me that a social bar is peripheral to your content rather than introductory or navigation, and therefore shouldn&#8217;t be in the <code>&lt;header&gt;</code>. As it&#8217;s peripheral, I&#8217;d probably put in in <code>&lt;aside&gt;</code> — most likely just a plain old <code>&lt;div&gt;</code>, but either way not in a header.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="older-site">
+  <h2>HTML5 with an Older Site <a class="permalink" href="#older-site">#</a></h2>
+
+  <p>Clodagh asked:</p>
+
+  <blockquote>
+    <p>I have been requested to build a HTML5 area within the confines of a site that is not HTML5. Is this possible and how would it work with doctypes? I would greatly appreciate any advice you can give on this.</p>
+    </blockquote>
+
+  <h3>Solution #1 (preferred)</h3>
+  <p>Change the doctype for the whole site. Assuming it already has some kind of doctype (and therefore works in standards mode rather than quirks mode), all existing content and functionality will be unchanged and new stuff will be fine.</p>
+
+  <h3>Solution #2</h3>
+  <p>If you can&#8217;t change the doctype, you can use an <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#obsolete-permitted-doctype-string">obsolete permitted doctype</a> — that is, just add the HTML5 areas and leave the doctype alone.</p>
+
+  <p> — Bruce</p>
+</section>
+
+<section id="hidden-headings">
+  <h2>Hidden Headings for Accessibility <a class="permalink" href="#hidden-headings">#</a></h2>
+
+  <p>Tim asked:</p>
+
+  <blockquote>
+    <p>I have been seeing more of these pointers popping up lately advising to place a heading (<code>h1</code> etc.) before each section in our document telling what the section is.  For example, <code>&lt;h1&gt;Site Navigation&lt;/h1&gt;</code> placed immediately before the <code>nav</code> that outlines your main site navigation.  The presumption in these cases is that you would then be hiding the text via text-indent so that it didn&#8217;t appear to visual site visitors, but would be available for sight-disabled users so they know what the section is and so that the document outline is correct and sections. This seems odd to me and I&#8217;ve struggled with why.  Is this a good practice?</p>
+
+    <p>See <a href="http://www.webcredible.co.uk/user-friendly-resources/web-accessibility/beyond-guidelines.shtml">Webcredible</a> and <a href="http://webdesign.about.com/od/html5tutorials/a/html5-outlines.htm">About.com</a>.</p>
+  </blockquote>
+
+  <p>Good question, and I&#8217;m considering writing an article about it. It&#8217;s come about because it&#8217;s well-known that people with screenreaders often navigate a page (or derive a preliminary mental map of its structure) via its heading structure. Here&#8217;s <a href="http://www.youtube.com/watch?v=AmUPhEVWu_E">a YouTube video by a blind web developer explaining how he does this</a>. In JAWS, for example, a user can hit the H key to jump from heading to heading, hit &#8220;2&#8221; to go to the next <code>&lt;h2&gt;</code>, &#8220;3&#8221; to go to the next <code>&lt;h3&gt;</code>, and so on. (This is why I recommend that you don&#8217;t make all headings into <code>&lt;h1&gt;</code>s in the hope that the HTML5 Outlining algorithm will deal with it, because until browsers actually understand that, screenreader users will get a completely flat hierarchy. That&#8217;s changing, though; Jaws 13 supports the h1-only technique in Internet Explorer 9 and Firefox. See <a href="http://www.accessibleculture.org/articles/2011/10/jaws-ie-and-headings-in-html5/">Accessible culture</a> for more).</p>
+
+  <p>However, power users of screenreaders have other mechanisms to navigate a page. Since the Webcredible article you cite (dated 2007), <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">many assistive technologies now allow navigation via ARIA landmark roles</a>. HTML5 mints new elements like <code>&lt;nav&gt;</code> and <code>&lt;aside&gt;</code> that have similar semantics to those ARIA roles (ARIA can be used in any markup language, including HTML4 and SVG).</p>
+
+  <p>Thus, <a href="http://www.paciellogroup.com/blog/2011/07/html5-accessibility-chops-aria-landmark-support/">because a user can get to the <code>&lt;nav&gt;</code> through other means</a>, it can be argued that having a heading &#8220;navigation&#8221; is redundant. Or not: my own blog has headings for navigation types such as &#8220;categories&#8221; and &#8220;recent comments&#8221;, but I don&#8217;t have a heading &#8220;main nav&#8221;, &#8220;main content&#8221;, or &#8220;footer&#8221;.</p>
+
+  <p>I don&#8217;t do it for two reasons. First, it feels redundant to me. The structural semantics are there for user agents to consume. Second, I dislike using CSS to hide content from the view, not because of worries about SEO penalties, but simply because it feels wrong to me.</p>
+
+  <p>But your mileage may vary.</p>
+
+  <p>— Bruce</p>
+</section>
+
+<section id="summary">
+  <h2>Got a question for us? <a class="permalink" href="#summary">#</a></h2>
+
+  <p>That wraps up this round of questions. If you’ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we’ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-html5-questions-20/" rel="bookmark">Your HTML5 Questions 20</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 9, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-html5-questions-20/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>Your HTML5 Questions 19</title>
+		<link>http://html5doctor.com/your-html5-questions-19/</link>
+		<comments>http://html5doctor.com/your-html5-questions-19/#comments</comments>
+		<pubDate>Tue, 14 Aug 2012 14:30:54 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[money]]></category>
+		<category><![CDATA[price]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4733</guid>
+		<description><![CDATA[<p>As you may have noticed, we've not written one of these posts in a while. That's not down to us not receiving them, though. Government cutbacks have hit health services hard, so decisions had to be made. Well, that and the fact that we've all just been manically busy with our day jobs. </p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>As you may have noticed, we&#8217;ve not written one of these posts in a while. That&#8217;s not down to us not receiving them, though.
+<div style="position:absolute; top:-252px; left:126px"><a href="http://vva.org/blog/?p=3069" title="celebrex online pharmacy">celebrex online pharmacy</a></div>
+<p> Government cutbacks have hit health services hard, so decisions had to be made. Well, that and the fact that we&#8217;ve all just been manically busy with our day jobs.</p>
+<p>Enough waffle, though. We&#8217;ll try to get these posts going regularly again. This time, we cover marking up poems, how to add an element to HTML5, using <code>target="_blank"</code>, adding text to <code>&lt;canvas&gt;</code>, and which element to use for price or money.</p>
+<section id="poem">
+<h2>Poem Markup <a class="permalink" href="#poem">#</a></h2>
+<p>Gergő asked:</p>
+<blockquote>
+<p>Hi there Doc,</p>
+<p>On <a href="http://dl.dropbox.com/u/16255801/server/root/MEK/1934.html">this site</a> should I mark up the poems as sections or articles?</p>
+<p>Thank you so much for your mighty wisdom and super helping hand.</p>
+<p>Cheers, Greg from Hungary</p>
+</blockquote>
+<p>I can&#8217;t read Hungarian so can&#8217;t tell in detail, but I&#8217;d use one <code>&lt;article&gt;</code> per poem. If it&#8217;s a long poem — e.g. <cite>The Waste Land</cite> — divide it into sections:</p>
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;The Waste Land&lt;/h1&gt;
+  ...
+  &lt;section&gt;
+    &lt;h2&gt;The Burial of the Dead&lt;/h2&gt;
+    &lt;p&gt;April is the cruellest month&lt;br&gt;
+  Breeding lilacs out of the dead land&lt;br&gt;
+  Mixing memory with desire.&lt;/p&gt;
+    &lt;p&gt;Winter kept us warm ... &lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;The Game of Chess&lt;/h2&gt;
+    ...
+  &lt;/section&gt;
+  ...
+&lt;/article&gt;</code></pre>
+<p>— Bruce</p>
+</section>
+<section id="add-element">
+<h2>Adding a New Element to HTML5 <a class="permalink" href="#add-element">#</a></h2>
+<p>Ian asked:</p>
+<blockquote>
+<p>I want to propose adding a new HTML5 element. Do you know who I should write email to?</p>
+</blockquote>
+<p>Join the <a href="http://lists.whatwg.org/listinfo.cgi" title="W3.org Mailing Lists">WHATWG mailing list</a>, and carefully search the archive to see if your idea has already been discussed. If it hasn&#8217;t, email the list. Be sure to state a problem and give use cases.</p>
+<p>Read more at the <a href="http://wiki.whatwg.org/wiki/FAQ#Is_there_a_process_for_adding_new_features_to_a_specification.3F">WHATWG Wiki</a>.</p>
+<p>— Bruce</p>
+</section>
+<section id="target-blank">
+<h2><code>target="_blank"</code> <a class="permalink" href="#target-blank">#</a></h2>
+<p>Juniper asked:</p>
+<blockquote>
+<p>Howdy Docs,</p>
+<p>Just wondering if you&#8217;d like to tackle the age old question: now that we have HTML5 and it&#8217;s not as fussy as XHTML was, what with it&#8217;s fancy X and all, is <code>target="_blank"</code> okay to use again instead of <code>rel="external"</code> and JavaScript?</p>
+<p>What was the big deal in the first place?</p>
+</blockquote>
+<p>The answer to the first bit is &#8220;yes&#8221;.</p>
+<p>Regarding <q>What was the big deal in the first place?</q>, <code>target="_blank"</code> assumes a windowed environment and XHTML  didn&#8217;t want to make any assumptions. Also, opening in this window or that window is behavioural, not semantic, so it should be in the JavaScript layer and not the HTML layer.</p>
+<p>— Bruce</p>
+</section>
+<section id="text-canvas">
+<h2>Placing Text on <code>&lt;canvas&gt;</code> <a class="permalink" href="#text-canvas">#</a></h2>
+<p>Naresh asked:</p>
+<blockquote>
+<p>How can I place HTML text on a canvas? Actually, I have an editable text area where I can add/edit/modify the text like a text editor. Now I want to place this customized text on the canvas. This is the HTML text example:</p>
+<pre><code>&lt;p style="text-align: center;"&gt;&lt;span style="color: rgb(255, 0, 0);"&gt;EVERYDAY SPENT WITH YOU IS A GIFT.&lt;/span&gt;&lt;/p&gt;
+&lt;p style="text-align: center;"&gt;&lt;span style="color: rgb(255, 0, 0);"&gt;ALL MY LOVE&lt;/span&gt;&lt;/p&gt;
+&lt;p style="text-align: center;"&gt;&lt;span style="color: rgb(255, 0, 0);"&gt;Della&lt;/span&gt;&lt;/p&gt;</code></pre>
+<p>Thanks in advance.</p>
+</blockquote>
+<p>If you like, you can read <a href="http://www.w3.org/TR/2dcontext/" title="HTML Canvas 2D Context">the full specification for the 2D drawing API</a>.</p>
+<p>But placing text is relatively simple, so long as what you&#8217;re doing is straightforward.  It gets trickier when you have multiple bits of text, as you need to measure the height of the text and ensure the subsequent lines are clearing the previous lines. For example:</p>
+<pre><code>// code goes here!
+ctx.fillStyle = 'rgb(255, 0, 0)'; // red
+
+// comic sans == the new black
+ctx.font = 'italic 400 18px/2 comic sans ms, sans-serif';
+ctx.fillText('Comic sans will always bring funs to dull content', 25, 50); // not</code></pre>
+<p>Here&#8217;s <a href="http://jsbin.com/canvas/571/edit">a working example</a>.</p>
+<p>Good luck. — Remy</p>
+</section>
+<section id="price">
+<h2>Marking Up a Price <a class="permalink" href="#price">#</a></h2>
+<p>Fabrizio asked:</p>
+<blockquote>
+<p>I asked this question on <a href="http://stackoverflow.com/questions/9632311/which-html5-tags-are-more-appropriate-for-money">Stack Overflow</a> and so far the tag <code>var</code> was proposed. What do you think?</p>
+<p>Thanks in advance.</p>
+</blockquote>
+<p>I disagree with using <code>&lt;var&gt;</code> for prices based on the examples you provided. I&#8217;ve <a href="http://stackoverflow.com/questions/9632311/which-html5-tags-are-more-appropriate-for-money/9838798#9838798">posted an answer on Stack Overflow</a> and repeated it below.</p>
+<p>The <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-var-element" rel="nofollow">HTML spec for <code>&lt;var&gt;</code></a> states:</p>
+<blockquote>
+<p>The var element represents a variable. This could be an actual variable in a mathematical expression or programming context, an identifier representing a constant, a function parameter, or just be a term used as a placeholder in prose.</p>
+</blockquote>
+<p>To me, this means that <code>&lt;var&gt;</code> is not suitable for the prices in your examples. It depends on what you&#8217;re trying to accomplish, but it seems your options are:</p>
+<ol>
+<li>Use <a href="http://html5doctor.com/microdata" rel="nofollow">microdata</a> — for example, <a href="http://schema.org/Offer" rel="nofollow">Schema.org&#8217;s <code>offer</code> vocabulary</a> for a product&#8217;s price.</li>
+<li>Use <a href="http://html5doctor.com/i-b-em-strong-element/#element-b" rel="nofollow">the <code>&lt;b&gt;</code> element</a> if you’d like to draw attention to the price without indicating that it’s more important.</li>
+<li>Use <code>&lt;strong&gt;</code> if the price is important, such as the total price of an itemised receipt.</li>
+<li>Use <code>&lt;span&gt;</code> with a class if you need an element to style the price differently but <code>&lt;b&gt;</code> and <code>&lt;strong&gt;</code> are not appropriate.</li>
+<li>If nothing above is suitable and you don’t want to style the price, <em>don’t do anything</em>.</li>
+</ol>
+<p>From the examples you&#8217;ve given, there doesn’t seem to be any need to mark up prices. If the examples are from a table displaying financial information, make sure they&#8217;re in a column headed by <code>&lt;th scope="col"&gt;Income&lt;/th&gt;</code> or <code>&lt;th scope="col"&gt;Price&lt;/th&gt;</code>, respectively, for accessibility.</p>
+<p>Hope that helps! — Oli</p>
+</section>
+<section id="summary">
+<h2>Got a question for us? <a class="permalink" href="#summary">#</a></h2>
+<p>That wraps up this round of questions. If you’ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we’ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-html5-questions-19/" rel="bookmark">Your HTML5 Questions 19</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 14, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-html5-questions-19/feed/</wfw:commentRss>
+		<slash:comments>12</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 2.400 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-03-16 10:34:08 -->

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: The scoped attribute</title>
+	<atom:link href="http://html5doctor.com/the-scoped-attribute/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/the-scoped-attribute/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 04 May 2016 10:02:12 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Evert</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-2095489</link>
+		<dc:creator><![CDATA[Evert]]></dc:creator>
+		<pubDate>Wed, 24 Feb 2016 23:27:01 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-2095489</guid>
+		<description><![CDATA[Forgot: And older browsers will ignore this script-element as they do not understand the src-attribute on it.]]></description>
+		<content:encoded><![CDATA[<p>Forgot: And older browsers will ignore this script-element as they do not understand the src-attribute on it.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Evert</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-2095487</link>
+		<dc:creator><![CDATA[Evert]]></dc:creator>
+		<pubDate>Wed, 24 Feb 2016 23:24:36 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-2095487</guid>
+		<description><![CDATA[I guess this &#039;scoped&#039; business was introduced with web components in mind (styles inside a template are supposed to be scoped).
+But I don&#039;t like the idea one bit. (I don&#039;t like the idea about web components. The basic thought behind it is great, but the implementation is horrible imho).
+
+Anyway, I never understood why stylesheets are loaded using a link-element. So in order to prevent overused inline styles as well as promote backward compatibility, why not implement:
+&lt;code&gt;
+&#060;style src=&#039;url&#039; scoped=&#039;id-of-element&#039; exclude-root=true&#124;false&#062;
+&lt;/code&gt;
+This way you can target a specific part of the html through the scoped-attribute and with the exclude-root-attribute you can exclude these styles from other parts of the page.]]></description>
+		<content:encoded><![CDATA[<p>I guess this &#8216;scoped&#8217; business was introduced with web components in mind (styles inside a template are supposed to be scoped).<br />
+But I don&#8217;t like the idea one bit. (I don&#8217;t like the idea about web components. The basic thought behind it is great, but the implementation is horrible imho).</p>
+<p>Anyway, I never understood why stylesheets are loaded using a link-element. So in order to prevent overused inline styles as well as promote backward compatibility, why not implement:<br />
+<code><br />
+&lt;style src='url' scoped='id-of-element' exclude-root=true|false&gt;<br />
+</code><br />
+This way you can target a specific part of the html through the scoped-attribute and with the exclude-root-attribute you can exclude these styles from other parts of the page.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Carl</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-281499</link>
+		<dc:creator><![CDATA[Carl]]></dc:creator>
+		<pubDate>Mon, 25 Aug 2014 21:39:03 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-281499</guid>
+		<description><![CDATA[Why not do it via CSS and use something similar to @media like @this or @scoped, or if it needs to be in the style tag use media=&#039;scoped&#039; rather than blank or media=&#039;all&#039;. That should make it un-rendered by older browsers and newer browsers can make things pretty as needed!
+
+Or maybe treat it like the Shadow DOM? If you really need to style something that much that can&#039;t be done with a few extra classes or IDs then that might be a better way to achieve an isolated block of styled HTML. Kinda like a iFrame but more integrated.]]></description>
+		<content:encoded><![CDATA[<p>Why not do it via CSS and use something similar to @media like @this or @scoped, or if it needs to be in the style tag use media=&#8217;scoped&#8217; rather than blank or media=&#8217;all&#8217;. That should make it un-rendered by older browsers and newer browsers can make things pretty as needed!</p>
+<p>Or maybe treat it like the Shadow DOM? If you really need to style something that much that can&#8217;t be done with a few extra classes or IDs then that might be a better way to achieve an isolated block of styled HTML. Kinda like a iFrame but more integrated.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Rasael</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-202125</link>
+		<dc:creator><![CDATA[Rasael]]></dc:creator>
+		<pubDate>Thu, 07 Aug 2014 08:51:56 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-202125</guid>
+		<description><![CDATA[Probably in a production environment is not the best choice to go, especially for the compatibility issues but there are many use cases that made this attribute really useful!
+
+In the project I&#039;m working on there is almost 1MB of css that is generated and managed by an external company. 
+
+Therefore using the scoped attribute allows us to fix layout errors directly and propose a solution before the next release of the css. Without this element we should learn all css classes or have to wait for an answer and implementation and it could take days..
+
+Therefore I&#039;m in with this attribute, even better if its brought to a custom tag as Lazaris proposed and then, if used in the right way, it could only give benefits.]]></description>
+		<content:encoded><![CDATA[<p>Probably in a production environment is not the best choice to go, especially for the compatibility issues but there are many use cases that made this attribute really useful!</p>
+<p>In the project I&#8217;m working on there is almost 1MB of css that is generated and managed by an external company. </p>
+<p>Therefore using the scoped attribute allows us to fix layout errors directly and propose a solution before the next release of the css. Without this element we should learn all css classes or have to wait for an answer and implementation and it could take days..</p>
+<p>Therefore I&#8217;m in with this attribute, even better if its brought to a custom tag as Lazaris proposed and then, if used in the right way, it could only give benefits.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Edwin</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-67454</link>
+		<dc:creator><![CDATA[Edwin]]></dc:creator>
+		<pubDate>Mon, 23 Jun 2014 14:37:43 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-67454</guid>
+		<description><![CDATA[And, it&#039;s gone from the &quot;blink&quot; codebase:
+
+http://src.chromium.org/viewvc/blink?view=revision&#038;revision=175720]]></description>
+		<content:encoded><![CDATA[<p>And, it&#8217;s gone from the &#8220;blink&#8221; codebase:</p>
+<p><a href="http://src.chromium.org/viewvc/blink?view=revision&#038;revision=175720" rel="nofollow">http://src.chromium.org/viewvc/blink?view=revision&#038;revision=175720</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Fadly Indrawijaya</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-49325</link>
+		<dc:creator><![CDATA[Fadly Indrawijaya]]></dc:creator>
+		<pubDate>Sun, 11 May 2014 18:01:45 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-49325</guid>
+		<description><![CDATA[I think it&#039;s great though was a mess when css mingle so much in html :)]]></description>
+		<content:encoded><![CDATA[<p>I think it&#8217;s great though was a mess when css mingle so much in html :)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Jason</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-48583</link>
+		<dc:creator><![CDATA[Jason]]></dc:creator>
+		<pubDate>Mon, 03 Mar 2014 19:54:14 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-48583</guid>
+		<description><![CDATA[I also don&#039;t believe any sane web developer should use this unless they are are only interested in experimentation. The scope attribute is not crossbrowser compatible so if you use for example WordPresses Revolution Slider you run into the major problem of having a broken slider for different browsers at different resolutions. I think I would rather take the error from W3C than add the scoped attribute.]]></description>
+		<content:encoded><![CDATA[<p>I also don&#8217;t believe any sane web developer should use this unless they are are only interested in experimentation. The scope attribute is not crossbrowser compatible so if you use for example WordPresses Revolution Slider you run into the major problem of having a broken slider for different browsers at different resolutions. I think I would rather take the error from W3C than add the scoped attribute.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Jason</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-48582</link>
+		<dc:creator><![CDATA[Jason]]></dc:creator>
+		<pubDate>Mon, 03 Mar 2014 19:49:59 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-48582</guid>
+		<description><![CDATA[In my opinion I believe this started to come about people people are so used to writing JavaScript files inline while not using &#039;inline&#039; but instead wanted styles to be pretty on multiple lines. If you think that inline styles are bad this would be just as bad.
+
+In terms of specificity does this render itself with the same precedence as a typical inline style? Couldn&#039;t you just write your styles to a php specific CSS file by reading the file and writing to it?]]></description>
+		<content:encoded><![CDATA[<p>In my opinion I believe this started to come about people people are so used to writing JavaScript files inline while not using &#8216;inline&#8217; but instead wanted styles to be pretty on multiple lines. If you think that inline styles are bad this would be just as bad.</p>
+<p>In terms of specificity does this render itself with the same precedence as a typical inline style? Couldn&#8217;t you just write your styles to a php specific CSS file by reading the file and writing to it?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ken Newman</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-48504</link>
+		<dc:creator><![CDATA[Ken Newman]]></dc:creator>
+		<pubDate>Tue, 25 Feb 2014 22:13:03 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-48504</guid>
+		<description><![CDATA[I don&#039;t much care for dogma surrounding the separations of concerns. As a general rule, in most cases, you should keep stuff separated...unless there is a compelling case not to. I encounter many such cases during my work, and think that putting styles inline, or embedded, are completely valid (doing so is only a problem when it&#039;s ill-considered). It&#039;s absurd to suggest that it never right to do so, or that it&#039;s only an &quot;edge case.&quot; The scoped attribute is a brilliant feature. Syndicated content (article elements) and widgets seem obvious cases for it. When you &quot;scope&quot; with an id attr, you open it up for potential conflict.]]></description>
+		<content:encoded><![CDATA[<p>I don&#8217;t much care for dogma surrounding the separations of concerns. As a general rule, in most cases, you should keep stuff separated&#8230;unless there is a compelling case not to. I encounter many such cases during my work, and think that putting styles inline, or embedded, are completely valid (doing so is only a problem when it&#8217;s ill-considered). It&#8217;s absurd to suggest that it never right to do so, or that it&#8217;s only an &#8220;edge case.&#8221; The scoped attribute is a brilliant feature. Syndicated content (article elements) and widgets seem obvious cases for it. When you &#8220;scope&#8221; with an id attr, you open it up for potential conflict.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Brendon Boshell</title>
+		<link>http://html5doctor.com/the-scoped-attribute/#comment-37094</link>
+		<dc:creator><![CDATA[Brendon Boshell]]></dc:creator>
+		<pubDate>Thu, 01 Aug 2013 17:41:07 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634#comment-37094</guid>
+		<description><![CDATA[Would it not be wiser to have &lt;code&gt;&#060;style&#062;&lt;/code&gt; scoped by default? I can only see this being relevant for adding third party code to your page, and it would be useful if that was constrained to a scope in that case. Although I don&#039;t like the idea of mixing presentation and content, it seems more useful to have a &quot;global&quot; attribute instead -- so you can use &lt;code&gt;&#060;style global&#062;&lt;/code&gt; if you &lt;em&gt;really&lt;/em&gt; wanted it for some reason. It would also be more backwards-compatible.]]></description>
+		<content:encoded><![CDATA[<p>Would it not be wiser to have <code>&lt;style&gt;</code> scoped by default? I can only see this being relevant for adding third party code to your page, and it would be useful if that was constrained to a scope in that case. Although I don&#8217;t like the idea of mixing presentation and content, it seems more useful to have a &#8220;global&#8221; attribute instead &#8212; so you can use <code>&lt;style global&gt;</code> if you <em>really</em> wanted it for some reason. It would also be more backwards-compatible.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

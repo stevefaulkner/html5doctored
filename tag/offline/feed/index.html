@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; offline</title>
+	<atom:link href="http://html5doctor.com/tag/offline/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Taking Web Audio Offline in iOS 6 Safari</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/</link>
+		<comments>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comments</comments>
+		<pubDate>Tue, 27 Nov 2012 13:30:20 +0000</pubDate>
+		<dc:creator><![CDATA[Alex Gibson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[ios]]></category>
+		<category><![CDATA[offline]]></category>
+		<category><![CDATA[webkit]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812</guid>
+		<description><![CDATA[Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be mission impossible. But with the advent of the WebKit-only, it is now finally achievable — although you still need to jump through a few hoops.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be <a href="http://happyworm.com/blog/2012/05/29/playing-web-audio-offline-on-mobile-safari-mission-impossible/">mission impossible</a>. But with the advent of the (WebKit-only) <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">Web Audio API</a>, it is now finally achievable — although you still need to jump through a few hoops.</p>
+
+<p>The bad news is that you still can&#8217;t cache an MP3 file using <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a> and then simply load it using an <code>XmlHttpRequest</code>. Safari on iOS 6 will cache the MP3 but then refuse to play it and fail silently (how useful!).</p>
+
+<p>But all is not lost…</p>
+
+<p><section id="base64">
+<h2>Base64 to the Rescue <a href="#base64" class="permalink">#</a></h2></p>
+
+<p>Because the Web Audio API offers developers direct control over the <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioBufferSourceNode">AudioBuffer</a>, you can now convert data formats on-the-fly and feed them directly to the Web Audio API for playback. For example, if you encode an MP3 file as a Base64 string, you can then decode it to an <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a> and convert the raw audio data.
+</section></p>
+
+<p><section id="encoding">
+<h2>Encoding an Audio File <a href="#encoding" class="permalink">#</a></h2></p>
+
+<p>You can easily convert an MP3 file to a Base64 string using <a href="http://www.openssl.org/">OpenSSL</a>. If you are on Mac OS X, it comes pre-installed, so just open up Terminal.app and type the following command:</p>
+
+<p><figure></p>
+
+<pre><code>openssl base64 -in [infile] -out [outfile]
+</code></pre>
+
+<p></figure></p>
+
+<p>Make sure to replace <code>[infile]</code> with the path to your MP3 and <code>[outfile]</code> with your chosen destination for the encoded data.</p>
+
+<p>This will output a Base64-encoded string representation of your sound file. You can then cache the string using any form of web storage you choose (e.g., <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a>, <a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/">localStorage</a>, or <a href="http://html5doctor.com/introducing-web-sql-databases/">webSQL</a>).
+</section></p>
+
+<p><section id="decoding">
+<h2>Base64 to ArrayBuffer <a href="#decoding" class="permalink">#</a></h2></p>
+
+<p>In order to decode the Base64 string back into an <code>ArrayBuffer</code>, you&#8217;ll need to use a custom method. Check out Daniele Guerrero&#8217;s <a href="https://github.com/danguer/blog-examples/blob/master/js/base64-binary.js">base64-binary.js</a> as a good script that can be used exactly for this purpose. It decodes a Base64 string into a <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint8Array">Uint8Array</a> typed array and stores it in an <code>ArrayBuffer</code>.</p>
+
+<p>Once this is done, you can simply decode the audio data using the Web Audio API&#8217;s <code>decodeAudioData()</code> method:</p>
+
+<p><figure></p>
+
+<pre><code>var buff = Base64Binary.decodeArrayBuffer(sound);
+
+myAudioContext.decodeAudioData(buff, function(audioData) {
+  myBuffer = audioData;
+});
+</code></pre>
+
+<p></figure></p>
+
+<p>Once you have the audio data decoded, pass it to your audio buffer source and play the sound:</p>
+
+<p><figure></p>
+
+<pre><code>mySource = myAudioContext.createBufferSource();
+mySource.buffer = myBuffer;
+mySource.connect(myAudioContext.destination);
+mySource.noteOn(0);
+</code></pre>
+
+<p></figure></p>
+
+<p></section></p>
+
+<p><section id="demo">
+<h2>Full Demo and Source Code <a href="#demo" class="permalink">#</a></h2></p>
+
+<p>Check out the <a href="http://alxgbsn.co.uk/offlinewebaudio/">online demo</a> and <a href="https://github.com/alexgibson/offlinewebaudio">source code</a> for a complete example of the techniques discussed in this article.
+</section></p>
+
+<p><section id="support">
+<h2>Browser Support <a href="#support" class="permalink">#</a></h2></p>
+
+<p>Currently the demo works in Safari 6, Chrome Desktop, and iOS 6 Safari. The technique has potential to work in any browser that supports Web Audio API, so hopefully Chrome Mobile can soon add support as well.</p>
+
+<p>The W3C is currently pursuing the Web Audio API <a href="http://www.w3.org/2011/audio/wiki/W3C_Audio_Publications_and_Milestones">as a standard</a>.
+</section></p>
+<p><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/" rel="bookmark">Taking Web Audio Offline in iOS 6 Safari</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 27, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>Go offline with application cache</title>
+		<link>http://html5doctor.com/go-offline-with-application-cache/</link>
+		<comments>http://html5doctor.com/go-offline-with-application-cache/#comments</comments>
+		<pubDate>Tue, 25 Jan 2011 15:00:48 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[application]]></category>
+		<category><![CDATA[cache]]></category>
+		<category><![CDATA[manifest]]></category>
+		<category><![CDATA[offline]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2729</guid>
+		<description><![CDATA[<p>HTML5 introduces new methods for enabling a web site or web application to function without a network connection. When you're working on a mobile connection and your signal drops, or you just have no connection to the internet for whatever reason, having some level of access is better than nothing. In this article, we'll look at how the application cache can store resources to be used by the browser when it's offline, granting your users partial access to your web site or application.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><abbr>HTML</abbr>5 introduces new methods for enabling a web site or web application to function without a network connection. When you&#8217;re working on a mobile connection and your signal drops, or you just have no connection to the internet for whatever reason, having some level of access is better than nothing. In this article, we&#8217;ll look at how the application cache can store resources to be used by the browser when it&#8217;s offline, granting your users partial access to your web site or application.</p>
+
+<p>The <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html">application cache</a> is controlled by a plain text file called a manifest, which contains a list of resources to be stored for use when there is no network connectivity. The list can also define the conditions for caching, such as which pages should never be cached and even what to show the user when he follows a link to an uncached page.</p>
+
+<p>If the user goes offline but has visited the site while online, the cached resources will be loaded so the user can still view the site in a limited form. By carefully considering the contents of your manifest file, you can offer a suitable web experience to a disconnected user.</p>
+
+<section id="manifest">
+  <h2>The manifest file</h2>
+  <p>Let&#8217;s start with an example of a full manifest file. (Don&#8217;t worry, I&#8217;ll explain it all in detail!)</p>
+  
+  <figure>
+    <pre><code>CACHE MANIFEST
+      
+# This is a comment
+
+CACHE:
+/css/screen.css
+/css/offline.css
+/js/screen.js
+/img/logo.png
+http://example.com/css/styles.css
+
+FALLBACK:
+/ /offline.html
+
+NETWORK:
+*
+</code></pre>
+    <figcaption>An example application cache manifest file</figcaption>
+  </figure>
+  
+  <p>Each directive is placed on a new line, with comments prefixed by a hash (#). The first line, <code>CACHE MANIFEST</code>, tells the browser that this is a manifest file. The uppercased lines with trailing colons are section headings.</p>
+  
+  <p>There are three different sections in a manifest file:</p>
+  
+  <dl>
+    <dt>CACHE</dt>
+    <dd>A list of explicit <abbr>URL</abbr>s to request and store</dd>
+    <dt>FALLBACK</dt>
+    <dd>What to do when an offline user attempts to access an uncached file</dd>
+    <dt>NETWORK</dt>
+    <dd>Which resources are available only while online</dd>
+  </dl>
+  
+  <p>Each section serves a specific purpose that you must understand in order to successfully and effectively cache your resources.</p>
+  
+  <section id="cache">
+    <h3>CACHE</h3>
+    <p>The <code>CACHE</code> section is considered the default — i.e., if no section heading has been defined, the browser will assume this is the <code>CACHE</code> section. Beneath this heading, you can list <abbr>URI</abbr>s to resources you want the browser to download and cache for offline use, including <abbr>URI</abbr>s hosted externally.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+/css/screen.css
+/css/offline.css
+/js/screen.js
+/img/logo.png
+http://example.com/css/widget.css</code></pre>
+      <figcaption>Telling the browser to cache some stylesheets, an image, and a JavaScript file</figcaption>
+    </figure>
+  
+    <p>In this example, I&#8217;ve omitted the <code>CACHE:</code> heading to take advantage of the default behaviour. I have provided the browser with four paths relative to the root of the domain plus one external resource. When the browser downloads the cache manifest file, it will read these five resources, fetch them over <abbr>HTTP</abbr>, and store them for later use.</p>
+  
+    <p>Every single resource that you want to cache explicitly should be listed here, right down to the last image. The browser is not aware of a resource unless you provide the full path to it. This means <strong>you can&#8217;t use wildcards</strong>. If you list <code>/images/*</code> as a resource, the browser will request that <abbr>URI</abbr> as if you typed it into your address bar.</p>
+  
+    <p>But don&#8217;t run off and shove <abbr>URI</abbr>s for every single page on your site into your manifest! When a user visits a page that points to the manifest file, that page will also be cached. This means that if you want to allow users access to pages they&#8217;ve already viewed, just make those pages point to the manifest file and the browser will cache them appropriately.</p>
+  
+    <p>Now let&#8217;s tell the browser what to do with uncached resources.</p>
+  </section>
+  
+  <section id="fallback">
+    <h3>FALLBACK</h3>
+  
+    <p>The <code>FALLBACK</code> section tells the browser what to serve when the user tries to access an uncached resource while offline. Because of this, it looks a bit different than <code>CACHE</code> and <code>NETWORK</code>. It contains two values per line, separated by a space. The first value is the request <abbr>URI</abbr> to match, and the second is the resource sent upon matching. It caches the resource on the right for offline use, so this should be an explicit path.</p>
+    
+    <p>Lost? Take a look at this example:</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/status.html /offline.html</code></pre>
+      <figcaption>Declaring a <code>FALLBACK</code> section</figcaption>
+    </figure>
+  
+    <p>On the line below <code>FALLBACK:</code>, we have the <abbr>URI</abbr> &#8220;/status.html&#8221; followed by a second <abbr>URI</abbr>, &#8220;/offline.html&#8221;. We&#8217;re telling the browser that when an offline user requests a <abbr>URI</abbr> matching &#8220;/status.html&#8221;, it should instead serve the cached file &#8220;offline.html&#8221;.</p>
+    
+    <p>However, the <code>FALLBACK</code> section can be far more powerful:</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/ /offline.html</code></pre>
+      <figcaption>Matching all resources</figcaption>
+    </figure>
+  
+    <p>In this example, I&#8217;ve dropped &#8220;status.html&#8221; and simply provided &#8220;/&#8221; as the request <abbr>URI</abbr> to match. Now when an offline user requests a resource that matches &#8220;/&#8221;, he will be served &#8220;offline.html&#8221; in its place. So if the user clicked on a link for &#8220;/status.html&#8221;, &#8220;/about.html&#8221;, or even &#8220;/my/nested/resource.html&#8221;, the browser would match the &#8220;/&#8221; at the start and serve up &#8220;offline.html&#8221;. Since I&#8217;ve used the root path, every uncached resource under this domain will point to &#8220;offline.html&#8221;.</p>
+  
+    <p class="disclaimer"><strong>Errata 23 June 2011:</strong> this article has been corrected as you <em>can&#8217;t</em> use a wildcard with the <code>FALLBACK</code> or <code>NETWORK</code> namespaces &#8211; though you can use the asterisk symbol under <code>NETWORK</code> as it&#8217;s a special flag to indicate all urls should be whitelisted.</p>
+
+    <p>The <code>CACHE</code> section, both the <code>FALLBACK</code> and <code>NETWORK</code> namespaces support a prefix rule that aid their <abbr>URI</abbr> matching. In that any requests to the <code>/avatar</code> directory, whilst offline, if the asset is unavailable the browser can serve up an alternative.</p>
+    
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/images/avatars/ /offline_avatar.png</code></pre>
+      <figcaption>A smarter fallback declaration</figcaption>
+    </figure>
+  
+    <p>The first line tells the browser to serve &#8220;/offline_avatar.png&#8221; in place of user-uploaded avatars.</p>
+  
+    <p>Remember when I said that any document referencing the manifest will also be cached? Well, you can use this to your advantage! You can cache each page the user visits while online so that they will have access to that page while offline. Then anything they didn&#8217;t view will be caught by the <code>FALLBACK</code> section. This keeps you from explicitly stating you want all your pages cached, and, more importantly, avoids the huge performance penalty of serving all the resources you want cached every time someone first visits your site.</p>
+  </section>
+  
+  <section id="network">
+    <h3>NETWORK</h3>
+    <p>Finally, we have the <code>NETWORK</code> section, used to tell the browser explicitly which resources are only available while online. By default, this uses the asterisk <code>*</code> symbol, meaning all resources that are not cached will require a connection. Alternatively we can whitelist specific url prefixes, like all the avatars if we wish.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+NETWORK:
+*</code></pre>
+      <figcaption>Adding a <code>NETWORK</code> section</figcaption>
+    </figure>
+  
+    <p>You can explicitly define resources not to cache by providing a list of <abbr>URI</abbr>s — essentially a whitelist of online-only assets.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+NETWORK:
+register.php
+login.php</code></pre>
+      <figcaption>Excluding certain pages from caching</figcaption>
+    </figure>
+  </section>
+
+</section>
+
+<section id="serving-manifest">
+  <h2>Serving the manifest</h2>
+  
+  <p>You can reference a manifest file on a web page by adding the <code>manifest</code> attribute to your opening <code>&lt;html&gt;</code> tag. The browser will only cache pages that include this attribute (in addition to those specified in the manifest itself, though in that instance, the user would have to visit a page including the manifest in order for the browser to be aware of it).</p>
+  
+  <figure>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" manifest="/offline.appcache"&gt;
+  // your html document
+&lt;/html&gt;
+</code></pre>
+    <figcaption>Referencing the manifest file from an <abbr>HTML</abbr> page</figcaption>
+  </figure>
+
+  <p>The linked file should also be served with a <abbr>MIME</abbr>-type of <code>text/cache-manifest</code>. If you&#8217;re using <a href="http://httpd.apache.org/">Apache</a> as your web server, add this to your <code>.htaccess</code> file:</p>
+  
+  <figure>
+    <pre><code>AddType text/cache-manifest .appcache
+</code></pre>
+  </figure>
+  
+  <p>And there you have it! Supporting browsers will retrieve the manifest file and cache each item on the list for offline use. Won&#8217;t your parents be proud?</p>
+</section>
+
+<section id="trigger-refresh">
+  <h2>Triggering a cache refresh</h2>
+  
+  <p>Once a cache has been successfully downloaded, the browser will retain those assets until either the user clears the cache or you trigger an update. Triggering an update with your manifest file requires that the contents of that file change, not just the assets themselves.</p>
+  
+  <p><strong>Updating the assets on your server will not trigger a cache update. You must modify the manifest file.</strong></p>
+  
+  <p>If you&#8217;re adding or removing resources completely, you&#8217;ll have to edit your manifest file anyway. But what if you&#8217;re just amending an already cached stylesheet?</p>
+  
+  <p>This is where comments come in handy. Just throw in a simple version number comment that you change when you want to trigger an update:</p>
+  
+  <figure>
+    <pre><code>CACHE MANIFEST
+      
+# Version 9
+
+CACHE:
+/css/screen.css</code></pre>
+    <figcaption>A version comment in a manifest file</figcaption>
+  </figure>
+
+  <p>The next time you want to trigger a cache refresh, just increment the version number. When the user next visits the online version of a page including this manifest, it will re-download the manifest file, notice the change, download the listed assets, and purge the existing cache.</p>
+  
+  <p><strong>Browser bug:</strong> Firefox caches the manifest file itself and will not update it even if the manifest has changed on the server. With some server config wizardry, you can tell browsers that the cache of the manifest file is instantly invalidated and should be requested from the server every time it&#8217;s referenced. Add this to your <code>.htaccess</code> to put Firefox in its place:</p>
+  
+  <figure>
+    <pre><code>&lt;IfModule mod_expires.c&gt;
+  ExpiresActive On
+  ExpiresByType text/cache-manifest "access plus 0 seconds"
+&lt;/IfModule&gt;
+</code></pre>
+  </figure>
+</section>
+
+<section id="conclusion">
+  <h2>Conclusion</h2>
+  
+  <p>The application cache is a powerful beast, and to tame it you need to be clear on what&#8217;s involved. Give thought to your <code>CACHE</code>, <code>FALLBACK</code>, and <code>NETWORK</code> sections to provide a suitable offline experience to your users.</p>
+  
+  <p>In a future article, we&#8217;ll show you how to use the <code>applicationCache</code> JavaScript object to manipulate the cache. Until then, this should be enough to get you started on the path to offline web content.</p>
+  
+  <p>You can see a live demo using the application cache over on Doctor Remy&#8217;s <a href="http://html5demos.com/offlineapp">HTML5 Demos</a>. Happy caching!</p>
+</section>
+<p><a href="http://html5doctor.com/go-offline-with-application-cache/" rel="bookmark">Go offline with application cache</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 25, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/go-offline-with-application-cache/feed/</wfw:commentRss>
+		<slash:comments>34</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered 9</title>
+		<link>http://html5doctor.com/your-questions-answered-9/</link>
+		<comments>http://html5doctor.com/your-questions-answered-9/#comments</comments>
+		<pubDate>Fri, 14 May 2010 14:15:57 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[offline]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1779</guid>
+		<description><![CDATA[<p>The Doctor is in with another round of patient questions about <abbr>HTML</abbr>5. This week, we'll cover offline viewing on requests, the drag-and-drop <abbr>API</abbr>, using <code>href</code> on any element, the <code>&#60;figure&#62;</code> element, and headings.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The Doctor is in with another round of patient questions about <abbr>HTML</abbr>5. This week, we&#8217;ll cover offline viewing on requests, the drag-and-drop <abbr>API</abbr>, using <code>href</code> on any element, the <code>&lt;figure&gt;</code> element, and headings.</p>
+<h2>Offline viewing on requests</h2>
+<p>Johan asked:</p>
+<blockquote><p>It is possible to let Firefox 3.5/3.6 save a page for offline viewing with the manifest file?<br />
+In that case Firefox asks for permission to save the site the same second you arrive – not very user-friendly.</p>
+<p>Is it possible to send the save-it-locally request via Javascript on a click?</p>
+<p>Basically I want a link/button which will fire the request – and not on document load.</p>
+</blockquote>
+<p>While it isn&#8217;t possible to make Firefox 3.5/3.6 save a page for offline viewing with the manifest file, there is <em>a</em> way to do this. It all depends on how you write the &#8220;save-it-locally request&#8221; code. You have two options:</p>
+<ol>
+<li>If you want to store an arbitrary document that is not explicitly listed in your manifest, you could run an Ajax request for that document and store its contents in <code>localStorage</code>. When you want to view that document, load it from <code>localStorage</code> and overlay it on the existing page.</li>
+<li>Dynamically manage a manifest file for individual users, so that if a user requests a new file that isn&#8217;t in their manifest, register this on the server side and add it to the manifest — which is bespoke to this specific user — on the fly.</li>
+</ol>
+<p>I&#8217;m not sure what you&#8217;re seeing with regards to the permissions error. When I test the manifest (offline **cache**), it doesn&#8217;t ask twice.</p>
+<p><small>Note: you asked about Firefox 3.5 — the offline manifest doesn&#8217;t work properly at all in this version.</small></p>
+<p>Thanks, Remy</p>
+<h2>Question about dragging</h2>
+<p>Marc asked:</p>
+<blockquote><p>Evening,</p>
+<p>I&#8217;m trying to get my head around the drag and drop (DnD) possibilities of <abbr>HTML</abbr>5. I have a &#8220;simple&#8221; task: Read the content of a <abbr>XML</abbr> file, using JavaScript, and do some manipulations of he <abbr>XML</abbr>. Without the use of server side scripts.</p>
+<p>I tried my way with Google, but apart from people complaining about the DnD specs, I wasn&#8217;t able to find much insightful informations.</p>
+<p>Can you point me toward resources to understand the DnD possibilities of <abbr>HTML</abbr>5?</p>
+<p>Thank you Doctor, a French canadian <abbr>HTML</abbr>5 fan ;)</p>
+</blockquote>
+<p>Absolutely! There&#8217;s actually an <abbr>HTML</abbr>5 Doctor article covering <a href="http://html5doctor.com/native-drag-and-drop/">native drag-and-drop</a>. It also includes links for further reading and related posts (such as accessibility experiments).</p>
+<p>I hope that helps.</p>
+<p>Cheers, Remy</p>
+<h2>About the <code>href</code> on any element</h2>
+<p>Luan asked:</p>
+<blockquote><p>I&#8217;ve heard a long ago that href would work in any tag, such as a <code>&lt;p href="..."&gt;</code> or a <code>h1</code>, even a <code>div</code> and others&#8230; but I don&#8217;t see anything about this in the last days. Do you know if this is going to work?</p>
+</blockquote>
+<p>That was in <abbr>XHTML</abbr>2 (on which the <abbr>W3C</abbr> have now stopped work).</p>
+<p>The <abbr>HTML</abbr>5 equivalent is to wrap an <code>&lt;a href="..."&gt;</code> around the other tags. It&#8217;s called block-level linking, and we&#8217;ve <a href="http://html5doctor.com/block-level-links-in-html-5/">written an article</a> about it.</p>
+<p>Cheers, Bruce</p>
+<h2><abbr>W3C</abbr> Validator for the <code>&lt;figure&gt;</code> element</h2>
+<p>Fjpoblam asked:</p>
+<blockquote><p>I have a (prospective) structure containing 8 figures: each an image with a caption. My goal is an image gallery, each image clickable toward an individual htm file containing a slide show. (In html4 I structured each &#8220;figure&#8221; as a div: figure seemed ideal for the task.)</p>
+<p>Problem is, I tried to follow the *validator* hint with a dd for the image and a dt for the caption (each surrounded by an a). Upon doing so, the validator pops up an error. When I try a straight image with a legend, it is also rejected for want of a dd and an optional dt.</p>
+<p>What gives? Do you have a hint? Or better, simply, point me doofus to the correct doc so&#8217;s you&#8217;ll &#8220;teach a man to fish&#8221;.</p>
+</blockquote>
+<p>I&#8217;m not sure if the validator is up to date or not, but you shouldn&#8217;t be using <code>&lt;dd&gt;</code>/<code>&lt;dt&gt;</code> in <code>&lt;figure&gt;</code> anymore. Please use <code>&lt;figcaption&gt;</code>.</p>
+<p>See our article on <a href="http://html5doctor.com/the-figure-figcaption-elements/">the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements</a> for more.</p>
+<p>Also see our <a href="http://html5doctor.com/glossary/">glossary</a> for more examples.</p>
+<p>Cheers, Rich</p>
+<h2>Headings</h2>
+<p>Thomas asked:</p>
+<blockquote><p>Dear Doctors,</p>
+<p>you covered the new <code>header</code> tag in an article. The <code>header</code> tag should contain a heading element, like h1-6. So far so good, but how do I structure my headings further on. E.g. I&#8217;ve got this:</p>
+<pre><code>&lt;article&gt;
+	&lt;header&gt;
+		&lt;h1&gt;My major heading&lt;/h1&gt;
+		&lt;h2&gt;Subheading&lt;/h2&gt;
+		Abstract text...
+	&lt;/header&gt;
+	... lorem ipsum ....
+	&lt;hX&gt;Heading within my article&lt;/hX&gt;
+	... dolor sit amet ...
+	&lt;hX+1&gt;Subheading in my article&lt;/hX+1&gt;
+&lt;/article&gt;</code></pre>
+<p>Which heading-level would be appropriate in my example? h1 because it starts again? or h3 because it continues?</p>
+<p>Thank you</p>
+</blockquote>
+<p>If the first <code>&lt;hX&gt;</code> is a new subheading and <em>not related</em> to the <code>&lt;h2&gt;</code> already there, then <code>&lt;hX&gt;</code> would be an <code>&lt;h2&gt;</code>. Then <code>&lt;hX+1&gt;</code> would be an <code>&lt;h3&gt;</code> if it is a subheading of the above <code>&lt;h2&gt;</code>.</p>
+<p>However, if you&#8217;re splitting the article into sections, then you <em>could</em> use an <code>&lt;h1&gt;</code> each time. See our article on <a href="http://html5doctor.com/the-section-element/">the section element</a> for more.</p>
+<p>Thanks, Tom</p>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions! If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+<p><a href="http://html5doctor.com/your-questions-answered-9/" rel="bookmark">Your Questions Answered 9</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 14, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-9/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+	</channel>
+</rss>

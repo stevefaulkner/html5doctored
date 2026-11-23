@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: The small &#038; hr elements</title>
+	<atom:link href="http://html5doctor.com/small-hr-element/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/small-hr-element/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 13 Jun 2016 09:06:06 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Rhys Lloyd</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-1991584</link>
+		<dc:creator><![CDATA[Rhys Lloyd]]></dc:creator>
+		<pubDate>Fri, 26 Jun 2015 02:48:13 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-1991584</guid>
+		<description><![CDATA[I have similar confusions around the &lt;code&gt;&#060;small&#062;&lt;/code&gt; element for blocks of legal/disclaimer text.
+
+Quite often terms and conditions are in an ordered list form. It seems to make sense to me that I &lt;em&gt;should&lt;/em&gt; be able to mark the entire block or blocks as disclaimer text.
+
+Although the spec doesn&#039;t seem to support that, so do I then need to mark up disclaimers such as:
+
+&lt;code&gt;
+  &#060;p&#062;&#060;small&#062;Disclaimer intro paragraph.&#060;/small&#062;&#060;/p&#062;
+  &#060;ol&#062;
+    &#060;li&#062;&#060;small&#062;Point one is often short.&#060;/small&#062;&#060;/li&#062;
+    &#060;li&#062;&#060;small&#062;Point two is usually a little bit longer..&#060;/small&#062;&#060;/li&#062;
+    &#060;li&#062;&#060;small&#062;Point three is usually quite verbose but who really reads it anway.&#060;/small&#062;&#060;/li&#062;
+  &#060;/ol&#062;
+&lt;/code&gt;
+
+It just doesn&#039;t feel efficient. Surely it would make more sense to wrap the whole block?
+
+&lt;code&gt;
+&#060;small&#062;
+  &#060;p&#062;Disclaimer intro paragraph.&#060;/p&#062;
+  &#060;ol&#062;
+    &#060;li&#062;Point one is often short.&#060;/li&#062;
+    &#060;li&#062;Point two is usually a little bit longer.&#060;/li&#062;
+    &#060;li&#062;Point three is usually quite verbose but who really reads it anway.&#060;/li&#062;
+  &#060;/ol&#062;
+&#060;/small&#062;
+&lt;/code&gt;]]></description>
+		<content:encoded><![CDATA[<p>I have similar confusions around the <code>&lt;small&gt;</code> element for blocks of legal/disclaimer text.</p>
+<p>Quite often terms and conditions are in an ordered list form. It seems to make sense to me that I <em>should</em> be able to mark the entire block or blocks as disclaimer text.</p>
+<p>Although the spec doesn&#8217;t seem to support that, so do I then need to mark up disclaimers such as:</p>
+<p><code><br />
+  &lt;p&gt;&lt;small&gt;Disclaimer intro paragraph.&lt;/small&gt;&lt;/p&gt;<br />
+  &lt;ol&gt;<br />
+    &lt;li&gt;&lt;small&gt;Point one is often short.&lt;/small&gt;&lt;/li&gt;<br />
+    &lt;li&gt;&lt;small&gt;Point two is usually a little bit longer..&lt;/small&gt;&lt;/li&gt;<br />
+    &lt;li&gt;&lt;small&gt;Point three is usually quite verbose but who really reads it anway.&lt;/small&gt;&lt;/li&gt;<br />
+  &lt;/ol&gt;<br />
+</code></p>
+<p>It just doesn&#8217;t feel efficient. Surely it would make more sense to wrap the whole block?</p>
+<p><code><br />
+&lt;small&gt;<br />
+  &lt;p&gt;Disclaimer intro paragraph.&lt;/p&gt;<br />
+  &lt;ol&gt;<br />
+    &lt;li&gt;Point one is often short.&lt;/li&gt;<br />
+    &lt;li&gt;Point two is usually a little bit longer.&lt;/li&gt;<br />
+    &lt;li&gt;Point three is usually quite verbose but who really reads it anway.&lt;/li&gt;<br />
+  &lt;/ol&gt;<br />
+&lt;/small&gt;<br />
+</code></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Yoannis Jamar</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-1850060</link>
+		<dc:creator><![CDATA[Yoannis Jamar]]></dc:creator>
+		<pubDate>Fri, 10 Apr 2015 09:35:32 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-1850060</guid>
+		<description><![CDATA[I am a little confused by the &lt;cite&gt;don&#039;t use &lt;code&gt;small&lt;/code&gt; for block-level content&lt;/cite&gt;, when it should be used for small print – which may contain multiple paragraphs.
+
+For multiple paragraphs of small print, I see two possible markup patterns illustrated below.
+
+1. Wrap full paragraphs content inside &lt;code&gt;&#060;small&#062;&lt;/code&gt; tags:
+
+&lt;code&gt;&#060;p&#062;&#060;small&#062;The figures presented in this article are the results of tests performed on a sample of 400 users, ...&#060;/small&#062;&#060;/p&#062;
+&#060;p&#062;&#060;small&#062;Different use cases may result in different figures, as ...&#060;/small&#062;&#060;/p&#062;&lt;/code&gt;
+
+2. Put all paragraphs inside an &lt;code&gt;&#060;aside&#062;&lt;/code&gt; element (uses a &lt;code&gt;smallprint&lt;/code&gt; class to apply the same styles as a &lt;code&gt;&#060;small&#062;&lt;/code&gt; element via CSS):
+
+&lt;code&gt;&#060;aside class=&quot;smallprint&quot;&#062;
+&#060;p&#062;The figures presented in this article are the results of tests performed on a sample of 400 users, ...&#060;/p&#062;
+&#060;p&#062;Different use cases may result in different figures, as ...&#060;p&#062;
+&#060;/aside&#062;&lt;/code&gt;
+
+I wonder what the differences are between each of these two patterns&#039; semantic implications, and when it is best to use one rather than the other. Does &lt;cite&gt;&#060;small&#062; is [...] the inline equivalent of &lt;code&gt;&#060;aside&#062;&lt;/code&gt;&lt;/cite&gt; mean that the markup in my second example is preferable ? 
+
+Another similar use-case I see is with side-notes, which are also side-content. Should every side-note&#039;s text content be wrapped inside a &#060;small&#062; tag, or would it be better to put the whole list of side-notes inside an &#060;aside&#062; ?]]></description>
+		<content:encoded><![CDATA[<p>I am a little confused by the <cite>don&#8217;t use <code>small</code> for block-level content</cite>, when it should be used for small print – which may contain multiple paragraphs.</p>
+<p>For multiple paragraphs of small print, I see two possible markup patterns illustrated below.</p>
+<p>1. Wrap full paragraphs content inside <code>&lt;small&gt;</code> tags:</p>
+<p><code>&lt;p&gt;&lt;small&gt;The figures presented in this article are the results of tests performed on a sample of 400 users, ...&lt;/small&gt;&lt;/p&gt;<br />
+&lt;p&gt;&lt;small&gt;Different use cases may result in different figures, as ...&lt;/small&gt;&lt;/p&gt;</code></p>
+<p>2. Put all paragraphs inside an <code>&lt;aside&gt;</code> element (uses a <code>smallprint</code> class to apply the same styles as a <code>&lt;small&gt;</code> element via CSS):</p>
+<p><code>&lt;aside class="smallprint"&gt;<br />
+&lt;p&gt;The figures presented in this article are the results of tests performed on a sample of 400 users, ...&lt;/p&gt;<br />
+&lt;p&gt;Different use cases may result in different figures, as ...&lt;p&gt;<br />
+&lt;/aside&gt;</code></p>
+<p>I wonder what the differences are between each of these two patterns&#8217; semantic implications, and when it is best to use one rather than the other. Does <cite>&lt;small&gt; is [&#8230;] the inline equivalent of <code>&lt;aside&gt;</code></cite> mean that the markup in my second example is preferable ? </p>
+<p>Another similar use-case I see is with side-notes, which are also side-content. Should every side-note&#8217;s text content be wrapped inside a &lt;small&gt; tag, or would it be better to put the whole list of side-notes inside an &lt;aside&gt; ?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Andrew</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-38335</link>
+		<dc:creator><![CDATA[Andrew]]></dc:creator>
+		<pubDate>Sun, 22 Sep 2013 06:48:20 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-38335</guid>
+		<description><![CDATA[I was hoping they&#039;d ditch them too. They probably had to keep them for one reason or another and just decided to make them as useful as possible. 
+
+I actually am glad now that the &lt;i&gt; tag was kept - I use it exclusively for icons. 
+
+As for HR tags, you can style the ever loving crap out of them in CSS3 and are an option to break up sections without closing/opening containers. I used them in a documentation project last year and styled them with a shadow code that styled them like creases in paper. They worked nicely.
+
+Speaking of old tags, I came across an HTML5 doctype&#039;d website today that had FONT TAGS. And it was a digital agency&#039;s site. I was speechless, so I just exited out of it and went onward with my business.]]></description>
+		<content:encoded><![CDATA[<p>I was hoping they&#8217;d ditch them too. They probably had to keep them for one reason or another and just decided to make them as useful as possible. </p>
+<p>I actually am glad now that the <i> tag was kept &#8211; I use it exclusively for icons. </i></p>
+<p>As for HR tags, you can style the ever loving crap out of them in CSS3 and are an option to break up sections without closing/opening containers. I used them in a documentation project last year and styled them with a shadow code that styled them like creases in paper. They worked nicely.</p>
+<p>Speaking of old tags, I came across an HTML5 doctype&#8217;d website today that had FONT TAGS. And it was a digital agency&#8217;s site. I was speechless, so I just exited out of it and went onward with my business.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: SelenIT</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-29127</link>
+		<dc:creator><![CDATA[SelenIT]]></dc:creator>
+		<pubDate>Tue, 30 Oct 2012 16:44:59 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-29127</guid>
+		<description><![CDATA[@Dr. Oli — thanks a lot! The next line of Hixie&#039;s quote explains it all.]]></description>
+		<content:encoded><![CDATA[<p>@Dr. Oli — thanks a lot! The next line of Hixie&#8217;s quote explains it all.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Oli Studholme</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-29098</link>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+		<pubDate>Tue, 23 Oct 2012 18:24:58 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-29098</guid>
+		<description><![CDATA[@SelenIT — yeah, you’re right, I phrased that poorly. &lt;a href=&quot;http://krijnhoetmer.nl/irc-logs/whatwg/20100331#l-169&quot; rel=&quot;nofollow&quot;&gt;Hixie’s original quote&lt;/a&gt; was:
+
+&lt;blockquote&gt;&#060;hr&gt; basically says &quot;end of one section, start of another&quot;&lt;/blockquote&gt;
+
+So roughly equivalent inference, but not equivalent &lt;em&gt;HTML&lt;/em&gt; semantics.
+
+&lt;em&gt;Related:&lt;/em&gt; This also demonstrates why a link in &lt;code&gt;&#060;q cite&gt;&lt;/code&gt; is metacrap. &lt;a href=&quot;http://html5doctor.com/blockquote-q-cite/#q&quot; rel=&quot;nofollow&quot;&gt;Hung in my own noose!&lt;/a&gt; :)]]></description>
+		<content:encoded><![CDATA[<p>@SelenIT — yeah, you’re right, I phrased that poorly. <a href="http://krijnhoetmer.nl/irc-logs/whatwg/20100331#l-169" rel="nofollow">Hixie’s original quote</a> was:</p>
+<blockquote><p>&lt;hr> basically says &#8220;end of one section, start of another&#8221;</p></blockquote>
+<p>So roughly equivalent inference, but not equivalent <em>HTML</em> semantics.</p>
+<p><em>Related:</em> This also demonstrates why a link in <code>&lt;q cite></code> is metacrap. <a href="http://html5doctor.com/blockquote-q-cite/#q" rel="nofollow">Hung in my own noose!</a> :)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: SelenIT</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-29056</link>
+		<dc:creator><![CDATA[SelenIT]]></dc:creator>
+		<pubDate>Wed, 17 Oct 2012 16:49:46 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-29056</guid>
+		<description><![CDATA[@Dr. Oli
+&lt;blockquote&gt;&#060;hr&#062; actually means &quot;end of one section, start of another&quot;, which is the same semantically as &#060;/section&#062;&#060;section&#062;.&lt;/blockquote&gt;
+Could you explain this point a bit? As far as I know, they can&#039;t be exactly &lt;em&gt;the same&lt;/em&gt; at least because hr element &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element&quot; rel=&quot;nofollow&quot;&gt;doesn&#039;t affect document outline&lt;/a&gt; (so these constructs result in different outlines, and are hence semantically different). Could you help me with this confusion?]]></description>
+		<content:encoded><![CDATA[<p>@Dr. Oli</p>
+<blockquote><p>&lt;hr&gt; actually means &#8220;end of one section, start of another&#8221;, which is the same semantically as &lt;/section&gt;&lt;section&gt;.</p></blockquote>
+<p>Could you explain this point a bit? As far as I know, they can&#8217;t be exactly <em>the same</em> at least because hr element <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-hr-element" rel="nofollow">doesn&#8217;t affect document outline</a> (so these constructs result in different outlines, and are hence semantically different). Could you help me with this confusion?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Personalizar menús en WordPress con un Walker &#124; César Hernández</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-28186</link>
+		<dc:creator><![CDATA[Personalizar menús en WordPress con un Walker &#124; César Hernández]]></dc:creator>
+		<pubDate>Fri, 15 Jun 2012 16:27:50 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-28186</guid>
+		<description><![CDATA[[...] [^2]: De hecho los enlaces son tratados como entradas en la base de datos de WordPress [^3]: Ver http://html5doctor.com/small-hr-element/ [gist]: https://gist.github.com/2904437&#160;&#8617;      Posted in [...]]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] [^2]: De hecho los enlaces son tratados como entradas en la base de datos de WordPress [^3]: Ver <a href="http://html5doctor.com/small-hr-element/" rel="nofollow">http://html5doctor.com/small-hr-element/</a> [gist]: <a href="https://gist.github.com/2904437&#160;&#038;#8617" rel="nofollow">https://gist.github.com/2904437&#160;&#038;#8617</a>;      Posted in [&#8230;]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Angelo</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-25118</link>
+		<dc:creator><![CDATA[Angelo]]></dc:creator>
+		<pubDate>Mon, 26 Mar 2012 08:01:53 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-25118</guid>
+		<description><![CDATA[Will do, thanks for your help :) Certainly something I need to take a deeper look at.]]></description>
+		<content:encoded><![CDATA[<p>Will do, thanks for your help :) Certainly something I need to take a deeper look at.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Oli Studholme</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-25116</link>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+		<pubDate>Mon, 26 Mar 2012 07:08:03 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-25116</guid>
+		<description><![CDATA[@Angelo — &lt;code&gt;&#060;hr&gt;&lt;/code&gt; seems pretty styleable in modern browsers to me — here are &lt;a href=&quot;http://dabblet.com/gist/2203555&quot; rel=&quot;nofollow&quot;&gt;some examples of styling &lt;code&gt;&#060;hr&gt;&lt;/code&gt;&lt;/a&gt;.
+
+“XHTML is valid code” — this doesn’t make sense. XHTML is as (in-)valid as HTML5. You &lt;em&gt;can’t&lt;/em&gt; have a &lt;code&gt;&#060;footer&gt;&lt;/code&gt; in a &lt;code&gt;&#060;header&gt;&lt;/code&gt; or vice versa, &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-footer-element&quot; rel=&quot;nofollow&quot;&gt;the spec explicitly forbids this&lt;/a&gt;. You &lt;em&gt;can&lt;/em&gt; use “XHTML style” closing tags if you want, as I wrote in point 9 of &lt;a href=&quot;http://oli.jp/2009/html5-faq/&quot; rel=&quot;nofollow&quot;&gt;12 common problems with HTML5&lt;/a&gt; back in 2009. Actually please read that entire article, you might find it illuminating :) After that check out the &lt;a href=&quot;http://html5doctor.com/article-archive/&quot; rel=&quot;nofollow&quot;&gt;HTML5 Doctor article archive&lt;/a&gt; ;)]]></description>
+		<content:encoded><![CDATA[<p>@Angelo — <code>&lt;hr></code> seems pretty styleable in modern browsers to me — here are <a href="http://dabblet.com/gist/2203555" rel="nofollow">some examples of styling <code>&lt;hr></code></a>.</p>
+<p>“XHTML is valid code” — this doesn’t make sense. XHTML is as (in-)valid as HTML5. You <em>can’t</em> have a <code>&lt;footer></code> in a <code>&lt;header></code> or vice versa, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-footer-element" rel="nofollow">the spec explicitly forbids this</a>. You <em>can</em> use “XHTML style” closing tags if you want, as I wrote in point 9 of <a href="http://oli.jp/2009/html5-faq/" rel="nofollow">12 common problems with HTML5</a> back in 2009. Actually please read that entire article, you might find it illuminating :) After that check out the <a href="http://html5doctor.com/article-archive/" rel="nofollow">HTML5 Doctor article archive</a> ;)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Angelo</title>
+		<link>http://html5doctor.com/small-hr-element/#comment-25115</link>
+		<dc:creator><![CDATA[Angelo]]></dc:creator>
+		<pubDate>Mon, 26 Mar 2012 06:28:06 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=1506#comment-25115</guid>
+		<description><![CDATA[@Dr. Oli 
+
+The HR property limits my control. The HR divide is very think and when I try to remove a border to make the divide thinner it won&#039;t let me. Just to illustrate on your website you have nice thin borders, where are not HR tags, you simply but a border-top. 
+
+The only issue I have is that a HR tag would have good appropriate for my situation but considering is placed a double-lined space I think I would rather pass. If my HR tag was invisible it would have been ideal, but for styling I would not recommend it.
+
+I look at things from a presentational point of view, I agree semantically it&#039;s better, but presentationally it&#039;s worse.
+
+&lt;blockquote&gt;What XHTML coding practices do you feel are better?&lt;/blockquote&gt;
+
+XHTML is valid code. HTML5 uses the tags such as the  which act the same way as DIV&#039;s. In other words you can have a footer in the header and vice versa. The tags aren&#039;t closed any more, which is confusing since such a deal was made back in university on closing tags.]]></description>
+		<content:encoded><![CDATA[<p>@Dr. Oli </p>
+<p>The HR property limits my control. The HR divide is very think and when I try to remove a border to make the divide thinner it won&#8217;t let me. Just to illustrate on your website you have nice thin borders, where are not HR tags, you simply but a border-top. </p>
+<p>The only issue I have is that a HR tag would have good appropriate for my situation but considering is placed a double-lined space I think I would rather pass. If my HR tag was invisible it would have been ideal, but for styling I would not recommend it.</p>
+<p>I look at things from a presentational point of view, I agree semantically it&#8217;s better, but presentationally it&#8217;s worse.</p>
+<blockquote><p>What XHTML coding practices do you feel are better?</p></blockquote>
+<p>XHTML is valid code. HTML5 uses the tags such as the  which act the same way as DIV&#8217;s. In other words you can have a footer in the header and vice versa. The tags aren&#8217;t closed any more, which is confusing since such a deal was made back in university on closing tags.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
+
+<!-- Dynamic page generated in 0.643 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-06-14 12:18:53 -->

@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  The contenteditable attribute | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; The contenteditable attribute Comments Feed" href="http://html5doctor.com/the-contenteditable-attribute/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='The output element' href='http://html5doctor.com/the-output-element/' />
+<link rel='next' title='Server-Sent Events' href='http://html5doctor.com/server-sent-events/' />
+<link rel="canonical" href="http://html5doctor.com/the-contenteditable-attribute/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=3796' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-contenteditable-attribute%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-contenteditable-attribute%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+			<style>#example-one{margin-bottom: 1.5833em;}
+#example-two style{display: block;}
+
+/*
+#example-one, 
+#example-two{
+-webkit-transition: outline 1s linear;
+-moz-transition: outline 1s linear;
+-o-transition: outline 1s linear;
+transition: outline 1s linear;
+}
+*/
+
+#example-one figure, 
+#example-two figure{
+border: none;
+margin: 0;
+}"</style>      
+  
+	</head>
+<body class="single single-post postid-3796 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-3796 post type-post status-publish format-standard hentry category-attributes tag-contenteditable tag-html-5 tag-html5" id="post-3796">
+                 <h1>The contenteditable attribute </h1>
+                <small><time datetime="2012-01-10" pubdate>Tuesday, January 10th, 2012</time> by <a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne" rel="author">Jack Osborne</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		
+                For some time now, we’ve been using various technologies to edit and store text within a web browser. Now with the <code>contenteditable</code> attribute, things have got a whole lot easier. In this article, I’ll tell you what this attribute is for, how it works, and how we can take things further.
+
+<section id="basics">
+<h2>The Basics <a class="permalink" href="#basics">#</a></h2>
+First, let’s check out the spec:
+<blockquote>The <code>contenteditable</code> attribute is an enumerated attribute whose keywords are the empty string, true, and false. The empty string and the true keyword map to the true state. The false keyword maps to the false state. In addition, there is a third state, the inherit state, which is the missing value default (and the invalid value default).
+
+<footer>— <cite><a title="contenteditable attribute — HTML5" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#contenteditable">WHATWG</a></cite></footer></blockquote>
+The <code>contenteditable</code> attribute was mainly intended for providing an in-browser rich-text or WYSIWYG experience. You’ve likely seen this sort of thing in blog-based authoring tools like Symphony or sites like Flickr where you can begin editing page content simply by clicking in a given area.
+
+As mentioned above, <code>contenteditable</code> has three possible states:
+
+<dl><dt><code>contenteditable=""</code> or <code>contenteditable="true"</code></dt><dd>Indicates that the element is editable.</dd><dt><code>contenteditable="false"</code></dt><dd>Indicates that the element is not editable.</dd><dt><code>contenteditable="inherit"</code></dt><dd>Indicates that the element is editable if its immediate parent element is editable. This is the default value.</dd></dl>When you add <code>contenteditable</code> to an element, the browser will make that element editable. In addition, any children of that element will also become editable unless the child elements are explicitly <code>contenteditable="false"</code>.
+
+</section><section id="code-example">
+<h2>Code Example <a class="permalink" href="#code-example">#</a></h2>
+Here’s some example code to get us started:
+
+<figure>
+<pre><code>&lt;div id="example-one" contenteditable="true"&gt;
+&lt;style scoped&gt;
+  #example-one { margin-bottom: 10px; }
+  [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
+  [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
+&lt;/style&gt;
+&lt;p&gt;Everything contained within this div is editable in browsers that support &lt;code&gt;HTML5&lt;/code&gt;. Go on, give it a try: click it and start typing.&lt;/p&gt;
+&lt;/div&gt;
+    </code></pre>
+<figcaption>Putting it together</figcaption></figure></section><section id="live-examples">
+<h2>Live examples <a class="permalink" href="#live-examples">#</a></h2>
+Here are two basic-but-live examples showing what you can do with <code>contenteditable</code>.
+
+<section id="first-example">
+<h3>Example One <a class="permalink" href="#first-example">#</a></h3>
+<div id="example-one" contenteditable="true"><figure>Everything contained within this div is editable in browsers that support <code>HTML5</code>. Go on, give it a try: click it and start typing.
+
+<figcaption>Live text editing</figcaption></figure></div>
+I’ve used CSS to create an obvious visual cue that this area of text is different from the rest. Note that I’ve future-proofed this with <code>&lt;style scoped&gt;</code>, which <a href="http://html5doctor.com/the-scoped-attribute/">I covered in my previous article</a>.
+
+</section><section id="second-example">
+<h3>Example Two <a class="permalink" href="#second-example">#</a></h3>
+<a href="http://twitter.com/chriscoyier">Chris Coyier</a> of CSS-Tricks pointed out that you can let your users <a href="http://css-tricks.com/show-and-edit-style-element/">edit the CSS</a> in real-time. Because the <code>&lt;style&gt;</code> element is set to <code>display: none</code> by the user agent, we need to set it to <code>block</code> for this code to work.
+
+Try editing the <code>CSS</code> below:
+<div id="example-two" contenteditable="true"><figure>
+<div id="style-block"></div>
+<figcaption>Live CSS editing</figcaption></figure></div>
+</section></section><section id="browser-support">
+<h2>Browser Support <a class="permalink" href="#browser-support">#</a></h2>
+Browser support for <code>contenteditable</code> is surprisingly good:
+<table class="wide"><caption>Browser Support for <code>contenteditable</code></caption>
+<thead>
+<tr>
+<th scope="col">Browser</th>
+<th scope="col">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Chrome</th>
+<td>4.0+</td>
+</tr>
+<tr>
+<th scope="row">Safari</th>
+<td>3.1+</td>
+</tr>
+<tr>
+<th scope="row">Mobile Safari</th>
+<td>5.0+</td>
+</tr>
+<tr>
+<th scope="row">Firefox</th>
+<td>3.5+</td>
+</tr>
+<tr>
+<th scope="row">Opera</th>
+<td>9.0+</td>
+</tr>
+<tr>
+<th scope="row">Opera Mini/Mobile</th>
+<td>N/A</td>
+</tr>
+<tr>
+<th scope="row">Internet Explorer</th>
+<td>5.5+</td>
+</tr>
+<tr>
+<th scope="row">Android</th>
+<td>3.0+</td>
+</tr>
+</tbody>
+</table>
+We have to give credit where it’s due and point out that Internet Explorer has supported this attribute since IE5.5. In fact, a very early iteration of <code>contenteditable</code> was .
+
+For a more in-depth compatibility table, visit <a href="http://caniuse.com/contenteditable">When Can I Use…</a>.
+
+</section><section id="storing-changes">
+<h2>Storing the Changes <a class="permalink" href="#storing-changes">#</a></h2>
+For this section, I went straight to Doctor Remy for help, as he is much more knowledgeable than me when it comes to <del>storing your data</del> everything.
+<blockquote>Depending on the complexity of your editable block, your code could be listening for the enter key (keyCode 13) to save the changes, and the escape key (keyCode 27) to undo the changes.
+
+When the user hits enter (assuming it’s a single line of editable content), it would grab the innerHTML of the editable field and send an Ajax post to your server with the change.
+
+A simple example of this can be seen on JS Bin: <a href="http://jsbin.com/owavu3/1/edit">contenteditable saving to Ajax</a>
+
+<footer>— <cite><a title="Remy Sharp on storing content changes with the contenteditable attribute" href="http://html5doctor.com/author/remys/">Remy Sharp</a></cite></footer></blockquote>
+</section><section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+We’ve repeated the phrase “paving the cowpaths” all over this site, and I’m mentioning it again with the introduction of the <code>contenteditable</code> attribute. The spec finally makes official something that’s been implemented by browser makers for years.
+
+Although this is one of the lesser-known new attributes, I bet you’ll find yourself using it more often than you would think.
+
+Imagine being able to simply click a block of content and start making changes instantly: making quick corrections to an article in-place, allowing users to edit their comments, or even building spreadsheets within company applications that aren’t hooked up to any sort of back-end user interface.
+
+If you can think of other uses for this attribute, then head on down to the comments section and tell us where else you think this could be implemented.
+
+</section><section id="related-reading">
+<h2>Related Reading <a class="permalink" href="#related-reading">#</a></h2>
+<ul>
+	<li><a href="http://blog.whatwg.org/the-road-to-html-5-contenteditable#what">What is <code>contenteditable</code>?</a></li>
+	<li><a href="http://css-tricks.com/expanding-images-html5/">Expanding Images Using HTML5’s <code>contenteditable</code></a></li>
+</ul>
+</section>                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/attributes/" rel="category tag">Attributes</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                        <ul class="semantic-list"><li><h3>Tags</h3></li><li><a href="http://html5doctor.com/tag/contenteditable/" rel="tag">contenteditable</a></li><li><a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a></li><li><a href="http://html5doctor.com/tag/html5/" rel="tag">html5</a></li></ul>                    </li>
+                </ul>
+
+		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne" rel="author">Jack Osborne</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne" rel="author">Jack Osborne</a></span>. A freelance designer, speaker and writer who is based out of Glasgow, Scotland. You should follow him on Twitter — <a href="http://twitter.com/jackosborne" title="jack osborne twitter">@jackosborne</a>.</p>
+                    <img alt='' src='http://1.gravatar.com/avatar/a5854872c2c601bf98b308f251dc24a4?s=128&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a5854872c2c601bf98b308f251dc24a4?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>45 Responses on the article “The contenteditable attribute”</h3>
+
+		<li class="comment even thread-even depth-1" id="comment-21216">
+				<div id="div-comment-21216" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2edd01b743ba0a9fd40d191f5795ffb6?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2edd01b743ba0a9fd40d191f5795ffb6?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.vidalquevedo.com' rel='external nofollow' class='url'>Vidal Quevedo</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21216">
+			January 10, 2012 at 3:48 pm</a>		</div>
+
+		<p>Wow, I just had an &#8220;aha!!!&#8221; moment with this article: editing css directly on the browser?? My mind just exploded!</p>
+<p>Thanks for sharing, Jack!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21216#respond' onclick='return addComment.moveForm( "div-comment-21216", "21216", "respond", "3796" )' aria-label='Reply to Vidal Quevedo'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21217">
+				<div id="div-comment-21217" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3fc7490978f298e69db559fa65fe7244?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3fc7490978f298e69db559fa65fe7244?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Jack Sleight</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21217">
+			January 10, 2012 at 4:00 pm</a>		</div>
+
+		<p>Does the spec cover how input to contenteditable elements should be handled? In my experience these are the biggest stumbling blocks when trying to use contenteditable, and certainly something that needs standardizing. For example something as simple as what happens when a user hits return, new paragraph or line break? There are inconsistencies here.</p>
+<p>Also, are there any efforts to standrdize and improve document.execCommand(), or replace it with something better?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21217#respond' onclick='return addComment.moveForm( "div-comment-21217", "21217", "respond", "3796" )' aria-label='Reply to Jack Sleight'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21218">
+				<div id="div-comment-21218" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/722a7ba9dc9331c79d815e7cc2220d70?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/722a7ba9dc9331c79d815e7cc2220d70?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://simurai.com' rel='external nofollow' class='url'>simurai</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21218">
+			January 10, 2012 at 4:26 pm</a>		</div>
+
+		<p>Live editing of the  element is really cool.</p>
+<p>You can also make any element editable with the CSS property <a href="https://developer.mozilla.org/en/CSS/-moz-user-modify" rel="nofollow">user-modify</a>. It&#8217;s pretty handy while prototyping.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21218#respond' onclick='return addComment.moveForm( "div-comment-21218", "21218", "respond", "3796" )' aria-label='Reply to simurai'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21219">
+				<div id="div-comment-21219" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f28826ec6b9c46a776b13a2c4147f8ec?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f28826ec6b9c46a776b13a2c4147f8ec?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Alejandro Moreno</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21219">
+			January 10, 2012 at 5:36 pm</a>		</div>
+
+		<p>I don&#8217;t know what&#8217;s the problem with this site&#8217;s markup, but the page is not scrollable with arrow keys, pgUp nor pgDn in Firefox 10.0 Beta on Windows. Trying to scroll up takes me right to the top, and scrolling down takes me right to the bottom, which makes reading very uncomfortable.</p>
+<p>Now I&#8217;ll try to keep reading, and remember that I can&#8217;t use the keyboard on this site.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21219#respond' onclick='return addComment.moveForm( "div-comment-21219", "21219", "respond", "3796" )' aria-label='Reply to Alejandro Moreno'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21220">
+				<div id="div-comment-21220" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f28826ec6b9c46a776b13a2c4147f8ec?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f28826ec6b9c46a776b13a2c4147f8ec?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Alejandro Moreno</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21220">
+			January 10, 2012 at 5:51 pm</a>		</div>
+
+		<p>Keyboard-grouchiness aside, this post reminds me of a portable one-page wiki that consisted of a single HTML file. The file included styles and javascript to support wiki text, or Markdown, and the user would simply have to save the HTML file to disk to preserve changes. </p>
+<p>The idea was kind of cute at the time.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21220#respond' onclick='return addComment.moveForm( "div-comment-21220", "21220", "respond", "3796" )' aria-label='Reply to Alejandro Moreno'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21221">
+				<div id="div-comment-21221" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/259469ed60f945161a150e79a381b26c?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/259469ed60f945161a150e79a381b26c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://chadoh.com' rel='external nofollow' class='url'>Chad Ostrowski</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21221">
+			January 10, 2012 at 7:26 pm</a>		</div>
+
+		<p><a href="http://jejacks0n.github.com/mercury/" rel="nofollow">Mercury Editor</a> is an open-source WYSIWYG editor that primarily uses <code>contenteditable</code>. It&#8217;s still pretty young, but I&#8217;m excited for its future.</p>
+<p>I&#8217;ve already used <code>contenteditable</code> in a project to allow users to edit small bits of text. You can make one project-wide jQuery method that binds to any elements with <code>contenteditable</code> attributes, and just listen for keyup and if it matches 13 (I think that&#8217;s return?), send blur the element and send the new value to the server. I also set a <code>data-original</code> attribute on these elements with the original value of the element, so I don&#8217;t have to send unnecessary updates to the server.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21221#respond' onclick='return addComment.moveForm( "div-comment-21221", "21221", "respond", "3796" )' aria-label='Reply to Chad Ostrowski'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21228">
+				<div id="div-comment-21228" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fff58a1fd1e29d93fd6a25d3fdebbade?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fff58a1fd1e29d93fd6a25d3fdebbade?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Dave</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21228">
+			January 10, 2012 at 11:08 pm</a>		</div>
+
+		<p>Here is a fun example with the contenteditable attribute.</p>
+<p>Just paste this data-url to your browser and then edit the title or the style of the whole page</p>
+<p><code>data:text/html,&lt;title contenteditable&gt;Hello World&lt;/title&gt; &lt;style contenteditable&gt;head, title, style {display: block;}&lt;/style&gt;</code></p>
+<p>Another thing is that you can create a notepad with just one short <code>url:data:text/html,&lt;html contenteditable&gt;&lt;/html&gt;</code></p>
+<p>Pretty cool I think.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21228#respond' onclick='return addComment.moveForm( "div-comment-21228", "21228", "respond", "3796" )' aria-label='Reply to Dave'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21230">
+				<div id="div-comment-21230" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2320d133fa9cda2fe0c5ca7550a330d2?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2320d133fa9cda2fe0c5ca7550a330d2?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.albertclemente.com' rel='external nofollow' class='url'>Albert</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21230">
+			January 11, 2012 at 10:24 am</a>		</div>
+
+		<p>I&#8217;ve tested it on Internet Explorer 6 &amp; 7 and it doesn&#8217;t work.</p>
+<p>Are you sure the compatibility table is right? :-)</p>
+<p>Anyway, nice article!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21230#respond' onclick='return addComment.moveForm( "div-comment-21230", "21230", "respond", "3796" )' aria-label='Reply to Albert'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21231">
+				<div id="div-comment-21231" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/63c46b34c0d433e48db8be907f5bb512?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/63c46b34c0d433e48db8be907f5bb512?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Szigyártó Mihály</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21231">
+			January 11, 2012 at 10:44 am</a>		</div>
+
+		<p>If you use this attribute in tables, you should pay attention to browser flavors, like there:</p>
+<p>* IE doesn&#8217;t support contenteditable in tables<br />
+* Chrome and Firefox puts some extra characters after editing (i can&#8217;t remember which is which, but extra characters can be spaces and br tag)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21231#respond' onclick='return addComment.moveForm( "div-comment-21231", "21231", "respond", "3796" )' aria-label='Reply to Szigyártó Mihály'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21233">
+				<div id="div-comment-21233" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9767673d472c2f27307890c27061bca3?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9767673d472c2f27307890c27061bca3?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">zcorpan</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21233">
+			January 11, 2012 at 10:52 am</a>		</div>
+
+		<p>Jack Sleight, see <a href="http://dvcs.w3.org/hg/editing/raw-file/tip/editing.html" rel="nofollow">http://dvcs.w3.org/hg/editing/raw-file/tip/editing.html</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21233#respond' onclick='return addComment.moveForm( "div-comment-21233", "21233", "respond", "3796" )' aria-label='Reply to zcorpan'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21235">
+				<div id="div-comment-21235" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3fc7490978f298e69db559fa65fe7244?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3fc7490978f298e69db559fa65fe7244?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Jack Sleight</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21235">
+			January 11, 2012 at 2:43 pm</a>		</div>
+
+		<p>@zcorpan Thanks!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21235#respond' onclick='return addComment.moveForm( "div-comment-21235", "21235", "respond", "3796" )' aria-label='Reply to Jack Sleight'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-richc odd alt thread-odd thread-alt depth-1" id="comment-21240">
+				<div id="div-comment-21240" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://richclarkdesign.com' rel='external nofollow' class='url'>Richard Clark</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21240">
+			January 12, 2012 at 10:37 am</a>		</div>
+
+		<p>@Alejandro, You&#8217;re right, I&#8217;ve just tried this on FF10 on Mac and get the same issue with up &#038; down keys but not pgUp &#038; pgDown. However, it seems to be restricted to this one article for me. Are you having issues with other pages on the site?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21240#respond' onclick='return addComment.moveForm( "div-comment-21240", "21240", "respond", "3796" )' aria-label='Reply to Richard Clark'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21246">
+				<div id="div-comment-21246" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2f4148ef70b435df44ce119d9cde7900?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2f4148ef70b435df44ce119d9cde7900?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">bigbossSNK</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21246">
+			January 12, 2012 at 7:44 pm</a>		</div>
+
+		<p>Firefox is buggy with contenteditable.</p>
+<p> If there&#8217;s a contenteditable element in the page, you can select but you can&#8217;t copy content on non-contenteditable elements.</p>
+<p>Mixing contenteditable with -moz-user-modify:read-only doesn&#8217;t work, whereas it works for Webkit.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21246#respond' onclick='return addComment.moveForm( "div-comment-21246", "21246", "respond", "3796" )' aria-label='Reply to bigbossSNK'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21253">
+				<div id="div-comment-21253" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/e69d8c180e52649596f1e35f18feba54?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e69d8c180e52649596f1e35f18feba54?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.bullzartdesign.com' rel='external nofollow' class='url'>ArtFaks</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21253">
+			January 13, 2012 at 8:38 pm</a>		</div>
+
+		<p>Thanks, very good article on this new html5 property! </p>
+<p>This property was still already present and use in the Apple Mail for these stationery!</p>
+<p>;-)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21253#respond' onclick='return addComment.moveForm( "div-comment-21253", "21253", "respond", "3796" )' aria-label='Reply to ArtFaks'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21257">
+				<div id="div-comment-21257" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a0c394e31c9740376635c8878cf5889e?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a0c394e31c9740376635c8878cf5889e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">neb</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21257">
+			January 14, 2012 at 4:30 am</a>		</div>
+
+		<p>Have the elements &#8216;input&#8217; and &#8216;textarea&#8217; this attribute = true? Or is the editing of input/textarea using some other mechanisms?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21257#respond' onclick='return addComment.moveForm( "div-comment-21257", "21257", "respond", "3796" )' aria-label='Reply to neb'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21258">
+				<div id="div-comment-21258" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/954d4d115183a9ff671d0e5971de605b?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/954d4d115183a9ff671d0e5971de605b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://aloha-editor.org/' rel='external nofollow' class='url'>Jens</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21258">
+			January 14, 2012 at 8:53 am</a>		</div>
+
+		<p>Try the <a href="http://aloha-editor.org/" rel="nofollow">http://aloha-editor.org/</a> ce. at it best!</p>
+<p>Greez Jens</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21258#respond' onclick='return addComment.moveForm( "div-comment-21258", "21258", "respond", "3796" )' aria-label='Reply to Jens'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21265">
+				<div id="div-comment-21265" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/38bf8a6f968aacca24703625c49e991f?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/38bf8a6f968aacca24703625c49e991f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Christian Sciberras</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21265">
+			January 16, 2012 at 7:59 am</a>		</div>
+
+		<p>Some people are really clueless it seems&#8230; As the article mentioned, contenteditable has been there are least 12 years ago, where&#8217;s the novelty in that? Editing CSS directly in the browser? No duh&#8230;what do you think Firebug / Dev Tools do?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21265#respond' onclick='return addComment.moveForm( "div-comment-21265", "21265", "respond", "3796" )' aria-label='Reply to Christian Sciberras'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21267">
+				<div id="div-comment-21267" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/1c9092462960cf7646633d029469ba24?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/1c9092462960cf7646633d029469ba24?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Craig Barnes</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21267">
+			January 16, 2012 at 7:19 pm</a>		</div>
+
+		<p>You are using the <code>cite</code> element to attribute a <code>blockquote</code> to Remy Sharp.</p>
+<p><a title="Oops" href="http://www.w3.org/TR/html5-diff/#changed-elements" rel="nofollow">Oops</a>. Did you actually pass medical school or are you just one of those phony, discount Plastic Surgeons?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21267#respond' onclick='return addComment.moveForm( "div-comment-21267", "21267", "respond", "3796" )' aria-label='Reply to Craig Barnes'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-jacko bypostauthor even thread-even depth-1" id="comment-21269">
+				<div id="div-comment-21269" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a5854872c2c601bf98b308f251dc24a4?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a5854872c2c601bf98b308f251dc24a4?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://jackosborne.co.uk' rel='external nofollow' class='url'>Jack Osborne</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21269">
+			January 16, 2012 at 8:16 pm</a>		</div>
+
+		<p><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21267" rel="nofollow">@Craig Barnes</a>: a discount plastic surgeons.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21269#respond' onclick='return addComment.moveForm( "div-comment-21269", "21269", "respond", "3796" )' aria-label='Reply to Jack Osborne'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-richc odd alt thread-odd thread-alt depth-1" id="comment-21524">
+				<div id="div-comment-21524" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://richclarkdesign.com' rel='external nofollow' class='url'>Richard Clark</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21524">
+			January 24, 2012 at 12:48 pm</a>		</div>
+
+		<p>@Craig Barnes &#8211; The spec isn&#8217;t gospel and we disagree. See Oli&#8217;s <a href="http://html5doctor.com/blockquote-q-cite/" rel="nofollow">article on blockquote, q &#038; cite</a>.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21524#respond' onclick='return addComment.moveForm( "div-comment-21524", "21524", "respond", "3796" )' aria-label='Reply to Richard Clark'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-21550">
+				<div id="div-comment-21550" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/1c9092462960cf7646633d029469ba24?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/1c9092462960cf7646633d029469ba24?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Craig Barnes</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-21550">
+			January 24, 2012 at 5:32 pm</a>		</div>
+
+		<p>@Jack Osborne, @Richard Clark</p>
+<p>Haha, just trolling you. How&#8217;d I do?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=21550#respond' onclick='return addComment.moveForm( "div-comment-21550", "21550", "respond", "3796" )' aria-label='Reply to Craig Barnes'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-24720">
+				<div id="div-comment-24720" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/53af034616f4fe3d4c08ea2f2297380d?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/53af034616f4fe3d4c08ea2f2297380d?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">thinsoldier</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-24720">
+			February 27, 2012 at 8:00 pm</a>		</div>
+
+		<p>@dave: even shorter</p>
+<p>data:text/html,&lt;body contenteditable&gt;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=24720#respond' onclick='return addComment.moveForm( "div-comment-24720", "24720", "respond", "3796" )' aria-label='Reply to thinsoldier'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28805">
+				<div id="div-comment-28805" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c436e3edbdbf3d95d1a9054f462a9496?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c436e3edbdbf3d95d1a9054f462a9496?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">swati choudhary</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-28805">
+			August 8, 2012 at 5:51 pm</a>		</div>
+
+		<p>grt info&#8230;</p>
+<p>Can u pls explain how to save the editable text using html5??</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=28805#respond' onclick='return addComment.moveForm( "div-comment-28805", "28805", "respond", "3796" )' aria-label='Reply to swati choudhary'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28806">
+				<div id="div-comment-28806" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d83d4f44ee93b94e27ca498bcd269dcb?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d83d4f44ee93b94e27ca498bcd269dcb?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">ArtFaks</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-28806">
+			August 8, 2012 at 5:57 pm</a>		</div>
+
+		<p>Cookies or php script for this !</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=28806#respond' onclick='return addComment.moveForm( "div-comment-28806", "28806", "respond", "3796" )' aria-label='Reply to ArtFaks'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28807">
+				<div id="div-comment-28807" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c436e3edbdbf3d95d1a9054f462a9496?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c436e3edbdbf3d95d1a9054f462a9496?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">swati choudhary</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-28807">
+			August 8, 2012 at 6:02 pm</a>		</div>
+
+		<p>That means, its a backend work only???</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=28807#respond' onclick='return addComment.moveForm( "div-comment-28807", "28807", "respond", "3796" )' aria-label='Reply to swati choudhary'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28808">
+				<div id="div-comment-28808" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d83d4f44ee93b94e27ca498bcd269dcb?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d83d4f44ee93b94e27ca498bcd269dcb?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">ArtFaks</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-28808">
+			August 8, 2012 at 6:03 pm</a>		</div>
+
+		<p>Yes, sorry i think !</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=28808#respond' onclick='return addComment.moveForm( "div-comment-28808", "28808", "respond", "3796" )' aria-label='Reply to ArtFaks'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28809">
+				<div id="div-comment-28809" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c436e3edbdbf3d95d1a9054f462a9496?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c436e3edbdbf3d95d1a9054f462a9496?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">swati choudhary</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-28809">
+			August 8, 2012 at 6:04 pm</a>		</div>
+
+		<p>Ok<br />
+Thanks a lot for this info</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=28809#respond' onclick='return addComment.moveForm( "div-comment-28809", "28809", "respond", "3796" )' aria-label='Reply to swati choudhary'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28971">
+				<div id="div-comment-28971" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/31537f0e5e218a38748572fcb19f8a7b?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/31537f0e5e218a38748572fcb19f8a7b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Vikram Goel</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-28971">
+			September 30, 2012 at 11:54 am</a>		</div>
+
+		<p>I have tried contenteditable=&#8221;true&#8221; it was working fine. But when i added draggable=&#8221;true&#8221;, both functionality(draggable and contenteditable) stopped working. </p>
+<p>Any idea why ?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=28971#respond' onclick='return addComment.moveForm( "div-comment-28971", "28971", "respond", "3796" )' aria-label='Reply to Vikram Goel'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-29009">
+				<div id="div-comment-29009" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/de7ad23198aa560c9a12516481196fe1?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/de7ad23198aa560c9a12516481196fe1?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">sathyamoorthi</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-29009">
+			October 11, 2012 at 6:04 am</a>		</div>
+
+		<p>see this post to parse text from content editable div</p>
+<p><a href="http://stackoverflow.com/questions/12821102/how-to-parse-editable-divs-text-with-browser-compatibility" rel="nofollow">http://stackoverflow.com/questions/12821102/how-to-parse-editable-divs-text-with-browser-compatibility</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=29009#respond' onclick='return addComment.moveForm( "div-comment-29009", "29009", "respond", "3796" )' aria-label='Reply to sathyamoorthi'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-31539">
+				<div id="div-comment-31539" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f761f66d9fb0f66619188fd9230d4c73?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f761f66d9fb0f66619188fd9230d4c73?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.juegosdeaprender.com' rel='external nofollow' class='url'>html5gamedevelops</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-31539">
+			February 14, 2013 at 7:31 pm</a>		</div>
+
+		<p>I like it pretty much but how about sending that edited info into the database?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=31539#respond' onclick='return addComment.moveForm( "div-comment-31539", "31539", "respond", "3796" )' aria-label='Reply to html5gamedevelops'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-31600">
+				<div id="div-comment-31600" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/24c0659c4e5bf4908c70c82c5a8ebcba?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/24c0659c4e5bf4908c70c82c5a8ebcba?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Programaths</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-31600">
+			February 18, 2013 at 11:26 am</a>		</div>
+
+		<p>Hi,</p>
+<p>I tried copy pasting a table, it worked !<br />
+One step further, I edited a document in LibreOffice and copy pasted&#8230;It worked !</p>
+<p>I know this is dirty but I am going to use this to let user edit fragment in the way they are used to !!!<br />
+(they feel more in ease to copy/paste from word than using an inline editor !)</p>
+<p>@html5gamedevelops<br />
+To send content to database, you may do it through REST.<br />
+JQuery (.post) can assist you in doing so.</p>
+<p>Alternatively, you could copy the HTML content of your &#8220;contenteditable&#8221; into a hidden textarea through JavaScript.<br />
+When the user would submit the form (yes, should be part of a form), then the textarea would be posted.</p>
+<p>KR,<br />
+Programaths</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=31600#respond' onclick='return addComment.moveForm( "div-comment-31600", "31600", "respond", "3796" )' aria-label='Reply to Programaths'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-31880">
+				<div id="div-comment-31880" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/4666fbc6fb035e12cd2454ea4b134aed?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/4666fbc6fb035e12cd2454ea4b134aed?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">upender</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-31880">
+			March 4, 2013 at 12:07 pm</a>		</div>
+
+		<p>and how to store it<br />
+i have done with all query to store and retrieve it but when i refresh the page it coming to default </p>
+<p>I want to edit the content and save it and show the resultant content even i refresh the page </p>
+<p>please help me &#8230;&#8230;..</p>
+<p>thanks</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=31880#respond' onclick='return addComment.moveForm( "div-comment-31880", "31880", "respond", "3796" )' aria-label='Reply to upender'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-31998">
+				<div id="div-comment-31998" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/83b0628031a372c7997ba0283c71adad?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/83b0628031a372c7997ba0283c71adad?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Pradeep Chowdary</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-31998">
+			March 8, 2013 at 7:51 am</a>		</div>
+
+		<p>Really nice stuff..Saved my entire day work :)</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=31998#respond' onclick='return addComment.moveForm( "div-comment-31998", "31998", "respond", "3796" )' aria-label='Reply to Pradeep Chowdary'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-36806">
+				<div id="div-comment-36806" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6786a1bab927a98568d99d14230fb493?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6786a1bab927a98568d99d14230fb493?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Joe</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-36806">
+			July 22, 2013 at 2:39 pm</a>		</div>
+
+		<p>upender you are going to use a cookie for what you want to do and that could make things COMPLICATED, but if you must here is a good link to get you started:  <a href="http://davidwalsh.name/php-cookies" title="http://davidwalsh.name/php-cookies" rel="nofollow">http://davidwalsh.name/php-cookies</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=36806#respond' onclick='return addComment.moveForm( "div-comment-36806", "36806", "respond", "3796" )' aria-label='Reply to Joe'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-36924">
+				<div id="div-comment-36924" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c0866060bbd63730723bc5036643f337?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c0866060bbd63730723bc5036643f337?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.brothercake.com/' rel='external nofollow' class='url'>brothercake</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-36924">
+			July 26, 2013 at 11:55 pm</a>		</div>
+
+		<p>contenteditable regions should also have tabindex=&#8221;0&#8243; to make them keyboard accessible.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=36924#respond' onclick='return addComment.moveForm( "div-comment-36924", "36924", "respond", "3796" )' aria-label='Reply to brothercake'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-42259">
+				<div id="div-comment-42259" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c07bdd4844ffd527dab31bb24c4758bb?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c07bdd4844ffd527dab31bb24c4758bb?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Mufaddal Shabbir</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-42259">
+			December 4, 2013 at 9:33 am</a>		</div>
+
+		<p>I just got a requirement, when someone type in element, element increases width according to text, for this requirement its perfect match. Also its easy to use.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=42259#respond' onclick='return addComment.moveForm( "div-comment-42259", "42259", "respond", "3796" )' aria-label='Reply to Mufaddal Shabbir'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-44817">
+				<div id="div-comment-44817" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/282ca21ceef334d6ab9188cd75bff9cd?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/282ca21ceef334d6ab9188cd75bff9cd?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">webguy</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-44817">
+			January 23, 2014 at 3:01 pm</a>		</div>
+
+		<p>There is a lot of confusion about this attribute, in-fact this attribute is very old, its part of the HTML 4 specification for more than a decade, its accessible also in the JavaScript API (possibly since even 1.2) since 2000 or even earlier, which is when I first used it, so its possibly pre 2000. What has changed is that it was only possible to use it on certain elements, the original being the iframe, then later support was added for other markup elements, but from what I can tell HTML5 adds the ability to use this attribute on many more elements than before so its more prominent.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=44817#respond' onclick='return addComment.moveForm( "div-comment-44817", "44817", "respond", "3796" )' aria-label='Reply to webguy'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-48685">
+				<div id="div-comment-48685" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/97db8a5e97b1f6778487d31946f876b8?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/97db8a5e97b1f6778487d31946f876b8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.encodedna.com' rel='external nofollow' class='url'>Arun</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-48685">
+			March 14, 2014 at 6:16 am</a>		</div>
+
+		<p>It is still not working in IE 11. There is no problem with &#8220;contenteditable&#8221; attribute, that works fine on elements, but it seems it does not recognize &#8220;data URL&#8221;. </p>
+<p>Any suggestions please.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=48685#respond' onclick='return addComment.moveForm( "div-comment-48685", "48685", "respond", "3796" )' aria-label='Reply to Arun'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-403759">
+				<div id="div-comment-403759" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/5b078b7ebb3bcdff48e5ba991b8d4108?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/5b078b7ebb3bcdff48e5ba991b8d4108?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Kevin Cassidy</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-403759">
+			September 21, 2014 at 3:03 am</a>		</div>
+
+		<p>This is nice:</p>
+<p>data:text/html,Hello World head,title{display: block;}</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=403759#respond' onclick='return addComment.moveForm( "div-comment-403759", "403759", "respond", "3796" )' aria-label='Reply to Kevin Cassidy'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1241720">
+				<div id="div-comment-1241720" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f93f3e425ab60dbd0885b4ddf39a212f?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f93f3e425ab60dbd0885b4ddf39a212f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Howard Cary Morris</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-1241720">
+			December 15, 2014 at 4:43 am</a>		</div>
+
+		<p>Some browsers work funny, seeing 2 strange results:<br />
+1) When I Print Preview &#8211; not showing changes I made properly<br />
+&#8212; Safari<br />
+2) Copy paste seems to copy font settings as well overriding CSS<br />
+&#8212; Safari<br />
+&#8212; Opera<br />
+&#8212; Chrome</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=1241720#respond' onclick='return addComment.moveForm( "div-comment-1241720", "1241720", "respond", "3796" )' aria-label='Reply to Howard Cary Morris'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-1372457">
+				<div id="div-comment-1372457" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/05c8bc1c81e39adad36b6bc964223be3?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/05c8bc1c81e39adad36b6bc964223be3?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Lonesta Jack</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-1372457">
+			January 1, 2015 at 7:09 pm</a>		</div>
+
+		<p>A simple example of this can be seen on JS Bin: contenteditable saving to Ajax<br />
+— Remy Sharp</p>
+<p>Link doesn&#8217;t work</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=1372457#respond' onclick='return addComment.moveForm( "div-comment-1372457", "1372457", "respond", "3796" )' aria-label='Reply to Lonesta Jack'>Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-stevef odd alt depth-2" id="comment-1376192">
+				<div id="div-comment-1376192" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/81d4896889881ab794df2415b6de3a37?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/81d4896889881ab794df2415b6de3a37?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.paciellogroup.com/blog/' rel='external nofollow' class='url'>Steve Faulkner</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-1376192">
+			January 2, 2015 at 10:45 am</a>		</div>
+
+		<p>fixed now, thanks for pointing out.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=1376192#respond' onclick='return addComment.moveForm( "div-comment-1376192", "1376192", "respond", "3796" )' aria-label='Reply to Steve Faulkner'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-1733057">
+				<div id="div-comment-1733057" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/4e87d68b08b784b20e71bee618b6be52?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/4e87d68b08b784b20e71bee618b6be52?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Patanjali</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-1733057">
+			March 16, 2015 at 3:23 am</a>		</div>
+
+		<p>Note that IE11 (and possibly earlier versions) doesn&#8217;t show a final space.</p>
+<p>Specifically, the last space is shown outside the containing element, which may give an editor the sense that it isn&#8217;t there, as it will not take on the background-color of the containing element.</p>
+<p>The giveaway is that pressing the End key will put the cursor after the space, outside the element, but clearly &#8216;invisible&#8217; if the element isn&#8217;t the focus.</p>
+<p>Unless there is a way to give a background colour to the text itself, as opposed to its containing element, contenteditable is likely to be a frustrating exercise for those using IE11.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=1733057#respond' onclick='return addComment.moveForm( "div-comment-1733057", "1733057", "respond", "3796" )' aria-label='Reply to Patanjali'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-1733112">
+				<div id="div-comment-1733112" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/4e87d68b08b784b20e71bee618b6be52?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/4e87d68b08b784b20e71bee618b6be52?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Patanjali</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-1733112">
+			March 16, 2015 at 3:42 am</a>		</div>
+
+		<p>Sorry, I forgot to escape the non-breaking space above:</p>
+<p>Further testing after my comment above, a final &amp;nbsp; IS recognised correctly.</p>
+<p>That is really not that helpful, unless one wants to always replace a final space with an &amp;nbsp;,whether entered while editing or retrieved, then restore it as a normal space when saving.</p>
+<p>May be worth it though, if it allows in-place editing, which will obviously require a lot of javascript usage to properly implement anyway.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=1733112#respond' onclick='return addComment.moveForm( "div-comment-1733112", "1733112", "respond", "3796" )' aria-label='Reply to Patanjali'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-2130930">
+				<div id="div-comment-2130930" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/25f06edff1ac9a3272b0e3a6937dd18a?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/25f06edff1ac9a3272b0e3a6937dd18a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Tim H</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/the-contenteditable-attribute/#comment-2130930">
+			July 1, 2016 at 4:47 pm</a>		</div>
+
+		<p>I&#8217;ve been unsuccessful trying to use this with Salesforce. That is, with APEX (ex: apex.inputField). I am unable to save the data the user inputted. Any ideas or help is appreciated!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/the-contenteditable-attribute/?replytocom=2130930#respond' onclick='return addComment.moveForm( "div-comment-2130930", "2130930", "respond", "3796" )' aria-label='Reply to Tim H'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/the-contenteditable-attribute/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='3796' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="e08d983f0a" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="100"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>
+<!-- Dynamic page generated in 0.976 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-11-19 01:09:54 -->
+
+<!-- super cache -->

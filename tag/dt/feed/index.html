@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>dt &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/dt/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 11 Jul 2016 11:54:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The dl element</title>
+		<link>http://html5doctor.com/the-dl-element/</link>
+		<comments>http://html5doctor.com/the-dl-element/#comments</comments>
+		<pubDate>Thu, 03 Jun 2010 14:00:10 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[dd]]></category>
+		<category><![CDATA[dl]]></category>
+		<category><![CDATA[dt]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=725</guid>
+		<description><![CDATA[The &#60;dl&#62; element existed in HTML 4, but it&#8217;s been repurposed in HTML5. Let the Doctor explain what&#8217;s changed and how it can be used. It’s all in the description In HTML 4, &#60;dl&#62; was considered a “definition list”, containing groups of terms and their definitions. The terms and definitions were a many-to-many relationship: one [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>&lt;dl&gt;</code> element existed in <abbr title="Hypertext Mark-up Language">HTML</abbr> 4, but it&#8217;s been repurposed in <a href="http://www.w3.org/TR/html5/"><abbr>HTML</abbr>5</a>. Let the Doctor explain what&#8217;s changed and how it can be used.</p>
+<p><span id="more-725"></span></p>
+<h2>It’s all in the description</h2>
+<p>In <abbr>HTML</abbr> 4, <code>&lt;dl&gt;</code> was considered a “definition list”, containing groups of terms and their definitions. The terms and definitions were a many-to-many relationship: one or more terms to one or more definitions. The element was often misunderstood and therefore misused or not used at all in favour of more widely used and (perhaps) less semantic markup.</p>
+<p>To address these issues, <code>&lt;dl&gt;</code>’s definition has been refined in <abbr>HTML</abbr>5 as a <a href="http://www.w3.org/TR/html5/grouping-content.html#the-dl-element">description list</a>. From the spec:</p>
+<blockquote><p>The <code><a href="http://www.w3.org/TR/html5/grouping-content.html#the-dl-element">dl</a></code> element <a href="http://www.w3.org/TR/html5/dom.html#represents">represents</a> an association list consisting of zero or more name-value groups (a description list). A name-value group consists of one or more names (<code><a href="http://www.w3.org/TR/html5/grouping-content.html#the-dt-element">dt</a></code> elements) followed by one or more values (<code><a href="http://www.w3.org/TR/html5/grouping-content.html#the-dd-element">dd</a></code> elements), ignoring any nodes other than <code><a href="http://www.w3.org/TR/html5/grouping-content.html#the-dt-element">dt</a></code> and <code><a href="http://www.w3.org/TR/html5/grouping-content.html#the-dd-element">dd</a></code> elements. Within a single <code><a href="http://www.w3.org/TR/html5/grouping-content.html#the-dl-element">dl</a></code> element, there should not be more than one <code><a href="http://www.w3.org/TR/html5/grouping-content.html#the-dt-element">dt</a></code> element for each name.</p>
+<p>Name-value groups may be terms and definitions, metadata topics and values, questions and answers, or any other groups of name-value data.</p></blockquote>
+<p>It maintains the many-to-many relationship between names and values. These groupings use <a href="http://www.w3.org/TR/html5/grouping-content.html#the-dt-element"><code>&lt;dt&gt;</code></a> to represent the term or name and <a href="http://www.w3.org/TR/html5/grouping-content.html#the-dd-element"><code>&lt;dd&gt;</code></a> for the description. Also note the last line of the quote, stating that a name should not be used more than once within a single <code>&lt;dl&gt;</code>.</p>
+<h2>Example Uses</h2>
+<p>I&#8217;ve put together a couple of appropriate uses of <code>&lt;dl&gt;</code> to get your creative juices flowing.</p>
+<h3>Glossary</h3>
+<p><code>&lt;dl&gt;</code> can be used to mark-up a glossary of terms, although you must remember to use <code>&lt;dfn&gt;</code> to indicate that the word is defined here:</p>
+<pre><code>&lt;article&gt;
+  &lt;h2&gt;The article element&lt;/h2&gt;
+  &lt;p&gt;An independent piece of content, one suitable for putting in an
+    article element, is content that makes sense on it’s own. This yardstick
+    is up to your interpretation, but an easy smell test is would this make sense
+    in an RSS feed? Of course weblog articles and static pages would make sense
+    in a feed reader, and some sites have weblog comment feeds..&lt;/p&gt;
+  ...
+  &lt;aside&gt;
+    &lt;h3&gt;Glossary&lt;/h3&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;dfn&gt;RSS&lt;/dfn&gt;&lt;/dt&gt;
+      &lt;dd&gt;An XML format for aggregating information from websites whose 
+        content is frequently updated.&lt;/dd&gt;
+      &lt;dt&gt;&lt;dfn&gt;Weblog&lt;/dfn&gt;&lt;/dt&gt;
+      &lt;dd&gt;Contraction of the term "web log", a weblog is a 
+        website that is periodically updated, like a journal&lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;/aside&gt;
+&lt;/aticle&gt;
+</code></pre>
+<p>The example content is from <a href="http://html5doctor.com/the-article-element/">our recent post on the article element</a>. In the example, I plucked out the terms &#8220;RSS&#8221; and &#8220;weblog&#8221; and defined them in a handy glossary. Since this information is supplementary to the article, the glossary has been placed in an <code>&lt;aside&gt;</code>.</p>
+<h3>Metadata</h3>
+<p><code>&lt;dl&gt;</code> is also appropriate for marking up content metadata, such as information about our article on <a href="http://html5doctor.com/how-to-use-html5-in-your-client-work-right-now/">how to use <abbr>HTML</abbr>5 in your client work right now</a>.</p>
+<pre><code>&lt;dl&gt;
+  &lt;dt&gt;Authors:&lt;/dt&gt;
+  &lt;dd&gt;Remy Sharp&lt;/dd&gt;
+  &lt;dd&gt;Rich Clark&lt;/dd&gt;
+  &lt;dt&gt;Editor:&lt;/dt&gt;
+  &lt;dd&gt;Brandan Lennox&lt;/dd&gt;
+  &lt;dt&gt;Category:&lt;/dt&gt;
+  &lt;dd&gt;Comment&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+<p>Since Remy and Richard contributed to that article, they are both listed as authors, showing the pairing of multiple values (<code>&lt;dd&gt;</code>) to one key (<code>&lt;dt&gt;</code>).</p>
+<h3>Multiple keys (<code>&lt;dt&gt;</code>) to a single value</h3>
+<p>As mentioned above, a <code>&lt;dl&gt;</code> may map many keys (<code>&lt;dt&gt;</code>) to many values (<code>&lt;dd&gt;</code>). This means that one term might have multiple descriptions, or there may be multiple terms that mean the same thing. Related <code>&lt;dt&gt;</code>s should follow each other immediately before their descriptive <code>&lt;dd&gt;</code>.</p>
+<pre><code>&lt;dl&gt;
+  &lt;dt lang="en-GB"&gt;&lt;dfn&gt;colour&lt;/dfn&gt;&lt;/dt&gt;
+  &lt;dt lang="en-US"&gt;&lt;dfn&gt;color&lt;/dfn&gt;&lt;/dt&gt;
+  &lt;dd&gt;The visual result of light in their emission, transmission and/or reflection. This perception is determined by the hue, brightness and saturation of the light at a specific point. &lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+<p>Here I have indicated that there are two different spellings of &#8220;colour&#8221; and grouped these terms to match them with the same description.</p>
+<p>It is not appropriate, however, to use the same key multiple times within a single <code>&lt;dl&gt;</code>. You can&#8217;t define &#8220;car&#8221; as one thing at the start of a <code>&lt;dl&gt;</code> and then define it again at the end of that same <code>&lt;dl&gt;</code>. If you have multiple descriptions for a single term, you should list both <code>&lt;dd&gt;</code>s directly under the same <code>&lt;dt&gt;</code>.</p>
+<pre><code>&lt;dl&gt;
+  &lt;dt&gt;&lt;dfn&gt;Chips&lt;/dfn&gt;&lt;/dt&gt;
+  &lt;dd&gt;Strips of potato usually deep fried in fat. Commonly referred to as "french fries".&lt;/dd&gt;
+  &lt;dd&gt;A small fragment that has been broken off from a larger body (e.g. stone).&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+<h2>What it should not be used for</h2>
+<p>Dialogue was a suggested use for <code>&lt;dl&gt;</code> in <abbr>HTML</abbr> 4, which was widely debated and often considered inappropriate. This application of the element is no longer recommended in <abbr>HTML</abbr>5, and the new definition of the element does indeed back this up. When marking up a conversation, you&#8217;re not describing the speaker, but rather stating what they said. With the demise of <a href="http://html5doctor.com/a-little-more-conversation-with-dialog/"><code>&lt;dialog&gt;</code></a>, conversations have no specific markup element. Instead, the specification makes recommendations of <a href="http://www.w3.org/TR/html5/common-idioms.html#conversations">how to mark up conversations</a>.</p>
+<h2>Summary</h2>
+<p>The changes to <code>&lt;dl&gt;</code> are fairly minor, but the new definition should clear up confusion and enable developers to use it more appropriately. You can use this element to represent key-value pairs semantically and couple it with other elements like <code>&lt;details&gt;</code> and <code>&lt;aside&gt;</code> to give context to this information.</p>
+<p>Where do you see yourself using <code>&lt;dl&gt;</code> in <abbr>HTML</abbr>5? Perhaps details about a downloadable file? Or are you going to give your more technical blog articles a glossary? Let us know in the comments!</p>
+<p><a href="http://html5doctor.com/the-dl-element/" rel="bookmark">The dl element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 3, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-dl-element/feed/</wfw:commentRss>
+		<slash:comments>62</slash:comments>
+		</item>
+		<item>
+		<title>dd-details wrong again</title>
+		<link>http://html5doctor.com/dd-details-wrong-again/</link>
+		<comments>http://html5doctor.com/dd-details-wrong-again/#comments</comments>
+		<pubDate>Mon, 12 Oct 2009 12:00:57 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[bugs]]></category>
+		<category><![CDATA[dd]]></category>
+		<category><![CDATA[details]]></category>
+		<category><![CDATA[dt]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[ie]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=991</guid>
+		<description><![CDATA[This article has been superseded. It&#8217;s here for historical reasons only. &#60;details&#62; now uses a &#60;summary&#62; element; &#60;figure&#62; uses &#60;figcaption&#62;. You may recall that I blogged about legend not being so legend as the heading element for details or figure. After enough noise was made the spec was changed so that the heading and contents [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p class="note"><strong>This article has been superseded. It&#8217;s here for historical reasons only. &lt;details&gt; now uses a &lt;summary&gt; element; &lt;figure&gt; uses &lt;figcaption&gt;.</strong></p>
+
+<p>You may recall that I blogged about <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">legend not being so legend</a> as the heading element for <code>details</code> or <code>figure</code>. After enough noise was made the spec was changed so that the heading and contents of these elements can now be marked up using the <code>dt/dd</code> combo.</p>
+
+<p>Although not immediately obvious why it&#8217;s the right choice, it appeared to work for our needs&#8230;at first. Of course now, it&#8217;s been discovered that it&#8217;s actually a pretty bad idea.</p>
+
+<p><span id="more-991"></span></p>
+
+<h2>How we got here</h2>
+
+<p>In short, <code>details</code> and <code>figure</code> solve a common design pattern and provide nice new semantic tags to solve that problem.  A <code>figure</code> could be an image you&#8217;re referring to in an article or chapter of a book, and the <code>details</code> element allows the user to interactively show and hide the <em>details</em> of some piece of information.</p>
+
+<p>Both elements can contain a heading element to label up the contents.  For some reason, beyond this author&#8217;s understanding, these two elements, completely different in meaning, have been historically tied to using the same solution solve the problem how to markup the heading.</p>
+
+<p>As I mentioned earlier, originally the proposed solution for the headings was to use the <code>legend</code> element, which <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">proved to completely break</a> in every browser (in new and interesting ways).</p>
+
+<p>Skip forward to mid-September, and Jeremy Keith <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0534.html">proposes that we solve the legend issue</a> with the dt/dd combo, and Ian Hickson <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0566.html">says</a>:</p>
+
+<blockquote>
+  <p>That&#8217;s not a bad idea actually. Ok, done.</p>
+</blockquote>
+
+<p>Before this was proposed there was lots of discussion about why we couldn&#8217;t introduce a new element to solve this problem, and Ian points out already 18 (or 22, I forget!) elements that represent some sort of heading.  This is the argument for not introducing another new heading type element to solve the <code>details</code> and <code>figure</code> problem.</p>
+
+<h2>The problem with dt/dd</h2>
+
+<p>Ironically the problem <em>isn&#8217;t</em> with the <code>dt</code> part of the solution, it&#8217;s actually with the <code>dd</code>.  </p>
+
+<p><a href="http://dean.edwards.name/" title="dean.edwards.name/">Dean Edwards</a> (genius behind some very cool JavaScript and something that will soon blow your minds) has been testing these elements in <em>detail</em> and found a very serious issue with the <code>dd</code> in, guess what, IE6 &amp; 7.  I want to explain and draw attention to what Dean has found.</p>
+
+<p>Styling a <code>dd</code> within <code>details</code> or <code>figure</code> (and probably other elements) bleeds to the next element.</p>
+
+<p>By styling a dd red, and only the dd, here&#8217;s what it <em>should</em> look like (and does in IE8):</p>
+
+<p><img src="http://html5doctor.com/wp-content/uploads/2009/10/dd-ie8.png" alt="dd styled in IE8" /></p>
+
+<p>Where as in IE7 (and IE6), the red style bleeds in to the following <code>p</code> element (note the &#8220;this paragraph shouldn&#8217;t be red&#8221;):</p>
+
+<p>![dd styled in IE7](<img src="http://html5doctor.com/wp-content/uploads/2009/10/dd-ie7.png" alt="dd styled in IE8" /></p>
+
+<p>What&#8217;s more, if you look back at the screen shots you can see the last paragraph says &#8220;Contents of first &lt;dd&gt;&#8221;.  The result of that test is being generated by the following JavaScript:</p>
+
+<pre><code>document.getElementsByTagName('dd')[0].innerHTML</code></pre>
+
+<p>Notice how in IE7, the contents of the first <code>dd</code>&#8216;s <code>innerHTML</code> is <strong>empty</strong>.</p>
+
+<p>The problem here is that:</p>
+
+<ol>
+<li>IE7 and below can&#8217;t style a <code>dd</code> properly without it breaking and the style bleeding in to adjacent elements.</li>
+<li>JavaScript, randomly, can&#8217;t see the contents of the <code>dd</code>.</li>
+</ol>
+
+<h2>Is there hope?</h2>
+
+<p>There is a hack that fixes this issue. It&#8217;s pretty mad, but it does fix the styling issue. However the side effects from this hack are outright unacceptable and are so serious I would argue that the hack solution itself is a bug.</p>
+
+<p>The hack is over at the <a href="http://lists.w3.org/Archives/Public/public-html/2009Sep/0802.html">public-html of W3.org</a>, and involves stuffing an open <code>object</code> tag just before we close the <code>head</code> tag.</p>
+
+<p>This isn&#8217;t a clean solution for including in HTML by hand, authors won&#8217;t remember or might get it wrong, so it needs to be perhaps automated as part of the HTML5 enabling script, right?  It would have to be inserted using <code>document.write()</code> as the last part of the <code>head</code> element.</p>
+
+<p>Dean went on to test this, and <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-September/023247.html">he found</a>:</p>
+
+<blockquote>
+  <p>There is a nasty side effect though. As you mentioned the document.write() should be the last thing in the &lt;head&gt;. If there are any scripts following the document.write() then they are <em>not executed</em>.</p>
+</blockquote>
+
+<p>The <em>really</em> freakin&#8217; important bit:</p>
+
+<blockquote>
+  <p>If there are any scripts following the document.write() then they are <em>not executed</em></p>
+</blockquote>
+
+<p>So, to answer the question: <em>is there hope?</em> No, not for the dd/dt combo.  It can&#8217;t be styled properly and hacks will break JavaScript.</p>
+
+<h2>We want the details</h2>
+
+<p>We, as authors, want to make use of <code>details</code> and <code>figure</code> today. Waiting for IE7 to fall out of circulation before we start using these elements (as it&#8217;s been proposed a number of times on the IRC channel and mailing boards) is outright not going to happen.  IE6 &amp; 7 are going to be around for a good more number of years, certainly IE7 (IE6 has at least another 5 years in the beast).</p>
+
+<p>We <em>are</em> going to start enabling the <code>details</code> interactive UI pattern using JavaScript whilst we wait for vendors bake it in to the browser, so the final proposed markup needs to work in all the browsers, <em>including</em> IE6 and IE7.</p>
+
+<p>What are our current options?</p>
+
+<ol>
+<li>Give new meaning to an existing element (as we&#8217;ve already tried to), <code>legend</code>, <code>label</code> and <code>dt/dd</code> have been tried, tested and failed. What else could we use?</li>
+<li>Repurpose one of the existing <em>new</em> elements (keeping in mind that the dt/dd was repurposed so it should be a consideration).</li>
+<li>Create <em>another</em> heading element to solve this problem.</li>
+</ol>
+
+<p>The problem is that the conversation seems to have lost steam (or certain Dean was starting to see the conversation go in circles).  If you want to see these two elements make it the final spec, and correctly, head over to either the <a href="irc://irc.freenode.net/#whatwg">IRC channel</a> or the <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/">mailing list</a>, and get heard.</p>
+
+<h2>Reference links</h2>
+
+<ul>
+<li><a href="http://dean.edwards.name/test/details.html">Dean&#8217;s original details test</a> (my modified tests to fire the innerHTML on load: <a href="http://jsbin.com/inugi/edit#html">details</a>, <a href="http://jsbin.com/uluro/edit#html">figure</a>)</li>
+<li>Litmusapp browser screenshots of the results: <a href="http://leftlogic.litmusapp.com/pub/6bee14e">details</a>, <a href="http://leftlogic.litmusapp.com/pub/c7f18b4">figure</a></li>
+<li>whatwg mailing list thread: <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-September/023240.html">September</a>, <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-October/023277.html">October</a></li>
+</ul>
+<p><a href="http://html5doctor.com/dd-details-wrong-again/" rel="bookmark">dd-details wrong again</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 12, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/dd-details-wrong-again/feed/</wfw:commentRss>
+		<slash:comments>23</slash:comments>
+		</item>
+		<item>
+		<title>September HTML5 spec changes</title>
+		<link>http://html5doctor.com/september-html5-spec-changes/</link>
+		<comments>http://html5doctor.com/september-html5-spec-changes/#comments</comments>
+		<pubDate>Thu, 17 Sep 2009 12:00:20 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[dd]]></category>
+		<category><![CDATA[dialog]]></category>
+		<category><![CDATA[dt]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[footer]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[legend]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=911</guid>
+		<description><![CDATA[September being one month before the HTML5 spec goes to last call in October, there&#8217;s been a few significant changes to the HTML5 spec that we wanted to briefly share with our patients. Clarification over section and article The spec has been clarified to help authors correctly choose between when to use section and when [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>September being one month before the HTML5 spec goes to last call in October, there&#8217;s been a few significant changes to the HTML5 spec that we wanted to briefly share with our patients.</p>
+
+<p><span id="more-911"></span></p>
+
+<h2>Clarification over <code>section</code> and <code>article</code></h2>
+
+<p>The spec has been clarified to help authors correctly choose between when to use <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-section-element">section</a> and when to use <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-article-element">article</a>, and <a href="http://html5doctor.com/the-section-element/">Bruce&#8217;s section post</a> has also been updated.</p>
+
+<h2><code>footer</code> now works like <code>header</code></h2>
+
+<p>This was a big one and causing confusing to people coming to HTML5 for the first time.  Originally you couldn&#8217;t include a <code>nav</code> element inside a footer, or a <code>section</code>. </p>
+
+<p>Now the spec has been <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-footer-element">changed to match the <code>header</code> element</a>.</p>
+
+<h2><code>details</code> and <code>figure</code> saved</h2>
+
+<p>Instead of using legend, <a href="http://html5doctor.com/legend-not-such-a-legend-anymore/">which didn&#8217;t work</a>, <a href="http://adactio.com">Jeremy</a> suggested (although slightly tongue in cheek) to use <code>dt</code> for the title and <code>dd</code> for the body.  Ian Hickson agreed, and <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/embedded-content-1.html#the-figure-element">it&#8217;s in</a></p>
+
+<p>Example:</p>
+
+<pre><code>&lt;figure&gt;
+ &lt;dd&gt;&lt;video src=&quot;ex-b.mov&quot;&gt;&lt;/video&gt;
+ &lt;dt&gt;Exhibit B. The &lt;cite&gt;Rough Copy&lt;/cite&gt; trailer.
+&lt;/figure&gt;</code></pre>
+
+<h2><code>aside</code> has better examples</h2>
+
+<p>The documentation has been updated to specify <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-aside-element">better examples</a> of how the aside element can be used.</p>
+
+<p>Better examples help us authors understand how it can be used.</p>
+
+<h2>Dropped Elements</h2>
+
+<p>The following elements have been dropped from the HTML5 spec (though <code>bb</code> and <code>datagrid</code> were some time ago, and <code>datagrid</code> has been postponed rather than dropped entirely):</p>
+
+<ul>
+<li><a href="http://html5.org/tools/web-apps-tracker?from=3858&amp;to=3859">dialog</a></li>
+<li>bb</li>
+<li>datagrid</li>
+</ul>
+
+<h2>Ch-ch-changes</h2>
+
+<p>We&#8217;ll be posting in more detail about some of these changes, and as further changes come out of the editing process we&#8217;ll no doubt keep you all up to date, either via our <a href="http://twitter.com/html5doctor">Twitter account</a> (which you should follow) or feel free to <a href="http://html5doctor.com/contact/">let us know too</a>!</p>
+<p><a href="http://html5doctor.com/september-html5-spec-changes/" rel="bookmark">September HTML5 spec changes</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 17, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/september-html5-spec-changes/feed/</wfw:commentRss>
+		<slash:comments>30</slash:comments>
+		</item>
+		<item>
+		<title>A little more conversation with dialog</title>
+		<link>http://html5doctor.com/a-little-more-conversation-with-dialog/</link>
+		<comments>http://html5doctor.com/a-little-more-conversation-with-dialog/#comments</comments>
+		<pubDate>Wed, 12 Aug 2009 13:57:12 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[conversation]]></category>
+		<category><![CDATA[dd]]></category>
+		<category><![CDATA[dialog]]></category>
+		<category><![CDATA[dt]]></category>
+		<category><![CDATA[HTML 5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=707</guid>
+		<description><![CDATA[Less action, more conversation. That's how that Elvis song went, right? OK, perhaps not. Regardless, the new dialog element introduced in HTML 5 is all about marking up the conversation, and it uses a couple of elements you may have already heard of. Sure, it's a little less action than something like audio, but it is still a useful element to semantically mark up many forms of dialogue.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Less action, more conversation. That&#8217;s how that <a href="http://en.wikipedia.org/wiki/A_Little_Less_Conversation">Elvis song</a> went, right? OK, perhaps not. Regardless, the new <code>dialog</code> element introduced in <abbr title="Hypertext Mark-up Language">HTML</abbr> 5 is all about marking up the conversation, and it uses a couple of elements you may have already heard of. Sure, it&#8217;s a little less action than something like <a href="http://html5doctor.com/native-audio-in-the-browser/"><code>audio</code></a>, but it is still a useful element to semantically mark up many forms of dialogue.<span id="more-707"></span></p>
+<h2>Defining dialog</h2>
+<p>The <a href="http://dev.w3.org/html5/spec/Overview.html">HTML 5 specification</a> defines <code>dialog</code> as follows:</p>
+<blockquote><p>The dialog element represents a conversation, meeting minutes, a chat transcript, a dialog in a screenplay, an instant message log, or some other construct in which different players take turns in discourse.</p>
+</blockquote>
+<p>That&#8217;s a lot of different types of dialogue that can be marked up. A <code>dialog</code> element contains the <code>dt</code> element for a speaker&#8217;s name, and <code>dd</code> for what they said. That&#8217;s right, <code>dialog</code> borrows two elements from <code>dl</code> to pair up a speaker and what they say. The definition of a <code>dl</code> itself has changed in HTML 5 to become an association list, pairing names (<code>dt</code>) with values (<code>dd</code>). <code>dialog</code> uses this in a similar way, pairing a name of a speaker with whatever they said.</p>
+<p>This means that the <code>dt</code> is the source (speaker) of what is within the following <code>dd</code>, and the <code>dd</code> contains a quotation from that source. Therefore, <code>dialog</code> does not require the use of <code>cite</code>, <code>blockquote</code> or <code>q</code>. The only time a <code>q</code> would be appropriate within <code>dialog</code> would be if what one person said contained a quotation from someone else. It is also possible to use <code>p</code> within a <code>dd</code>, should you need to mark-up large responses as paragraphs.</p>
+<p>Also, despite the fact both <code>dialog</code> and <code>dl</code> share <code>dt</code> and <code>dd</code>, a dialogue should never be marked up with a <code>dl</code>. However, appropriate uses of <code>dl</code> is beyond the scope of this article and will be revisited in a separate article.</p>
+<h2>Enough talk, let&#8217;s get practical</h2>
+<h3>Marked Up Humour</h3>
+<p>My first example is very straight forward. Using <code>dialog</code>, I will mark up a hilarious &#8220;Knock, Knock&#8221; joke.</p>
+<pre><code>&lt;dialog&gt;
+  &lt;dt&gt;Sam&lt;/dt&gt;
+  &lt;dd&gt;Knock, Knock.&lt;/dd&gt;
+  &lt;dt&gt;Eric&lt;/dt&gt;
+  &lt;dd&gt;Who&apos;s there?&lt;/dd&gt;
+  &lt;dt&gt;Sam&lt;/dt&gt;
+  &lt;dd&gt;Justin.&lt;/dd&gt;
+  &lt;dt&gt;Eric&lt;/dt&gt;
+  &lt;dd&gt;Justin who?&lt;/dd&gt;
+  &lt;dt&gt;Sam&lt;/dt&gt;
+  &lt;dd&gt;Justin time for dinner!&lt;/dd&gt;
+&lt;/dialog&gt;
+</code></pre>
+<p>Note that two people are in this conversation, Sam and Eric. Their names are marked up with <code>dt</code> and what they said is placed in <code>dd</code>. Wrap it all up in a the fresh <code>dialog</code>, and you have a semantically marked up conversation!</p>
+<p>Once your sides have stopped splitting, I&#8217;d like to direct you to something a little more complex: how <a href="http://twitter.com">Twitter</a> can take advantage of <code>dialog</code>.</p>
+<h3>A Twitter Conversation</h3>
+<p>Twitter is a prime example of where <code>dialog</code> can be used in the real world. When a user posts a tweet, other users can reply by starting their tweet with @username, where username is whoever they are responding to.</p>
+<pre><code>&lt;dialog&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt;, &lt;time datetime="2009-08-11T12:35:54"&gt;13 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;Where is a good place to eat in town?&lt;/dd&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/brucel"&gt;@brucel&lt;/a&gt;, &lt;time datetime="2009-08-11T12:37:56"&gt;11 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt; Have your tried The Swine's Flu pub lunches?&lt;/dd&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/Rich_Clark"&gt;@Rich_Clark&lt;/a&gt;, &lt;time datetime="2009-08-11T12:38:04"&gt;11 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt; If you like seafood, try the restaurants at the waterfront&lt;/dd&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/jackosborne"&gt;@jackosborne&lt;/a&gt;, &lt;time datetime="2009-08-11T12:40:02"&gt;9 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt; What &lt;a href="http://twitter.com/brucel"&gt;@brucel&lt;/a&gt; said, or there are lots of good bakeries on the high street.&lt;/dd&gt;
+  &lt;dt&gt;&lt;a href="http://twitter.com/spambot148"&gt;@spambot148&lt;/a&gt;, &lt;time datetime="2009-08-11T12:45:16"&gt;4 minutes ago&lt;/time&gt;&lt;/dt&gt;
+  &lt;dd&gt;&lt;a href="http://twitter.com/akamike"&gt;@akamike&lt;/a&gt; Gain 1000 followers in 5 minutes!&lt;/dd&gt;
+&lt;/dialog&gt;
+</code></pre>
+<p><a href="http://jsbin.com/obazi">View a live example</a></p>
+<p>Here, I have marked up an example of a conversation on Twitter, with users replying to the original speakers tweet. Once again, each person has had their name marked up in a <code>dt</code> but also uses the new <code>time</code> element to define the time of the tweet. In the new <a href="http://dev.w3.org/html5/spec/Overview.html#the-dt-element">definition</a> of <code>dt</code>, there is an example of using <code>time</code> this. Finally, the content of each tweet is placed in a <code>dd</code>. This shows how <code>dialog</code> could be used today in even some of the most popular services on the web.</p>
+<h2>Wrapping up</h2>
+<p><code>dialog</code> is quite an easy element to grasp, and you&#8217;ll quickly find yourself marking up conversations, chat logs and more with this new element. As seen with the Twitter example, there is scope to add extra value to dialogue used in the real world. Now, go forth and have conversations knowing that you can easily mark them up in HTML 5!</p>
+<p><a href="http://html5doctor.com/a-little-more-conversation-with-dialog/" rel="bookmark">A little more conversation with dialog</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 12, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/a-little-more-conversation-with-dialog/feed/</wfw:commentRss>
+		<slash:comments>25</slash:comments>
+		</item>
+	</channel>
+</rss>

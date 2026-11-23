@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset=utf-8> <!-- simplified version; works on legacy browsers -->
+  <title>
+      The video element | HTML5 Doctor  </title>
+
+<meta name="description" content="The &#60;video&#62; element is brand new in HTML 5 and allows you to, get this, play a movie in your website! The data of this element is supposed to be video but it might also have audio or images associated with it.
+Of course, this will only work in a few browsers: Safari 3.1+, Firefox 3.5+, [...]" />
+	
+    
+    
+    
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/style.css">
+  
+     
+  
+  <!--[if IE]>
+    <script src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/css/ie7.css">
+  <![endif]-->  
+
+	<link rel="shortcut icon" href="http://html5doctor.com/wp-content/themes/html5doctor/img/favicon.ico" type="image/x-icon" />
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor RSS Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/atom+xml" title="HTML5 Doctor Atom Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/rss+xml" title="HTML5Doctor Comments RSS Feed" href="http://feeds.feedburner.com/HTML5DoctorComments" />
+  <link rel="pingback" href="http://html5doctor.com/xmlrpc.php" />
+
+
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; The video element Comments Feed" href="http://html5doctor.com/the-video-element/feed/" />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/stylesheet.css?ver=2.0.7' type='text/css' media='all' />
+<link rel='stylesheet' id='sociable-front-css-css'  href='http://html5doctor.com/wp-content/plugins/sociable/sociable.css?ver=2.8.6' type='text/css' media='' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.50' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://html5doctor.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='HTML5 Doctor' href='http://html5doctor.com' />
+<link rel='start' title='Designing a blog with html5' href='http://html5doctor.com/designing-a-blog-with-html5/' />
+<link rel='prev' title='The header element' href='http://html5doctor.com/the-header-element/' />
+<link rel='next' title='Understanding aside' href='http://html5doctor.com/understanding-aside/' />
+<meta name="generator" content="WordPress 2.8.6" />
+</head>
+<body class="wordpress single">
+
+<nav id="skipLink">
+	<ul>
+    	<li><a href="#nav">Skip to primary navigation</a></li>
+        <li><a href="#content">Skip to main content</a></li>
+        <li><a href="#sidebar">Skip to sidebar</a></li>
+    </ul>
+</nav>
+
+<header role="banner">
+    <hgroup>
+        <h1 class="logo"><a href="http://html5doctor.com/">HTML5 Doctor</a></h1>
+        <h2 class="strapline">helping you implement HTML5 today</h2>
+    </hgroup>
+</header>
+  
+<nav>
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>  
+<div id="content">
+
+<div class="hfeed" role="main">
+      	<article class="hentry" id="post-65">
+	  <header>
+	    <h1 class="entry-title">The video element</h1>
+	  </header>
+	  <div class="entry-content">
+      
+		        
+	    <p>The &lt;video&gt; element is brand new in HTML 5 and allows you to, get this, play a movie in your website! The data of this element is supposed to be video but it might also have audio or images associated with it.</p>
+<p>Of course, this will only work in a few browsers: Safari 3.1+, Firefox 3.5+, and latest builds of Opera (oh, and potentially the next release of Chrome).<span id="more-65"></span></p>
+<h2>The ‘old’ way</h2>
+<p>Ugh, look at this horrid code:</p>
+<pre><code>&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="425" height="344" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"&gt;
+&lt;param name="allowFullScreen" value="true" /&gt;
+&lt;param name="allowscriptaccess" value="always" /&gt;
+&lt;param name="src" value="http://www.youtube.com/v/oHg5SJYRHA0&amp;hl=en&amp;fs=1&amp;" /&gt;
+&lt;param name="allowfullscreen" value="true" /&gt;
+&lt;embed type="application/x-shockwave-flash" width="425" height="344" src="http://www.youtube.com/v/oHg5SJYRHA0&amp;hl=en&amp;fs=1&amp;" allowscriptaccess="always" allowfullscreen="true"&gt;
+&lt;/embed&gt;
+&lt;/object&gt;</code></pre>
+<p>Yuck. And as you know, you need Flash for this. Or it is often delivered via javascript as well so it is not perfect.</p>
+<h2>The HTML 5 way</h2>
+<p>Nice, clean, minimal code:</p>
+<pre><code>&lt;video width=&quot;640&quot;  height=&quot;360&quot; src=&quot;http://www.youtube.com/demo/google_main.mp4&quot;  controls autobuffer&gt;
+&lt;p&gt; Try this page in Safari  4! Or you can &lt;a  href=&quot;http://www.youtube.com/demo/google_main.mp4&quot;&gt;download the  video&lt;/a&gt; instead.&lt;/p&gt;
+  &lt;/video&gt;
+</code></pre>
+<h3>Autoplay</h3>
+<p>The video tag has an attribute that allows the video to play when the page loads.</p>
+<pre><code>&lt;video src="abc.mov" autoplay&gt;
+&lt;/video&gt;</code></pre>
+<p>But <a href="http://www.punkchip.com/2009/04/autoplay-is-bad-for-all-users/">autoplay is bad ok</a>? Youtube and the like autoplay their videos. But before you push the launch button for your HTML 5 site, strongly consider whether it should autoplay a video.</p>
+<h3>Download</h3>
+<p>If the browser doesn’t know what to do with video tag, or if there is a display error, you can offer a download to the video instead:</p>
+<h3>Autobuffer</h3>
+<p>Autobuffer attribute is used when autoplay is <strong>not</strong> used but the page/site owner thinks the video will be watched at some point. The video is downloaded in the background, so when the user starts the video, it will be able to play at least some of the content. If both autoplay and autobuffer are used, then autobuffer is ignored.</p>
+<p>It is worth pointing out at this point that the browser automatically downloads the video anyway, with or without autobuffer and there is nothing you can do about it. This has bandwidth and loading time issues, particularly if you have a lot of video on your page.</p>
+<h3>Poster</h3>
+<p>Use the poster attribute to display a frame of the video (as a .jpg, .png, whatever), in case the video doesn’t load for some reason. It can be a local image or elsewhere on the web</p>
+<pre><code>&lt;video width="640" height="360" src="http://www.youtube.com/demo/google_main.mp" autobuffer controls poster="whale.png"&gt;
+&lt;p&gt;Try this page in Safari 4! Or you can &lt;a href="http://www.youtube.com/demo/google_main.mp4"&gt;download the video&lt;/a&gt; instead.&lt;/p&gt;
+&lt;/video&gt;</code></pre>
+<p>You should use the poster attribute because you don’t want the user to see nothing.</p>
+<h3>Controls</h3>
+<p>Adding this attribute means you can use your own play/pause/etc buttons for your video. Safari has lovely default controls but you can create your own.</p>
+<h3>Subtitles</h3>
+<p>There is no attribute for subtitles (yet – hello HTML 5 group) but just thought I’d mention it. Personally I love the way the JW FLV player handles it, but this is a very interesting read: <a href="http://blog.gingertech.net/2008/12/12/attaching-subtitles-to-html5-video/">http://blog.gingertech.net/2008/12/12/attaching-subtitles-to-html5-video/</a></p>
+<p>But ideally, we will be able to delivery subtitles/description audio without javascript.</p>
+<h2>Current issues</h2>
+<h3>Codecs</h3>
+<p>I won’t claim to be a video/audio codec expert but there are a few outstanding issues in this area, which <a href="http://www.topfstedt.de/weblog/?p=382">this article</a> does a good job explaining.</p>
+<h3>Internet Explorer</h3>
+<p>IE hasn’t a clue and as the market leader, will need to be addressed. Thankfully here at HTML 5 Doctor, we have a few hints and tips for IE that will be coming shortly.</p>
+<h3>Physical file</h3>
+<p>So far, the video tag needs to link to a physical file (see example at the top). What we need here is a way to just import, say a YouTube video, using the video tag, like we did with the embed tag.</p>
+<p>When I set out writing this article, what I wanted to do was kick it back to 2008 and Rickroll the lot of you but so far I haven’t found a way to do it with the video tag.</p>
+<p>Here’s what I think you should be able to do with the video tag:</p>
+<pre><code>&lt;video src="http://www.youtube.com/v/oHg5SJYRHA0&amp;hl=en&amp;fs=1&amp;" autoplay&gt;
+&lt;/video&gt;</code></pre>
+<p>How awesome would that be?</p>
+<h2>Conclusion</h2>
+<p>I think there is a <strong>long</strong> way to go yet but this tag has real potential. The issue over codecs looks certain to run and run, but you can put fall backs in the code, like the download link. You could use a combination of the video, object, embed elements, but that markup will be pretty horrendous:</p>
+<pre><code>&lt;video width="640" height="360" src="http://www.youtube.com/demo/google_main.mp4" autobuffer controls poster="whale.png"&gt;
+&lt;object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="640"height="360" codebase="http://www.apple.com/qtactivex/qtplugin.cab"&gt;
+&lt;param value="http://www.youtube.com/demo/google_main.mp4"&gt;
+&lt;param value="true"&gt;
+&lt;param value="false"&gt;
+&lt;embed src="http://www.youtube.com/demo/google_main.mp4" width="640"height="360" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"&gt;
+&lt;/embed&gt;
+&lt;/object&gt;
+&lt;/video&gt;</code></pre>
+<h2>In the meantime</h2>
+<p>If you don’t want to use the video tag yet, then here is <strong>valid</strong> XHTML code to display a video:</p>
+<pre><code>&lt;object width="460" height="265" data="http://vimeo.com/moogaloop.swf?clip_id=5072163" type="application/x-shockwave-flash"&gt;
+&lt;param value="http://vimeo.com/moogaloop.swf?clip_id=5072163"&gt;&lt;/param&gt;
+&lt;param name="allowFullScreen" value="true"&gt;&lt;/param&gt;
+&lt;param value="always"&gt;&lt;/param&gt;
+&lt;/object&gt;</code></pre>
+<h2>Further reading</h2>
+<ul>
+<li><a href="http://dev.w3.org/html5/spec/Overview.html#video">Editor&#8217;s Draft 17 June 2009</a></li>
+<li><a href="http://www.brucelawson.co.uk/2009/accessibility-of-html5-video-and-audio-elements/">Accessibility of HTML 5 video and audio elements </a></li>
+<li><a href="http://www.alobbs.com/1369/Setting_up_a_HTML5_on_line_video_site.html">Setting up a HTML 5 on-line video site</a></li>
+<li><a href="http://blog.dailymotion.com/2009/05/27/watch-videowithout-flash/">Watch Video…without Flash</a></li>
+<li><a href="http://www.youtube.com/html5">YouTube HTML 5 demo</a></li>
+<li><a href="http://henriksjokvist.net/archive/2009/2/using-the-html5-video-tag-with-a-flash-fallback">Using the HTML 5 video tag with a Flash fallback</a></li>
+<li><a href="http://www.computedstyle.com/2009/05/lessons-from-building-basic-video.html">Lessons From Building a Basic Video Player in HTML 5</a></li>
+</ul>
+<div class="sociable">
+<div class="sociable_tagline">
+<h5>Share and Save:</h5>
+</div>
+<ul>
+<li class="sociablefirst"><a rel="nofollow"  href="http://twitter.com/home?status=The%20video%20element%20-%20http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F" title="Twitter"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Twitter" alt="Twitter" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;title=The%20video%20element&amp;bodytext=The%20%26lt%3Bvideo%26gt%3B%20element%20is%20brand%20new%20in%20HTML%205%20and%20allows%20you%20to%2C%20get%20this%2C%20play%20a%20movie%20in%20your%20website%21%20The%20data%20of%20this%20element%20is%20supposed%20to%20be%20video%20but%20it%20might%20also%20have%20audio%20or%20images%20associated%20with%20it.%0D%0A%0D%0AOf%20course%2C%20this%20will%20only%20work%20" title="Digg"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Digg" alt="Digg" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-235px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://sphinn.com/index.php?c=post&amp;m=submit&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F" title="Sphinn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Sphinn" alt="Sphinn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://reddit.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;title=The%20video%20element" title="Reddit"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Reddit" alt="Reddit" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-55px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://delicious.com/post?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;title=The%20video%20element&amp;notes=The%20%26lt%3Bvideo%26gt%3B%20element%20is%20brand%20new%20in%20HTML%205%20and%20allows%20you%20to%2C%20get%20this%2C%20play%20a%20movie%20in%20your%20website%21%20The%20data%20of%20this%20element%20is%20supposed%20to%20be%20video%20but%20it%20might%20also%20have%20audio%20or%20images%20associated%20with%20it.%0D%0A%0D%0AOf%20course%2C%20this%20will%20only%20work%20" title="del.icio.us"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="del.icio.us" alt="del.icio.us" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;title=The%20video%20element" title="StumbleUpon"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="StumbleUpon" alt="StumbleUpon" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://technorati.com/faves?add=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F" title="Technorati"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Technorati" alt="Technorati" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-271px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.netvibes.com/share?title=The%20video%20element&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F" title="Netvibes"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Netvibes" alt="Netvibes" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.facebook.com/share.php?u=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;t=The%20video%20element" title="Facebook"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Facebook" alt="Facebook" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;title=The%20video%20element&amp;annotation=The%20%26lt%3Bvideo%26gt%3B%20element%20is%20brand%20new%20in%20HTML%205%20and%20allows%20you%20to%2C%20get%20this%2C%20play%20a%20movie%20in%20your%20website%21%20The%20data%20of%20this%20element%20is%20supposed%20to%20be%20video%20but%20it%20might%20also%20have%20audio%20or%20images%20associated%20with%20it.%0D%0A%0D%0AOf%20course%2C%20this%20will%20only%20work%20" title="Google Bookmarks"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Google Bookmarks" alt="Google Bookmarks" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-91px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.friendfeed.com/share?title=The%20video%20element&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F" title="FriendFeed"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="FriendFeed" alt="FriendFeed" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-37px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://news.ycombinator.com/submitlink?u=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;t=The%20video%20element" title="HackerNews"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="HackerNews" alt="HackerNews" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-127px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;title=The%20video%20element&amp;source=HTML5+Doctor+helping+you+implement+HTML5+today&amp;summary=The%20%26lt%3Bvideo%26gt%3B%20element%20is%20brand%20new%20in%20HTML%205%20and%20allows%20you%20to%2C%20get%20this%2C%20play%20a%20movie%20in%20your%20website%21%20The%20data%20of%20this%20element%20is%20supposed%20to%20be%20video%20but%20it%20might%20also%20have%20audio%20or%20images%20associated%20with%20it.%0D%0A%0D%0AOf%20course%2C%20this%20will%20only%20work%20" title="LinkedIn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="LinkedIn" alt="LinkedIn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-1px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.newsvine.com/_tools/seed&amp;save?u=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;h=The%20video%20element" title="NewsVine"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="NewsVine" alt="NewsVine" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.sphere.com/search?q=sphereit:http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;title=The%20video%20element" title="SphereIt"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="SphereIt" alt="SphereIt" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-181px -55px" class="sociable-hovers" /></a></li>
+<li class="sociablelast"><a rel="nofollow"  href="http://www.tumblr.com/share?v=3&amp;u=http%3A%2F%2Fhtml5doctor.com%2Fthe-video-element%2F&amp;t=The%20video%20element&amp;s=The%20%26lt%3Bvideo%26gt%3B%20element%20is%20brand%20new%20in%20HTML%205%20and%20allows%20you%20to%2C%20get%20this%2C%20play%20a%20movie%20in%20your%20website%21%20The%20data%20of%20this%20element%20is%20supposed%20to%20be%20video%20but%20it%20might%20also%20have%20audio%20or%20images%20associated%20with%20it.%0D%0A%0D%0AOf%20course%2C%20this%20will%20only%20work%20" title="Tumblr"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Tumblr" alt="Tumblr" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-325px -55px" class="sociable-hovers" /></a></li>
+</ul>
+</div>
+	  </div>
+	  <footer>
+    		<div>
+                <div class="author-blurb author">
+            	<p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></span>. Tom is a designer/frontend web developer based in Liverpool, UK. He is football (soccer) mad, loves gaming and other geeky bits n bobs. Stalk him on <a href="http://www.twitter.com/leads">Twitter</a>.</p>
+               <img alt='' src='http://www.gravatar.com/avatar/8588be90852cc86af8087e026ef36995?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+            	</div>
+                
+            	<span>Posted on <time class="published updated" datetime="2009-06-18">June 18th, 2009</time></span>
+                
+				<p>				Got anything to add or ask? <a href="#respond">then leave a response</a>,<br />or <a href="http://html5doctor.com/the-video-element/trackback/" rel="trackback">trackback</a> from your own site.
+				            </div>
+            <p>Categorised under: <a href="http://html5doctor.com/category/attributes/" title="View all posts in Attributes" rel="category tag">Attributes</a>,  <a href="http://html5doctor.com/category/elements/" title="View all posts in Elements" rel="category tag">Elements</a>.</p>
+            <p>Tagged with: <a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a>, <a href="http://html5doctor.com/tag/video/" rel="tag">video</a>.</p>
+	  </footer>
+      </article>
+	    
+<!-- You can start editing here. -->
+<div id="comments">
+    <h3 id="comment-head">
+    24 Responses    to &#8220;
+    The video element    &#8221;</h3>
+<article class=" " id="comment-5">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://bradshawenterprises.com' rel='external nofollow' class='url'>Rich</a></cite> at <a class="commentmetadata" href="#comment-5">
+    <time datetime="2009-06-18T0:58+00:00">
+        June 29th, 2009        at
+        4:43 am    </time></a></p>
+            <p><a href="http://camendesign.com/code/video_for_everybody" rel="nofollow">http://camendesign.com/code/video_for_everybody</a></p>
+<p>Has a good treatment of this tag- a recommended read. Not sure if tags work here, so won&#8217;t paste the code, but he uses an mp4 and ogg video with a flash fallback, which works on every browser including IE6 and the iPhone.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/f1ead936fb3a1beb870c8541f463254a?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-7">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://richclarkdesign.com' rel='external nofollow' class='url'>Rich Clark</a></cite> at <a class="commentmetadata" href="#comment-7">
+    <time datetime="2009-06-18T0:58+00:00">
+        June 29th, 2009        at
+        5:14 am    </time></a></p>
+            <p>That is a great write up from <a href="http://twitter.com/kroc" rel="nofollow">@Kroc</a> yeah we&#8217;ve all been paying close attention to the work he&#8217;s been doing and look forward to reading more.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/c774f8504135c834c47ced7c9ade2001?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-10">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://flexewebs.com/semantix' rel='external nofollow' class='url'>Jason Grant</a></cite> at <a class="commentmetadata" href="#comment-10">
+    <time datetime="2009-06-18T0:58+00:00">
+        June 29th, 2009        at
+        5:28 am    </time></a></p>
+            <p>is probably the most promising &#8216;feature&#8217; of the HTML5 spec. I&#8217;m excited about this one.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/99f62fbe62ba7cd45fe9e04d788b5add?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-31">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.anieto2k.com/2009/06/30/el-elemento-video-del-html5/' rel='external nofollow' class='url'>El elemento video del HTML5 | aNieto2K</a></cite> at <a class="commentmetadata" href="#comment-31">
+    <time datetime="2009-06-18T0:58+00:00">
+        June 30th, 2009        at
+        2:13 am    </time></a></p>
+            <p>[...] Via     &larr; Los usuarios me avisan [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-34">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blogografia.com/el-elemento-video-del-html5.html' rel='external nofollow' class='url'>El elemento video del HTML5 : Blogografia</a></cite> at <a class="commentmetadata" href="#comment-34">
+    <time datetime="2009-06-18T0:58+00:00">
+        June 30th, 2009        at
+        2:40 am    </time></a></p>
+            <p>[...] Via [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-70">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brianlang.ca' rel='external nofollow' class='url'>Brian Lang</a></cite> at <a class="commentmetadata" href="#comment-70">
+    <time datetime="2009-06-18T0:58+00:00">
+        July 2nd, 2009        at
+        6:51 pm    </time></a></p>
+            <p>I&#8217;m reading your site in Google Reader via RSS.<br />
+Articles such as this where you use a tag in the title of the document simply show up in Google Reader as The element. The tag itself gets rendered. Perhaps you could encode the titles using the Html entities lt and gt?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/480fb4558b901930218fa642f1268f45?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-80">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Rich Clark</cite> at <a class="commentmetadata" href="#comment-80">
+    <time datetime="2009-06-18T0:58+00:00">
+        July 3rd, 2009        at
+        7:50 am    </time></a></p>
+            <p>Hi Brian</p>
+<p>Thanks for bringing this up, it&#8217;s something we&#8217;ve spotted and aim to fix. The titles were encoded that way but don&#8217;t seem to be escaping properly, it&#8217;s something I&#8217;m going to look into this weekend.</p>
+<p>Cheers</p>
+<p>Rich</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/c774f8504135c834c47ced7c9ade2001?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-118">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">MySchizoBuddy</cite> at <a class="commentmetadata" href="#comment-118">
+    <time datetime="2009-06-18T0:58+00:00">
+        July 8th, 2009        at
+        1:28 pm    </time></a></p>
+            <p>It works in Google Chrome 3 (its a development version at the time of this writing)</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/3cfefffa747cab36a4befb41d13d20b2?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-182">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">zcorpan</cite> at <a class="commentmetadata" href="#comment-182">
+    <time datetime="2009-06-18T0:58+00:00">
+        July 15th, 2009        at
+        8:36 am    </time></a></p>
+            <p>The last snippet is not valid HTML5 because param is a void element and thus the end tag is not allowed. You can use /&gt; syntax in HTML5 though.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/9767673d472c2f27307890c27061bca3?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-210">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://carsonified.com/blog/dev/html-5-dev/23-essential-html-5-resources/' rel='external nofollow' class='url'>Carsonified &raquo; 23 Essential HTML 5 Resources</a></cite> at <a class="commentmetadata" href="#comment-210">
+    <time datetime="2009-06-18T0:58+00:00">
+        July 16th, 2009        at
+        7:51 pm    </time></a></p>
+            <p>[...] Video elements &#8211; A useful article from HTML 5 Doctor on the Video element [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-215">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.neurosoftware.ro/programming-blog/blogposter/web-resources/23-essential-html-5-resources/' rel='external nofollow' class='url'>23 Essential HTML 5 Resources - Programming Blog</a></cite> at <a class="commentmetadata" href="#comment-215">
+    <time datetime="2009-06-18T0:58+00:00">
+        July 17th, 2009        at
+        1:21 am    </time></a></p>
+            <p>[...] Video elements &#8211; A useful article from HTML 5 Doctor on the Video element [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-219">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blog.caointeractive.com/23-essential-html-5-resources/' rel='external nofollow' class='url'>CaoInteractive Blog &raquo; 23 Essential HTML 5 Resources</a></cite> at <a class="commentmetadata" href="#comment-219">
+    <time datetime="2009-06-18T0:58+00:00">
+        July 17th, 2009        at
+        4:34 am    </time></a></p>
+            <p>[...] Video elements – A useful article from HTML 5 Doctor on the Video element [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-304">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.lumenws.com.br/blog/24-resources-para-html5/' rel='external nofollow' class='url'>24 Resources para HTML5 | Blog &#8212; Lúmen Web Solutions</a></cite> at <a class="commentmetadata" href="#comment-304">
+    <time datetime="2009-06-18T0:58+00:00">
+        July 22nd, 2009        at
+        3:36 pm    </time></a></p>
+            <p>[...] Video elements – Tutorial sobre o elemento video do HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-642">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.iconlandia.it/443/70-must-have-css3-and-html5-tutorials-and-resources-3.html' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources - Iconlandia</a></cite> at <a class="commentmetadata" href="#comment-642">
+    <time datetime="2009-06-18T0:58+00:00">
+        August 10th, 2009        at
+        4:08 pm    </time></a></p>
+            <p>[...] The Video Element &#8211; An introduction to the new video element in HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-673">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.neurosoftware.ro/programming-blog/blogposter/web-resources/70-must-have-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources - Programming Blog</a></cite> at <a class="commentmetadata" href="#comment-673">
+    <time datetime="2009-06-18T0:58+00:00">
+        August 12th, 2009        at
+        1:33 am    </time></a></p>
+            <p>[...] The Video Element &#8211; An introduction to the new video element in HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-747">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://Hikari.ws' rel='external nofollow' class='url'>Hikari</a></cite> at <a class="commentmetadata" href="#comment-747">
+    <time datetime="2009-06-18T0:58+00:00">
+        August 15th, 2009        at
+        5:26 pm    </time></a></p>
+            <p>hehe the XHTML object code was nice <img src='http://html5doctor.com/wp-includes/images/smilies/icon_razz.gif' alt=':P' class='wp-smiley' /> </p>
+<p>I believe that the biggests advantage for the video element is to be able to easily (for the webmaster, for the browser developer and for the visiting user) embed video on sites.</p>
+<p>What I mean is that today we can just upload a png or even a gif image to our site, or to imageshark if we don&#8217;t wanna pay for the bandwidth, and use a simple img element to show it. With videos, otherwise, there is no easy way to  upload a mkv, avi or even mp4 to our site and easily show it inside HTML. I won&#8217;t even talk about free video hosting services that would let we offer a direct link to it, without forcing user to visit their site and wait 60 seconds for the download&#8230;</p>
+<p>That forces us to use youtube services to host and deliver an embedded player for it. We are forced to use this horrible, worse than that bad old .rm, FLV format.</p>
+<p>The only other options are to host the file ourselves and give a simple anchor link for downloading it. But youtube proved that this approach is not as good as browser embedded player&#8230; unfortunately we need a way to lock visitors on our site until they are done downloading and watching the video (yes, I HATE this idea, but that&#8217;s the way to get popularity), so that they leave comments about it.</p>
+<p>What I wanted to do is leave an embedded video player together with a direct link to it, and have it on a free host elsewhere <img src='http://html5doctor.com/wp-includes/images/smilies/icon_razz.gif' alt=':P' class='wp-smiley' /> </p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/e486dddd09146eb1b00db415869843d3?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-757">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.scripting.com.cn/70-must-have-css3-and-html5-tutorial-and-resource/' rel='external nofollow' class='url'>70+ 必备的 CSS3 和 HTML5 教程资源</a></cite> at <a class="commentmetadata" href="#comment-757">
+    <time datetime="2009-06-18T0:58+00:00">
+        August 16th, 2009        at
+        5:11 pm    </time></a></p>
+            <p>[...] The Video Element &#8211; 介绍 HTML5 全新的视频元素。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-803">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.nicewebstyles.com' rel='external nofollow' class='url'>nice web styles</a></cite> at <a class="commentmetadata" href="#comment-803">
+    <time datetime="2009-06-18T0:58+00:00">
+        August 19th, 2009        at
+        1:04 pm    </time></a></p>
+            <p>Have nice content about CSS3 i have use CSS3 it have great features <a href="http://www.nicewebstyles.com" rel="nofollow">Nice website design</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4353e88c52683374a15b9805e74141f4?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-899">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://netfire.us/2009/08/17/70-css3-and-html-5-tutorials-and-resources/' rel='external nofollow' class='url'>70 CSS3 and HTML 5 tutorials and resources | Netfire.us - Design tutorials, articles, resources, and creative inspiration.</a></cite> at <a class="commentmetadata" href="#comment-899">
+    <time datetime="2009-06-18T0:58+00:00">
+        September 1st, 2009        at
+        7:50 pm    </time></a></p>
+            <p>[...] The Video Element [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-904">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://designadept.com/70-must-have-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources &laquo; Adept - Design &amp; Development Royalty</a></cite> at <a class="commentmetadata" href="#comment-904">
+    <time datetime="2009-06-18T0:58+00:00">
+        September 2nd, 2009        at
+        9:31 pm    </time></a></p>
+            <p>[...] The Video Element &#8211; An introduction to the new video element in HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-908">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blog.almacenplantillasweb.es/2009/08/css3-y-html5-tutoriales-y-recursos-para-el-nuevo-diseno-web/' rel='external nofollow' class='url'>CSS3 y HTML5: Tutoriales y recursos para el nuevo diseño web | Recursos para desarrollo y diseño web - AlmacenPlantillasWeb Blog</a></cite> at <a class="commentmetadata" href="#comment-908">
+    <time datetime="2009-06-18T0:58+00:00">
+        September 3rd, 2009        at
+        5:24 am    </time></a></p>
+            <p>[...] The Video Element &#8211; Introducción a el elemento &#8220;video&#8221; en HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-1002">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://html5tutorial.net/' rel='external nofollow' class='url'>Lisa</a></cite> at <a class="commentmetadata" href="#comment-1002">
+    <time datetime="2009-06-18T0:58+00:00">
+        September 17th, 2009        at
+        5:19 am    </time></a></p>
+            <p>Thanks, i am struggling to get this working under IE &amp; FF, however Safari is picking up the code fine, are the extra scripts i need running to make it compatible for other browsers ?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/3876e030a3fc69a8b59a8c55829fb510?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1300">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://all-article.comxa.com/embed-vimeo-valid-xhtml-dan-html-5/' rel='external nofollow' class='url'>Embed Vimeo Valid XHTML dan HTML 5 | All Tutorials - Blogger - Wordpress - Joomla - Design - Insurance</a></cite> at <a class="commentmetadata" href="#comment-1300">
+    <time datetime="2009-06-18T0:58+00:00">
+        October 8th, 2009        at
+        2:06 pm    </time></a></p>
+            <p>[...] The video element                        Have Your Say   Click here to cancel reply.  Your Name [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-1582">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://9elements.com/io/?p=306' rel='external nofollow' class='url'>Make OGG Video work with Rails &laquo; IO 9elements</a></cite> at <a class="commentmetadata" href="#comment-1582">
+    <time datetime="2009-06-18T0:58+00:00">
+        November 9th, 2009        at
+        2:22 am    </time></a></p>
+            <p>[...] <a href="http://diveintohtml5.org/video.html" rel="nofollow">http://diveintohtml5.org/video.html</a> <a href="http://html5doctor.com/the-video-element/" rel="nofollow">http://html5doctor.com/the-video-element/</a> [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+</section>
+<section id="respond">
+<h3>Leave a Reply</h3>
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+        <p>
+        <label for="author">Name
+        (required)        </label>
+        <input required aria-required="true" type="text" name="author" id="author" value="" size="22" />
+    </p>
+    <p>
+        <label for="email">Email (will not be published)
+        (required)        </label>
+        <input required aria-required="true" type="email" name="email" id="email" value="" size="22"  />
+    </p>
+    <p>
+        <label for="url">Website</label>
+        <input type="url" name="url" id="url" value="" size="22"  />
+    </p>
+        <p>You can use these tags: &lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strong&gt;</p>
+    <p>You can also use &lt;code&gt;, and remember to use &amp;lt; and &amp;gt; for brackets.</p>
+    <p>
+        <label for="comment" class="screenreader">Enter comment</label>
+        <textarea required aria-required="true" name="comment" id="comment"  cols="40" rows="10"></textarea>
+        <input name="submit" type="submit" id="submit"  value="Submit Comment" />
+        <input type="hidden" name="comment_post_ID" value="65" />
+    </p>
+    
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+</form>
+</div>	
+			
+	
+<!--    <section class="ask-doctor">
+        <form action="">
+            <label>Got a question about html5? Ask the doctor....
+            <input type="text">
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+    </section>-->
+
+</div><!-- //end hfeed -->
+
+<aside role="complementary">
+
+<div>
+	    <form id="searchform" method="get" action="http://html5doctor.com" role="search">
+
+      <div>
+
+        
+        <input id="s" name="s" type="search" value="Search" size="20" tabindex="1" onfocus="if (!this.reset) { this.value = ''; this.reset = true }" />
+
+        
+        <input id="searchsubmit" name="searchsubmit" class="btn" type="submit" value="Go" tabindex="2" />
+
+      </div>
+
+    </form> 
+</div>
+
+<aside>
+	<ul class="ads">
+    	<li><a href="http://www.authenticjobs.com/?aff=dcacc"><img src="http://www.authenticjobs.com/img/aj_125x125.gif" alt="Post a job. Find one. authenticjobs.com" width="125" height="125" /></a></li>
+    	<li><a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/mt-125x125-dk.png" alt="Proudly Hosted by Media Temple"></a></li>
+    </ul>
+</aside>
+
+<aside class="ask-banner">
+	<a href="/ask-the-doctor/"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/ask-doctor-banner.png" alt="Got a question about html5? Ask the doctor" /></a>
+</aside>
+
+<nav>
+	<h3>Recent Articles</h3>
+	<ul class="recent">
+			<li><a href='http://html5doctor.com/the-address-element/' title='The Address Element'>The Address Element</a></li>
+	<li><a href='http://html5doctor.com/aside-revisited/' title='Aside Revisited'>Aside Revisited</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-3/' title='Your Questions Answered #3'>Your Questions Answered #3</a></li>
+	<li><a href='http://html5doctor.com/why-designers-should-care-about-html5/' title='Why designers should care about HTML5'>Why designers should care about HTML5</a></li>
+	<li><a href='http://html5doctor.com/dd-details-wrong-again/' title='dd-details wrong again'>dd-details wrong again</a></li>
+	<li><a href='http://html5doctor.com/measure-up-with-the-meter-tag/' title='Measure up with the meter tag'>Measure up with the meter tag</a></li>
+	<li><a href='http://html5doctor.com/the-footer-element-update/' title='The Footer Element Update'>The Footer Element Update</a></li>
+	<li><a href='http://html5doctor.com/september-html5-spec-changes/' title='September HTML5 spec changes'>September HTML5 spec changes</a></li>
+	<li><a href='http://html5doctor.com/the-section-element/' title='The section element'>The section element</a></li>
+	<li><a href='http://html5doctor.com/absent-elements-and-validation/' title='Absent Elements and Validation'>Absent Elements and Validation</a></li>
+	<li><a href='http://html5doctor.com/its-bug-report-time/' title='It&#8217;s bug report time!'>It&#8217;s bug report time!</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-2/' title='Your questions answered #2'>Your questions answered #2</a></li>
+    </ul> 
+</nav>
+
+<nav>
+	<h3><abbr>HTML</abbr>5 Doctors (Authors)</h3>
+	<ul>
+    	<li><a href="/author/richc/">Richard Clark</a></li>
+    	<li><a href="/author/brucel/">Bruce Lawson</a></li>
+    	<li><a href="/author/jacko/">Jack Osborne</a></li>
+    	<li><a href="/author/miker/">Mike Robinson</a></li>
+    	<li><a href="/author/remys/">Remy Sharp</a></li>
+    	<li><a href="/author/toml/">Tom Leadbetter</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Contributing Authors</h3>
+	<ul>
+    	    	<li><a href="/author/cennyddb/">Cennydd Bowles</a></li>
+    	<li><a href="/author/markb/">Mark Boas</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Categories</h3>
+	<ul>
+    		<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" title="View all posts filed under Accessibility">Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" title="View all posts filed under Attributes">Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" title="View all posts filed under Boilerplates">Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" title="View all posts filed under Browser Compatibility">Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" title="View all posts filed under Comment">Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" title="View all posts filed under CSS">CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" title="View all posts filed under Elements">Elements</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" title="View all posts filed under JavaScript APIs">JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" title="View all posts filed under Questions">Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" title="View all posts filed under Quick Tips">Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" title="View all posts filed under Specification Changes">Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" title="View all posts filed under Structure">Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" title="View all posts filed under Validation">Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" title="View all posts filed under WAI-ARIA">WAI-ARIA</a>
+</li>
+    </ul>    
+</nav>
+
+<section>
+	<h3>About</h3>
+	<p>HTML5doctor is run by a bunch of volunteers that are passionate about making <abbr>HTML</abbr>5 happen here and now. Read more about them on the <a href="/about/">about page</a>.</p>    
+</section>
+
+<section>
+<script type="text/javascript" src="http://feeds.delicious.com/v2/js/html5gallery?title=HTML5%20Articles%20Elsewhere&amp;icon=rss&amp;count=5&amp;sort=date&amp;extended&amp;showadd"></script>
+</section>
+</aside>
+</div><!--// end content -->
+<aside class="extras">
+	    <section>
+        <h3>Follow us on twitter</h3><a href="http://www.twitter.com/html5doctor"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/twitter.jpg" alt="Follow us on twitter"></a>
+        </section>
+   	    <section>
+	    <h3>Want to write for us?</h3> 
+        <p>We're always on the lookout for new writers, so if you feel you've got a grip on <abbr>HTML</abbr> 5 &amp; have something to add then please <a href="/contact/">get in touch</a>.</p>
+        </section>
+	    <section>        
+    	<h3>Sites using HTML5</h3><a href="http://html5gallery.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/html5gallery-thumb.png" alt="html5gallery - A showcase of sites using html5 markup"></a>
+		</section>
+	    <section>      
+    	<h3>Make a donation</h3>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+		<p>Unfortunately the hosting doesn't pay itself, if you've found the site useful please help us out by making a donation.<br />
+		<input type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online."></p>
+		<img alt="" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+		</form>
+		</section>
+</aside>
+
+<nav class="nav-footer">
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>
+
+<footer role="contentinfo">
+	<p><small>This site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/uk/">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</small></p>
+</footer>
+
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5doc.js"></script>
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/prettify.js"></script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8916679-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>  
+
+</body>
+</html>

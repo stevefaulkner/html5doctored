@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; draganddrop</title>
+	<atom:link href="http://html5doctor.com/tag/draganddrop/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Native Drag and Drop</title>
+		<link>http://html5doctor.com/native-drag-and-drop/</link>
+		<comments>http://html5doctor.com/native-drag-and-drop/#comments</comments>
+		<pubDate>Thu, 09 Jul 2009 09:00:13 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[draganddrop]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[javascript]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=397</guid>
+		<description><![CDATA[Along with an army of JavaScript APIs, HTML 5 comes with a Drag and Drop (DnD) API that brings native DnD support to the browser making it much easier to code up. HTML 5 DnD is based on Microsoft&#8217;s original implementation which was available as early as Internet Explorer 5! Now currently supported in IE, [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Along with an army of JavaScript APIs, <abbr>HTML</abbr> 5 comes with a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#dnd">Drag and Drop</a> (<abbr title="Drag and Drop as referred to in the HTML5 specs">DnD</abbr>) API that brings native DnD support to the browser making it much easier to code up.  </p>
+<p><abbr>HTML</abbr> 5 <abbr title="Drag and Drop">DnD</abbr> is based on Microsoft&#8217;s original implementation which was available as early as Internet Explorer 5!  Now currently supported in <abbr>IE</abbr>, Firefox 3.5 and Safari 4.</p>
+<p>We&#8217;re going to look how to implement <abbr title="Drag and Drop">DnD</abbr> and review some of the issues (or hoops we have to jump through) with the current implementations now.</p>
+<p><span id="more-397"></span></p>
+<h2 id="my_first_drag_and_drop">My First Drag and Drop</h2>
+<p>DnD requires only a few things to work:</p>
+<ul>
+<li>Something to drag</li>
+<li>A drop target</li>
+<li>JavaScript event handlers on the target to tell the browser it can drop</li>
+</ul>
+<p>The following elements are draggable by default: <code>&lt;img&gt;</code> elements and <code>&lt;a&gt;</code> elements (with an href).</p>
+<p>If you want to drag a different element, you need to set the <code>draggable</code> attribute to <code>true</code>. That&#8217;s according to the spec, but to get it to work in Safari and Firefox there&#8217;s a little more that you need to do, which we&#8217;ll come on to.</p>
+<p>If you want to skip the code walk through, here&#8217;s the <a href="http://jsbin.com/ezuke/2498">simple drag and drop</a> (<a href="http://jsbin.com/ezuke/2498/edit">source code</a>)</p>
+<p>Here&#8217;s our example markup:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=utf-8 /&gt;
+&lt;title&gt;Basic Drag and Drop&lt;/title&gt;
+&lt;style&gt;
+#drop {
+  min-height: 100px;
+  width: 200px;
+  border: 3px dashed #ccc;
+  margin: 10px;
+  padding: 10px;
+}
+p {
+  margin: 3px 0;
+}
+&lt;/style&gt;
+&lt;script src=&quot;http://html5demos.com/h5utils.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;img src=&quot;http://twitter.com/api/users/profile_image/rem&quot; alt=&quot;Remy Sharp&quot; /&gt;
+  &lt;img src=&quot;http://twitter.com/api/users/profile_image/brucel&quot; alt=&quot;Bruce Lawson&quot; /&gt;
+  &lt;img src=&quot;http://twitter.com/api/users/profile_image/Rich_Clark&quot; alt=&quot;Rich Clark&quot; /&gt;
+  &lt;div id=&quot;drop&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><small>Note: the included <a href="http://html5demos.com/h5utils.js">h5utils.js</a> script is a small library to trigger <abbr>HTML</abbr> 5 elements and to give me cross browser event binding.</small></p>
+<p>Currently the <code>&lt;img&gt;</code> elements can be dragged, but they can&#8217;t be dropped (this is the browser&#8217;s default).</p>
+<p>To <em>drop</em> elements we need to:</p>
+<ol>
+<li>Tell the browser that the element can be dragged over a specific point</li>
+<li>Handle the drop event</li>
+</ol>
+<p>To tell the browser we <em>can</em> drop in this element, all we have to do is cancel the <code>dragover</code> event.  However, since <abbr>IE</abbr> behaves differently, we need to do the same thing for the <code>dragenter</code> event.</p>
+<p>Here&#8217;s the code for basic drop handling:</p>
+<pre><code>var drop = document.querySelector(&#x27;#drop&#x27;);
+
+// Tells the browser that we *can* drop on this target
+addEvent(drop, &#x27;dragover&#x27;, cancel);
+addEvent(drop, &#x27;dragenter&#x27;, cancel);
+
+addEvent(drop, &#x27;drop&#x27;, function (event) {
+  // stops the browser from redirecting off to the text.
+  if (event.preventDefault) {
+    event.preventDefault(); 
+  }
+
+  this.innerHTML += &#x27;&lt;p&gt;&#x27; + event.dataTransfer.getData(&#x27;Text&#x27;) + &#x27;&lt;/p&gt;&#x27;;
+
+  return false;
+});
+
+function cancel(event) {
+  if (event.preventDefault) {
+    event.preventDefault();
+  }
+  return false;
+}</code></pre>
+<p><small>Note for this code, I&#8217;m using <code>addEvent</code> where you&#8217;d normally see <code>element.addEventListener</code>, it&#8217;s from the <a href="http://html5demos.com/h5utils.js">h5utils.js</a> library to support <abbr>IE</abbr>.</small></p>
+<p>In the JavaScript we are:</p>
+<ol>
+<li>Searching for the drop target in the <abbr>DOM</abbr> using <code>document.querySelector</code> (which returns the first result only)</li>
+<li>When <code>dragover</code> event is fired (when the user drags the element over another), it will trigger the function called &#8216;cancel&#8217; (at the bottom of the code above) which will prevent the default browser action</li>
+<li>Do the same for <code>dragenter</code> to support <abbr>IE</abbr></li>
+<li>Bind the <code>drop</code> event, and within there grab some data about what was dropped.</li>
+</ol>
+<h3 id="dragover_dragenter">dragover &amp; dragenter</h3>
+<p>By cancelling this event, we&#8217;re telling the browser <em>this</em> element that we&#8217;re over is the one you can release and drop upon.</p>
+<p>I&#8217;m still not entirely sure why there&#8217;s a difference here, but Firefox and friends needs <code>preventDefault</code> on the event, and <abbr>IE</abbr> requires the <code>return false</code>.  Note that the examples out in the wild that use inline JavaScript (yuk, bad), the <code>preventDefault</code> is supposed to be implicit, so you won&#8217;t see it in the code.</p>
+<h3 id="drop">drop</h3>
+<p>To show what was dropped, we need to do two things:</p>
+<ol>
+<li>Cancel the default browser action. This is to ensure that if we drop a link, the browser doesn&#8217;t go off and surf to that location</li>
+<li>Get the contents out of the <code>dataTransfer</code> object</li>
+</ol>
+<p>The cancelling of the browser default is, again, done using the <code>preventDefault</code> <em>and</em> <code>return false</code>.</p>
+<p>If we don&#8217;t set the <code>dataTransfer</code> data manually (which I&#8217;ll show you later), the default key is set to <em>Text</em>.  So this might be the value of an href of an <code>&lt;a&gt;</code> element, or it might be <code>&lt;img&gt;</code> src address.</p>
+<h2 id="doing_more_with_drag8217n_drop">Doing More with Drag&#8217;n Drop</h2>
+<p>There&#8217;s a number of extra bits in the spec other than just dragging images.</p>
+<p>Here&#8217;s a few bits that I can see being useful:</p>
+<ol>
+<li>Being able to drag <em>any</em> element</li>
+<li>More complex data types, other than text</li>
+<li>Set a different drag icon/image when dragging the element</li>
+</ol>
+<h3 id="dragging_anything">Dragging Anything</h3>
+<p>If we change the <code>&lt;img&gt;</code> to <code>&lt;div&gt;</code> tags with background images, I still want to be able to drag them around the page, and drop them in to my container.</p>
+<p>The <abbr>HTML</abbr> 5 spec says it should be as simple as adding the following attributes to the markup of the elements in question:</p>
+<pre><code>draggable="true"</code></pre>
+<p>However, this doesn&#8217;t work completely for Safari or Firefox.  </p>
+<p>For Safari you need to add the following style to the element:</p>
+<pre><code>[draggable=true] {
+  -khtml-user-drag: element;
+}</code></pre>
+<p>This will start working in Safari, and as you drag it will set a default, empty value with the <code>dataTransfer</code> object.  <em>However</em>, Firefox won&#8217;t allow you to drag the element unless you manually set some data to go with it.</p>
+<p>To solve this, we need a <code>dragstart</code> event handler, and we&#8217;ll give it some data to be dragged around with:</p>
+<pre><code>var dragItems = document.querySelectorAll('[draggable=true]');
+
+for (var i = 0; i < dragItems.length; i++) {
+  addEvent(dragItems[i], 'dragstart', function (event) {
+    // store the ID of the element, and collect it on the drop later on
+    event.dataTransfer.setData('Text', this.id);
+  });
+}</code></pre>
+<p>Here&#8217;s a working demo of <a href="http://jsbin.com/uzovu/1357/">drag and drop <em>anything</em></a> (<a href="http://jsbin.com/uzovu/1357/edit">source code</a>)</p>
+<h3 id="more_complex_data_types">More Complex Data Types</h3>
+<p>You&#8217;ve already seen how we can use <code>dataTransfer.setData(<em>format</em>, <em>string</em>)</code> to associate some data in the example above. </p>
+<p>You can also use this key/value pair to store more data, but you&#8217;re limited to storing strings only.</p>
+<p>One way I would get around this is to have a data lookup, where the key of the lookup may be the ID of the element, and then I can de-reference the data on the drop event.</p>
+<p>For example:</p>
+<pre><code>var people = {
+  rem : { 
+    name : "Remy Sharp",
+    blog : "http://remysharp.com"
+  },
+  brucel : {
+    name : "Bruce Lawson",
+    blog : "http://brucelawson.co.uk"
+  }
+  // etc...
+}
+
+var dragItems = document.querySelectorAll('[draggable=true]');
+
+for (var i = 0; i < dragItems.length; i++) {
+  addEvent(dragItems[i], 'dragstart', function (event) {
+    // store the ID of the element, and collect it on the drop later on
+    event.dataTransfer.setData('Text', this.id);
+  });
+}
+
+addEvent(drop, &#x27;drop&#x27;, function (event) {
+  // stops the browser from redirecting off to the text.
+  if (event.preventDefault) {
+    event.preventDefault(); 
+  }
+
+  var person = people[event.dataTransfer.getData(&#x27;Text&#x27;)];
+
+  this.innerHTML += &#x27;&lt;p&gt;&lt;a href=&quot;&#x27; + person.blog + &quot;&gt;' + person.name + '&lt;/a&gt;&lt;/p&gt;&#x27;;
+
+  return false;
+});</code></pre>
+<p>Here&#8217;s a working demo of <a href="http://jsbin.com/afica/13344/">drag and drop with associated data</a> (<a href="http://jsbin.com/afica/13344/edit">source code</a>)</p>
+<p>Obviously this isn&#8217;t the most ideal situation, but there&#8217;s also the possibility to set other content types in the drag data, which should produce some interesting apps in the future.</p>
+<h3 id="drag_icon">Drag Icon</h3>
+<p>Along with several other options with the <code>dragstart</code> event, you can also set a drag image, i.e. what you see under your cursor.</p>
+<p>You can create a <abbr>DOM</abbr> fragment, and then associate the fragment with the <code>dataTransfer</code> using <code>setDragImage(<em>element</em>, <em>x</em>, <em>y</em>)</code>.</p>
+<p>So we can add the following to our example to use a custom drag image:</p>
+<pre><code>var dragIcon = document.createElement('img');
+dragIcon.src = 'http://twitter.com/api/users/profile_image/twitter?size=mini';</code></pre>
+<p>Which creates an image element, and how within the <code>dragstart</code> event, we&#8217;ll set the drag image:</p>
+<pre><code>addEvent(dragItems[i], 'dragstart', function (event) {
+  // store the ID of the element, and collect it on the drop later on
+  event.dataTransfer.setData('Text', this.id);
+  <strong>event.dataTransfer.setDragImage(dragIcon, -10, -10);</strong>
+  return false;
+});</code></pre>
+<p>This sets the custom drag icon 10 pixels below the cursor, as seen in this example: <a href="http://jsbin.com/ijeza/510/">drag and drop with custom image</a> (<a href="http://jsbin.com/ijeza/510/edit">source code</a>)</p>
+<h2 id="native_drag">Native Drag</h2>
+<p>There&#8217;s lots of Drag and Drop JavaScript libraries available, but what <em>I&#8217;d</em> like to see, is native <abbr title="Drag and Drop">DnD</abbr> support falling back to library based.  However, I know for a fact that some libraries, including jQuery, construct a custom event when passed in to the event handler which means, <em>currently</em>, you can&#8217;t use the <code>dataTransfer</code> object, so you&#8217;ll have to rely on binding the events yourself.  I&#8217;m sure this will change soon.</p>
+<p>There&#8217;s lots more in Drag and Drop but this should be enough to go and play with now!</p>
+<p>As for me, I'll be updating the Drag and Drop demos on <a href="http://html5demos.com">HTML5demos.com</a> to see if I can add ARIA support and capture a screencast of it running.  Watch this space!</p>
+<h2 id="further_reader">Further Reader</h2>
+<ul>
+<li><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#dnd">HTML5 Drag and Drop spec</a></li>
+<li><a href="http://html5demos.com/drag">Alternative demo</a></li>
+<li><a href="http://html5demos.com/drag-anything">Demo showing different content types in drag and drop</a></li>
+<li><a href="http://www.whatwg.org/demos/2008-sept/dnd/dnd.html">Inline event handles</a></li>
+<li><a href="http://dev.opera.com/articles/view/accessible-drag-and-drop/">Accessible Drag and Drop</a></li>
+</ul>
+<p><a href="http://html5doctor.com/native-drag-and-drop/" rel="bookmark">Native Drag and Drop</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 9, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/native-drag-and-drop/feed/</wfw:commentRss>
+		<slash:comments>82</slash:comments>
+		</item>
+	</channel>
+</rss>

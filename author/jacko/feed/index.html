@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; Jack Osborne</title>
+	<atom:link href="http://html5doctor.com/author/jacko/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 21 Jan 2015 14:57:35 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>The contenteditable attribute</title>
+		<link>http://html5doctor.com/the-contenteditable-attribute/</link>
+		<comments>http://html5doctor.com/the-contenteditable-attribute/#comments</comments>
+		<pubDate>Tue, 10 Jan 2012 15:10:16 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[contenteditable]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3796</guid>
+		<description><![CDATA[<p>For some time now, we’ve been using various technologies to edit and store text within a web browser. Now with the <code>contenteditable</code> attribute, things have got a whole lot easier. In this article, I’ll tell you what this attribute is for, how it works, and how we can take things further.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/drag-and-drop-to-server/"     class="crp_title">Drag and Drop and Automatically Send to the Server</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[For some time now, we’ve been using various technologies to edit and store text within a web browser. Now with the <code>contenteditable</code> attribute, things have got a whole lot easier. In this article, I’ll tell you what this attribute is for, how it works, and how we can take things further.
+
+<section id="basics">
+<h2>The Basics <a class="permalink" href="#basics">#</a></h2>
+First, let’s check out the spec:
+<blockquote>The <code>contenteditable</code> attribute is an enumerated attribute whose keywords are the empty string, true, and false. The empty string and the true keyword map to the true state. The false keyword maps to the false state. In addition, there is a third state, the inherit state, which is the missing value default (and the invalid value default).
+
+<footer>— <cite><a title="contenteditable attribute — HTML5" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#contenteditable">WHATWG</a></cite></footer></blockquote>
+The <code>contenteditable</code> attribute was mainly intended for providing an in-browser rich-text or WYSIWYG experience. You’ve likely seen this sort of thing in blog-based authoring tools like Symphony or sites like Flickr where you can begin editing page content simply by clicking in a given area.
+
+As mentioned above, <code>contenteditable</code> has three possible states:
+
+<dl><dt><code>contenteditable=""</code> or <code>contenteditable="true"</code></dt><dd>Indicates that the element is editable.</dd><dt><code>contenteditable="false"</code></dt><dd>Indicates that the element is not editable.</dd><dt><code>contenteditable="inherit"</code></dt><dd>Indicates that the element is editable if its immediate parent element is editable. This is the default value.</dd></dl>When you add <code>contenteditable</code> to an element, the browser will make that element editable. In addition, any children of that element will also become editable unless the child elements are explicitly <code>contenteditable="false"</code>.
+
+</section><section id="code-example">
+<h2>Code Example <a class="permalink" href="#code-example">#</a></h2>
+Here’s some example code to get us started:
+
+<figure>
+<pre><code>&lt;div id="example-one" contenteditable="true"&gt;
+&lt;style scoped&gt;
+  #example-one { margin-bottom: 10px; }
+  [contenteditable="true"] { padding: 10px; outline: 2px dashed #CCC; }
+  [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
+&lt;/style&gt;
+&lt;p&gt;Everything contained within this div is editable in browsers that support &lt;code&gt;HTML5&lt;/code&gt;. Go on, give it a try: click it and start typing.&lt;/p&gt;
+&lt;/div&gt;
+    </code></pre>
+<figcaption>Putting it together</figcaption></figure></section><section id="live-examples">
+<h2>Live examples <a class="permalink" href="#live-examples">#</a></h2>
+Here are two basic-but-live examples showing what you can do with <code>contenteditable</code>.
+
+<section id="first-example">
+<h3>Example One <a class="permalink" href="#first-example">#</a></h3>
+<div id="example-one" contenteditable="true"><figure>Everything contained within this div is editable in browsers that support <code>HTML5</code>. Go on, give it a try: click it and start typing.
+
+<figcaption>Live text editing</figcaption></figure></div>
+I’ve used CSS to create an obvious visual cue that this area of text is different from the rest. Note that I’ve future-proofed this with <code>&lt;style scoped&gt;</code>, which <a href="http://html5doctor.com/the-scoped-attribute/">I covered in my previous article</a>.
+
+</section><section id="second-example">
+<h3>Example Two <a class="permalink" href="#second-example">#</a></h3>
+<a href="http://twitter.com/chriscoyier">Chris Coyier</a> of CSS-Tricks pointed out that you can let your users <a href="http://css-tricks.com/show-and-edit-style-element/">edit the CSS</a> in real-time. Because the <code>&lt;style&gt;</code> element is set to <code>display: none</code> by the user agent, we need to set it to <code>block</code> for this code to work.
+
+Try editing the <code>CSS</code> below:
+<div id="example-two" contenteditable="true"><figure>
+<div id="style-block"></div>
+<figcaption>Live CSS editing</figcaption></figure></div>
+</section></section><section id="browser-support">
+<h2>Browser Support <a class="permalink" href="#browser-support">#</a></h2>
+Browser support for <code>contenteditable</code> is surprisingly good:
+<table class="wide"><caption>Browser Support for <code>contenteditable</code></caption>
+<thead>
+<tr>
+<th scope="col">Browser</th>
+<th scope="col">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Chrome</th>
+<td>4.0+</td>
+</tr>
+<tr>
+<th scope="row">Safari</th>
+<td>3.1+</td>
+</tr>
+<tr>
+<th scope="row">Mobile Safari</th>
+<td>5.0+</td>
+</tr>
+<tr>
+<th scope="row">Firefox</th>
+<td>3.5+</td>
+</tr>
+<tr>
+<th scope="row">Opera</th>
+<td>9.0+</td>
+</tr>
+<tr>
+<th scope="row">Opera Mini/Mobile</th>
+<td>N/A</td>
+</tr>
+<tr>
+<th scope="row">Internet Explorer</th>
+<td>5.5+</td>
+</tr>
+<tr>
+<th scope="row">Android</th>
+<td>3.0+</td>
+</tr>
+</tbody>
+</table>
+We have to give credit where it’s due and point out that Internet Explorer has supported this attribute since IE5.5. In fact, a very early iteration of <code>contenteditable</code> was <a href="http://msdn.microsoft.com/en-us/library/ms537837(VS.85).aspx">designed and implemented by Microsoft in July 2000</a>.
+
+For a more in-depth compatibility table, visit <a href="http://caniuse.com/contenteditable">When Can I Use…</a>.
+
+</section><section id="storing-changes">
+<h2>Storing the Changes <a class="permalink" href="#storing-changes">#</a></h2>
+For this section, I went straight to Doctor Remy for help, as he is much more knowledgeable than me when it comes to <del>storing your data</del> everything.
+<blockquote>Depending on the complexity of your editable block, your code could be listening for the enter key (keyCode 13) to save the changes, and the escape key (keyCode 27) to undo the changes.
+
+When the user hits enter (assuming it’s a single line of editable content), it would grab the innerHTML of the editable field and send an Ajax post to your server with the change.
+
+A simple example of this can be seen on JS Bin: <a href="http://jsbin.com/owavu3/1/edit">contenteditable saving to Ajax</a>
+
+<footer>— <cite><a title="Remy Sharp on storing content changes with the contenteditable attribute" href="http://html5doctor.com/author/remys/">Remy Sharp</a></cite></footer></blockquote>
+</section><section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+We’ve repeated the phrase “paving the cowpaths” all over this site, and I’m mentioning it again with the introduction of the <code>contenteditable</code> attribute. The spec finally makes official something that’s been implemented by browser makers for years.
+
+Although this is one of the lesser-known new attributes, I bet you’ll find yourself using it more often than you would think.
+
+Imagine being able to simply click a block of content and start making changes instantly: making quick corrections to an article in-place, allowing users to edit their comments, or even building spreadsheets within company applications that aren’t hooked up to any sort of back-end user interface.
+
+If you can think of other uses for this attribute, then head on down to the comments section and tell us where else you think this could be implemented.
+
+</section><section id="related-reading">
+<h2>Related Reading <a class="permalink" href="#related-reading">#</a></h2>
+<ul>
+	<li><a href="http://blog.whatwg.org/the-road-to-html-5-contenteditable#what">What is <code>contenteditable</code>?</a></li>
+	<li><a href="http://css-tricks.com/expanding-images-html5/">Expanding Images Using HTML5’s <code>contenteditable</code></a></li>
+</ul>
+</section><p><a href="http://html5doctor.com/the-contenteditable-attribute/" rel="bookmark">The contenteditable attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 10, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/drag-and-drop-to-server/"     class="crp_title">Drag and Drop and Automatically Send to the Server</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-contenteditable-attribute/feed/</wfw:commentRss>
+		<slash:comments>42</slash:comments>
+		</item>
+		<item>
+		<title>The scoped attribute</title>
+		<link>http://html5doctor.com/the-scoped-attribute/</link>
+		<comments>http://html5doctor.com/the-scoped-attribute/#comments</comments>
+		<pubDate>Tue, 13 Sep 2011 13:30:57 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[semantics]]></category>
+		<category><![CDATA[style]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634</guid>
+		<description><![CDATA[<p>The scoped attribute for the style element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>scoped</code> attribute for the <code>&lt;style&gt;</code> element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p>
+
+<p>Let’s take a quick look at the spec:</p>
+
+<blockquote>
+<p>The <code>scoped</code> attribute is a boolean attribute. If set, it indicates that the styles are intended just for the subtree rooted at the style element’s parent element, as opposed to the whole Document.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-scoped" title="Scoped attribute — HTML5">WHATWG</a></cite></footer>
+</blockquote>
+
+<section id="bad">
+<h2>Isn’t this bad practice?</h2>
+<p>For years, we’ve been told (and have actively told others) to separate content and presentation layers. So why would we introduce something that seems to go against everything we’ve been preaching?</p>
+
+<p>The separation of these layers is still vitally important, but let’s look at a few use cases to shed some light on why this attribute has been introduced. Scoped style provides a W3C-approved way to:</p> 
+
+<ul>
+  <li>Add one-off CSS styles.</li>
+  <li>Add user-defined styles to wiki or CMS content.</li>
+  <li>Add theme-defined styles via CMS plugins.</li>
+  <li>Keep syndicated content together (e.g., keeping example code together with the example).</li>
+</ul>
+</section>
+
+<section id="how-does">
+<h2>How does it work?</h2>
+<p>In this section, I’ll show you how this new attribute will work when it gets rolled out to browsers.</p>
+
+<section id="starting">
+<h3>Our starting point</h3>
+
+<p>We’ll be using the following code sample as a starting point:</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<p>This is a basic example, with two headings and two paragraphs set within the article element.</p>
+</section>
+
+<section id="addingscope">
+<h3>Adding the <code>scoped</code> attribute</h3>
+
+<p>In the next example, we’ll change the foreground color of the second paragraph to red (from whatever was defined in the master CSS file):</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;style <mark>scoped</mark>&#62;
+      p { color: red; }
+    &#60;/style&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<aside class="sidenote"><p>It’s worth noting that the <code>scoped</code> attribute can’t be the first attribute of the body element. I also received a validation error using <code>&#60;body style="..."&#62;</code>.</p></aside>
+
+<p id="example">This screenshot shows how things might render in the browser:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/09/scoped1.gif" alt="" title="scoped" width="526" height="297" class="alignnone size-full wp-image-3735" />
+<figcaption>How the <code>scoped</code> attribute will render</figcaption>
+</figure>
+</section>
+</section>
+
+<section id="link">
+<h2>Can I apply <code>scoped</code> to &#60;link&#62;?</h2>
+<p>While I was writing this article, Dr. Rich asked whether it was possible to add this attribute to <code>&lt;link&gt;</code> elements. Turns out you can’t, but I stumbled across this tidbit in the WHATWG mailing list:</p>
+
+<blockquote>
+  <p>You can use &#60;style scoped&#62;@import url(whatever);&#60;/style&#62;</p>
+  <p>And this even enables you to add some specific styles ([be they embedded] or from another external sheet) on a per-use basis if the need arises. For example, a long dissertation relying on many quotes may benefit from adding stronger visual highlights on the &#60;em&#62; elements within the last quote to reinforce the final conclusion.</p>
+  <footer>— <cite><a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2011-March/031049.html"> Eduard Pascuals WHATWG mailing list response #031049</a></cite></footer>
+</blockquote>
+</section>
+
+<section id="compatibility">
+<h2>Backwards compatibility</h2>	
+<p>Unfortunately, scoped style isn’t all puppy dogs and kittens.</p>
+
+<p>Since this newly introduced attribute isn’t understood by current browsers, CSS rules in <code>&#60;style scoped&#62;</code> are just added to the page’s CSS. Therefore, if you were to include a <code>scoped</code> style block mid-page, its declarations would be applied to every matching element in the document, regardless of whether the element were inside or outside of the scope’s range.</p>
+
+<p>For the sake of backwards compatibility, Louis Lazaris has suggested <a href="http://www.impressivewebs.com/scoped-styles-html5/">a brand new element called <code>&#60;scopedstyle&#62;</code></a>. This new element would only be recognised by supporting browsers and ignored by everything else. This way, scoped styles wouldn’t be added to the whole document. Instead, the browser would just throw away the unrecognised <code>&lt;scopedstyle&gt;</code> element and move on.</p>
+</section>
+
+<section id="support">
+<h2>Browser support</h2>
+
+<table class="wide">
+<caption>Browser support for <code>&lt;style scoped&gt;</code> <i>(as of <time datetime="2011-09-06">6th September, 2011</time>)</i></caption>
+<thead>
+<tr>
+<th scope="col">Browser</th>
+<th scope="col">Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <th scope="row">Chrome 13</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Safari 5</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Firefox 6</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Opera 11.51</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Internet Explorer 9</th>
+  <td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>Currently, the <code>scoped</code> attribute isn’t working in any of the browser alpha versions (Opera.Next, Mozilla Aurora, or WebKit nightly builds). There’s work in progress by <a href="https://bugs.webkit.org/show_bug.cgi?id=49142">Roland Steiner for support in WebKit</a>.</p>
+</section>
+
+<section id="using-today">
+<h2>Using <code>&#60;style scoped&#62;</code> today</h2>
+<p>So you’ve read this article and decided that you <em>need</em> scoped style in your life. What now? Well, just like every other new HTML5 thing, we have a polyfill for it. <a href="http://twitter.com/#!/thingsinjars">Simon Madine</a> has created a <a href="https://github.com/thingsinjars/jQuery-Scoped-CSS-plugin">jQuery scoped CSS plugin on GitHub</a>.</p>
+
+<aside class="sidenote"><p>Please note that Oli used a wrapper <code>&lt;div&gt;</code> because of <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13102">validation problems explained in this bug</a>.</p></aside>
+
+<p>You could also assign a CSS prefix to target the section of your document you want to style. You’d still be able to stick your styles inline, but you’ve also provided a fallback for the older browsers. In fact, Dr. Oli has done just that on his <a href="http://html5doctor.com/blockquote-q-cite/">latest article</a>. (View source and search for <code>&#60;div class="faint"&#62;</code>.)</p>
+</section>
+
+<section id="opinions">
+<h2>Opinions</h2>
+
+<p>There’s no denying that we’re breaking backwards compatibility by introducing <code>&lt;style scoped&gt;</code>. To me, this just doesn’t make any sense. I feel this needs to be addressed by either creating a new element like <code>&lt;scopedstyle&gt;</code> or using some protective mechanism like the <code>&#60;!--</code> and <code>--&#62;</code> delimiters that have been used within <code>&lt;style&gt;</code> and <code>&lt;script&gt;</code> elements.</p>
+
+<p>Let’s not end this article with negative sentiment, though. As with anything, it’s what you make of it. Scoped style is pretty plain vanilla, but if people abuse it, it’ll end up with a bad rap. <a href="http://html5doctor.com/author/olib/">Dr. Oli</a> has spoken at length about his love for this attribute as it allows him to have live code examples with the CSS in <code>&#60;pre&#62;</code> and also in a <code>&#60;style scoped&#62;</code> within a <code>&#60;figure&#62;</code>.</p>
+
+<p>So now it’s time for you to express your views. What do you think about the new <code>scoped</code> attribute? Do you think it has a future? Should it be fast-tracked into the spec? Or do you think it’s a waste of time that could ultimately end up mixing our content and presentation layers together again? Let us know in the comments!</p>
+</section><p><a href="http://html5doctor.com/the-scoped-attribute/" rel="bookmark">The scoped attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 13, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-scoped-attribute/feed/</wfw:commentRss>
+		<slash:comments>83</slash:comments>
+		</item>
+		<item>
+		<title>Injecting new life into the Doctor</title>
+		<link>http://html5doctor.com/injecting-new-life-into-the-doctor/</link>
+		<comments>http://html5doctor.com/injecting-new-life-into-the-doctor/#comments</comments>
+		<pubDate>Thu, 26 May 2011 13:51:59 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Misc]]></category>
+		<category><![CDATA[design]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3257</guid>
+		<description><![CDATA[Before we start it is imperative to point out that this redesign is still very much a work in progress and over the coming weeks and months we will be looking to progress it further with the introduction of; fluidity, responsiveness through media queries, the introduction of new features and tweaking/removing certain aspects once we have analysed how you are using it.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>Before we start it is imperative to point out that this redesign is still very much a work in progress and over the coming weeks and months we will be looking to progress it further with the introduction of; fluidity, responsiveness through media queries, the introduction of new features and tweaking/removing certain aspects once we have analysed how you are using it.</p>
+<p>We hope you will agree that this redesign is a long time overdue, as this summer will see the Doctor turn two!</p>
+<p>When we decided to create the site our mission statement was simple; create excellent content. We like to think we have achieved this by publishing high quality articles and quizzes. However, because of this the aesthetics of the site have remained the same and we felt it was time we gave the surgery a lick of paint. Now that we&#8217;ve built up a good base on content, we felt that the time was right to give the site some much needed TLC.</p>
+<p>Redesigning a website is hard, redesigning a website which is used by tens of thousands of people is even harder and is probably the main reason why our redesign process dates back to 18th August and is only just seeing the light of day.</p>
+<h2>More than just a redesign</h2>
+<p>The project kicked off when our good friend, <a href="https://twitter.com/#!/oliverker">Oliver Ker</a>, was approached to inject new life into our brand. What we were looking for was an instantly recognisable symbol, something which people would be able to relate to HTML5. We think Oli has done a stellar job with our new branding and it provides us with an instantly recognisable identity to build upon. If you are interested in finding out more about the creative process then head over to <a href="http://oliverker.co.uk/journal/recent-work-html-5-doctor">Olivers blog and see what he has to say</a>.</p>
+<p>Once we had a brand to work from we decided to start mocking up possible solutions for a direction we could take the site in. We were all in agreement as to which areas of the site needed addressing; it had to be simpler in all aspects, easier to read and utilise more of the newer technologies available.</p>
+<p>Undoubtedly, you will have heard or experienced for yourself the issues faced when trying to design your own site and this site was certainly no different.</p>
+<p>We considered multiple different design solutions &#8211; probably one for each Doctor &#8211; and it was only at our fifth attempt that we finally started to head in the direction which is now presented before you. The multiple  design directions we went down is something I will cover on my own blog as it is out with the scope of this article.</p>
+<h2>Layout</h2>
+<p>Barring a select few pages such as the element index (previously the glossary), HTML5 Doctor is represented with a three column layout, the first column is slim and narrow which contains meta information for items related to the page/post.</p>
+<p>The second column is the main content holder which is where all the page, post(s) and comment(s) content appear. </p>
+<p>The final column, which for want of a better word is essentially our sidebar that contains an array of information such as element index links, related posts, categories and authors, a twitter display which pulls out hashtags and advertisment blocks.</p>
+<p>At the top of the site we&#8217;ve completed reworked the header which should hopefully make navigating the site much easier. We&#8217;ve provided users with two different navigation bars; the top menu provides an easy way to access all our secondary content and we&#8217;ve also introduced our &#8216;Doctor network&#8217; dropdown to provide access to our sister site HTML5 Gallery. Our main menu, located on the light blue bar, has been minimised to extremes, offering links to exisiting articles, the element index and our contact page. We&#8217;ve moved our search element higher up the page and plan to introduce breadcrumbs.</p>
+<h2>Page structure</h2>
+<p>Time to break down individual pages:</p>
+<h3>Homepage</h3>
+<p>With this being the most visited page on the site we wanted to try and do something a little special with it and for a long time we were devoid of any ideas until Doctor. Oli (<a href="http://twitter.com/boblet">@boblet)</a> came up with an idea which would help offer up all the valuable information that is scattered throughout the site and pull it all together.</p>
+<p>First up we display our most recent article, which sits front and centre to provide it with the attention it deserves. The following item is the quick reference guide which links through to each entry in the element index. There are two very special things about our quick reference guide which we are very proud about:</p>
+<ol>
+<li>The hover states within this section have been created in canvas, by canvas supremo <a href="https://twitter.com/#!/robhawkes">Rob Hawkes</a>. Although this might not be the correct choice &#8211; many would argue SVG &#8211; we felt that this provided a fair trade-off and allowed us to use this new technology.</li>
+<li>Second is that we can use this guide to promote a special subject &#8211; special subjects will have a bright orange background &#8211; which stands out from the regular hover states.</li>
+</ol>
+<p>After the reference guide we display a few more posts. </p>
+<h3>HTML5 Doctor Article/Single page</h3>
+<p>This layout follows on from that of the homepage. Here we have a meta column on the left which offers up a series of quick links for categories, tags and will when applicable show links to translated versions of the article. The main column is obviously where the article and comments will appear and the third column is where all the extra information appears.</p>
+<h3>Element Index</h3>
+<p>We&#8217;ve restyled the index so it is in fitting with the new design and we&#8217;ve added in all the content and code examples that were missing from the previous iteration. We&#8217;re sorry for being lazy and not finishing it when we first launched.</p>
+<h2>A word on technologies</h2>
+<p>At the start of this article we touched on the fact that we wanted to introduce some of the newer technologies (or perhaps more wide spread) available to the site. Some of the things we have included are:</p>
+<ul>
+<li><strong>@font-face:</strong> We&#8217;ve used Quicksand on our heading levels as this ties into our branding. Quicksand is a free font which can be <a href="http://www.fontsquirrel.com/fonts/Quicksand">downloaded here</a>.</li>
+<li><strong>CSS3:</strong> last-child, first-child, (n)th-of-type, border-radius, canvas, gradients, box-shadow.</li>
+<li>There are a few more easter eggs hidden under our lab coats but we&#8217;ll let you find them for yourself</li>
+</ul>
+<h2>Our prescription</h2>
+<p>As we&#8217;ve said above, everything is still a work in progress, we will continue to evolve the site moving forward. Essentially, we felt that now was as good a time as any to push this out into the wild and let our readers form an opinion and offer up there thoughts on the design. If we didn&#8217;t do it now, we&#8217;d be forever arguing over the semantics of the design, the leading here and the letter spacing there. So feel free to leave a comment and tell us what you think, whether it covers design/semantics/typography. We look forward to hearing from you. Enjoy.</p>
+<p><a href="http://html5doctor.com/injecting-new-life-into-the-doctor/" rel="bookmark">Injecting new life into the Doctor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 26, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/interview-with-robin-berjon-html5-editor/"     class="crp_title">Interview with Robin Berjon, HTML5 editor</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/injecting-new-life-into-the-doctor/feed/</wfw:commentRss>
+		<slash:comments>21</slash:comments>
+		</item>
+		<item>
+		<title>The hgroup hokey cokey</title>
+		<link>http://html5doctor.com/the-hgroup-hokey-cokey/</link>
+		<comments>http://html5doctor.com/the-hgroup-hokey-cokey/#comments</comments>
+		<pubDate>Fri, 06 May 2011 11:34:49 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[W3C]]></category>
+		<category><![CDATA[WHATWG]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3208</guid>
+		<description><![CDATA[<p>As you may well have heard this week, hgroup has been in, out and in the spec again, while members of the W3C and others have truly been shaking it all about. If you've missed this latest merry dance then please head on over to the W3 bug report page to help get a clearer indication.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>As you may well have heard this week, <code>hgroup</code> has been in, out and in the spec again, while members of the W3C and others have truly been shaking it all about. If you&#8217;ve missed this latest merry dance then please head on over to the <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=11828" title="removal of hgroup from the specification">W3 bug report page</a> to help get a clearer indication.</p>
+
+<p>To offer a quick recap, <code>hgroup</code> was <a href="http://html5.org/tools/web-apps-tracker?from=6051&#038;to=6052">removed from the W3C specification</a> only (not the WHATWG spec) by Hixie at the request of <a href="http://twitter.com/stevefaulkner">Steve Faulkner</a>. <a href="http://lists.w3.org/Archives/Public/public-html/2011May/0061.html">The co-chairs requested the issue be reverted</a> following multiple requests from the likes of <a href="http://twitter.com/tabatkins">Tab</a> and <a href="http://twitter.com/t">Tantek</a>. The current status at the time of writing is that <code>hgroup</code> is in the spec.</p>
+
+<p>It seems that the future of <code>hgroup</code> will be decided during the HTML5 spec last call review which is expected to start on or around May 22nd 2011.</p>
+
+<p>One of the main reasons for this element being removed was because some people felt that it was only in the spec was to keep the outline algorithm happy and that it didn&#8217;t really offer much else in the way of semantics. It has also been suggested that people were still struggling to understand how to implement it correctly. If, however, you need your memory jogging then we suggest <a href="http://html5doctor.com/the-hgroup-element/"> reading our post on <code>hgroup</code> from last year</a>.</p>
+
+<p>Far be it from us to get involved in the political wrangling (<a href="http://twitter.com/#!/brucel/status/65757483955781632">and knob waving</a>) of the W3C, therefore when news of this broke we doctors fired a few emails between each other discussing what was going on and what <em>we</em> thought should be the next logical step. The outcome from these emails showed that there was no clear majority. Some of the doctors, myself included, thought that the element was a handy addition to the spec and should be something that we fought to keep. Others, like Bruce, have made no qualms about <a href="http://www.brucelawson.co.uk/2010/on-the-hgroup-element/">their dislike for this particular element</a>.</p>
+
+<p>Regardless, we decided to see if we could solve this issue by offering up alternative solutions. Below are a few of the suggestions (and issues) that came out of the conversation. We understand that some of these suggestions come with their own issues and the consequences maybe haven&#8217;t been fully thought through, but the aim of this is to start a conversion, not provide a final answer.</p>
+
+<figure>
+<pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;hgroup&gt;
+      &lt;h1&gt;Title goes here&lt;/h1&gt;
+      &lt;h2&gt;Subtitle of article&lt;/h2&gt;
+    &lt;/hgroup&gt;
+    &lt;p&gt;&lt;time datetime=&quot;2010-03-20&quot;&gt;20th March, 2010&lt;/time&gt;&lt;/p&gt;
+  &lt;/header&gt;                
+  &lt;p&gt;Lorem Ipsum dolor set amet...&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+<figcaption>How hgroup currently works, for comparison</figcaption>
+</figure>
+
+<h2>Subtitle within header</h2>
+<pre><code>&#60;article&#62;
+  &#60;header&#62;
+    &#60;h1&#62;Title&#60;/h1&#62;
+    <mark>&#60;p&#62;subtitle&#60;/p&#62;</mark>
+  &#60;/header&#62;
+  &#60;p&#62;Lorem Ipsum dolor set amet...&#60;/p&#62;
+&#60;/article&#62;
+</code></pre>
+
+<p>The method suggested above is probably the closest example to what we currently have with regards to <code>hgroup</code>. Within this code example we have an heading level and p tag within the header element.</p>
+<p>Although this might seem fairly straight forward, it does become more complicated if we have further elements within the header; additional p tags, spans etc.</p>
+
+<h2>Highest ranking heading takes precedence</h2>
+<pre><code>&lt;article&gt;
+  &lt;header&gt;
+    <mark>&lt;h4&gt;Intro subtitle&lt;/h1&gt;
+    &lt;h1&gt;Title goes here&lt;/h1&gt;
+    &lt;h3&gt;by John Smith&lt;/h3&gt;</mark>
+    &lt;p&gt;&lt;time datetime=&quot;2010-03-20&quot;&gt;20th March, 2010&lt;/time&gt;&lt;/p&gt;
+    &lt;nav&gt;
+      &lt;h2&gt;Chapters&lt;/h2&gt;
+      &lt;ul&gt;...&lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;                
+  &lt;p&gt;Lorem Ipsum dolor set amet...&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p>Taking the previous example a bit further, here we have multiple headings within <code>header</code> and the machine could recognise that the <code>h1</code> is the highest ranking and should be used in the outline. Other headings are excluded, with the exception of the <code>h2</code> within <code>nav</code> as it is a sectioning content element and therefore still affects outline.</p>
+
+<p>This allows the developer to have multiple subtitles of varying importance without affecting the outline. The drawback of this is the use of headings isn&#8217;t very intuitive when lower ranking headings can appear anywhere within <code>header</code>. Thankfully we still have ideas for other alternatives.</p> 
+
+<h2>Span subtitle within header</h2>
+<pre><code>&#60;article&#62;
+  &#60;header&#62;
+    &#60;h1&#62;Title <mark>&#60;span&#62;<mark>Subtitle</mark>&#60;/span&#62;</mark>&#60;/h1&#62;
+  &#60;/header&#62;
+  &#60;p&#62;Lorem Ipsum dolor set amet...&#60;/p&#62;
+&#60;/article&#62;
+</code></pre>
+
+<p>This next technique is probably similar to something that you might have used before when coding up a page in <code>HTML4</code>, providing something of a natural progression, <a href="http://www.w3.org/TR/html-design-principles/#pave-the-cowpaths">paving the cowpaths</a> if you will. As the span is within the heading element it makes it clear that it is associated with the heading.</p>
+
+<p>Some of the doctors are not convinced this is the correct way to progress and therefore looked for another alternative.</p>
+
+<h2>Introducing the subtitle</h2>
+<pre><code>&#60;article&#62;
+  &#60;header&#62;
+    &#60;h1&#62;Title <mark>&#60;span subtitle&#62;Subtitle&#60;/span&#62;</mark>&#60;/h1&#62;
+  &#60;/header&#62;
+  &#60;p&#62;Lorem Ipsum dolor set amet...&#60;/p&#62;
+&#60;/article&#62;
+</code></pre>
+
+<p>This example is almost identical to the example provided above. The only difference here is that we&#8217;ve added a subtitle attribute to help assistive software make the connection between heading and subtitle. Again, some Doctors are not completely comfortable with nesting a subtitle within a heading element.</p>
+
+<p>It was also suggested combining this example and the first to come up with a better outcome. Whereby a developer would include a heading and p tag, marked up with the subtitle attribute, within the header element.</p>
+
+<h2>For attribute within header</h2>
+<pre><code>&#60;article&#62;
+  &#60;header&#62;
+    &#60;h1 id="title"&#62;Title&#60;/h1&#62;
+    <mark>&#60;p for="title"&#62;Subtitle&#60;/p&#62;</mark>
+  &#60;/header&#62;
+  &#60;p&#62;Lorem Ipsum dolor set amet...&#60;/p&#62;
+&#60;/article&#62;
+</code></pre>
+
+<p>Now for something totally different. The above example borrows an idea from forms using the <code>for</code> attribute. in HTML5, a number of elements which were previously required to be within a form element can now be located anywhere on the page and associated with a form using a <code>form</code> attribute pointing at the <code>id</code> of its form owner. This example extends borrows the idea an applying it to use with another attribute and element.</p>
+
+<p>In our example the p tag is owned by the heading element. The interesting thing with this method, along with the forms, is that the subtitle wouldn&#8217;t necessarily have to be nested within the header, as assistive technology would still be able to associated which heading it belonged too.</p>
+
+<h2>What&#8217;s next and your suggestions</h2>
+<p><a href="http://www.w3.org/html/wg/tracker/issues/164">Issue 164 on the W3C tracker</a> offers some further suggestions to how <code>hgroup</code> could be removed, modified or otherwise changed. Some of those are similar or the same as those we&#8217;ve mentioned above but now you&#8217;ve seen our suggestions and perhaps perused those in issue 164, so why not let us know your suggestions below in the comments.</p> 
+
+<p>This is a fairly big issue and one that a lot of people are still obviously undecided about, so here is your chance to seize an opportunity because, you never know, your suggestion could become standard practice.</p>
+<p><a href="http://html5doctor.com/the-hgroup-hokey-cokey/" rel="bookmark">The hgroup hokey cokey</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 6, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-hgroup-hokey-cokey/feed/</wfw:commentRss>
+		<slash:comments>58</slash:comments>
+		</item>
+		<item>
+		<title>Reviewing HTML5 for Web Designers</title>
+		<link>http://html5doctor.com/reviewing-html5-for-web-designers/</link>
+		<comments>http://html5doctor.com/reviewing-html5-for-web-designers/#comments</comments>
+		<pubDate>Tue, 27 Jul 2010 13:50:05 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[abookapart]]></category>
+		<category><![CDATA[adactio]]></category>
+		<category><![CDATA[book]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[jeremy keith]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2213</guid>
+		<description><![CDATA[<p><abbr>HTML</abbr>5 for Web Designers, written by Jeremy Keith, is the first book to be published under the A Book Apart brand, founded by Mandy Brown, Jason Santa Maria, and Jeffrey Zeldman.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/"     class="crp_title">Review: Pro HTML5 Accessibility by Joshue O Connor</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><a title="HTML5 for Web Designers" href="http://books.alistapart.com/product/html5-for-web-designers"><abbr>HTML</abbr>5 for Web Designers</a>, written by <a href="http://adactio.com" title="Jeremy Keith">Jeremy Keith</a>, is the first book to be published under the <a href="http://abookapart.com">A Book Apart</a> brand, founded by <a title="Mandy Brown" href="http://aworkinglibrary.com/">Mandy Brown</a>, <a title="Jason Santa Maria" href="http://jasonsantamaria.com">Jason Santa Maria</a>, and <a title="Jeffrey Zeldman" href="http://www.zeldman.com/">Jeffrey Zeldman</a>.</p>
+<p>When the book first landed on my doorstep, I was a bit let down by its meagre length of around 85 pages. I have to be honest, however, and admit I had not done my research before its arrival. From the book&#8217;s inception, the publishers stated that they intended to produce something to fill the gap between a blog post and book, something that people would be able to pick up, read quickly, and start implementing straight away.</p>
+<p>So I set aside my disappointment and started reading this beautifully crafted book.</p>
+<figure><img title="HTML5 for Web Designers Book" src="http://html5doctor.com/wp-content/uploads/2010/07/html5-for-web-designers-shop.png" alt="" width="620" /><figcaption>HTML5 for Web Designers Book &mdash; <a href="http://books.alistapart.com/product/html5-for-web-designers">Image source &mdash; used with permission</a></figcaption></figure>
+<p>After reading through it, my opinion has changed. I realise exactly what A Book Apart were aiming to create when they decided on a short format for the series. <cite><abbr>HTML</abbr>5 for Designers</cite> is split up into six bite-size chapters:</p>
+<ol>
+<li><strong>Chapter One</strong>: <a href="#chap-one">a brief history of markup</a></li>
+<li><strong>Chapter Two</strong>: <a href="#chap-two">the design of HTML5</a></li>
+<li><strong>Chapter Three</strong>: <a href="#chap-three">rich media</a></li>
+<li><strong>Chapter Four</strong>: <a href="#chap-four">web forms 2.0</a></li>
+<li><strong>Chapter Five</strong>: <a href="#chap-five">semantics</a></li>
+<li><strong>Chapter Six</strong>: <a href="#chap-six">using HTML5 today</a></li>
+</ol>
+<p>To give you some insight each chapter&#8217;s topics, I&#8217;ve described them each briefly.</p>
+<h3 id="chap-one">Chapter One</h3>
+<p>The first chapter lays out the foundations of the book and explains how, as a community, we arrived at the latest iteration of our favorite markup language, <abbr>HTML</abbr>5. Keith discusses how <abbr>HTML</abbr> was born, the ill-fated transition from <abbr>HTML</abbr> to <abbr>XML</abbr> (which never happened), the suggestion of <abbr>XHTML</abbr>2, and why we write &#8220;<abbr>HTML</abbr>5&#8243; instead of &#8220;<abbr>HTML</abbr> 5&#8243;.</p>
+<p>You might be tempted to skip straight to the second chapter, but I firmly believe that you should read this. It&#8217;s vital material, and you&#8217;ll almost certainly learn something. (I sure did!)</p>
+<h3 id="chap-two">Chapter Two</h3>
+<p>Chapter two discusses how to convert web pages from <abbr>XHTML</abbr> 1 to <abbr>HTML</abbr>5. It also touches on elements that changed in <abbr>HTML</abbr>5 and some elements that are absent from the specification.</p>
+<h3 id="chap-three">Chapter Three</h3>
+<p>In chapter three, the book delves into the realms of rich media and what it means for designers and developers. Keith hints that this chapter could have a whole book dedicated to it (perhaps hinting at an upcoming A Book Apart title?). He does a good job describing the possibilities of <code>&lt;canvas&gt;</code> and showing a few examples of its capabilities. Although some readers may wish for more depth, this book is of course written for designers, so detail is kept to a minimum.</p>
+<p>Keith goes on to explain the possibilities of the <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements, something which many argue will change the way we work with the web. Keith gives great examples on how to introduce these elements into your client work with various fallback options for browsers that lag behind.</p>
+<h3 id="chap-four">Chapter Four</h3>
+<p>In chapter one, it&#8217;s explained that <abbr>HTML</abbr>5 started life as Web Apps 1.0 and Web Forms 2.0, which were later merged. So as one might imagine, Web Forms were destined to become an integral part of the <abbr>HTML</abbr>5 specification.</p>
+<p>Chapter four covers the new elements and attributes for use in forms, including <code>placeholder</code>, <code>required</code>, <code>autocomplete</code>, <code>datalist</code>, new input types, sliders/spinners, and dates and times.</p>
+<h3 id="chap-five">Chapter Five</h3>
+<p>Chapter five covers semantics (although I feel that this should have been one of the first chapters in the book). Elements discussed include <code>&lt;mark&gt;</code>, <code>&lt;time&gt;</code>, <code>&lt;meter&gt;</code>, and <code>&lt;progress&gt;</code>, as well as the usual structural elements that get used in nearly every site.</p>
+<h3 id="chap-six">Chapter Six</h3>
+<p>Finally, chapter six discusses the most important question about <abbr>HTML</abbr>5: Can we use it today? I trust, as you are on this website, that you will already know the answer to that question.</p>
+<h2>My opinion of <cite><abbr>HTML</abbr>5 for Web Designers</cite></h2>
+<p>After finishing this book, I discovered that it is in fact quite a gem for anyone starting on their <abbr>HTML</abbr>5 journey.</p>
+<p>There are undoubtedly areas that could have been expanded further, but the limitations imposed by the authors meant merciless fat-trimming. This is the type of book that you would be happy to keep on your desk as a quick reference manual, a shortcut before diving into the full <abbr>HTML</abbr>5 specification.</p>
+<p>I would definitely recommend buying this book if you haven&#8217;t already. It&#8217;s true that great things come in small packages!</p>
+<p><a title="HTML5 for Web Designers" href="http://books.alistapart.com/product/html5-for-web-designers">Buy the book directly from A Book Apart</a></p>
+<p><a href="http://html5doctor.com/reviewing-html5-for-web-designers/" rel="bookmark">Reviewing HTML5 for Web Designers</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 27, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/review-html5-multimedia-develop-and-design/"     class="crp_title">Review: HTML5 Multimedia: Develop and Design</a></li><li><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/"     class="crp_title">Review: Pro HTML5 Accessibility by Joshue O Connor</a></li><li><a href="http://html5doctor.com/review-the-truth-about-html5-for-web-designers/"     class="crp_title">Review: The Truth About HTML5 For Web Designers</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/reviewing-html5-for-web-designers/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Doctor Glossary</title>
+		<link>http://html5doctor.com/html5-doctor-glossary/</link>
+		<comments>http://html5doctor.com/html5-doctor-glossary/#comments</comments>
+		<pubDate>Thu, 19 Nov 2009 15:26:26 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Quick Tips]]></category>
+		<category><![CDATA[glossary]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=574</guid>
+		<description><![CDATA[You’re obviously here because you’re interested in <abbr>HTML</abbr>5. You might even be here because the thought of reading the <abbr>HTML</abbr>5 spec on the W3C site gives you nightmares. Well, fear not, for you shall be able to sleep easy once again! We’ve just launched the <abbr>HTML</abbr>5 glossary.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/latest-news-an-awards-win-and-duckduckgo-plugin/"     class="crp_title">Latest News: An awards win and DuckDuckGo plugin</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/"     class="crp_title">Simplequiz #7: Pinterest</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>Over the last few weeks, we’ve been working on something a little special here at the <abbr title="Hypertext Mark-up Language">HTML</abbr>5 Doctor.</p>
+<p>You’re obviously here because you’re interested in <abbr>HTML</abbr>5. You might even be here because the thought of reading the <abbr>HTML</abbr>5 spec on the <a href="http://www.w3.org/TR/html5/" title="HTML5 Spec on the W3C" rel="nofollow">W3C site</a> gives you nightmares. Well, fear not, for you shall be able to sleep easy once again! We’ve just launched the <a href="/glossary/"><abbr>HTML</abbr>5 glossary</a>.</p>
+<p>The purpose of the glossary is simple: we’re going to give you a breakdown of all the elements within the spec in clear, bite-sized chunks.</p>
+<p><img src="/wp-content/uploads/2009/07/glossary.jpg" alt="glossary" title="glossary" width="620" height="439" class="alignnone size-full wp-image-579" /></p>
+<p>From the screenshot above, you can see that we’ve laid out the page to be as clear as possible (using <abbr>HTML</abbr>5, of course). At the top of the page is an alphabetised list of links to individual sections of the glossary. The rest of the page is the list of elements and their descriptions.</p>
+<p><img src="/wp-content/uploads/2009/07/glossary3.jpg" alt="glossary3" title="glossary3" width="620" height="99" class="alignnone size-full wp-image-585" /></p>
+<p>I&#8217;ve labeled the key points of each entry in the above screenshot:</p>
+<ol>
+<li>Links labeled &#8220;Our Prognosis&#8221; refer to an article that one of the <a href="/about/" title="HTML 5 Docotrs">Doctors</a> has previously published.</li>
+<li>Each entry contains a brief description of what the element represents and its proper (and possibly improper) uses.</li>
+<li>We always include a link to the element&#8217;s full description in the official HTML5 spec.</li>
+<li>Code snippets show contextual examples of the element in an HTML document (shown in the screenshot below).</li>
+</ol>
+<p><img src="/wp-content/uploads/2009/07/glossary2.jpg" alt="glossary2" title="glossary2" width="620" height="439" class="alignnone size-full wp-image-582" /></p>
+<p>Not every element has a code snippet and &#8220;prognosis&#8221; link, but we’ll be doing out best to flesh out the glossary with some more examples and elements in the coming weeks.</p>
+<p>Be sure to add the <a href="/glossary/">glossary</a> to your list of <abbr>HTML</abbr>5 resources!</p>
+<p>Got a suggestion to help us improve the glossary? Request a missing element or report a problem by leaving a comment below, or head over to the <a href="/contact/" title="contact the HTML5 Doctor">contact page</a> and send us an email.</p>
+<p><a href="http://html5doctor.com/html5-doctor-glossary/" rel="bookmark">HTML5 Doctor Glossary</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 19, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/latest-news-an-awards-win-and-duckduckgo-plugin/"     class="crp_title">Latest News: An awards win and DuckDuckGo plugin</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/"     class="crp_title">Simplequiz #7: Pinterest</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-doctor-glossary/feed/</wfw:commentRss>
+		<slash:comments>13</slash:comments>
+		</item>
+		<item>
+		<title>The Address Element</title>
+		<link>http://html5doctor.com/the-address-element/</link>
+		<comments>http://html5doctor.com/the-address-element/#comments</comments>
+		<pubDate>Tue, 03 Nov 2009 19:34:29 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[address]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1051</guid>
+		<description><![CDATA[The <code>address</code> element has been around since the <abbr>HTML</abbr>3 spec was drafted in 1995, and it continues to survive in the latest drafts of <abbr>HTML</abbr>5. But nearly fifteen years after its creation, it's still causing confusion among developers. So how should we be using <code>address</code> in our documents?<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/"     class="crp_title">HTML5 adaptive images: end of round one</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>address</code> element has been around since the <abbr>HTML</abbr>3 spec was drafted in 1995, and it continues to survive in the latest drafts of <abbr>HTML</abbr>5. But nearly fifteen years after its creation, it's still causing confusion among developers. So how should we be using <code>address</code> in our documents?</p>
+
+<h2>The right way</h2>
+
+<p>Let's take a quick look at the spec:</p>
+
+<blockquote>
+<p>The address element provides contact information for a document or part of a document. Information provided by address may include the names of the document’s maintainers, links to the maintainers’ Web pages, e-mail addresses for feedback, postal addresses, phone numbers, and so on. The address element is not appropriate for all postal and e-mail addresses; it should be reserved for providing such information about the contact people for the document.</p>
+<a href="http://dev.w3.org/html5/spec/sections.html#the-address-element"><cite>W3C HTML5 specification</cite></a></blockquote>
+ 
+<p>If we follow the above advice, we could do something like this:</p>
+
+<pre>
+<code>The HTML5 Doctor is run by the following group of volunteers:
+<mark>&#60;address&#62;</mark>
+&#60;a href="http://html5doctor.com/author/jacko"&#62;Jack Osborne&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/richc"&#62;Rich Clark&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/miker"&#62;Mike Robinson&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/toml"&#62;Tom Leadbetter&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/brucel"&#62;Bruce Lawson&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/remys"&#62;Remy Sharp&#60;/a&#62;,
+&#60;a href="http://html5doctor.com/author/olib"&#62;Oli Studholme&#60;/a&#62;
+<mark>&#60;/address&#62;</mark></code>
+</pre>
+
+<p>Here's another example that we've implemented on this very site:</p>
+
+<pre>
+<code>&#60;footer&#62;
+&#60;div class="vcard"&#62;by
+ <mark>&#60;address class="author"&#62;</mark>
+&#60;em class="fn"&#62;&#60;a title="Posts by Jack Osborne" href="#"&#62;Jack Osborne&#60;/a&#62;&#60;/em&#62;
+<mark>&#60;/address&#62;</mark> on
+ &#60;time datetime="2009-11-04" class="published updated"&#62;November 4th, 2009&#60;/time&#62;
+&#60;/div&#62;
+&#60;/footer&#62;</code>
+</pre>
+
+<p>If you view the source code on our <a href="http://html5doctor.com" title="HTML5 Doctor Home">home page</a>, you'll see that we've used the <code>address</code> element &#8212; nested within the <code>footer</code> of the articles &#8212; several times throughout the page. This is useful should the information be aggregated.</p>
+
+<h2>The wrong way</h2>
+
+<p>The most common misconception about the <code>address</code> element is that it should be used to mark up any old address. Take a look at the following example:</p>
+
+<pre>
+<code>&#60;!-- This is bad! --&#62;
+<mark>&#60;address&#62;</mark>
+Dr. Jack Osborne&lt;br&gt;
+HTML5 Hospital,&lt;br&gt;
+Doctorville,&lt;br&gt;
+Great Britain&lt;br&gt;
+Tel: +44 (0)XXXX XXXXXX
+<mark>&#60;/address&#62;</mark></code>
+</pre>
+
+<p>Wondering what's wrong with this code? Very simply, the <code>address</code> element was <strong>not</strong> created for postal addresses. To reinforce this, the latest spec stipulates that the <code>address</code> element <strong>must not</strong> be used to represent arbitrary addresses (e.g., postal addresses), <em>unless</em> those addresses are in fact the relevant contact information for a document or section of a document.</p>
+
+<h2>Marking up arbitrary addresses</h2>
+
+<p>So what should we do with addresses that aren't directly related to the document? One solution is to use the <code>p</code> element in combination with the <a href="http://html5doctor.com/microformats/#hcard" title="hCard Microformat">hCard microformat</a>.</p>
+
+<p>Let's rewrite that last example using hCard:</p>
+
+<pre>
+<code>&lt;div class="vcard"&gt;
+&lt;p class="fn"&gt;&lt;a class="url" href="#"&gt;Dr. Jack Osborne&lt;/a&gt;&lt;p&gt;
+&lt;p class="adr"&gt;
+&lt;span class="street-address"&gt;HTML5 Hospital&lt;/span&gt;&lt;br&gt;
+&lt;span class="region"&gt;Doctorville&lt;/span&gt;&lt;br&gt;
+&lt;span class="postal-code"&gt;Postal Code&lt;/span&gt;&lt;br&gt;
+&lt;span class="country-name"&gt;Great Britain&lt;/span&gt;
+&lt;/p&gt;
+&lt;p class="tel"&gt;+44 (0)XXXX XXXXXX&lt;/p&gt;
+&lt;/div&gt;</code>
+</pre>
+
+<p>I’ve introduced hCard here to reinforce that you are <strong>not</strong> supposed to use the <code>address</code> element for arbitrary postal addresses, but rather for providing contact information for a whole document or section of a document. If you want to maximise the semantic value of that information, read our articles on <a href="http://html5doctor.com/microformats">extending HTML5 with microformats</a> or <a href="http://html5doctor.com/microdata">HTML5’s new microdata attributes</a>.</p>
+
+<p>If you don&#8217;t feel comfortable implementing microformats on your own, visit the <a href="http://microformats.org/code/hcard/creator" title="hCard Microformat generator">hCard generator</a>, which will do all of the heavy lifting for you.</p><p><a href="http://html5doctor.com/the-address-element/" rel="bookmark">The Address Element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 3, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-adaptive-images-end-of-round-one/"     class="crp_title">HTML5 adaptive images: end of round one</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-address-element/feed/</wfw:commentRss>
+		<slash:comments>52</slash:comments>
+		</item>
+		<item>
+		<title>The Footer Element Update</title>
+		<link>http://html5doctor.com/the-footer-element-update/</link>
+		<comments>http://html5doctor.com/the-footer-element-update/#comments</comments>
+		<pubDate>Tue, 29 Sep 2009 13:00:30 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[footer]]></category>
+		<category><![CDATA[HTML 5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=895</guid>
+		<description><![CDATA[When I wrote the previous version of this article a few months ago, I knew, as I'm sure many of you also knew, that this element in particular would be subject to change as the <abbr>HTML</abbr>5 spec neared it's completion. The problem was simple, the <code>footer</code> element just didn't feel &#39;complete&#39;, it just didn't offer the same flexibility as other elements. Now that's changed.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<h2>Update</h2>
+<p>When I wrote the previous version of this article a few months ago, I knew, as I&#8217;m sure many of you also knew, that this element in particular would be subject to change as the <abbr>HTML</abbr> 5 spec neared it&#8217;s completion. The problem was simple, the <code>footer</code> element just didn&#8217;t feel &#39;complete&#39;, it just didn&#8217;t offer the same flexibility as other elements. <a href="http://html5.org/tools/web-apps-tracker?from=3750&#038;to=3751">Now that&#8217;s changed</a>.</p>
+<p>In summary, the content model for the <code>footer</code> element has been changed to allow sectioning content like <code>header</code> or like <code>nav</code>. In fact it now works in very much the same way as the <a href="/the-header-element/"><code>header</code> element</a>. However, it&#8217;s important to note that <code>footer</code> <em>isn&#8217;t</em> sectioning content and <em>doesn&#8217;t</em> introduce a new section.</p>
+<p>If you&#8217;ve been working on a site and have incorporated a wonderful new footer with everything that it now allows please feel free to post a link in the comments to show other readers just what you can get away with.</p>
+<p>Below is an updated copy of the original article.</p>
+<h2>Old Article</h2>
+<p>For some time now we&#8217;ve become accustomed to seeing <code>&lt;div id="footer"&gt;</code> at the bottom of web pages but with the introduction of <abbr title="Hypertext Mark-up Language">HTML</abbr> 5 it&#8217;s time to say goodbye. With the addition of the new <code>&lt;footer&gt;</code> element we now have more scope and flexibility.</p>
+<h2>According to the spec</h2>
+<blockquote><p>The footer element represents a footer for its nearest ancestor sectioning content or sectioning root element. A footer typically contains information about its section such as who wrote it, links to related documents, copyright data, and the like.
+</p></blockquote>
+<h2>Lets get started</h2>
+<p>Before we get stuck into dissecting the new element, let&#8217;s lay the foundations for the article and cover the basics. As we&#8217;ve already mentioned above, most people would have laid out the footer as follows</p>
+<pre><code>&lt;div id="footer"&gt;
+  &lt;ul&gt;
+     &lt;li&gt;copyright&lt;/li&gt;
+     &lt;li&gt;sitemap&lt;/li&gt;
+     &lt;li&gt;contact&lt;/li&gt;
+     &lt;li&gt;to top&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;div&gt;
+</code></pre>
+<p>However with the creation of <abbr title="Hypertext Mark-up Language">HTML</abbr>5 this is no longer the case. As you may already know, there is now no longer the need for the<code> &lt;div&gt;</code> element for many elements. In our case, when referring to the footer, the appropriate markup would be <code>&lt;footer&gt;</code><a id="footer"></a></p>
+<pre><code>&lt;footer&gt;
+  &lt;ul&gt;
+     &lt;li&gt;copyright&lt;/li&gt;
+     &lt;li&gt;sitemap&lt;/li&gt;
+     &lt;li&gt;contact&lt;/li&gt;
+     &lt;li&gt;to top&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/footer&gt;
+</code></pre>
+<p>As I mentioned in the first paragraph, originally the <code>&lt;footer&gt;</code> element was only utilised once within our pages but with the introduction of the new element, this no longer needs to be the case. The <code>&lt;footer&gt;</code> element can now be used multiple times and to display all the extra information.</p>
+<h2>Using the footer element</h2>
+<p>An important point to note is that you are not restricted to use one <code>&lt;footer&gt;</code> element per site, you can use multiple footers, each of which will then become the <code>&lt;footer&gt;</code> for that section of the document. You could therefore have a <code>&lt;footer&gt;</code> for a <code>&lt;section&gt;</code> or an <code>&lt;article&gt;</code>.</p>
+<h3>Section</h3>
+<pre><code>&lt;section&gt;
+   Section content appears here.
+   &lt;footer&gt;
+   Footer information for section.
+   &lt;/footer&gt;
+&lt;/section&gt;
+</code></pre>
+<h3>Article</h3>
+<pre><code>&lt;article&gt;
+   Article content appears here.
+   &lt;footer&gt;
+   Footer information for article.
+   &lt;/footer&gt;
+&lt;/article&gt;
+</code></pre>
+<p>To see an example of the <code>&lt;footer&gt;</code> within an article/section look no further than this very page. Scroll down beyond the article and you will notice the light grey text section, which falls directly after the &#8220;further reading&#8221;. This grey text section which gives information about trackbacks, responses, tags and categories is infact using the footer element. </p>
+<h3>Footer</h3>
+<p>We&#8217;ve already outlined what the new footer can look like <a href="#footer">above</a>.</p>
+<h2>Other Thoughts</h2>
+<blockquote cite="http://www.brucelawson.co.uk/2009/marking-up-a-blog-with-html-5-part-2/"><p>I was initially thrown off-course by the presentational name of the element; my use here isn’t at the bottom of the page, or even at the bottom of the article, but it certainly seems to fit the bill &#8211; it’s information about its section, containing author name, links to related documents (comments) and the like. There’s no reason that you can’t have more than one footer on page; the spec’s description says &#8220;the footer element represents a footer for the section it applies to&#8221; and a page may have any number of sections. The spec also says &#8220;Footers don’t necessarily have to appear at the end of a section, though they usually do.&#8221;</p></blockquote>
+<p>Bruce Lawson &#8211; <a href="http://www.brucelawson.co.uk/2009/marking-up-a-blog-with-html-5-part-2/">http://www.brucelawson.co.uk/2009/marking-up-a-blog-with-html-5-part-2/</a></p>
+<h2>Conclusion</h2>
+<p>The footer element offers the chance to define web pages giving them the correct semantic mark-up that they deserve but it&#8217;s vital to use these new found tags as they were intended for. Let&#8217;s not get carried away and misuse this tag like we have done with tables and divs.</p>
+<h2>Futher reading</h2>
+<ul>
+<li><a href="http://www.whatwg.org/specs/web-apps/current-work/#the-footer-element" rel="nofollow">http://www.whatwg.org/specs/web-apps/current-work/#the-footer-element</a></li>
+</ul>
+<p><a href="http://html5doctor.com/the-footer-element-update/" rel="bookmark">The Footer Element Update</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 29, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-footer-element-update/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+		<item>
+		<title>Your questions answered #2</title>
+		<link>http://html5doctor.com/your-questions-answered-2/</link>
+		<comments>http://html5doctor.com/your-questions-answered-2/#comments</comments>
+		<pubDate>Thu, 20 Aug 2009 08:39:09 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[charset]]></category>
+		<category><![CDATA[google]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[learning]]></category>
+		<category><![CDATA[seo]]></category>
+		<category><![CDATA[web sockets]]></category>
+		<category><![CDATA[wordpress]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=618</guid>
+		<description><![CDATA[Last month we decided to pull together a post that covered some of the emails that were sent in through the contact page. Since the publication of the last post we have received a lot more questions regarding the HTML 5 spec and have decided that some of these  warranted another post.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" />Since the launch of the site we&#8217;ve be welcoming questions regarding the HTML 5 spec through the <a href="/contact/">contact form</a>.  It doesn&#8217;t matter if you think your question is too &#60;H1&#62;big&#60;/H1&#62; or &#60;small&#62;small&#60;/small&#62; we&#8217;re here to help.</p>
+<p>Last month we decided to pull together a post that covered some of the emails that were sent in through the contact page. Since the publication of the last post we have received a lot more questions regarding the HTML 5 spec and have decided that some of these  warranted another post.</p>
+<h2>Content Type</h2>
+<p>Christian asked:</p>
+<blockquote><p>
+In checking out various implementations of html5 around the web with a quick &#8220;view source&#8221;, I find everyone seems to specify content type in the headers like so; &#60;meta http-equiv=&#8221;content-type&#8221; content=&#8221;text/html;charset=utf-8&#8243;&#62; even though it&#8217;s already a part of the HTTP header.</p>
+<p>Does it really need to be in both locations, or can we all cut out that redundancy as long as our servers are specifying the content type appropriately in the HTTP header?
+</p></blockquote>
+<p>If you take a look at Dr.Bruce&#8217;s weblog <a href="http://www.brucelawson.co.uk/" title="Bruce Lawson">http://www.brucelawson.co.uk/</a> you will see that most of the information can be cut out and simplified. As more and more sites make the jump to HTML 5 you will be able to see what elements can and cannot be left out. If you&#8217;re interested in checking out more sites then please feel free to visit our sister site <a href="http://html5gallery.com">HTML 5 Gallery</a> where you will be able to view the source of plenty of sites that are already sporting HTML 5 elements in their markup.</p>
+<p>If you&#8217;re looking to take your reading even further then Dr. Remy has recently published an article entitled <a href="/html-5-boilerplates/" title="HTML 5 Boilerplates">HTML5 boilerplates</a> which should give you more information on the above.</p>
+<h2>HTML 5 &amp; SEO</h2>
+<p>Julio asked:</p>
+<blockquote><p>
+I&#8217;m thinking of using HTML 5 in my projects as soon as possible, but I need to be sure that everything will work just as fine as HTML 4. My question is: Google (and other search engines) is already indexing HTML 5 sites? In terms of SEO, will I have any drawbacks?
+</p></blockquote>
+<p>In answer to your question, yes Google is indexing HTML 5 sites. Between <a href="/about/" title="the HTML 5 doctors">us</a> we run several sites built with HTML 5 markup and none of the Doctors have had any issues with our sites being indexed or competitive on key phrases.</p>
+<aside><q>Yes, Google is indexing <abbr>HTML<abbr> 5.</q></aside>
+<p>In fact if you look at the source code of google.com you&#8217;ll see that their doctype is declared as &#60;! doctype html&#62; meaning it&#8217;s using HTML 5! Another site that is part of the Google group, Youtube, has also recently created a mock-up of their layout that can be found at <a href="http://www.youtube.com/html5">http://www.youtube.com/html5</a> and this definitely shows that they are thinking about it. One last fact to help settle your nerves, if we&#8217;ve not managed to do it already, is that Ian Hickson who is writing the bulk of the HTML 5 spec works for Google so we don&#8217;t think you&#8217;ll have any problems.</p>
+<h2>HTML 5 Templates</h2>
+<p>Klaus asked:</p>
+<blockquote><p>
+Where can if find HTML 5 Templates?
+</p></blockquote>
+<p>When this email came in, we weren&#8217;t too sure by what Klaus meant so we&#8217;re tackling his question with two responses.</p>
+<p>For static HTML pages you&#8217;d be hard pushed to find a better resource than Remy&#8217;s boilerplate explained here: <a href="/html-5-boilerplates/" title="HTML 5 templates">http://html5doctor.com/html-5-boilerplates/</a></p>
+<p>However, if you are looking for some HTML 5 WordPress themes then have a look at the following:</p>
+<ul>
+<li><a href="http://www.brucelawson.co.uk/2009/redesigning-with-html-5-wai-aria/" title="Bruce Lawson HTML 5 wordpress theme">http://www.brucelawson.co.uk/2009/redesigning-with-html-5-wai-aria/</a></li>
+<li><a href="http://diggingintowordpress.com/2009/07/free-html-5-wordpress-theme/" title="Digging into WordPress HTML 5 theme">http://diggingintowordpress.com/2009/07/free-html-5-wordpress-theme/</a></li>
+<li><a href="http://www.thatstandardsguy.co.uk/blog/2009/04/03/brave-new-world-wordpress-theme/" title="That Standards guy HTML 5 wordpress theme">http://www.thatstandardsguy.co.uk/blog/2009/04/03/brave-new-world-wordpress-theme/</a></li>
+</ul>
+<h2>WebSocket Support</h2>
+<p>Dave asked:</p>
+<blockquote><p>
+There&#8217;s a lot of features, and I can&#8217;t find anywhere that lists current support in major browser versions (and/or with Google Gears).  The particular one I&#8217;m looking for is WebSocket support
+</p></blockquote>
+<p>This is a good resource for checking the state of browser support for a particular feature: <a href="http://a.deveria.com/caniuse/">http://a.deveria.com/caniuse/</a> Regarding web workers specifically, we&#8217;ve come across a library that implements Web Sockets and falls away when it&#8217;s available natively.</p>
+<p>None of the doctors have used these personally but feel that they will be useful in answer to your question:</p>
+<ul>
+<li><a href="http://orbited.org/ title="Orbited.org"">http://orbited.org/</a></li>
+<li><a href="http://molly.com/html5/html5-0709.html" title="Molly on HTML 5">http://molly.com/html5/html5-0709.html</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML_5)" title="HTML 5 layout engines">http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML_5)</a></li>
+<li><a href="http://wiki.whatwg.org/wiki/Implementations_in_Web_browsers" title="Working group on implementation in web browsers">http://wiki.whatwg.org/wiki/Implementations_in_Web_browsers</a></li>
+</ul>
+<h2>Reusing Elements Within Same Page</h2>
+<p>Daniel asked:</p>
+<blockquote><p>
+Dear Doctor,<br />
+Just a quick confirmation please. Am I right in thinking that nav, like header and footer, can be used more than once in a single page?  For example, surrounding a menu at the top of the page and surrounding next/previous buttons at the bottom. Come to think of it, is it fair to say that all tags except html, head and body can be used more than once?<br />
+Thanks in advance, doctor.<br />
+I&#8217;ll be back soon about my dodgy knee.
+</p></blockquote>
+<p>Yes, for more information please reference this article &#8211; <a href="/designing-a-blog-with-html5/" title="designing a blog with HTML 5">http://html5doctor.com/designing-a-blog-with-html5/</a> and this diagram of a single blog entry (of course, there can be many blog entries on a page) <a href="http://html5doctor.com/wp-content/uploads/2009/06/html5-article-outline.gif" title="diagram of HTML 5 blog">http://html5doctor.com/wp-content/uploads/2009/06/html5-article-outline.gif</a> probably.</p>
+<p>Other articles that we have already covered on the site &#8211; <a href="/the-header-element/" title="HTML 5 header element">http://html5doctor.com/the-header-element/</a>, <a href="/the-footer-element/" title="HTML 5 footer element">http://html5doctor.com/the-footer-element/</a> and a great article on the <a href="/nav-element/" title="HTML 5 nav element">http://html5doctor.com/nav-element/</a>.</p>
+<h2>Learning HTML/XHTML Before Reading About HTML 5</h2>
+<p>Manuel asked:</p>
+<blockquote><p>
+Hi, I&#8217;m new to this field and I would like to learn HTML.</p>
+<p>If I understand correctly, most future web sites will be written in HTML5 (served using the text/html MIME type) and just a few sites will use XHTML5 (served using the application/xhtml+xml MIME type). As a consequence, I will focus on HTML5.</p>
+<p>HTML5 can use both the HTML syntax and the stricter XHTML syntax, but since I&#8217;m starting from scratch I suppose I could safely ignore the XHTML syntax and focus on the HTML syntax (HTML 4.1/5). Why bother about XHTML syntax in 2009? Unfortunately all modern introductory book/online resources about HTML are focused on the XHTML syntax. Where I could learn the pure HTML syntax without any reference to the useless and distracting (for my purposes) XHTML syntax?
+</p></blockquote>
+<p>Your best bet would be to get into the good coding practices of <abbr>XHTML</abbr> (lowercase tag, always closing tags, etc.) while writing HTML, there are a number of resources on the Internet for learning HTML 4.01 which you shouldn&#8217;t have any problems finding. A particular favorite of mine when I was starting out was <a href="http://htmldog.com/">HTMLDog</a>.</p>
+<p>We understand the issue of a number of the resources use the XHTML sytax but as I said above this will get you into good coding habits when writing HTML (particularly as HTML is less strict).</p>
+<blockquote><p>
+thank you for your quick reply. You won me: I will learn XHTML (from HTMLDog). Just a last question: when in the next future I will make the transition to HTML5 (served using the text/html MIME type) I hope the XHTML syntax validates anyway, so that I will have just to change the doctype of my pages to &#60;!DOCTYPE html&#62;. Right? (My fear is that the XHTML syntax will require a XHTML5 doctype).
+</p></blockquote>
+<p>This is correct though you won&#8217;t get the extra semantics added by HTML 5. For that I suggest you read the articles that appear on the site. If you want to use semantic class naming in your current XHTML I suggest you see the related links after &#8216;Automated Conversion&#8217; in this post. &#8211; <a href="/your-questions-answered-1/">http://html5doctor.com/your-questions-answered-1/</a></p>
+<h2>There we have it folks&hellip;</h2>
+<p>Another quick round up of some of the more difficult questions we&#8217;ve had to respond to over the last few weeks. We hope that you&#8217;ll find this article helpful and remember that if you have a question that hasn&#8217;t been covered in an article so far feel free to get in touch, you never know, your question might just appear in one of these posts.</p>
+<p><a href="http://html5doctor.com/your-questions-answered-2/" rel="bookmark">Your questions answered #2</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 20, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/"     class="crp_title">HTML5 forms introduction and new attributes</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-2/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>The footer element</title>
+		<link>http://html5doctor.com/the-footer-element/</link>
+		<comments>http://html5doctor.com/the-footer-element/#comments</comments>
+		<pubDate>Mon, 29 Jun 2009 15:00:13 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[footer]]></category>
+		<category><![CDATA[HTML 5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=159</guid>
+		<description><![CDATA[For some time now we&#8217;ve become accustomed to seeing &#60;div id="footer"&#62; at the bottom of web pages but with the introduction of HTML 5 it&#8217;s time to say goodbye. With the addition of the new &#60;footer&#62; element we now have more scope and flexibility. According to the spec The footer element represents a footer for [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p>For some time now we&#8217;ve become accustomed to seeing <code>&lt;div id="footer"&gt;</code> at the bottom of web pages but with the introduction of <abbr title="Hypertext Mark-up Language">HTML</abbr> 5 it&#8217;s time to say goodbye. With the addition of the new <code>&lt;footer&gt;</code> element we now have more scope and flexibility.<span id="more-159"></span></p>
+<h2>According to the spec</h2>
+<blockquote><p>The <code>footer</code> element represents a footer for its nearest ancestor sectioning content or sectioning root element. A footer typically contains information about its section such as who wrote it, links to related documents, copyright data, and the like.</p>
+<footer><cite><a href="http://www.w3.org/html/wg/drafts/html/master/sections.html#the-footer-element">4.3.8 The <dfn><code>footer</code></dfn> element &#8211; HTML 5.1</a></cite></footer>
+</blockquote>
+<h2>Lets get started</h2>
+<p>Before we get stuck into dissecting the new element, let&#8217;s lay the foundations for the article and cover the basics. As we&#8217;ve already mentioned above, most people would have laid out the footer as follows</p>
+<pre><code>&lt;div id="footer"&gt;
+  &lt;ul&gt;
+     &lt;li&gt;copyright&lt;/li&gt;
+     &lt;li&gt;sitemap&lt;/li&gt;
+     &lt;li&gt;contact&lt;/li&gt;
+     &lt;li&gt;to top&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;div&gt;
+</code></pre>
+<p>However with the creation of <abbr title="Hypertext Mark-up Language">HTML</abbr> 5 this is no longer the case. As you may already know, there is now no longer the need for the<code> &lt;div&gt;</code> element for many elements. In our case, when referring to the footer, the appropriate markup would be <code>&lt;footer&gt;</code><a id="footer"></a></p>
+<pre><code>&lt;footer&gt;
+  &lt;ul&gt;
+     &lt;li&gt;copyright&lt;/li&gt;
+     &lt;li&gt;sitemap&lt;/li&gt;
+     &lt;li&gt;contact&lt;/li&gt;
+     &lt;li&gt;to top&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/footer&gt;
+</code></pre>
+<p>As I mentioned in the first paragraph, originally the <code>&lt;footer&gt;</code> element was only utilised once within our pages but with the introduction of the new element, this no longer needs to be the case. The <code>&lt;footer&gt;</code> element can now be used multiple times and to display all the extra information.</p>
+<h2>Using the footer element</h2>
+<p>An important point to note is that you are not restricted to use one <code>&lt;footer&gt;</code> element per site, you can use multiple footers, each of which will then become the <code>&lt;footer&gt;</code> for that section of the document. You could therefore have</p>
+<h3>Section</h3>
+<pre><code>&lt;section&gt;
+   Section content appears here.
+   &lt;footer&gt;
+   Footer information for section.
+   &lt;/footer&gt;
+&lt;/section&gt;
+</code></pre>
+<h3>Article</h3>
+<pre><code>&lt;article&gt;
+   Article content appears here.
+   &lt;footer&gt;
+   Footer information for article.
+   &lt;/footer&gt;
+&lt;/article&gt;
+</code></pre>
+<p>To see an example of the <code>&lt;footer&gt;</code> within an article/section look no further than this very page. Scroll down beyond the article and you will notice the light grey text section, which falls directly after the &#8220;further reading&#8221;. This grey text section which gives information about trackbacks, responses, tags and categories is infact using the footer element.</p>
+<h3>Footer</h3>
+<p>We&#8217;ve already outlined what the new footer can look like <a href="#footer">above</a>.</p>
+<h2>Other Thoughts</h2>
+<blockquote cite="http://www.brucelawson.co.uk/2009/marking-up-a-blog-with-html-5-part-2/"><p>I was initially thrown off-course by the presentational name of the element; my use here isn’t at the bottom of the page, or even at the bottom of the article, but it certainly seems to fit the bill &#8211; it’s information about its section, containing author name, links to related documents (comments) and the like. There’s no reason that you can’t have more than one footer on page; the spec’s description says &#8220;the footer element represents a footer for the section it applies to&#8221; and a page may have any number of sections. The spec also says &#8220;Footers don’t necessarily have to appear at the end of a section, though they usually do.&#8221;</p></blockquote>
+<p>Bruce Lawson &#8211; <a href="http://www.brucelawson.co.uk/2009/marking-up-a-blog-with-html-5-part-2/">http://www.brucelawson.co.uk/2009/marking-up-a-blog-with-html-5-part-2/</a></p>
+<h2>Conclusion</h2>
+<p>The footer element offers the chance to define web pages giving them the correct semantic mark-up that they deserve but it&#8217;s vital to use these new found tags as they were intended for. Let&#8217;s not get carried away and misuse this tag like we have done with tables and divs.</p>
+<h2>Futher reading</h2>
+<ul>
+<li><a title="W3C on the footer element" href="http://www.w3.org/TR/html5/semantics.html#the-footer-element" rel="nofollow">http://www.w3.org/TR/html5/semantics.html#the-footer-element</a></li>
+</ul>
+<p><a href="http://html5doctor.com/the-footer-element/" rel="bookmark">The footer element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 29, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-footer-element/feed/</wfw:commentRss>
+		<slash:comments>24</slash:comments>
+		</item>
+	</channel>
+</rss>

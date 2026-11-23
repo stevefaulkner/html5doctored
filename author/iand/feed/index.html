@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Ian Devlin &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/author/iand/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 27 Apr 2016 12:02:21 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The woes of date input</title>
+		<link>http://html5doctor.com/the-woes-of-date-input/</link>
+		<comments>http://html5doctor.com/the-woes-of-date-input/#comments</comments>
+		<pubDate>Tue, 19 Jan 2016 14:39:31 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[date]]></category>
+		<category><![CDATA[datepicker]]></category>
+		<category><![CDATA[input]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5961</guid>
+		<description><![CDATA[One of the many new input types that HTML5 introduced is the date input type which, in theory, should allow a developer to provide the user with a simple, usable, recognisable method of entering a date on a web page. But sadly, this input type has yet to reach its full potential. Briefly, the date [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>One of the many <a href="http://html5doctor.com/html5-forms-input-types/">new input types</a> that <abbr>HTML5</abbr> introduced is the date input type which, in theory, should allow a developer to provide the user with a simple, usable, recognisable method of entering a date on a web page. But sadly, this input type has yet to reach its full potential.</p>
+<section id="introduction">
+<p>Briefly, the date input type is a form element that allows the capture of a date from a user, usually via a datepicker. The implementation of this datepicker is up to the browser vendor, as the <a href="http://www.w3.org/TR/html51/semantics.html#date-state-%28type=date%29"><abbr>HTML5</abbr> specification</a> does not tell vendors how to implement the input&#8217;s <abbr title="User Interface">UI</abbr>.</p>
+<p>The input itself can of course be used without using any of its available attributes:</p>
+<pre><code>&lt;label for="when">Date:&lt;/label>
+&lt;input id="when" name="when" type="date"></code></pre>
+</p>
+<p>Or you can specify minimum and maximum date values via the <code>min</code> and <code>max</code> attributes, ensuring that a user can only choose dates within a specific range:</p>
+<pre><code>&lt;label for="when">Date:&lt;/label>
+&lt;input id="when" name="when" type="date" min="2016-01-01" max="2016-12-01"></code></pre>
+</p>
+<p>You can also use the <code>step</code> attribute to specify, in days, how a date can increment. The default is 1.</p>
+<p>This of course is the theory and a fine reality it would be, if it were so but alas it is not.</p>
+</section>
+<section id="features">
+<h2>Features</h2>
+<p>Rather than talk about <a href="http://caniuse.com/#feat=input-datetime">browser support</a> for the date input type, I will instead talk about the various features that are part of this input type:</p>
+<ul>
+<li><a href="#feature-input-field">the input field</a></li>
+<li><a href="#feature-min-max-attributes">the <code>min</code> and <code>max</code> attributes</a></li>
+<li><a href="#feature-step-attribute">the <code>step</code> attribute</a></li>
+<li><a href="#feature-datepicker">the datepicker</a></li>
+<li><a href="#feature-events">events</a></li>
+</ul>
+<section id="feature-input-field">
+<h3>The <code>input</code> field</h3>
+<p>Neither Firefox nor Safari support this input type; it is treated as a simple text field with no formatting and no special interaction.</p>
+<p>Microsoft Edge has no special interactions and in fact the input field appears to be read-only.</p>
+<p>Chrome and Opera have the same implementations which display a date placeholder (or date value if the input&#8217;s <code>value</code> attribute has been set) using the user&#8217;s system settings&#8217; date format. There are also some controls that allow the user to clear the input field, some arrows to cycle up and down between values, and an arrow that will open a datepicker (see Figure 1). There are some <a href="http://www.tjvantoll.com/2013/04/15/list-of-pseudo-elements-to-style-form-controls/#input_date">WebKit prefixed pseudo selectors</a> available that allow you to change the appearance of the various bits within the input date field.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-date-input.jpg" alt="Screenshot of WebKit's native date input on Chrome"></p>
+<figcaption>Figure 1. &#8211; WebKit&#8217;s date input field as seen on Chrome</figcaption>
+</figure>
+</section>
+<section id="feature-min-max-attributes">
+<h3>The <code>min</code> and <code>max</code> attributes</h3>
+<p>All of those browsers that support the date input type also support the <code>min</code> and <code>max</code> attributes.</p>
+<p>Chrome and Opera both work fine if both the <code>min</code> and <code>max</code> attributes are set, but the <abbr title="User Interface">UI</abbr> is poor when only one of them is set. In these browsers, the date input displays up and down arrows for the user to change each value (day, month, and year). If a date input has a minimum value set at today&#8217;s date, then if the user highlights the year and then clicks the down arrow, the year will change to 275760 as the arrows cycle between the valid values and, since no maximum has been set, the default maximum is used (see Figure 2). This has been <a href="https://code.google.com/p/chromium/issues/detail?id=577680">reported as a bug</a> but has been marked as &#8220;won&#8217;t fix&#8221; as apparently it is the desired behaviour, I disagree.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-date-input-bug.jpg" alt="Screenshot of WebKit's native date input on Chrome showing the year cycling to 275760"></p>
+<figcaption>Figure 2. &#8211; WebKit&#8217;s buggy date input field with a <code>min</code> value set but no <code>max</code></figcaption>
+</figure>
+<p>Something similar happens when only a <code>max</code> value is set in that pressing the up arrow will cycle around to the year 0001, which is the default minimum. Again this leads to a very confusing <abbr title="User Experience">UX</abbr> for the user, so please use both <code>min</code> and <code>max</code> where possible.</p>
+<p>With Android, the setting of these attributes can cause some weird quirks with the <a href="#feature-datepicker">datepicker</a>.</p>
+</section>
+<section id="feature-step-attribute">
+<h3>The <code>step</code> attribute</h3>
+<p>None of the browsers tested support the <code>step</code> attribute.</p>
+</section>
+<section id="feature-datepicker">
+<h3>The datepicker</h3>
+<p>Firefox and Safari do not support the date input type and therefore do not open a datepicker on desktop. But they <em>do</em> open a device&#8217;s native datepicker on mobile devices when the date input field receives focus.</p>
+<p>Microsoft Edge opens a datepicker, but its <abbr>UI</abbr> is very poor (see Figure 3).</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/edge-datepicker.png" alt="Screenshot of the the Edge's datepicker, which displays a list of selectable dates with one highlighted and two buttons at the bottom, once with a tick and the other with an X"></p>
+<figcaption>Figure 3. &#8211; Microsoft Edge&#8217;s native datepicker</figcaption>
+</figure>
+<p>Chrome and Opera open a fairly decent datepicker on desktop but you cannot style it at all. It looks how it looks (see Figure 4), and there&#8217;s nothing that you can do about it, no matter what your designer says. With these browsers you can <a href="http://trac.webkit.org/wiki/Styling%20Form%20Controls#Dateinputtype">disable the native datepicker</a> if you want and implement your own, but this will <em>not</em> work with mobile devices. This gives you the best of both worlds: you can implement a nicer datepicker for desktop and let a device use its own native datepicker.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-datepicker.jpg" alt="Screenshot of WebKit's native datepicker and date input on Chrome"></p>
+<figcaption>Figure 4. &#8211; WebKit&#8217;s native datepicker and date input field as seen on Chrome</figcaption>
+</figure>
+</section>
+<p>All the native datepickers that I tested on Android displayed some sort of confusing display quirks when valid <code>min</code> and <code>max</code> attribute are set. A user is correctly restricted from selecting a date outside of the specified range, but the visual datepickers often display &#8220;previous&#8221;, &#8220;current&#8221;, and &#8220;next&#8221; values for day, month, and year, and the values displayed for &#8220;previous&#8221; are either empty (in the case of the month) or set to 9999 (in the case of the year, see Figure 5).</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/android-4.3-native-datepicker.png" alt="Screenshot of the native datepicker on Android 4.3, with a selected date and the previous year set to 9999"></p>
+<figcaption>Figure 5. &#8211; The native datepicker on Android 4.3</figcaption>
+</figure>
+</section>
+<section id="feature-events">
+<h3>Events</h3>
+<p>Like most of the other input fields, the date input supports the <a href="http://www.w3.org/TR/html51/semantics.html#event-input-input"><code>input</code></a> and <a href="http://www.w3.org/TR/html51/semantics.html#event-input-change"><code>changed</code></a> events. The <code>input</code> event is fired every time a user interacts with the input field, while the <code>change</code> event is usually only fired when the value is committed, i.e. the input field loses focus.</p>
+<p>For those browsers mentioned above that support the native date input field, no specific events are fired that will allow you to determine if the user has done anything &#8220;date specific&#8221; such as opened or closed the datepicker, or cleared the input field. You can work out if the field has been cleared by listening for the <code>input</code> or <code>change</code> events and then checking the input field&#8217;s value.</p>
+<p>If you have an event listener set up for the <code>change</code> event and one for the <code>input</code> event, <code>changed</code> will never actually fire as <code>input</code> takes precendence.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion</h2>
+<p>So, what can we deduce from all this? Should we use the input date type or not? And as usual the answer is &#8220;it depends&#8221; as only you know what you&#8217;re building and how and where it will be used, so it might fit perfectly for your needs or it might not.</p>
+<p>I think in general it&#8217;s safe to use the input date type on occasions where a <code>min</code> and <code>max</code> does not need to be set as the quirks when these attributes are used are too irritating to ignore. Since not all browsers support a datepicker and you will have to get one from somewhere else to support these browsers, I would also recommend turning off the datepicker for all desktop browsers (using the method linked to above) as this will still allow devices to use their own.</p>
+<p>Have fun!</p>
+</section>
+</section>
+<p><a href="http://html5doctor.com/the-woes-of-date-input/" rel="bookmark">The woes of date input</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 19, 2016.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-woes-of-date-input/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>The progress element</title>
+		<link>http://html5doctor.com/the-progress-element/</link>
+		<comments>http://html5doctor.com/the-progress-element/#comments</comments>
+		<pubDate>Tue, 12 Feb 2013 14:30:16 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[file api]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[progress]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4927</guid>
+		<description><![CDATA[When building web sites and web applications, we often need to provide essential feedback to a user informing them of the progress of their request or task, be it uploading a file, playing a video, or importing data. HTML5 makes life easier for us by defining an element whose sole purpose is just that: the [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>When building web sites and web applications, we often need to provide essential feedback to a user informing them of the progress of their request or task, be it uploading a file, playing a video, or importing data.</p>
+<p>HTML5 makes life easier for us by defining an element whose sole purpose is just that: the <code>&lt;progress&gt;</code> element.</p>
+<p>The <a href="http://www.w3.org/TR/html5-author/the-progress-element.html"><abbr title="HyperText Markup Language 5">HTML5</abbr> specification</a> describes it best:</p>
+<blockquote><p>The progress element represents the completion progress of a task.</p></blockquote>
+<p>The task itself is irrelevant, but displaying its progress is not.</p>
+<section id="attributes">
+<h2>Attributes <a href="#attributes" class="permalink">#</a></h2>
+<p>There are four attributes that are specified for the <code>&lt;progress&gt;</code> element: <code>max</code>, <code>value</code>, <code>position</code>, and <code>labels</code>. Before taking a look at each of theses attributes in turn, here are a few important notes on them:</p>
+<ul>
+<li>If the <code>value</code> attribute exists, then the progress bar is considered to be <strong>determinate</strong> (i.e., it has exact limits). Otherwise it is considered to be <strong>indeterminate</strong>.</li>
+<li>If the <code>max</code> attribute is not included, the default acceptable range for the progress bar is between 0.0 and 1.0 inclusive.</li>
+<li>Authors are encouraged always to include the current value and the maximum value (if used) as inline text to the <code>&lt;progress&gt;</code> element so that the information is still visible to users of legacy browsers.</li>
+</ul>
+<p>And now let&#8217;s take a closer look at the attributes themselves:</p>
+<dl>
+<dt>Max</dt>
+<dd>The <code>max</code> attribute is a floating point number that indicates how much work the relevant task requires in total before it can be considered complete. The default value is 1.0.</dd>
+<dt>Value</dt>
+<dd>This is a floating point number that represents the current progress of the relevant task. Its value must be greater than or equal to 0.0 and less than or equal to 1.0 <strong>or</strong> the value of the <code>max</code> attribute if present.</dd>
+<dt>Position</dt>
+<dd>This is a read-only attribute that returns the current position of the <code>&lt;progress&gt;</code> element. This value is equal to <code>value / max</code> for a determinate progress bar and -1 for an indeterminate progress bar (as the position can&#8217;t accurately be determined).</dd>
+<dt>Labels</dt>
+<dd>This is also a read-only attribute that returns a list of the <code>&lt;progress&gt;</code> element&#8217;s <code>label</code>s (if there are any).</dd>
+</dl>
+</section>
+<section id="examples">
+<h2>Examples <a href="#examples" class="permalink">#</a></h2>
+<p>Let&#8217;s now take a look at some examples of how the <code>&lt;progress&gt;</code> element might be used, including how it might be updated via JavaScript.</p>
+<section id="indeterminate-progress-bar">
+<h3>Simple Indeterminate Progress Bar <a class="permalink" href="#indeterminate-progress-bar">#</a></h3>
+<pre><code>&lt;progress id='p'&gt;&lt;/progress&gt;</code></pre>
+<p>Since we have no idea how long the task in hand will take, the browser will simply display the progress bar until the task is complete and we either hide it or replace it with a &#8216;task complete&#8217; message.</p>
+</section>
+<section id="determinate-progress-bar">
+<h3>Simple Determinate Progress Bar <a class="permalink" href="#determinate-progress-bar">#</a></h3>
+<pre><code>&lt;progress id='p' max='70'&gt;&lt;span&gt;0&lt;/span&gt;%&lt;/progress&gt;</code></pre>
+<p>And the JavaScript for updating it:</p>
+<pre><code>var pBar = document.getElementById('p');
+var updateProgress = function(value) {
+  pBar.value = value;
+  pBar.getElementsByTagName('span')[0].innerHTML = Math.floor((100 / 70) * value);
+}</code></pre>
+<p>Note that here the progress bar can have a maximum value of 70, so calls to <code>updateProgress</code> will have values between 0 and 70 and that the value is also displayed within the <code>&lt;progress&gt;</code> element so that it is visible as a simple percentage string for users of legacy browsers.</p>
+</p>
+</section>
+<section id="video">
+<h3>Using <code>&lt;progress&gt;</code> with HTML5 Video <a class="permalink" href="#video">#</a></h3>
+<p>A good example of using the <code>&lt;progress&gt;</code> element is with an HTML5 video, informing the user how much of the video has been played. This won&#8217;t be a full example but will just show the necessary HTML and JavaScript.</p>
+<p>Given a <code>&lt;video&gt;</code> element with an id of &#8216;v&#8217;:</p>
+<pre><code>&lt;progress id='p' max='100' value='0'&gt;&lt;span&gt;0&lt;/span&gt;% played&lt;/progress&gt;</code></pre>
+<p>Use this JavaScript:</p>
+<pre><code>var video = document.getElementById('v');
+var pBar = document.getElementById('p');
+video.addEventListener('timeupdate', function() {
+  var percent = Math.floor((100 / video.duration) * video.currentTime);
+  pBar.value = percent;
+  pBar.getElementsByTagName('span')[0].innerHTML = percent;
+}, false);</code></pre>
+<p>The JavaScript uses the <code>timeupdate</code> event, which is constantly triggered as the video is being played. The value is converted into a percentage value using the video&#8217;s <code>duration</code> (full length) and <code>currentTime</code> (where in the video it currently is).</p>
+</section>
+<section id="file-api">
+<h3>Using <code>&lt;progress&gt;</code> with the File API <a class="permalink" href="#file-api">#</a></h3>
+<p>Another useful example is how the <code>&lt;progress&gt;</code> element might be used with the <a href="http://www.w3.org/TR/FileAPI/">File API</a>. Again, this is not a complete example, assuming the existence of a file input and upload button and <code>&lt;progress&gt;</code> element, and code for reading the file. The <a href="http://www.w3.org/TR/FileAPI/">specification itself</a> has some good code examples of this.</p>
+<pre><code>var p = document.getElementById('p');
+// 'reader' is of type FileReader
+reader.addEventListener('loadstart', function(evt) {
+  if (evt.lengthComputable) p.max = evt.total;
+}, false);
+reader.addEventListener('progress', function(evt) {
+  if (evt.lengthComputable) p.value = evt.loaded;
+}, false);</code></pre>
+<p>Here the <code>loadstart</code> event is used to set the <code>max</code> attribute of the <code>&lt;progress&gt;</code> element, and then the <code>progress</code> event is used to update the <code>&lt;progress&gt;</code> element&#8217;s <code>value</code> attribute.</p>
+</section>
+</section>
+<section id="browser-support">
+<h2>Browser Support <a class="permalink" href="#browser-support">#</a></h2>
+<p>The <code>&lt;progress&gt;</code> element is <a href="http://caniuse.com/#feat=progressmeter">fairly well-supported</a> in today&#8217;s major browsers, although only in version 6+ of Safari (so not on Windows, as the last version there was 5.1) and only in version 10+ of Internet Explorer.</p>
+</section>
+<section id="styling">
+<h2>Styling <a class="permalink" href="#styling">#</a></h2>
+<p>As is usual with such elements, browsers have their own unique styling for the <code>&lt;progress&gt;</code> element. You can, however, override this to a certain extent using simple CSS.</p>
+<p>The default styling tends to consist of an element with rounded corners, a grey background colour, and a green gradient for the actual progress marker.</p>
+<figure>
+     <img src="http://html5doctor.com/wp-content/uploads/2013/02/progress-element-firefox.jpg" alt="A screenshot of the progress element in Firefox" /></p>
+<figcaption>The default styling for the progress element in Firefox 18.0.2.</figcaption>
+</figure>
+<p>Let&#8217;s say we want to style our progress bar for the HTML5 Doctor website, so that it fits in with the design. We&#8217;ll remove the bevel and the gradients using only solid colours. The code below will almost do that:</p>
+<pre><code>progress {
+  color: #0063a6;
+  font-size: .6em;
+  line-height: 1.5em;
+  text-indent: .5em;
+  width: 15em;
+  height: 1.8em;
+  border: 1px solid #0063a6;
+  background: #fff;
+}</code></pre>
+<p>This, however, won&#8217;t change the colour of the progress bar itself, which will remain a green colour. We can change this in Firefox, Internet Explorer 10, Chrome, and Safari using a variety of methods which are outlined below.</p>
+<section id="styling-firefox">
+<h3>Firefox <a class="permalink" href="#styling-firefox">#</a></h3>
+<p>All we need to use here is:</p>
+<pre><code>progress::-moz-progress-bar { background: #0063a6; }</code></pre>
+<p>and Firefox will display the colour correctly.</p>
+<figure>
+      <img src="http://html5doctor.com/wp-content/uploads/2013/02/progress-element-styled.jpg" alt="A screenshot of the progress bar after custom styling" /></p>
+<figcaption>The progress bar as it appears in Firefox 18.0.2 after being styled.</figcaption>
+</figure>
+</section>
+<aside id="styling-opera">
+<h3>Update &#8211; <time datetime="2013-02-13">13th February 2013</time></h3>
+<p>Opera have just <a href="http://www.opera.com/press/releases/2013/02/13/">announced their move to using WebKit</a> as their rendering engine, so eventually the WebKit specifc styling rules will also work in Opera.</p>
+</aside>
+<section id="styling-webkit">
+<h3>Chrome and Safari <a class="permalink" href="#styling-webkit">#</a></h3>
+<p>For Chrome and Safari, we need to use <code>progress::-webkit-progress-value</code> to specify the progress bar colour and <code>progress::-webkit-progress-bar</code> to specify the background colour of the <code>&lt;progress&gt;</code> element itself:</p>
+<pre><code>progress::-webkit-progress-bar { background: #fff; }
+progress::-webkit-progress-value { background: #0063a6; }</code></pre>
+</section>
+<section id="styling-ie">
+<h3>Internet Explorer 10 <a class="permalink" href="#styling-ie">#</a></h3>
+<p>Actually the CSS above will be fine to style the <code>&lt;progress&gt;</code> element in IE10, but it&#8217;s worth noting that this browser interprets the <code>&lt;progress&gt;</code> element&#8217;s <code>color</code> value as the colour of the progress bar.</p>
+</section>
+<p>I&#8217;ve uploaded some <a href="/demos/progress/progress-element.html">working examples</a> of determinate and indeterminate progress bars for you to see.</p>
+</section>
+<section id="summary">
+<h2>Summary <a class="permalink" href="#summary">#</a></h2>
+<p>The <code>&lt;progress&gt;</code> element may seem very similar to the <a href="http://html5doctor.com/measure-up-with-the-meter-tag/"><code>&lt;meter&gt;</code> element</a> — which was also introduced in HTML5 — but it can be seen as a more specific kind of <code>&lt;meter&gt;</code> element that&#8217;s only used to measure progress of a task. It&#8217;s worth bearing this in mind when deciding which one to use.</p>
+<p>Since browser support is pretty good, it&#8217;s definitely worth using the <code>&lt;progress&gt;</code> element where appropriate, but you should also ensure that you provide textual fallback for legacy browsers as has been outlined above.</p>
+</section>
+<p><a href="http://html5doctor.com/the-progress-element/" rel="bookmark">The progress element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 12, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-progress-element/feed/</wfw:commentRss>
+		<slash:comments>21</slash:comments>
+		</item>
+		<item>
+		<title>Multimedia Troubleshooting</title>
+		<link>http://html5doctor.com/multimedia-troubleshooting/</link>
+		<comments>http://html5doctor.com/multimedia-troubleshooting/#comments</comments>
+		<pubDate>Tue, 31 Jul 2012 13:30:51 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4711</guid>
+		<description><![CDATA[<p>While I was researching <abbr>HTML5</abbr> multimedia-related topics for my book, <cite><abbr>HTML5</abbr> Multimedia: Develop and Design</cite>, I noticed a number people struggling to get <abbr>HTML5</abbr> audio and video working in different scenarios. From Twitter to Stack Overflow, the same questions kept cropping up, so I've put together a list of the most common problems (and some not so common) and their solutions (if there is one!).</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>While I was researching <abbr>HTML5</abbr> multimedia-related topics for my book, <cite><a href="http://html5multimedia.com"><abbr>HTML5</abbr> Multimedia: Develop and Design</a></cite>, I noticed a number people struggling to get <abbr>HTML5</abbr> audio and video working in different scenarios. From Twitter to Stack Overflow, the same questions kept cropping up, so I&#8217;ve put together a list of the most common problems (and some not so common) and their solutions (if there is one!).</p>
+<p>In most cases, the problems and solutions apply to both audio and video. I&#8217;ll note when something is specific to one or the other.</p>
+<p>Before I go any further, if you aren&#8217;t aware of how you can actually go about adding audio and video to your website via <abbr>HTML5</abbr>, you can read a number of other articles on this site to get you up to speed.  covered <a href="http://html5doctor.com/the-video-element/">the video element</a>, and <a href="http://html5doctor.com/author/markb/">Mark Boas</a> covered <a href="http://html5doctor.com/native-audio-in-the-browser/">native audio in the browser</a> and <a href="http://html5doctor.com/html5-audio-the-state-of-play/">HTML5 Audio &#8211; The State of Play</a>.</p>
+<p>In addition, I covered the same topics, <a title="Working with HTML5 multimedia components — Part 1: Video" href="http://www.adobe.com/devnet/html5/articles/html5-multimedia-pt1.html">video</a> and <a title="Working with HTML5 multimedia components — Part 2: Audio" href="http://www.adobe.com/devnet/html5/articles/html5-multimedia-pt2.html">audio</a>, as part of a series over on the .</p>
+<section class="numbered-heading" id="browser-support">
+<h2>Browser Support <a class="permalink" href="#browser-support">#</a></h2>
+<p>This is one of the first things you should check: Does the browser you&#8217;re using actually support the type of media file you&#8217;re trying to play? It&#8217;s simple enough to forget which browsers support which file types, so I&#8217;ll refresh your memory here.</p>
+<section id="audio-support">
+<h3>Audio <a class="permalink" href="#audio-support">#</a></h3>
+<ul>
+<li>Firefox supports Ogg Vorbis and <abbr title="Waveform Audio File Format">WAV</abbr></li>
+<li>Opera supports Ogg Vorbis and <abbr>WAV</abbr></li>
+<li>Safari supports MP3, <abbr title="Advanced Audio Coding">AAC</abbr>, and MP4</li>
+<li>Chrome supports Ogg Vorbis, MP3, <abbr>WAV</abbr>, <abbr>AAC</abbr>, and MP4</li>
+<li>Internet Explorer 9+ supports MP3, <abbr>AAC</abbr>, and MP4</li>
+<li>iOS supports MP3, <abbr>AAC</abbr>, and MP4</li>
+<li>Android supports <abbr>AAC</abbr> and MP3</li>
+</ul>
+<p>In order to support all of the browsers mentioned above, it&#8217;s advisable to serve your audio file in Ogg Vorbis, and MP3. For example:</p>
+<pre><code>&lt;audio controls&gt; 
+   &lt;source src="myAudio.ogg" type="audio/ogg"&gt;
+   &lt;source src="myAudio.mp3" type="audio/mp3"&gt;
+&lt;/audio&gt;</code></pre>
+</section>
+<section id="video-support">
+<h3>Video <a class="permalink" href="#video-support">#</a></h3>
+<ul>
+<li>Firefox supports Theora Ogg and WebM</li>
+<li>Opera supports Theora Ogg and WebM</li>
+<li>Safari supports MP4</li>
+<li>Chrome supports Theora Ogg, MP4, and WebM</li>
+<li>Internet Explorer 9+ supports MP4 and WebM (requires a plugin)</li>
+<li>iOS supports MP4</li>
+<li>Android supports MP4 and WebM (2.3+)</li>
+</ul>
+<p>In order to support all of the browsers mentioned above, you should serve your video file in both WebM and MP4 using the <code>source</code> element. For example:</p>
+<pre><code>&lt;video controls&gt;
+   &lt;source src="myVideo.mp4" type="video/mp4"&gt;
+   &lt;source src="myVideo.webm" type="video/webm"&gt;
+&lt;/video&gt;</code></pre>
+</section>
+</section>
+<section class="numbered-heading" id="mime-types">
+<h2><abbr title="Multipurpose Internet Mail Extensions">MIME</abbr> Types <a class="permalink" href="#mime-types">#</a></h2>
+<p>Even if you have the correct media file for the browser, it&#8217;s possible that your server doesn&#8217;t have the correct <abbr>MIME</abbr> type set up. <abbr>MIME</abbr> types tell the server how to handle the different file types. If you&#8217;re using something akin to Apache and you know your stuff, head to the <code>.htaccess</code> file and add the following for audio support:</p>
+<pre><code>AddType audio/ogg ogg AddType audio/ogg oga AddType audio/wav wav AddType audio/mpeg mp3 AddType audio/mp4 mp4 AddType audio/mp4 mpa</code></pre>
+<p>And similarily for video support:</p>
+<pre><code>AddType video/webm webm AddType video/mp4 mp4 AddType video/ogg ogg AddType video/ogg ogv</code></pre>
+<p>If you don&#8217;t have access to your server&#8217;s <code>.htaccess</code> file, your control panel should have an option somewhere that allows you to view and add <abbr>MIME</abbr> types.</p>
+<p>If you have a Windows server, then you may need to add the <abbr>MIME</abbr> types to <abbr title="Internet Information Services">IIS</abbr>, either <a title="Configuring MIME Types in IIS 7" href="http://technet.microsoft.com/en-us/library/17bda1f4-8a0d-440f-986a-5aaa9d40b74c.aspx">using the <abbr>IIS</abbr> Manager</a> or <a title="How to add mime types with IIS7 Web.config" href="http://blogs.iis.net/bills/archive/2008/03/25/how-to-add-mime-types-with-iis7-web-config.aspx">in the web.config file</a>.</p>
+</section>
+<section class="numbered-heading" id="file-conversion">
+<h2>File Conversion <a class="permalink" href="#file-conversion">#</a></h2>
+<p>It&#8217;s quite possible that a client has sent you a media file and you&#8217;ve determined its <abbr>MIME</abbr> type from its file extension. It&#8217;s possible, however, that the file wasn&#8217;t encoded correctly. It could, for example, be a perfectly valid MP4 file, but for some reason some browsers have trouble playing it. If this happens, you&#8217;re better off encoding the file yourself using a tool such as <a href="http://www.mirovideoconverter.com/">Miro Video Converter</a> or <a href="http://mediaconverter.org/">Media Converter</a> so you can be sure of the correct encoding.</p>
+<p>Additionally, some files, especially MP4 files, don&#8217;t always play in a browser that is supposed to support them. This is due to the fact that MP4 (also known as H.264) files can be encoded according to different <a title="H.264/MPEG-4 AVC: Profiles — Wikipedia" href="http://en.wikipedia.org/wiki/H.264#Profiles">&#8220;profiles&#8221;</a>. If the file in question is encoded in a profile that the browser doesn&#8217;t support, then naturally it won&#8217;t work. If this happens to you, try to ensure that the file is encoded according to the <a href="http://en.wikipedia.org/wiki/H.264#Profiles">Baseline profile</a> which is more likely to be supported than any of the more advanced ones. In my experience, using a tool like Miro ensures that the MP4 file will work just fine in supporting browsers.</p>
+<p>If you need to support Firefox 3.6 and lower, you&#8217;ll also need to convert your audio files to <a href="http://en.wikipedia.org/wiki/Ogg">Ogg</a> and add them as an extra <code>&lt;source&gt;</code> for the <code>&lt;audio&gt;</code> element.</p>
+</section>
+<section class="numbered-heading" id="buffering-mp4s">
+<h2>MP4 Files That Don&#8217;t Start Playing Until Fully Downloaded <a class="permalink" href="#buffering-mp4s">#</a></h2>
+<p>Usually <abbr>HTML5</abbr> audio and video players will allow the user to start playing a media file before it has fully downloaded (as long as it actually has something to play!). Sometimes this isn&#8217;t the case with an MP4 file, where the browser waits to download the entire file before making it available to play. This is due to an encoding issue.</p>
+<p>Sometimes MP4 files are encoded with the file index (which contains information on the file such as it&#8217;s duration) placed at the <em>end</em> of the media file rather than at the beginning. This index contains the metadata that the browser requires in order for it to offer progressive download. If this index is at the end, it knows nothing at all about the file and therefore has to wait until it receives the index.</p>
+<p>If this happens to you, there&#8217;s a simple fix called the <a href="http://renaun.com/blog/code/qtindexswapper/">QTIndexSwapper</a> by Renaun Erickson that you download to your computer and run on the file that simply moves the index to the start of the file and saves it.</p>
+</section>
+<section class="numbered-heading" id="attributes">
+<h2>Getting Your Attributes Right <a class="permalink" href="#attributes">#</a></h2>
+<p>This might seem a little obvious, but it&#8217;s amazing how many questions I see on Stack Overflow where people are wondering why a certain function isn&#8217;t working when they&#8217;re using attributes that no longer exist. A prime example of this is the <code>autobuffer</code> attribute on both the <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements, which was replaced by the <code>preload</code> attribute as far back as <time datetime="2010-02">February 2010</time>.</p>
+<p>People seem to forget that <abbr>HTML5</abbr> is not yet finalised (although large parts of it are quite stable) and that anything you read might be out of date. It&#8217;s worth checking the <a href="http://dev.w3.org/html5/spec/spec.html"><abbr title="World Wide Web Consortium">W3C</abbr> <abbr>HTML5</abbr> specification</a> and also <a href="http://caniuse.com/#cats=HTML5">When Can I Use?</a> to view browser support.</p>
+</section>
+<section class="numbered-heading" id="volume-control-in-firefox-11">
+<h2>Volume Control in Firefox 11+ <a class="permalink" href="#volume-control-in-firefox-11">#</a></h2>
+<p>This is an problem that has cropped up recently. Some of you may have noticed that the volume controls have disappeared from the audio player in Firefox 11+. True, you can mute it, and the volume controls are still controllable via the keyboard&#8217;s up and down keys, but the volume slider itself was <a title="HTML5 media controls and Firefox | Ian Devlin" href="http://www.iandevlin.com/blog/2012/04/html5/html5-media-controls-and-firefox">removed due to two bugs</a>. I assume this will return in the future, but for now, in case you were wondering what happened to them, it&#8217;s not your fault. (You can, of course, use the Media <abbr>API</abbr> to build your own set of <a title="Working with HTML5 multimedia components — Part 3: Custom controls" href="http://www.adobe.com/devnet/html5/articles/html5-multimedia-pt3.html">custom controls</a>.)</p>
+</section>
+<section class="numbered-heading" id="plugins">
+<h2>Plugins Required <a class="permalink" href="#plugins">#</a></h2>
+<p>One of the biggest selling points of <abbr>HTML5</abbr> audio and video is that no third-party plugins — such as Flash — are required in order to play multimedia files, as long as the browser in question supports it.</p>
+<p>Unfortunately, this is not strictly true, as both Internet Explorer (9+) and Safari do require Microsoft Media Player and Apple QuickTime, respectively, to be installed in order for them to be able to play <abbr>HTML5</abbr> audio and video files.</p>
+</section>
+<section class="numbered-heading" id="fullscreen">
+<h2>Video and Fullscreen <a class="permalink" href="#fullscreen">#</a></h2>
+<p>An oft-requested requirement for <abbr>HTML5</abbr> video is the ability to play in fullscreen mode. The <abbr>HTML5</abbr> specification has nothing to say on this, but a separate specification for a <a href="http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html">Fullscreen <abbr>API</abbr></a> is currently under work, with experimental versions available in some of the major browsers.</p>
+<p>The following browsers go some way to supporting the Fullscreen <abbr>API</abbr>, albeit using their own vendor specific versions:</p>
+<ul>
+<li>Chrome 19+</li>
+<li>Firefox 12+</li>
+<li>Safari 5.1+</li>
+</ul>
+<p>There is also the <a href="https://github.com/sindresorhus/screenfull.js">screenfull.js JavaScript polyfill</a> that enables this functionality for a limited number of browsers.</p>
+</section>
+<section class="numbered-heading" id="poster-in-ie9">
+<h2>Internet Explorer 9+ Ignores Your Poster Image <a class="permalink" href="#poster-in-ie9">#</a></h2>
+<p>If you have a <abbr>HTML5</abbr> video defined with a poster image (using the <code>poster</code> attribute), you might be surprised when <em>Internet Explorer 9 completely ignores it unless you have set the <code>preload</code> attribute to be <code>none</code></em>.</p>
+<p>Since Internet Explorer was one of the last browsers to support <abbr>HTML5</abbr>, we all grew accustomed to the other browsers&#8217; treatment of the <code>poster</code> attribute: if it&#8217;s specified, display that image until the user starts to play the video. Internet Explorer 9 doesn&#8217;t do this. It only displays the image contained within the <code>poster</code> attribute if it has nothing else to show, so if the first frame of the video has been loaded (with <code>preload</code> set to <code>auto</code> — the default value — or <code>metadata</code>), then it uses this regardless of what&#8217;s in the <code>poster</code> attribute.</p>
+<p>This appears to be a case of Internet Explorer interpreting the specification in its own way and doing something different to all other browsers. Internet Explorer 10 also currently exhibits the same (mis)behaviour.</p>
+</section>
+<section class="numbered-heading" id="devices">
+<h2>Accessing Webcams and Microphones <a class="permalink" href="#devices">#</a></h2>
+<p>The ability to access peripheral devices such as microphones and webcams was always in the minds of the <abbr>HTML5</abbr> specification writers when they added the <code>&lt;device&gt;</code> element. This has since been removed and replaced with the more thorough <a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">getUserMedia <abbr>API</abbr></a>, which allows access to such media devices.</p>
+<p>The <abbr>API</abbr> itself is <a title="It’s Curtains for Marital Strife Thanks to getUserMedia" href="http://html5doctor.com/getusermedia/">easy to use</a>, but browser support is currently quite limited. Opera is currently the only browser with an implementation, supporting only video, but you can already see what <a title="Filtering a webcam using getUserMedia and HTML5 canvas" href="http://www.iandevlin.com/blog/2012/06/html5/filtering-a-webcam-using-getusermedia-and-html5-canvas">it can do</a>. Internet Explorer 10 will follow suit, and it will soon appear in Firefox Nightly.</p>
+</section>
+<section id="summary">
+<h2>Summary <a class="permalink" href="#summary">#</a></h2>
+<p>This ends my round up of gotchas that you may encounter when working with <abbr>HTML5</abbr> audio and video. Of course, it doesn&#8217;t cover everything, and I&#8217;m sure there are issues that you may have come across that haven&#8217;t been mentioned here. If you have, please do add them below in the comments, with their solution if possible, or if not, I or one of the other <a href="http://html5doctor.com/about/"><abbr>HTML5</abbr> Doctors</a> will try to help.</p>
+</section>
+<p><a href="http://html5doctor.com/multimedia-troubleshooting/" rel="bookmark">Multimedia Troubleshooting</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 31, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/multimedia-troubleshooting/feed/</wfw:commentRss>
+		<slash:comments>23</slash:comments>
+		</item>
+		<item>
+		<title>Finding your position with Geolocation</title>
+		<link>http://html5doctor.com/finding-your-position-with-geolocation/</link>
+		<comments>http://html5doctor.com/finding-your-position-with-geolocation/#comments</comments>
+		<pubDate>Tue, 14 Jun 2011 14:35:07 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[geolocation]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3324</guid>
+		<description><![CDATA[<p>The Geolocation API provides a method to locate the user's exact (more or less - see below) position. This is useful in a number of ways ranging from providing a user with location specific information to providing route navigation.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[		<p>The Geolocation API provides a method to locate the user&#8217;s exact (more or less &#8211; see below) position. This is useful in a number of ways ranging from providing a user with location specific information to providing route navigation.</p>
+		
+		<p>Although it&#8217;s not actually part of the HTML5 specification, as it was developed as a separate specification by the <a href="http://dev.w3.org/geo/api/spec-source.html">W3C</a>, rather than the <a href="http://www.whatwg.org/">WHATWG</a>, if the esteemed HTML5 Doctors <A href="http://html5doctor.com/author/remys/">Remy Sharp</a> and <a href="http://html5doctor.com/author/brucel/">Bruce Lawson</a> felt it was fitting enough to include in <a href="http://introducinghtml5.com/">their book</a>, then it&#8217;s perfectly ok to write about it here.</p>
+		<p>The API is actually remarkably simple to use and this article aims to introduce the API and show just how easy it is.</p>	
+	
+		<section>
+			<h2>Browser Compatibility</h2>		
+			<p>Currently the W3C Geolocation API is supported by the following desktop browsers:</p>
+			<ul>
+				<li>Firefox 3.5+</li>
+				<li>Chrome 5.0+</li>
+				<li>Safari 5.0+</li>
+				<li>Opera 10.60+</li>
+				<li>Internet Explorer 9.0+</li>
+			</ul>
+			<p>There is also support for the W3C Geolocation API on mobile devices:</p>
+			<ul>
+				<li>Android 2.0+</li>
+				<li>iPhone 3.0+</li>
+				<li>Opera Mobile 10.1+</li>
+				<li>Symbian (S60 3rd &#038; 5th generation)</li>
+				<li>Blackberry OS 6</li>			
+				<li>Maemo</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Data Protection</h2>
+			<p>The specification explicitly states that since the nature of the API also exposes the user&#8217;s location and therefore could compromise their privacy, the user&#8217;s permission to attempt to obtain the geolocation information must be sought before proceeding. The browser will take care of this, and a message will either appear as a popup box, or at the top of the browser (implementation is browser specific) requesting the user&#8217;s permission.</p>
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2011/06/safari-geolocation-permission.jpg" alt="Screenshot of Safari's popup box asking for Geolocation permission" />
+				<figcaption>Safari asking the user for permission to obtain their Geolocation information</figcaption>
+			</figure>
+		</section>
+		
+		<section>
+			<h2>Geolocation sources</h2>
+			<p>A number of different sources are used to attempt to obtain the user&#8217;s location, and each has their own varying degree of accuracy. A desktop browser is likely to use WiFi (accurate to 20m) or IP Geolocation which is only accurate to the city level and can provide false positives. Mobile devices tend to use <em>triangulation</em> techniques such as <dfn title="Global Positioning System">GPS</dfn> (accurate to 10m and only works outside), WiFi and <dfn title="Global System for Mobile">GSM</dfn>/<dfn title="Code division multiple access">CDMA</dfn> cell IDs (accurate to 1000m).</p>
+		</section>		
+		
+		<section>
+			<h2>Using the API</h2>
+			<p>Before you actually attempt to use the Geolocation API, you first need to check if the browser actually supports it. The API usefully provides a function for this which can be called as follows:</p>
+			<pre><code>if (navigator.geolocation) {
+  // do fancy stuff
+}</code></pre>
+			<p>Obviously if this returns false, you should optionally inform the user of the inferiority of their browser and laugh in their face (not really).</p>
+			<p>Through the API, there are two functions available to obtain a user&#8217;s location:</p>
+			
+			<section>
+			<h3>getCurrentPosition and watchPosition</h3>
+			<p>Both of these methods return immediately, and then asynchronously attempt to obtain the current location. They take the same number of arguments, two of which are optional:</p>
+			<ol>
+				<li><code>successCallback</code> &ndash; called if the method returns successfully</li>
+				<li><code>[errorCallback]</code> &ndash; called if the method returns with an error</li>
+				<li>[options] &ndash; a number of options are available:
+					<ul>
+						<li><code>enableHighAccuracy</code> &ndash; provides a hint that the application would like the best possible results. This may cause a slower response time and in the case of a mobile device, greater power consumption as it may use GPS. Boolean with a default setting of false.</li>
+						<li><code>timeout</code> &ndash; indicates the maximum length of time to wait for a response. In milliseconds with a default of 0 &#8211; infinite.</li>
+						<li><code>maximumAge</code> &ndash; denotes the maximum age of a cached position that the application will be willing to accept. In milliseconds, with a default value of 0, which means that an attempt must be made to obtain a new position object immediately.</li>
+					</ul>
+				</li>
+			</ol>
+			<p>Before mentioning the differences between the two, another method needs to be introduced:</p>
+			</section>
+			
+			<section>
+			<h3>clearWatch</h3>
+			<p>This method takes one argument, the <code>watchID</code> of the watch process to clear (which is returned by <code>watchPosition</code>)</p>
+			<p>Now, the main difference between <code>getCurrentPosition</code> and <code>watchPosition</code> is that <code>watchPosition</code> keeps informing your code should the position change, so basically it keeps updating the user&#8217;s position. This is very useful if they&#8217;re on the move and you want to keep track of their position, whereas <code>getCurrentPosition</code> is a once off.	This method also returns a <code>watchID</code> which is required when you want to stop the position constantly being updated by calling <code>clearWatch</code> method is called.</p>			
+			<p>When the user&#8217;s position is returned, it is contained within a <code>Position</code> object which contains a number of properties:</p>
+			<table>
+			<thead>
+				<tr>
+					<th scope="col">Property</th>
+					<th scope="col">Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">coords.latitude</th>
+					<td>Decimal degrees of the latitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.longitude</th>
+					<td>Decimal degress of the longitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.altitude</th>
+					<td>Height in metres of the position above the <a href="http://en.wikipedia.org/wiki/Reference_ellipsoid">reference ellipsoid</a></td>
+				</tr>
+				<tr>
+					<th scope="row">coords.accuracy</th>
+					<td>The accuracy in metres of the returned result. The value of this setting informs the application how useful the returned latitude/longitude value actually is. This can help in determining if the returned result is accurate enough for the purpose it is intended for, e.g. values for streetview locations will need to be more accurate than those for a country based location</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.altitudeAccuracy</th>
+					<td>The accuracy in metres of the returned altitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.heading</th>
+					<td>Direction of travel of the hosting device, clockwise from true north</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.speed</th>
+					<td>The current ground speed of the hosting device in metres per second</td>
+				</tr>
+				<tr>
+					<th scope="row">timestamp</th>
+					<td>Timestamp of when the position was acquired</td>
+				</tr>
+			</tbody>
+			</table>
+			
+			<p>Amongst these only which is <code>coords.latitude</code>, <code>coords.longitude</code> and <code>coords.accuracy</code> are guaranteed to be returned (all others may be <code>null</code>), and the first two are by and large the most relevant, as it is from these that a position can be plotted on a Google Map, for example.</p>
+			<p>You can read more about the <a href="http://www.w3.org/TR/geolocation-API/#position_interface"><code>Position</code> object</a> and the <a href="http://www.w3.org/TR/geolocation-API/#coordinates_interface">coordinates interface</a> on the W3 specification itself.</p>
+			</section>
+		</section>
+		
+		<section>
+			<h2>Putting it all together</h2>
+			
+			<p>Putting this altogether, the following code will attempt to obtain a user&#8217;s location, calling the method <code>displayPosition</code> on success which simply pops up an alert box with the captured latitude and longitude:</p>
+			<pre><code>if (navigator.geolocation) {
+  var timeoutVal = 10 * 1000 * 1000;
+  navigator.geolocation.getCurrentPosition(
+    displayPosition, 
+    displayError,
+    { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+  );
+}
+else {
+  alert("Geolocation is not supported by this browser");
+}
+
+function displayPosition(position) {
+  alert("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+}</code></pre>
+			<p>The code above also calls the <code>displayError</code> method when attempt to fetch the user&#8217;s location data. This function simple converts the returned error code to an appropriate message:</p>
+	<pre><code>function displayError(error) {
+  var errors = { 
+    1: 'Permission denied',
+    2: 'Position unavailable',
+    3: 'Request timeout'
+  };
+  alert("Error: " + errors[error.code]);
+}</code></pre>
+		<section>
+			<h3>A final word</h3>
+			<p>This is just a simple introduction to using the Geolocation API and one of it&#8217;s uses.</p>
+			<p>Of course the API can be used for more than simply plotting a position on a map (although that in itself is quite useful). The specification itself offers a list of potential
+			<a href="http://www.w3.org/TR/geolocation-API/#usecases_section">use cases</a> for the API such as:</p>
+			<ul>
+				<li>Finding and plotting points of interest in the user&#8217;s area</li>
+				<li>Annotating content with location information</li.
+				<li>Showing a user&#8217;s position on a map (helping with directions of course!)</li>
+				<li>Turn-by-turn route navigation &#8211; using <code>watchPosition</code></li>
+				<li>Up-to-date local information &#8211; updates as you move</li>
+			</ul>
+		</section>	
+		</section>
+		
+		
+		<section>
+			<h2>Examples</h2>
+			<p>To see geolocation in action, I&#8217;ve put together a couple of quick examples in which I encourage you to view source and then go and try it out for yourself.</p>
+			<ul>
+				<li><a href="http://html5doctor.com/demos/geolocation/geolocation-getcurrentposition-example.html">Plot a location on a Google Map using <code>getPosition</code></a></li>
+				<li><a href="http://html5doctor.com/demos/geolocation/geolocation-watchposition-example.html">Plot and update a location on a Google Map using <code>watchPosition</code></a> &ndash; this is best viewed on a moving device so you can see the position updating</li>
+			</ul>
+		</section><p><a href="http://html5doctor.com/finding-your-position-with-geolocation/" rel="bookmark">Finding your position with Geolocation</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 14, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/finding-your-position-with-geolocation/feed/</wfw:commentRss>
+		<slash:comments>43</slash:comments>
+		</item>
+	</channel>
+</rss>

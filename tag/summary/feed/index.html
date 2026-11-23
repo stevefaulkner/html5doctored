@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; summary</title>
+	<atom:link href="http://html5doctor.com/tag/summary/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The details and summary elements</title>
+		<link>http://html5doctor.com/the-details-and-summary-elements/</link>
+		<comments>http://html5doctor.com/the-details-and-summary-elements/#comments</comments>
+		<pubDate>Tue, 09 Aug 2011 14:15:06 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[details]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[summary]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3558</guid>
+		<description><![CDATA[<p>How often have you had to write some JavaScript to create an interactive widget that shows and hides some content? You might’ve even downloaded a whole JavaScript library to achieve such an effect. Well, it’s time to rejoice! HTML5 provides a way to create this toggle feature with just a few lines of HTML and no JavaScript in sight. And so we introduce to you the details element.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[How often have you had to write some JavaScript to create an interactive widget that shows and hides some content? You might’ve even downloaded a whole JavaScript library to achieve such an effect. Well, it’s time <a href="http://edu-review.com/" title="writing service">writing service</a> to rejoice! HTML5 provides a way to create this toggle feature with just a few lines of HTML and no JavaScript in sight (depending on the browser, of course, but we’ll come to that later). And so we introduce to you the <code>&lt;details&gt;</code> element.
+
+Here is what <a href="http://www.w3.org/html/wg/drafts/html/master/">the spec</a> has to say about <code>&lt;details&gt;</code>:
+<blockquote>The <code>details</code> element represents a disclosure widget from which the user can obtain additional information or controls.
+
+<footer>— <cite><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element">W3C HTML specification</a></cite></footer></blockquote>
+Essentially, we can use <code>&lt;details&gt;</code> to create an accordion-like widget that the user can toggle open and closed. Inside <code>&lt;details&gt;</code>, we can put any sort of content we want.
+<h2 id="browser-support">Browser support</h2>
+Before we go any further, you should know that currently, only Chrome supports the <code>&lt;details&gt;</code> element. <a href="http://my.opera.com/ODIN/blog/implementing-html5-details">Opera will support it soon</a>, but in the meantime we’ll have to use some <a href="#fallbacks">polyfills</a>. So fire up Chrome and let’s take a peek.
+<h2 id="how-to-use">Using <code>&lt;details&gt;</code></h2>
+There are two relevant elements here: <code>&lt;details&gt;</code> and, optionally, <code>&lt;summary&gt;</code>. <code>&lt;details&gt;</code> is the wrapper for all the content we want to show and hide, and <code>&lt;summary&gt;</code> contains the — well, the summary and title of the section. Technically we don&#8217;t need the <code>&lt;summary&gt;</code>. If absent, the browser will use some default text (in Chrome: “details”). Let’s have a look at some markup:
+<pre><code>&lt;details&gt;
+  &lt;summary&gt;Show/Hide me&lt;/summary&gt;
+  &lt;p&gt;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+You can <a href="http://jsbin.com/egefop#html,live">see this in action over at jsbin</a>. It’s a simple example, but it shows off the toggle effect nicely. All this without JavaScript!
+<h3>The <code>open</code> attribute</h3>
+In the example above, the content is hidden when the page loads. We can make it visible by default by adding the boolean <code>open</code> attribute to the <code>&lt;details&gt;</code> element (<a href="http://jsbin.com/egefop/2#html,live">jsbin example</a>):
+<pre><code>&lt;details open&gt;
+  &lt;summary&gt;Show/Hide me&lt;/summary&gt;
+  &lt;p&gt;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+There is no <code>closed</code> attribute. It’s the default, so by omitting <code>open</code>, you imply <code>closed</code>.
+<h3>The <code>&lt;summary&gt;</code> element</h3>
+We&#8217;ve briefly seen <code>&lt;summary&gt;</code> in action. Since it is phrasing content, we can use inline elements such as <code>&lt;span&gt;</code> or <code>&lt;strong&gt;</code> inside it. Why thought would we do this? Perhaps for an extra styling hook or as the spec suggests: a label for a form element. At least it <em>would</em> be handy if it worked properly <a href="http://jsbin.com/egefop/3#html">when implemented</a>:
+<pre><code>&lt;details&gt;
+  &lt;summary&gt;&lt;label for="name"&gt;Name:&lt;/label&gt;&lt;/summary&gt;
+  &lt;input type="text" id="name" name="name" /&gt;
+&lt;/details&gt;</code></pre>
+Normally, clicking anywhere on the summary reveals the content of the <code>&lt;details&gt;</code> element. But in this example, clicking the summary doesn’t reveal the content because you’re actually clicking the <code>&lt;label&gt;</code>, which then focuses the <code>&lt;input&gt;</code> element — even though it’s hidden by the collapsed <code>&lt;details&gt;</code> element.
+
+Clearly this needs addressing, what do you think should happen? Maybe any browser vendors reading this can take a look :)
+<h3>Nesting multiple <code>&lt;details&gt;</code> elements</h3>
+You can nest <code>&lt;details&gt;</code> within <code>&lt;details&gt;</code> if you like, <a href="http://jsbin.com/egefop/14#html,live">as seen in this perfectly valid example</a>:
+<pre><code>&lt;details&gt;
+  &lt;summary&gt;Question 1&lt;/summary&gt;
+  &lt;p&gt;&lt;strong&gt;Pellentesque habitant morbi tristique&lt;/strong&gt; senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. &lt;em&gt;Aenean ultricies mi vitae est.&lt;/em&gt; Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, &lt;code&gt;commodo vitae&lt;/code&gt;, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. &lt;a href="#"&gt;Donec non enim&lt;/a&gt; in turpis pulvinar facilisis. Ut felis.&lt;/p&gt;
+  &lt;details&gt;
+    &lt;summary&gt;Related documents&lt;/summary&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Lorem ipsum dolor sit amet,  consectetuer adipiscing elit.&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Aliquam tincidunt mauris eu  risus.&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Lorem ipsum dolor sit amet,  consectetuer adipiscing elit.&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Aliquam tincidunt mauris eu  risus.&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/details&gt;
+&lt;/details&gt;</code></pre>
+<h2 id="examples">Example uses</h2>
+So when could you use <code>&lt;details&gt;</code>? FAQs immediately spring to mind. People often use accordions for FAQs anyway, so they’re a great candidate for <code>&lt;details&gt;</code>.
+
+Also consider a table of contents. It could be a fixed area that scrolls with the content. <a href="http://jsbin.com/egefop/8#html,live">Something like this perhaps?</a>
+
+You could use <code>&lt;details&gt;</code> to toggle the comments section of a blog, member profiles, details of a download, complex forms, or in web applications as shown in this example from the spec:
+
+<figure><img src="http://html5doctor.com/wp-content/uploads/2011/08/details-w3c.jpg" alt="" /><figcaption>An example of the <code>&lt;details&gt;</code> element from the spec</figcaption></figure>In fact, just looking around WordPress as I write, I see plenty of opportunities to use <code>&lt;details&gt;</code>. Let us know your thoughts and ideas in the comments.
+<h2 id="styling">Styling</h2>
+How can we style this thing? Well, to style the disclosure widget itself in WebKit, you can apply some CSS to the pseudo-class <code>::-webkit-details-marker</code>. You can <a href="http://jsbin.com/egefop/9#html,live">see a little demo here</a>:
+<pre><code>details summary<strong>::-webkit-details-marker</strong> {
+  background: red;
+  color: #fff;
+  font-size: 500%;
+}</code></pre>
+We can also position the disclosure widget (to an extent). <a href="http://jsbin.com/egefop/17#html,live">Here it is floated right</a>. That’s about all we have initially.
+
+So how do we replace the disclosure widget with a custom icon? Using an attribute selector, you can detect whether the <code>&lt;details&gt;</code> element is open or closed and apply an appropriate background image. We do something similar in <a href="http://jsbin.com/egefop/11#html,live">this example</a>, except that instead of using a background image, we use the <code>:after</code> pseudo-element:
+<pre><code>summary::-webkit-details-marker {
+  display: none
+}
+summary:after {
+  background: red; 
+  border-radius: 5px; 
+  content: "+"; 
+  color: #fff; 
+  float: left; 
+  font-size: 1.5em; 
+  font-weight: bold; 
+  margin: -5px 10px 0 0; 
+  padding: 0; 
+  text-align: center; 
+  width: 20px;
+}
+details[open] summary:after {
+  content: "-";
+}</code></pre>
+The above example uses literal “+” and “-” characters as the disclosure widget. Depending on your styling, you might need to use <code>:before</code> instead of <code>:after</code>, but both pseudo-elements allow using an image.
+
+The <code>details[open]</code> attribute selector creates some interesting possibilities. And because we’re nice doctors, here’s a more <a href="http://jsbin.com/egefop/15#html,live">polished example</a> as seen in the screenshot below:
+
+<figure><img src="http://html5doctor.com/wp-content/uploads/2011/08/nice-details.jpg" alt="Details element in Chrome" /><figcaption>Styled <code>&lt;details&gt;</code> element in Chrome</figcaption></figure>It would be interesting (though not necessarily good design) if you could use CSS transitions to animate the <code>&lt;details&gt;</code> opening and closing, but we can’t just yet.
+<h2 id="accessibility">Accessibility</h2>
+Unfortunately, at the time of writing, <code>&lt;details&gt;</code> is not accessible via the keyboard. <a href="http://www.paciellogroup.com/blog/2011/08/accessibility-notes-2nd-august-2011/">Steve Faulkner writes</a>:
+<blockquote>Bottom line is, currently no keyboard support and no usable information exposed to assistive technology.</blockquote>
+Try it yourself. If you open a <code>&lt;details&gt;</code> element with your mouse, you can then keyboard through the content, but you should also be able to toggle the details open and shut with the keyboard. So it’s not ideal, but I’m sure the Chrome developers will sort this out soon (won’t you guys?).
+<h2 id="fallbacks">Fallbacks</h2>
+Before anyone exclaims that it doesn’t work in IE6, we know. Thanks to some clever people, we can provide elegant fallbacks though. As listed in this <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">very handy collection of cross-browser polyfills</a>, here are two fallbacks, both of which require jQuery:
+<ul>
+	<li><a href="http://mathiasbynens.be/notes/html5-details-jquery"><code>&lt;details&gt;</code> fallback via jQuery</a> by Mathias Bynens</li>
+	<li><a href="https://github.com/manuelbieh/details-Polyfill">Another <code>&lt;details&gt;</code> alternative, also based on jQuery</a> by Manuel Bieh</li>
+</ul>
+<del>Many of you will be using Modernizr for feature detection, but Modernizr currently doesn’t check for details support. As detailed in the above fallback by Mathias, we can use the following JavaScript:</del>
+<pre><code><del>&lt;script&gt;
+  if (!('open' in document.createElement('details'))) {
+    alert("No details");
+  }
+&lt;/script&gt;</del></code></pre>
+<ins>Update: Thanks to Mathias for the comment. The above code is not 100% reliable as if returns false in some versions of Chrome. Instead, consider using <a href="https://github.com/Modernizr/Modernizr/blob/master/feature-detects/elem/details.js">this Modernizr snippet</a>.</ins>
+<h2>Why this type of interaction?</h2>
+Not to look a gift horse in the mouth, but why is this widget in HTML5? Well, like so many other features of HTML5, creating these widgets is just easier with HTML5. Date pickers, sliders, progress indicators, and now accordions can be implemented easily and without JavaScript. Who knows what’s next? Native tabs would be nice :)
+<h2 id="summary">Summary</h2>
+In this article, we’ve demonstrated how to use the <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements. <code>&lt;details&gt;</code> is a new element and uses the <code>&lt;summary&gt;</code> element to create an interactive disclosure widget natively in the browser.
+
+Currently, <code>&lt;details&gt;</code> only works in Chrome, but hopefully this will change sooner rather than later. There is only one specific CSS trick we can use — <code>::-webkit-details-marker</code> — but we can use plenty of other CSS to style it up. Let us know in the comments if you’ve got any experience or ideas about the <code>&lt;details&gt;</code> element.<p><a href="http://html5doctor.com/the-details-and-summary-elements/" rel="bookmark">The details and summary elements</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 9, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-details-and-summary-elements/feed/</wfw:commentRss>
+		<slash:comments>56</slash:comments>
+		</item>
+		<item>
+		<title>Hello, summary and figcaption elements</title>
+		<link>http://html5doctor.com/summary-figcaption-element/</link>
+		<comments>http://html5doctor.com/summary-figcaption-element/#comments</comments>
+		<pubDate>Mon, 01 Feb 2010 10:42:38 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[details]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[summary]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1343</guid>
+		<description><![CDATA[The details and figure elements are saved from the crazed pecadillos of legend, dd/ dt and caption by these two freshly-minted elements, sent from Hickson over the weekend.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>This weekend saw the minting of not one but two new elements. The <code>summary</code> element (<strong>not</strong> the <code>summary</code> <em>attribute</em> on the <code>table</code> element) goes inside the <code>details</code> element:</p>
+<pre><code>&lt;details&gt;
+&lt;summary&gt;More information&lt;/summary&gt;
+&lt;p&gt;Here is the source data that is discussed in the article ... &lt;/p&gt;
+&lt;/details&gt;</code></pre>
+<p>This is designed to produce an &#8220;expando&#8221; box that is closed by default (but can be open by default using the boolean <code>open</code> attribute), only displaying the text specified by the <code>summary</code> as a control. Activating that control opens the whole <code>details</code> element; re-activating closes it again. If no <code>summary</code> text is present, the browser defaults to the rubric &#8220;details&#8221;. (Added 4 Feb 10:) In browsers that support <code>details</code>, this behaviour does not depend on author scripting, and should work even if JavaScript is disabled or not present.</p>
+<p><code>figcaption</code> lives inside the <code>figure</code>:</p>
+<pre><code>&lt;figure&gt;
+&lt;img ... &gt; (or <code>video</code>, <code>table</code> etc)
+&lt;figcaption&gt;A rabid unicorn goring a fairy.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>If you want some history, continue reading. Otherwise, bye bye!</p>
+<p>Previously, the <code>legend</code> element was specified to do the job of both. Unfortunately, <a href="/legend-not-such-a-legend-anymore/">every browser had parsing problems</a> re-using it outside forms. Similar problems were encountered attempting to re-use the <code>caption</code> element outside tables. At Jeremy Keith&#8217;s  suggestion, the spec then re-used <code>dd</code> and <code>dt</code>, but <a href="http://html5doctor.com/dd-details-wrong-again/">that breaks too</a>.</p>
+<p>Now, two new elements are minted. (I quite fancied one new element &#8211; <code>rubric</code> for both, but it&#8217;s a pretty esoteric word.)</p>
+<p>One of the objections to <code>details</code>, as described by Shelley Powers in <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=8379">her bug to remove it</a> is</p>
+<blockquote><p>the use of JavaScript for the purpose of expanding or collapsing a section is both well-defined and common among web applications. More importantly, following the concept of progressive enhancement, these types of expanding sections are expanded by default if script is turned off. To have a section that is dynamic but not controlled by script is going to cause confusion, particularly among people who turn scripting off and are assuming that there are no &#8220;expando&#8221; sections in the web page.</p>
+<p>In fact, I don&#8217;t see how this element will make developing web applications that much simpler. This type of functionality is trivial with JS.</p>
+</blockquote>
+<p>My counter-argument was that an expanding/ collapsing area on the page is a very common requirement. I&#8217;ve seen sites pull in a whole JavaScript library just to accomplish this (presumably as the developer was unfamiliar with JS), which bloats the page size for the user. I&#8217;ve seen pages where the &#8220;details&#8221; information is set to <code>display:none</code> by default, and the user cannot expand the information without JS, thereby making the contents inaccessible if JS is not present.</p>
+<p>Reinstating this element would be advantageous to developers, who wouldn&#8217;t need to learn JS to accomplish a common task; advantageous to users who would get an accessibility bonus from having this behaviour natively in the browser.</p>
+<p>While I like to think that the irrefutable logic of my argument, coupled with the tear-jerking rhetorical flourishes in  my prose captured both the heart and the head of the editor, I suspect what persuaded him was Apple&#8217;s Maciej Stachowiak saying that &#8220;the webkit community&#8221; were interested in implementing <code>details</code> once the spec was nailed down. Implementation wins the day.</p>
+<p><a href="http://html5doctor.com/summary-figcaption-element/" rel="bookmark">Hello, summary and figcaption elements</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 1, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/summary-figcaption-element/feed/</wfw:commentRss>
+		<slash:comments>50</slash:comments>
+		</item>
+	</channel>
+</rss>

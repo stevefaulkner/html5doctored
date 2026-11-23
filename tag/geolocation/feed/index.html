@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; geolocation</title>
+	<atom:link href="http://html5doctor.com/tag/geolocation/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>Finding your position with Geolocation</title>
+		<link>http://html5doctor.com/finding-your-position-with-geolocation/</link>
+		<comments>http://html5doctor.com/finding-your-position-with-geolocation/#comments</comments>
+		<pubDate>Tue, 14 Jun 2011 14:35:07 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[geolocation]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3324</guid>
+		<description><![CDATA[<p>The Geolocation API provides a method to locate the user's exact (more or less - see below) position. This is useful in a number of ways ranging from providing a user with location specific information to providing route navigation.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/html5-audio-the-state-of-play/"     class="crp_title">HTML5 Audio — The State of Play</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[		<p>The Geolocation API provides a method to locate the user&#8217;s exact (more or less &#8211; see below) position. This is useful in a number of ways ranging from providing a user with location specific information to providing route navigation.</p>
+		
+		<p>Although it&#8217;s not actually part of the HTML5 specification, as it was developed as a separate specification by the <a href="http://dev.w3.org/geo/api/spec-source.html">W3C</a>, rather than the <a href="http://www.whatwg.org/">WHATWG</a>, if the esteemed HTML5 Doctors <A href="http://html5doctor.com/author/remys/">Remy Sharp</a> and <a href="http://html5doctor.com/author/brucel/">Bruce Lawson</a> felt it was fitting enough to include in <a href="http://introducinghtml5.com/">their book</a>, then it&#8217;s perfectly ok to write about it here.</p>
+		<p>The API is actually remarkably simple to use and this article aims to introduce the API and show just how easy it is.</p>	
+	
+		<section>
+			<h2>Browser Compatibility</h2>		
+			<p>Currently the W3C Geolocation API is supported by the following desktop browsers:</p>
+			<ul>
+				<li>Firefox 3.5+</li>
+				<li>Chrome 5.0+</li>
+				<li>Safari 5.0+</li>
+				<li>Opera 10.60+</li>
+				<li>Internet Explorer 9.0+</li>
+			</ul>
+			<p>There is also support for the W3C Geolocation API on mobile devices:</p>
+			<ul>
+				<li>Android 2.0+</li>
+				<li>iPhone 3.0+</li>
+				<li>Opera Mobile 10.1+</li>
+				<li>Symbian (S60 3rd &#038; 5th generation)</li>
+				<li>Blackberry OS 6</li>			
+				<li>Maemo</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Data Protection</h2>
+			<p>The specification explicitly states that since the nature of the API also exposes the user&#8217;s location and therefore could compromise their privacy, the user&#8217;s permission to attempt to obtain the geolocation information must be sought before proceeding. The browser will take care of this, and a message will either appear as a popup box, or at the top of the browser (implementation is browser specific) requesting the user&#8217;s permission.</p>
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2011/06/safari-geolocation-permission.jpg" alt="Screenshot of Safari's popup box asking for Geolocation permission" />
+				<figcaption>Safari asking the user for permission to obtain their Geolocation information</figcaption>
+			</figure>
+		</section>
+		
+		<section>
+			<h2>Geolocation sources</h2>
+			<p>A number of different sources are used to attempt to obtain the user&#8217;s location, and each has their own varying degree of accuracy. A desktop browser is likely to use WiFi (accurate to 20m) or IP Geolocation which is only accurate to the city level and can provide false positives. Mobile devices tend to use <em>triangulation</em> techniques such as <dfn title="Global Positioning System">GPS</dfn> (accurate to 10m and only works outside), WiFi and <dfn title="Global System for Mobile">GSM</dfn>/<dfn title="Code division multiple access">CDMA</dfn> cell IDs (accurate to 1000m).</p>
+		</section>		
+		
+		<section>
+			<h2>Using the API</h2>
+			<p>Before you actually attempt to use the Geolocation API, you first need to check if the browser actually supports it. The API usefully provides a function for this which can be called as follows:</p>
+			<pre><code>if (navigator.geolocation) {
+  // do fancy stuff
+}</code></pre>
+			<p>Obviously if this returns false, you should optionally inform the user of the inferiority of their browser and laugh in their face (not really).</p>
+			<p>Through the API, there are two functions available to obtain a user&#8217;s location:</p>
+			
+			<section>
+			<h3>getCurrentPosition and watchPosition</h3>
+			<p>Both of these methods return immediately, and then asynchronously attempt to obtain the current location. They take the same number of arguments, two of which are optional:</p>
+			<ol>
+				<li><code>successCallback</code> &ndash; called if the method returns successfully</li>
+				<li><code>[errorCallback]</code> &ndash; called if the method returns with an error</li>
+				<li>[options] &ndash; a number of options are available:
+					<ul>
+						<li><code>enableHighAccuracy</code> &ndash; provides a hint that the application would like the best possible results. This may cause a slower response time and in the case of a mobile device, greater power consumption as it may use GPS. Boolean with a default setting of false.</li>
+						<li><code>timeout</code> &ndash; indicates the maximum length of time to wait for a response. In milliseconds with a default of 0 &#8211; infinite.</li>
+						<li><code>maximumAge</code> &ndash; denotes the maximum age of a cached position that the application will be willing to accept. In milliseconds, with a default value of 0, which means that an attempt must be made to obtain a new position object immediately.</li>
+					</ul>
+				</li>
+			</ol>
+			<p>Before mentioning the differences between the two, another method needs to be introduced:</p>
+			</section>
+			
+			<section>
+			<h3>clearWatch</h3>
+			<p>This method takes one argument, the <code>watchID</code> of the watch process to clear (which is returned by <code>watchPosition</code>)</p>
+			<p>Now, the main difference between <code>getCurrentPosition</code> and <code>watchPosition</code> is that <code>watchPosition</code> keeps informing your code should the position change, so basically it keeps updating the user&#8217;s position. This is very useful if they&#8217;re on the move and you want to keep track of their position, whereas <code>getCurrentPosition</code> is a once off.	This method also returns a <code>watchID</code> which is required when you want to stop the position constantly being updated by calling <code>clearWatch</code> method is called.</p>			
+			<p>When the user&#8217;s position is returned, it is contained within a <code>Position</code> object which contains a number of properties:</p>
+			<table>
+			<thead>
+				<tr>
+					<th scope="col">Property</th>
+					<th scope="col">Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">coords.latitude</th>
+					<td>Decimal degrees of the latitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.longitude</th>
+					<td>Decimal degress of the longitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.altitude</th>
+					<td>Height in metres of the position above the <a href="http://en.wikipedia.org/wiki/Reference_ellipsoid">reference ellipsoid</a></td>
+				</tr>
+				<tr>
+					<th scope="row">coords.accuracy</th>
+					<td>The accuracy in metres of the returned result. The value of this setting informs the application how useful the returned latitude/longitude value actually is. This can help in determining if the returned result is accurate enough for the purpose it is intended for, e.g. values for streetview locations will need to be more accurate than those for a country based location</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.altitudeAccuracy</th>
+					<td>The accuracy in metres of the returned altitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.heading</th>
+					<td>Direction of travel of the hosting device, clockwise from true north</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.speed</th>
+					<td>The current ground speed of the hosting device in metres per second</td>
+				</tr>
+				<tr>
+					<th scope="row">timestamp</th>
+					<td>Timestamp of when the position was acquired</td>
+				</tr>
+			</tbody>
+			</table>
+			
+			<p>Amongst these only which is <code>coords.latitude</code>, <code>coords.longitude</code> and <code>coords.accuracy</code> are guaranteed to be returned (all others may be <code>null</code>), and the first two are by and large the most relevant, as it is from these that a position can be plotted on a Google Map, for example.</p>
+			<p>You can read more about the <a href="http://www.w3.org/TR/geolocation-API/#position_interface"><code>Position</code> object</a> and the <a href="http://www.w3.org/TR/geolocation-API/#coordinates_interface">coordinates interface</a> on the W3 specification itself.</p>
+			</section>
+		</section>
+		
+		<section>
+			<h2>Putting it all together</h2>
+			
+			<p>Putting this altogether, the following code will attempt to obtain a user&#8217;s location, calling the method <code>displayPosition</code> on success which simply pops up an alert box with the captured latitude and longitude:</p>
+			<pre><code>if (navigator.geolocation) {
+  var timeoutVal = 10 * 1000 * 1000;
+  navigator.geolocation.getCurrentPosition(
+    displayPosition, 
+    displayError,
+    { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+  );
+}
+else {
+  alert("Geolocation is not supported by this browser");
+}
+
+function displayPosition(position) {
+  alert("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+}</code></pre>
+			<p>The code above also calls the <code>displayError</code> method when attempt to fetch the user&#8217;s location data. This function simple converts the returned error code to an appropriate message:</p>
+	<pre><code>function displayError(error) {
+  var errors = { 
+    1: 'Permission denied',
+    2: 'Position unavailable',
+    3: 'Request timeout'
+  };
+  alert("Error: " + errors[error.code]);
+}</code></pre>
+		<section>
+			<h3>A final word</h3>
+			<p>This is just a simple introduction to using the Geolocation API and one of it&#8217;s uses.</p>
+			<p>Of course the API can be used for more than simply plotting a position on a map (although that in itself is quite useful). The specification itself offers a list of potential
+			<a href="http://www.w3.org/TR/geolocation-API/#usecases_section">use cases</a> for the API such as:</p>
+			<ul>
+				<li>Finding and plotting points of interest in the user&#8217;s area</li>
+				<li>Annotating content with location information</li.
+				<li>Showing a user&#8217;s position on a map (helping with directions of course!)</li>
+				<li>Turn-by-turn route navigation &#8211; using <code>watchPosition</code></li>
+				<li>Up-to-date local information &#8211; updates as you move</li>
+			</ul>
+		</section>	
+		</section>
+		
+		
+		<section>
+			<h2>Examples</h2>
+			<p>To see geolocation in action, I&#8217;ve put together a couple of quick examples in which I encourage you to view source and then go and try it out for yourself.</p>
+			<ul>
+				<li><a href="http://html5doctor.com/demos/geolocation/geolocation-getcurrentposition-example.html">Plot a location on a Google Map using <code>getPosition</code></a></li>
+				<li><a href="http://html5doctor.com/demos/geolocation/geolocation-watchposition-example.html">Plot and update a location on a Google Map using <code>watchPosition</code></a> &ndash; this is best viewed on a moving device so you can see the position updating</li>
+			</ul>
+		</section><p><a href="http://html5doctor.com/finding-your-position-with-geolocation/" rel="bookmark">Finding your position with Geolocation</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 14, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-progress-element/"     class="crp_title">The progress element</a></li><li><a href="http://html5doctor.com/html5-audio-the-state-of-play/"     class="crp_title">HTML5 Audio — The State of Play</a></li><li><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/"     class="crp_title">Using Modernizr to detect HTML5 features and provide&hellip;</a></li><li><a href="http://html5doctor.com/html5-forms-input-types/"     class="crp_title">HTML5 forms input types</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/finding-your-position-with-geolocation/feed/</wfw:commentRss>
+		<slash:comments>43</slash:comments>
+		</item>
+	</channel>
+</rss>

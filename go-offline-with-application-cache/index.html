@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  Go offline with application cache | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Go offline with application cache Comments Feed" href="http://html5doctor.com/go-offline-with-application-cache/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='Two cheers for the W3C&#8217;s HTML5 logo' href='http://html5doctor.com/two-cheers-for-the-w3cs-html5-logo/' />
+<link rel='next' title='Review: HTML5 Designing Rich Internet Applications' href='http://html5doctor.com/review-html5-designing-rich-internet-applications/' />
+<link rel="canonical" href="http://html5doctor.com/go-offline-with-application-cache/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=2729' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fgo-offline-with-application-cache%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fgo-offline-with-application-cache%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+	  
+  
+	</head>
+<body class="single single-post postid-2729 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-2729 post type-post status-publish format-standard hentry category-javascript-apis tag-application tag-cache tag-manifest tag-offline" id="post-2729">
+                 <h1>Go offline with application cache </h1>
+                <small><time datetime="2011-01-25" pubdate>Tuesday, January 25th, 2011</time> by <a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson" rel="author">Mike Robinson</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		        
+        <p class="disclaimer"><strong>UPDATE 15 June 2011</strong>: .appcache is now the recommended file extension for cache manifests. Please ensure you update your filename, manifest attribute on the <code>html</code> element and set the correct mime-type in your server config.</p>                
+        
+                <p><abbr>HTML</abbr>5 introduces new methods for enabling a web site or web application to function without a network connection. When you&#8217;re working on a mobile connection and your signal drops, or you just have no connection to the internet for whatever reason, having some level of access is better than nothing. In this article, we&#8217;ll look at how the application cache can store resources to be used by the browser when it&#8217;s offline, granting your users partial access to your web site or application.</p>
+
+<p>The <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html">application cache</a> is controlled by a plain text file called a manifest, which contains a list of resources to be stored for use when there is no network connectivity. The list can also define the conditions for caching, such as which pages should never be cached and even what to show the user when he follows a link to an uncached page.</p>
+
+<p>If the user goes offline but has visited the site while online, the cached resources will be loaded so the user can still view the site in a limited form. By carefully considering the contents of your manifest file, you can offer a suitable web experience to a disconnected user.</p>
+
+<section id="manifest">
+  <h2>The manifest file</h2>
+  <p>Let&#8217;s start with an example of a full manifest file. (Don&#8217;t worry, I&#8217;ll explain it all in detail!)</p>
+  
+  <figure>
+    <pre><code>CACHE MANIFEST
+      
+# This is a comment
+
+CACHE:
+/css/screen.css
+/css/offline.css
+/js/screen.js
+/img/logo.png
+http://example.com/css/styles.css
+
+FALLBACK:
+/ /offline.html
+
+NETWORK:
+*
+</code></pre>
+    <figcaption>An example application cache manifest file</figcaption>
+  </figure>
+  
+  <p>Each directive is placed on a new line, with comments prefixed by a hash (#). The first line, <code>CACHE MANIFEST</code>, tells the browser that this is a manifest file. The uppercased lines with trailing colons are section headings.</p>
+  
+  <p>There are three different sections in a manifest file:</p>
+  
+  <dl>
+    <dt>CACHE</dt>
+    <dd>A list of explicit <abbr>URL</abbr>s to request and store</dd>
+    <dt>FALLBACK</dt>
+    <dd>What to do when an offline user attempts to access an uncached file</dd>
+    <dt>NETWORK</dt>
+    <dd>Which resources are available only while online</dd>
+  </dl>
+  
+  <p>Each section serves a specific purpose that you must understand in order to successfully and effectively cache your resources.</p>
+  
+  <section id="cache">
+    <h3>CACHE</h3>
+    <p>The <code>CACHE</code> section is considered the default — i.e., if no section heading has been defined, the browser will assume this is the <code>CACHE</code> section. Beneath this heading, you can list <abbr>URI</abbr>s to resources you want the browser to download and cache for offline use, including <abbr>URI</abbr>s hosted externally.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+/css/screen.css
+/css/offline.css
+/js/screen.js
+/img/logo.png
+http://example.com/css/widget.css</code></pre>
+      <figcaption>Telling the browser to cache some stylesheets, an image, and a JavaScript file</figcaption>
+    </figure>
+  
+    <p>In this example, I&#8217;ve omitted the <code>CACHE:</code> heading to take advantage of the default behaviour. I have provided the browser with four paths relative to the root of the domain plus one external resource. When the browser downloads the cache manifest file, it will read these five resources, fetch them over <abbr>HTTP</abbr>, and store them for later use.</p>
+  
+    <p>Every single resource that you want to cache explicitly should be listed here, right down to the last image. The browser is not aware of a resource unless you provide the full path to it. This means <strong>you can&#8217;t use wildcards</strong>. If you list <code>/images/*</code> as a resource, the browser will request that <abbr>URI</abbr> as if you typed it into your address bar.</p>
+  
+    <p>But don&#8217;t run off and shove <abbr>URI</abbr>s for every single page on your site into your manifest! When a user visits a page that points to the manifest file, that page will also be cached. This means that if you want to allow users access to pages they&#8217;ve already viewed, just make those pages point to the manifest file and the browser will cache them appropriately.</p>
+  
+    <p>Now let&#8217;s tell the browser what to do with uncached resources.</p>
+  </section>
+  
+  <section id="fallback">
+    <h3>FALLBACK</h3>
+  
+    <p>The <code>FALLBACK</code> section tells the browser what to serve when the user tries to access an uncached resource while offline. Because of this, it looks a bit different than <code>CACHE</code> and <code>NETWORK</code>. It contains two values per line, separated by a space. The first value is the request <abbr>URI</abbr> to match, and the second is the resource sent upon matching. It caches the resource on the right for offline use, so this should be an explicit path.</p>
+    
+    <p>Lost? Take a look at this example:</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/status.html /offline.html</code></pre>
+      <figcaption>Declaring a <code>FALLBACK</code> section</figcaption>
+    </figure>
+  
+    <p>On the line below <code>FALLBACK:</code>, we have the <abbr>URI</abbr> &#8220;/status.html&#8221; followed by a second <abbr>URI</abbr>, &#8220;/offline.html&#8221;. We&#8217;re telling the browser that when an offline user requests a <abbr>URI</abbr> matching &#8220;/status.html&#8221;, it should instead serve the cached file &#8220;offline.html&#8221;.</p>
+    
+    <p>However, the <code>FALLBACK</code> section can be far more powerful:</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/ /offline.html</code></pre>
+      <figcaption>Matching all resources</figcaption>
+    </figure>
+  
+    <p>In this example, I&#8217;ve dropped &#8220;status.html&#8221; and simply provided &#8220;/&#8221; as the request <abbr>URI</abbr> to match. Now when an offline user requests a resource that matches &#8220;/&#8221;, he will be served &#8220;offline.html&#8221; in its place. So if the user clicked on a link for &#8220;/status.html&#8221;, &#8220;/about.html&#8221;, or even &#8220;/my/nested/resource.html&#8221;, the browser would match the &#8220;/&#8221; at the start and serve up &#8220;offline.html&#8221;. Since I&#8217;ve used the root path, every uncached resource under this domain will point to &#8220;offline.html&#8221;.</p>
+  
+    <p class="disclaimer"><strong>Errata 23 June 2011:</strong> this article has been corrected as you <em>can&#8217;t</em> use a wildcard with the <code>FALLBACK</code> or <code>NETWORK</code> namespaces &#8211; though you can use the asterisk symbol under <code>NETWORK</code> as it&#8217;s a special flag to indicate all urls should be whitelisted.</p>
+
+    <p>The <code>CACHE</code> section, both the <code>FALLBACK</code> and <code>NETWORK</code> namespaces support a prefix rule that aid their <abbr>URI</abbr> matching. In that any requests to the <code>/avatar</code> directory, whilst offline, if the asset is unavailable the browser can serve up an alternative.</p>
+    
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+FALLBACK:
+/images/avatars/ /offline_avatar.png</code></pre>
+      <figcaption>A smarter fallback declaration</figcaption>
+    </figure>
+  
+    <p>The first line tells the browser to serve &#8220;/offline_avatar.png&#8221; in place of user-uploaded avatars.</p>
+  
+    <p>Remember when I said that any document referencing the manifest will also be cached? Well, you can use this to your advantage! You can cache each page the user visits while online so that they will have access to that page while offline. Then anything they didn&#8217;t view will be caught by the <code>FALLBACK</code> section. This keeps you from explicitly stating you want all your pages cached, and, more importantly, avoids the huge performance penalty of serving all the resources you want cached every time someone first visits your site.</p>
+  </section>
+  
+  <section id="network">
+    <h3>NETWORK</h3>
+    <p>Finally, we have the <code>NETWORK</code> section, used to tell the browser explicitly which resources are only available while online. By default, this uses the asterisk <code>*</code> symbol, meaning all resources that are not cached will require a connection. Alternatively we can whitelist specific url prefixes, like all the avatars if we wish.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+NETWORK:
+*</code></pre>
+      <figcaption>Adding a <code>NETWORK</code> section</figcaption>
+    </figure>
+  
+    <p>You can explicitly define resources not to cache by providing a list of <abbr>URI</abbr>s — essentially a whitelist of online-only assets.</p>
+  
+    <figure>
+      <pre><code>CACHE MANIFEST
+
+NETWORK:
+register.php
+login.php</code></pre>
+      <figcaption>Excluding certain pages from caching</figcaption>
+    </figure>
+  </section>
+
+</section>
+
+<section id="serving-manifest">
+  <h2>Serving the manifest</h2>
+  
+  <p>You can reference a manifest file on a web page by adding the <code>manifest</code> attribute to your opening <code>&lt;html&gt;</code> tag. The browser will only cache pages that include this attribute (in addition to those specified in the manifest itself, though in that instance, the user would have to visit a page including the manifest in order for the browser to be aware of it).</p>
+  
+  <figure>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" manifest="/offline.appcache"&gt;
+  // your html document
+&lt;/html&gt;
+</code></pre>
+    <figcaption>Referencing the manifest file from an <abbr>HTML</abbr> page</figcaption>
+  </figure>
+
+  <p>The linked file should also be served with a <abbr>MIME</abbr>-type of <code>text/cache-manifest</code>. If you&#8217;re using <a href="http://httpd.apache.org/">Apache</a> as your web server, add this to your <code>.htaccess</code> file:</p>
+  
+  <figure>
+    <pre><code>AddType text/cache-manifest .appcache
+</code></pre>
+  </figure>
+  
+  <p>And there you have it! Supporting browsers will retrieve the manifest file and cache each item on the list for offline use. Won&#8217;t your parents be proud?</p>
+</section>
+
+<section id="trigger-refresh">
+  <h2>Triggering a cache refresh</h2>
+  
+  <p>Once a cache has been successfully downloaded, the browser will retain those assets until either the user clears the cache or you trigger an update. Triggering an update with your manifest file requires that the contents of that file change, not just the assets themselves.</p>
+  
+  <p><strong>Updating the assets on your server will not trigger a cache update. You must modify the manifest file.</strong></p>
+  
+  <p>If you&#8217;re adding or removing resources completely, you&#8217;ll have to edit your manifest file anyway. But what if you&#8217;re just amending an already cached stylesheet?</p>
+  
+  <p>This is where comments come in handy. Just throw in a simple version number comment that you change when you want to trigger an update:</p>
+  
+  <figure>
+    <pre><code>CACHE MANIFEST
+      
+# Version 9
+
+CACHE:
+/css/screen.css</code></pre>
+    <figcaption>A version comment in a manifest file</figcaption>
+  </figure>
+
+  <p>The next time you want to trigger a cache refresh, just increment the version number. When the user next visits the online version of a page including this manifest, it will re-download the manifest file, notice the change, download the listed assets, and purge the existing cache.</p>
+  
+  <p><strong>Browser bug:</strong> Firefox caches the manifest file itself and will not update it even if the manifest has changed on the server. With some server config wizardry, you can tell browsers that the cache of the manifest file is instantly invalidated and should be requested from the server every time it&#8217;s referenced. Add this to your <code>.htaccess</code> to put Firefox in its place:</p>
+  
+  <figure>
+    <pre><code>&lt;IfModule mod_expires.c&gt;
+  ExpiresActive On
+  ExpiresByType text/cache-manifest "access plus 0 seconds"
+&lt;/IfModule&gt;
+</code></pre>
+  </figure>
+</section>
+
+<section id="conclusion">
+  <h2>Conclusion</h2>
+  
+  <p>The application cache is a powerful beast, and to tame it you need to be clear on what&#8217;s involved. Give thought to your <code>CACHE</code>, <code>FALLBACK</code>, and <code>NETWORK</code> sections to provide a suitable offline experience to your users.</p>
+  
+  <p>In a future article, we&#8217;ll show you how to use the <code>applicationCache</code> JavaScript object to manipulate the cache. Until then, this should be enough to get you started on the path to offline web content.</p>
+  
+  <p>You can see a live demo using the application cache over on Doctor Remy&#8217;s <a href="http://html5demos.com/offlineapp">HTML5 Demos</a>. Happy caching!</p>
+</section>
+                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/javascript-apis/" rel="category tag">JavaScript APIs</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                        <ul class="semantic-list"><li><h3>Tags</h3></li><li><a href="http://html5doctor.com/tag/application/" rel="tag">application</a></li><li><a href="http://html5doctor.com/tag/cache/" rel="tag">cache</a></li><li><a href="http://html5doctor.com/tag/manifest/" rel="tag">manifest</a></li><li><a href="http://html5doctor.com/tag/offline/" rel="tag">offline</a></li></ul>                    </li>
+                </ul>
+
+					<h3>Translations</h3><ul class="trans semantic-list"><li><a href="http://www.clearboth.ru/article/go-offline-with-application-cache.html">Russian</a></li></ul>		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson" rel="author">Mike Robinson</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson" rel="author">Mike Robinson</a></span>. A developer at <a href="http://studiolift.com">Lift</a> in Reading, England, you can catch him on <a href="http://twitter.com/akamike">Twitter</a> or occasionally blogging on his own site, <a href="http://akamike.net/">akamike</a>. Beyond the web, Mike is usually gaming or listening to progressive rock.</p>
+                    <img alt='' src='http://2.gravatar.com/avatar/5b123a491d26ed764cdc5f700c54d200?s=128&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/5b123a491d26ed764cdc5f700c54d200?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>36 Responses on the article “Go offline with application cache”</h3>
+
+		<li class="comment even thread-even depth-1" id="comment-14009">
+				<div id="div-comment-14009" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6256c955366db320e28c1eb76b9d0c16?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6256c955366db320e28c1eb76b9d0c16?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.cubeanywhere.com/' rel='external nofollow' class='url'>Pedro Morais</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14009">
+			January 25, 2011 at 3:32 pm</a>		</div>
+
+		<p>You might also be interessed in this blog post I wrote a while ago, explaining how we use the appcache on a fairly complex webapp: <a href="http://blog.bitrzr.com/2010/10/html5-offline-webapps-practical-example.html" rel="nofollow">HTML5 offline webapps: a practical example</a>.</p>
+<p>For instance, we don&#8217;t use a version number, instead we use fingerprints of each of the files.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14009#respond' onclick='return addComment.moveForm( "div-comment-14009", "14009", "respond", "2729" )' aria-label='Reply to Pedro Morais'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14010">
+				<div id="div-comment-14010" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a5c32c9c23a80d7d511c3e720075ddbd?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a5c32c9c23a80d7d511c3e720075ddbd?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">jujhimup</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14010">
+			January 25, 2011 at 3:52 pm</a>		</div>
+
+		<p>how does this affect HTTPS pages?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14010#respond' onclick='return addComment.moveForm( "div-comment-14010", "14010", "respond", "2729" )' aria-label='Reply to jujhimup'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14011">
+				<div id="div-comment-14011" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a5c32c9c23a80d7d511c3e720075ddbd?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a5c32c9c23a80d7d511c3e720075ddbd?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">jujhimup</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14011">
+			January 25, 2011 at 3:56 pm</a>		</div>
+
+		<p>actually: is this also a cache &#8211; as in, if there IS a network connection available, will the app still display the cached &#8216;offline&#8217; version? or is this only used when there is no connection available?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14011#respond' onclick='return addComment.moveForm( "div-comment-14011", "14011", "respond", "2729" )' aria-label='Reply to jujhimup'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14014">
+				<div id="div-comment-14014" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3529f30b8dd7b523fd9e41542b6f55a0?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3529f30b8dd7b523fd9e41542b6f55a0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ted</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14014">
+			January 26, 2011 at 1:02 am</a>		</div>
+
+		<p>@jujhimup: &#8220;HTTP cache headers and restrictions on caching pages served over TLS (encrypted, using https:) are overridden by manifests. Thus, pages will not expire from an application cache before the user agent has updated it, and even applications served over TLS can be made to work offline&#8221; &#8212; <a href="http://www.w3.org/TR/html5/offline.html" rel="nofollow">http://www.w3.org/TR/html5/offline.html</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14014#respond' onclick='return addComment.moveForm( "div-comment-14014", "14014", "respond", "2729" )' aria-label='Reply to Ted'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14015">
+				<div id="div-comment-14015" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/26ce53c20c5831d282772b3795c2429c?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/26ce53c20c5831d282772b3795c2429c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Simon</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14015">
+			January 26, 2011 at 4:02 am</a>		</div>
+
+		<p>What determines whether an app is &#8216;offline&#8217; or not &#8211; is it about access to the actual hosting server, or is it a browser-level online/offline state (e.g Firefox&#8217;s &#8216;Work Offline&#8217; checkbox)?</p>
+<p>E.g an app might be reliant on a server running inside a firewall, and so should be offline when out on the public internet. Or dependent on a server running on the physical machine, and thus working even when the machine is isolated from the world (Firefox auto-switching to offline mode has caused me problems more than once).</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14015#respond' onclick='return addComment.moveForm( "div-comment-14015", "14015", "respond", "2729" )' aria-label='Reply to Simon'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14065">
+				<div id="div-comment-14065" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8de622d3e0cdaee8fba913f918579681?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8de622d3e0cdaee8fba913f918579681?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Jovica</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14065">
+			January 29, 2011 at 8:16 pm</a>		</div>
+
+		<p>I need this for my presentation for a final exam at college so I&#8217;d be happy if you can answer me as soon as you can.<br />
+I have web application with only one page, written in GWT. GWT still doesn&#8217;t have support for making cache manifest file and I can&#8217;t write down all files cause their names are changed from build to build. So I want to show only /offline.html page if the user is off-line. Is there a way to do that or not?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14065#respond' onclick='return addComment.moveForm( "div-comment-14065", "14065", "respond", "2729" )' aria-label='Reply to Jovica'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14074">
+				<div id="div-comment-14074" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f9518feb5444364f59e90c926a66ae0b?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f9518feb5444364f59e90c926a66ae0b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Dmitri</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14074">
+			January 31, 2011 at 2:43 pm</a>		</div>
+
+		<p>I wouldn&#8217;t recommend to force browser to re-download manifest file for each request. Seems like a waste of resources &#8211; another HTTP call. Instead your build tools could rename manifest file when you deploy new version of your app. Something like offline.manifest_{REV_NUM}. Also it is a good practice to put this file on a separate static domain together with stylesheets, images and javascript files. This will avoid sending useless cookie data for each HTTP call.</p>
+<p>Another note about your demo app. When I first time visit your page I see both images you have in your markup. Then I switch off WIFI and reload the page and see no images. However, when I switch on WIFI back and reload the page, I still see no images. Tested in latest Safari on Mac.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14074#respond' onclick='return addComment.moveForm( "div-comment-14074", "14074", "respond", "2729" )' aria-label='Reply to Dmitri'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14539">
+				<div id="div-comment-14539" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/b235c0afc016a02d2a5ac19c6c1befb3?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/b235c0afc016a02d2a5ac19c6c1befb3?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.cs.tut.fi/~jkorpela/' rel='external nofollow' class='url'>Jukka K. Korpela</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14539">
+			March 4, 2011 at 2:59 pm</a>		</div>
+
+		<p>My experiments suggest that the biggest problem with application caches is that they work all too well, on browsers that support them. That is, the files remain in the cache, no matter what.</p>
+<p>Changing the manifest file on the server does not help if browsers do not request for them. And it appears that they mostly don&#8217;t, if the server does not specify some special caching-related information for it, when first requested. In the absence of explicit caching info for the manifest file, browsers will estimate some suitable age for, so they will use its cached version.</p>
+<p>This can be fixed easily by setting e.g.<br />
+Expires: 0<br />
+in the HTTP headers for the manifest file (dirty but simple and working). But the problem is that it takes time to figure it out (none of the three books on HTML5 I&#8217;ve read mentions anything about this). Moreover, an author might have no way of affecting the HTTP headers.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14539#respond' onclick='return addComment.moveForm( "div-comment-14539", "14539", "respond", "2729" )' aria-label='Reply to Jukka K. Korpela'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14673">
+				<div id="div-comment-14673" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/e78a68dcfa27a23224989fe8ed41e4f0?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e78a68dcfa27a23224989fe8ed41e4f0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://twitter.com/derekjohnson74' rel='external nofollow' class='url'>Derek Johnson</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14673">
+			March 11, 2011 at 11:04 pm</a>		</div>
+
+		<p>I&#8217;m rarely 100% sure what technical documents actually mean, but my understanding of <a href="http://html5.org/tools/web-apps-tracker?from=5811&#038;to=5812" rel="nofollow">http://html5.org/tools/web-apps-tracker?from=5811&#038;to=5812</a> is that offline.manifest is changing to offline.appcache.</p>
+<p>Is that right?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14673#respond' onclick='return addComment.moveForm( "div-comment-14673", "14673", "respond", "2729" )' aria-label='Reply to Derek Johnson'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14842">
+				<div id="div-comment-14842" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2250f38f2593f115d20c5d35d8c03dfd?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2250f38f2593f115d20c5d35d8c03dfd?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Jochen Drechsler</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14842">
+			April 12, 2011 at 8:41 pm</a>		</div>
+
+		<p>There are limitations on the size of the appcache in different browsers.<br />
+This was reported by several resources (for example: <a href="http://www.thecssninja.com/javascript/how-to-create-offline-webapps-on-the-iphone" rel="nofollow">http://www.thecssninja.com/javascript/how-to-create-offline-webapps-on-the-iphone</a>).</p>
+<p>However it is not clear to me what this limit referes to.<br />
+Is it a general limit in the browser for all apps?<br />
+Or is it a limit for a single cache group (all files accosiated with one manifest)?<br />
+Is so: Can I use two html-files with different manifest-files to cache more data? And if I do so, would it be possible reference the two files within each other in such a way that I am able to navigate from one to the other while offline?</p>
+<p>In other words: The idea is to split the webapp over several html-files in order to be able to cache more data that can be used offline.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14842#respond' onclick='return addComment.moveForm( "div-comment-14842", "14842", "respond", "2729" )' aria-label='Reply to Jochen Drechsler'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14843">
+				<div id="div-comment-14843" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2250f38f2593f115d20c5d35d8c03dfd?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2250f38f2593f115d20c5d35d8c03dfd?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Jochen Drechsler</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-14843">
+			April 13, 2011 at 9:05 am</a>		</div>
+
+		<p>Just a reamark on my own question:<br />
+It seems that the cache limit is per cache group / manifest file.</p>
+<p>I will experiment with this a bit more.</p>
+<p>And here is the correct link I wanted to post above:<br />
+<a href="http://grinninggecko.com/developing-cross-platform-html5-offline-app-1/" rel="nofollow">http://grinninggecko.com/developing-cross-platform-html5-offline-app-1/</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=14843#respond' onclick='return addComment.moveForm( "div-comment-14843", "14843", "respond", "2729" )' aria-label='Reply to Jochen Drechsler'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-15168">
+				<div id="div-comment-15168" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/b3dbf3c7219f004acd0dbd252d1b6fb8?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/b3dbf3c7219f004acd0dbd252d1b6fb8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">TMC</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-15168">
+			June 14, 2011 at 7:50 pm</a>		</div>
+
+		<p>Assume user has  previously cached resources in the HTML5 offline cache.  If user reloads you page and is ONLINE, does it leverage the offline cache if the resource is cached there?</p>
+<p>I&#8217;m trying to see if the HTML5 offline cache can be used as a more reliable caching mechanism that relying solely on the regular browser cache.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=15168#respond' onclick='return addComment.moveForm( "div-comment-15168", "15168", "respond", "2729" )' aria-label='Reply to TMC'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-15386">
+				<div id="div-comment-15386" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9169aa47c3d3e1c801e2d440f70383fd?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9169aa47c3d3e1c801e2d440f70383fd?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Lee</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-15386">
+			June 28, 2011 at 11:04 am</a>		</div>
+
+		<p>Hi,</p>
+<p>I have an online app that allows users to view up to 9 pdf&#8217;s, these pdf&#8217;s are set in a piece of software so can bge changed all the time. I need to make the app work offline, and hence the user to be able to select the pdf&#8217;s that they currently have selected? Any idea&#8217;s on how to do this? The cache manifest I have is working for everything on the app, apart from displaying the pdf&#8217;s?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=15386#respond' onclick='return addComment.moveForm( "div-comment-15386", "15386", "respond", "2729" )' aria-label='Reply to Lee'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-18389">
+				<div id="div-comment-18389" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/883792531f410a060d2af2c9e73ea193?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/883792531f410a060d2af2c9e73ea193?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.judaicawebstore.com/' rel='external nofollow' class='url'>Judaica</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-18389">
+			November 9, 2011 at 8:22 am</a>		</div>
+
+		<p>@Simon: the app know if offline by navigator.onLine att</p>
+<p>see full explenation here:<br />
+<a href="https://developer.mozilla.org/en/Online_and_offline_events#navigator.onLine" rel="nofollow">https://developer.mozilla.org/en/Online_and_offline_events#navigator.onLine</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=18389#respond' onclick='return addComment.moveForm( "div-comment-18389", "18389", "respond", "2729" )' aria-label='Reply to Judaica'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-19190">
+				<div id="div-comment-19190" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8cb804b5e42eb55997ee36481cff2381?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8cb804b5e42eb55997ee36481cff2381?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">nad</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-19190">
+			November 27, 2011 at 8:44 am</a>		</div>
+
+		<p>I want something like this.<br />
+If the user is online, fetch pages from the server.<br />
+If the user is offline, fetch pages from the HTML5 App cache.<br />
+Can this be done with HTML5. Please comment</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=19190#respond' onclick='return addComment.moveForm( "div-comment-19190", "19190", "respond", "2729" )' aria-label='Reply to nad'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-20587">
+				<div id="div-comment-20587" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/87865f200234384a9c03f54c86de6287?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/87865f200234384a9c03f54c86de6287?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Tim</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-20587">
+			December 14, 2011 at 4:03 am</a>		</div>
+
+		<p>This is the only page I could find with Google that has any reference to a &#8220;per cache group / manifest file&#8221; limit (in the comments by Jochen Dreschler). Has anyone tested this? If so, it would open the way for delivering larger applications through modularisation.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=20587#respond' onclick='return addComment.moveForm( "div-comment-20587", "20587", "respond", "2729" )' aria-label='Reply to Tim'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-24745">
+				<div id="div-comment-24745" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/8187d72c490c50121c029aadc7da77a0?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8187d72c490c50121c029aadc7da77a0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">ram</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-24745">
+			February 28, 2012 at 9:46 am</a>		</div>
+
+		<p>is it possible to cache user control(.ascx file) using app.manifest.if it possible can you give example</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=24745#respond' onclick='return addComment.moveForm( "div-comment-24745", "24745", "respond", "2729" )' aria-label='Reply to ram'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-25368">
+				<div id="div-comment-25368" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/e72d678bb3445837d91471327fdd3498?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e72d678bb3445837d91471327fdd3498?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Tarple</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-25368">
+			May 1, 2012 at 8:58 pm</a>		</div>
+
+		<p>This is actually the first time I am commenting on an article online. I found this to be very clear, informative and precise. It was an easy read and it definitely helped me to understand how the manifest file works. Great job!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=25368#respond' onclick='return addComment.moveForm( "div-comment-25368", "25368", "respond", "2729" )' aria-label='Reply to Tarple'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-25404">
+				<div id="div-comment-25404" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f89950b33f7b2d721e27ff55fbc7287c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f89950b33f7b2d721e27ff55fbc7287c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Ravi Prakash</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-25404">
+			May 4, 2012 at 8:58 am</a>		</div>
+
+		<p>I have one question about Manifest.</p>
+<p>Is it possible to only download files that have changes in it instead of re downloading the whole list of files from the manifest.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=25404#respond' onclick='return addComment.moveForm( "div-comment-25404", "25404", "respond", "2729" )' aria-label='Reply to Ravi Prakash'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-25606">
+				<div id="div-comment-25606" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f44a4cc2d1310da136003d8c6434a25a?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f44a4cc2d1310da136003d8c6434a25a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.ahuva.com' rel='external nofollow' class='url'>judaica</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-25606">
+			May 14, 2012 at 10:26 pm</a>		</div>
+
+		<p>I&#8217;ve set a counter on the manifest cache that logs the IP address of the browser. This way when the same IP visits it automatically refreshes the content. It works well.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=25606#respond' onclick='return addComment.moveForm( "div-comment-25606", "25606", "respond", "2729" )' aria-label='Reply to judaica'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28032">
+				<div id="div-comment-28032" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/12afa3d30bd791bf0291d55310068bd3?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/12afa3d30bd791bf0291d55310068bd3?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Steve</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-28032">
+			June 13, 2012 at 2:34 pm</a>		</div>
+
+		<p>Super helpful, but I&#8217;m trying to figure out how to do this with a tiny wordpress site that I&#8217;m treating as a mobile &#8220;app.&#8221; Since everything is served from a database, would the same rules apply or does this just work for flat HTML?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=28032#respond' onclick='return addComment.moveForm( "div-comment-28032", "28032", "respond", "2729" )' aria-label='Reply to Steve'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28293">
+				<div id="div-comment-28293" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/0f759ef7778537f571fda4fa262520a9?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/0f759ef7778537f571fda4fa262520a9?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.vetswiki.com' rel='external nofollow' class='url'>Rock ON</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-28293">
+			June 17, 2012 at 11:14 am</a>		</div>
+
+		<p>@Steve says: There is plugin for wordpress try search their database</p>
+<p>Does anybody know how to configure this option on forum applications ? like phpbb or mybb ?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=28293#respond' onclick='return addComment.moveForm( "div-comment-28293", "28293", "respond", "2729" )' aria-label='Reply to Rock ON'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28790">
+				<div id="div-comment-28790" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/19316516d7b8248fb3f880f8d4824ac9?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/19316516d7b8248fb3f880f8d4824ac9?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Micsi</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-28790">
+			August 3, 2012 at 11:05 am</a>		</div>
+
+		<p>Are you sure AddType and ExpiresActive work in .htaccess? At least this must be allowed&#8230;<br />
+But I think it is better and easier to use those commands in the apache vhost config if you have access to those.<br />
+You need to restart apache for those changes to come into effect.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=28790#respond' onclick='return addComment.moveForm( "div-comment-28790", "28790", "respond", "2729" )' aria-label='Reply to Micsi'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28816">
+				<div id="div-comment-28816" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/91dd1ddf3a1eb2abf3e67ce9b3c49b0c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/91dd1ddf3a1eb2abf3e67ce9b3c49b0c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Sree</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-28816">
+			August 10, 2012 at 1:45 pm</a>		</div>
+
+		<p>Hi:<br />
+Whenever there is a change in cache-manifest file i.e. a resource is changed, do I need to redeploy my web application on server or can I update the files dynamically i.e. is there any way to update the files dynamically when the server is running.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=28816#respond' onclick='return addComment.moveForm( "div-comment-28816", "28816", "respond", "2729" )' aria-label='Reply to Sree'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28860">
+				<div id="div-comment-28860" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7cc2234e201de2fa456dfec0bb46532d?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7cc2234e201de2fa456dfec0bb46532d?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Alessandro</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-28860">
+			August 20, 2012 at 3:16 pm</a>		</div>
+
+		<blockquote cite="html5doctor.com"><p>Browser bug: Firefox caches the manifest file itself and will not update it even if the manifest has changed on the server. </p></blockquote>
+<p>Since Firefox 14, It seems that this bug shows up again but only if you are caching more than 50MB. We filled a ticket.  <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=780878" rel="nofollow">https://bugzilla.mozilla.org/show_bug.cgi?id=780878</a></p>
+<p>The manifest file is fetched the first time and then Firefox will never reload it again to see if something changed.</p>
+<p>Does someone have the same problem ?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=28860#respond' onclick='return addComment.moveForm( "div-comment-28860", "28860", "respond", "2729" )' aria-label='Reply to Alessandro'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-29154">
+				<div id="div-comment-29154" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f1b773013e7c1b03c3a1bdc6e3e74d8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f1b773013e7c1b03c3a1bdc6e3e74d8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.randomprecision.co.uk' rel='external nofollow' class='url'>Jon Humphrey</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-29154">
+			November 6, 2012 at 12:26 am</a>		</div>
+
+		<p>First, I apologise for my lengthy post below, I&#8217;m at a loss and need anyone&#8217;s help! I would be happy to work out recompense for any and all assistance if it get&#8217;s this application &#8220;offline&#8221; and working for my client! </p>
+<p>Here goes &#8230; I&#8217;m in the process of creating an &#8216;offline&#8217; meeting notes web app that is to be used specifically on an ipad? As the project is covered by an NDA and behind a corporate firewall I will happily answer any questions you may ask, and even show code if need be, but cannot give links to see it in action.</p>
+<p>Now, I&#8217;ve followed everything I can find about the offline HTML5  features found here and on other sites &#8230; from creating the appcache and setting mime-type expire headers to local storage and sqlite databases; we&#8217;ve even gone as far as porting the two &#8220;offline&#8221; pages from c# into html to make things completely non-server dependant as best we can! </p>
+<p>The scenario runs like this: </p>
+<p>We browse to the &#8220;online&#8221; aspx meeting listing page, then choose the meetings to &#8220;sync to offline&#8221; which pushes the relevant information into the local sqlite database and loads the first html page with the same list from the new &#8220;offline&#8221; local db. We can then choose a specific meeting from the list and click through to the details pertaining to that meeting on the second html page &#8230; again loaded from the &#8220;offline&#8221; local db. We can even add or edit the notes for the specific meeting and then sync those individual changes to the &#8220;online&#8221; database when a network connection is detected without any problem!</p>
+<p>However, if we turn on Airplane mode, and try to browse to the same pages we were just on, no matter what we do &#8230; we cannot seem to get them to load! The error: &#8220;Safari cannot open the page because your ipad is not connected to the internet&#8221; is our bane! </p>
+<p>We know we&#8217;re not connected &#8230; that&#8217;s the whole point!!!! </p>
+<p>Could someone &#8230; anyone &#8230; please help us out &#8230; I would rip my hair out if I had any left &#8230; this just doesn&#8217;t make sense?</p>
+<p>Thank you for your time and patience,<br />
+J</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=29154#respond' onclick='return addComment.moveForm( "div-comment-29154", "29154", "respond", "2729" )' aria-label='Reply to Jon Humphrey'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-29361">
+				<div id="div-comment-29361" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/582bcde2dc3df8c8549deb07532a9eef?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/582bcde2dc3df8c8549deb07532a9eef?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Pegi</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-29361">
+			November 29, 2012 at 8:34 pm</a>		</div>
+
+		<p>I&#8217;m experiencing a similar problem to Jon only it&#8217;s happening on my PC.  As soon as I go offline, the browser doesn&#8217;t display the offline content it&#8217;s supposed to.  Instead it gives me an error message explaining that the page can&#8217;t be displayed because there&#8217;s no connection to the Internet.</p>
+<p>I have read and re-read every resource I can find and no one seems to mention this so I&#8217;m really stumped.  There doesn&#8217;t appear to be anything wrong with my coding and the browser does ask if it is allowed to place a cache on the machine.  So it appears to be working, just not working offline.  Any help would really, really be appreciated.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=29361#respond' onclick='return addComment.moveForm( "div-comment-29361", "29361", "respond", "2729" )' aria-label='Reply to Pegi'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-33619">
+				<div id="div-comment-33619" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/917abd6048213a10a381471a03d0891b?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/917abd6048213a10a381471a03d0891b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Cody</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-33619">
+			April 12, 2013 at 5:59 am</a>		</div>
+
+		<p>Here&#8217;s what my offline.manifest looks like:</p>
+<p>CACHE MANIFEST</p>
+<p>CACHE:<br />
+../style.css<br />
+../js/jquery-1.7.1.min.js<br />
+../js/jquery-ui-1.10.1.custom.min.js<br />
+../js/jquery-ui-1.10.1.custom.min.css<br />
+../js/underscore-min.js<br />
+../js/SDB.js<br />
+../js/ndn/ndn-js.js<br />
+../js/ndn/ndn-closures.js<br />
+../js/ndn/ndn-utils.js<br />
+../client.js<br />
+../plugins/factory/factory.js<br />
+../plugins/favicon/favicon.js<br />
+../plugins/pagefold/pagefold.js<br />
+cacheManifest.js<br />
+offline.js</p>
+<p>NETWORK:<br />
+*</p>
+<p>FALLBACK:</p>
+<p># version 1</p>
+<p>Here&#8217;s the file that loads the manifest (note that we&#8217;re using an HTTP-Routing/MVC system so the &#8220;Master&#8221; file is &#8220;/view/welcome-visitors&#8221;):</p>
+<p>    Smallest Federated Wiki</p>
+<p>    &lt;!&#8211;  &#8211;&gt;</p>
+<p>    &#8230;</p>
+<p>I am getting the cache to work fine&#8230;</p>
+<p>MY DILEMMA IS that I (like what &#8220;nad&#8221; says):<br />
+&#8220;<br />
+I want something like this.<br />
+If the user is online, fetch pages from the server.<br />
+If the user is offline, fetch pages from the HTML5 App cache.<br />
+Can this be done with HTML5. Please comment<br />
+&#8220;<br />
+Also, make sure you look at the the cache in the browser&#8230;<br />
+In chrome, open console/element inspector, click on &#8220;Resouces&#8221; and probably at the bottom you&#8217;ll see &#8220;Application Cache&#8221;.</p>
+<p>I&#8217;ll post back if I figure out how to do what nad was asking about.</p>
+<p>Happy coding :-)</p>
+<p>Cody</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=33619#respond' onclick='return addComment.moveForm( "div-comment-33619", "33619", "respond", "2729" )' aria-label='Reply to Cody'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-33621">
+				<div id="div-comment-33621" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/917abd6048213a10a381471a03d0891b?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/917abd6048213a10a381471a03d0891b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Cody</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-33621">
+			April 12, 2013 at 6:00 am</a>		</div>
+
+		<p>wups&#8230; I guess it didn&#8217;t take my HTML.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=33621#respond' onclick='return addComment.moveForm( "div-comment-33621", "33621", "respond", "2729" )' aria-label='Reply to Cody'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-34079">
+				<div id="div-comment-34079" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/97a60834f577ff97aa1f419c8b816102?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/97a60834f577ff97aa1f419c8b816102?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.dhaneshmane.com' rel='external nofollow' class='url'>dhanesh mane</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-34079">
+			April 29, 2013 at 10:06 am</a>		</div>
+
+		<p>@judica thanks for the link, it really have nice information.</p>
+<p>Thanks<br />
+Dhanesh Mane</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=34079#respond' onclick='return addComment.moveForm( "div-comment-34079", "34079", "respond", "2729" )' aria-label='Reply to dhanesh mane'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-34089">
+				<div id="div-comment-34089" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/dd3d5a57bf7c08e7583f5c49475590b7?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/dd3d5a57bf7c08e7583f5c49475590b7?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Fred</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-34089">
+			April 30, 2013 at 5:14 pm</a>		</div>
+
+		<p>To have an online page and an offline page that both have access to the appCache is trickier than it should be, mostly because any pages pointing at the manifest will be cached implicitly (so your online page will be served from the cache, regardless of if you have specified in the FALLBACK section that it should redirect).</p>
+<p>You could try adding a window navigator.onLine listener, but firefox will return true in many circumstances even if you have no connection (in fact I don&#8217;t know if it will ever return false). The solution I found relies on the fact that every time a page pointing at a manifest loads, it checks for a new manifest and if it can&#8217;t find the manifest (most likely because there is no internet connection) it sends an error.</p>
+<p>So all you have to do is listen for this error, and redirect to the offline page:<br />
+  window.applicationCache.addEventListener(&#8216;error&#8217;, function(e){<br />
+  // redirect to offline.htm or whatever<br />
+}, false);  </p>
+<p>it&#8217;s not perfect, but as far as I can tell, the only time you&#8217;re going to redirect incorrectly is is the manifest changes while the update is being run:<br />
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#appcacheevents" rel="nofollow">http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#appcacheevents</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=34089#respond' onclick='return addComment.moveForm( "div-comment-34089", "34089", "respond", "2729" )' aria-label='Reply to Fred'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-34555">
+				<div id="div-comment-34555" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9464339e7119342c14b185b156634d21?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9464339e7119342c14b185b156634d21?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.adnan.pk' rel='external nofollow' class='url'>Muhammad Adnan</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-34555">
+			May 17, 2013 at 12:34 pm</a>		</div>
+
+		<p>nad and @Cody: I&#8217;m looking the same thing</p>
+<p>&#8220;&#8221; I want something like this.<br />
+If the user is online, fetch pages from the server.<br />
+If the user is offline, fetch pages from the HTML5 App cache.<br />
+Can this be done with HTML5. Please comment &#8220;&#8221;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=34555#respond' onclick='return addComment.moveForm( "div-comment-34555", "34555", "respond", "2729" )' aria-label='Reply to Muhammad Adnan'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-34817">
+				<div id="div-comment-34817" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a6bf3799a6f536988fbbf45ee118545f?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a6bf3799a6f536988fbbf45ee118545f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">sahil vig</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-34817">
+			June 3, 2013 at 11:31 am</a>		</div>
+
+		<p>Is there a way to programmatically clear application cache?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=34817#respond' onclick='return addComment.moveForm( "div-comment-34817", "34817", "respond", "2729" )' aria-label='Reply to sahil vig'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-48852">
+				<div id="div-comment-48852" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/6abe24c87643adc984eb008e6f02a51c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6abe24c87643adc984eb008e6f02a51c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://jquery-4u.blogspot.com' rel='external nofollow' class='url'>Mohammad Gouse</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-48852">
+			April 3, 2014 at 1:52 pm</a>		</div>
+
+		<p>Hi ,</p>
+<p>My Problem in Offline manifest is, </p>
+<p>it properly working in Chrome, Firefox (Desktop) but not working in MAC or IPAD , and not getting any error in console, Once i unplugged my network connection and trying to open the page then getting error as &#8220;Safari cannot open the page because it is not connected to the internet”</p>
+<p>Please help me to solve the issue&#8230;&#8230;&#8230;&#8230;.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=48852#respond' onclick='return addComment.moveForm( "div-comment-48852", "48852", "respond", "2729" )' aria-label='Reply to Mohammad Gouse'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2109343">
+				<div id="div-comment-2109343" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c9d2cbe6395162c5e49ef67355a986b1?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c9d2cbe6395162c5e49ef67355a986b1?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Sangseng Lee</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-2109343">
+			April 1, 2016 at 5:59 am</a>		</div>
+
+		<p>I heard this application cache is deprecated from the web standards. But could we use this feature without any problems even this deprecation? Unless we could use this feature anymore because of critical issues, please update feature state.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=2109343#respond' onclick='return addComment.moveForm( "div-comment-2109343", "2109343", "respond", "2729" )' aria-label='Reply to Sangseng Lee'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2128165">
+				<div id="div-comment-2128165" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/aee99ef03379ba003585c6b24f3876f0?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/aee99ef03379ba003585c6b24f3876f0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">indranil roychowdhury</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/go-offline-with-application-cache/#comment-2128165">
+			June 14, 2016 at 1:21 pm</a>		</div>
+
+		<p>in offline, when i am attaching image (jpg, png etc.) by using (img src), but when i am changing path, not showing image. Why?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/go-offline-with-application-cache/?replytocom=2128165#respond' onclick='return addComment.moveForm( "div-comment-2128165", "2128165", "respond", "2729" )' aria-label='Reply to indranil roychowdhury'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/go-offline-with-application-cache/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='2729' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="47310f7f92" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="13"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>
+<!-- Dynamic page generated in 0.909 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-12-31 11:04:51 -->
+
+<!-- super cache -->

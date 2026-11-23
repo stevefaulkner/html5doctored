@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<title>classList.item() demo</title>
+	</head>
+
+	<body>
+		<div id="bad-joke" class="oh my giddy aunt">
+			<p>"Knock knock."</p>
+			<p>"Come on in, the door's open."</p>
+		</div>
+
+		<script>
+			(function(doc) {
+				var joke = document.getElementById('bad-joke'),
+
+				whats_item_0 = function() {
+				return joke.classList.item(0);
+				},
+
+				whats_item_2 = function() {
+				return joke.classList.item(2);
+				};
+
+				console.log(whats_item_0()); // logs "oh"
+				console.log(whats_item_2()); // logs "giddy"
+			})(document);
+		</script>
+	</body>
+</html>

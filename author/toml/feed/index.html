@@ -1,0 +1,1093 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Tom Leadbetter &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/author/toml/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 11 Jul 2016 11:54:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Using Modernizr to detect HTML5 features and provide fallbacks</title>
+		<link>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/</link>
+		<comments>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/#comments</comments>
+		<pubDate>Tue, 27 Mar 2012 13:30:04 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[modernizr]]></category>
+		<category><![CDATA[yepnope]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4371</guid>
+		<description><![CDATA[<p>Modernizr is a JavaScript library that detects which HTML5 and CSS3 features your visitor's browser supports. In detecting feature support, it allows developers to test for some of the new technologies and then provide fallbacks for browsers that do not support them. This is called <dfn>feature detection</dfn> and is much more efficient than browser sniffing. In this article we'll look at how to use Modernizr for feature detection.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p style="text-align:center;"><img src="http://html5doctor.com/wp-content/uploads/2012/02/modernizr-logo.jpg" alt="Modernizr logo" width="296" height="87" /></p>
+<p><a href="http://www.modernizr.com/">Modernizr</a> is a JavaScript library that detects which HTML5 and CSS3 features your visitor&#8217;s browser supports. In detecting feature support, it allows developers to test for some of the new technologies and then provide fallbacks for browsers that do not support them. This is called <dfn>feature detection</dfn> and is much more efficient than browser sniffing.</p>
+<div class="callout">
+<p>Modernizr is very useful for detecting CSS3 support, but this article will focus on HTML5. The principles are essentially the same, though.</p>
+</div>
+<p>It&#8217;s important to note that Modernizr doesn&#8217;t &#8220;fill in the gaps&#8221; (i.e., <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills" title="HTML5 Cross-browser Polyfills on GitHub">polyfill</a>) for you. It only detects whether something is supported. But you can use Modernizr as part of the polyfilling process.</p>
+<div class="callout highlight-block">
+<p>Versions of IE8 and below do not recognise new-in-HTML5 elements by default, so you have to fix this with some JavaScript. You could possibly create each of these yourself with the below code, or you might use the <a href="http://code.google.com/p/html5shiv/">HTML5 Shiv</a> by <a href="http://twitter.com/rem" title="Remy Sharp on Twitter">@rem</a>, which includes all the new elements.</p>
+<p>Modernizr does all this for you, so you don&#8217;t need include the Shiv.</p>
+</div>
+<section id="getting-started">
+<h2>Getting Started <a href="#getting-started" class="permalink">#</a></h2>
+<p>First, you need an HTML document:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html class="no-js" lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Hello Modernizr&lt;/title&gt;
+  &lt;script src="modernizr.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>You can see in the code above that you need a <code>modernizr.js</code> file. You have to <a href="http://www.modernizr.com/download/">build and download</a> this yourself by choosing the features you want to detect. Do this by choosing the &#8216;Production&#8217; option in Figure 1 and then ticking the necessary options in Figure 2. This helps keep the file size down by not detecting everything Modernizr is capable of. There is a <a href="http://www.modernizr.com/downloads/modernizr-2.0.6.js">development version</a> (see Figure 1) that you can link to whilst developing your site, but before you put the site live, you should build the production file you need.</p>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/02/download-modernizr.jpg" alt="Modernizr download options" width="522" height="202" /></p>
+<figcaption>Figure 1: Modernizr download options</figcaption>
+</figure>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/02/download-modernizr-2.jpg" alt="Modernizr build options" width="880" height="863" /></p>
+<figcaption>Figure 2: Modernizr configuration &amp; build options</figcaption>
+</figure>
+<p>Also notice the second line of the HTML above: there is a <code>no-js</code> class on the <code>&lt;html&gt;</code> element. Modernizr first removes this and replaces it with a <code>js</code> class, which could be useful in your CSS. Along with the <code>js</code> class, it adds classes for all the features the browser supports <em>and</em> for the features it does not support, pre-fixing those with <code>no-</code>.</p>
+<p>Here are two examples, one from Chrome 16 and one from IE9:</p>
+<figure>
+<pre><code>&lt;html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"&gt;</code></pre>
+<figcaption>Figure 3: Modernizr&#8217;s feature detection in Chrome 16</figcaption>
+</figure>
+<figure>
+<pre><code>&lt;html class="js <mark>no-flexbox</mark> canvas canvastext <mark>no-webgl</mark> no-touch geolocation postmessage <mark>no-websqldatabase</mark> <mark>no-indexeddb</mark> hashchange <mark>no-history</mark> draganddrop <mark>no-websockets</mark> rgba hsla multiplebgs backgroundsize <mark>no-borderimage</mark> borderradius boxshadow <mark>no-textshadow</mark> opacity <mark>no-cssanimations</mark> <mark>no-csscolumns</mark> <mark>no-cssgradients</mark> <mark>no-cssreflections</mark> csstransforms <mark>no-csstransforms3d</mark> <mark>no-csstransitions</mark> fontface generatedcontent video audio localstorage sessionstorage <mark>no-webworkers</mark> <mark>no-applicationcache</mark> svg inlinesvg smil svgclippaths"&gt;</code></pre>
+<figcaption>Figure 4: Modernizr&#8217;s feature detection in IE9</figcaption>
+</figure>
+</section>
+<section id="detection">
+<h2>Do Some Detecting <a href="#detection" class="permalink">#</a></h2>
+<p>Modernizr creates a global <code>Modernizr</code> JavaScript object, which allows us to query <a href="http://www.modernizr.com/docs/#features-html5" title="Full list of Modernizr's HTML5 feature detection">different properties</a> of that object to perform feature detection by calling <code>Modernizr.&lt;featurename&gt;</code>. So to test for <code>canvas</code> support, you would write the following:</p>
+<pre><code>&lt;script&gt;
+  <strong>if (Modernizr.canvas) {</strong>
+    alert("This browser supports HTML5 canvas!");
+  <strong>}</strong>
+&lt;/script&gt;</code></pre>
+<p>So <a href="/demos/modernizr/canvas-yes.htm" title="Live Example #1">try this page</a> in a modern browser and there will be a nice message for you.</p>
+<p>Because you&#8217;re all good developers and write unobtrusive, progressive JavaScript so that everyone can use your site, you also want to check if canvas is <em>not</em> supported. You have a couple of options here. You could use the above <code>if</code> statement along with an <code>else</code> statement, <a href="/demos/modernizr/canvas-both.htm" title="Live Example #2">like so</a>:</p>
+<pre><code>&lt;script&gt;
+  if (Modernizr.canvas) {
+    alert("This browser supports HTML5 canvas!");
+  } <strong>else {
+    alert("no canvas :(");
+  }</strong>
+&lt;/script&gt;</code></pre>
+<p>Or if you want to test purely for no canvas support, you can negate the condition <a href="/demos/modernizr/canvas-not.htm" title="Live Example #3">like this</a>:</p>
+<pre><code>&lt;script&gt;
+  if (<strong>!Modernizr.canvas</strong>) {
+    alert("No canvas here");
+  }
+&lt;/script&gt;</code></pre>
+</section>
+<section id="yep-nope">
+<h2>Feature Detection and Polyfilling with YepNope <a href="#yep-nope" class="permalink">#</a></h2>
+<p>In the examples above, you&#8217;ve seen the simplest way to detect a browser feature. What if you wanted to detect a feature and use a polyfill to make the browser perform better? You can do this with <a href="http://yepnopejs.com">YepNope</a>.</p>
+<p>YepNope is a conditional loader, which means it will only load the scripts that are needed by the browser. And it&#8217;s built into Modernizr, so you don&#8217;t have to worry about downloading and linking to another JavaScript file.</p>
+<p>So how do you use it?</p>
+<p>Using canvas as an example again, you’ll generally want a fallback for non-supporting IE8 and below. The usual way of doing this would be to link to a JavaScript polyfill, such as <a href="http://flashcanvas.net">FlashCanvas</a> in your HTML:</p>
+<pre><code>&lt;script src="http://flashcanvas.net/bin/flashcanvas.js"&gt;&lt;/script&gt;</code></pre>
+<p>The problem with this approach is that all browsers will download this script. That&#8217;s unnecessary and should be avoided where possible. You could arguably wrap the <code>&lt;script&gt;</code> element in conditional comments, but if you can keep the files out of the markup altogether, then you should. You can do this using <code>Modernizr.load()</code>. Modernizr has YepNope built into it, so you can easily test for a feature and then supply a polyfill.</p>
+<p>So let&#8217;s take a look.</p>
+<div class="callout">
+<p>You should note that <code>.load()</code> is not included in the development file by default. You need to include it and build it yourself.</p>
+</p></div>
+<p>The basic use of the <code>.load()</code> function allows you to <code>test</code> for a feature and ask whether it&#8217;s true (<code>yep</code>) or false (<code>nope</code>). In this example, Modernizr tests for canvas support, and if the feature doesn&#8217;t exist, then it loads FlashCanvas:</p>
+<pre><code>Modernizr.load({
+  test: Modernizr.canvas,
+  nope: 'http://flashcanvas.net/bin/flashcanvas.js'
+});</code></pre>
+<p>So open up IE8, take a look at the network tab (Figure 5) in the developer tools. With the above code, you&#8217;ll see that it downloaded and initialised <code>flashcanvas.js</code>. Pretty nifty, yes?</p>
+<figure class="wider">
+    <img src="http://html5doctor.com/wp-content/uploads/2012/02/ie8-network.jpg" alt="" width="733" height="194" /></p>
+<figcaption>Figure 5: FlashCanvas resources loaded in IE8</figcaption>
+</figure>
+<p>Here&#8217;s a more practical example that detects the support of <code>&lt;input type="date"&gt;</code>. If it isn&#8217;t supported, it loads in <strong>two</strong> jQuery files and a CSS file to generate a styled date picker:</p>
+<pre><code>&lt;script src="modernizr.js"&gt;&lt;/script&gt;
+&lt;script&gt;Modernizr.load({
+  test: Modernizr.inputtypes.date,
+  nope: ['http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js', 'jquery-ui.css'],
+  complete: function () {
+    $('input[type=date]').datepicker({
+      dateFormat: 'yy-mm-dd'
+    }); 
+  }
+});
+&lt;/script&gt;</code></pre>
+<p>This test looks for <code>&lt;input type="date"&gt;</code> support. When it fails, it loads in the two external jQuery JavaScript files and a local CSS file. (Our tests suggest that the CSS file needs to be local.) Once it&#8217;s done that (i.e., on <code>complete</code>), it then calls the plugin for each <code>&lt;input type="date"&gt;</code> in the DOM. In most browsers, the jQuery will be loaded (Figure 6), but in Opera, the files aren&#8217;t loaded because it has a native calendar control (Figure 7):</p>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/02/calendar-firefox.png" alt="jQuery date picker widget" width="430" height="276" /></p>
+<figcaption>Figure 6: jQuery date picker widget in Firefox</figcaption>
+</figure>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/02/calendar-opera.png" alt="Opera date picker widget" width="361" height="276" /></p>
+<figcaption>Figure 7: Native date picker widget in Opera</figcaption>
+</figure>
+<p>The two figures below show the difference in which resources the browsers downloads:</p>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/02/resources-firefox.png" alt="Resources loaded in Firefox" width="253" height="194" /></p>
+<figcaption>Figure 8: Date picker resources loaded in Firefox</figcaption>
+</figure>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/02/resources-opera.png" alt="Resources loaded in Opera" width="170" height="70" /></p>
+<figcaption>Figure 9: Date picker resources loaded in Opera</figcaption>
+</figure>
+<p>Notice how the two jQuery JavaScript files are loaded twice. That&#8217;s a <a href="http://yepnopejs.com/#twice">YepNope behaviour</a>, first loading the resource and then executing it. So don&#8217;t worry, that&#8217;s normal.</p>
+<p>You can do much more with YepNope. Here&#8217;s <a href="http://yepnopejs.com/#testObject">an example taken from the YepNope web site</a> of all the possible properties, all of which are optional:</p>
+<pre class="tallCode"><code>yepnope([{
+    test : <span class="optional">/* boolean<span class="comment">(ish)</span> - Something truthy that you want to test */</span>,
+    yep : <span class="optional">/* array <span class="comment">(of strings)</span> | string - The things to load if <span class="keyword">test</span> is <span class="keyword">true</span> */</span>,
+    nope : <span class="optional">/* array <span class="comment">(of strings)</span> | string - The things to load if <span class="keyword">test</span> is <span class="keyword">false</span> */</span>,
+    both : <span class="optional">/* array <span class="comment">(of strings)</span> | string - Load everytime (sugar) */</span>,
+    load : <span class="optional">/* array <span class="comment">(of strings)</span> | string - Load everytime (sugar) */</span>,
+    callback : <span class="optional">/* function ( testResult, key ) | object { key : fn } */</span>,
+    complete : <span class="optional">/* function */</span> }, /* ... */ ]);</code></pre>
+</section>
+<section id="conclusion">
+<h2>Conclusion <a href="#conclusion" class="permalink">#</a></h2>
+<p>Modernizr is a powerful feature detection library. It allows you to check whether a browser supports various features and, depending on what you want to achieve, lets you use a polyfill. This article looked at how to generate a Modernizr JavaScript file and examined two different ways of using Modernizr: directly using the Modernizr object (<code>Modernizr.&lt;featurename&gt;</code>) and then using the built-in YepNope.</p>
+<p>So, what do you think? Let us know in the comments below!</p>
+</section>
+<p><a href="http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/" rel="bookmark">Using Modernizr to detect HTML5 features and provide fallbacks</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on March 27, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/using-modernizr-to-detect-html5-features-and-provide-fallbacks/feed/</wfw:commentRss>
+		<slash:comments>24</slash:comments>
+		</item>
+		<item>
+		<title>Video Subtitling and WebVTT</title>
+		<link>http://html5doctor.com/video-subtitling-and-webvtt/</link>
+		<comments>http://html5doctor.com/video-subtitling-and-webvtt/#comments</comments>
+		<pubDate>Tue, 29 Nov 2011 15:33:59 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[subtitles]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webvtt]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4084</guid>
+		<description><![CDATA[<p>We’ve been able to play video in the browser without a plugin for a couple of years now, and whilst there are still some codec annoyances, things appear to have settled down on the video front. The next step is adding resources to the video to make it more accessible and provide more options to the viewer.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We’ve been able to play video in the browser without a plugin for a couple of years now, and whilst there are still some codec annoyances, things appear to have settled down on the video front. The next step is adding resources to the video to make it more accessible and provide more options to the viewer.</p>
+<p>We currently have no means to provide information about what’s happening or being said in the video, which means the video isn’t very accessible and the user can’t easily navigate to a particular section of the video. Thankfully, there’s a new format specification in the works called <a href="http://www.whatwg.org/specs/web-apps/current-work/webvtt.html">WebVTT (Web Video Text Tracks)</a>. As of now, it’s only in the WHATWG spec, but the recently established <a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a> should introduce a WebVTT spec to the W3C soon.</p>
+<p class="callout">You may recall a similar format called WebSRT (Web Subtitle Resource Tracks) that was recently under discussion. WebSRT was renamed to, and has been replaced by, WebVTT.</p>
+<p>A WebVTT (.vtt) file is simply plain text containing several types of information about the video:</p>
+<dl>
+<dt>Subtitles</dt>
+<dd>The transcription or translation of the dialogue.</dd>
+<dt>Captions</dt>
+<dd>Similar to subtitles, but may also include sound effects and other audio information.</dd>
+<dt>Descriptions</dt>
+<dd>Intended to be a separate text file that describes the video through a screenreader.</dd>
+<dt>Chapters</dt>
+<dd>Intended to help the user navigate through the video.</dd>
+<dt>Metadata</dt>
+<dd>Information and content about the video, which isn’t intended to be displayed to the viewer by default, though you may wish to do so using JavaScript.</dd>
+</dl>
+<p>This article will mostly be talking about <a href="#contents">subtitles and captions</a>, but it will briefly touch on <a href="#chapters">chapters</a> too.</p>
+<p class="callout">Beyond the scope of this article but worth mentioning is the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#text-track-api">text track API</a>, which, amongst other things, denotes how many text tracks there are and which ones have loaded and are ready for use. If you have used this API, <a href="http://html5doctor.com/ask-the-doctor/">let us know</a>.</p>
+<section id="how">
+<h2>How to Make and Link to a WebVTT file <a href="#how" class="permalink">#</a></h2>
+<p>All you need to make a WebVTT file is a simple text editor. Type <code>WEBVTT</code> as the first line of the file and save it as a .vtt file. In the future, we expect existing captioning tools such as <a href="http://www.universalsubtitles.org/">Universal Subtitles</a> to export to WebVTT format.</p>
+<figure>
+<pre><code>WEBVTT</code></pre>
+<figcaption>The simplest possible valid WebVTT file</figcaption>
+</figure>
+<p>That’s all you need to get started. Next, we have to link to the file in the HTML document. We do this via the <a href="http://html5doctor.com/video-the-track-element-and-webm-codec/"><code>&lt;track&gt;</code> element</a>, which is a child of the video element. The <code>&lt;track&gt;</code> element has several optional attributes:</p>
+<ul>
+<li>the source WebVTT file (<code>src</code>),</li>
+<li>the language of the track (<code>srclang</code>),</li>
+<li>a user-readable <code>label</code>, and</li>
+<li>what <code>kind</code> of track it is. The values of the <code>kind</code> attribute come from the list above (i.e., <code>subtitles</code>, <code>captions</code>, etc.).</li>
+</ul>
+<p>In the following example, we’re using a <code>&lt;track&gt;</code> element for subtitles:</p>
+<pre><code>&lt;video width=&quot;640&quot; height=&quot;480&quot; controls&gt;
+  &lt;source src=&quot;video.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+  &lt;source src=&quot;video.webm&quot; type=&quot;video/webm&quot; /&gt;
+  &lt;track src=&quot;subtitles.vtt&quot; kind=&quot;subtitles&quot; srclang=&quot;en&quot; label=&quot;English&quot; /&gt;
+  &lt;!-- fallback for rubbish browsers --&gt;
+&lt;/video&gt;</code></pre>
+<p>A few notes about the attributes:</p>
+<ul>
+<li>If no <code>kind</code> is specified, the default is <code>subtitles</code>.</li>
+<li>If the <code>kind</code> is <code>subtitles</code>, then <code>srclang</code> is required.</li>
+<li>There should not be two tracks of the same <code>kind</code> with the same <code>label</code>.</li>
+</ul>
+<p>In the above example, we use a <code>&lt;video&gt;</code> element with two different <code>&lt;src&gt;</code> elements (for cross-browser loveliness). After the sources comes the <code>&lt;track&gt;</code> element. You can have several <code>&lt;track&gt;</code> elements as you might have subtitles, captions, and descriptions all in different languages.</p>
+<p class="callout"><code>&lt;track&gt;</code> doesn’t presuppose a particular file format.  the <a href="http://www.w3.org/TR/ttaf1-dfxp/"><abbr title="Timed Text Markup Language">TTML</abbr></a> format, but this format will not be implemented by other browser vendors.</p>
+</section>
+<section id="contents">
+<h2>WebVTT Contents <a href="#contents" class="permalink">#</a></h2>
+<p>We now know how to make a WebVTT file and how to reference it in an HTML document, but what goes inside it? Within the file, we list what are known as “cues”. The WebVTT file might only have one cue, but it can contain as many as you want. Each cue starts with an ID, followed by the time settings, followed by the text. Each cue is separated by a blank line. Here’s an example of captions:</p>
+<figure>
+<pre><code>WEBVTT
+
+1
+00:00:01.000 --&gt; 00:00:10.000
+This is the first line of text, displaying from 1-10 seconds
+
+2
+00:00:15.000 --&gt; 00:00:20.000
+And the second line of text
+separated over two lines</code></pre>
+<figcaption>WebVTT example content</figcaption>
+</figure>
+<p>The above example has two cues. Times must be written in <code>hh:mm:ss.mmm</code> format, so the timings in this example occur in the first twenty seconds. The second cue will split the text over two lines automatically.</p>
+<p>If you have a segment of text that needs to appear in a karaoke/paint-on caption style, then you can place timers inline with text:</p>
+<figure>
+<pre><code>1
+00:00:01.000 --&gt; 00:00:10.000
+Never gonna give you up &lt;00:00:01.000&gt; Never gonna let you down &lt;00:00:05.000&gt; Never gonna run around and desert you</code></pre>
+<figcaption>Karaoke-style captioning</figcaption>
+</figure>
+</section>
+<section id="styling">
+<h2>Styling Options <a href="#styling" class="permalink">#</a></h2>
+<p>The previous examples specify the minimum configuration you need for subtitling and captioning, but you can style your captions too. Let’s start with the cue settings, which are done on the same line as the time settings:</p>
+<dl>
+<dt><code>D:vertical / D:vertical-lr</code></dt>
+<dd>Display the text vertically rather than horizontally. This also specifies whether the text grows to the left (<code>vertical</code>) or to the right (<code>vertical-lr</code>).</dd>
+<dt><code>L:X / L:X%</code></dt>
+<dd>Either a number or a percentage. If a percentage, then it is the position from the top of the frame. If a number, this represents what line number it will be.</dd>
+<dt><code>T:X%</code></dt>
+<dd>The position of the text horizontally on the video. <code>T:100%</code> would place the text on the right side of the video.</dd>
+<dt><code>A:start / A:middle / A:end</code></dt>
+<dd>The alignment of the text within its box – <code>start</code> is left-aligned, <code>middle</code> is centre-aligned, and <code>end</code> is right-aligned.</dd>
+<dt><code>S:X%</code></dt>
+<dd>The width of the text box as a percentage of the video width.</dd>
+</dl>
+<p>To make use of these settings, put them alongside the time settings, like this:</p>
+<pre><code>00:00:01.000 --&gt; 00:00:10.000 A:middle T:50%
+00:00:01.000 --&gt; 00:00:10.000 A:end D:vertical
+00:00:01.000 --&gt; 00:00:10.000 A:start T:100% L:0%</code></pre>
+<p>which would result in something like the following:</p>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2011/11/video-subtitles-demo1.png" alt="Examples of subtitle display" width="354" height="109" /></p>
+<figcaption>Examples of subtitle display and alignment</figcaption>
+</figure>
+<p>Along with the above cue settings, you can use inline styles for text:</p>
+<dl>
+<dt>Bold text</dt>
+<dd><code>&lt;b&gt;Lorem ipsum&lt;/b&gt;</code></dd>
+<dt>Italic text</dt>
+<dd><code>&lt;i&gt;dolor sit amet&lt;/i&gt;</code></dd>
+<dt>Underlined text</dt>
+<dd><code>&lt;u&gt;consectetuer adipiscing&lt;/u&gt;</code></dd>
+<dt>Ruby text</dt>
+<dd><code>&lt;ruby&gt;見&lt;rt&gt;み&lt;/rt&gt;&lt;/ruby&gt;</code></dd>
+</dl>
+<p>You can even apply a CSS class to a section of text using <code>&lt;c.myClass&gt;Lorem ipsum&lt;/c&gt;</code>, giving us many more styling options.</p>
+<p>Finally, you can add a declaration representing the name of the voice: <code>&lt;v Tom&gt;Hello world&lt;/v&gt;</code>. This declaration accomplishes three things:</p>
+<ol>
+<li>The caption will display the voice (Tom) in addition to the caption text.</li>
+<li>The name of the voice can be read by a screenreader, possibly event using a different voice for male or female names.</li>
+<li>It offers a hook for styling so that, for example, all captions for Tom could be in blue.</li>
+</ol>
+<section id="chapters">
+<h3>Chapters</h3>
+<p>You can provide a chapter list for the video the same way you would provide subtitles or captions. Start with the same <code>WEBVTT</code> declaration, and then for each cue, declare the chapter number, the start and stop times, and the chapter title:</p>
+<figure>
+<pre><code>&lt;track src=&quot;chapters.vtt&quot; kind=&quot;chapters&quot; srclang=&quot;en&quot; /&gt;</code></pre>
+<figcaption>HTML <code>&lt;track&gt;</code> element for providing chapters to a video</figcaption>
+</figure>
+<figure>
+<pre><code>WEBVTT
+
+Chapter 1
+00:00:01.000 --&gt; 00:00:10.000>
+Introduction to HTML5</code></pre>
+<figcaption>WebVTT file containing video chapter markers</figcaption>
+</figure>
+</section>
+</section>
+<section id="browsers">
+<h2>Browser Support <a href="#browsers" class="permalink">#</a></h2>
+<p>One slight glitch with WebVTT: not a single browser currently supports it. All major browsers have started working on implementations, so we should see some results soon. Thankfully, in the meantime, there are several JavaScript polyfills available:</p>
+<ul>
+<li><a href="http://www.storiesinflight.com/js_videosub/">js_videosub</a></li>
+<li><a href="http://www.delphiki.com/html5/playr/">Playr</a></li>
+<li><a href="http://mediaelementjs.com/">MediaElementJS</a></li>
+<li><a href="http://dev.mennerich.name/showroom/html5_video/">LeanBack player</a> (and upcoming <a href="http://leanbackplayer.com/test/webvtt.html">new version</a>)</li>
+<li><a href="https://github.com/cgiffard/Captionator">Captionator</a>&nbsp;</li>
+</ul>
+</section>
+<section id="demo">
+<h2>Demo <a href="#demo" class="permalink">#</a></h2>
+<p>We&#8217;ve put together a <a href="http://html5doctor.com/demos/webvtt/">quick demo</a> which uses the <a href="http://www.delphiki.com/html5/playr/">Playr</a> polyfill. We started using <a href="http://mediaelementjs.com/">MediaElementJS</a>, but it doesn’t sport as many features as <a href="http://www.delphiki.com/html5/playr/">Playr</a>, such as separate lines of text and CSS classes. In the <a href="http://html5doctor.com/demos/webvtt/">demo</a>, the subtitles start at 2 seconds and 15 seconds and use bold, underline, and custom styles. Here’s the <a href="http://html5doctor.com/demos/webvtt/subtitles.vtt">associated WebVTT file</a>.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion <a href="#conclusion" class="permalink">#</a></h2>
+<p>This article covers the basics of creating a WebVTT file suitable for subtitles or captions for a video. We know how to add cues and chapters and how to add styles and change how the text appears on the video. Although no browser yet supports it, there’s a lot more to come for accessible video, so stay tuned to the <a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a>.</p>
+<p>What are your thoughts on WebVTT? Are any of you using it now? How can it be improved?</p>
+<p>Finally, let’s thank <a href="http://twitter.com/#!/silviapfeiffer">@silviapfeiffer</a> for taking the time to answer some questions about WebVTT and for her tremendous work in this field.</p>
+</section>
+<section id="reading">
+<h2>Reading <a href="#reading" class="permalink">#</a></h2>
+<ul>
+<li>Follow <a href="http://twitter.com/#!/silviapfeiffer">@silviapfeiffer</a></li>
+<li><a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a></li>
+<li><a href="http://blog.gingertech.net/2011/06/27/recent-developments-around-webvtt/">Recent developments around WebVTT</a></li>
+<li><a href="http://html5videoguide.net/presentations/WebVTT/">Presentation: HTML5 video accessibility and the WebVTT file format</a></li>
+<li><a href="http://www.youtube.com/watch?v=gK72pcu3cpk">HTML5 video accessibility and the WebVTT file format &#8211; Audio Described</a></li>
+<li><a href="http://leanbackplayer.com/other/webvtt.html">A review with notes and thoughts for LeanBack Player</a></li>
+<li><a href="http://quuz.org/webvtt/">WebVTT validator</a></li>
+<li><a href="http://www.iandevlin.com/blog/2011/05/html5/webvtt-and-video-subtitles">WebVTT and Video Subtitles</a></li>
+<li><a href="http://www.openmediadevelopers.org/pmwiki.php/Main/OVC2011VidA11y">The Open Video Alliance</a></li>
+<li><a href="http://www.delphiki.com/webvtt/">Understanding WebVTT file format (draft)</a></li>
+<li><a href="http://scottbw.wordpress.com/2011/06/28/creating-subtitles-and-audio-descriptions-with-html5-video/">Creating subtitles and audio descriptions with HTML5 video</a></li>
+</ul>
+</section>
+<p><a href="http://html5doctor.com/video-subtitling-and-webvtt/" rel="bookmark">Video Subtitling and WebVTT</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 29, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/video-subtitling-and-webvtt/feed/</wfw:commentRss>
+		<slash:comments>21</slash:comments>
+		</item>
+		<item>
+		<title>The details and summary elements</title>
+		<link>http://html5doctor.com/the-details-and-summary-elements/</link>
+		<comments>http://html5doctor.com/the-details-and-summary-elements/#comments</comments>
+		<pubDate>Tue, 09 Aug 2011 14:15:06 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[details]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[summary]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3558</guid>
+		<description><![CDATA[<p>How often have you had to write some JavaScript to create an interactive widget that shows and hides some content? You might’ve even downloaded a whole JavaScript library to achieve such an effect. Well, it’s time to rejoice! HTML5 provides a way to create this toggle feature with just a few lines of HTML and no JavaScript in sight. And so we introduce to you the details element.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[How often have you had to write some JavaScript to create an interactive widget that shows and hides some content? You might’ve even downloaded a whole JavaScript library to achieve such an effect. Well, it’s time <a href="http://edu-review.com/" title="writing service">writing service</a> to rejoice! HTML5 provides a way to create this toggle feature with just a few lines of HTML and no JavaScript in sight (depending on the browser, of course, but we’ll come to that later). And so we introduce to you the <code>&lt;details&gt;</code> element.
+
+Here is what <a href="http://www.w3.org/html/wg/drafts/html/master/">the spec</a> has to say about <code>&lt;details&gt;</code>:
+<blockquote>The <code>details</code> element represents a disclosure widget from which the user can obtain additional information or controls.
+
+<footer>— <cite><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-details-element">W3C HTML specification</a></cite></footer></blockquote>
+Essentially, we can use <code>&lt;details&gt;</code> to create an accordion-like widget that the user can toggle open and closed. Inside <code>&lt;details&gt;</code>, we can put any sort of content we want.
+<h2 id="browser-support">Browser support</h2>
+Before we go any further, you should know that currently, only Chrome supports the <code>&lt;details&gt;</code> element. <a href="http://my.opera.com/ODIN/blog/implementing-html5-details">Opera will support it soon</a>, but in the meantime we’ll have to use some <a href="#fallbacks">polyfills</a>. So fire up Chrome and let’s take a peek.
+<h2 id="how-to-use">Using <code>&lt;details&gt;</code></h2>
+There are two relevant elements here: <code>&lt;details&gt;</code> and, optionally, <code>&lt;summary&gt;</code>. <code>&lt;details&gt;</code> is the wrapper for all the content we want to show and hide, and <code>&lt;summary&gt;</code> contains the — well, the summary and title of the section. Technically we don&#8217;t need the <code>&lt;summary&gt;</code>. If absent, the browser will use some default text (in Chrome: “details”). Let’s have a look at some markup:
+<pre><code>&lt;details&gt;
+  &lt;summary&gt;Show/Hide me&lt;/summary&gt;
+  &lt;p&gt;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+You can <a href="http://jsbin.com/egefop#html,live">see this in action over at jsbin</a>. It’s a simple example, but it shows off the toggle effect nicely. All this without JavaScript!
+<h3>The <code>open</code> attribute</h3>
+In the example above, the content is hidden when the page loads. We can make it visible by default by adding the boolean <code>open</code> attribute to the <code>&lt;details&gt;</code> element (<a href="http://jsbin.com/egefop/2#html,live">jsbin example</a>):
+<pre><code>&lt;details open&gt;
+  &lt;summary&gt;Show/Hide me&lt;/summary&gt;
+  &lt;p&gt;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+There is no <code>closed</code> attribute. It’s the default, so by omitting <code>open</code>, you imply <code>closed</code>.
+<h3>The <code>&lt;summary&gt;</code> element</h3>
+We&#8217;ve briefly seen <code>&lt;summary&gt;</code> in action. Since it is phrasing content, we can use inline elements such as <code>&lt;span&gt;</code> or <code>&lt;strong&gt;</code> inside it. Why thought would we do this? Perhaps for an extra styling hook or as the spec suggests: a label for a form element. At least it <em>would</em> be handy if it worked properly <a href="http://jsbin.com/egefop/3#html">when implemented</a>:
+<pre><code>&lt;details&gt;
+  &lt;summary&gt;&lt;label for="name"&gt;Name:&lt;/label&gt;&lt;/summary&gt;
+  &lt;input type="text" id="name" name="name" /&gt;
+&lt;/details&gt;</code></pre>
+Normally, clicking anywhere on the summary reveals the content of the <code>&lt;details&gt;</code> element. But in this example, clicking the summary doesn’t reveal the content because you’re actually clicking the <code>&lt;label&gt;</code>, which then focuses the <code>&lt;input&gt;</code> element — even though it’s hidden by the collapsed <code>&lt;details&gt;</code> element.
+
+Clearly this needs addressing, what do you think should happen? Maybe any browser vendors reading this can take a look :)
+<h3>Nesting multiple <code>&lt;details&gt;</code> elements</h3>
+You can nest <code>&lt;details&gt;</code> within <code>&lt;details&gt;</code> if you like, <a href="http://jsbin.com/egefop/14#html,live">as seen in this perfectly valid example</a>:
+<pre><code>&lt;details&gt;
+  &lt;summary&gt;Question 1&lt;/summary&gt;
+  &lt;p&gt;&lt;strong&gt;Pellentesque habitant morbi tristique&lt;/strong&gt; senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. &lt;em&gt;Aenean ultricies mi vitae est.&lt;/em&gt; Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, &lt;code&gt;commodo vitae&lt;/code&gt;, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. &lt;a href="#"&gt;Donec non enim&lt;/a&gt; in turpis pulvinar facilisis. Ut felis.&lt;/p&gt;
+  &lt;details&gt;
+    &lt;summary&gt;Related documents&lt;/summary&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Lorem ipsum dolor sit amet,  consectetuer adipiscing elit.&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Aliquam tincidunt mauris eu  risus.&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Lorem ipsum dolor sit amet,  consectetuer adipiscing elit.&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Aliquam tincidunt mauris eu  risus.&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/details&gt;
+&lt;/details&gt;</code></pre>
+<h2 id="examples">Example uses</h2>
+So when could you use <code>&lt;details&gt;</code>? FAQs immediately spring to mind. People often use accordions for FAQs anyway, so they’re a great candidate for <code>&lt;details&gt;</code>.
+
+Also consider a table of contents. It could be a fixed area that scrolls with the content. <a href="http://jsbin.com/egefop/8#html,live">Something like this perhaps?</a>
+
+You could use <code>&lt;details&gt;</code> to toggle the comments section of a blog, member profiles, details of a download, complex forms, or in web applications as shown in this example from the spec:
+
+<figure><img src="http://html5doctor.com/wp-content/uploads/2011/08/details-w3c.jpg" alt="" /><figcaption>An example of the <code>&lt;details&gt;</code> element from the spec</figcaption></figure>In fact, just looking around WordPress as I write, I see plenty of opportunities to use <code>&lt;details&gt;</code>. Let us know your thoughts and ideas in the comments.
+<h2 id="styling">Styling</h2>
+How can we style this thing? Well, to style the disclosure widget itself in WebKit, you can apply some CSS to the pseudo-class <code>::-webkit-details-marker</code>. You can <a href="http://jsbin.com/egefop/9#html,live">see a little demo here</a>:
+<pre><code>details summary<strong>::-webkit-details-marker</strong> {
+  background: red;
+  color: #fff;
+  font-size: 500%;
+}</code></pre>
+We can also position the disclosure widget (to an extent). <a href="http://jsbin.com/egefop/17#html,live">Here it is floated right</a>. That’s about all we have initially.
+
+So how do we replace the disclosure widget with a custom icon? Using an attribute selector, you can detect whether the <code>&lt;details&gt;</code> element is open or closed and apply an appropriate background image. We do something similar in <a href="http://jsbin.com/egefop/11#html,live">this example</a>, except that instead of using a background image, we use the <code>:after</code> pseudo-element:
+<pre><code>summary::-webkit-details-marker {
+  display: none
+}
+summary:after {
+  background: red; 
+  border-radius: 5px; 
+  content: "+"; 
+  color: #fff; 
+  float: left; 
+  font-size: 1.5em; 
+  font-weight: bold; 
+  margin: -5px 10px 0 0; 
+  padding: 0; 
+  text-align: center; 
+  width: 20px;
+}
+details[open] summary:after {
+  content: "-";
+}</code></pre>
+The above example uses literal “+” and “-” characters as the disclosure widget. Depending on your styling, you might need to use <code>:before</code> instead of <code>:after</code>, but both pseudo-elements allow using an image.
+
+The <code>details[open]</code> attribute selector creates some interesting possibilities. And because we’re nice doctors, here’s a more <a href="http://jsbin.com/egefop/15#html,live">polished example</a> as seen in the screenshot below:
+
+<figure><img src="http://html5doctor.com/wp-content/uploads/2011/08/nice-details.jpg" alt="Details element in Chrome" /><figcaption>Styled <code>&lt;details&gt;</code> element in Chrome</figcaption></figure>It would be interesting (though not necessarily good design) if you could use CSS transitions to animate the <code>&lt;details&gt;</code> opening and closing, but we can’t just yet.
+<h2 id="accessibility">Accessibility</h2>
+Unfortunately, at the time of writing, <code>&lt;details&gt;</code> is not accessible via the keyboard. <a href="http://www.paciellogroup.com/blog/2011/08/accessibility-notes-2nd-august-2011/">Steve Faulkner writes</a>:
+<blockquote>Bottom line is, currently no keyboard support and no usable information exposed to assistive technology.</blockquote>
+Try it yourself. If you open a <code>&lt;details&gt;</code> element with your mouse, you can then keyboard through the content, but you should also be able to toggle the details open and shut with the keyboard. So it’s not ideal, but I’m sure the Chrome developers will sort this out soon (won’t you guys?).
+<h2 id="fallbacks">Fallbacks</h2>
+Before anyone exclaims that it doesn’t work in IE6, we know. Thanks to some clever people, we can provide elegant fallbacks though. As listed in this <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">very handy collection of cross-browser polyfills</a>, here are two fallbacks, both of which require jQuery:
+<ul>
+	<li><a href="http://mathiasbynens.be/notes/html5-details-jquery"><code>&lt;details&gt;</code> fallback via jQuery</a> by Mathias Bynens</li>
+	<li><a href="https://github.com/manuelbieh/details-Polyfill">Another <code>&lt;details&gt;</code> alternative, also based on jQuery</a> by Manuel Bieh</li>
+</ul>
+<del>Many of you will be using Modernizr for feature detection, but Modernizr currently doesn’t check for details support. As detailed in the above fallback by Mathias, we can use the following JavaScript:</del>
+<pre><code><del>&lt;script&gt;
+  if (!('open' in document.createElement('details'))) {
+    alert("No details");
+  }
+&lt;/script&gt;</del></code></pre>
+<ins>Update: Thanks to Mathias for the comment. The above code is not 100% reliable as if returns false in some versions of Chrome. Instead, consider using <a href="https://github.com/Modernizr/Modernizr/blob/master/feature-detects/elem/details.js">this Modernizr snippet</a>.</ins>
+<h2>Why this type of interaction?</h2>
+Not to look a gift horse in the mouth, but why is this widget in HTML5? Well, like so many other features of HTML5, creating these widgets is just easier with HTML5. Date pickers, sliders, progress indicators, and now accordions can be implemented easily and without JavaScript. Who knows what’s next? Native tabs would be nice :)
+<h2 id="summary">Summary</h2>
+In this article, we’ve demonstrated how to use the <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements. <code>&lt;details&gt;</code> is a new element and uses the <code>&lt;summary&gt;</code> element to create an interactive disclosure widget natively in the browser.
+
+Currently, <code>&lt;details&gt;</code> only works in Chrome, but hopefully this will change sooner rather than later. There is only one specific CSS trick we can use — <code>::-webkit-details-marker</code> — but we can use plenty of other CSS to style it up. Let us know in the comments if you’ve got any experience or ideas about the <code>&lt;details&gt;</code> element.<p><a href="http://html5doctor.com/the-details-and-summary-elements/" rel="bookmark">The details and summary elements</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 9, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-details-and-summary-elements/feed/</wfw:commentRss>
+		<slash:comments>58</slash:comments>
+		</item>
+		<item>
+		<title>The abbr element</title>
+		<link>http://html5doctor.com/the-abbr-element/</link>
+		<comments>http://html5doctor.com/the-abbr-element/#comments</comments>
+		<pubDate>Tue, 30 Nov 2010 16:00:33 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[abbr]]></category>
+		<category><![CDATA[acronym]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2527</guid>
+		<description><![CDATA[<p>The <code>&#60;abbr&#62;</code> element is not new to <abbr>HTML</abbr>5, nor has it been redefined. The <abbr>HTML</abbr>5 spec has, however, removed the <code>&#60;acronym&#62;</code> element, which was (and is) common in <abbr>HTML</abbr> 4 web pages. Simply put, instead of using <code>&#60;acronym&#62;</code>, use <code>&#60;abbr&#62;</code>.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>&lt;abbr&gt;</code> element is not new to <abbr>HTML</abbr>5, nor has it been redefined. The <abbr>HTML</abbr>5 spec has, however, removed the <code>&lt;acronym&gt;</code> element, which was (and is) common in <abbr>HTML</abbr> 4 web pages. Simply put, instead of using <code>&lt;acronym&gt;</code>, use <code>&lt;abbr&gt;</code>.</p>
+
+<h2>What the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-abbr-element">spec</a> says</h2>
+
+<blockquote><p>The abbr element represents an abbreviation or acronym…</p></blockquote>
+
+<p>Straightforward enough, right?</p>
+
+<h2>How to use it</h2>
+
+<p><code>&lt;abbr&gt;</code> is an inline element, so we can use it like this:</p>
+
+<pre><code>&lt;p&gt;&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; is the best thing since sliced web.&lt;/p&gt;</code></pre>
+
+<p>Since it&#8217;s an inline element itself, <code>&lt;abbr&gt;</code> can be used inside other inline elements, like <code>&lt;strong&gt;</code> or <code>&lt;a&gt;</code>:</p>
+
+<pre><code>&lt;p&gt;The &lt;a href="http://w3.org"&gt;&lt;abbr title="World Wide Web Consortium"&gt;W3C&lt;/abbr&gt;&lt;/a&gt; should hire the &lt;abbr&gt;HTML&lt;/abbr&gt;5 doctors.&lt;/p&gt;</code></pre>
+
+<p>Keep in mind that abbreviations aren&#8217;t always a series of uppercase letters. You can also use <code>&lt;abbr&gt;</code> to mark up a shortened word. For example:</p>
+
+<pre><code>&lt;h1&gt;&lt;abbr title="</code><code>HyperText Markup Language</code><code>"&gt;HTML&lt;/abbr&gt;5 Doctors &lt;abbr title="Incorporated"&gt;Inc.&lt;/abbr&gt;&lt;/h1&gt;</code></pre>
+
+<p>The <code>title</code> attribute creates a tooltip for the user when they hover their cursor over the element:</p>
+
+<figure>
+<img class="alignnone size-full wp-image-2717" title="abbr-tooltip" src="http://html5doctor.com/wp-content/uploads/2010/09/abbr-tooltip.png" alt="abbr element tooltip example" width="260" height="80" />
+<figcaption>Tooltip displayed to the user when hovering over an <code>&lt;abbr&gt;</code> element</figcaption>
+</figure>
+
+<p>The dotted border/underline is shown by default in Firefox and Opera, but IE8, Safari, and Chrome need a line of CSS:</p>
+
+<pre><code>&lt;style&gt;
+abbr {border-bottom: 1px dotted black;}
+&lt;/style&gt;</code></pre>
+
+<aside>
+  <h3>When to use <code>title</code></h3>
+
+  <p>An <code>&lt;abbr&gt;</code> element does not necessarily <em>need</em> a <code>title</code> attribute, although it never hurts to include it. It depends on a document&#8217;s content and its audience, and on whether the abbreviation will appear repeatedly throughout the document.</p>
+
+  <p>On this site, for example, we always wrap abbreviations like <abbr>HTML</abbr>, <abbr>CSS</abbr>, and <abbr>IE</abbr> in an <code>&lt;abbr&gt;</code> tag, but we don&#8217;t include a <code>title</code> attribute because we reckon you lot already know what they stand for. For sites with a more diverse audience, like a news or public-sector site, we would use the <code>title</code> attribute, since the average lay person isn&#8217;t familiar with the HyperText Markup Language.</p>
+  
+  <p>Also, if you include the <code>title</code> attribute on the first use of an abbreviation, it&#8217;s generally accepted practice to omit it on subsequent uses.</p>
+</aside>
+
+<p>The spec gives an example of how to use <code>&lt;abbr title="..."&gt;</code> if the abbreviation is pluralised. If the plural is inside the <code>&lt;abbr&gt;</code> element, then it should also be included in the <code>title</code> attribute. (This presumably applies to possessives as well.)</p>
+
+<pre><code>&lt;p&gt;What am I supposed to do with all these Beatles &lt;abbr title="compact disc<strong>s</strong>"&gt;CDs&lt;/abbr&gt;</code> now that I've repurchased them on iTunes?&lt;/p&gt;
+&lt;p&gt;I've packed in my job to become an astronaut on &lt;abbr title="National Aeronautics and Space Administration<strong>'s</strong>"&gt;NASA's&lt;/abbr&gt; new space rocket!&lt;/p&gt;</pre>
+
+<h2>Acronyms and abbreviations: what’s the difference?</h2>
+
+<p>Although <strong>very</strong> similar, there is a slight difference between an <em>acronym</em> and an <em>abbreviation</em>. An acronym is a set of letters that forms a new word, such as <abbr title="North Atlantic Treaty Organization">NATO</abbr>, while an abbreviation, such as <abbr title="British Broadcasting Company">BBC</abbr>, does not, since you say each letter separately.</p>
+
+<h2>So why one over the other?</h2>
+
+<p>While there are subtle, pedantic differences between acronyms and abbreviations, the real reason <abbr>HTML</abbr> 4 defines two separate elements is simple: browser wars! Over a decade ago, Netscape created the <code>&lt;abbr&gt;</code> element while Microsoft created the <code>&lt;acronym&gt;</code> element. The <abbr>W3C</abbr> couldn’t (or wouldn’t) favour one over the other, so both have been in use ever since (until <abbr>HTML</abbr>5).</p>
+
+<p>There&#8217;s always been a lot of confusion over these two elements and their usage. Witness it in this <a href="http://lists.w3.org/Archives/Public/www-html/1997Jul/0558.html">archive letter from 1997</a>.</p>
+
+<p>We also have browser compatibility issues with the <code>&lt;abbr&gt;</code> element. IE6 and IE7 do not support <code>&lt;abbr&gt;</code>, so many web developers have always used <code>&lt;acronym&gt;</code>. I know I certainly did when I worked for a big public-sector organisation — it seemed like every page had a dozen acronyms!</p>
+
+<p>To get <code>&lt;abbr&gt;</code> working in IE6 and IE7, you need to create the element with JavaScript:</p>
+
+<pre><code>&lt;!--[if lte IE 7]&gt;
+&lt;script type="text/javascript"&gt;document.createElement('abbr');&lt;/script&gt;
+&lt;![endif]--&gt;</code></pre>
+
+<h2>Conclusion</h2>
+
+<p>Thanks to confusion about their definitions and inconsistent browser support, <code>&lt;acronym&gt;</code> was dropped from both <abbr>XHTML</abbr>2 (now defunct) and <abbr>HTML</abbr>5. It&#8217;s been merged with <code>&lt;abbr&gt;</code>, which explicitly states “The abbr element represents an abbreviation or acronym”.</p>
+
+<p>Hopefully you will find using <code>&lt;abbr&gt;</code> relatively straightforward. If you&#8217;re ever tempted to use an <code>&lt;acronym&gt;</code>, just use <code>&lt;abbr&gt;</code> instead!</p>
+<p><a href="http://html5doctor.com/the-abbr-element/" rel="bookmark">The abbr element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 30, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-abbr-element/feed/</wfw:commentRss>
+		<slash:comments>29</slash:comments>
+		</item>
+		<item>
+		<title>The article element</title>
+		<link>http://html5doctor.com/the-article-element/</link>
+		<comments>http://html5doctor.com/the-article-element/#comments</comments>
+		<pubDate>Tue, 18 May 2010 14:00:27 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[article]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[pubdate]]></category>
+		<category><![CDATA[section]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1364</guid>
+		<description><![CDATA[<p>We’ve discussed a lot of new elements here at HTML5Doctor, but the <code>article</code> element has somehow escaped the microscope… until now! <code>article</code> is one of the new sectioning elements. It is often confused with <code>section</code> and <code>div</code> but don't worry we'll explain the difference between them.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We’ve discussed a lot of new elements here at HTML5Doctor, but the <code>article</code> element has somehow escaped the microscope… until now! <code>article</code> is one of the new sectioning elements. It is often confused with <code>section</code> and <code>div</code> but don&#8217;t worry we&#8217;ll explain the difference between them.</p>
+
+<section>
+<h2>What the spec says</h2>
+<p>Thankfully, <a href="http://www.w3.org/TR/html5/semantics.html#the-article-element">the spec is short and sweet</a>:</p>
+
+<blockquote><p>The <code>article</code> element represents a component of a page that consists of a self-contained composition in a document, page, application, or site and that is intended to be independently distributable or reusable, e.g. in syndication. This could be a forum post, a magazine or newspaper article, a blog entry, a user-submitted comment, an interactive widget or gadget, or any other independent item of content.</p><footer><cite><a href="http://www.w3.org/TR/html5/semantics.html#the-article-element">W3C Specification</a></cite></footer></blockquote>
+
+<p>In addition to its content, an <code>&lt;article&gt;</code> element typically has a heading (often in a header element), and sometimes a footer. The easiest way to conceptualise <code>&lt;article&gt;</code> is to think of its use in a weblog, as mentioned in the spec’s examples “a blog entry” and “user-submitted comments.” Here at <abbr>HTML</abbr>5 Doctor, we wrap each weblog entry inside an <code>&lt;article&gt;</code> element. We also use <code>&lt;article&gt;</code> on ‘static’ content pages, like the About and Contact pages, as <code>&lt;article&gt;</code> can be used for “any other independent item of content.” The tricky part is, what exactly is an <em>independent item of content</em>?</p>
+</section>
+
+<section>
+<h2>The smell test for going independent</h2>
+<p>An <em>independent</em> piece of content, one suitable for putting in an <code>&lt;article&gt;</code> element, is content that <em>makes sense on its own</em>. This yardstick is up to your interpretation, but an easy smell test is <em>would this make sense in an RSS feed?</em> Of course weblog articles and static pages would make sense in a feed reader, and some sites have weblog comment feeds. On the other hand, a feed with each paragraph of this article as a separate post wouldn’t be very useful. The key point here is that the content has to make sense <em>independent of its context</em>, i.e. when all the surrounding content is stripped away.</p>
+</section>
+
+<section>
+<h2>Examples of <code>&lt;article&gt;</code> in use</h2>
+<section>
+<h3>A bare-bones <code>&lt;article&gt;</code></h3>
+
+<p>We only have a title and some content, but it’s enough to make sense on its own (assume there’s <a href="http://en.wikipedia.org/wiki/Apples" title="Apple - Wikipedia, the free encyclopedia">a lot more content about apples</a> ;-)</p>
+
+<pre><code>&lt;article&gt;
+	&lt;h1&gt;Apple&lt;/h1&gt;
+	&lt;p&gt;The &lt;b&gt;apple&lt;/b&gt; is the pomaceous fruit of the apple tree...&lt;/p&gt;
+	...
+&lt;/article&gt;
+</code></pre>
+</section>
+
+<section>
+<h3>A weblog-style <code>&lt;article&gt;</code></h3>
+<p>A published date leads us to add a <code>&lt;header&gt;</code>, and there’s also content that would be suitable in a <code>&lt;footer&gt;</code> elements.</p>
+
+<pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Apple&lt;/h1&gt;
+    &lt;p&gt;Published: &lt;time pubdate="pubdate"&gt;2009-10-09&lt;/time&gt;&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;p&gt;The &lt;b&gt;apple&lt;/b&gt; is the pomaceous fruit of the apple tree...&lt;/p&gt;
+  ...
+  &lt;footer&gt;
+    &lt;p&gt;&lt;small&gt;Creative Commons Attribution-ShareAlike License&lt;/small&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section>
+<h3>An <code>&lt;article&gt;</code> with comments as nested <code>&lt;article&gt;</code>s</h3>
+<p>This example shows a weblog entry with comments. Each comment can be marked up as an <code>&lt;article&gt;</code> within the containing <code>&lt;article&gt;</code>.</p>  
+
+<pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Apple&lt;/h1&gt;
+    &lt;p&gt;Published: &lt;time pubdate datetime="2009-10-09"&gt;9th October, 2009&lt;/time&gt;&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;p&gt;The &lt;b&gt;apple&lt;/b&gt; is the pomaceous fruit of the apple tree...&lt;/p&gt;
+  ...
+  
+  &lt;section&gt;
+    &lt;h2&gt;Comments&lt;/h2&gt;
+    &lt;article&gt;
+      &lt;header&gt;
+      &lt;h3&gt;Posted by: Apple Lover&lt;/h3&gt;
+      &lt;p&gt;&lt;time pubdate datetime="2009-10-10T19:10-08:00"&gt;~1 hour ago&lt;/time&gt;&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;p&gt;I love apples, my favourite kind are Granny Smiths&lt;/p&gt;
+    &lt;/article&gt;
+    
+    &lt;article&gt;
+      &lt;header&gt;
+        &lt;h3&gt;Posted by: Oranges are king&lt;/h3&gt;
+        &lt;p&gt;&lt;time pubdate datetime="2009-10-10T19:15-08:00"&gt;~1 hour ago&lt;/time&gt;&lt;/p&gt;
+      &lt;/header&gt;
+      &lt;p&gt;Urgh, apples!? you should write about ORANGES instead!!1!&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</code></pre>
+</section>
+
+<section>
+<h3>An <code>&lt;article&gt;</code> with <code>&lt;section&gt;</code>s</h3>
+<p>You can use <a href="http://html5doctor.com/the-section-element/">the <code>&lt;section&gt;</code> element</a> to split the article into logical groups of content with headings:</p>
+
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;Apple varieties&lt;/h1&gt;
+  &lt;p&gt;The apple is the pomaceous fruit of the apple tree...&lt;/p&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Red Delicious&lt;/h2&gt;
+    &lt;p&gt;These bright red apples are the most common found in many supermarkets...&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Granny Smith&lt;/h2&gt;
+    &lt;p&gt;These juicy, green apples make a great filling for apple pies...&lt;/p&gt;
+  &lt;/section&gt;
+    
+&lt;/article&gt;</code></pre>
+</section>
+
+<section>
+<h3>A <code>&lt;section&gt;</code> containing <code>&lt;article&gt;</code>s</h3>
+<p>Where appropriate a <code>&lt;section&gt;</code> element can contain <code>&lt;article&gt;</code> elements. We already saw this in the comment section example above, and other common examples are the homepage or category pages of a weblog:</p>
+
+<pre><code>&lt;section&gt;
+  &lt;h1&gt;Articles on: Fruit&lt;/h1&gt;
+
+  &lt;article&gt;
+    &lt;h2&gt;Apple&lt;/h2&gt;
+    &lt;p&gt;The apple is the pomaceous fruit of the apple tree...&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;article&gt;
+    &lt;h2&gt;Orange&lt;/h2&gt;
+    &lt;p&gt;The orange is a hybrid of ancient cultivated origin, possibly between pomelo and tangerine...&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;article&gt;
+    &lt;h2&gt;Banana&lt;/h2&gt;
+    &lt;p&gt;Bananas come in a variety of sizes and colors when ripe, including yellow, purple, and red...&lt;/p&gt;
+  &lt;/article&gt;
+    
+&lt;/section&gt;</code></pre>
+</section>
+
+<section>
+<h3>Using <code>&lt;article&gt;</code> for a widget</h3>
+<p>The specification also mentions that an interactive widget can also be an <code>&lt;article&gt;</code>. The example below shows how the markup might look for an embedded widget from somewhere like <a href="http://www.widgetbox.com/">Widgetbox</a>.</p>
+
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;My Fruit Spinner&lt;/h1&gt;
+  &lt;object&gt;
+    &lt;param name="allowFullScreen" value="true"&gt;
+    &lt;embed src="#" width="600" height="395"&gt;&lt;/embed&gt;
+  &lt;/object&gt;
+&lt;/article&gt;</code></pre>
+</section>
+</section>
+
+<section>
+<h2>The <code>pubdate</code> attribute</h2>
+<p>You may have noticed the <code>pubdate</code> attribute in these examples. <code>pubdate</code> is an optional <em>boolean attribute</em> that may be added to one <a href="http://html5doctor.com/the-time-element"><code>time</code> element</a> within the <code>&lt;article&gt;</code>. If present it indicates that the <code>&lt;time&gt;</code> element is the date the <code>&lt;article&gt;</code> was published. It can be written in several ways, the most popular being:</p>
+
+<pre><code>pubdate
+pubdate="pubdate"</code></pre>
+
+<p>You could think of these as HTML and XHTML-style — the end result is the same so use the style you like. Note that <code>pubdate</code> applies only to the parent <code>&lt;article&gt;</code> element, or to the document as a whole.</p>
+</section>
+
+<section>
+<h2>The difference between <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code></h2>
+<p>There&#8217;s been <a href="http://adactio.com/journal/1654/">a lot of confusion</a> over the difference (or perceived lack of a difference) between the <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code> elements in <abbr>HTML</abbr>5. The <code>&lt;article&gt;</code> element is a specialised kind of <code>&lt;section&gt;</code>; it has a more specific semantic meaning than <code>&lt;section&gt;</code> in that it is <strong>an independent, self-contained</strong> block of related content. We <em>could</em> use <code>&lt;section&gt;</code>, but using <code>&lt;article&gt;</code> gives more semantic meaning to the content.</p>
+
+<p>By contrast <code>&lt;section&gt;</code> is only a block of <em>related</em> content, and <code>&lt;div&gt;</code> is only a block of content. Also as mentioned above the <code>pubdate</code> attribute doesn’t apply to <code>&lt;section&gt;</code>. To decide which of these three elements is appropriate, choose the first suitable option:</p>
+
+<ol>
+<li>Would the content would make sense on its own in a feed reader? If so use <code>&lt;article&gt;</code></li>
+<li>Is the content related? If so use <code>&lt;section&gt;</code></li>
+<li>Finally if there’s no semantic relationship use <code>&lt;div&gt;</code></li>
+</ol>
+
+<p><a href="http://html5doctor.com/author/brucel">Dr Bruce</a> has written <a href="http://www.brucelawson.co.uk/2010/html5-articles-and-sections-whats-the-difference/">HTML5 <code>&lt;article&gt;</code>s and <code>&lt;section&gt;</code>s, what’s the difference?</a>, so we recommend reading that if you are still fuzzy on when to use <code>&lt;article&gt;</code>.</p>
+</section>
+
+<section>
+<h2>Summary</h2>
+<p>Hopefully this post has given you some insight into the correct use of the <code>&lt;article&gt;</code> element. Do you have any other examples that you can share for using <code>&lt;article&gt;</code> in your <abbr>HTML</abbr>5 markup?</p>
+
+<p>I&#8217;m also keen to hear your thoughts on the confusion between the <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code> elements. Do you think the distinction between the two is clear?</p>
+</section><p><a href="http://html5doctor.com/the-article-element/" rel="bookmark">The article element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 18, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-article-element/feed/</wfw:commentRss>
+		<slash:comments>103</slash:comments>
+		</item>
+		<item>
+		<title>Measure up with the meter tag</title>
+		<link>http://html5doctor.com/measure-up-with-the-meter-tag/</link>
+		<comments>http://html5doctor.com/measure-up-with-the-meter-tag/#comments</comments>
+		<pubDate>Wed, 07 Oct 2009 13:31:41 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[meter]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=823</guid>
+		<description><![CDATA[HTML5 offers several useful new elements, to add further meaning to the markup of a page. These new elements include time, mark and here is another one, meter. It is an inline element so it can be used inside most elements, including a header or a paragraph. What does it say in the spec? The [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>HTML5 offers several useful new elements, to add further  meaning to the markup of a page. These new elements include <code>time</code>,  <code><a href="http://html5doctor.com/draw-attention-with-mark/">mark</a></code> and here is another one, <code>meter</code>. It is an inline element so it can be used inside most elements, including a header or a paragraph.</p>
+<h2>What does it say in the spec?</h2>
+<blockquote><p>The <a href="http://dev.w3.org/html5/spec/Overview.html#the-meter-element">meter</a> element <a href="http://dev.w3.org/html5/spec/Overview.html#represents">represents</a> a scalar measurement within a known range, or a fractional value; for example  disk usage, the relevance of a query result, or the fraction of a voting  population to have selected a particular candidate.</p></blockquote>
+<p>When I first read about the meter tag, I immediately thought  it would be useful for profile pages, such as height and weight, and maybe age,  marked up in a nice definition list. However, the third line of the spec says</p>
+<blockquote><p>The <a href="http://dev.w3.org/html5/spec/Overview.html#the-meter-element">meter</a> element also does not represent a scalar value of arbitrary range — for example, it would be <strong>wrong</strong> to use this to report a weight, or height, unless there is a known maximum  value</p></blockquote>
+<p>So there goes my idea. The emphasis of the spec definition  is <q><strong>“a scalar measurement within a known  range&#8221;</strong></q>. We’ll go through some sample usage now but I still think it would add useful meaning to a sportsman’s profile page for example.</p>
+<h2>Attributes</h2>
+<p>There are six attributes allowed with the meter tag: <strong>value</strong>, <strong>min</strong>,  <strong>max</strong>, <strong>high</strong>,  <strong>low</strong> and <strong>optimum</strong>. As we&#8217;ll mention later, the emphasis is on the author to use these correctly.</p>
+<dl>
+<dt>Value</dt>
+<dd>This is what will be parsed out &#8211; the actual value. If you do not use the value attribute, then the first number inside the tag is the value: <code>&lt;meter&gt; <strong>2</strong> out of 10&lt;/meter&gt;</code>. If a real number is not used, then the value is <strong>zero</strong>. </dd>
+<dt>Min</dt>
+<dd>The minimum allowed value. If there is no min attribute, then it assumes the minimum is zero. If it is not specified then the value is <strong>0</strong>.</dd>
+<dt>Max</dt>
+<dd>The maximum allowed value. If the maximum value is less than the minimum value, then the minimum value is used as the max. If it is not specified then the value is 1. However, if it is possible to specify the value of this in the content &#8211; such as a percentage sign, as the maximum then will be 100%</dd>
+<dt>Low</dt>
+<dd>This is considered to be the low part of the value range. It must be less than or equal to the value of the high attribute. Also, if the low value is less than the min value, then the low value is the same as the <strong>min </strong>value.</dd>
+<dt>High</dt>
+<dd>This is considered to be the high part of the value range. If the high value is less than the low boundary, then the high value is the same as the low value. Also, if the high value is greater than the max value, then the high value is the same as the <strong>max</strong> value.</dd>
+<dt>Optimum</dt>
+<dd>This is considered to be the optimum value and needs to be somewhere between <strong>min</strong> and <strong>max</strong>. It can be greater than the <strong>high</strong> attribute</dd>
+</dl>
+<h2>Let’s have a look at some examples</h2>
+<h3>A voting or rating tool</h3>
+<pre><code>&lt;p&gt;Your score is:  &lt;meter&gt;2 out of 10&lt;/meter&gt;&lt;/p&gt;</code></pre>
+<p>We can give this further meaning by adding min and max attributes</p>
+<pre><code>&lt;p&gt;Your score is: &lt;meter min="0" max="10"&gt;2 out of 10&lt;/meter&gt;&lt;/p&gt;</code></pre>
+<pre><code>&lt;p&gt;Your score is: &lt;meter value="91" min="0" max="100" low="40" high="90" optimum="100"&gt;A+&lt;/meter&gt;&lt;/p&gt;</code></pre>
+<h3>Without the attributes</h3>
+<p>You do not always need to use an attribute with the meter tag. You could use</p>
+<pre><code>&lt;meter&gt;80%&lt;/meter&gt;</code></pre>
+<p>Because the max value is going to be 100% (unless you always  give that extra 10 :P ). You can also use fractions as the range is within itself, such as</p>
+<pre><code>&lt;meter&gt;3/4&lt;/meter&gt;</code></pre>
+<h2>Some real world examples</h2>
+<h3>Christmas Calendar/Countdown</h3>
+<pre><code>&lt;p&gt;Christmas is in &lt;meter value ="30" min="1" max="366" title="days"&gt;30 days!&lt;/p&gt;</code></pre>
+<p>Notice that the title attribute can be used to specify the  unit (so we can use &#8220;centimeters&#8221; or &#8220;lbs&#8221;, and so on).</p>
+<h3>Just Giving</h3>
+<p>We could also use <code>meter</code> on the fundraising website <a href="http://www.justgiving.com/">Justgiving</a>.</p>
+<p><img class="alignnone size-full wp-image-855" title="just-giving-example" src="/wp-content/uploads/2009/08/just-giving-example.jpg" alt="Screengrab from justgiving.com showing how the meter element could be used" width="600" height="200" srcset="http://html5doctor.com/wp-content/uploads/2009/08/just-giving-example.jpg 600w, http://html5doctor.com/wp-content/uploads/2009/08/just-giving-example-300x100.jpg 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p><a href="http://www.justgiving.com/DanDannyKirsty/">This page</a>, for example, would use</p>
+<pre><code>&lt;dl&gt;
+  &lt;dt&gt;Target&lt;/dt&gt;
+  &lt;dd&gt;&lt;meter min="145" value="145" title="pounds"&gt;£145&lt;/meter&gt;&lt;/dd&gt;
+  &lt;dt&gt;Amount raised so far&lt;/dt&gt;
+  &lt;dd&gt;&lt;meter min="0" max="1000" low="50" high="125" value="145" optimum="145" title="pounds"&gt;£145&lt;/meter&gt;&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+<h2>Incorrect use</h2>
+<h3>Empty tag</h3>
+<p>If you used</p>
+<pre><code>&lt;meter min="0" max="100" value="75"&gt;&lt;/meter&gt;
+</code></pre>
+<p>Nothing will display on your page – it is noted in the spec</p>
+<blockquote><p>The recommended way of giving the value is to include it as  contents of the element</p></blockquote>
+<p>So you need to put something in the content of the tag and it doesn&#8217;t necessarily have to be a number. The spec has a good example of this</p>
+<pre><code>&lt;p&gt;<strong>&lt;meter value="0.5"&gt;Moderate activity,&lt;/meter&gt;</strong> Usenet, 618 subscribers&lt;/p&gt;
+&lt;p&gt;&lt;meter value="0.25"&gt;Low activity,&lt;/meter&gt; Usenet, 22 subscribers&lt;/p&gt;
+&lt;p&gt;&lt;meter value="0.25"&gt;Low activity,&lt;/meter&gt; Usenet, 66 subscribers&lt;/p&gt;
+</code></pre>
+<p>Which could be used to produce on-screen information as shown</p>
+<p><img src="/wp-content/uploads/2009/09/sample-meter.png" alt="Example usage of meter showing the number of subscribers" width="332" height="178" /></p>
+<p>As I noted earlier, it is incorrect to use as a weight or height, unless there is a maximum value. The spec gives this example:</p>
+<pre>&lt;p&gt;The grapefruit pie had a radius of &lt;meter&gt;12cm&lt;/meter&gt;  and a height of &lt;meter&gt;2cm&lt;/meter&gt;.&lt;/p&gt; &lt;!-- <strong>BAD!</strong> --&gt;</pre>
+<blockquote><p>Instead, one would either not include the meter element, or use the meter element with a defined range to give the dimensions in context compared to other pies:</p></blockquote>
+<pre>&lt;p&gt;The grapefruit pie had a radius of 12cm and a height of 2cm.&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;Radius: &lt;dd&gt; &lt;meter min=0 max=20 value=12&gt;12cm&lt;/meter&gt;
+&lt;dt&gt;Height: &lt;dd&gt; &lt;meter min=0 max=10 value=2&gt;2cm&lt;/meter&gt;
+&lt;/dl&gt;</pre>
+<p>Whilst the above is now a correct usage of the meter tag, how do I know the max height or radius of a grapefruit? I would prefer to use a meter tag there but instead I&#8217;d probably just use a definition list to display the information.</p>
+<h2>Browser support</h2>
+<p>The meter tag works in at least the following browsers Safari  4, Firefox 3.5, Chrome 2, Opera 9.64 naturally. The following javascript is needed for IE 6, 7 and 8 (see Remy&#8217;s article about Getting <abbr>HTML</abbr>5 to play nicely in older browsers.</p>
+<pre><code> &lt;!--[if IE]&gt;
+  &lt;script  src="http://html5shiv.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+  &lt;![endif]--&gt;</code></pre>
+<p>As it is an inline element, you don’t need to do anything  special with the CSS.</p>
+<h2>Conclusion</h2>
+<p>If I were to use</p>
+<pre><code>&lt;meter value="1000" min="0"  max="500"&gt;100%&lt;/meter&gt;</code></pre>
+<p>Obviously there are  inconsistencies. Now, I am  just being silly there but what the user will see on the screen is “100%&#8221; when the value is actually 1000. The meter tag puts the emphasis on the author to make sure that they are using this nice, new semantic tag,well, semantically and correctly.</p>
+<p>The attributes can appear to be quite confusing but the spec is very detailed for this element. I do think they may have missed a trick by not allowing it to be used to give a stand-alone height or weight but overall I see the meter tag being used a lot in apps and on webpages, perhaps if used with javascript, it could generate live graphs and charts (though we can also use canvas for this).</p>
+<p>Finally, I also wonder if <code>meter</code> allows for negative values? For example if the temperature was going to be between -10 and 5 degrees could I use <code>meter</code> to mark that up? I&#8217;d love to know your thoughts.</p>
+<h3>Useful Links</h3>
+<ul>
+<li><a href="http://www.whatwg.org/specs/web-apps/current-work/#the-meter-element">http://www.whatwg.org/specs/web-apps/current-work/#the-meter-element</a></li>
+</ul>
+<p><a href="http://html5doctor.com/measure-up-with-the-meter-tag/" rel="bookmark">Measure up with the meter tag</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 7, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/measure-up-with-the-meter-tag/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+		<item>
+		<title>Semantic navigation with the nav element</title>
+		<link>http://html5doctor.com/nav-element/</link>
+		<comments>http://html5doctor.com/nav-element/#comments</comments>
+		<pubDate>Wed, 15 Jul 2009 14:31:45 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[nav]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=473</guid>
+		<description><![CDATA[One of the new elements for HTML 5 is the <code>&#60;nav&#62;</code> element which allows you to group together links, resulting in more semantic meaning for your markup, and help help structure the content for screenreaders. In this article I'll discuss how and where to use it as well as some reservations I have with the specifications definition.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>One of the new elements for HTML 5 is the <code>&lt;nav&gt;</code> element which allows you to group together links, resulting in more semantic  markup  and extra structure which  may help screenreaders. In this article I&#8217;ll discuss how and where to use it as well as some reservations I have with the specifications definition.</p>
+<p>At first, I thought the <code>&lt;nav&gt;</code> element to be pretty simple. And whilst it still is very easy to use, I found the <a href="http://dev.w3.org/html5/spec/Overview.html#the-nav-element">specification </a> to not be overly helpful; a lot of decisions are left to the developer. Then on Monday Hixie made a <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-July/021008.html">change to the definition</a> of <code>&lt;nav&gt;</code> in the draft following a prompt from our very own <a href="http://html5doctor.com/author/brucel/">Dr Bruce</a>. </p>
+<h2>How to use it</h2>
+<p>You are probably used to using something like</p>
+<pre><code>&lt;div id="nav"&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a.... etc</code></pre>
+<p>Or</p>
+<pre><code>&lt;ul id="mainNav"&gt;</code></pre>
+<p>Well, for the sake of your markup, nothing much will change as you will now have something like this</p>
+<pre><code>&lt;nav&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/about/"&gt;About&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/blog/"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+<h2>The specification</h2>
+<p>The <a href="http://dev.w3.org/html5/spec/Overview.html#the-nav-element"><abbr>HTML</abbr> 5 specification</a> defines <code>&lt;nav&gt;</code> as:</p>
+<blockquote><p>The nav element represents a section of a page that links to other pages or to parts within the page: a section with navigation links. Not all groups of links on a page need to be in a nav element only sections that consist of major navigation blocks are appropriate for the nav element. In particular, it is common for footers to have a list of links to various key parts of a site, but the footer element is more appropriate in such cases, and no nav element is necessary for those links.</p></blockquote>
+<p>The key phrase there is &#8220;<strong>major navigation</strong>&#8221; (previously primary navigation).</p>
+<p>Looking at the example they give &#8211; <q>&#8220;In the following example, the page has several places where links are present, but only one of those places is considered a navigation section.&#8221;</q></p>
+<pre><code>&lt;body&gt;
+&lt;header&gt;
+&lt;h1&gt;Wake up sheeple!&lt;/h1&gt;
+&lt;p&gt;&lt;a href="news.html"&gt;News&lt;/a&gt; -
+&lt;a href="blog.html"&gt;Blog&lt;/a&gt; -
+&lt;a href="forums.html"&gt;Forums&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Last Modified: &lt;time&gt;2009-04-01&lt;/time&gt;&lt;/p&gt;
+
+&lt;nav&gt;
+&lt;h1&gt;Navigation&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="articles.html"&gt;Index of all articles&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="today.html"&gt;Things sheeple need to wake up for today&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="successes.html"&gt;Sheeple we have managed to wake&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;/header&gt;
+&lt;article&gt;
+&lt;p&gt;...<em>page content would be here</em>...&lt;/p&gt;
+&lt;/article&gt;
+&lt;footer&gt;
+&lt;p&gt;Copyright &copy; 2006 The Example Company&lt;/p&gt;
+&lt;p&gt;&lt;a href="about.html"&gt;About&lt;/a&gt; -
+&lt;a href="policy.html"&gt;Privacy Policy&lt;/a&gt; -
+&lt;a href="contact.html"&gt;Contact Us&lt;/a&gt;&lt;/p&gt;
+&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+<p>I have to say that this is no use to me. There are six items of navigation in the header element there. But only three are in the nav tag. There is no explanation as to what differentiates the first three links with the second three links &#8211; both go to different pages and all are in internal to that current site.</p>
+<p>They also give a second example:</p>
+<pre><code>&lt;body&gt;
+&lt;h1&gt;The Wiki Center Of Exampland&lt;/h1&gt;
+
+&lt;nav&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="/events"&gt;Current Events&lt;/a&gt;&lt;/li&gt;
+...more...
+&lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;article&gt;
+&lt;header&gt;
+&lt;h1&gt;Demos in Exampland&lt;/h1&gt;
+
+&lt;nav&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#public"&gt;Public demonstrations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#destroy"&gt;Demolitions&lt;/a&gt;&lt;/li&gt;
+...more...
+&lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;/header&gt;
+&lt;section id="public"&gt;
+&lt;h1&gt;Public demonstrations&lt;/h1&gt;
+&lt;p&gt;...more...&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="destroy"&gt;
+&lt;h1&gt;Demolitions&lt;/h1&gt;
+&lt;p&gt;...more...&lt;/p&gt;
+&lt;/section&gt;
+...more...
+&lt;footer&gt;
+&lt;p&gt;&lt;a href="?edit"&gt;Edit&lt;/a&gt; | &lt;a href="?delete"&gt;Delete&lt;/a&gt; | &lt;a href="?Rename"&gt;Rename&lt;/a&gt;&lt;/p&gt;
+&lt;/footer&gt;
+&lt;/article&gt;
+&lt;footer&gt;
+&lt;p&gt;&lt;small&gt;© copyright 1998 Exampland Emperor&lt;/small&gt;&lt;/p&gt;
+&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+<p>This is a little more helpful as I find the biggest isse of the <code>&lt;nav&gt;</code> element is deciding which sets of links should be classed as major navigation.</p>
+<h2>Where to use it?</h2>
+<p>If you take a peek at the source code for this site, there are three uses (<em>Ed. or four if you&#8217;re on a page that includes pagination</em>) of the nav elements &#8211; we used it on the main navigation and above the footer (both are exactly the same links by the way). We also decided to use it on the skip links that are included for accessibility.</p>
+<p>Looking at the content of the site, it could be argued that the <code>&lt;nav&gt;</code> element could be used on the Recent Articles and Categories listings in the sidebar. Should you do it? Honestly, I think it is hard to say from looking at the spec &#8211; but I would say these are not &#8220;major navigation&#8221; but it would tempting to do, particularly if you&#8217;re analytics suggest these areas of navigation are &#8216;major&#8217; ways in which your users navigate your site.</p>
+<h3>Other Possible Uses</h3>
+<p>Below are a few more examples of other areas of the site in which you might consider using the <code>&lt;nav&gt;</code> element. It is also important to note that while <abbr>XHTML</abbr> 2 <code>&lt;nl&gt;</code> element, this hasn&#8217;t been replicated in <abbr>HTML</abbr> 5 because navigation does not have to take list form, as we&#8217;ll see.</p>
+<ul>
+<li><strong>Table of Contents</strong><br />
+I would say definitely yes to that &#8211; it is primary navigation for that particularly content</li>
+<li><strong>Previous/next buttons (or pagination)<br />
+</strong>I would say yes to this because it is important to the overall structure and hierarchy of the blog/site<strong><br />
+</strong></li>
+<li><strong>Search form<br />
+</strong>For me, a definite yes, but it is not mentioned in the spec<strong>. </strong>A search form is hugely important to the navigation of a site, particularly large sites which rely almost solely on their search engine.<strong><br />
+</strong></li>
+<li><strong>Breadcrumbs<br />
+</strong>Again, I would say yes to this as well. Although breadcrumbs are not always necessary and can be used when not applicable, on large sites a breadcrumb trail can be an important navigation aid.<strong> </strong></li>
+</ul>
+<h2>The difference of nav from menu</h2>
+<p>If you aren&#8217;t aware there is another element that can confuse the issue in the <abbr>HTML</abbr> 5 specification &#8211; <a href="http://www.whatwg.org/specs/web-apps/current-work/#menus">menu</a>. I&#8217;ve noticed that some developers are using the <code>&lt;menu&gt;</code> element for navigation rather than the <code>&lt;nav&gt;</code> element. We thought it best to clarify that <code>&lt;menu&gt;</code> is to be used for a list of commands and is an interactive element and more likely to be used exclusively in Web Applications. We will be covering more about the <code>&lt;menu&gt;</code> element in a later post.</p>
+<h2>And finally&hellip;</h2>
+<p>Only with the help of the community, and hopefully a much clearer spec, can we be sure when and perhaps more importantly, when not to use the <code>&lt;nav&gt;</code> element.</p>
+<p><a href="http://html5doctor.com/nav-element/" rel="bookmark">Semantic navigation with the nav element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 15, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/nav-element/feed/</wfw:commentRss>
+		<slash:comments>86</slash:comments>
+		</item>
+		<item>
+		<title>The video element</title>
+		<link>http://html5doctor.com/the-video-element/</link>
+		<comments>http://html5doctor.com/the-video-element/#comments</comments>
+		<pubDate>Wed, 17 Jun 2009 23:58:46 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=65</guid>
+		<description><![CDATA[Edited May 2014 to change deprecated autobuffer attribute to preload, warn against using autoplay and update browser support. The &#60;video&#62; element is new in HTML 5 and allows you to, get this, play a movie in your website! The data of this element is supposed to be video but it might also have audio or [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p class="disclaimer">Edited May 2014 to change deprecated <code>autobuffer</code> attribute to <code>preload</code>, warn against using <code>autoplay</code> and update browser support.</p>
+<p>The &lt;video&gt; element is new in HTML 5 and allows you to, get this, play a movie in your website! The data of this element is supposed to be video but it might also have audio or images associated with it.</p>
+<p>It works in all modern browsers (IE9 and above).<span id="more-65"></span></p>
+<h2>The ‘old’ way</h2>
+<p>Ugh, look at this horrid code:</p>
+<pre><code>&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="425" height="344" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"&gt;
+&lt;param name="allowFullScreen" value="true" /&gt;
+&lt;param name="allowscriptaccess" value="always" /&gt;
+&lt;param name="src" value="http://www.youtube.com/v/oHg5SJYRHA0&amp;hl=en&amp;fs=1&amp;" /&gt;
+&lt;param name="allowfullscreen" value="true" /&gt;
+&lt;embed type="application/x-shockwave-flash" width="425" height="344" src="http://www.youtube.com/v/oHg5SJYRHA0&amp;hl=en&amp;fs=1&amp;" allowscriptaccess="always" allowfullscreen="true"&gt;
+&lt;/embed&gt;
+&lt;/object&gt;</code></pre>
+<p>Yuck. And as you know, you need Flash for this. Or it is often delivered via JavaScript as well so it is not perfect.</p>
+<h2>The HTML 5 way</h2>
+<p>Nice, clean, minimal code:</p>
+<pre><code>&lt;video width=&quot;640&quot;  height=&quot;360&quot; src=&quot;http://www.youtube.com/demo/google_main.mp4&quot;  controls preload&gt;
+&lt;p&gt; Try this page in a modern browser! Or you can &lt;a  href=&quot;http://www.youtube.com/demo/google_main.mp4&quot;&gt;download the  video&lt;/a&gt; instead.&lt;/p&gt;
+  &lt;/video&gt;
+</code></pre>
+<h3>Autoplay</h3>
+<p>The video tag has an attribute that allows the video to play when the page loads. </p>
+<pre><code>&lt;video src="abc.mov" autoplay&gt;
+&lt;/video&gt;</code></pre>
+<p>But <a href="http://www.punkchip.com/2009/04/autoplay-is-bad-for-all-users/">autoplay is bad ok</a>? Youtube and the like autoplay their videos. But before you push the launch button for your HTML 5 site, strongly consider whether it should autoplay a video; it&#8217;s especially annoying for those without headphones, and those using screenreaders. Mobile browsers generally ignore this attribute to prevent consuming data until user explicitly starts the download.</p>
+<h3>Download</h3>
+<p>If the browser doesn’t know what to do with video tag, or if there is a display error, you should offer a download to the video instead, <em>inside</em> the video element. </p>
+<h3>preload</h3>
+<p>The preload attribute is used when autoplay is <strong>not</strong> used. It is a hint to the browser whether to download some, all or none of the video before a user decides to play the video.</p>
+<p>It takes one of three values: </p>
+<ul>
+<li><code>preload="none"</code> tells the browser not to download any of the video. This saves bandwidth.</li>
+<li><code>preload="metadata"</code> tells the browser to download metadata, such as length of the video or its format.</li>
+<li><code>preload="auto"</code> tells the browser to do as it sees fit. This may change depending on whether a device is on wifi, 3G, data roaming etc. If you just use <code>preload</code> on its own, this defaults to <code>preload="auto"</code></li>
+</ul>
+<p>In all cases, the browser takes this attribute as a hint, not a command. If both autoplay and preload are used, then preload is ignored.</p>
+<h3>Poster</h3>
+<p>Use the poster attribute to display a frame of the video (as a .jpg, .png, whatever), in case the video doesn’t load for some reason. It can be a local image or elsewhere on the web</p>
+<pre><code>&lt;video width="640" height="360" src="http://www.youtube.com/demo/google_main.mp" autobuffer controls poster="whale.png"&gt;
+&lt;p&gt;Try this page in Safari 4! Or you can &lt;a href="http://www.youtube.com/demo/google_main.mp4"&gt;download the video&lt;/a&gt; instead.&lt;/p&gt;
+&lt;/video&gt;</code></pre>
+<p>You should use the poster attribute because you don’t want the user to see nothing.</p>
+<h3>Controls</h3>
+<p>Adding this attribute means you can use your own play/pause/etc buttons for your video. </p>
+<h3>Subtitles</h3>
+<p>Subtitling is provided with the <a href="/video-subtitling-and-webvtt/"><code>&lt;track&gt;</code> element</a> and a webVTT file.</p>
+<h2>Current issues</h2>
+<h3>Codecs</h3>
+<p>I won’t claim to be a video/audio codec expert but there are a few outstanding issues in this area, which <a href="http://www.topfstedt.de/weblog/?p=382">this article</a> does a good job explaining.</p>
+<p>UPDATE: See <a href="/video-the-track-element-and-webm-codec/">Video: the track element and webM codec</a> for more information about codecs.</p>
+<h2>Further reading</h2>
+<ul>
+<li><a href="http://dev.w3.org/html5/spec/Overview.html#video">Editor&#8217;s Draft 17 June 2009</a></li>
+<li><a href="http://www.brucelawson.co.uk/2009/accessibility-of-html5-video-and-audio-elements/">Accessibility of HTML 5 video and audio elements </a></li>
+<li><a href="http://www.alobbs.com/1369/Setting_up_a_HTML5_on_line_video_site.html">Setting up a HTML 5 on-line video site</a></li>
+<li><a href="http://blog.dailymotion.com/2009/05/27/watch-videowithout-flash/">Watch Video…without Flash</a></li>
+<li><a href="http://www.youtube.com/html5">YouTube HTML 5 demo</a></li>
+<li><a href="http://henriksjokvist.net/archive/2009/2/using-the-html5-video-tag-with-a-flash-fallback">Using the HTML 5 video tag with a Flash fallback</a></li>
+<li><a href="http://www.computedstyle.com/2009/05/lessons-from-building-basic-video.html">Lessons From Building a Basic Video Player in HTML 5</a></li>
+</ul>
+<p><a href="http://html5doctor.com/the-video-element/" rel="bookmark">The video element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 18, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-video-element/feed/</wfw:commentRss>
+		<slash:comments>138</slash:comments>
+<enclosure url="http://www.youtube.com/demo/google_main.mp4" length="4519255" type="video/mp4" />
+		</item>
+	</channel>
+</rss>

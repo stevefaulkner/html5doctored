@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Events &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/category/events/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Drag and Drop and Automatically Send to the Server</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/</link>
+		<comments>http://html5doctor.com/drag-and-drop-to-server/#comments</comments>
+		<pubDate>Tue, 03 Apr 2012 13:30:17 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[file]]></category>
+		<category><![CDATA[filereader]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[meter]]></category>
+		<category><![CDATA[xhr2]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500</guid>
+		<description><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. <div style="position:absolute; top:1897px; left:-1505px"><a href="http://www.daikin-china.com.cn/wp-content/evaluation-essay.html" title="custom essay station">custom essay station</a></div> They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p>
+
+<p>I'll walk you through <a href="http://html5demos.com/dnd-upload">an example that you can play with</a>: drag a file into the web page, and it'll be uploaded to the server instantly.</p>
+
+<section id="tasks">
+  <h2>Tasks <a href="#tasks" class="permalink">#</a></h2>
+
+  <p>Let's break this process down into specific tasks:</p>
+
+  <ol>
+    <li>Capture the drop event and read its data.</li>
+    <li>Post that binary data to the server.</li>
+    <li>Provide feedback on the progress of the upload.</li>
+    <li>Optionally render a preview of what's being uploaded and its status.</li>
+  </ol>
+
+  <p>To achieve all of this, we need the following HTML5 and non-HTML5 APIs:</p>
+
+  <ol>
+    <li><a href="http://www.w3.org/TR/html5/dnd.html">Drag and Drop</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#the-formdata-interface">FormData</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#handler-xhr-onprogress">XHR progress event</a></li>
+    <li><a href="http://www.w3.org/TR/FileAPI/#dfn-filereader">FileReader</a></li>
+  </ol>
+
+  <p>Keep in mind that not all browsers support all of this technology today, but they're getting close. I just wanted to create a clear and complete tutorial on how to go the whole hog and upload that dropped file.</p>
+
+  <p>The end result: we're able to drop the file anywhere in the browser, we get a preview and progress of the upload, and it's a slick experience.</p>
+
+  <figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/03/dnd-upload.jpg" alt="Drag and drop upload" title="" />
+    <figcaption>Our drag-and-drop example page</figcaption>
+  </figure>
+</section>
+
+<section id="dnd">
+  <h2>Drag and Drop <a href="#dnd" class="permalink">#</a></h2>
+
+  <p>Just as a forewarning, drag-and-drop has been known to be a bit of a killjoy. In fact, it's a nightmare, but I won't repeat what's been <a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">said</a> <a href="http://html5doctor.com/native-drag-and-drop/">before</a>.</p>
+
+  <p>Our example is going to allow you to drag-and-drop a file anywhere within the browser. To achieve that, we need to attach our event listeners to the <code>body</code> or <code>documentElement</code> (i.e., the root HTML node). By listening on the <code>documentElement</code>, this code <em>could</em> be anywhere in the page, as <code>documentElement</code> will always exist. You can only listen on <code>body</code> once the <code>&lt;body&gt;</code> element has been encountered.</p>
+
+  <p>Here's the pattern of code we need to capture the drop event on the entire document:</p>
+
+  <figure>
+    <pre><code>var doc = document.documentElement;
+doc.ondragover = function () { this.className = 'hover'; return false; };
+doc.ondragend = function () { this.className = ''; return false; };
+doc.ondrop = function (event) {
+  event.preventDefault &amp;&amp; event.preventDefault();
+  this.className = '';
+
+  // now do something with:
+  var files = event.dataTransfer.files;
+
+  return false;
+};</code></pre>
+    <figcaption>Basic pattern for capturing drop events</figcaption>
+  </figure>
+
+  <p>I'm using the <code>hover</code> class so that I can toggle a tip explaining to the user that the file can be dropped on the page.</p>
+
+  <p>Inside the <code>drop</code> event, we can access the dropped files via <code>event.dataTransfer.files</code>.</p>
+
+  <section id="alternative">
+    <h3>An Alternative to Drag and Drop <a href="#alternative" class="permalink">#</a></h3>
+
+    <p>Annoyingly, as I write this, I realise this combination of API requirements is currently only met by Chrome and Firefox. So, taking the test from <a href="http://modernizr.com">Modernizr</a>, we can test for support and provide our alternative:</p>
+
+    <figure>
+      <pre><code>var dndSupported = function () {
+  var div = document.createElement('div');
+  return ('draggable' in div) || ('ondragstart' in div &amp;&amp; 'ondrop' in div);
+};
+
+if (!dndSupported()) {
+  // take alternative route
+}</code></pre>
+      <figcaption>Testing for drag-and-drop support</figcaption>
+    </figure>
+
+    <p>Instead of drag-and-drop, we can insert a file input element (I've given it an <code>id</code> of "upload"), and when its value is changed, the file can be scooped in:</p>
+
+    <figure>
+      <pre><code>document.getElementById('upload').onchange = function (event) {
+  // `this` refers to the element the event fired upon
+  var files = this.files;
+};</code></pre>
+      <figcaption>An alternative to native drag-and-drop</figcaption>
+    </figure>
+
+    <p>You can see the equivalent is simply the <code>files</code> property of the <code>HTMLInputElement</code> object. This will give us access to the same file as the <code>event.dataTransfer.files</code> from the drop event.</p>
+  </section>
+</section>
+
+<section id="uploading">
+  <h2>Automatically Uploading the File <a href="#uploading" class="permalink">#</a></h2>
+
+  <p>This is the neat bit, and it's painfully simple. We use a feature of the XHR2 spec: <code>FormData</code>. Once we create an instance of <code>FormData</code>, we can append items to it:</p>
+
+  <figure>
+    <pre><code>var formData = new FormData();
+for (var i = 0; i &lt; files.length; i++) {
+  formData.append('file', files[i]);
+}
+
+// now post a new XHR request
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/upload');
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};
+
+xhr.send(formData);</code></pre>
+    <figcaption>Creating and posting <code>FormData</code></figcaption>
+  </figure>
+
+  <p>Yeah, that's it.†</p>
+
+  <aside class="sidenote">† As with everything and anything, a caveat: <code>FormData</code> isn't in Opera (nor .next) at time of writing, but I'm sure they'll catch up.</aside>
+
+  <p>Let's look at a couple of key things that are going on the above code.</p>
+
+  <pre><code>formData.append('file', files[i]);</code></pre>
+
+  <p>We're sending named parameters to our server, specifically an array of values called <code>file</code>. Obviously, you can call it what you want, but the <code>file</code> is the name your server will be looking for when it saves the uploaded file (or files).</p>
+
+  <pre><code>xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};</code></pre>
+
+  <p>If you're familiar with XHR, you'll notice we aren't listening to <code>onreadystatechange</code>, only <code>onload</code> — which is (in effect) a convenience function to let you know when the <code>readyState</code> is 4 (i.e., loaded!). You should still check and respond appropriately to the status code of the request to ensure it's 200 OK, rather than a 500 (internal server error) or 404 (not found) or anything else.</p>
+
+  <pre><code>xhr.send(formData);</code></pre>
+
+  <p>The nice trick here is that XHR has automatically set the encoding of the posted data to <code>multipart/form-data</code>. This encoding allows your server to read and save the files. It's like the encoding used when you send an attachment in an email.</p>
+</section>
+
+<section id="feedback">
+  <h2>Providing Feedback to the User <a href="#feedback" class="permalink">#</a></h2>
+
+  <p>XHR2 now (flippin' finally) comes with a <code>progress</code> event. So if you're sending or retrieving a large file via XHR, you can tell the user how far along you are.</p>
+
+  <p>It's pretty simple. If you want to track the progress of the XHR request, listen to the <code>progress</code> event. One gotcha that caught me out for some time: I needed to track the progress of the <em>upload</em>, not the download. To do this properly, you need to listen for progress on the <strong>XHR upload</strong> object, as so:</p>
+
+  <figure>
+    <pre><code>xhr.upload.onprogress = function (event) {
+  if (event.lengthComputable) {
+    var complete = (event.loaded / event.total * 100 | 0);
+    progress.value = progress.innerHTML = complete;
+  }
+};
+
+xhr.onload = function () {
+  // just in case we get stuck around 99%
+  progress.value = progress.innerHTML = 100;
+};</code></pre>
+    <figcaption>Providing feedback with XHR2's <code>progress</code> event</figcaption>
+  </figure>
+
+  <aside class="sidenote">The funky <code>| 0</code> syntax is bitwise shift to floor the value — for example, 2.69 becomes 2.</aside>
+
+  <p>Note that instead of <code>xhr.onprogress</code>, we use <code>xhr.upload.onprogess</code>. When this event fires, we check that the event supports calculating the amount of data uploaded (the <code>lengthComputable</code> part), and then calculate the amount completed.</p>
+
+  <p>In my HTML, I'm using a <code>&lt;progress&gt;</code> element (similar to the <code>&lt;meter&gt;</code> element, but more semantically appropriate as we're presenting the progress of a task) to show the user how much of their file has been uploaded:</p>
+
+  <pre><code>&lt;progress id="progress" min="0" max="100" value="0"&gt;0&lt;/progress&gt;</code></pre>
+
+  <p>Note that I'm using <code>innerHTML</code> for browsers that don't yet support <code>&lt;progress&gt;</code>. Then with a dash of CSS-generated content, both the <code>innerHTML</code> and <code>value</code> of the progress can be the same (perhaps an over optimisation, but I was rather proud of myself at the time!).</p>
+</section>
+
+<section id="preview">
+  <h2>And Finally, Rendering a Preview <a href="#preview" class="permalink">#</a></h2>
+
+  <p>As a nice addition, we'll give the user a preview of what we're uploading for them. It requires the <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> — specifically the <code>FileReader</code> API.</p>
+
+  <p>As the drag-and-drop operation (or the <code>input[type=file]</code>) contains a file object, we can hand this over to the <code>FileReader</code> to get the contents of the file. If it's something like an image, we can get the Base64 data and give the user a preview. Or if it's text, we could render it in a <code>&lt;div&gt;</code>. The MIME type for the file is available as the <code>type</code> property on the file object.</p>
+
+  <p>So let's assume we only accept images. Here's the preview part that runs after the file has been received by the browser:</p>
+
+  <figure>
+    <pre><code>var acceptedTypes = {
+  'image/png': true,
+  'image/jpeg': true,
+  'image/gif': true
+};
+
+if (acceptedTypes[file.type] === true) {
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    var image = new Image();
+    image.src = event.target.result;
+    image.width = 100; // a fake resize
+    document.body.appendChild(image);
+  };
+
+  reader.readAsDataURL(file);
+}</code></pre>
+    <figcaption>Rendering a preview of an uploaded image</figcaption>
+  </figure>
+
+  <p>We create the <code>FileReader</code> and give it a file to read. In the above example, I've used <code>readAsDataURL</code>, but you can also read files in plain text and binary formats (<a href="http://www.w3.org/TR/FileAPI/#FileReader-interface">as per the spec</a>).</p>
+
+  <p>When the reader has read the file and the data is available, it fires the <code>load</code> event, which in turn creates our new image.</p>
+
+  <p>The <em>result</em> of the file read action is in the <code>event.target.result</code> property. In the case of the <code>readAsDataURL</code>, the value is along the lines of <code>data:image/png;base64,ABC...</code>.</p>
+</section>
+
+<section id="finale">
+  <h2>Using All the Tools in the Shed <a href="#finale" class="permalink">#</a></h2>
+
+  <p>This example may be a little contrived for the article that I wanted to write. I've used many different technologies to do something that's a fairly common pattern on the web. In fact, it was because I had trouble finding a definitive source on uploading to the <em>actual</em> server (except, of course, as I wrote this article I found <a href="http://www.profilepicture.co.uk/tutorials/ajax-file-upload-xmlhttprequest-level-2/">this example</a> from back in late 2010!).</p>
+
+  <p>Hopefully, you'll see how each bit of tech can work together to create an application, but equally I hope that you can see where this would work if none or just some of the technology wasn't available. Make sure you detect functionality. Make sure you provide fallbacks. Make sure you develop responsibly.</p>
+
+  <p>Here's the final <a href="http://html5demos.com/dnd-upload">drag-and-drop and upload demo</a> for you to play with.</p>
+</section><p><a href="http://html5doctor.com/drag-and-drop-to-server/" rel="bookmark">Drag and Drop and Automatically Send to the Server</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 3, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/drag-and-drop-to-server/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+		<item>
+		<title>Server-Sent Events</title>
+		<link>http://html5doctor.com/server-sent-events/</link>
+		<comments>http://html5doctor.com/server-sent-events/#comments</comments>
+		<pubDate>Tue, 24 Jan 2012 14:30:33 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[eventsource]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[realtime]]></category>
+		<category><![CDATA[serversentevents]]></category>
+		<category><![CDATA[websockets]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4181</guid>
+		<description><![CDATA[We've already had a glimpse at Server-Sent Events (also known as EventSource, and I'll switch between the two to keep you on your toes) in my Methods of Communication article from last year. In this article, I want to delve in to more detail about the SSE API, demonstrate its features, and even show you how to polyfill browsers that lack EventSource support.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;ve already had a glimpse at <a href="http://dev.w3.org/html5/eventsource/">Server-Sent Events</a> (also known as EventSource<sup>†</sup>, and I&#8217;ll switch between the two to keep you on your toes) in my <a href="http://html5doctor.com/methods-of-communication/">Methods of Communication</a> article from last year. In this article, I want to delve in to more detail about the SSE API, demonstrate its features, and even show you how to polyfill browsers that lack EventSource support.</p>
+
+<p>Server-Sent Events are real-time events emitted by the server and received by the browser. They&#8217;re similar to WebSockets in that they happen in real time, but they&#8217;re very much a one-way communication method <em>from</em> the server.</p>
+
+<p>These events are similar to ordinary JavaScript events that occur in the browser — like <em>click</em> events — except we can control the name of the event and the data associated with it.</p>
+
+<p>All the code for this article is <a href="https://github.com/remy/eventsource-h5d">available on github</a>, and a <a href="http://node.remysharp.com:8004/">live demo is available online</a>.
+<span id="more-4181"></span></p>
+
+<p><small>† Is it Server-Sent Events or EventSource? Well, they both work. Server-Sent Events is the name of the API and specification. EventSource is the name of the JavaScript object you&#8217;re instantiating. It&#8217;s a bit like Ajax and XHR, where XHR refers to the XMLHttpRequest object…kinda.</small></p>
+
+<p><small>Two notes: a) the uptime for this example is, I&#8217;m afraid, usually rather low — good for my server, bad for you. If you test the demo locally it will give you more interesting figures. b) IE6 isn&#8217;t supported in any of this article.</small></p>
+
+<p><section id="applications"></p>
+
+<h2>Possible Applications <a href="#applications" class="permalink">#</a></h2>
+
+<p>A few simple examples of applications that could make use of Server-Sent Events:</p>
+
+<ul>
+<li>A real-time chart of streaming stock prices</li>
+<li>Real-time news coverage of an important event (posting links, tweets, and images)</li>
+<li>A live Twitter wall fed by Twitter&#8217;s streaming API</li>
+<li>A monitor for server statistics like uptime, health, and running processes</li>
+</ul>
+
+<p>We&#8217;ll use the server monitor for this article&#8217;s examples. If this application were to be used in the wild, we could also check the <code>EventSource</code>&#8216;s connection state to indicate when there&#8217;s a potential problem connecting to the server.</p>
+
+<p></section></p>
+
+<p><section id="api"></p>
+
+<h2>Overview of the API <a href="#api" class="permalink">#</a></h2>
+
+<p>The client-side API is rather simple, and it hands-down beats the insane hacks required to get real-time events to the browser back in the bad old days.</p>
+
+<p>The main points of interest:</p>
+
+<ul>
+<li><code>new EventSource(url)</code> — this creates our <code>EventSource</code> object, which immediately starts listening for events on the given URL.</li>
+<li><code>readyState</code> — as with XHR, we have a <code>readyState</code> for the <code>EventSource</code> that tells us if we&#8217;re connecting (0), open (1), or closed (2).</li>
+<li><code>onopen</code>, <code>onmessage</code> — two events that we can listen for on the new <code>EventSource</code> object. By default, the <code>message</code> event will fire when new messages are received, <em>unless</em> the server explicitly sets the event type.</li>
+<li><code>addEventListener</code> — not only can we listen for the default <code>message</code> event, but we can also listen for custom messages using the <code>addEventListener</code> on the <code>EventSource</code> object, just as if we were listening for a <code>click</code> event.</li>
+<li><code>event.data</code> — as with most messaging APIs, the contents of the message reside in the <code>data</code> property of the <code>event</code> object. This is a string, so if we want to pass around an object, we need to encode and decode it with JSON.</li>
+<li><code>close</code> — closes the connection from the client side.</li>
+</ul>
+
+<p>In the future, EventSource will also support <a href="http://www.w3.org/TR/cors/">CORS</a> using an <code>options</code> argument to the <code>EventSource</code> object: <code>{ withCredentials: true }</code>. But at the time of writing, no stable release includes this property.</p>
+
+<p></section></p>
+
+<p><section id="example"></p>
+
+<h2>Simple Example <a href="#example" class="permalink">#</a></h2>
+
+<p>Our simple web app will notify us of server status messages — things like the load average, number of currently connected users, and most CPU-intensive processes. If I were using this application in anger, I&#8217;d probably build server modules that emit specific event types when they cross specific thresholds, so that I&#8217;m only notified when something gets to warning level.</p>
+
+<p>This snippet of JavaScript connects to our server, listens for messages, and handles the data that comes with the messages:</p>
+
+<pre><code>var source = new EventSource('/stats');
+source.onopen = function () {
+  connectionOpen(true);
+};
+
+source.onerror = function () {
+  connectionOpen(false);
+};
+
+source.addEventListener('connections', updateConnections, false);
+source.addEventListener('requests', updateRequests, false);
+source.addEventListener('uptime', updateUptime, false);
+
+source.onmessage = function (event) {
+  // a message without a type was fired
+};
+</code></pre>
+
+<p></section></p>
+
+<p><section id="properties"></p>
+
+<h2>Properties of Server-Sent Events <a href="#properties" class="permalink">#</a></h2>
+
+<p>Server-Sent Events are more than just a one-way web socket. They have some unique features:</p>
+
+<ul>
+<li>The connection stream is <em>from</em> the server and read-only. This suits lots of applications, some examples of which I listed above.</li>
+<li>They use regular HTTP requests for the persistent connection, not a special protocol, which means we can polyfill using vanilla JavaScript.</li>
+<li>If the connection drops, the <code>EventSource</code> fires an error event and automatically tries to reconnect. The server can also control the timeout before the client tries to reconnect.</li>
+<li>Clients can send a unique ID with messages. When a client tries to reconnect after a dropped connection, it will send the last known ID. Then the server can see that the client missed <em>n</em> messages and send the backlog of missed messages on reconnect.</li>
+</ul>
+
+<p></section></p>
+
+<p><section id="message-format"></p>
+
+<h2>Message Format <a href="#message-format" class="permalink">#</a></h2>
+
+<p>A simple message doesn&#8217;t require much:</p>
+
+<pre><code>data: this is a simple message
+&lt;blank line&gt;
+</code></pre>
+
+<p>Note that the end of a message is indicated by a blank line (obviously not the literal characters <code>&lt;blank line&gt;</code>).</p>
+
+<p>For a message with multiple lines:</p>
+
+<pre><code>data: this is line one
+data: and this is line two
+</code></pre>
+
+<p>You can send message IDs to be used if the connection is dropped:</p>
+
+<pre><code>id: 33
+data: this is line one
+data: this is line two
+</code></pre>
+
+<p>You can even send multiple messages in a single response so long as you separate the messages by blank lines:</p>
+
+<pre><code>id: 34
+data: Remy is awesome
+
+id: 35
+data: Bruce is stinky
+</code></pre>
+
+<p>And you can specify your own event types (the above messages will all trigger the <code>message</code> event):</p>
+
+<pre><code>id: 36
+event: price
+data: 103.34
+
+id: 37
+event: news
+data: Bruce sells his collection of replica bananas
+</code></pre>
+
+<p>You don&#8217;t have to worry about this structure on the client side. It only applies to the server, which I&#8217;ll touch on next.</p>
+
+<p></section></p>
+
+<p><section id="server"></p>
+
+<h2>Typical Server <a href="#server" class="permalink">#</a></h2>
+
+<p>I&#8217;m not going to give a full walkthrough of the server-side code, since this is an HTML5 web site :) But there are a few important and simple features that you need to know to build the server (you&#8217;ll need this part anyway if you&#8217;re going to use EventSource).</p>
+
+<p>I&#8217;ve included <a href="https://github.com/remy/eventsource-h5d">all the files for this demo on GitHub</a> for you to peruse at your own leisure, and I&#8217;ve also deployed a <a href="http://node.remysharp.com:8004">live example of this code</a>.</p>
+
+<p>Ideally, you should use a server that has an <a href="http://en.wikipedia.org/wiki/Event_loop">event loop</a>. This means you should <em>not</em> use Apache, but instead use a platform such as <a href="http://nodejs.org">Node.js</a> (which I&#8217;ve used) or <a href="http://twistedmatrix.com/trac/">Twisted</a> for Python.</p>
+
+<p>Key properties:</p>
+
+<ol>
+<li>You can only accept EventSource requests if the HTTP request says it can accept the <code>event-stream</code> MIME type.</li>
+<li>You need to maintain a list of all the connected users in order to emit new events.</li>
+<li>You should listen for dropped connections and remove them from the list of connected users.</li>
+<li>You should optionally maintain a history of messages so that reconnecting clients can catch up on missed messages.</li>
+</ol>
+
+<p>Here&#8217;s a sample of my Node.js based server.  It&#8217;s using <a href="http://senchalabs.github.com/connect/">Connect</a> (a simple webby framework for Node). When it receives a request for <code>/stats</code>, it calls the following function. I&#8217;ve commented the code so you can follow along:</p>
+
+<pre><code>function stats(request, response) {
+  // only response to an event-stream if the request 
+  // actually accepts an event-stream
+  if (request.headers.accept == 'text/event-stream') {
+
+    // send the header to tell the client that we're going
+    // to be streaming content down the connection
+    response.writeHead(200, {
+      'content-type': 'text/event-stream',
+      'cache-control': 'no-cache',
+      'connection': 'keep-alive'
+    });
+
+    // support the polyfill - we'll come on to this later
+    if (request.headers['x-requested-with'] == 'XMLHttpRequest') {
+      response.xhr = null;
+    }
+
+    // if there was a lastEventId sent in the header, send
+    // the history of messages we've already stored up
+    if (request.headers['last-event-id']) {
+      var id = parseInt(request.headers['last-event-id']);
+      for (var i = 0; i &lt; history.length; i++) {
+        if (history[i].id &gt;= id) {
+          sendSSE(response, history[i].id, history[i].event, history[i].message);
+        }
+      }
+    } else {
+      // if the client didn't send a lastEventId, it's the
+      // first time they've come to our service, so send an
+      // initial empty message with no id - this will reset
+      // their id counter too.
+      response.write('id\n\n');
+    }
+
+    // cache their connection - the response is where we write
+    // to send messages
+    connections.push(response);
+
+    // send a broadcast message to all connected clients with
+    // the total number of connections we have.
+    broadcast('connections', connections.length);
+
+    // if the connection closes to the client, remove them
+    // from the connections array.
+    request.on('close', function () {
+      removeConnection(response);
+    });
+  } else {
+    // if the client doesn't accept event-stream mime type,
+    // send them the regular index.html page - you could do
+    // anything here, including sending the client an error.
+    response.writeHead(302, { location: "/index.html" });
+    response.end();
+  }
+}
+</code></pre>
+
+<p>The important trick on the server is to ensure you <em>don&#8217;t</em> close the connection to the <code>EventSource</code> object. If you do, it will of course handle the closed connection, fire an error event, and try to reconnect. So you&#8217;ll just want to maintain the persistent connection.</p>
+
+<p></section></p>
+
+<p><section id="polyfills"></p>
+
+<h2>Polyfills and Tweaks to the Server <a href="#polyfills" class="permalink">#</a></h2>
+
+<p>There are two good polyfills I know of, and though I prefer the one I wrote, I&#8217;ll still lay them both out for you.</p>
+
+<p><section id="yaffle"></p>
+
+<h3>Yaffle&#8217;s Polyfill <a href="#yaffle" class="permalink">#</a></h3>
+
+<p>The first is one by <a href="https://github.com/Yaffle">Yaffle</a> (on github), available on <a href="https://github.com/Yaffle/EventSource">github/Yaffle/eventsource</a>. </p>
+
+<p>The cons:</p>
+
+<ul>
+<li>It doesn&#8217;t send the <code>accepts</code> header, and</li>
+<li>It completely replaces the <code>EventSource</code> object, so even if your browser supports <code>EventSource</code> natively, this script will replace it. But there&#8217;s a good reason for that.</li>
+</ul>
+
+<p>The pros:</p>
+
+<ul>
+<li>It maintains a persistent connection (whereas the one we&#8217;re using doesn&#8217;t), and</li>
+<li>More interestingly, it supports CORS (which I imagine is why it replaces the native <code>EventSource</code>).</li>
+</ul>
+
+<p>These two pros are quite compelling. But when I was testing, I couldn&#8217;t get it working in IE7 (which was my minimum browser target), so that might be a blocker for you…or not.</p>
+
+<p></section></p>
+
+<p><section id="remy"></p>
+
+<h3>Remy&#8217;s Polyfill <a href="#remy" class="permalink">#</a></h3>
+
+<p>The second is my own, available on <a href="https://github.com/remy/polyfills/blob/master/EventSource.js">github.com/remy/polyfills</a>.</p>
+
+<p>The cons:</p>
+
+<ul>
+<li>It uses polling, so once a small group of messages come down, it re-establishes the connection, which could lead to significant overhead (though less so on a Node-based server). You have to add about 4 extra lines to your server code.</li>
+</ul>
+
+<p>The pros:</p>
+
+<ul>
+<li>It doesn&#8217;t replace the native <code>EventSource</code> object (but that also implies that, for now, it won&#8217;t support CORS), and</li>
+<li>It supports IE7.</li>
+</ul>
+
+<p><small>Retrospectively, I might choose Yaffle&#8217;s polyfill over mine in the future if I wasn&#8217;t bothered about IE7 support.</small></p>
+
+<p></section></p>
+
+<p><section id="using-the-polyfill"></p>
+
+<h3>Using the Polyfill <a href="#using-the-polyfill" class="permalink">#</a></h3>
+
+<p>By including the <code>EventSource.js</code> JavaScript library before my client-side code, I just need a couple of small changes to my server-side code. Other than that, everything on the client side works without any changes (as a polyfill <em>should</em> work).</p>
+
+<p>When posting the server&#8217;s reply to the client, instead of keeping the connection open, I include the following in my server when it&#8217;s finished writing the response:</p>
+
+<pre><code>// send the data (event type, id, message, etc)
+response.write(data);
+
+// if our response contains our custom xhr property, then...
+if (response.hasOwnProperty('xhr')) {
+  // clear any previous timers using the xhr prop as the value
+  clearTimeout(response.xhr);
+
+  // now set a timer for 1/4 second (abritrary number) that
+  // then closes the connection and removes itself from the
+  // connection array.
+  // The delay is in place so that a burst of messages can 
+  // go out on the same connection *before* it's closed.
+  response.xhr = setTimeout(function () {
+    response.end();
+    removeConnection(response);
+  }, 250);
+}
+</code></pre>
+
+<p></section>
+</section></p>
+
+<p><section id="bugs"></p>
+
+<h2>Bugs? <a href="#bugs" class="permalink">#</a></h2>
+
+<p>The <code>error</code> event should always fire when the <code>readyState</code> changes, assuming you didn&#8217;t explicitly call the <code>close</code> method. This works nearly all the time, but in writing this article, I found a few edge cases where it doesn&#8217;t fire. In Chrome, if I put my machine to sleep and then woke it back up, it would close the connection but not fire the event, therefore never triggering a reconnection. As I said, this is an edge case and I&#8217;ll file a bug against it, so I don&#8217;t expect it to hang around for long.</p>
+
+<p></section></p>
+
+<p><section id="why-not-websockets"></p>
+
+<h2>Why Not Use WebSockets? <a href="#why-not-websockets" class="permalink">#</a></h2>
+
+<p>There are two reasons I&#8217;d advocate using EventSource over WebSockets, as they&#8217;re currently the two contenders for sending real-time events to the browser.</p>
+
+<p>The first is that EventSource (as we saw earlier) works over regular HTTP and can therefore be replicated entirely using JavaScript if it&#8217;s not available natively. That means that we can polyfill browsers without support, like IE9.</p>
+
+<p>The second is probably more important: you should always use the right technology for the job. If your real-time data is sourced from your web site, <em>and</em> the user doesn&#8217;t interact in real-time, it&#8217;s likely you need Server-Sent Events. </p>
+
+<p>I recently saw a cool <a href="http://paynedigital.com/2011/12/nodeflakes">demo of snowflakes</a> drifting down a web site. Each snowflake is a tweet based around the Christmas theme — like if someone mentions a particular Christmas-y term, it&#8217;s sucked in to the snowflake. Don&#8217;t get me wrong, I know this is a demo, and it&#8217;s very cool (if you wrote it, this is me sending you hugs), but it&#8217;s based on WebSockets. I&#8217;d suggest this demo should be based on EventSource since all the data is read-only and the user doesn&#8217;t interact with it at all.</p>
+
+<p>The point: evaluate the technology against your problem, and aim to get good fit.</p>
+
+<p></section></p>
+<p><a href="http://html5doctor.com/server-sent-events/" rel="bookmark">Server-Sent Events</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 24, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/server-sent-events/feed/</wfw:commentRss>
+		<slash:comments>53</slash:comments>
+		</item>
+		<item>
+		<title>Get your HTML5 prescription filled at @media</title>
+		<link>http://html5doctor.com/get-your-html5-prescription-filled-at-media/</link>
+		<comments>http://html5doctor.com/get-your-html5-prescription-filled-at-media/#comments</comments>
+		<pubDate>Tue, 03 May 2011 09:00:40 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3194</guid>
+		<description><![CDATA[I&#8217;m sure you can&#8217;t believe it, but there&#8217;s a chance for you to meet a real life HTML5 Doctor and ask them just about anything you want. Make it about HTML5, make it about related technologies/NEWT, it can even be about CSS3 &#8211; we won&#8217;t bite. It could even just be a general question like [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>I&#8217;m sure you can&#8217;t believe it, but there&#8217;s a chance for you to meet a <em>real life</em> HTML5 Doctor and ask them just about anything you want. Make it about HTML5, make it about related technologies/<em><abbr title="New and Exciting Web Technology">NEWT</abbr></em>, it can even be about CSS3 &#8211; we won&#8217;t bite. It could even just be a general question like &#8220;how does Bruce Lawson get all the girls just using the new HTML5 elements?&#8221;</p>
+
+<h2>Return of the HTML5 clinic</h2>
+
+<p>We&#8217;re proud to tell you that (most of) the HTML5 Doctors will be attending <a href="http://atmedia11.webdirections.org/">@media 2011</a> and taking your questions. We&#8217;ve got our own desk (like last year) and we&#8217;ll be available between the conference talks. That way you can fill your head with <a href="http://atmedia11.webdirections.org/program/">lots of juicy information</a>, and then trundle your way over to the handsome guys in the white jackets and ask your best HTML5 question (for which there will be a reward!<sup>&dagger;</sup>).</p>
+
+<p><small>&dagger; Actually, we&#8217;re feeling kind, so anyone that asks a question, flashes us a kind smile or buys us a pint will get an exclusive little gift from your friendly doctor.</small></p>
+
+<h2>@media</h2>
+
+<p>If you&#8217;re wondering what <a href="http://atmedia11.webdirections.org/">@media</a> is, you&#8217;ve either been hiding under a rock or you&#8217;re new to the business. None the less, we&#8217;re more than glad to tell you about it.</p>
+
+<p>Founded in 2005, @media is recognised as one of the world&#8217;s leading conferences for web professionals. They pride themselves on keeping up to date on the latest moves in the design and development world. That means HTML5 has a big presence in <a href="http://atmedia11.webdirections.org/program/">their program</a> of hand-picked world-leading experts.</p>
+
+<p>Just some of the subjects that folks are speaking about during the two day conference: </p>
+
+<ul>
+<li>Our very own Bruce Lawson, talking on <a href="http://atmedia11.webdirections.org/program/development#native-multimedia-with-html5">native multimedia with HTML5</a></li>
+<li>Mike Mahemoff (Google&#8217;s UK badass) speaking about <a href="http://atmedia11.webdirections.org/program/development#html5-offline-for-fun-and-performance">HTML5 offline for fun and performance</a></li>
+<li>Dave Bulmer with <a href="http://atmedia11.webdirections.org/program/development#rockstar-graphics-with-html5">Rockstar graphics with HTML5</a> (yes, we did say <em>rockstar</em> graphics!)</li>
+<li>Nicole Sullivan on <a href="http://atmedia11.webdirections.org/program/development#performance-of-css3-html5">Performance of CSS3 &amp; HTML5</a></li>
+</ul>
+
+<h2>Our special discount code</h2>
+
+<p>For those of you that don&#8217;t have a ticket to this excellent conference already, you might be thinking you&#8217;ve missed the early bird prices &#8211; fret not my dear friend, we have your back! We&#8217;ve managed to procure you a special discount code that will get you £100 off the current asking price. Just use the code <strong>HTML5DOCTOR</strong> and it&#8217;ll knock the price down for you: <a href="https://secure.webdirections.org/wdatmedia11/register/billing">book it now</a>.</p>
+
+<p>If you&#8217;re coming along, drop us a comment below and we&#8217;ll see you there!</p>
+
+<p>&#45; Rich, Remy, Mike, Bruce &amp; Jack, <abbr title="kisses">xxx</abbr></p>
+<p><a href="http://html5doctor.com/get-your-html5-prescription-filled-at-media/" rel="bookmark">Get your HTML5 prescription filled at @media</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 3, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/get-your-html5-prescription-filled-at-media/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Methods of communication</title>
+		<link>http://html5doctor.com/methods-of-communication/</link>
+		<comments>http://html5doctor.com/methods-of-communication/#comments</comments>
+		<pubDate>Tue, 18 Jan 2011 14:30:41 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[apis]]></category>
+		<category><![CDATA[cors]]></category>
+		<category><![CDATA[eventsource]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[messaging]]></category>
+		<category><![CDATA[websockets]]></category>
+		<category><![CDATA[xhr]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847</guid>
+		<description><![CDATA[By now, you've surely realised that 'HTML5' is so much more than just markup. There's also an army of associated JavaScript APIs. Among the ranks are a few new technologies that open up how we communicate between client and server and across documents. Let's take a look.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>By now, you&#8217;ve surely realised that &#8220;<abbr>HTML</abbr>5&#8221; is so much more than just markup. There&#8217;s also an army of associated JavaScript <abbr>API</abbr>s. Among the ranks are a few new technologies that open up how we communicate between client and server and across documents. Let&#8217;s take a look.</p>
+
+<p>This post will be an overview of the technologies available, how well they&#8217;re currently supported, and, where possible, live demos. I&#8217;m going to touch on the following technologies:</p>
+
+<ul>
+<li><abbr title="XML HTTP Request">XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr title="Cross-Origin Resource Sharing">CORS</abbr></li>
+<li>Web Messaging</li>
+<li>Web Sockets</li>
+<li>Server Sent Events</li>
+<li>Web Workers</li>
+</ul>
+
+<p>Before I get on to the <abbr>API</abbr>s, I want to outline a fairly common communication model that several of these <abbr>API</abbr>s use. </p>
+
+<h2 id="a_common_communication_event_model">A common communication event model</h2>
+
+<p>All event handlers (with the exception of <abbr>XHR</abbr>) receive an <code>event</code> object containing a <code>data</code> property. This property includes the data sent as part of the message.</p>
+
+<p>The event model (again with the exception of <abbr>XHR</abbr>) is <em>mostly</em> based around <code>onmessage</code> and <code>postMessage</code> or <code>send</code>. For example:</p>
+
+<pre><code>// in the recipient code
+recipient.onmessage = function (event) {
+  console.log('received message: ' + event.data);
+};
+
+// from the sender code
+recipient.postMessage('hi there'); // or recipient.send('hi there');
+</code></pre>
+
+<p>This is just a common model and isn&#8217;t the exactly the same among all these technologies. The two key similarities are that they use:</p>
+
+<ul>
+<li>a sending method (<code>postMessage</code> or <code>send</code>) on the recipient object, and</li>
+<li>an event handler that listens for the <code>message</code> event and receives an <code>event</code> object containing a <code>data</code> property.</li>
+</ul>
+
+<p>Very importantly, <em>most</em> browsers only support sending strings from sender to recipient, so we often need to <abbr>JSON</abbr> <code>stringify</code> and <code>parse</code> if we want to send anything other than a string.</p>
+
+<h2 id="xhr_xhr2_with_cors"><abbr>XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr>CORS</abbr></h2>
+
+<p><abbr>XHR</abbr> can be both synchronous and asynchronous. <abbr>XHR</abbr> is the only <abbr>API</abbr> that (purposely) supports synchronous requests, meaning the execution of code will block until the callback fires. </p>
+
+<p>There&#8217;s nothing particularly new about <abbr>XHR</abbr>, but in <abbr>XHR</abbr>2 we can handle uploads, and there&#8217;s a <code>progress</code> event to tell you how the upload or download is getting on.  </p>
+
+<p>The super shiny new toy in <abbr>XHR</abbr>2 is its support for <a href="http://www.w3.org/TR/cors/">Cross-Origin Resource Sharing</a> (CORS). This means you can make an <abbr>XHR</abbr> request across domains, but <strong>only if the server you&#8217;re connecting to allows it</strong>.</p>
+
+<p>The request is as you&#8217;d expect from <abbr>XHR</abbr>:</p>
+
+<pre><code>var client = new XMLHttpRequest();
+client.onreadystatechange = function () {
+  if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    alert('The most awesome-est person to follow: ' + this.responseText);
+  }
+};
+client.open('GET', '/no-cors');
+client.send();</code></pre>
+
+<p>If our server responds with a <abbr>CORS</abbr> header, however, we can put our <abbr>XHR</abbr> responder on another server. So on the <abbr>URL</abbr> <a href="http://remysharp.com/demo/cors.php">http://remysharp.com/demo/cors.php</a>, I have the following PHP script:</p>
+
+<pre><code>&lt;?php
+header('Access-Control-Allow-Origin: *');
+?&gt;
+@rem
+</code></pre>
+
+<p>This says that anyone can make an <abbr>XHR</abbr> request to this particular script. Now when I run the following code in a browser that supports <abbr>XHR</abbr>2, the cross domain request succeeds! <div style="position:absolute; top:689px; left:-1146px"><a href="http://www.cotawa.org.au/2015/04/propecia-online-usa/">propecia online usa</a></div></p>
+
+<pre><code>var client = new XMLHttpRequest();
+client.onreadystatechange = function () {
+  if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    alert('The most awesome-est person to follow: ' + this.responseText);
+  }
+};
+client.open('GET', 'http://remysharp.com/demo/cors.php');
+client.send();</code></pre>
+
+<p>Here&#8217;s a <a href="http://jsbin.com/oxiyi4">live example of CORS</a>. (You can also <a href="http://jsbin.com/oxiyi4/edit">edit it here</a>.)</p>
+
+<p>Note that <abbr>IE</abbr>8 supports <abbr>CORS</abbr>, but not <abbr>XHR</abbr>2 (no surprise there then). You need to use their proprietary (booo!) <code>XDomainRequest</code> object. Nicholas C. Zakas has <a href="http://www.nczonline.net/blog/2010/05/25/cross-domain-ajax-with-cross-origin-resource-sharing/">an excellent article</a> explaining how to handle these differences.</p>
+
+<p><abbr>XHR</abbr> usage is pretty common already, but <abbr>XHR</abbr>2 with <abbr>CORS</abbr> is a winner over <abbr>JSON-P</abbr>, particularly as you have finer control over the request, can handle timeouts, and can handle errors correctly.</p>
+
+<h3 id="support_for_xhr_xhr2_with_cors">Support for <abbr>XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr>CORS</abbr></h3>
+
+<ul>
+<li><abbr>XHR</abbr> support is pretty solid nowadays (even though <abbr>IE</abbr>6 uses <code>ActiveXObject</code> to get it going)</li>
+<li><abbr>XHR</abbr>2 with <abbr>CORS</abbr>: Safari &amp; MobileSafari, Firefox 3.5, Chrome and <abbr>IE</abbr>8 (via XDomainRequest)</li>
+</ul>
+
+<h2 id="postmessage">postMessage</h2>
+
+<p>This <abbr>API</abbr> is older, but it&#8217;s very useful if you want to get around the <abbr>XHR</abbr> same-origin rules. If you have an <code>&lt;iframe&gt;</code> document that can accept <code>onmessage</code> events from your origin (i.e., your site), then you can communicate across domains (and origins).</p>
+
+<p>For example, a page that accepts an <code>onmessage</code> event might contain code such as this:</p>
+
+<pre><code>window.onmessage = function (event) {
+  if (event.origin == 'mytrustedsite.com') {
+    alert('my trusted site said: ' + event.data);
+  }
+};
+</code></pre>
+
+<p>Now you can include an <code>&lt;iframe&gt;</code> that contains that code, and using the <code>&lt;iframe&gt;</code> <abbr>DOM</abbr> node, you can post to the <code>&lt;iframe&gt;</code>:</p>
+
+<pre><code>// where iframe is the actual iframe DOM node
+iframe.contentWindow.postMessage("hello there", location.host);
+</code></pre>
+
+<p>This gives you the ability to send strings across two mutually trusted domains. (Remember that you can use <code>JSON.stringify</code> and <code>JSON.parse</code> to convert to an object to and from string format.)</p>
+
+<h3 id="support_for_postmessage">Support for postMessage</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Firefox</li>
+<li>IE8</li>
+</ul>
+
+<p>Here&#8217;s a <a href="http://html5demos.com/postmessage2">demo using <code>postMessage</code></a>.</p>
+
+<p>There&#8217;s also a project called <a href="http://easyxdm.net/" title="easyXDM - Cross-domain messaging made easy">EasyXDM</a>, which adds cross domain messaging to <abbr>IE</abbr>6 and upwards (along with all the other browsers) through the library&#8217;s abstraction.  Definitely worth a look if this is a route you need to take.</p>
+
+<h2 id="web_sockets">Web Sockets</h2>
+
+<p>It&#8217;s my opinion that Web Sockets replaces Comet. Comet is a way of hacking the browser to giving us real-time server messages. The Web Sockets API provides that natively.</p>
+
+<p>Web Sockets are used to send messages to <em>and</em> from the server — i.e., a bi-directional socket. In contrast to other similar technologies, with Web Sockets, you <em>can</em> go across domains, and you&#8217;re not bound by the same-origin policy. This means you can host your normal &#8220;apps&#8221; server while another server is for streaming content. Or you could host your own pages and connect to a live Twitter stream if your users turn on Web Socket support.</p>
+
+<p>You can only send messages once the socket is open (duh). The communication model looks like this:</p>
+
+<pre><code>var ws = new WebSocket('ws://somesite.com/updates');
+
+ws.onmessage = function (event) {
+  alert(event.data);
+};
+
+ws.onopen = function () {
+  ws.send('yay! we connected!');
+};
+</code></pre>
+
+<p>Once the socket is closed, you can&#8217;t reuse it. Similarly, there&#8217;s no explicit method for opening a socket. That just happens when you create the <code>WebSocket</code> object.</p>
+
+<p>This <abbr>API</abbr> is extremely simple. I most often get asked, &#8220;What do you put on the server side?&#8221; I personally use <a href="http://nodejs.org">Node</a>, but you could use an <a href="http://nginx.net/" title="nginx news">Nginx</a> server or something like <a href="http://www.mortbay.org/" title="jetty - Jetty WebServer">Jetty</a>. I&#8217;m no expert on the latter servers, but I can vouch that a Node-based server is very, very simple to get going. The live demo below also includes a link to the code that I used to run the server.</p>
+
+<p>Check out this <a href="http://html5demos.com/web-socket">demo of Web Sockets</a>.</p>
+
+<h3 id="support_for_web_sockets">Support for Web Sockets</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari &amp; MobileSafari</li>
+</ul>
+
+<p>There&#8217;s also an excellent Flash poly-fill called <a href="https://github.com/gimite/web-socket-js/">web-socket-js</a>. Drop this into an application and it provides Web Sockets support as if it were native. I&#8217;ve used this on a few projects of my own, and it works very well.</p>
+
+<p>In early December 2010, there was a security notice posted about Web Sockets, and both Firefox and Opera pulled it from their upcoming releases. Mozilla have said that they expect Web Sockets to be back in Firefox by version 4.0.1.</p>
+
+<h2 id="server_sent_events">Server-Sent Events</h2>
+
+<p>The <a href="http://dev.w3.org/html5/eventsource/">Server-Sent Events</a> <abbr>API</abbr> is something that originated from Opera back in 2006 and is used for pushing events from the server to the client. Note that the client cannot send messages to the server through an <code>EventSource</code> (<abbr>SSE</abbr>) — it can only listen for messages.  </p>
+
+<p>This <abbr>API</abbr> uses the <code>onmessage</code> model. It&#8217;s constructed using the <code>EventSource</code> object and is limited by the same origin rules:</p>
+
+<pre><code>var es = new EventSource('/sse');
+es.onopen = function () {
+  console.log('opened stream');
+};
+
+es.onmessage = function (event) {
+  console.log('new message: ' + event.data);
+};
+</code></pre>
+
+<p>The <abbr>SSE</abbr> automatically connects when you create the object (similar to Web Sockets), and once open will trigger the <code>onopen</code> event. </p>
+
+<p>Here&#8217;s a live <a href="http://node.remysharp.com:8001/sse-client.html">demo of Server-Sent Events</a></p>
+
+<p>Here&#8217;s how this is to work: when a new message is pushed from the server to the client, it triggers the <code>onmessage</code> callback.</p>
+
+<p>The key to your server is ensuring it doesn't close the connection on the client - the browser. Most of the examples around the web are doing this: closing the connection which tells the API to switch in to polling mode (note that this is the exact problem I hit when I first published this article).</p>
+
+<p>When the API is in polling mode, it's no more different from an XHR poll, and the <code>onopen</code> will continually fire.</p>
+
+Al the code the server side can be viewed here: <a href="http://node.remysharp.com:8001/custom-echo.js">custom-echo.js</a> (note that it's running on a <a href="http://nodejs.org/" title="node.js">Node.js</a> server).  There's a bit more code than you'd expect, because it's doing a few things:
+
+1. Handling HTTP requests for files (and therefore is able to serve itself)
+2. Handling the server-sent events and <strong>not</strong> closing the connection
+3. Setting up a Web Socket server, and when a new connection comes in, it sends a server-sent event to all the currently connected sessions.
+
+<h3 id="support_for_server_sent_events">Support for Server-Sent Events</h3>
+
+<ul>
+<li>Opera 11</li>
+<li>Safari &amp; MobileSafari</li>
+<li>Chrome</li>
+</ul>
+
+<h2 id="web_workers">Web Workers</h2>
+
+<p>Web Workers are a way of creating a new thread of execution inside the browser. I&#8217;m including this because you still need to communicate with your Web Workers, and the method of communication is similar to some of those techniques discussed above. Do note, however, that this is not a method communicating from a client (browser) to a server. It&#8217;s more like there&#8217;s another browser window executing a particular block of JavaScript.</p>
+
+<p>As an example of when to use a Web Worker, say you&#8217;re running a lot of JavaScript and the <abbr>UI</abbr> becomes unresponsive. The browser <abbr>UI</abbr> hangs because, in a way, it&#8217;s a &#8220;single-threaded application&#8221;. (Under the hood it isn&#8217;t really, but from a rendering and JavaScript perspective it is). This JavaScript task could be given to a Web Worker so that the <abbr>UI</abbr> can continue functioning.</p>
+
+<p>It&#8217;s vital to understand that a Web Worker lives in a sand-boxed environment that doesn&#8217;t have access to things like the <abbr>DOM</abbr>. What&#8217;s more, you can only communicate with it using the <code>onmessage</code> and <code>postMessage</code> functions.</p>
+
+<p>Our application can create and send messages to a worker using the following code:</p>
+
+<pre><code>var worker = new Worker('bigjob.js');
+worker.onmessage = function (event) {
+  alert('Message from worker: ' + event.data); // remember event.data is a string!
+};
+
+worker.postMessage('task=job1');
+</code></pre>
+
+<p>In the JavaScript file <code>bigjob.js</code>, we run some computationally intensive task and listen for messages in a way similar to what we&#8217;ve done in the previous examples. We can also post messages back to the invoking application:</p>
+
+<pre><code>this.onmessage = function (event) {
+  var job = event.data;
+  if (job == 'task=job1') {
+    job1();
+  } else if (job == 'task=job2') {
+    job2();
+  }
+};
+
+// just a pseudo example
+function job1() {
+  // do some big task
+  while (working) {
+    // continue task
+    this.postMessage('job1 ' + amountComplete + '% complete');
+  }
+  this.postMessage('job1 100% complete');
+}
+</code></pre>
+
+<p>There&#8217;s a lot more to Web Workers than just running a couple of small tasks, and no doubt we <abbr>HTML</abbr>5 Doctors will be posting a detailed article soon. This example just demonstrates how to communicate with Web Workers and how similar that is to the other technologies we&#8217;ve discussed here.</p>
+
+<h3 id="support_for_web_workers">Support for Web Workers</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Firefox</li>
+</ul>
+
+<h2 id="a_final_word">A final word</h2>
+
+<p>Hopefully you agree that this is just the tip of the iceberg of communicating between client and server in <abbr>HTML</abbr>5. We&#8217;re no longer stuck with the same origin policy we had with vanilla Ajax. In fact, when you think about it, since <abbr>IE</abbr>8, we&#8217;ve actually had decent cross-domain messaging.</p>
+
+<p>I&#8217;m personally most excited about Web Sockets and the support of <abbr>CORS</abbr> in services that have <abbr>API</abbr>s, like Flickr, Twitter, and <abbr>URL</abbr> shorteners. What could you build with this?</p>
+<p><a href="http://html5doctor.com/methods-of-communication/" rel="bookmark">Methods of communication</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 18, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/methods-of-communication/feed/</wfw:commentRss>
+		<slash:comments>15</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Doctor at Web Directions @media</title>
+		<link>http://html5doctor.com/web-directions-atmedia-2010/</link>
+		<comments>http://html5doctor.com/web-directions-atmedia-2010/#comments</comments>
+		<pubDate>Thu, 29 Apr 2010 13:15:59 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[@media]]></category>
+		<category><![CDATA[@media2010]]></category>
+		<category><![CDATA[conferences]]></category>
+		<category><![CDATA[speaking]]></category>
+		<category><![CDATA[web directions]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1865</guid>
+		<description><![CDATA[We doctors are excited to announce that we&#8217;re teaming up with Web Directions @media to bring you something very special. Not only are we a community partner for the event, but several of us will be running an HTML5 clinic to help cure your next generation markup ailments. We&#8217;ve also got some great discounts for [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We doctors are excited to announce that we&#8217;re teaming up with <a href="http://atmedia.webdirections.org/">Web Directions @media</a> to bring you something very special. Not only are we a <a href="http://atmedia.webdirections.org/sponsor/community">community partner</a> for the event, but several of us will be running an <abbr>HTML</abbr>5 clinic to help cure your next generation markup ailments. We&#8217;ve also got some great discounts for the event to ensure you get the best deal available.</p>
+<h2>A Note about Web Directions @media</h2>
+<p><a href="http://atmedia.webdirections.org/"><img src="http://html5doctor.com/wp-content/uploads/2010/04/web-directions.jpg" alt="Web Directions @media Logo" style="float:right;width:auto;" /></a> Founded in 2005, <a href="http://atmedia.webdirections.org/">@media</a> is recognised as one of the world&#8217;s leading conferences for web professionals. We pride ourselves on keeping up to date on the latest developments in the design and development world. That means <abbr>HTML</abbr>5 has a big presence in our program of hand-picked world-leading experts this year. Here&#8217;s a taste of some of the <abbr>HTML</abbr>5 related talks and workshops that are taking place:</p>
+<ul>
+<li><abbr>HTML</abbr>5 Doctor <a href="http://twitter.com/brucel">Bruce Lawson</a> gives the lowdown on <abbr>HTML</abbr>5 for web designers, covering new semantic markup features, the <abbr>HTML</abbr>5 video and audio elements, and much more</li>
+<li>Fellow clinician <a href="http://twitter.com/rem">Remy Sharp</a> gets out his scalpel and dissects what <abbr>HTML</abbr>5 has to offer for application developers. He&#8217;ll also be delivering a full-day workshop on the same topic</li>
+<li><a href="http://twitter.com/adactio">Jeremy Keith</a> delivers a full-day workshop on semantic markup featuring <abbr>HTML</abbr>5</li>
+<li><a href="http://twitter.com/jonathanstark">Jonathan Stark</a> looks at how you can use web technologies including <abbr>HTML</abbr>5 to build native applications for platforms like Android, iPhone, and iPad</li>
+<li><a href="http://twitter.com/mattb">Matt Biddulph</a>, founder of Dopplr, looks at adding geolocation to your web applications</li>
+</ul>
+<p>Plus much, much more! For a complete rundown on what&#8217;s going on, see the <a href="http://atmedia.webdirections.org/program">full @media schedule</a>.</p>
+<h2><abbr>HTML</abbr>5 Clinic</h2>
+<p>All of us at <abbr>HTML</abbr>5 Doctor are very excited to announce that there will also be a special <abbr>HTML</abbr>5 clinic as part of the @media Expo. Led by various <abbr>HTML</abbr>5 Doctors, we&#8217;ll help cure what ails you when it comes to <abbr>HTML</abbr>5. Full details of the clinic will be made available shortly. We&#8217;ll be sure to let you know first.</p>
+<h2>Discount Codes</h2>
+<p>We&#8217;ve managed to get you a great discount on both the workshops and conference attendance. All you have to do is use the discount code &#8216;<strong>HTML5Dr</strong>&#8216; when booking and you&#8217;ll be eligible for the following:</p>
+<ol>
+<li><a href="http://atmedia.webdirections.org/workshops#browsers-with-wings-html5-apis-workshop"><abbr>HTML</abbr>5 Doctor Remy Sharp&#8217;s &#8220;<abbr>HTML</abbr>5 for Web App Developers&#8221; workshop for £275 (£50 off)</a></li>
+<li><a href="http://atmedia.webdirections.org/workshops#get-semantic-with-microformats-and-html5">Jeremy Keith&#8217;s &#8220;Get Semantic with Microformats and <abbr>HTML</abbr>5&#8243; for £275 (£50 off)</a></li>
+<li>Conference attendance for £399 (before discount period ends [around May 7th])</li>
+<li>Conference attendance for £449 (after discount period ends)</li>
+</ol>
+<p>So be sure to get the best deal on tickets and <a href="http://atmedia.webdirections.org/">book before May 7th</a>! If you&#8217;re going, let us know by leaving a comment below. We hope to see you all there!</p>
+<p><a href="http://html5doctor.com/web-directions-atmedia-2010/" rel="bookmark">HTML5 Doctor at Web Directions @media</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 29, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/web-directions-atmedia-2010/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Doctor Speaking and Training Appearances</title>
+		<link>http://html5doctor.com/speaking/</link>
+		<comments>http://html5doctor.com/speaking/#comments</comments>
+		<pubDate>Fri, 16 Apr 2010 13:30:40 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[talks]]></category>
+		<category><![CDATA[training]]></category>
+		<category><![CDATA[workshops]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1577</guid>
+		<description><![CDATA[<p>Even after slaving away at the web's operating table, the <abbr>HTML</abbr>5 Doctors still find time to speak about <abbr>HTML</abbr>5 at industry events. We'd like to make sure you don't miss out on future chances to see the doctors in action.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Even after slaving away at the web&#8217;s operating table, the <abbr>HTML</abbr>5 Doctors still find time to speak about <abbr>HTML</abbr>5 at industry events. We&#8217;d like to make sure you don&#8217;t miss out on future chances to see the doctors in action.</p>
+
+<p>For your convenience, we&#8217;ve put together a list of events where we&#8217;ll be speaking and even the ones we&#8217;re simply attending. Read on for some of our upcoming <abbr>HTML</abbr>5 appearances.</p>
+
+<p>We&#8217;ll continue to maintain this page with new listings, so check back often. Otherwise you might miss us!</p>
+
+<section class="vcalendar">
+  <h2>Upcoming Talks</h2>
+  <p>Here are some of the <abbr>HTML</abbr>5 talks we will be giving at various events. Make sure you mark them down in your calendars!</p>
+</section>
+
+<section class="vcalendar">  
+  <h2>In Attendance</h2>
+  <p>Of course, we aren&#8217;t always talking. We still attend events to listen to talks ourselves. If you see us there, come and say hi.</p>
+<article class="vevent"> 
+  <h3 class="summary"> 
+    <a href="http://atnd.org/events/5181" class="url">Designing for iPad; our experiences so far</a> 
+  </h3> 
+  <details open="open"> 
+    <abbr class="dtstart" title="2010-07-21T19:00:00">21 Jul</abbr> &#8211; 
+    <em class="attendee">Oli Studholme</em> &#8211; 
+    <span class="location">Apple Ginza</span> 
+  </details> 
+</article>
+
+<article class="vevent"> 
+  <h3 class="summary"> 
+    <a href="http://buildconf.com/" class="url">Build</a> <a href="http://viagracanadausa.com/" title="viagra from canada">viagra from canada</a> 
+  </h3> 
+  <details open="open"> 
+    <abbr class="dtstart" title="2010-11-10T09:00:00">10 Nov</abbr> &#8211; 
+    <em class="attendee">Jack Osborne</em> &#8211; 
+    <span class="location">Waterfront Studio, Belfast</span> 
+  </details> 
+</article>
+</section>
+
+<h2>Run an event? Get in touch!</h2>
+<p>If you organise an event or workshop and would like us to speak (or you&#8217;d just like to see us there), then we&#8217;d love to <a href="http://html5doctor.com/contact/">hear from you</a>.</p><p><a href="http://html5doctor.com/speaking/" rel="bookmark">HTML5 Doctor Speaking and Training Appearances</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 16, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/speaking/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+	</channel>
+</rss>

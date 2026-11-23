@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>del &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/del/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Comparing and contrasting ins, del, and s</title>
+		<link>http://html5doctor.com/ins-del-s/</link>
+		<comments>http://html5doctor.com/ins-del-s/#comments</comments>
+		<pubDate>Tue, 20 Aug 2013 13:30:34 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[del]]></category>
+		<category><![CDATA[ins]]></category>
+		<category><![CDATA[s]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5086</guid>
+		<description><![CDATA[<p>Since the mists of HTML 2 we’ve been able to semantically indicate added or removed information using the elements <code>&#60;ins&#62;</code> and <code>&#60;del&#62;</code> respectively. While seemingly simple on the surface these elements have hidden depths. I’ll also compare and contrast <code>&#60;del&#62;</code> with <code>&#60;s&#62;</code>, recently out of font style rehab and back in HTML5. Let’s start with <code>&#60;ins&#62;</code> and <code>&#60;del&#62;</code>…</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Since the mists of HTML 2 we’ve been able to semantically indicate added or removed information using the elements <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> respectively. While seemingly simple on the surface these elements have hidden depths. I’ll also compare and contrast <code>&lt;del&gt;</code> with <code>&lt;s&gt;</code>, recently out of font style rehab and back in HTML5. Let’s start with <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code>…</p>
+
+<section>
+<h2 id="ins-del">Using <code>ins</code> and <code>del</code></h2>
+
+<p>These two elements have very simple definitions:</p>
+
+<blockquote>
+  <p>The <code>ins</code> and <code>del</code> elements represent edits to the document.</p>
+<p>The <code>ins</code> element represents an addition to the document.</p>
+<p>The <code>del</code> element represents a removal from the document.</p>
+<p>— <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/edits.html">WHATWG HTML Living Specification</a></p>
+</blockquote>
+
+<p>So what kind of edits are we talking about? You could use these elements to:</p>
+
+<ul>
+  <li>Record changes to an official document, such as meeting minutes or a law</li>
+  <li>Note changes to an article — in addition to journalistic corrections, this helps to maintain editorial integrity and avoid charges of “rewriting history”</li>
+  <li>Indicate the changes between two versions of a document (a diff), for example to indicate editorial changes</li>
+  <li>Indicate a signficant addition or removal of content that people accessing the document would benefit from knowing about</li>
+</ul>
+
+<p>While some uses require recording changes exactly, when you’re just highlighting a change I think minor editing for clarity or grammar is fine — as long as the <em>meaning</em> isn’t changed. If necessary consider adding a note describing the change, perhaps in a footer or aside. Also, keep in mind that it rapidly becomes impractical (or impossible) to mark up <em>all</em> edits — only use these elements when there’s a benefit in explicitly indicating them.</p>
+
+<section>
+<h3 id="implied-paragraph-bondaries">“Implied paragraph bondaries”</h3>
+
+<p><code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> are unusual in that they can contain contain phrasing content <em>or</em> flow content (in HTML 4-speak, they can be inline or block-level). For example, here’s an inserted paragraph that contains a phrasing content deletion:</p>
+
+<pre><code>&lt;!-- block-level ins --&gt;
+&lt;ins&gt;
+  &lt;!-- inline del --&gt;
+  &lt;p&gt;Today I saw &lt;del&gt;flying monkeys&lt;/del&gt; the doctor. The prognosis was not good.&lt;/p&gt;
+&lt;/ins&gt;</code></pre>
+
+<p>Note that browsers will style these elements as inline by default, and you’ll need to include <code>display: block;</code> if you want to apply block-level styling. We’ll cover this <a href="#flow-ins-del-css">later in the article</a>.</p>
+
+<p>The spec warns that the elements “should not cross implied paragraph boundaries”. These occur when there’s phrasing content (= text or inline elements) without a block-level element wrapper as a sibling of a block-level element. For example:</p>
+
+<pre><code>&lt;div&gt;
+  &lt;p&gt;This text is in a block-level element.&lt;/p&gt;
+  &lt;!-- implied paragraph boundary here --&gt;
+  Oh snap! Someone forgot the paragraph tags!
+&lt;/div&gt;</code></pre>
+
+<p>Of course, we <em>always</em> wrap our text, so this would never happen to us! But still, now you know ^_^</p>
+
+<p>We also need to make sure each <code>&lt;ins&gt;</code> or <code>&lt;del&gt;</code> element is either inline or block-level, but <strong>not</strong> both. For example, don’t start in the middle of one paragraph and end in the middle of the next.</p>
+
+<pre><code>&lt;!-- <mark>This is wrong</mark> --&gt;
+&lt;p&gt;Flying monkeys are <mark>&lt;del&gt;a common hazard.&lt;/p&gt;
+&lt;p&gt;Protect yourself by&lt;/del&gt;</mark> screeching loudly.&lt;/p&gt;
+
+&lt;!-- del as inline --&gt;
+&lt;p&gt;Flying monkeys are <mark>&lt;del&gt;a common hazard.&lt;/del&gt;</mark>&lt;/p&gt;
+&lt;p&gt;<mark>&lt;del&gt;Protect yourself by&lt;/del&gt;</mark> screeching loudly.&lt;/p&gt;
+
+&lt;!-- del as block-level --&gt;
+<mark>&lt;del&gt;
+  &lt;p&gt;Flying monkeys are a common hazard.&lt;/p&gt;
+  &lt;p&gt;Protect yourself by screeching loudly.&lt;/p&gt;
+&lt;/del&gt;</mark>
+&lt;p&gt;Flying monkeys are screeching loudly.&lt;/p&gt;</code></pre>
+</section>
+
+<section>
+<h3 id="datetime-cite"><code>datetime</code> and <code>cite</code> attributes</h3>
+
+<p>The <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> elements can also take two optional attributes, <code>datetime</code> and <code>cite</code>. You’ll be familiar with <code>datetime</code> from <a href="http://html5doctor.com/the-time-element/">our article on the <code>&lt;time&gt;</code> element</a>, and it works just the same here. Use it to record the date (and optionally the time) of the edit:</p>
+
+<pre><code>&lt;p&gt;&lt;del datetime=&quot;2012-09-13&quot;&gt;Todo: add a datetime example here.&lt;/del&gt;  &lt;ins datetime=&quot;2012-09-14T10:21:44+09:00&quot;&gt;This inserted text has the date and time it was added indicated via the datetime attribute.&lt;/ins&gt;&lt;/p&gt;</code></pre>
+
+<p><code>cite</code> will also be familiar if you’ve read our article <a href="http://html5doctor.com/blockquote-q-cite/#cite">Quoting and citing with <code>blockquote</code>, <code>q</code>, <code>cite</code>, and the <code>cite</code> attribute</a>. It contains a URL linking to more information about the change.</p>
+
+<pre><code>&lt;!-- Reference or in-page links are URLs too --&gt;
+&lt;ins cite=&quot;#ins-1&quot;&gt;This inserted text has a cite attribute, with a link to more information.&lt;/ins&gt;</code></pre>
+
+<p>As this is generally hidden data, there’s a strong chance of it becoming <a href="http://en.wikipedia.org/wiki/Metacrap">metacrap</a>. You can help avoid this by exposing <code>cite</code> with CSS:</p>
+
+<figure id="metacrap-cite">
+<style scoped>
+#metacrap-cite ins[cite]:after {
+  content: " (" attr(cite) ")";
+  font-size: 75%;
+  line-height: 0;
+  color: #888;
+}
+</style>
+<pre><code>&lt;style&gt;
+ins[cite]:after,
+del[cite]:after {
+  content: &quot; (&quot; attr(cite) &quot;)&quot;;
+  font-size: 75%;
+  line-height: 0;
+  color: #888;
+}
+&lt;/style&gt;
+…
+&lt;ins cite=&quot;http://html5doctor.com/more-info/123&quot;&gt;[Inserted text…] More information is available about this addition.&lt;/ins&gt;</code></pre>
+<p><ins cite="http://html5doctor.com/more-info/123"><em>[Inserted text…]</em> More information is available about this insertion.</ins></p>
+<figcaption>Example CSS to append the <code>cite</code> attribute’s value as generated content.</figcaption>
+</figure>
+
+<p>Even better, consider adding this link as content, for example:</p>
+
+<pre><code>&lt;ins&gt;This is an article update&lt;a href=&quot;#ins-1&quot;&gt;¹&lt;/a&gt;.&lt;/ins&gt;
+…
+&lt;footer&gt;
+  &lt;h2&gt;Article changes&lt;/h2&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;ins-1&quot;&gt;This addition was added on &lt;time datetime=&quot;2012-09-14T10:21:44+09:00&quot;&gt;14th September 2012&lt;/time&gt; by Oli Studholme.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/footer&gt;</code></pre>
+
+<p>Finally, make sure when using <code>&lt;del&gt;</code> that this is a removal from the document you want/need to indicate. Other options include commenting the content out using <code>&lt;!-- --&gt;</code>, or deleting it from the HTML source.</p>
+</section>
+</section>
+
+<section>
+<h2 id="s">The <code>s</code> element</h2>
+
+<p>The specification describes the <code>&lt;s&gt;</code> thus:</p>
+
+<blockquote>
+  <p>The <code>s</code> element represents contents that are no longer accurate or no longer relevant.</p>
+  <p>— <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-s-element">WHATWG HTML Living Specification</a></p>
+</blockquote>
+
+<p>Historically <code>&lt;s&gt;</code> (and the obsolete <code>&lt;strike&gt;</code>) were font style elements, and they were deprecated in HTML 4, then dropped in HTML5. However, a couple of semantic use cases have seen <code>&lt;s&gt;</code> return. These include marking up the original price when something is on sale, and indicating a time limit that has passed, such as early bird tickets for an event. This is content that provides useful information so we don’t want to delete it, but it’s not accurate and we want to indicate this. Other uses include any outdated but still relevant information that isn’t the result of an edit. The <code>&lt;s&gt;</code> element could even arguably be used for indicating sarcasm, or for marking up examples of <a href="http://en.wikipedia.org/wiki/Sous_rature"><i lang="fr" title="Crossing out a word but allowing it to remain legible and in place, signifying that the word is “inadequate yet necessary”">Sous rature</i></a> for all you Jacques Derrida fans out there. Well… maybe ;-).</p>
+
+<p>As an example, if Kickstarter used <code>&lt;s&gt;</code>, it might look like this:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2013/08/s-example.png" width="168" height="64" class="alignnone size-full wp-image-5262" />
+<figcaption>Using the <code>&lt;s&gt;</code> element to semantically indicate when a limited pledge is full</figcaption>
+</figure>
+
+<section>
+<h3 id="s-del-fight"><code>s</code> vs <code>del</code>: fight!</h3>
+
+<p>The <code>&lt;s&gt;</code> element seems dangerously close to stepping on the semantic toes of <code>&lt;del&gt;</code>, as I’m sure someone will helpfully point out in the comments :) However, there is a subtle but significant difference. <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> are for showing <em>editorial changes</em>, generally to an already published page. The <code>&lt;s&gt;</code> element is for indicating information that is no longer relevant or accurate, but still provides some value, and is generally used to create a document with both old and new information <em>at the same time</em>.</p>
+
+<p>Hixie describes the difference in this way:</p>
+
+<blockquote>
+<p>[T]o put it another way, with <code>&lt;del&gt;</code> there is usually a view of the document that doesn&#8217;t include the <code>&lt;del&gt;</code> text. But with <code>&lt;s&gt;</code> there is no version of the document without the <code>&lt;s&gt;</code> text, because the <code>&lt;s&gt;</code> text is part of the document still, it&#8217;s just that it&#8217;s marked as old.</p>
+<p>— Ian Hickson in the <a href="http://krijnhoetmer.nl/irc-logs/whatwg/20130409#l-123">WHATWG IRC channel</a></p>
+</blockquote>
+</section>
+</section>
+
+<section>
+<h2 id="ins-del-s-styling">Styling <code>ins</code>, <code>del</code>, and <code>s</code></h2>
+
+<p>The browser default styles are:</p>
+
+<div id="default-styles">
+<style scoped>
+#default-styles .default-ins {
+  border-bottom: none;
+  text-decoration: underline;
+  color: auto;
+  background-color: auto;
+}
+#default-styles .default-del {
+  border-bottom: none;
+  text-decoration: strikethrough;
+  color: #444; /* match default text color */
+  background-color: auto;
+}
+#default-styles .default-s {
+  text-decoration: strikethrough;
+  color: auto;
+  background-color: auto;
+}
+</style>
+
+<ul>
+<li><code>&lt;ins&gt;</code>: <code>text-decoration: underline</code> (<ins class="default-ins">default inserted content</ins>)</li>
+<li><code>&lt;del&gt;</code>: <code>text-decoration: line-through</code> (<del class="default-del">default deleted content</del>)</li>
+<li><code>&lt;s&gt;</code>: <code>text-decoration: line-through</code> (<s class="default-s">default strikethrough content</s>)</li>
+</ul>
+</div>
+
+<p>By using underline, the default <code>&lt;ins&gt;</code> styling is very similar to a visited link, a classic usability blunder. Worse, the default <code>&lt;del&gt;</code> and <code>&lt;s&gt;</code> styles are identical (although it’s rare that you’ll use them together). However, as long as <code>&lt;s&gt;</code> is visually distinct from <code>&lt;del&gt;</code>, I’ve found the default <code>text-decoration: strikethrough;</code> style of <code>&lt;s&gt;</code> ends up being what you generally want.</p>
+
+<section>
+<h3 id="phrasing-ins-del-css">Phrasing <code>ins</code> and <code>del</code> styling</h3>
+
+<p>Here are some styles I’ve used for <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> in the past:</p>
+
+<div id="phrasing-css" class="two-up">
+<style scoped>
+#phrasing-css .nice-ins-1 {
+  border-bottom: 1px solid #47ad09;
+  text-decoration: none;
+  color: auto;
+  background-color: auto;
+}
+#phrasing-css .nice-ins-2 {
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+  color: #388807;
+  background-color: auto;
+}
+#phrasing-css .nice-ins-3 {
+  text-decoration: none;
+  color: auto;
+  background-color: #d4fcbc;
+}
+#phrasing-css .nice-del-1 {
+  text-decoration: none;
+  color: #777;
+  background-color: auto;
+}
+#phrasing-css .nice-del-2 {
+  text-decoration: none;
+  color: #91081f;
+  background-color: auto;
+}
+#phrasing-css .nice-del-3 {
+  text-decoration: none;
+  color: #555;
+  background-color: #fbb6c2;
+}
+</style>
+
+<section>
+<h4><code>ins</code> styling</h4>
+
+<ul>
+<li>
+<p>Normal text with green underline (<ins class="nice-ins-1">example inserted content</ins>)</p>
+<pre><code>ins {
+  border-bottom: 1px solid #47ad09;
+  text-decoration: none;
+}</code></pre>
+</li>
+
+<li>
+<p>Green text with faint underline (<ins class="nice-ins-2">example inserted content</ins>)</p>
+<pre><code>ins {
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+  color: #388807;
+}</code></pre>
+</li>
+
+<li>
+<p>Normal text with a light green background color (<ins class="nice-ins-3">example inserted content</ins>)</p>
+<pre><code>ins {
+  text-decoration: none;
+  background-color: #d4fcbc;
+}</code></pre>
+</li>
+</ul>
+</section>
+
+<section>
+<h4><code>del</code> styling</h4>
+
+<ul>
+<li>
+<p>Gray text (<del class="nice-del-1">example deleted content</del>)</p>
+<pre><code>del {
+  text-decoration: none;
+  color: #777;
+}</code></pre>
+</li>
+
+<li>
+<p>Red text (<del class="nice-del-2">example deleted content</del>)</p>
+<pre><code>del {
+  text-decoration: none;
+  color: #91081f;
+}</code></pre>
+</li>
+
+<li>
+<p>Normal or gray text with a light red background color (<del class="nice-del-3">example deleted content</del>)</p>
+<pre><code>del {
+  text-decoration: none;
+  background-color: #fbb6c2;
+  color: #555;
+}</code></pre>
+</li>
+</ul>
+
+<p>Check your <code>&lt;ins&gt;</code> styling can’t be mistaken for a link. Make sure that if you only use color to differentiate, that these are easily distinguished, even for the colorblind. Avoid hiding <code>&lt;del&gt;</code> content with <code>display: none;</code> — if it’s no longer content remove it or comment it out. Differentiate <code>&lt;del&gt;</code> from <code>&lt;s&gt;</code> if you use both elements.</p>
+
+<p>Finally, I prefer to avoid using <code>text-decoration: line-through;</code> for <code>&lt;del&gt;</code>, as it makes the text hard to read. When it comes to <code>&lt;s&gt;</code> however, this default style seems to be the best fit, which is just as well because nothing else seems appropriate.</p>
+</section>
+</div>
+</section>
+
+<section>
+<h3 id="flow-ins-del-css">Flow <code>ins</code> and <code>del</code> styling</h3>
+
+<p>By default, <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> are treated as inline elements by browsers, and styled as such. If you want to use block-level CSS, you’ll need to apply <code>display: block;</code>. Also, even the nicer styles above can be a little strong for whole paragraphs of text, not to mention useless for e.g. a block-level image. I style <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> for phrasing use, and use classes with overrides for block-level use:</p>
+
+<div id="flow-css">
+<style scoped>
+#flow-css .ins-block {
+  display: block;
+  margin-left: -1em;
+  border-left: 0.5em solid #47ad09;
+  border-bottom: none;
+  background-color: none;
+  padding-left: 0.5em;
+  margin-bottom: 2em;
+}
+#flow-css .del-block {
+  display: block;
+  margin-left: -1em;
+  border-left: 0.5em solid #91081f;
+  text-decoration: none;
+  padding-left: 0.5em;
+  margin-bottom: 2em;
+  color: #777;
+}
+#flow-css .chris-coyier-special {
+  position: relative;
+  margin-left: -1.25em;
+  border-left: 0.75em solid #47ad09;
+  border-bottom: none;
+  padding-left: 0.5em;
+  margin-bottom: 2em;
+}
+#flow-css .chris-coyier-special:before {
+  position: relative;
+  display: block;
+  content: "Addition";
+  left: -1.55em;
+  top: 5em;
+  width: 0;
+  height: 0;
+  font: 0.6em/0 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  color: #fff;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+</style>
+
+<ul>
+<li>Block-level <code>&lt;ins&gt;</code> with green left border</li>
+</ul>
+<pre><code>.ins-block {
+  display: block;
+  margin-left: -1em;
+  border-left: 0.5em solid #47ad09;
+  /* styles to override inline ins style, e.g.
+  text-decoration: none; */
+  padding-left: 0.5em;
+}</code></pre>
+<ins class="ins-block"><p>Alice was beginning to get very tired of sitting by her sister on the bank and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice, “without pictures or conversations?”</p></ins>
+
+<ul>
+<li>Block-level <code>&lt;del&gt;</code> with red left border and faded text</li>
+</ul>
+
+<pre><code>.del-block {
+  display: block;
+  margin-left: -1em;
+  border-left: 0.5em solid #91081f;
+  /* styles to override inline del style, e.g.
+  text-decoration: none; */
+  padding-left: 0.5em;
+  color: #777;
+}</code></pre>
+
+<del class="del-block"><p>So she was considering, in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.</p></del>
+
+<p>You could also append a label:</p>
+
+<ul>
+<li>Block-level <code>&lt;ins&gt;: Green border with generated content label</code></li>
+</ul>
+
+<pre><code>.labeled-ins-block {
+  display: block;
+  margin-left: -1.25em;
+  border-left: 0.75em solid #47ad09;
+  padding-left: 0.5em;
+}
+.labeled-ins-block:before {
+  position: relative;
+  display: block;
+  content: "Addition";
+  left: -1.55em; /* adjust to fit */
+  top: 5em; /* adjust to fit */
+  width: 0;
+  height: 0;
+  font: 0.6em/0 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  color: #fff;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+}</code></pre>
+
+<p class="chris-coyier-special">The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down what seemed to be a very deep well.</p>
+</div>
+
+<p>Finally, WordPress users should note that my nemesis <a href="http://core.trac.wordpress.org/ticket/8213"><code>wpautop</code> will laugh at your attempts</a> to use block-level <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code>. Make sure you use “Format this post with: No Formatting”.</p>
+</section>
+
+</section>
+
+<section>
+<h2 id="conclusion">Conclusion</h2>
+
+<p>So to sum up, we recommend you use <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> for edits to an existing document, but only when indicating these changes is beneficial for those using the page. Use <code>&lt;s&gt;</code> to indicate information that is no longer relevant or accurate, but removing that information would negatively affect the meaning. Make sure to carefully style these elements to avoid confusion with links (for <code>&lt;ins&gt;</code>), and each other (for <code>&lt;del&gt;</code> and <code>&lt;s&gt;</code>). Finally note that <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> can be ued for inline or block-level content (although not both at the same time), but <code>&lt;s&gt;</code> can only be used for inline content.</p>
+
+<p>I’ve noticed a trend towards not having dates as part of the article’s URL, with authors then making a concious effort to keep articles up-to-date. If you do this, <code>&lt;del&gt;</code> and <code>&lt;ins&gt;</code> change from being rarely used to quite useful for indicating your edits. On the other hand, <code>&lt;s&gt;</code> seems destined to remain one of those obscure but useful elements that you’ll hardly ever need, but will be glad to have available when you do.</p>
+
+<p>So what do you think? Do you use these elements? Will you use them now? Do you have any other ways you like to style them? Let us know in the comments!</p>
+</section><p><a href="http://html5doctor.com/ins-del-s/" rel="bookmark">Comparing and contrasting <code>ins</code>, <code>del</code>, and <code>s</code></a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 20, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/ins-del-s/feed/</wfw:commentRss>
+		<slash:comments>12</slash:comments>
+		</item>
+	</channel>
+</rss>

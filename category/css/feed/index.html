@@ -1,0 +1,1749 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>CSS &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/category/css/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 11 Jul 2016 11:54:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Comparing and contrasting ins, del, and s</title>
+		<link>http://html5doctor.com/ins-del-s/</link>
+		<comments>http://html5doctor.com/ins-del-s/#comments</comments>
+		<pubDate>Tue, 20 Aug 2013 13:30:34 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[del]]></category>
+		<category><![CDATA[ins]]></category>
+		<category><![CDATA[s]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5086</guid>
+		<description><![CDATA[<p>Since the mists of HTML 2 we’ve been able to semantically indicate added or removed information using the elements <code>&#60;ins&#62;</code> and <code>&#60;del&#62;</code> respectively. While seemingly simple on the surface these elements have hidden depths. I’ll also compare and contrast <code>&#60;del&#62;</code> with <code>&#60;s&#62;</code>, recently out of font style rehab and back in HTML5. Let’s start with <code>&#60;ins&#62;</code> and <code>&#60;del&#62;</code>…</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Since the mists of HTML 2 we’ve been able to semantically indicate added or removed information using the elements <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> respectively. While seemingly simple on the surface these elements have hidden depths. I’ll also compare and contrast <code>&lt;del&gt;</code> with <code>&lt;s&gt;</code>, recently out of font style rehab and back in HTML5. Let’s start with <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code>…</p>
+
+<section>
+<h2 id="ins-del">Using <code>ins</code> and <code>del</code></h2>
+
+<p>These two elements have very simple definitions:</p>
+
+<blockquote>
+  <p>The <code>ins</code> and <code>del</code> elements represent edits to the document.</p>
+<p>The <code>ins</code> element represents an addition to the document.</p>
+<p>The <code>del</code> element represents a removal from the document.</p>
+<p>— <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/edits.html">WHATWG HTML Living Specification</a></p>
+</blockquote>
+
+<p>So what kind of edits are we talking about? You could use these elements to:</p>
+
+<ul>
+  <li>Record changes to an official document, such as meeting minutes or a law</li>
+  <li>Note changes to an article — in addition to journalistic corrections, this helps to maintain editorial integrity and avoid charges of “rewriting history”</li>
+  <li>Indicate the changes between two versions of a document (a diff), for example to indicate editorial changes</li>
+  <li>Indicate a signficant addition or removal of content that people accessing the document would benefit from knowing about</li>
+</ul>
+
+<p>While some uses require recording changes exactly, when you’re just highlighting a change I think minor editing for clarity or grammar is fine — as long as the <em>meaning</em> isn’t changed. If necessary consider adding a note describing the change, perhaps in a footer or aside. Also, keep in mind that it rapidly becomes impractical (or impossible) to mark up <em>all</em> edits — only use these elements when there’s a benefit in explicitly indicating them.</p>
+
+<section>
+<h3 id="implied-paragraph-bondaries">“Implied paragraph bondaries”</h3>
+
+<p><code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> are unusual in that they can contain contain phrasing content <em>or</em> flow content (in HTML 4-speak, they can be inline or block-level). For example, here’s an inserted paragraph that contains a phrasing content deletion:</p>
+
+<pre><code>&lt;!-- block-level ins --&gt;
+&lt;ins&gt;
+  &lt;!-- inline del --&gt;
+  &lt;p&gt;Today I saw &lt;del&gt;flying monkeys&lt;/del&gt; the doctor. The prognosis was not good.&lt;/p&gt;
+&lt;/ins&gt;</code></pre>
+
+<p>Note that browsers will style these elements as inline by default, and you’ll need to include <code>display: block;</code> if you want to apply block-level styling. We’ll cover this <a href="#flow-ins-del-css">later in the article</a>.</p>
+
+<p>The spec warns that the elements “should not cross implied paragraph boundaries”. These occur when there’s phrasing content (= text or inline elements) without a block-level element wrapper as a sibling of a block-level element. For example:</p>
+
+<pre><code>&lt;div&gt;
+  &lt;p&gt;This text is in a block-level element.&lt;/p&gt;
+  &lt;!-- implied paragraph boundary here --&gt;
+  Oh snap! Someone forgot the paragraph tags!
+&lt;/div&gt;</code></pre>
+
+<p>Of course, we <em>always</em> wrap our text, so this would never happen to us! But still, now you know ^_^</p>
+
+<p>We also need to make sure each <code>&lt;ins&gt;</code> or <code>&lt;del&gt;</code> element is either inline or block-level, but <strong>not</strong> both. For example, don’t start in the middle of one paragraph and end in the middle of the next.</p>
+
+<pre><code>&lt;!-- <mark>This is wrong</mark> --&gt;
+&lt;p&gt;Flying monkeys are <mark>&lt;del&gt;a common hazard.&lt;/p&gt;
+&lt;p&gt;Protect yourself by&lt;/del&gt;</mark> screeching loudly.&lt;/p&gt;
+
+&lt;!-- del as inline --&gt;
+&lt;p&gt;Flying monkeys are <mark>&lt;del&gt;a common hazard.&lt;/del&gt;</mark>&lt;/p&gt;
+&lt;p&gt;<mark>&lt;del&gt;Protect yourself by&lt;/del&gt;</mark> screeching loudly.&lt;/p&gt;
+
+&lt;!-- del as block-level --&gt;
+<mark>&lt;del&gt;
+  &lt;p&gt;Flying monkeys are a common hazard.&lt;/p&gt;
+  &lt;p&gt;Protect yourself by screeching loudly.&lt;/p&gt;
+&lt;/del&gt;</mark>
+&lt;p&gt;Flying monkeys are screeching loudly.&lt;/p&gt;</code></pre>
+</section>
+
+<section>
+<h3 id="datetime-cite"><code>datetime</code> and <code>cite</code> attributes</h3>
+
+<p>The <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> elements can also take two optional attributes, <code>datetime</code> and <code>cite</code>. You’ll be familiar with <code>datetime</code> from <a href="http://html5doctor.com/the-time-element/">our article on the <code>&lt;time&gt;</code> element</a>, and it works just the same here. Use it to record the date (and optionally the time) of the edit:</p>
+
+<pre><code>&lt;p&gt;&lt;del datetime=&quot;2012-09-13&quot;&gt;Todo: add a datetime example here.&lt;/del&gt;  &lt;ins datetime=&quot;2012-09-14T10:21:44+09:00&quot;&gt;This inserted text has the date and time it was added indicated via the datetime attribute.&lt;/ins&gt;&lt;/p&gt;</code></pre>
+
+<p><code>cite</code> will also be familiar if you’ve read our article <a href="http://html5doctor.com/blockquote-q-cite/#cite">Quoting and citing with <code>blockquote</code>, <code>q</code>, <code>cite</code>, and the <code>cite</code> attribute</a>. It contains a URL linking to more information about the change.</p>
+
+<pre><code>&lt;!-- Reference or in-page links are URLs too --&gt;
+&lt;ins cite=&quot;#ins-1&quot;&gt;This inserted text has a cite attribute, with a link to more information.&lt;/ins&gt;</code></pre>
+
+<p>As this is generally hidden data, there’s a strong chance of it becoming <a href="http://en.wikipedia.org/wiki/Metacrap">metacrap</a>. You can help avoid this by exposing <code>cite</code> with CSS:</p>
+
+<figure id="metacrap-cite">
+<style scoped>
+#metacrap-cite ins[cite]:after {
+  content: " (" attr(cite) ")";
+  font-size: 75%;
+  line-height: 0;
+  color: #888;
+}
+</style>
+<pre><code>&lt;style&gt;
+ins[cite]:after,
+del[cite]:after {
+  content: &quot; (&quot; attr(cite) &quot;)&quot;;
+  font-size: 75%;
+  line-height: 0;
+  color: #888;
+}
+&lt;/style&gt;
+…
+&lt;ins cite=&quot;http://html5doctor.com/more-info/123&quot;&gt;[Inserted text…] More information is available about this addition.&lt;/ins&gt;</code></pre>
+<p><ins cite="http://html5doctor.com/more-info/123"><em>[Inserted text…]</em> More information is available about this insertion.</ins></p>
+<figcaption>Example CSS to append the <code>cite</code> attribute’s value as generated content.</figcaption>
+</figure>
+
+<p>Even better, consider adding this link as content, for example:</p>
+
+<pre><code>&lt;ins&gt;This is an article update&lt;a href=&quot;#ins-1&quot;&gt;¹&lt;/a&gt;.&lt;/ins&gt;
+…
+&lt;footer&gt;
+  &lt;h2&gt;Article changes&lt;/h2&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;ins-1&quot;&gt;This addition was added on &lt;time datetime=&quot;2012-09-14T10:21:44+09:00&quot;&gt;14th September 2012&lt;/time&gt; by Oli Studholme.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/footer&gt;</code></pre>
+
+<p>Finally, make sure when using <code>&lt;del&gt;</code> that this is a removal from the document you want/need to indicate. Other options include commenting the content out using <code>&lt;!-- --&gt;</code>, or deleting it from the HTML source.</p>
+</section>
+</section>
+
+<section>
+<h2 id="s">The <code>s</code> element</h2>
+
+<p>The specification describes the <code>&lt;s&gt;</code> thus:</p>
+
+<blockquote>
+  <p>The <code>s</code> element represents contents that are no longer accurate or no longer relevant.</p>
+  <p>— <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-s-element">WHATWG HTML Living Specification</a></p>
+</blockquote>
+
+<p>Historically <code>&lt;s&gt;</code> (and the obsolete <code>&lt;strike&gt;</code>) were font style elements, and they were deprecated in HTML 4, then dropped in HTML5. However, a couple of semantic use cases have seen <code>&lt;s&gt;</code> return. These include marking up the original price when something is on sale, and indicating a time limit that has passed, such as early bird tickets for an event. This is content that provides useful information so we don’t want to delete it, but it’s not accurate and we want to indicate this. Other uses include any outdated but still relevant information that isn’t the result of an edit. The <code>&lt;s&gt;</code> element could even arguably be used for indicating sarcasm, or for marking up examples of <a href="http://en.wikipedia.org/wiki/Sous_rature"><i lang="fr" title="Crossing out a word but allowing it to remain legible and in place, signifying that the word is “inadequate yet necessary”">Sous rature</i></a> for all you Jacques Derrida fans out there. Well… maybe ;-).</p>
+
+<p>As an example, if Kickstarter used <code>&lt;s&gt;</code>, it might look like this:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2013/08/s-example.png" width="168" height="64" class="alignnone size-full wp-image-5262" />
+<figcaption>Using the <code>&lt;s&gt;</code> element to semantically indicate when a limited pledge is full</figcaption>
+</figure>
+
+<section>
+<h3 id="s-del-fight"><code>s</code> vs <code>del</code>: fight!</h3>
+
+<p>The <code>&lt;s&gt;</code> element seems dangerously close to stepping on the semantic toes of <code>&lt;del&gt;</code>, as I’m sure someone will helpfully point out in the comments :) However, there is a subtle but significant difference. <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> are for showing <em>editorial changes</em>, generally to an already published page. The <code>&lt;s&gt;</code> element is for indicating information that is no longer relevant or accurate, but still provides some value, and is generally used to create a document with both old and new information <em>at the same time</em>.</p>
+
+<p>Hixie describes the difference in this way:</p>
+
+<blockquote>
+<p>[T]o put it another way, with <code>&lt;del&gt;</code> there is usually a view of the document that doesn&#8217;t include the <code>&lt;del&gt;</code> text. But with <code>&lt;s&gt;</code> there is no version of the document without the <code>&lt;s&gt;</code> text, because the <code>&lt;s&gt;</code> text is part of the document still, it&#8217;s just that it&#8217;s marked as old.</p>
+<p>— Ian Hickson in the <a href="http://krijnhoetmer.nl/irc-logs/whatwg/20130409#l-123">WHATWG IRC channel</a></p>
+</blockquote>
+</section>
+</section>
+
+<section>
+<h2 id="ins-del-s-styling">Styling <code>ins</code>, <code>del</code>, and <code>s</code></h2>
+
+<p>The browser default styles are:</p>
+
+<div id="default-styles">
+<style scoped>
+#default-styles .default-ins {
+  border-bottom: none;
+  text-decoration: underline;
+  color: auto;
+  background-color: auto;
+}
+#default-styles .default-del {
+  border-bottom: none;
+  text-decoration: strikethrough;
+  color: #444; /* match default text color */
+  background-color: auto;
+}
+#default-styles .default-s {
+  text-decoration: strikethrough;
+  color: auto;
+  background-color: auto;
+}
+</style>
+
+<ul>
+<li><code>&lt;ins&gt;</code>: <code>text-decoration: underline</code> (<ins class="default-ins">default inserted content</ins>)</li>
+<li><code>&lt;del&gt;</code>: <code>text-decoration: line-through</code> (<del class="default-del">default deleted content</del>)</li>
+<li><code>&lt;s&gt;</code>: <code>text-decoration: line-through</code> (<s class="default-s">default strikethrough content</s>)</li>
+</ul>
+</div>
+
+<p>By using underline, the default <code>&lt;ins&gt;</code> styling is very similar to a visited link, a classic usability blunder. Worse, the default <code>&lt;del&gt;</code> and <code>&lt;s&gt;</code> styles are identical (although it’s rare that you’ll use them together). However, as long as <code>&lt;s&gt;</code> is visually distinct from <code>&lt;del&gt;</code>, I’ve found the default <code>text-decoration: strikethrough;</code> style of <code>&lt;s&gt;</code> ends up being what you generally want.</p>
+
+<section>
+<h3 id="phrasing-ins-del-css">Phrasing <code>ins</code> and <code>del</code> styling</h3>
+
+<p>Here are some styles I’ve used for <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> in the past:</p>
+
+<div id="phrasing-css" class="two-up">
+<style scoped>
+#phrasing-css .nice-ins-1 {
+  border-bottom: 1px solid #47ad09;
+  text-decoration: none;
+  color: auto;
+  background-color: auto;
+}
+#phrasing-css .nice-ins-2 {
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+  color: #388807;
+  background-color: auto;
+}
+#phrasing-css .nice-ins-3 {
+  text-decoration: none;
+  color: auto;
+  background-color: #d4fcbc;
+}
+#phrasing-css .nice-del-1 {
+  text-decoration: none;
+  color: #777;
+  background-color: auto;
+}
+#phrasing-css .nice-del-2 {
+  text-decoration: none;
+  color: #91081f;
+  background-color: auto;
+}
+#phrasing-css .nice-del-3 {
+  text-decoration: none;
+  color: #555;
+  background-color: #fbb6c2;
+}
+</style>
+
+<section>
+<h4><code>ins</code> styling</h4>
+
+<ul>
+<li>
+<p>Normal text with green underline (<ins class="nice-ins-1">example inserted content</ins>)</p>
+<pre><code>ins {
+  border-bottom: 1px solid #47ad09;
+  text-decoration: none;
+}</code></pre>
+</li>
+
+<li>
+<p>Green text with faint underline (<ins class="nice-ins-2">example inserted content</ins>)</p>
+<pre><code>ins {
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+  color: #388807;
+}</code></pre>
+</li>
+
+<li>
+<p>Normal text with a light green background color (<ins class="nice-ins-3">example inserted content</ins>)</p>
+<pre><code>ins {
+  text-decoration: none;
+  background-color: #d4fcbc;
+}</code></pre>
+</li>
+</ul>
+</section>
+
+<section>
+<h4><code>del</code> styling</h4>
+
+<ul>
+<li>
+<p>Gray text (<del class="nice-del-1">example deleted content</del>)</p>
+<pre><code>del {
+  text-decoration: none;
+  color: #777;
+}</code></pre>
+</li>
+
+<li>
+<p>Red text (<del class="nice-del-2">example deleted content</del>)</p>
+<pre><code>del {
+  text-decoration: none;
+  color: #91081f;
+}</code></pre>
+</li>
+
+<li>
+<p>Normal or gray text with a light red background color (<del class="nice-del-3">example deleted content</del>)</p>
+<pre><code>del {
+  text-decoration: none;
+  background-color: #fbb6c2;
+  color: #555;
+}</code></pre>
+</li>
+</ul>
+
+<p>Check your <code>&lt;ins&gt;</code> styling can’t be mistaken for a link. Make sure that if you only use color to differentiate, that these are easily distinguished, even for the colorblind. Avoid hiding <code>&lt;del&gt;</code> content with <code>display: none;</code> — if it’s no longer content remove it or comment it out. Differentiate <code>&lt;del&gt;</code> from <code>&lt;s&gt;</code> if you use both elements.</p>
+
+<p>Finally, I prefer to avoid using <code>text-decoration: line-through;</code> for <code>&lt;del&gt;</code>, as it makes the text hard to read. When it comes to <code>&lt;s&gt;</code> however, this default style seems to be the best fit, which is just as well because nothing else seems appropriate.</p>
+</section>
+</div>
+</section>
+
+<section>
+<h3 id="flow-ins-del-css">Flow <code>ins</code> and <code>del</code> styling</h3>
+
+<p>By default, <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> are treated as inline elements by browsers, and styled as such. If you want to use block-level CSS, you’ll need to apply <code>display: block;</code>. Also, even the nicer styles above can be a little strong for whole paragraphs of text, not to mention useless for e.g. a block-level image. I style <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> for phrasing use, and use classes with overrides for block-level use:</p>
+
+<div id="flow-css">
+<style scoped>
+#flow-css .ins-block {
+  display: block;
+  margin-left: -1em;
+  border-left: 0.5em solid #47ad09;
+  border-bottom: none;
+  background-color: none;
+  padding-left: 0.5em;
+  margin-bottom: 2em;
+}
+#flow-css .del-block {
+  display: block;
+  margin-left: -1em;
+  border-left: 0.5em solid #91081f;
+  text-decoration: none;
+  padding-left: 0.5em;
+  margin-bottom: 2em;
+  color: #777;
+}
+#flow-css .chris-coyier-special {
+  position: relative;
+  margin-left: -1.25em;
+  border-left: 0.75em solid #47ad09;
+  border-bottom: none;
+  padding-left: 0.5em;
+  margin-bottom: 2em;
+}
+#flow-css .chris-coyier-special:before {
+  position: relative;
+  display: block;
+  content: "Addition";
+  left: -1.55em;
+  top: 5em;
+  width: 0;
+  height: 0;
+  font: 0.6em/0 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  color: #fff;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+</style>
+
+<ul>
+<li>Block-level <code>&lt;ins&gt;</code> with green left border</li>
+</ul>
+<pre><code>.ins-block {
+  display: block;
+  margin-left: -1em;
+  border-left: 0.5em solid #47ad09;
+  /* styles to override inline ins style, e.g.
+  text-decoration: none; */
+  padding-left: 0.5em;
+}</code></pre>
+<ins class="ins-block"><p>Alice was beginning to get very tired of sitting by her sister on the bank and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice, “without pictures or conversations?”</p></ins>
+
+<ul>
+<li>Block-level <code>&lt;del&gt;</code> with red left border and faded text</li>
+</ul>
+
+<pre><code>.del-block {
+  display: block;
+  margin-left: -1em;
+  border-left: 0.5em solid #91081f;
+  /* styles to override inline del style, e.g.
+  text-decoration: none; */
+  padding-left: 0.5em;
+  color: #777;
+}</code></pre>
+
+<del class="del-block"><p>So she was considering, in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.</p></del>
+
+<p>You could also append a label:</p>
+
+<ul>
+<li>Block-level <code>&lt;ins&gt;: Green border with generated content label</code></li>
+</ul>
+
+<pre><code>.labeled-ins-block {
+  display: block;
+  margin-left: -1.25em;
+  border-left: 0.75em solid #47ad09;
+  padding-left: 0.5em;
+}
+.labeled-ins-block:before {
+  position: relative;
+  display: block;
+  content: "Addition";
+  left: -1.55em; /* adjust to fit */
+  top: 5em; /* adjust to fit */
+  width: 0;
+  height: 0;
+  font: 0.6em/0 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  color: #fff;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+}</code></pre>
+
+<p class="chris-coyier-special">The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down what seemed to be a very deep well.</p>
+</div>
+
+<p>Finally, WordPress users should note that my nemesis <a href="http://core.trac.wordpress.org/ticket/8213"><code>wpautop</code> will laugh at your attempts</a> to use block-level <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code>. Make sure you use “Format this post with: No Formatting”.</p>
+</section>
+
+</section>
+
+<section>
+<h2 id="conclusion">Conclusion</h2>
+
+<p>So to sum up, we recommend you use <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> for edits to an existing document, but only when indicating these changes is beneficial for those using the page. Use <code>&lt;s&gt;</code> to indicate information that is no longer relevant or accurate, but removing that information would negatively affect the meaning. Make sure to carefully style these elements to avoid confusion with links (for <code>&lt;ins&gt;</code>), and each other (for <code>&lt;del&gt;</code> and <code>&lt;s&gt;</code>). Finally note that <code>&lt;ins&gt;</code> and <code>&lt;del&gt;</code> can be ued for inline or block-level content (although not both at the same time), but <code>&lt;s&gt;</code> can only be used for inline content.</p>
+
+<p>I’ve noticed a trend towards not having dates as part of the article’s URL, with authors then making a concious effort to keep articles up-to-date. If you do this, <code>&lt;del&gt;</code> and <code>&lt;ins&gt;</code> change from being rarely used to quite useful for indicating your edits. On the other hand, <code>&lt;s&gt;</code> seems destined to remain one of those obscure but useful elements that you’ll hardly ever need, but will be glad to have available when you do.</p>
+
+<p>So what do you think? Do you use these elements? Will you use them now? Do you have any other ways you like to style them? Let us know in the comments!</p>
+</section><p><a href="http://html5doctor.com/ins-del-s/" rel="bookmark">Comparing and contrasting <code>ins</code>, <code>del</code>, and <code>s</code></a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 20, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/ins-del-s/feed/</wfw:commentRss>
+		<slash:comments>12</slash:comments>
+		</item>
+		<item>
+		<title>CSS3 Pseudo-Classes and HTML5 Forms</title>
+		<link>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/</link>
+		<comments>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/#comments</comments>
+		<pubDate>Tue, 28 Feb 2012 14:30:47 +0000</pubDate>
+		<dc:creator><![CDATA[Peter Gasston]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[css3]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[readonly]]></category>
+		<category><![CDATA[required]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4483</guid>
+		<description><![CDATA[<p>Guest Doctor Peter Gasston takes a look at how new CSS3 Pseudo-classes align perfectly with HTML5 Forms.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Hello! I’m Doctor Peter and I’m here to treat you with a dose of complementary CSS3. Don’t worry, this won’t hurt a bit.</p>
+
+<p>Contrary to what <a href="http://html5please.com/">HTML5 Please</a> and the W3C would have you believe, CSS3 is not part of HTML5. “But this is HTML5 Doctor,” I imagine you saying. “Why are you talking about CSS3 here?” Well, I want to talk about a very specific part of CSS3, one that works in perfect tandem with HTML5, specifically with the new form functions that are available.</p>
+
+<p>One of the killer features that HTML5 introduces is client-side form validation without using JavaScript. Now, I know the other doctors haven’t discussed this yet, and as I’m just a locum, you might feel as if I’m putting the cart before the horse (#mixedmetaphors), but I’m hoping to explain just enough to let you know how it works, and then your regular doctors can provide the details at a later date.</p>
+
+<section id="pseudo-classes">
+  <h2>A Recap of Pseudo-Classes <a href="#pseudo-classes" class="permalink">#</a></h2>
+
+  <p>A <dfn>pseudo-class</dfn> is information about an element that’s in the document tree but not available through any specified attributes. For example, the <code>:first-child</code> pseudo-class applies to elements which are the first child of their parents. You can get that information from the DOM tree, but there’s no <code>first-child</code> attribute.</p>
+
+  <p>In CSS2.1, there were a handful of pseudo-classes available, notably the link states (<code>:link</code>, <code>:visited</code>) and those of user actions (<code>:active</code>, <code>:hover</code>). In CSS3, that handful becomes a basketful, with pseudo-classes of structure (<code>:nth-child</code>, <code>:nth-of-type</code>), UI element (<code>:enabled</code>, <code>:checked</code>), and the ones we’ll look at now, of form validation.</p>
+</section>
+
+<section id="form-validation">
+  <h2>Form Validation without JavaScript <a href="#form-validation" class="permalink">#</a></h2>
+  
+  <p>So as I mentioned at the beginning, HTML5 introduces client-side form validation without the need for JavaScript. When you attempt to submit a form, your browser will validate all of the fields and return an error if any of the fields is incorrect. This will happen mostly automagically — provided your browser has the capability — and will look something like what’s shown in Figure 1:</p>
+
+  <figure>
+    <img src="http://html5doctor.com/demos/pseudo-classes/figure1.png" alt="Form with an invalid field and associated error message">
+    <figcaption>Figure 1: A form validation error message</figcaption>
+  </figure>
+
+  <p>Those error messages are browser and OS specific, and hard to modify (<a href="http://www.broken-links.com/2011/06/16/styling-html5-form-validation-errors/" title="Styling HTML5 Form Validation Errors">which I documented on my blog</a>), but you can change the way the errors appear on the elements themselves with the new validation pseudo-classes, which are part of the <a href="http://www.w3.org/TR/css3-ui/">CSS3 Basic UI module</a>.</p>
+  
+  <p>I’ll cover current browser support as we go through the article, but in a nutshell:</p>
+  
+  <ul>
+    <li>Firefox and IE10 support some of it.</li>
+    <li>Opera and Chrome support all of it.</li>
+    <li>Safari supports all of it too, but form validation is disabled by default.</li>
+  </ul>
+  
+  <p>That being the case, I’d recommend using Chrome, Opera, or Safari to view the examples I’ll be showing you.</p>
+  
+  <p>If you want to keep up to date with browser support for form validation, I suggest keeping an eye on <a href="http://caniuse.com/#feat=form-validation">When can I use</a>.</p>
+  
+  <p>So with all of the boring technical guff out of the way, let’s get on with the interesting technical guff and take a look at some examples of form validation.</p>
+  
+  <section id="required-and-optional-elements">
+    <h3>Required and Optional Elements <a href="#required-and-optional-elements" class="permalink">#</a></h3>
+    
+    <p>One of the most common patterns of validation is that of mandatory (that is, required) values — the fields that the user must complete in order to progress. To mark a form element as mandatory, you need only add the <code>required</code> attribute to it:</p>
+    
+    <pre><code>&lt;input type="text" required&gt;</code></pre>
+    
+    <p>If you want to apply styles to this in order to show that requirement, you can use the new <code>:required</code> pseudo-class, which applies rules to any matched element which has the <code>required</code> attribute. For example, you may want to put an asterisk after the text of the label:</p>
+    
+    <pre><code>input:required + label::after { content: "*"; }</code></pre>
+    
+    <p>The exact rules you use depends on how you’ve marked up your document. The rule in this example is based on the markup having this structure:</p>
+    
+    <pre><code>&lt;input type="text" required id="foo"&gt;
+&lt;label for="foo"&gt;Foo&lt;/label&gt;</code></pre>
+    
+    <p>The opposite of required is, of course, optional. And wouldn’t you know it, we have a pseudo-class for that too, logically named <code>:optional</code>. It affects any form element that doesn’t have a <code>required</code> attribute. For example, you may want to make those have a lighter border:</p>
+    
+    <pre><code>input:optional { border-color: silver; }</code></pre>
+    
+    <p>You can see this in action in Figure 2, or <a href="http://html5doctor.com/demos/pseudo-classes/example1.html" title="Live Example #1">take a look at a live example</a>.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure2.png" alt="Required and optional form fields">
+      <figcaption>Figure 2: Input fields styled with <code>:required</code> (top) and <code>:optional</code> (bottom)</figcaption>
+    </figure>
+  </section>
+
+  <section id="valid-and-invalid-elements">
+    <h3>Valid and Invalid Elements <a href="#valid-and-invalid-elements" class="permalink">#</a></h3>
+
+    <p>There are other types of validation besides simply “required” or “optional”. You can use pattern matching, such as email address validation:</p>
+    
+    <pre><code>&lt;input type="email"&gt;</code></pre>
+
+    <p>If the user enters anything into the field, it has to match the pattern of an email address, or else it will be marked as invalid. (Of course, if it’s not required, then it can be left blank.)</p>
+    
+    <p>You can style valid or invalid form elements using pseudo-classes called — wait for it — <code>:valid</code> and <code>:invalid</code>. Maybe you want add a symbol depending on the validation status:</p>
+    
+    <pre><code>input:invalid + label::after { content: ' ⨉'; }
+input:valid + label::after { content: ' ✓'; }</code></pre>
+
+    <p>Note that these will take effect as soon as the page loads, so you’ll probably want to use JavaScript to apply them only after submission, perhaps by adding a class to the form with JavaScript:</p>
+    
+    <pre><code>document.forms[].addEventListener('submit', function(e) {
+  e.currentTarget.classList.add('submitted');
+  // Your fallback form validation function
+});</code></pre>
+
+    <p>The exact script you use will vary, but however you do it, you can use that class to style the form elements, like so:</p>
+    
+    <pre><code>.submitted input:invalid + label::after { content: ' ⨉'; }</code></pre>
+    
+    <p>Figure 3 shows the output of this, and you can also <a href="http://html5doctor.com/demos/pseudo-classes/example2.html" title="Live Example #2">see the live example</a>.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure3.png" alt="Valid and invalid form fields">
+      <figcaption>Figure 3: Showing the use of the <code>:valid</code> (top) and <code>:invalid</code> (bottom) pseudo-classes</figcaption>
+    </figure>
+    
+    <p>Two extra things to note about this example: first, in order to use my own JavaScript, I’ve prevented the form from automatically validating by using the <code>novalidate</code> attribute on the submit button; and second, Firefox puts a coloured glow around elements depending on their validation state, which I’ve over-ruled by using their proprietary <code>:-moz-ui-invalid</code> selector. View the source of the demo to see how these are used.</p>
+  </section>
+  
+  <section id="number-ranges">
+    <h3>Number Ranges <a href="#number-ranges" class="permalink">#</a></h3>
+
+    <p>Some of the new input types, such as <code>number</code>, allow a range of values using the <code>min</code> and <code>max</code> attributes, like so:</p>
+    
+    <pre><code>&lt;input type="number" max="10" min="1"&gt;</code></pre>
+    
+    <p>Although form controls will usually prevent the user from entering a value outside of this range, there may be occasions (such as when JavaScript is used to provide values) where the value provided to the input does exceed the range:</p>
+    
+    <pre><code>&lt;input type="number" max="10" min="1" value="11"&gt;</code></pre>
+    
+    <p>When this happens, you can use the <code>:out-of-range</code> pseudo-class for your styling:</p>
+    
+    <pre><code>input[type='number']:out-of-range { border-color: red; }</code></pre>
+
+    <p>And, as you’d expect, there’s a counterpart known by the name of <code>:in-range</code>:</p>
+    
+    <pre><code>input[type='number']:in-range { border-color: green; }</code></pre>
+    
+    <p>In Figure 4 you can see these two pseudo-classes at work, and once more there’s also <a href="http://html5doctor.com/demos/pseudo-classes/example3.html" title="Live Example #3">a live example</a> to view.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure4.png" alt="Out-of-range and in-range form fields">
+      <figcaption>Figure 4: The <code>:out-of-range</code> (top) and <code>:in-range</code> (bottom) pseudo-classes applied to a <code>range</code> input</figcaption>
+    </figure>
+  </section>
+  
+  <section id="reading-and-writing">
+    <h3>Reading and Writing </h3>
+    
+    <p>You may have a form field that’s pre-filled with a value that you don’t want the user to be able to edit, such as terms and conditions in a <code>textarea</code>. If that’s the case, you can add the <code>readonly</code> attribute:</p>
+    
+    <pre><code>&lt;textarea readonly&gt;Lorem ipsum&lt;/textarea&gt;</code></pre>
+    
+    <p>You can style elements which have the <code>readonly</code> attribute applied, using…can you guess? You are correct, imagined reader: the <code>:read-only</code> pseudo-class. You could combine it with the <code>user-select</code> CSS property to prevent the user from being able to select the text (in the example, I’ve also changed the border style to make it more obvious):</p>
+    
+    <pre><code>textarea:read-only { user-select: none; }</code></pre>
+    
+    <p>And if you should need it, there is of course a <code>:read-write</code> pseudo-class for elements which don’t have the attribute applied:</p>
+    
+    <pre><code>textarea:read-write { user-select: text; }</code></pre>
+    
+    <p>You can see the results in Figure 5, and as before there’s <a href="http://html5doctor.com/demos/pseudo-classes/example4.html" title="Live Example #4">a live example</a> too.</p>
+
+    <figure>
+      <img src="http://html5doctor.com/demos/pseudo-classes/figure5.png" alt="Read-only and read-write form fields">
+      <figcaption>Figure 5: The textarea on the left is styled using <code>:read-write</code>, and the one on the right, with <code>:read-only</code></figcaption>
+    </figure>
+
+    <p>Firefox and IE10 have actually implemented the <code>readonly</code> attribute, but don’t yet have support for these pseudo-classes.</p>
+  </section>
+</section>
+
+<section id="browser-support">
+  <h2>Browser Support <a href="#browser-support" class="permalink">#</a></h2>
+  
+  <p>This table lists support for HTML5 Form Validation in browsers at the time of writing:</p>
+  
+  <table>
+    <caption>Browser support for HTML5 Form Validation</caption>
+    <thead>
+      <tr>
+        <th>Browser/Attribute</th>
+        <th scope="col">Chrome</th>
+        <th scope="col">Firefox</th>
+        <th scope="col">IE</th>
+        <th scope="col">Opera</th>
+        <th scope="col">Safari</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><code>:optional</code> / <code>:required</code></th>
+        <td>10.0</td>
+        <td>4.0</td>
+        <td>10.0</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:invalid</code> / <code>:valid</code></th>
+        <td>10.0</td>
+        <td>4.0</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:in-range</code> / <code>:out-of-range</code></th>
+        <td>10.0</td>
+        <td>n/a</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+
+      <tr>
+        <th scope="row"><code>:read-only</code> / <code>:read-write</code></th>
+        <td>10.0</td>
+        <td>n/a</td>
+        <td>n/a</td>
+        <td>10.0</td>
+        <td>5.0</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="goodbye">
+  <h2>That’s All from Me <a href="#goodbye" class="permalink">#</a></h2>
+  
+  <p>I hope I’ve given you enough to whet your appetite for finding out more about HTML5 Form Validation. There’s plenty more to it, including a full JavaScript API (you can <a href="http://dev.w3.org/html5/spec-author-view/constraints.html#the-constraint-validation-api" title="4.10.21 Constraints — HTML5: Edition for Web Authors">read about this in the HTML5 spec</a>, but ).</p>
+  
+  <p>Thanks for your time, and thanks to the Doctors for this opportunity.</p>
+</section><p><a href="http://html5doctor.com/css3-pseudo-classes-and-html5-forms/" rel="bookmark">CSS3 Pseudo-Classes and HTML5 Forms</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 28, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/css3-pseudo-classes-and-html5-forms/feed/</wfw:commentRss>
+		<slash:comments>38</slash:comments>
+		</item>
+		<item>
+		<title>The return of the u element</title>
+		<link>http://html5doctor.com/u-element/</link>
+		<comments>http://html5doctor.com/u-element/#comments</comments>
+		<pubDate>Tue, 25 Oct 2011 14:00:37 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[u]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3862</guid>
+		<description><![CDATA[<p>The <code>&#60;u&#62;</code> element was deprecated in HTML 4 and non-conforming in HTML5, but a couple of use cases have seen it return from the dead. Are the use cases enough to persuade you that it’s a phoenix not a zombie?</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Presentational elements like <a href="http://html5doctor.com/i-b-em-strong-element/" title="The i, b, em, &amp; strong elements | HTML5 Doctor"><code>&lt;i&gt;</code>, <code>&lt;b&gt;</code></a>, <a href="http://html5doctor.com/small-hr-element/" title="The small &amp; hr elements | HTML5 Doctor"><code>&lt;small&gt;</code> and <code>&lt;hr&gt;</code></a> have been redefined in HTML5 with semantic meanings, or, in a couple of cases, made non-conforming. The <code>&lt;u&gt;</code> element had been in the non-conforming camp, but a couple of semantic use cases led it back into the fold. While most of us will never need it (and some will jeer), on the odd occasion, it might be just the element you need.</p>
+
+<p>Before HTML5, <code>&lt;u&gt;</code> was solely for applying a presentational style of <em>underlining</em> to text. <a href="http://www.w3.org/TR/html401/present/graphics.html#h-15.2" title="Alignment, font styles, and horizontal rules in HTML documents">HTML 4 discouraged “font-style” or presentational elements</a>, and even <a href="http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated" title="HTML 4 Changes">deprecated <code>&lt;u&gt;</code></a>, advising us to use CSS instead. Even before this, <code>&lt;u&gt;</code> was frowned upon as underlines are the browser default for links, and making normal text look like links gives users a bad case of clicky-clicky frustration. <code>&lt;u&gt;</code> was initially non-conforming in HTML5.</p>
+
+<p>There are, however, a couple of non-link places where text <em>is</em> traditionally underlined to convey meaning, as the HTML5 specification’s definition mentions:</p>
+
+<blockquote>
+<p>The <code>u</code> element represents a span of text with an unarticulated, though explicitly rendered, non-textual annotation, such as labeling the text as being a proper name in Chinese text (a Chinese proper name mark), or labeling the text as being misspelt.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/complete/text-level-semantics.html#the-u-element" title="4.6 Text-level semantics &#8212; Web Applications 1.0"><abbr title="">WHATWG</abbr> HTML5 specification</a></cite></footer>
+</blockquote>
+
+<p>Before we get to them, let’s quickly cover <em>an unarticulated, though explicitly rendered, non-textual annotation</em>. This means <q><code>&lt;u&gt;</code> is for when you are annotating something, but not explicitly saying what it is</q> (<cite><a href="http://krijnhoetmer.nl/irc-logs/whatwg/20110930#l-916" title="IRC logs: freenode / #whatwg / 20110930">WHATWG IRC</a></cite>, Ian Hickson) — the annotation’s meaning is implied by context.</p>
+
+<section id="proper-name-mark">
+<h2>Chinese proper name marks <a class="permalink" href="#proper-name-mark">#</a></h2>
+
+<p>And what exactly are those you ask? I had to ask Wikipedia myself:</p>
+
+<blockquote>
+<p>In Chinese writing, a proper name mark (Simplified Chinese: <span lang="Hans">专名号</span>, <span lang="zh-Latn">zhuānmínghào</span>; Traditional Chinese: <span lang="Hant">專名號</span>) is an underline used to mark proper names, such as the names of people, places, dynasties, organizations. … This method of recognizing proper names in text is similar to the English use of a capital letter.</p>
+<footer>— <cite><a href="http://en.wikipedia.org/wiki/Proper_name_mark" title="Proper name mark - Wikipedia, the free encyclopedia">Proper name mark</a></cite>, Wikipedia</footer>
+</blockquote>
+
+<p>Wikipedia gives the following example, which I’ve formatted using <code>&lt;u&gt;</code>:</p>
+
+<figure id="pnm">
+<style scoped>#pnm .pnm, #pnm .bnm {text-decoration: underline;}
+#pnm .bnm {
+  -moz-text-decoration-style: wavy;
+  text-decoration-style: wavy;
+}
+#pnm p[lang="zh"] cite {font-style: normal;}</style>
+<pre><code lang="zh">&lt;u class="pnm"&gt;屈原&lt;/u&gt;放逐，乃賦&lt;cite class="bnm"&gt;離騒&lt;/cite&gt;。&lt;u class="pnm"&gt;左丘&lt;/u&gt;失明，厥有&lt;cite class="bnm"&gt;國語&lt;/cite&gt;。（司馬遷 《&lt;cite&gt;報任安書&lt;/cite&gt;》）</code></pre>
+<p lang="zh"><u class="pnm">屈原</u>放逐，乃賦<cite class="bnm">離騒</cite>。<u class="pnm">左丘</u>失明，厥有<cite class="bnm">國語</cite>。（司馬遷 《<cite>報任安書</cite>》）</p>
+<!-- The source doesn’t use proper and book name marks for the citation because modern usage is only to use guillemets for the title — only the quoted text is classical -->
+<p><mark lang="zh">Qu Yuan</mark> was exiled, and thus composed the <mark lang="zh"><cite>Li Sao</cite></mark>. <mark lang="zh">Zuo Qiu</mark> lost his sight, hence there is the <mark lang="zh"><cite>Guo Yu</cite></mark>. (<span lang="zh">Sima Qian</span>, “<cite>Letter to <span lang="zh">Ren'an</span></cite>”)</p>
+<figcaption>Using <code>&lt;u&gt;</code> for Chinese proper name marks where appropriate</figcaption>
+</figure>
+
+<p>If you’re using Firefox 6+ you’ll also see the appropriate wavy underline for a Chinese book name mark on the quote’s source, courtesy of CSS3’s <code>text-decoration-style: wavy;</code>. I’ve used <code>&lt;cite&gt;</code> for book name marks as it’s more appropriate than <code>&lt;u&gt;</code>. You can find out more about <code>wavy</code> in <a href="http://dev.w3.org/csswg/css3-text/Overview.html#decoration" title="CSS Text Level 3">CSS Text Level 3</a>.</p>
+
+<!-- /#proper-name-mark --></section>
+
+<section id="spell-check">
+<h2>Using <code>&lt;u&gt;</code> for spell-checking feedback <a class="permalink" href="#spell-check">#</a></h2>
+
+<p>While you’re probably not marking up classical Chinese prose, a more familiar use case is for a spell-checker to indicate incorrect text. The default formatting in word processors is typically a red underline for spelling errors, and a green underline for grammatical errors:</p>
+
+<figure id="spelling">
+<style scoped>#spelling .spelling-error {
+  text-decoration: none;
+  border-bottom: 1px dashed red;
+}
+#spelling .grammatical-error {
+  text-decoration: none;
+  border-bottom: 1px dashed green;
+}</style>
+<pre><code>.spelling-error {
+  text-decoration: none;
+  border-bottom: 1px dashed red;
+}
+.grammatical-error {
+  text-decoration: none;
+  border-bottom: 1px dashed green;
+}
+&lt;p&gt;hello doctor i am having a huge body &lt;u class="spelling-error"&gt;oder&lt;/u&gt; &lt;u class="grammatical-error"&gt;it is smell really bad&lt;/u&gt;&lt;/p&gt;</code></pre>
+<p>hello doctor i am having a huge body <u class="spelling-error">oder</u> <u class="grammatical-error">it is smell really bad</u></p>
+<figcaption>Using <code>&lt;u&gt;</code> for annotating spell checker feedback</figcaption>
+</figure>
+
+<p>While we’ve turned off the default <code>text-decoration</code> style, <code>&lt;u&gt;</code> will back us up if CSS is disabled, and potentially provide more information for assistive technology. After all, if it’s semantic it should be in HTML, not CSS.</p>
+
+<p>Some word processors use wavy underlines. This CSS would have the same effect in a supporting browser:</p>
+
+<pre><code>.spelling-error {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: red;
+}
+.grammatical-error {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: green;
+}</code></pre>
+
+<p>Or, using <code>text-decoration</code> as a shorthand property, and adding a default declaration for non-supporting browsers:</p>
+
+<pre><code>.spelling-error {
+  text-decoration: underline; /* for backwards compatibility */
+  text-decoration: underline wavy red;
+}
+.grammatical-error {
+  text-decoration: underline; /* for backwards compatibility */
+  text-decoration: underline wavy green;
+}</code></pre>
+
+<p>Again, you can read more about the upgraded <code>text-decoration</code> properties in <a href="http://dev.w3.org/csswg/css3-text/Overview.html#decoration" title="CSS Text Level 3">CSS Text Level 3</a>.</p>
+
+<!-- /#spell-check --></section>
+
+<section id="family-names">
+<h2>Using <code>&lt;u&gt;</code> for indicating family names <a class="permalink" href="#family-names">#</a></h2>
+
+<p>Another use for <code>&lt;u&gt;</code> is to annotate a family name when this might be confusing — Chinese, Japanese, Korean and Vietnamese (among others) all traditionally write names in a different order than the western-centric “given-name family-name”. While applying a blanket western ordering is fairly common (especially when publishing in English), it’s good form to use culturally appropriate ordering. If the audience might misunderstand, the family name can be underlined, capitalised, or otherwise annotated to make the name order explicit. For example, the <abbr title="Central Intelligence Agency">CIA</abbr>’s World Fact Book capitalises the family name:</p>
+
+<blockquote>
+<p>After World War II, the Communists under <mark>MAO Zedong</mark> established an autocratic socialist system …</p>
+<footer>— <cite><a href="https://www.cia.gov/library/publications/the-world-factbook/geos/ch.html">The World Factbook</a></cite>, <abbr title="Central Intelligence Agency">CIA</abbr></footer>
+</blockquote>
+
+<p>This ties in nicely with <a href="http://html5doctor.com/microformats/#hcard" title="Extending HTML5 — Microformats | HTML5 Doctor">the hCard microformat</a>, as the “implied <code>n</code> optimisation” doesn’t work with these non-western ordered names, and we need a wrapper element to indicate each part of the name anyhow.</p>
+
+<figure id="family-name1">
+<style scoped>#family-name1 .family-name {text-decoration: underline;}</style>
+<pre><code>&lt;style&gt;
+  .family-name {text-decoration: underline;}
+&lt;/style&gt;
+&lt;p&gt;
+  &lt;span class="vcard" lang="ja-latn"&gt;
+    &lt;span class="fn n"&gt;
+      &lt;u class="family-name"&gt;Son&lt;/u&gt; &lt;span class="given-name"&gt;Goku&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+   is the main protagonist in 
+  &lt;span class="vcard" lang="ja-latn"&gt;
+    &lt;span class="fn n"&gt;
+      &lt;span class="given-name"&gt;Akira&lt;/span&gt; &lt;u class="family-name"&gt;Toriyama&lt;/u&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;’s &lt;i lang="ja-latn"&gt;manga&lt;/i&gt; “Dragon Ball”.
+&lt;/p&gt;</code></pre>
+<p><span class="vcard" lang="ja-latn"><span class="fn n"><u class="family-name">Son</u> <span class="given-name">Goku</span></span></span> is the main protagonist in <span class="vcard" lang="ja-latn"><span class="fn n"><span class="given-name">Akira</span> <u class="family-name">Toriyama</u></span></span>’s <i lang="ja-latn">manga</i> “Dragon Ball”.</p>
+<figcaption>Using <code>&lt;u&gt;</code> to indicate the family name in non-western names via underlining</figcaption>
+</figure>
+
+<p>Of course you can then change the style via CSS, for example</p>
+
+<figure id="family-name2">
+<style scoped>#family-name2 .family-name {
+  text-decoration: none;
+  text-transform: uppercase;
+}</style>
+<pre><code>.family-name {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+</code></pre>
+<p><span class="vcard" lang="ja-latn"><span class="fn n"><u class="family-name">Son</u> <span class="given-name">Goku</span></span></span> is the main protagonist in <span class="vcard" lang="ja-latn"><span class="fn n"><span class="given-name">Akira</span> <u class="family-name">Toriyama</u></span></span>’s <i lang="ja-latn">manga</i> “Dragon Ball”.</p>
+<figcaption>Using <code>&lt;u&gt;</code> to indicate the family name in non-western names via capitalisation</figcaption>
+</figure>
+
+<p>The benefit of using <code>&lt;u&gt;</code> for this is the family name will be indicated even when CSS is disabled, ensuring the annotation isn’t lost. Assistive technology may also be able to inform the user of this in the future.</p>
+
+<!-- /#family-names --></section>
+
+<section id="do-we-need-u">
+<h2>But do we need <code>&lt;u&gt;</code>? <a class="permalink" href="#do-we-need-u">#</a></h2>
+
+<p>A lot of people bitten by the web standardista bug have somewhat of an allergic reaction to ex-presentational elements in HTML5, after influential articles like Tantek Çelik’s “<a href="http://tantek.com/log/2002/10.html#L20021022t1432" title="tantek/log/2002/10"><code>&lt;b&gt;</code>ed and <code>&lt;br&gt;</code>eakfast markup</a>”. Given <code>&lt;u&gt;</code>’s ignoble past, I expect the reaction to its return will also lead to some poo-pooing. As we already mentioned, however, <em>if it imparts meaning, it should be in HTML</em>. These use cases involve semantic meaning, and even without assistive technology support, <code>&lt;u&gt;</code> conveys some meaning to sighted users via the browser-default style <code>text-decoration: underline;</code>.</p>
+
+<p>Regardless of whether an element is deprecated (HTML 4, XHTML 1)  or non-conforming (HTML5) or just plain uncool, browser makers still have to support it for backward compatibility with all those awesome web pages from the days when <code>&lt;blink&gt;</code> was hawt. Because of this, if there’s a semantic use case for an ex-presentational element, it’s definitely better to reform it rather than minting a new element with no backward compatibility. You might think <code>&lt;mark&gt;</code> sounds pretty similar, but the default browser styling would be completely wrong for proper name marks, and <a href="http://krijnhoetmer.nl/irc-logs/whatwg/20110930#l-890" title="IRC logs: freenode / #whatwg / 20110930">semantically less appropriate for spelling errors</a> too.</p>
+
+<p>As Ian Hickson explains:</p>
+
+<blockquote>
+<p>The presentational markup that was <code>&lt;u&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;font&gt;</code>, <code>&lt;small&gt;</code>, etc, is gone. However, there are certain use cases that did not yet have elements yet were important enough to warrant us supporting them. By reusing existing elements, we are able to support them without having to wait for new elements to be implemented. By doing so in a way that closely matches how those elements were actually used in practice (at least to the same extent as other elements have been correctly used in practice) we can not only have older UAs support these new elements automatically, but we can do so in a way that does not introduce an undue volume of invalid pages.</p>
+<footer>— <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032715.html" title="[whatwg] sic element">WHATWG email list</a>, Ian Hickson</footer>
+</blockquote>
+
+<!-- /#do-we-need-u --></section>
+
+<section id="conclusion">
+<h2>Conclusion</h2>
+
+<p>Given the potential to confuse underlined text with links, using <code>text-decoration: underline;</code> on anything other than <code>&lt;a&gt;</code> is bad pretty much all the time. <strong>Generally <code>&lt;u&gt;</code> is not the element you’re looking for</strong>, even for Chinese book name marks (<code>&lt;cite&gt;</code> would be more appropriate). <em>However</em>, for at least these three use cases, it’s good to have a semantic option, something better than <code>&lt;span&gt;</code>.</p>
+
+<p>So…in a hypothetical world where you did need to code for one of these situations, would you use <code>&lt;u&gt;</code> or something else like <code>&lt;span&gt;</code>? Let us know in the comments!</p>
+
+<!-- /#conclusion --></section>
+<p><a href="http://html5doctor.com/u-element/" rel="bookmark">The return of the u element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 25, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/u-element/feed/</wfw:commentRss>
+		<slash:comments>37</slash:comments>
+		</item>
+		<item>
+		<title>The scoped attribute</title>
+		<link>http://html5doctor.com/the-scoped-attribute/</link>
+		<comments>http://html5doctor.com/the-scoped-attribute/#comments</comments>
+		<pubDate>Tue, 13 Sep 2011 13:30:57 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[semantics]]></category>
+		<category><![CDATA[style]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634</guid>
+		<description><![CDATA[<p>The scoped attribute for the style element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>scoped</code> attribute for the <code>&lt;style&gt;</code> element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p>
+
+<p>Let’s take a quick look at the spec:</p>
+
+<blockquote>
+<p>The <code>scoped</code> attribute is a boolean attribute. If set, it indicates that the styles are intended just for the subtree rooted at the style element’s parent element, as opposed to the whole Document.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-scoped" title="Scoped attribute — HTML5">WHATWG</a></cite></footer>
+</blockquote>
+
+<section id="bad">
+<h2>Isn’t this bad practice?</h2>
+<p>For years, we’ve been told (and have actively told others) to separate content and presentation layers. So why would we introduce something that seems to go against everything we’ve been preaching?</p>
+
+<p>The separation of these layers is still vitally important, but let’s look at a few use cases to shed some light on why this attribute has been introduced. Scoped style provides a W3C-approved way to:</p> 
+
+<ul>
+  <li>Add one-off CSS styles.</li>
+  <li>Add user-defined styles to wiki or CMS content.</li>
+  <li>Add theme-defined styles via CMS plugins.</li>
+  <li>Keep syndicated content together (e.g., keeping example code together with the example).</li>
+</ul>
+</section>
+
+<section id="how-does">
+<h2>How does it work?</h2>
+<p>In this section, I’ll show you how this new attribute will work when it gets rolled out to browsers.</p>
+
+<section id="starting">
+<h3>Our starting point</h3>
+
+<p>We’ll be using the following code sample as a starting point:</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<p>This is a basic example, with two headings and two paragraphs set within the article element.</p>
+</section>
+
+<section id="addingscope">
+<h3>Adding the <code>scoped</code> attribute</h3>
+
+<p>In the next example, we’ll change the foreground color of the second paragraph to red (from whatever was defined in the master CSS file):</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;style <mark>scoped</mark>&#62;
+      p { color: red; }
+    &#60;/style&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<aside class="sidenote"><p>It’s worth noting that the <code>scoped</code> attribute can’t be the first attribute of the body element. I also received a validation error using <code>&#60;body style="..."&#62;</code>.</p></aside>
+
+<p id="example">This screenshot shows how things might render in the browser:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/09/scoped1.gif" alt="" title="scoped" width="526" height="297" class="alignnone size-full wp-image-3735" srcset="http://html5doctor.com/wp-content/uploads/2011/09/scoped1.gif 526w, http://html5doctor.com/wp-content/uploads/2011/09/scoped1-300x169.gif 300w" sizes="(max-width: 526px) 100vw, 526px" />
+<figcaption>How the <code>scoped</code> attribute will render</figcaption>
+</figure>
+</section>
+</section>
+
+<section id="link">
+<h2>Can I apply <code>scoped</code> to &#60;link&#62;?</h2>
+<p>While I was writing this article, Dr. Rich asked whether it was possible to add this attribute to <code>&lt;link&gt;</code> elements. Turns out you can’t, but I stumbled across this tidbit in the WHATWG mailing list:</p>
+
+<blockquote>
+  <p>You can use &#60;style scoped&#62;@import url(whatever);&#60;/style&#62;</p>
+  <p>And this even enables you to add some specific styles ([be they embedded] or from another external sheet) on a per-use basis if the need arises. For example, a long dissertation relying on many quotes may benefit from adding stronger visual highlights on the &#60;em&#62; elements within the last quote to reinforce the final conclusion.</p>
+  <footer>— <cite><a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2011-March/031049.html"> Eduard Pascuals WHATWG mailing list response #031049</a></cite></footer>
+</blockquote>
+</section>
+
+<section id="compatibility">
+<h2>Backwards compatibility</h2>	
+<p>Unfortunately, scoped style isn’t all puppy dogs and kittens.</p>
+
+<p>Since this newly introduced attribute isn’t understood by current browsers, CSS rules in <code>&#60;style scoped&#62;</code> are just added to the page’s CSS. Therefore, if you were to include a <code>scoped</code> style block mid-page, its declarations would be applied to every matching element in the document, regardless of whether the element were inside or outside of the scope’s range.</p>
+
+<p>For the sake of backwards compatibility, Louis Lazaris has suggested <a href="http://www.impressivewebs.com/scoped-styles-html5/">a brand new element called <code>&#60;scopedstyle&#62;</code></a>. This new element would only be recognised by supporting browsers and ignored by everything else. This way, scoped styles wouldn’t be added to the whole document. Instead, the browser would just throw away the unrecognised <code>&lt;scopedstyle&gt;</code> element and move on.</p>
+</section>
+
+<section id="support">
+<h2>Browser support</h2>
+
+<table class="wide">
+<caption>Browser support for <code>&lt;style scoped&gt;</code> <i>(as of <time datetime="2011-09-06">6th September, 2011</time>)</i></caption>
+<thead>
+<tr>
+<th scope="col">Browser</th>
+<th scope="col">Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <th scope="row">Chrome 13</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Safari 5</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Firefox 6</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Opera 11.51</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Internet Explorer 9</th>
+  <td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>Currently, the <code>scoped</code> attribute isn’t working in any of the browser alpha versions (Opera.Next, Mozilla Aurora, or WebKit nightly builds). There’s work in progress by <a href="https://bugs.webkit.org/show_bug.cgi?id=49142">Roland Steiner for support in WebKit</a>.</p>
+</section>
+
+<section id="using-today">
+<h2>Using <code>&#60;style scoped&#62;</code> today</h2>
+<p>So you’ve read this article and decided that you <em>need</em> scoped style in your life. What now? Well, just like every other new HTML5 thing, we have a polyfill for it. <a href="http://twitter.com/#!/thingsinjars">Simon Madine</a> has created a <a href="https://github.com/thingsinjars/jQuery-Scoped-CSS-plugin">jQuery scoped CSS plugin on GitHub</a>.</p>
+
+<aside class="sidenote"><p>Please note that Oli used a wrapper <code>&lt;div&gt;</code> because of <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13102">validation problems explained in this bug</a>.</p></aside>
+
+<p>You could also assign a CSS prefix to target the section of your document you want to style. You’d still be able to stick your styles inline, but you’ve also provided a fallback for the older browsers. In fact, Dr. Oli has done just that on his <a href="http://html5doctor.com/blockquote-q-cite/">latest article</a>. (View source and search for <code>&#60;div class="faint"&#62;</code>.)</p>
+</section>
+
+<section id="opinions">
+<h2>Opinions</h2>
+
+<p>There’s no denying that we’re breaking backwards compatibility by introducing <code>&lt;style scoped&gt;</code>. To me, this just doesn’t make any sense. I feel this needs to be addressed by either creating a new element like <code>&lt;scopedstyle&gt;</code> or using some protective mechanism like the <code>&#60;!--</code> and <code>--&#62;</code> delimiters that have been used within <code>&lt;style&gt;</code> and <code>&lt;script&gt;</code> elements.</p>
+
+<p>Let’s not end this article with negative sentiment, though. As with anything, it’s what you make of it. Scoped style is pretty plain vanilla, but if people abuse it, it’ll end up with a bad rap. <a href="http://html5doctor.com/author/olib/">Dr. Oli</a> has spoken at length about his love for this attribute as it allows him to have live code examples with the CSS in <code>&#60;pre&#62;</code> and also in a <code>&#60;style scoped&#62;</code> within a <code>&#60;figure&#62;</code>.</p>
+
+<p>So now it’s time for you to express your views. What do you think about the new <code>scoped</code> attribute? Do you think it has a future? Should it be fast-tracked into the spec? Or do you think it’s a waste of time that could ultimately end up mixing our content and presentation layers together again? Let us know in the comments!</p>
+</section><p><a href="http://html5doctor.com/the-scoped-attribute/" rel="bookmark">The scoped attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 13, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-scoped-attribute/feed/</wfw:commentRss>
+		<slash:comments>85</slash:comments>
+		</item>
+		<item>
+		<title>Quoting and citing with &#060;blockquote&#062;, &#060;q&#062;, &#060;cite&#062;, and the cite attribute</title>
+		<link>http://html5doctor.com/blockquote-q-cite/</link>
+		<comments>http://html5doctor.com/blockquote-q-cite/#comments</comments>
+		<pubDate>Tue, 28 Jun 2011 13:30:21 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[blockquote]]></category>
+		<category><![CDATA[cite]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[q]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3373</guid>
+		<description><![CDATA[<p>Given HTML’s roots in the academic world, it should be no surprise that quoting is well-accomodated in the elements blockquote and q, with their optional cite attribute. In addition, there’s the cite element, which over the last nine years went from ‘semantic orphan element made good’ to one of the more contentious elements in HTML5. Let’s power up the endoscope and examine the scarring, starting with blockquote.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p class="callout"><strong> NOTE:</strong> (6/11/2013) The definitions of <code>cite</code> and <code>blockquote</code> in <a href="http://www.w3.org/html/wg/drafts/html/master/">HTML</a> have changed. For the latest advice on using these elements refer to <a href="http://html5doctor.com/cite-and-blockquote-reloaded/">cite and blockquote – reloaded</a></p>
+Given HTML’s roots in the academic world, it should be no surprise that quoting is well-accommodated in the elements <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code>, with their optional <code>cite</code> attribute. In addition, there’s the <code>&lt;cite&gt;</code> element, which over the last nine years went from ‘semantic orphan element made good’ to one of the more contentious elements in HTML5. Let’s power up the endoscope and examine the scarring, starting with <code>&lt;blockquote&gt;</code>.
+
+<section id="blockquote">
+<h2>Quoting with <code>&lt;blockquote&gt;</code> <a class="permalink" href="#blockquote">#</a></h2>
+We’ve become pretty familiar with <code>&lt;blockquote&gt;</code> here, as most of our articles feature excerpts from the HTML5 specification. Look, here’s one right now:
+<blockquote>The <code>blockquote</code> element represents a section that is quoted from another source.
+
+<footer>— <cite><a title="4.5 Grouping content — HTML5" href="http://dev.w3.org/html5/spec/grouping-content.html#the-blockquote-element">W3C HTML5 specification</a></cite></footer></blockquote>
+Easy peasy, right? Nothing has really changed. Remember that as <code>&lt;blockquote&gt;</code> is a ‘block-level element’ (<em>flow content</em>) we can put most anything in it, including headers, images and tables, in addition to the usual paragraphs of text.
+
+There are a couple of slight differences in HTML5 though. <code>&lt;blockquote&gt;</code> is a <em>sectioning root</em>, meaning that any <code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code> elements it contains don’t become part of the document’s outline. Also, adding a single paragraph of text with no enclosing <code>&lt;p&gt;</code> tags is now completely kosher.
+
+Here are some simple <code>&lt;blockquote&gt;</code> examples (apologies for the fake content):
+
+<figure>
+<pre><code>&lt;blockquote&gt;This is a short block quote — look Ma, no paragraph tags!&lt;/blockquote&gt;</code></pre>
+<blockquote>This is a short block quote — look Ma, no paragraph tags!</blockquote>
+</figure><figure>
+<pre><code>&lt;blockquote&gt;&lt;p&gt;This is a longer block quote.&lt;/p&gt;
+  &lt;p&gt;It uses paragraph elements.&lt;/p&gt;
+&lt;/blockquote&gt;</code></pre>
+<blockquote>This is a longer block quote.
+
+It uses paragraph elements.</blockquote>
+</figure><figure>
+<pre><code>&lt;blockquote&gt;&lt;h1&gt;OMG a heading!&lt;/h1&gt;
+  &lt;ul&gt;&lt;li&gt;Block quotes can contain more than just paragraphs…&lt;/li&gt;&lt;/ul&gt;
+&lt;/blockquote&gt;</code></pre>
+<blockquote>
+<h1>OMG a heading!</h1>
+<ul>
+	<li>Block quotes can contain more than just paragraphs…</li>
+</ul>
+</blockquote>
+</figure>Historically, adding the source of a <code>&lt;blockquote&gt;</code> was a semantic conundrum. If you add it as content of the <code>&lt;blockquote&gt;</code>, then semantically it would become part of the quote, right? <code>&lt;blockquote&gt;</code> (and <code>&lt;q&gt;</code>) have a <code>cite</code> attribute for the URL of the quote’s source, to provide context. That’s hidden data, however, and despite <a href="http://www.holovaty.com/writing/176/">the potential for exposing the <code>cite</code> attribute via CSS and/or JS</a>, that’s not as useful as a visible link.
+<div class="callout warning-block" id="change-2011-07-11"><aside class="sidenote"><em>Non-conforming</em> means that while it will validate, adding a <code>&lt;footer&gt;</code> that isn’t in the quote’s source goes against the spec</aside>&nbsp;
+
+<em><time>2011-07-11</time></em> It seems our long-running convention at HTML5 Doctor of using <code>&lt;footer&gt;</code> for attribution inside a <code>&lt;blockquote&gt;</code> is actually <a title="Bug 13082" href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13082"><em>non-conforming</em></a>. However the phrase in the spec that prevents it also prevents other common block quoting patterns, so the spec will probably change. Read my article <a title="Blockquote problems and solutions ❧ Oli.jp (@boblet)" href="http://oli.jp/2011/blockquote/"><code>&lt;blockquote&gt;</code> problems and solutions</a>, and submit <a title="[whatwg] The blockquote element spec vs common quoting practices" href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032334.html">feedback via the WHATWG email list</a>, the comments here or to be via <a href="http://twitter.com/boblet">Twitter (@boblet)</a> — your feedback will influence <em>how</em> the spec changes!
+
+I’ll <a href="#updates">update this article</a> after the change, but until then be aware <strong><code>&lt;footer&gt;</code> for attribution in a <code>&lt;blockquote&gt;</code> isn’t strictly valid</strong>, and may not be in the future either. The spec currently recommends including attribution in content surrounding the <code>&lt;blockquote&gt;</code>.
+
+</div>
+<p class="callout changed-block" id="change-2012-02-14"><em><time datetime="2012-02-14T15:20:27+13:00">2012-02-14</time></em> <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2012-February/034822.html">Hixie has given his feedback on my email</a>, and it seems like our <code>&lt;footer&gt;</code> citations are still invalid. The official recommendation is to put the blockquote in a figure and add attribution in <code>&lt;figcaption&gt;</code>. Read the whole thread as there are some interesting comments. I’ll wait for the dust to settle a little yet…</p>
+
+<div class="faint"><style scoped=""><!--
+.faint {color: #777;}
+--></style>HTML5 comes to our rescue with the <code>&lt;footer&gt;</code> element, allowing us to add semantically separate information <em>about</em> the quote. For example:
+
+<figure>
+<pre><code>&lt;blockquote&gt;
+  &lt;p&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/p&gt;
+  &lt;footer&gt;— Crazy hunch-backed old guy from the movie Aladdin&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<blockquote>You know the golden rule, don’t you boy? Those who have the gold make the rules.
+
+<footer>— Crazy hunch-backed old guy from the movie Aladdin</footer></blockquote>
+</figure>Because of this semantically sound way to show the quote’s source, <ins datetime="2011-07-11T14:34:56+0900">if you’re going to add a <code>cite</code> attribute on <code>&lt;blockquote&gt;</code>, only do so <em>in addition</em> to visible attribution</ins>.
+
+<figure>
+<pre><code>&lt;blockquote cite="http://www.imdb.com/character/ch0000672/quotes"&gt;
+&lt;p&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/p&gt;
+&lt;footer&gt;— &lt;a href="http://www.imdb.com/character/ch0000672/quotes"&gt;Crazy hunch-backed old guy in Aladdin&lt;/a&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<blockquote>You’ve heard of the golden rule, haven’t you? Whoever has the gold makes the rules.
+
+<footer>— <a href="http://www.imdb.com/character/ch0000672/quotes">Crazy hunch-backed old guy in Aladdin</a></footer></blockquote>
+</figure></div>
+Even then, the <code>cite</code> attribute is probably only worth it if you can automate it (or you're just crazy OCD ;). We’ll return to <code>&lt;blockquote&gt;</code> in a bit, but let’s first probe into <code>&lt;q&gt;</code>.
+
+<!-- /#blockquote -->
+
+</section><section id="q">
+<h2>Inline quotations with <code>&lt;q&gt;</code> <a class="permalink" href="#q">#</a></h2>
+<code>&lt;q&gt;</code> is for quoting something inline within a section of prose:
+<blockquote>The <code>q</code> element represents some phrasing content quoted from another source.
+
+<footer>— <cite><a title="4.6 Text-level semantics — HTML5" href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-q-element">W3C HTML5 specification</a></cite></footer></blockquote>
+This means we can’t use <code>&lt;q&gt;</code> for sarcasm or other non-quotation uses of quote marks (“”). In those cases, add punctuation manually.
+
+The spec continues:
+<blockquote>Quotation punctuation (such as quotation marks) that is quoting the contents of the element must not appear immediately before, after, or inside <code>q</code> elements; they will be inserted into the rendering by the user agent.
+
+<footer>— <cite><a title="4.6 Text-level semantics — HTML5" href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-q-element">W3C HTML5 specification</a></cite></footer></blockquote>
+As with <code>&lt;blockquote&gt;</code>, you can also add a <code>cite</code> attribute with a URL for the quotation’s source (subject to the above caveats against hidden data). If you’re not using these extra features though, it’s a toss-up as to whether <code>&lt;q&gt;</code> is any better than just adding punctuation characters like “” as you type.
+
+Okay, let’s see some specimens:
+
+<figure><figcaption>Nested quotations:</figcaption>
+<pre><code>&lt;p&gt;Luke continued, &lt;q&gt;And then she called him a &lt;q&gt;scruffy-looking nerf-herder&lt;/q&gt;! I think I’ve got a chance!&lt;/q&gt; The poor naive fool…&lt;/p&gt;
+</code></pre>
+Luke continued, <q>And then she called him a <q>scruffy-looking nerf-herder</q>! I think I’ve got a chance!</q> The poor naive fool…
+
+</figure>
+<div class="lang-example"><style scoped=""><!--
+.lang-example :lang(ja) > q {quotes: '「' '」' '『' '』';}
+.lang-example :lang(ja-latn) > q {quotes: '“' '”' '‘' '’';}
+--></style><figure><figcaption>Language-appropriate quotations <ins datetime="2011-06-29T13:32:48+09:00">(example updated, thanks <a href="#comment-15413">Zev</a>, <a href="#comment-15433">Bertil</a>, &amp; <a href="#comment-25155">Janus</a>)</ins>:</figcaption><aside class="sidenote"><ins datetime="2011-06-29T13:32:48+09:00">For more information see <a href="#foreign-languages">styling foreign quotations</a></ins></aside>
+<pre><code>&lt;ul&gt;
+&lt;li lang="ja"&gt;彼女は&lt;q&gt;日本語に猫は『にゃん』と鳴く&lt;/q&gt;と言った。&lt;/li&gt;
+&lt;li&gt;&lt;i lang="ja-latn"&gt;Kanojo wa &lt;q&gt;Nihongo ni neko wa ‘nyan’ to naku&lt;/q&gt; to itta.&lt;/i&gt;&lt;/li&gt;
+&lt;li&gt;She said &lt;q&gt;In Japanese cats say &lt;i lang="ja-latn"&gt;nyan&lt;/i&gt;&lt;/q&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<ul class="semantic-list">
+	<li lang="ja">彼女は<q>猫は『にゃん』と鳴く</q>と言った。</li>
+	<li><i lang="ja-latn">Kanojo wa <q>Nihongo ni neko wa ‘nyan’ to naku</q> to itta.</i></li>
+	<li>She said <q>In Japanese cats say <i lang="ja-latn">nyan</i></q>.</li>
+</ul>
+</figure></div>
+<figure><figcaption>A quotation using the cite attribute. Note that I’ve also included the <code>cite</code> attribute’s link in content so it’s accessible:</figcaption>
+<pre><code>&lt;p&gt;&lt;a href="http://www.imdb.com/character/ch0000672/quotes"&gt;The Aladdin character Jafar&lt;/a&gt; presents an eloquent treatise on the recent global economic meltdown when he states &lt;q cite="http://www.imdb.com/character/ch0000672/quotes"&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/q&gt;&lt;/p&gt;</code></pre>
+<a title="Jafar (Character) - Quotes" href="http://www.imdb.com/character/ch0000672/quotes">The Aladdin character Jafar</a> presents an eloquent treatise on the recent global economic meltdown when he states <q cite="http://www.imdb.com/character/ch0000672/quotes">You know the golden rule, don’t you boy? Those who have the gold make the rules.</q>
+
+</figure>Let’s examine how to style these elements next.
+
+<!-- /#q -->
+
+</section><section id="styling">
+<h2>Styling <code>&lt;q&gt;</code> and <code>&lt;blockquote&gt;</code> <a class="permalink" href="#styling">#</a></h2>
+Historically, browser support has been patchy for controlling the punctuation used by <code>&lt;q&gt;</code>. Things have settled down now, so we can define nested, language-specific and even author-defined punctuation via CSS.
+<table class="browser-support wider" id="quotes-support"><caption>Browser support for styling quotes</caption>
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col"><abbr title="Internet Explorer">IE</abbr></th>
+<th scope="col">Firefox</th>
+<th scope="col">Safari</th>
+<th scope="col">Chrome</th>
+<th scope="col">Opera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Default <code>&lt;q&gt;</code> punctuation<a href="#quotes-1">¹</a></th>
+<td>8.0 “” ‘’</td>
+<td>1.5 “” ‘’</td>
+<td>2.0 ""
+
+4.0? "" ''</td>
+<td>1.0? "" ''</td>
+<td>4.0 “” ‘’</td>
+</tr>
+<tr>
+<th scope="row"><code>quotes</code> with Unicode escapes</th>
+<td>8.0</td>
+<td>1.5</td>
+<td>5.1<a href="#quotes-2">²</a></td>
+<td>11.0<a href="#quotes-2">²</a></td>
+<td class="warning">4.0<a href="#quotes-3">³</a></td>
+</tr>
+<tr>
+<th scope="row"><code>quotes</code> with glyphs</th>
+<td>8.0</td>
+<td>1.5</td>
+<td>5.1<a href="#quotes-2">²</a></td>
+<td>11.0<a href="#quotes-2">²</a></td>
+<td class="warning">4.0<a href="#quotes-3">³</a></td>
+</tr>
+</tbody>
+</table>
+<ol class="key">
+	<li id="quotes-1">Default <code>&lt;q&gt;</code> support requires on <code>:before</code> and <code>:after</code></li>
+	<li id="quotes-2">Webkit support has been weak, with "" and '' hard-coded until Safari 5.1 and Chrome 11. Ref: WebKit bugs <a href="https://bugs.webkit.org/show_bug.cgi?id=6503">6503 (fixed)</a> and <a href="https://bugs.webkit.org/show_bug.cgi?id=3234">3234 (new)</a>.</li>
+	<li id="quotes-3">Opera is buggy if you nest <code>&lt;q&gt;</code> to a greater depth than quote pairs in your <code>quotes</code> property (<a href="http://jsbin.com/ehevof">test case</a>)</li>
+</ol>
+“Correct” punctuation is an intricate topic and <a title="Non-English usage of quotation marks - Wikipedia, the free encyclopedia" href="http://en.wikipedia.org/wiki/Non-English_usage_of_quotation_marks">varies depending on language</a>, but it generally involves these characters:
+<table class="widest" id="punctuation-characters"><caption>Quote punctuation characters</caption>
+<thead>
+<tr>
+<th scope="col">Glyph</th>
+<th scope="col">Description</th>
+<th scope="col">Unicode escape</th>
+<th scope="col">Entity</th>
+<th scope="col">Mac</th>
+<th scope="col">Windows</th>
+<th scope="col">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">“</th>
+<td>Left double quotation mark</td>
+<td>\201C</td>
+<td><code>&amp;ldquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>[</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0147</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>V</kbd></td>
+</tr>
+<tr>
+<th scope="row">”</th>
+<td>Right double quotation mark</td>
+<td>\201D</td>
+<td><code>&amp;rdquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>[</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0148</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>B</kbd></td>
+</tr>
+<tr>
+<th scope="row">‘</th>
+<td>Left single quotation mark</td>
+<td>\2018</td>
+<td><code>&amp;lsquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>]</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0145</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd></td>
+</tr>
+<tr>
+<th scope="row">’</th>
+<td>Right single quotation mark</td>
+<td>\2019</td>
+<td><code>&amp;rsquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>]</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0146</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd></td>
+</tr>
+<tr>
+<th scope="row">«</th>
+<td>Double left-pointing angle quotation mark</td>
+<td>\00AB</td>
+<td><code>&amp;laquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>\</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>174</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>[</kbd></td>
+</tr>
+<tr>
+<th scope="row">»</th>
+<td>Double right-pointing angle quotation mark</td>
+<td>\00BB</td>
+<td><code>&amp;raquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>\</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>175</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>]</kbd></td>
+</tr>
+<tr>
+<th scope="row">‹</th>
+<td>Single left-pointing angle quotation mark</td>
+<td>\2039</td>
+<td><code>&amp;lsaquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>3</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0139</kbd></td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">›</th>
+<td>Single right-pointing angle quotation mark</td>
+<td>\203A</td>
+<td><code>&amp;rsaquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>4</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0155</kbd></td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">„</th>
+<td>Double low-9 quotation mark</td>
+<td>\201E</td>
+<td><code>&amp;bdquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>W</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0132</kbd></td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">‚</th>
+<td>Single low-9 quotation mark</td>
+<td>\201A</td>
+<td><code>&amp;sbquo;</code></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"></th>
+<td>Narrow no-break space</td>
+<td>\202F</td>
+<td><code>&amp;#8239;</code></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<aside class="sidenote"><a title="Shortcuts by George Hernandez" href="http://www.georgehernandez.com/h/xComputers/CharacterSets/Shortcuts.asp">More info on keyboard shortcuts for entering special characters</a>, including how to enter them via Unicode escape codes (hex input) on Macs &amp; PCs</aside>
+<p class="note">If you’re using the <code>charset</code> UTF-8 (and you should be), we recommend you use the actual characters if possible, rather than the Unicode escapes in CSS or the entities in HTML. You can enter most of these using the keyboard — e.g. “ is <kbd>Opt</kbd>-<kbd>[</kbd> on Mac, <kbd>Alt</kbd> + <kbd>0147</kbd> on Windows, and <kbd>AltGr</kbd> + <kbd>V</kbd> on Linux. Avoid using ", ' or ` in place of “” and ‘’. The “narrow no-break space” is used inside French guillemets.</p>
+Most languages alternate between two kinds of punctuation as quotes are nested, such as “” and ‘’ in English. To specify nested quote pairs in CSS, we would write this:
+<pre><code>q {quotes: '“' '”' '‘' '’';} /* opening followed by closing quote pairs */
+/* The equivalent using Unicode escapes:
+  q {quotes: '\201C' '\201D' '\2018' '\2019';} */
+q:before {content: open-quote;}
+q:after {content: close-quote;}
+</code></pre>
+Unfortunately, browsers use the last quote pair in the <code>quotes</code> property for more deeply nested quotations. <ins datetime="2011-06-29T00:17:49+09:00">In addition, Opera will use the wrong quote characters if you have more nested <code>&lt;q&gt;</code> than your <code>quotes</code> property defines quoting levels for (<a href="http://jsbin.com/ehevof">Opera quotes bug test case</a>).</ins> Make sure you have enough levels by repeating quote pairs as necessary:
+<pre><code>/* four levels of nested quotes */
+q {quotes: '“' '”' '‘' '’' '“' '”' '‘' '’';}</code></pre>
+WebKit had "" and '' hard-coded in the browser stylesheet until Safari 5.1 and Chrome 11, which prevented <code>q:before {content: open-quote;}</code> and <code>q:after {content: close-quote;}</code> from working. <a title="#2528708 Issues with quotes : reset.css : YUI Library" href="http://yuilibrary.com/projects/yui3/ticket/2528708">The workaround is to define opening and closing punctuation manually</a>, then override with <code>open-quote</code> and <code>close-quote</code>. While it’s a little more involved, that’s why we use this CSS on HTML5 Doctor:
+<pre><code>/* for two levels of nested quotations */
+q {quotes: '“' '”' '‘' '’';}
+ /* extra content definitions for pre-2011 WebKit */
+q:before {content: '“'; content: open-quote;}
+q:after {content: '”'; content: close-quote;}
+q q:before {content: '‘'; content: open-quote;}
+q q:after {content: '’'; content: close-quote;}
+  /* q in blockquote */
+blockquote q:before {content: '‘'; content: open-quote;}
+blockquote q:after {content: '’'; content: close-quote;}
+blockquote q q:before {content: '“'; content: open-quote;}
+blockquote q q:after {content: '”'; content: close-quote;}
+  /* blockquote hanging opening quote */
+blockquote:before {display: block; height: 0; content: "“"; margin-left: -.95em; font: italic 400%/1 Cochin,Georgia,"Times New Roman",serif; color: #999;}
+</code></pre>
+A more traditional English <code>&lt;blockquote&gt;</code> style uses an opening quote character before each paragraph of the quotation and a closing quote character on the last paragraph. You can do that with this CSS, but you’ll need to use <code>&lt;p&gt;</code> for the <code>&lt;blockquote&gt;</code>’s content.
+<pre><code>/* alternative blockquote style */
+blockquote {quotes: '“' '”';}
+blockquote p:before {content: '“'; content: open-quote;}
+blockquote p:after {content: ''; content: no-close-quote;}
+blockquote p:last-child:after {content: '”'; content: close-quote;}
+</code></pre>
+<p id="foreign-languages">When quoting a foreign language, we use the quotation marks of the surrounding language, so a Japanese quote in an English sentence still uses English quotation marks:</p>
+<p class="callout">All he knows how to say in Japanese is <del>「わかりません」</del> <ins>“わかりません”</ins> (I don’t understand).</p>
+If you’re dealing with multilingual content, you can specify the <code>quotes</code> property per-language:
+<pre><code>/* quotes for French, German (two kinds) and Japanese */
+:lang(fr) &gt; q {quotes: '« ' ' »' '“' '”';}
+:lang(de) &gt; q {quotes: '„' '“' '‚' '‘';}
+:lang(de) &gt; q {quotes: '»' '«' '›' '‹';} /* alternative style */
+:lang(ja) &gt; q {quotes: '「' '」' '『' '』';}
+</code></pre>
+You can learn more about this CSS in the specification: <a title="CSS Generated Content Module Level 3" href="http://dev.w3.org/csswg/css3-content/#specifying-quotes-with-the-quotes-proper">CSS Generated Content Module Level 3</a>.
+
+Okay, it’s time to put the rubber gloves on: <code>&lt;cite&gt;</code> is up next.
+
+<!-- /#styling -->
+
+</section><section id="cite">
+<h2>The rise and fall of <code>&lt;cite&gt;</code> <a class="permalink" href="#cite">#</a></h2>
+<section id="cite-history">
+<h3><code>&lt;cite&gt;</code>’s rise to stardom as the semantic super-element <a class="permalink" href="#cite-history">#</a></h3>
+<a href="http://www.w3.org/MarkUp/html-spec/html-spec_5.html#SEC5.7.1.1">In HTML 2</a> <code>&lt;cite&gt;</code> was <q cite="http://www.w3.org/MarkUp/html-spec/html-spec_5.html#SEC5.7.1.1">used to indicate the title of a book or other citation</q>. But in HTML 3.2 and HTML 4.01, <code>&lt;cite&gt;</code> was more loosely defined as
+<blockquote>Cite: Contains a citation or a reference to other sources
+
+<footer>— <a title="Paragraphs, Lines, and Phrases" href="http://www.w3.org/TR/html401/struct/text.html#edef-CITE">HTML 4.01 specification</a></footer></blockquote>
+We can define “citation” as:
+<ul>
+	<li>a reference to authority or precedent,</li>
+	<li>a quotation that’s being cited, or</li>
+	<li>a mention of someone or something</li>
+</ul>
+And “a reference to other sources” is even less specific [cue Jaws music]. The <a title="Paragraphs, Lines, and Phrases" href="http://www.w3.org/TR/html401/struct/text.html#edef-CITE">HTML 4.01 spec’s examples</a> were:
+<blockquote>As <code>&lt;CITE&gt;</code>Harry S. Truman<code>&lt;/CITE&gt;</code> said…
+
+More information can be found in <code>&lt;CITE&gt;</code>[ISO-0000]<code>&lt;/CITE&gt;</code></blockquote>
+Sadly, an example of an academic-style citation wasn’t included.
+
+Some standardistas enthusiastically adopted <code>&lt;cite&gt;</code> for its semantics, with the high point being <a href="http://diveintomark.org/archives/2002/12/27/pushing_the_envelope">Mark Pilgrim’s epic “Posts by citation”</a> (the results of which are now sadly 404’ed). In those heady days, <code>&lt;cite&gt;</code> was used in three main ways:
+<ol>
+	<li>To refer to a person, generally in connection with some reference or as the source of a quote:
+<pre class="callout warning-block"><code>&lt;!-- Not valid usage of cite in HTML5! --&gt;
+&lt;p&gt;As &lt;cite&gt;George R. R. Martin&lt;/cite&gt; wrote in…&lt;/p&gt;</code></pre>
+</li>
+	<li>To contain the title of a work being referred to or quoted from <ins datetime="2011-06-29T00:54:20+09:00">(what <code>&lt;cite&gt;</code> is now used for in HTML5 — <a href="http://html5doctor.com/blockquote-q-cite/#comment-15397">thanks Dylan</a>!)</ins>:
+<pre class="callout changed-block"><code>&lt;p&gt;&lt;cite&gt;A Game of Thrones&lt;/cite&gt;, by George R. R. Martin&lt;/p&gt;</code></pre>
+</li>
+	<li>To contain a full academic-style citation (title plus author, and maybe bibliographic information):
+<pre class="callout warning-block"><code>&lt;!-- Not valid usage of cite in HTML5! --&gt;
+&lt;p&gt;&lt;cite&gt;A Game of Thrones, by George R. R. Martin&lt;/cite&gt;&lt;/p&gt;</code></pre>
+<ul>
+	<li>Historically this might also be marked up as:
+<pre class="callout warning-block"><code>&lt;!-- Not valid usage of cite in HTML5! --&gt;
+&lt;p&gt;&lt;cite class="book-title"&gt;A Game of Thrones&lt;/cite&gt;, by &lt;cite class="author"&gt;George R. R. Martin&lt;/cite&gt;&lt;/p&gt;</code></pre>
+</li>
+	<li>or <a title="Template:Quotation - Wikipedia, the free encyclopedia" href="http://en.wikipedia.org/wiki/Template:Quotation">as Wikipedia does</a> (with <code>&lt;cite&gt;</code> set to <code>font-style: normal;</code>):
+<pre class="callout warning-block"><code>&lt;!-- Not valid usage of cite in HTML5! --&gt;
+&lt;p&gt;&lt;cite&gt;George R. R. Martin, &lt;i&gt;A Game of Thrones&lt;/i&gt;&lt;/cite&gt;&lt;/p&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+“Wow, what an all-rounder!” I hear you say. “Is there anything <code>&lt;cite&gt;</code> can’t do?” The dirty secret of all this is the <code>&lt;cite&gt;</code> element has historically been semantics for the sake of semantics. So far, the only non-site-specific application of <code>&lt;cite&gt;</code> is browser default stylesheets, which format it with <code>font-style: italic;</code>. This is not a bad thing, as using <code>&lt;cite&gt;</code> consistently on your own site allows you to do all kinds of fun stuff (as Pilgrim demonstrated). But in the past, it’s been used to refer to <em>three related but quite different types of data:</em> titles, full citations, and names. This makes web-wide use, such as by a search engine, tricky.
+
+<!-- /#cite-history -->
+
+</section><section id="cite-future">
+<h3><code>&lt;cite&gt;</code> snorts too much semantics, checks into rehab <a class="permalink" href="#cite-future">#</a></h3>
+So, in HTML5 this semantic over-achiever has ended up with a more … prosaic definition:
+<blockquote>The cite element represents the title of a work (e.g. a book, a paper, an essay, a poem, a score, a song, a script, a film, a TV show, a game, a sculpture, a painting, a theatre production, a play, an opera, a musical, an exhibition, a legal case report, etc). This can be a work that is being quoted or referenced in detail (i.e. a citation), or it can just be a work that is mentioned in passing.
+
+<mark>A person's name is not the title of a work</mark> — even if people call that person a piece of work — <mark>and the element must therefore not be used to mark up people's names</mark>
+
+<footer>— <cite><a title="4.6 Text-level semantics — HTML5" href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-cite-element">W3C HTML5 specification</a></cite></footer></blockquote>
+<aside class="sidenote"><q>A piece of work</q>, heh, that’s good</aside>This restriction has been somewhat … unpopular. Arguments for using <code>&lt;cite&gt;</code> for names (<a href="http://wiki.whatwg.org/wiki/Cite_element">now summarised on the <span class="caps">WHATWG</span> wiki</a>) were <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2008-February/014008.html">addressed by Ian Hickson</a>, who decided that historical use wasn’t enough to justify the wooly definition. <a title="24 ways: Incite A Riot" href="http://24ways.org/2009/incite-a-riot">Jeremy Keith’s 24 Ways article “<cite>Incite A Riot</cite>”</a> called for civil disobedience and HTML 4.01-style <code>&lt;cite&gt;</code>-ing, but the HTML5 spec has not changed.
+
+The in<code>&lt;cite&gt;</code>rs are irate that there are two use cases that <code>&lt;cite&gt;</code>’s new definition leaves semantically unfilled — to mark up speakers in a transcript or dialog, and to indicate the speaker or author of an inline quote (<code>&lt;q&gt;</code>). The <a title="4.6 Text-level semantics — HTML5" href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-cite-element">HTML5 spec</a> adds semantic insult to injury by saying:
+<blockquote>In some cases, the <code>&lt;b&gt;</code> element might be appropriate for names; e.g. in a gossip article … In other cases, if an element is really needed, the <code>&lt;span&gt;</code> element can be used.</blockquote>
+By better defining <code>&lt;cite&gt;</code>, we increase the odds of getting usable data from it, though we now need different methods to cover these other uses. For now, it seems that these use cases aren’t specific enough to warrant new elements.
+
+Note that <code>&lt;cite&gt;</code> was never a general-purpose element for marking up a person. The still-born HTML 3.0 did try to introduce the <code>&lt;person&gt;</code> element, but if you’ve ever used hCard to semantically mark up a person’s name, you’ll know that we’d need way more than just one element to do names justice. The <abbr title="plain old semantic HTML">POSH</abbr> way of marking up a name is to use hCard (in <a title="Extending HTML5 — Microformats | HTML5 Doctor" href="http://html5doctor.com/microformats/">microformats</a>, <a title="Extending HTML5 — Microdata | HTML5 Doctor" href="http://html5doctor.com/microdata">microdata</a> or RDFa), or just with a plain old link.
+
+<!-- /#cite-future -->
+
+</section><section id="cite-examples">
+<h3>Get ex<code>&lt;cite&gt;</code>d and quote stuff <a class="permalink" href="#cite-examples">#</a></h3>
+History and encouraging angry comments aside, let’s suture up and see some examples of HTML5-style <code>&lt;cite&gt;</code> action:
+
+<figure><figcaption>Use <code>&lt;cite&gt;</code> for a movie title:</figcaption>
+<pre><code>&lt;p&gt;&lt;cite&gt;Aladdin&lt;/cite&gt; is a great movie, even after 73 viewings. Aren’t kids great?&lt;/p&gt;</code></pre>
+<cite>Aladdin</cite> is a great movie, even after 73 viewings. Aren’t kids great?
+
+</figure><figure><figcaption>Even better, use <code>&lt;cite&gt;</code> with a link:</figcaption>
+<pre><code>&lt;p&gt;&lt;cite&gt;&lt;a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)"&gt;Aladdin&lt;/a&gt;&lt;/cite&gt; is a great movie, even after 73 viewings. Aren’t kids great?&lt;/p&gt;</code></pre>
+<cite><a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)">Aladdin</a></cite> is a great movie, even after 73 viewings. Aren’t kids great?
+
+</figure><figure><figcaption>Use <code>&lt;cite&gt;</code> for the title of a book (but not the author’s name):</figcaption>
+<pre><code>&lt;p&gt;&lt;cite&gt;A Game of Thrones&lt;/cite&gt;, by George R. R. Martin&lt;/p&gt;</code></pre>
+<cite>A Game of Thrones</cite>, by George R. R. Martin
+
+</figure><figure><figcaption>If you wanted to semantically indicate the author, you could use <a title="Extending HTML5 — Microformats | HTML5 Doctor" href="http://html5doctor.com/microformats/">microformats</a>, <a title="Extending HTML5 — Microdata | HTML5 Doctor" href="http://html5doctor.com/microdata">microdata</a> or RDFa:</figcaption>
+<pre><code>&lt;p&gt;&lt;cite&gt;A Game of Thrones&lt;/cite&gt;, by &lt;span class="hcard"&gt;&lt;span class="fn n"&gt;&lt;span class="given-name"&gt;George&lt;/span&gt; &lt;span class="additional-name"&gt;R. R.&lt;/span&gt; &lt;span class="family-name"&gt;Martin&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;</code></pre>
+<cite>A Game of Thrones</cite>, by <span class="hcard"><span class="fn n"><span class="given-name">George</span> <span class="additional-name">R. R.</span> <span class="family-name">Martin</span></span></span>
+
+</figure>In this example, the author and book title are only connected by proximity. You could connect them more explicitly using <a href="http://microformats.org/wiki/hproduct">the hProduct microformat</a>, <a href="http://wiki.goodrelations-vocabulary.org/Quickstart">RDFa’s GoodRelations</a>, or to really bleed on the edge even <a href="http://schema.org/Book">Schema.org</a>.
+
+Note that you can’t use the now-Google-approved <code>rel="author"</code> attribute here, as <em>George R. R. Martin</em> is being referred to and isn’t writing the article. If you just wanted to style the author’s name, you could use <code>&lt;b class="author"&gt;</code> (gossip column style) or <code>&lt;span class="author"&gt;</code> with whatever CSS you like.
+
+<!-- /#cite-examples -->
+
+</section><!-- /#cite -->
+
+</section><section id="examples">
+<h2>All together now <a class="permalink" href="#examples">#</a></h2>
+Oay, let’s start mixing things up on the operating table and show some examples of <code>&lt;cite&gt;</code> with <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code>:
+
+<figure><figcaption>A movie <code>&lt;blockquote&gt;</code> with <code>&lt;cite&gt;</code>:</figcaption>
+<pre><code>&lt;blockquote&gt;
+&lt;p&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/p&gt;
+&lt;footer&gt;— Crazy hunch-backed old guy in &lt;cite&gt;&lt;a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)"&gt;Aladdin&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<blockquote>You know the golden rule, don’t you boy? Those who have the gold make the rules.
+
+<footer>— Crazy hunch-backed old guy in <cite><a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)">Aladdin</a></cite></footer></blockquote>
+</figure><figure><figcaption>Adding the <code>cite</code> attribute to a <code>&lt;blockquote&gt;</code> (and its <code>&lt;footer&gt;</code>):</figcaption>
+<pre><code>&lt;blockquote cite="http://www.imdb.com/character/ch0000672/quotes"&gt;
+&lt;p&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/p&gt;
+&lt;footer&gt;— &lt;a href="http://www.imdb.com/character/ch0000672/quotes"&gt;Crazy hunch-backed old guy&lt;/a&gt; in &lt;cite&gt;&lt;a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)"&gt;Aladdin&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<blockquote cite="http://www.imdb.com/character/ch0000672/quotes">You know the golden rule, don’t you boy? Those who have the gold make the rules.
+
+<footer>— <a href="http://www.imdb.com/character/ch0000672/quotes">Crazy hunch-backed old guy</a> in <cite><a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)">Aladdin</a></cite></footer></blockquote>
+</figure><figure><figcaption>A quote from a specification:</figcaption>
+<pre><code>&lt;p&gt;I wonder if feedback on &lt;code&gt;&amp;lt;cite&amp;gt;&lt;/code&gt; prompted this:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;A person's name is not the title of a work — even if people call that person a piece of work&lt;/p&gt;
+&lt;footer&gt;&lt;cite&gt;&lt;a href="http://developers.whatwg.org/text-level-semantics.html#the-cite-element"&gt;HTML5 for Web Developers&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+I wonder if feedback on <code>&lt;cite&gt;</code> prompted this:
+<blockquote>A person's name is not the title of a work — even if people call that person a piece of work
+
+<footer>— <cite><a href="http://developers.whatwg.org/text-level-semantics.html#the-cite-element">HTML5 for Web Developers</a></cite></footer></blockquote>
+</figure><figure><figcaption>An academic-style journal citation:</figcaption>
+<pre><code>&lt;ol&gt;
+&lt;li&gt;The information capacity of the human motor system in controlling the amplitude of movement, Paul M. Fitts (1954). &lt;cite&gt;Journal of Experimental Psychology&lt;/cite&gt;, volume 47, number 6, June 1954, pp. 381–391&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+<ol>
+	<li>The information capacity of the human motor system in controlling the amplitude of movement, Paul M. Fitts (1954). <cite>Journal of Experimental Psychology</cite>, volume 47, number 6, June 1954, pp. 381–391</li>
+</ol>
+</figure><figure><figcaption>An academic-style book citation:</figcaption>
+<pre><code>&lt;blockquote&gt;
+&lt;p&gt;Citations … all include the following: author (or editor, compiler, or translator standing in place of the author), title (and usually subtitle), and date of publication.&lt;/p&gt;
+&lt;footer&gt;&lt;cite&gt;&lt;a href="http://www.chicagomanualofstyle.org/"&gt;The Chicago Manual of Style&lt;/a&gt;&lt;/cite&gt;, 15th Edition (Chicago: University of Chicago Press, 2003), 596&lt;/footer&gt;
+&lt;/blockquote&gt;</code></pre>
+<blockquote>Citations … all include the following: author (or editor, compiler, or translator standing in place of the author), title (and usually subtitle), and date of publication.
+
+<footer>— <cite><a href="http://www.chicagomanualofstyle.org/">The Chicago Manual of Style</a></cite>, 15th Edition (Chicago: University of Chicago Press, 2003), 596</footer></blockquote>
+</figure><!-- /#examples -->
+
+</section><section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+If you’ve made it this far, congratulations! You’ve now learned more about citing and quoting in HTML5 than you wanted to know ;) But don’t keep the knowledge to yourself — let us know in the comments what you think. We’d also love to hear how you’re using <code>&lt;blockquote&gt;</code>, <code>&lt;q&gt;</code>, and <code>&lt;cite&gt;</code> in HTML5. If you share your code snippets, remember to escape them!
+
+<!-- /#conclusion -->
+
+</section><section id="updates">
+<h2>Updates <a class="permalink" href="#updates">#</a></h2>
+<ol>
+	<li><em><time datetime="2011-06-29T17:20:46+09:00">2011-06-29</time></em>: It seems our long-running convention at HTML5 Doctor of using <code>&lt;footer&gt;</code> for attribution inside a <code>&lt;blockquote&gt;</code> is in keeping with the <code>&lt;footer&gt;</code> part of the spec, but <a title="Bug 13082" href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13082">not with the <code>&lt;blockquote&gt;</code> part</a>. We’re investigating…</li>
+	<li><em><time datetime="2011-07-03T23:52:47+09:00">2011-07-03</time></em>: Hixie confirmed that our use of <code>&lt;footer&gt;</code> is currently non-conforming — <code>&lt;footer&gt;</code> can currently only be included in <code>&lt;blockquote&gt;</code> if it’s quoted content. However, the phrase “content inside a blockquote must be quoted from another source” also forbids other <a title="Examples of block quote metadata ❧ Oli.jp (@boblet)" href="http://oli.jp/example/blockquote-metadata/">common changes and additions to block quotes</a>, so I’m going to see if it can be changed.</li>
+	<li><em><time datetime="2011-07-10T21:36:58+09:00">2011-07-10</time></em>: I wrote an article <a title="Blockquote problems and solutions ❧ Oli.jp (@boblet)" href="http://oli.jp/2011/blockquote/"><code>&lt;blockquote&gt;</code> problems and solutions</a> about these problems, and initial feedback from Hixie is that there are legitimate issues, and he’ll review <a title="[whatwg] The blockquote element spec vs common quoting practices" href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032334.html">feedback via the WHATWG email list</a>. So, please do that! You can also leave feedback in the comments here or ping me on <a href="http://twitter.com/boblet">Twitter (@boblet)</a>. Also, don’t miss <a title="Adactio: Journal—Citation needed" href="http://adactio.com/journal/4675/">Jeremy Keith’s excellent commentary “Citation needed”</a> on the issue (watch out for those <code>&lt;cite&gt;</code>s though ;) )</li>
+	<li><em><time datetime="2011-09-23T12:55:16+12:00">2011-09-23</time></em>: I’ve added keyboard shortcuts for punctuation characters to the <a href="#punctuation-characters">punctuation table</a>, for default (typically US) keyboards.</li>
+	<li><em><time datetime="2012-02-14T15:21:56+13:00">2012-02-14</time></em> Added <a href="#change-2012-02-14">a note about Hixie’s reply</a> to the article.</li>
+</ol>
+<!-- /#updates -->
+
+</section><!--
+* <q> is only for quotes, not other uses such as sarcasm. use “” or ‘’ instead
+* http://en.wikipedia.org/wiki/Quotation_mark
+* don’t add punctuation manually to <q>, one or the other
+* use
+<blockquote> for >1 paragraph of text
+--><p><a href="http://html5doctor.com/blockquote-q-cite/" rel="bookmark">Quoting and citing with <code>&lt;blockquote&gt;</code>, <code>&lt;q&gt;</code>, <code>&lt;cite&gt;</code>, and the cite attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 28, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/blockquote-q-cite/feed/</wfw:commentRss>
+		<slash:comments>69</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Reset Stylesheet</title>
+		<link>http://html5doctor.com/html-5-reset-stylesheet/</link>
+		<comments>http://html5doctor.com/html-5-reset-stylesheet/#comments</comments>
+		<pubDate>Mon, 27 Jul 2009 14:00:42 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Boilerplates]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[reset]]></category>
+		<category><![CDATA[stylesheet]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=622</guid>
+		<description><![CDATA[We've had a number of people asking about templates, boilerplates and styling for <abbr>HTML</abbr> 5 so to give you all a helping hand and continue on from those basic building blocks that Remy talked about last week I've created a HTML 5 reset stylesheet for you to take away and use, edit, amend and update in your projects.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;ve had a number of people ask about templates, boilerplates, and styling for <abbr>HTML</abbr> 5. Last week, <a href="/author/remys/">Remy</a> introduced some <a href="/html-5-boilerplates/">basic boilerplates for HTML 5</a>, so to keep the momentum going, I&#8217;ve modified <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer&#8217;s <abbr>CSS</abbr> reset</a> for you to use in your HTML 5 projects.</p>
+
+<h2>The code</h2>
+
+<p>Let&#8217;s start with the complete <abbr>CSS</abbr> stylesheet:</p>
+
+<pre><code>/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}</code></pre>
+
+<h2>So what&#8217;s new?</h2>
+
+<p>Quite a bit! The next few sections explain what I changed and why I changed it.</p>
+
+<h3>The basics</h3>
+
+<p>I started by removing elements that have been deprecated from the <abbr>HTML</abbr> 5 specification, like <code>&lt;acronym&gt;</code>, <code>&lt;center&gt;</code> and <code>&lt;big&gt;</code>. (We&#8217;ll cover deprecated elements in more detail in another post). I also added new <abbr>HTML</abbr> 5 elements, like <code>and</code>, in order to remove any default padding, margin, and borders. I&#8217;ve also added an explicit <code>display:block</code> property for elements that are required to render as blocks.</p>
+
+<p>I also removed the explicit unstyling of the <code>:focus</code> pseudo-class. There are two reasons for this. First, by declaring <code>outline:0</code>, you remove the focus identifier for keyboard users. Second, Eric released his stylesheet in good faith that people would explicitly style <code>:focus</code>, but they generally don&#8217;t, so it&#8217;s safer to leave the default <code>:focus</code> styles in place. (I also set defaults for <code>&lt;ins&gt;</code>, since I don&#8217;t think that got updated very often either.)</p>
+
+<p>I&#8217;ve left the default list styles in place simply as a personal preference. I tend to add the list style back when using Eric&#8217;s reset anyway. I have, however, included <code>nav ul {list-style:none;}</code> to remove those pesky bullets from your navigation. </p>
+
+<h3>Using attribute selectors</h3>
+
+<p>You&#8217;ll notice that I&#8217;ve included attribute selectors for <code>&lt;abbr&gt;</code> and <code>&lt;dfn&gt;</code>. This way, the style will only appear <em>if</em> there is a title attribute on the element. This is primarily for accessibility. For example, we use <code>&lt;abbr&gt;</code> regularly on this site but don&#8217;t always include a title attribute. We think it&#8217;s safe to assume all of our readers (no matter what device they&#8217;re using) know what <abbr>HTML</abbr> stands for. We do still use the <code>&lt;abbr&gt;</code> element to make sure screen readers read the text as H-T-M-L rather than struggling to pronounce &#8220;HTML&#8221;.</p>
+
+<h3>What&#8217;s that bit about mark?</h3>
+
+<p><code>&lt;mark&gt;</code> is a new element introduced in <abbr>HTML</abbr> 5 used to (you guessed it) mark text in a document. According to the spec: <q>&#8220;The mark element represents a run of text in one document marked or highlighted for reference purposes, due to its relevance in another context.&#8221;</q>. I anticipate it will be used for highlighting phrases in search results and other similar purposes. We&#8217;ll post more on <code>&lt;mark&gt;</code> soon.</p>
+
+<h2>Where are all those application elements?</h2>
+
+<p>Application elements is a term I&#8217;ve loosely used to describe elements like menu, etc. These elements are more likely found in web <em>apps</em> than web <em>sites</em>. I left these out since, at the time of writing, browsers implement barely any of what was &#8220;Web Applications 1.0&#8221;. Also, this stylesheet is intended primarily for authors serving their pages as <code>text/html</code>, not <abbr>XML</abbr>.</p>
+
+<h2>Go grab it</h2>
+
+<p>The stylesheet is released <del datetime="2010-12-16T17:21:13+00:00">under a Creative Commons license</del> <del datetime="2015-07-13T12:06:33+00:00"><ins datetime="2010-12-16T17:21:13+00:00">in the public domain</ins></del> <ins datetime="2015-07-13T12:06:33+00:00">free of charge under a CC0 Public Domain Dedication and MIT License</ins>, so you can use it for both personal and commercial work. Go <a href="http://code.google.com/p/html5resetcss/downloads/list">grab it from Google Code</a> or the <a href="https://github.com/richclark/HTML5resetCSS">Github page</a> and let us know about any improvements you make!</p>
+
+<ul>
+<li><a href="http://code.google.com/p/html5resetcss/downloads/list">HTML 5 Reset Stylesheet</a></li>
+</ul>
+
+<p><small>Permission is hereby granted, free of charge, to any person obtaining a copy of any version of <a href="https://code.google.com/p/html5resetcss/downloads/list">this file on Google Code</a> or <a href="https://github.com/richclark/HTML5resetCSS">this file on Github</a> (the &#8220;Software”), to deal in the Software under the terms of the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>, or,alternatively, to deal in the Software under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</small></p>
+<p><a href="http://html5doctor.com/html-5-reset-stylesheet/" rel="bookmark">HTML5 Reset Stylesheet</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 27, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html-5-reset-stylesheet/feed/</wfw:commentRss>
+		<slash:comments>251</slash:comments>
+		</item>
+	</channel>
+</rss>

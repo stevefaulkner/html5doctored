@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; custom tags</title>
+	<atom:link href="http://html5doctor.com/tag/custom-tags/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 28 Aug 2013 12:30:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=</generator>
+		<item>
+		<title>Your Questions #13</title>
+		<link>http://html5doctor.com/your-questions-13/</link>
+		<comments>http://html5doctor.com/your-questions-13/#comments</comments>
+		<pubDate>Tue, 28 Sep 2010 14:15:52 +0000</pubDate>
+		<dc:creator>Richard Clark</dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[custom tags]]></category>
+		<category><![CDATA[h1]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[seo]]></category>
+		<category><![CDATA[Validation]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2382</guid>
+		<description><![CDATA[The clinic is getting busy with more <abbr>HTML</abbr>5 ailments. This week, we'll cover server-side validation, immutable images with <code>&#60;canvas&#62;</code>, retrieving drawn objects from a <code>&#60;canvas&#62;</code>, creating custom tags, the <code>role</code> attribute, and the effects of <code>&#60;hgroup&#62;</code> on <abbr>SEO</abbr>.]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is getting busy with more <abbr>HTML</abbr>5 ailments. This week, we&#8217;ll cover server-side validation, immutable images with <code>&lt;canvas&gt;</code>, retrieving drawn objects from a <code>&lt;canvas&gt;</code>, creating custom tags, the <code>role</code> attribute, and the effects of <code>&lt;hgroup&gt;</code> on <abbr>SEO</abbr>.</p>
+<section>
+<h2>Server-side validation</h2>
+<p>Brian asked:</p>
+<blockquote>
+<p>We currently use <abbr>PHP</abbr>-Tidy to validate the <abbr>HTML</abbr> mark-up of content regions of our site. Our content regions have images that represent modules in our system that get translated into code for things like processing video, forms, etc. I&#8217;ve been making the move to upgrade these modules to use new <abbr>HTML</abbr>5 elements, but I&#8217;m finding that Tidy is stripping out these elements and I&#8217;m doing a lot of dancing around these issues right now. Are you aware of any server-side processing scripts that have been updated to work with <abbr>HTML</abbr>5 and perhaps with <abbr>ARIA</abbr> support as well?</p>
+</blockquote>
+<p>The current contender is <a href="http://code.google.com/p/html5lib/">html5lib</a>. The <abbr>PHP</abbr> version is v0.1, so <abbr title="Your Mileage May Vary">YMMV</abbr>.</p>
+<p>It seems that <a href="http://lists.w3.org/Archives/Public/html-tidy/2010JanMar/0005.html"><abbr>HTML</abbr>5 support won’t be coming to Tidy anytime soon</a>.</p>
+<p>Good luck! Peace &#8211; Oli</p>
+</section>
+<section>
+<h2>Immutable image with <code>&lt;canvas&gt;</code></h2>
+<p>Mike asked:</p>
+<blockquote>
+<p>We do have a medical app and we want to use <code>&lt;canvas&gt;</code> to let docs draw over a still picture.  The only thing I cannot do is keep the picture unchanged when they use an &#8220;eraser&#8221; (basically a white pen). I haven&#8217;t found any example on the web so may be it&#8217;s impossible. It seems that the background image either part of the <code>canvas</code> of a <code>div</code> containing the canvas becomes part of the canvas itself. If it&#8217;s possible what&#8217;s the secret? Thanks</p>
+</blockquote>
+<p>This is possible in a variety of ways. Here&#8217;s a quick demonstration of <a href="http://jsbin.com/icumi3/2">one of the solutions</a>. Open the demo up in Firefox 3.6 or later, drop an image in the box, draw over it, and click the &#8220;Drawn image as PNG&#8221; button to retrieve what you drew (without the background image).</p>
+<p>Here&#8217;s what&#8217;s happening: the canvas is sitting inside of a <code>&lt;div&gt;</code> containing my still image, but I&#8217;m drawing on the nested <code>&lt;canvas&gt;</code> (I think you had it the other way around, which was causing your problems).</p>
+<p>Hope that helps, Remy</p>
+</section>
+<section>
+<h2>Retrieving objects from <code>&lt;canvas&gt;</code></h2>
+<p>DJ asked:</p>
+<blockquote>
+<p>I wanted to know if there is any way in which the drawn objects say rectangle, circle, line, &hellip; within canvas can be identified based on the selection at later point in time (after they are drawn).</p>
+<p>If there are no direct <abbr>API</abbr>s how could we achieve it. Do we have to store the co-ordinates of each of the created object within and do the object identification based on mouse cursor? Thanks</p>
+</blockquote>
+<p>Unfortunately, there&#8217;s no way to retrieve these objects unless you write your own system to handle it. There&#8217;s no native support for this in <code>&lt;canvas&gt;</code>.</p>
+<p>It sounds like you actually need to use <abbr>SVG</abbr>, which will allow to you to hook event listeners and query the <abbr>DOM</abbr> tree that&#8217;s created. If you need some convincing that <abbr>SVG</abbr> is the right tool for the job, have a look at the <a href="http://raphaeljs.com/">Raphaël JavaScript Library</a>. It uses <abbr>SVG</abbr> exclusively and is able to create some very impressive drawings and animations.</p>
+<p>Cheers, Remy</p>
+</section>
+<section>
+<h2>Custom tags</h2>
+<p>Mike asked:</p>
+<blockquote>
+<p>So by using some JavaScript I can insert unfamiliar tags into <abbr>IE</abbr>, and using <abbr>CSS</abbr> I can format them. My question is why stop with <abbr>HTML</abbr>5 tags like section and nav? What are the pros and cons of custom tags like <code>&lt;content&gt;</code>, <code>&lt;story&gt;</code>, <code>&lt;comment&gt;</code>, <code>&lt;blog&gt;</code> or even <code>&lt;mike&gt;</code>, <code>&lt;was&gt;</code>, <code>&lt;here&gt;</code>?</p>
+</blockquote>
+<p>Custom elements go against having a standard like <abbr>HTML</abbr>5. Standards map out the set of elements, attributes, and <abbr>API</abbr>s that the browsers need to implement so web developers can use them, and they provide those developers with a common approach to marking up a web page.</p>
+<p>If custom elements were allowed, we would have an infinite number of ways to mark up content, many of which would share a common goal but require different implementations. As an example, here is a number of different elements I can dream up for some primary content: <code>&lt;article&gt;</code>, <code>&lt;blog&gt;</code>, <code>&lt;entry&gt;</code>, <code>&lt;post&gt;</code>, <code>&lt;page&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;primary&gt;</code>, <code>&lt;content&gt;</code>, <code>&lt;document&gt;</code>, <code>&lt;doc&gt;</code>, <code>&lt;blogpost&gt;</code>, <code>&lt;publication&gt;</code>, <code>&lt;thenameofthearticlewithnospacesorpunctuation&gt;</code>, <code>&lt;item&gt;</code>, <code>&lt;block&gt;</code>, <code>&lt;blob&gt;</code>, <code>&lt;text&gt;</code>, <code>&lt;txt&gt;</code>, and <code>&lt;paper&gt;</code>. Many of them are bad ideas, but hopefully you see my point. This doesn&#8217;t even account for the more predictable <code>&lt;contentone&gt;</code>, <code>&lt;contenttwo&gt;</code>, <code>&lt;articlefifty&gt;</code> that would likely also be used.</p>
+<p>This sort of markup would make <abbr>HTML</abbr> a nightmare to maintain. A developer coming into an existing site would have to learn which elements have been used and what their purpose is. And it&#8217;s not just painful for developers. Browser vendors would have to find ways to parse these elements and define how they should be used. Is this element supposed to be block-level? Is it interactive? Should it impact the document outline? And what about search engines? How do they know that <code>&lt;myobscureelement&gt;</code> defines the most important content on the page, the content that should really be indexed?</p>
+<p>Standards narrow the possibilities and ensure developers, browsers, and machines (search engines and the like) are all speaking the same language. Many people spend a great deal of time debating the specification, trying to reach consensus on which proposals should be standardized and how they should be implemented.</p>
+<p>So stick to the standards! They exist for everyone&#8217;s benefit. As browsers continue to implement the specification correctly (even <abbr>IE</abbr> is catching up), our jobs will be made easier and we can spend more time creating really cool things ;)</p>
+<p>John Alsopp&#8217;s fantastic article <a href="http://www.alistapart.com/articles/semanticsinhtml5">Semantics in <abbr>HTML</abbr>5</a> goes into more detail about this issue. You can also see where some of the element names came from by looking at the work Hixie did researching <a href="http://code.google.com/webstats/2005-12/classes.html">class names in Google&#8217;s index</a>.</p>
+<p>Regards, Mike</p>
+</section>
+<section>
+<h2>The <code>role</code> attribute, SEO, and <code>&lt;hgroup&gt;</code></h2>
+<p>Robson asked:</p>
+<blockquote>
+<p>What about the role attribute? Was it dropped from specification? What will be the &#8220;role&#8221; of the role attribute in <abbr>HTML</abbr>5?</p>
+<p>Today, just the home page should have the name of the site into a H1 element. On others pages, the H1 should be used to the title of the articles. How do search engines interpret the HGROUP and multiples HEADER and H1 elements today? How to implement the HGROUP and the HEADER today without impact the SEO? Thanks, guys!</p>
+</blockquote>
+<p>To answer your first three questions, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/content-models.html#annotations-for-assistive-technology-products-(aria)"><code>role</code> is in</a>. You can use it belt-and-suspenders style until assistive technology catches up with <abbr>HTML</abbr>5. Just be careful: “<q>Authors may use the <abbr>ARIA</abbr> role and aria-* attributes on <abbr>HTML</abbr> elements, in accordance with the requirements described in the <abbr>ARIA</abbr> specifications, except where these conflict with the strong native semantics described below</q>”.</p>
+<p>For the second part of your question, that&#8217;s not true. You can use more than one <code>&lt;h1&gt;</code> in <abbr>HTML</abbr> 4/<abbr>XHTML</abbr> 1. It&#8217;s not advised to make every heading <code>&lt;h1&gt;</code> in <abbr>HTML</abbr> 4/<abbr>XHTML</abbr> 1 (because historically some people did that to spam), but it may be appropriate in some cases — e.g., site name and page title. Using two <code>&lt;h1&gt;</code>&#8216;s on a single page has no effect on <abbr>SEO</abbr>.</p>
+<p>With regard to <code>&lt;hgroup&gt;</code> and <code>&lt;header&gt;</code>, you’re asking the wrong question. Search engines care about high-quality, relevant content. Search engines penalise spamming, but writing markup according to the specification is not spamming. The <abbr>HTML</abbr>5 editor works at Google, so they’re well aware of the spec. html5doctor.com <em>has</em> implemented <code>&lt;hgroup&gt;</code> and <code>&lt;header&gt;</code>, and it hasn&#8217;t hurt our search engine rankings any ;-)</p>
+<p>For more, see our articles on <a href="http://html5doctor.com/the-header-element/">the header element</a> and <a href="http://html5doctor.com/the-hgroup-element/">the hgroup element</a>.</p>
+<p>You probably don’t want to use <code>&lt;h1&gt;</code> everywhere anyhow, as <abbr>CSS</abbr> selectors are not that smart. <em>If</em> you wrap every <code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code> in a sectioning element (<code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;aside&gt;</code>), you don’t have to worry about keeping a logical order for your headings. Doing this means you don’t need to overwrite <abbr>CSS</abbr> as much. The old style, however, with the requirement to keep a logical order for your headings, still works.</p>
+<p>Again, you&#8217;re concerned with the wrong thing. Good SEO = good content. Worrying about placement or what search engines think is a waste of time — worry about good content.</p>
+<p>Peace &#8211; Oli</p>
+</section>
+<section>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<div class="crp_related">
+<h3>Related Posts:</h3>
+<ul class="related">
+<li><a href="http://html5doctor.com/your-questions-answered-11/" rel="bookmark" class="crp_title">Your Questions Answered #11</a></li>
+<li><a href="http://html5doctor.com/your-questions-16/" rel="bookmark" class="crp_title">Your Questions #16</a></li>
+<li><a href="http://html5doctor.com/your-questions-answered-7/" rel="bookmark" class="crp_title">Your Questions Answered #7</a></li>
+<li><a href="http://html5doctor.com/your-questions-5/" rel="bookmark" class="crp_title">Your Questions Answered #5</a></li>
+<li><a href="http://html5doctor.com/your-questions-18/" rel="bookmark" class="crp_title">Your Questions 18</a></li>
+</ul>
+</div>
+<p><a href="http://html5doctor.com/your-questions-13/" rel="bookmark">Your Questions #13</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 28, 2010.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-13/feed/</wfw:commentRss>
+		<slash:comments>7</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; semantics</title>
+	<atom:link href="http://html5doctor.com/tag/semantics/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The scoped attribute</title>
+		<link>http://html5doctor.com/the-scoped-attribute/</link>
+		<comments>http://html5doctor.com/the-scoped-attribute/#comments</comments>
+		<pubDate>Tue, 13 Sep 2011 13:30:57 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[semantics]]></category>
+		<category><![CDATA[style]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634</guid>
+		<description><![CDATA[<p>The scoped attribute for the style element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>scoped</code> attribute for the <code>&lt;style&gt;</code> element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p>
+
+<p>Let’s take a quick look at the spec:</p>
+
+<blockquote>
+<p>The <code>scoped</code> attribute is a boolean attribute. If set, it indicates that the styles are intended just for the subtree rooted at the style element’s parent element, as opposed to the whole Document.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-scoped" title="Scoped attribute — HTML5">WHATWG</a></cite></footer>
+</blockquote>
+
+<section id="bad">
+<h2>Isn’t this bad practice?</h2>
+<p>For years, we’ve been told (and have actively told others) to separate content and presentation layers. So why would we introduce something that seems to go against everything we’ve been preaching?</p>
+
+<p>The separation of these layers is still vitally important, but let’s look at a few use cases to shed some light on why this attribute has been introduced. Scoped style provides a W3C-approved way to:</p> 
+
+<ul>
+  <li>Add one-off CSS styles.</li>
+  <li>Add user-defined styles to wiki or CMS content.</li>
+  <li>Add theme-defined styles via CMS plugins.</li>
+  <li>Keep syndicated content together (e.g., keeping example code together with the example).</li>
+</ul>
+</section>
+
+<section id="how-does">
+<h2>How does it work?</h2>
+<p>In this section, I’ll show you how this new attribute will work when it gets rolled out to browsers.</p>
+
+<section id="starting">
+<h3>Our starting point</h3>
+
+<p>We’ll be using the following code sample as a starting point:</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<p>This is a basic example, with two headings and two paragraphs set within the article element.</p>
+</section>
+
+<section id="addingscope">
+<h3>Adding the <code>scoped</code> attribute</h3>
+
+<p>In the next example, we’ll change the foreground color of the second paragraph to red (from whatever was defined in the master CSS file):</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;style <mark>scoped</mark>&#62;
+      p { color: red; }
+    &#60;/style&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<aside class="sidenote"><p>It’s worth noting that the <code>scoped</code> attribute can’t be the first attribute of the body element. I also received a validation error using <code>&#60;body style="..."&#62;</code>.</p></aside>
+
+<p id="example">This screenshot shows how things might render in the browser:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/09/scoped1.gif" alt="" title="scoped" width="526" height="297" class="alignnone size-full wp-image-3735" />
+<figcaption>How the <code>scoped</code> attribute will render</figcaption>
+</figure>
+</section>
+</section>
+
+<section id="link">
+<h2>Can I apply <code>scoped</code> to &#60;link&#62;?</h2>
+<p>While I was writing this article, Dr. Rich asked whether it was possible to add this attribute to <code>&lt;link&gt;</code> elements. Turns out you can’t, but I stumbled across this tidbit in the WHATWG mailing list:</p>
+
+<blockquote>
+  <p>You can use &#60;style scoped&#62;@import url(whatever);&#60;/style&#62;</p>
+  <p>And this even enables you to add some specific styles ([be they embedded] or from another external sheet) on a per-use basis if the need arises. For example, a long dissertation relying on many quotes may benefit from adding stronger visual highlights on the &#60;em&#62; elements within the last quote to reinforce the final conclusion.</p>
+  <footer>— <cite><a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2011-March/031049.html"> Eduard Pascuals WHATWG mailing list response #031049</a></cite></footer>
+</blockquote>
+</section>
+
+<section id="compatibility">
+<h2>Backwards compatibility</h2>	
+<p>Unfortunately, scoped style isn’t all puppy dogs and kittens.</p>
+
+<p>Since this newly introduced attribute isn’t understood by current browsers, CSS rules in <code>&#60;style scoped&#62;</code> are just added to the page’s CSS. Therefore, if you were to include a <code>scoped</code> style block mid-page, its declarations would be applied to every matching element in the document, regardless of whether the element were inside or outside of the scope’s range.</p>
+
+<p>For the sake of backwards compatibility, Louis Lazaris has suggested <a href="http://www.impressivewebs.com/scoped-styles-html5/">a brand new element called <code>&#60;scopedstyle&#62;</code></a>. This new element would only be recognised by supporting browsers and ignored by everything else. This way, scoped styles wouldn’t be added to the whole document. Instead, the browser would just throw away the unrecognised <code>&lt;scopedstyle&gt;</code> element and move on.</p>
+</section>
+
+<section id="support">
+<h2>Browser support</h2>
+
+<table class="wide">
+<caption>Browser support for <code>&lt;style scoped&gt;</code> <i>(as of <time datetime="2011-09-06">6th September, 2011</time>)</i></caption>
+<thead>
+<tr>
+<th scope="col">Browser</th>
+<th scope="col">Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <th scope="row">Chrome 13</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Safari 5</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Firefox 6</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Opera 11.51</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Internet Explorer 9</th>
+  <td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>Currently, the <code>scoped</code> attribute isn’t working in any of the browser alpha versions (Opera.Next, Mozilla Aurora, or WebKit nightly builds). There’s work in progress by <a href="https://bugs.webkit.org/show_bug.cgi?id=49142">Roland Steiner for support in WebKit</a>.</p>
+</section>
+
+<section id="using-today">
+<h2>Using <code>&#60;style scoped&#62;</code> today</h2>
+<p>So you’ve read this article and decided that you <em>need</em> scoped style in your life. What now? Well, just like every other new HTML5 thing, we have a polyfill for it. <a href="http://twitter.com/#!/thingsinjars">Simon Madine</a> has created a <a href="https://github.com/thingsinjars/jQuery-Scoped-CSS-plugin">jQuery scoped CSS plugin on GitHub</a>.</p>
+
+<aside class="sidenote"><p>Please note that Oli used a wrapper <code>&lt;div&gt;</code> because of <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13102">validation problems explained in this bug</a>.</p></aside>
+
+<p>You could also assign a CSS prefix to target the section of your document you want to style. You’d still be able to stick your styles inline, but you’ve also provided a fallback for the older browsers. In fact, Dr. Oli has done just that on his <a href="http://html5doctor.com/blockquote-q-cite/">latest article</a>. (View source and search for <code>&#60;div class="faint"&#62;</code>.)</p>
+</section>
+
+<section id="opinions">
+<h2>Opinions</h2>
+
+<p>There’s no denying that we’re breaking backwards compatibility by introducing <code>&lt;style scoped&gt;</code>. To me, this just doesn’t make any sense. I feel this needs to be addressed by either creating a new element like <code>&lt;scopedstyle&gt;</code> or using some protective mechanism like the <code>&#60;!--</code> and <code>--&#62;</code> delimiters that have been used within <code>&lt;style&gt;</code> and <code>&lt;script&gt;</code> elements.</p>
+
+<p>Let’s not end this article with negative sentiment, though. As with anything, it’s what you make of it. Scoped style is pretty plain vanilla, but if people abuse it, it’ll end up with a bad rap. <a href="http://html5doctor.com/author/olib/">Dr. Oli</a> has spoken at length about his love for this attribute as it allows him to have live code examples with the CSS in <code>&#60;pre&#62;</code> and also in a <code>&#60;style scoped&#62;</code> within a <code>&#60;figure&#62;</code>.</p>
+
+<p>So now it’s time for you to express your views. What do you think about the new <code>scoped</code> attribute? Do you think it has a future? Should it be fast-tracked into the spec? Or do you think it’s a waste of time that could ultimately end up mixing our content and presentation layers together again? Let us know in the comments!</p>
+</section><p><a href="http://html5doctor.com/the-scoped-attribute/" rel="bookmark">The scoped attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 13, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-scoped-attribute/feed/</wfw:commentRss>
+		<slash:comments>85</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions #17</title>
+		<link>http://html5doctor.com/your-questions-17/</link>
+		<comments>http://html5doctor.com/your-questions-17/#comments</comments>
+		<pubDate>Tue, 19 Apr 2011 13:30:12 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[semantics]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3055</guid>
+		<description><![CDATA[<p>The clinic is packed this week with your HTML5 ailments! Today, we’ll discuss an HTML5 syntax dilemma, using sections within sections, link semantics, describing the contents of a figure, and marking up web app toolbars.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is packed this week with your <abbr>HTML</abbr>5 ailments! Today, we&#8217;ll discuss an <abbr>HTML</abbr>5 syntax dilemma, using sections within sections, <code>&lt;link&gt;</code> semantics, describing the contents of a figure, and marking up web app toolbars.</p>
+<section>
+<h2>HTML5 syntax dilemma</h2>
+<p>Manuel asked:</p>
+<blockquote>
+<p>In theory, <abbr>HTML</abbr>5 syntax is very lazy but, in fact, when you write a <abbr>HTML</abbr>5 page you follow some conventions that originate in the <abbr>XHTML</abbr> era: lowercase code, double-quoted attribute values, properly closed elements, proper element nesting. While this practice is rational and admirable, some people take a further step towards a <abbr>XHTML</abbr>-style syntax: they don&#8217;t use attribute minimization and do terminate empty elements. Of course this further step is not necessary to write clear HTML5 code, but could be fostered if you look at the following points:</p>
+<ol>
+<li>it makes [it] easier to upgrade legacy <abbr>XHTML</abbr> code (which represents the bulk of the web even if it&#8217;s generally served as text-html) to <abbr>HTML</abbr>5 (it&#8217;s just a matter of doctype change)</li>
+<li>it makes [an] easier the shift to <abbr>HTML</abbr>5 for web developers, since they are generally used to write <abbr>XHTML</abbr></li>
+<li>it could set a coding standard in the field</li>
+</ol>
+<p>What do you think about it?</p>
+</blockquote>
+<p>I disagree. I think there&#8217;s nothing lazy about <abbr>HTML</abbr>5 syntax. You could say that it&#8217;s lazy that in <abbr>HTML</abbr> we write <code>&lt;hr&gt;</code> rather than <code>&lt;horzontalrule&gt;</code>, but the fact is, it&#8217;s a specified part of the language.</p>
+<p>Furthermore, &#8220;legacy <abbr>XHTML</abbr>&#8221; code does not represent the bulk of the Web; 61% of the Web is <abbr>HTML</abbr>4 according to the <a href="http://dev.opera.com/articles/view/mama-w3c-validator-research-2/?page=2#doctype">Opera MAMA study in 2008</a>.</p>
+<p>But it doesn&#8217;t matter. You say tom-<em>ay</em>-toes, I say to-<em>mah</em>-toes; you like <abbr>XHTML</abbr> syntax, I like <abbr>HTML</abbr> syntax. They&#8217;re all the same to a browser, if served as <code>text/html</code>.</p>
+<p>Cheers, Bruce</p>
+</section>
+<section>
+<h2>Sections within sections</h2>
+<p>Corey asked:</p>
+<blockquote>
+<p>Don&#8217;t know if this has been asked before or not, as I couldn&#8217;t find anything to tell me otherwise. I read through the article and section information and understand more or less how they function, but I&#8217;m wondering if there is a case to be made about having a section within a section. Your article doesn&#8217;t really touch on whether this is appropriate or not.</p>
+<p>The reason I ask is because I have a page that is broken into different parts (introduction, description, requirements, etc) that are all part of the same overall article. Now if I wanted to break down say, the requirements section into sub-sections (technical, stylistic, semantic, etc) would it be all right to wrap those sub sections in a section tag (that is within a section itself), assuming I put the correct header on it?</p>
+<p>Thanks a bunch,</p>
+</blockquote>
+<p>Yes, you certainly can nest <code>&lt;section&gt;</code>s — in fact, that&#8217;s pretty much exactly what <code>&lt;section&gt;</code> is for! If you look at the source of some of our more recent articles — e.g., this article or <a href="http://html5doctor.com/microformats/">our microformats article</a> — you&#8217;ll notice how we&#8217;ve split the article into sections.</p>
+<p>In theory, using nested sections <a href="http://cialistadalafils.com/" title="cialis online pharmacy">cialis made in the usa</a> means that we&#8217;ll be able to do away with <code>&lt;h2&gt;</code>–<code>&lt;h6&gt;</code>, since a new heading level is implied with each nested section. In practice, however, it&#8217;s not as simple as that, so we suggest sticking with the usual <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> heading structure even if you decide to nest sections.</p>
+<p>For your example, this code would be entirely appropriate:</p>
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;Article name&lt;/h1&gt;
+  &lt;p&gt;...&lt;/p&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Introduction&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Description&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+      &lt;section&gt;
+        &lt;h3&gt;Technical&lt;/h3&gt;
+        &lt;p&gt;...&lt;/p&gt;
+      &lt;/section&gt;
+      &lt;section&gt;
+        &lt;h3&gt;Stylistic&lt;/h3&gt;
+        &lt;p&gt;...&lt;/p&gt;
+      &lt;/section&gt;
+  &lt;/section&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Requirements&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</code></pre>
+<p>Each part of the <code>&lt;article&gt;</code> is wrapped in a <code>&lt;section&gt;</code>. The one exception might be the introduction, unless you are explicitly declaring a heading with it. You don&#8217;t always need a <code>&lt;header&gt;</code> element if it would only contain a single <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> element. In that case, the heading on it&#8217;s own will be fine. Bruce has <a href="http://www.brucelawson.co.uk/2010/html5-articles-and-sections-whats-the-difference/">a good post on the difference between articles and sections</a>.</p>
+<p>Hope that helps, Rich</p>
+</section>
+<section>
+<h2>Since we&#8217;re being semantic…</h2>
+<p>Rob asked:</p>
+<blockquote>
+<p><abbr>HTML</abbr>5 is working towards being more semantic, but I don&#8217;t think the <code>&lt;link/&gt;</code> tag is semantic at all…especially for stylesheets!  Has anyone ever suggested changing the specification for the <code>&lt;style&gt;</code> tag to have an &#8216;src&#8217; attribute that would point to the <abbr>CSS</abbr> file? Current:</p>
+<pre><code>&lt;link rel="stylesheet" href="style.css" /&gt;</code></pre>
+<p>Suggestion:</p>
+<pre><code>&lt;style src="style.css"&gt;&lt;/style&gt;</code></pre>
+</blockquote>
+<p>I think most implementors would say that the current way works well enough. Breaking backwards compatibility for the sake of theoretical purity was where <abbr>XHTML</abbr> 2 was heading before it was finally curtailed. <abbr>HTML</abbr>5 takes stock of where we are, warts and all, and builds on that. (I feel your pain: I always want <code>&lt;img&gt;</code> to be <code>&lt;image&gt;</code>.)</p>
+<p>Cheers, Bruce</p>
+</section>
+<section>
+<h2>Describing the content of <code>&lt;figure&gt;</code></h2>
+<p>Sverri asked:</p>
+<blockquote>
+<p>A lot of things can be presented as figures (everything from a simple quote to an information-dense canvas). The first thing that came to my mind was using e.g. a &#8220;type&#8221; attribute. For example:</p>
+<pre><code>&lt;figure type="code css"&gt;
+  &lt;figcaption&gt;Styling p tags&lt;/figcaption&gt;
+  &lt;code&gt;p { margin-bottom: 1em }&lt;/code&gt;
+&lt;/figure&gt;</code></pre>
+<p>That would be a dead simple way of succinctly telling user agents, search engines, etc. what kind of content they can expect to find in the figure. However, since this is not valid <abbr>HTML</abbr>5 (as far as I know) how would you recommend describing the contents of a figure, so as to make it more accessible to non-human agents?</p>
+<p>Thank you.</p>
+</blockquote>
+<p>Bruce replied:</p>
+<p>What would be the purpose of doing so? For example, it&#8217;s easy for a non-human agent to see that your example contains code, or that:</p>
+<pre><code>&lt;figure&gt;
+  &lt;video&gt;...&lt;/video&gt;
+  &lt;figcaption&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>contains video, or that:</p>
+<pre><code>&lt;figure&gt;
+  &lt;img /&gt;
+  &lt;figcaption&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>contains an image. So I&#8217;m not sure of the use case for a type attribute.</p>
+<p>Sverri then responded:</p>
+<blockquote>
+<p>The way I think about this is that figures are images of sorts, or embedded content. A &#8220;type&#8221; attribute (or perhaps a more aptly named &#8220;of&#8221; attribute) would be the equivalent of the &#8220;alt&#8221; attribute of <code>img</code>. It is extra information, and as such would not always be needed, but sometimes it can be an important part in how you present the content.</p>
+<p>As for use cases:</p>
+<ul>
+<li>Aiding search engines better understand the content</li>
+<li>Browsers can use such information to make browsing the internet richer</li>
+</ul>
+<p>I realize that you can use some other way of describing the content, such as titles, itemscopes or other ways of adding metadata. A dedicated, but optional, attribute for this would not be such a bad idea in my opinion.</p>
+<p>To sum up, I suppose what I am getting at is that content in a <code>figure</code> is not always so well defined on its own.  A snippet of code, for example, is given more meaning if it is in a context, such as &#8220;css&#8221;, &#8220;algorithm&#8221; or &#8220;while loop&#8221;.</p>
+<p>I hope I am being clear enough in what I am saying.</p>
+</blockquote>
+<p>Bruce followed up once more:</p>
+<p>You are clear. There have been many such discussions during the development of <abbr>HTML</abbr>5 (and preceding versions of <abbr>HTML</abbr>). For example, why not have a <code>&lt;name&gt;</code> element for marking up people&#8217;s names, analogous to <code>&lt;time&gt;</code>? Why not have <code>&lt;geo&gt;</code> or <code>&lt;place&gt;</code> or <code>&lt;location&gt;</code>?</p>
+<p>The use cases you describe (aiding search engines and browsers) are equally applicable.</p>
+<p>But it comes down to two factors:</p>
+<p>First, <abbr>HTML</abbr> is not a specialised language. It&#8217;s a generalised language, and there are some cases that can&#8217;t be marked up with the existing crop of elements. (There are already over a hundred.)</p>
+<p>Second is that minting new elements and attributes isn&#8217;t &#8220;free&#8221;. It&#8217;s more for authors to remember (and get wrong), it bloats parsers in browsers, and it makes regression testing harder. So if a new addition to the language doesn&#8217;t solve a very common problem, it isn&#8217;t added to the language.</p>
+<p>As you said, microdata/microformats/RDFa can be used to extend the language for specialised cases.</p>
+<p>Thanks, Bruce</p>
+</section>
+<section>
+<h2>Web app buttons and toolbars: anchors, buttons, or commands?</h2>
+<p>Christian asked:</p>
+<blockquote>
+<p>If you&#8217;re creating a toolbar for a web app, or perhaps even a &#8220;Share this page&#8221; widget, should one use anchors, buttons or commands?</p>
+</blockquote>
+<p>A toolbar should be <abbr>HTML</abbr>5 <code>&lt;menu&gt;</code> with nested <code>&lt;command&gt;</code>s, but browser support is zilch. I&#8217;d use a list of buttons, personally. I think <code>&lt;button&gt;</code> is the right element to perform tasks that might need an &#8220;undo&#8221;, like &#8220;Tweet This&#8221; or &#8220;Delete Document&#8221;.</p>
+<p>Bruce</p>
+</section>
+<section>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-17/" rel="bookmark">Your Questions #17</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 19, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-17/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+		<item>
+		<title>You can still use div</title>
+		<link>http://html5doctor.com/you-can-still-use-div/</link>
+		<comments>http://html5doctor.com/you-can-still-use-div/#comments</comments>
+		<pubDate>Tue, 13 Jul 2010 13:30:37 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[div]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[semantics]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1853</guid>
+		<description><![CDATA[&#8220;Sorry, can you say that again?&#8221;, I hear you ask. Certainly: you can still use &#60;div&#62;! Despite HTML5 bringing us new elements like &#60;article&#62;, &#60;section&#62;, and &#60;aside&#62;, the &#60;div&#62; element still has its place. Let the HTML5 Doctor tell you why. Status: Unchanged In HTML 4, the &#60;div&#62; element was defined to be a generic [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>&#8220;Sorry, can you say that again?&#8221;, I hear you ask. Certainly: you can still use <code>&lt;div&gt;</code>! Despite <abbr title="HyperText Markup Language">HTML</abbr>5 bringing us new elements like <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, and <code>&lt;aside&gt;</code>, the <code>&lt;div&gt;</code> element still has its place. Let the <abbr>HTML</abbr>5 Doctor tell you why.</p>
+<p><span id="more-1853"></span></p>
+<h2>Status: Unchanged</h2>
+<p>In <abbr>HTML</abbr> 4, the <code>&lt;div&gt;</code> element was defined to be a generic element for structuring a page. Although you can allude to the nature of its content by assigning <code>id</code> and <code>class</code> attributes with meaningful names, a <code>&lt;div&gt;</code> has almost no semantic meaning. <a href="http://dev.w3.org/html5/spec/Overview.html#the-div-element">The <abbr>HTML</abbr>5 definition</a>is basically the same as in <abbr>HTML</abbr> 4:</p>
+<blockquote>
+<p>The div element has no special meaning at all. It represents its children. It can be used with the class, lang, and title attributes to mark up semantics common to a group of consecutive elements.</p>
+<footer>
+    <cite><a href="http://dev.w3.org/html5/spec/Overview.html#the-div-element">W3C Specification</a></cite><br />
+  </footer>
+</blockquote>
+<p><code>&lt;div&gt;</code> is literally a container for flow content*, a collection of (hopefully) more semantically marked-up content that may need to be grouped together. It lies at the opposite end of the semantic spectrum from the new <abbr>HTML</abbr>5 structural elements.</p>
+<p><small>* For those who haven&#8217;t encountered this term before, <a href="http://dev.w3.org/html5/spec/Overview.html#flow-content-0">flow content</a> elements are the same as <abbr>HTML</abbr> 4&#8217;s block-level content elements.</small></p>
+<h2><code>&lt;div&gt;</code> vs semantic elements</h2>
+<p>The new semantic elements (<code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, and friends) justifiably capture a lot of <code>&lt;div&gt;</code>&#8216;s territory, but <code>&lt;div&gt;</code> still has a place in the <abbr>HTML</abbr>5 world. You should use <code>&lt;div&gt;</code> when there is no other more semantically appropriate element that suits your purpose. Its most common use will likely be for stylistic purposes — i.e., wrapping some semantically marked-up content in a <abbr>CSS</abbr>-styled container.</p>
+<p>Ask yourself questions about your content: Is it part of the site&#8217;s navigation? Is the content secondary to its surrounding content? If this content were printed on a page with nothing else, would it make sense? You will need to evaluate your content carefully, thinking about what it is and pairing it with an appropriate element. I recommend taking a look at <a href="http://html5doctor.com/happy-1st-birthday-us/">The Amazing <abbr>HTML</abbr>5 Doctor Easily Confused <abbr>HTML</abbr>5 Element Flowchart of Enlightenment</a> to help you choose the right element for your flow content.</p>
+<h2>Example Uses</h2>
+<p>Below are a few examples of how you can still use <code>&lt;div&gt;</code> appropriately in your <abbr>HTML</abbr>5 sites.</p>
+<h3>Site Wrapper</h3>
+<p>While you can <a href="http://camendesign.com/code/developpeurs_sans_frontieres">use the <code>&lt;body&gt; element</code></a> as a &#8220;natural&#8221; wrapper for site content, many people like to use <code>&lt;div&gt;</code> as top-level container for styling the entire site. This is an appropriate use of <code>&lt;div&gt;</code>, as a site wrapper has no meaning or purpose other than to aid styling.</p>
+<pre><code>&lt;body&gt;
+  &lt;div id="wrapper"&gt;
+    &lt;header&gt;
+      &lt;h1&gt;My Happy Blog&lt;/h1&gt;
+      &lt;nav&gt;
+        &lt;!-- ... --&gt;
+      &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;!-- ... rest of site content ... --&gt;
+  &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+<h3>Intro paragraph</h3>
+<p>If you want to style a particular block of content, like the intro to an article, <code>&lt;div&gt;</code> is a perfectly suitable element:</p>
+<pre><code>&lt;article&gt;
+  &lt;h1&gt;Big announcement&lt;/h1&gt;
+  &lt;div class="intro"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&lt;/p&gt;
+    &lt;p&gt;Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Sed massa metus, molestie nec facilisis non, lobortis ac orci. Suspendisse porttitor laoreet mi, at laoreet dolor rhoncus non. Sed ut massa quis mi placerat iaculis non sit amet odio. Cras tempus urna vitae felis rutrum porta.&lt;/p&gt;
+  &lt;p&gt;Maecenas auctor lacus eget mauris tincidunt consectetur. Donec molestie malesuada ligula, sed feugiat massa consequat sit amet. Pellentesque orci metus, ultricies sit amet adipiscing eget, gravida fringilla dui. Vestibulum accumsan dui diam, eget venenatis urna. Sed eu lobortis justo. Aliquam erat volutpat. Aliquam erat volutpat.&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+<p>The first two paragraphs aren&#8217;t really that different from the rest of the article, but by wrapping them in a <code>&lt;div&gt;</code>, they can be styled to capture the reader&#8217;s attention and draw them into the article. Of course, if you only want to style the first paragraph, you could use a <abbr>CSS</abbr> selector like <code>h1 + p {}</code> or <code>article p:first-child {}</code>. But if you want to style an article&#8217;s first paragraph only <em>sometimes</em>, or you need the style to work in older versions of Internet Explorer, or (as in this case) you want style more than one paragraph, a wrapper <code>&lt;div&gt;</code> is the way to go.</p>
+<h3>Other uses for <code>&lt;div&gt;</code></h3>
+<p>As previously stated, use of <code>&lt;div&gt;</code> will decline in favour of the new semantic elements. If you&#8217;re using lots of <code>&lt;div&gt;</code>s and only a few of the semantic elements in your <abbr>HTML</abbr>5 sites, then you&#8217;re really not taking advantage of what <abbr>HTML</abbr>5 has to offer.</p>
+<p>That said, you may need to rely on <code>&lt;div&gt;</code> as you transition into the world of <abbr>HTML</abbr>5. For example, if many of your site&#8217;s visitors use Internet Explorer with JavaScript disabled, then you won&#8217;t be able to style the new elements for these users. A piece of advice we gave back in our article on <a href="http://html5doctor.com/how-to-use-html5-in-your-client-work-right-now/">how to use <abbr>HTML</abbr>5 in your client work right now</a> was to use <code>&lt;div&gt;</code> with classes named after the new semantic elements, getting you to think about how you would use the new semantic elements without actually using them.</p>
+<pre><code>&lt;div class="article"&gt;
+  &lt;div class="header"&gt;
+    &lt;h1&gt;My blog post&lt;/h1&gt;
+    &lt;p&gt;An example using divs with classes instead of the new elements.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;!-- ... content ... --&gt;
+&lt;/div&gt;
+
+&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;My blog post&lt;/h1&gt;
+    &lt;p&gt;The same article but switched to the new elements.&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;!-- ... content ... --&gt;
+&lt;/article&gt;</code></pre>
+<p>This makes it simple to switch to the new elements when it becomes practical (think &#8220;search and replace&#8221;).</p>
+<h2>Recap</h2>
+<p>You will certainly use <code>&lt;div&gt;</code> less often in <abbr>HTML</abbr>5 than you did in <abbr>HTML</abbr> 4, but it&#8217;s still a valuable element to have in your toolkit. Sure, it&#8217;ll be picked last for the team because everyone else is better, but it&#8217;ll be the best damn generic container element there is!*</p>
+<p>Look at the more semantically valuable elements and consider whether your content would benefit from what they offer. Need help deciding? Take a look at some of these articles right here on <abbr>HTML</abbr>5 Doctor:</p>
+<ul>
+<li><a href="http://html5doctor.com/the-header-element/">header</a></li>
+<li><a href="http://html5doctor.com/the-footer-element/">footer</a></li>
+<li><a href="http://html5doctor.com/aside-revisited/">aside</a></li>
+<li><a href="http://html5doctor.com/the-article-element/">article</a></li>
+<li><a href="http://html5doctor.com/the-section-element/">section</a></li>
+<li><a href="http://html5doctor.com/the-figure-figcaption-elements/">figure</a></li>
+<li><a href="http://html5doctor.com/nav-element/">nav</a></li>
+</ul>
+<p>For more, check our <a href="http://html5doctor.com/article-archive/">article archive</a>. And if all else fails, use a <code>&lt;div&gt;</code>!</p>
+<p><small>* As it should be, it&#8217;s the only one apart from <code>&lt;span&gt;</code>. That said, if your content is just text, perhaps the oft-overlooked <code>&lt;p&gt;</code> would be more appropriate.</small></p>
+<p><a href="http://html5doctor.com/you-can-still-use-div/" rel="bookmark">You can still use div</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 13, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/you-can-still-use-div/feed/</wfw:commentRss>
+		<slash:comments>48</slash:comments>
+		</item>
+		<item>
+		<title>Why designers should care about HTML5</title>
+		<link>http://html5doctor.com/why-designers-should-care-about-html5/</link>
+		<comments>http://html5doctor.com/why-designers-should-care-about-html5/#comments</comments>
+		<pubDate>Wed, 14 Oct 2009 13:01:06 +0000</pubDate>
+		<dc:creator><![CDATA[Cennydd Bowles]]></dc:creator>
+				<category><![CDATA[Comment]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[semantics]]></category>
+		<category><![CDATA[video]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=973</guid>
+		<description><![CDATA[After a while on the fringes of our collective consciousness, HTML5 is finally getting the attention it deserves. The development community (as typified by the SuperFriends) has come together to debate practical elements of the spec, argue over the inclusion of controversial elements, and assess the timeframe over which we can unleash HTML5 in the wild.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>After a while on the fringes of our collective consciousness, <abbr title="Hypertext Markup Language 5">HTML5</abbr> is finally getting the attention it deserves. The development community (as typified by the <a href="http://www.zeldman.com/superfriends/">SuperFriends</a>) has come together to debate practical elements of the spec, argue over the inclusion of controversial elements, and assess the timeframe over which we can unleash <abbr>HTML</abbr>5 in the wild.</p>
+<p>However those of us more accustomed to the world of Post-Its, sketches, and .psds – the designers – haven’t been so vocal. Perhaps we&#8217;ve been distracted by the bright lights of <a href="http://www.css3.info/">CSS3</a> and those surface thrills we’ve longed for. (Rounded corners! Gradients! Transparency!) Or, alternatively, we&#8217;ve been in the thrall of <code>@font-face</code> and looking forward to the coming age of passable web typography.</p>
+<p>Understandable. But it’s time designers got excited about <abbr>HTML</abbr>5 too.</p>
+<p>Partly, it’s just good practice. Whatever your flavour of design &ndash; visual, web, interaction, user experience &ndash; knowing the native technology makes you better at your job. Just as composers should understand the capabilities of the orchestra&#8217;s instruments, designers need to understand the language of the web.</p>
+<p>But there’s more to <abbr>HTML</abbr>5 than simply keeping our skills sharp. It could make a big difference to the way we design for the web.</p>
+<h2>Semantic elements</h2>
+<p>Information architects (and, by extension, user experience designers) should be excited by the new <abbr>HTML</abbr>5 elements – <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;aside&gt;</code> and so on. While they won’t immediately revolutionise today’s web, they’re an investment for the future. Doing useful stuff with information is the central theme of <abbr title="information architecture">IA</abbr>, and therefore its practitioners should be at the forefront of the new experiences that machine-readable semantics will offer. <abbr>HTML</abbr>5 allows us to mark text up in a more meaningful way than a sea of <code>&lt;div&gt;</code>s, meaning we’ll soon see applications appearing at a sub-page level. We’ve started to scratch the surface – think about the <a href="https://addons.mozilla.org/en-US/firefox/addon/4106">Operator toolbar</a> or customisable UIs à la <a href="http://www.google.com/ig">iGoogle</a> – but we’ll need detailed design thinking to work out how to bring the benefits of semantic richness to the end user.</p>
+<h2>APIs and other extensions</h2>
+<p>While it’s clear that <a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">some of the <abbr>HTML</abbr>5 APIs are far from perfect</a> right now, when they&#8217;re refined they will offer us intriguing new opportunities and challenges.</p>
+<p>Designers of location-based services should of course find the <a href="http://dev.w3.org/geo/api/spec-source.html">geolocation API</a> invaluable. The <a href="http://blog.whatwg.org/the-road-to-html-5-contenteditable">contentEditable attribute</a> gives us further power to make the web truly read/write without resorting to JavaScript and custom interfaces. New input types (eg <code>type=&quot;search&quot;</code>) can provide extra visual cues about input function, although of course this depends on the solutions chosen by the browser manufacturers.</p>
+<p>Until now, it’s been easy to consider our domain as bounded by the viewport and the web server. But <abbr>HTML</abbr>5 is another step toward seamlessness: the merging of desktop, offline and online. For instance, the <a href="/native-drag-and-drop/">drag and drop API</a> could see the line between online and desktop experience blur further. Local storage could allow for a web-like experience in areas of poor connectivity. This convergence is clearly a good thing, but we must also design how to expose those hidden seams at the user’s request. Users should stay in control of how their locations are published and what data is synchronised to their machine.</p>
+<h2>&lt;video&gt;, &lt;audio&gt;, &lt;canvas&gt;</h2>
+<p>There is of course something of a reported schism between the standards world and the Flash world. Some see the advent of these new media elements (particularly <code>&lt;canvas&gt;</code>) as heralding the death of Adobe’s poster child.</p>
+<p>I don&#8217;t think this is either likely or desirable. Neither technology is perfect. Flash is, of course, proprietary and thus subject to the whims of a third party that stands between browser and user. <code>&lt;canvas&gt;</code> has <a href="http://esw.w3.org/topic/HTML/AddedElementCanvas">known accessibility problems</a>. But the two can live in harmony, if we play to their respective strengths. Some current Flash applications might be better suited to <code>&lt;canvas&gt;</code>, particularly those based around dynamic visualisation: graphs, animations, infographics. Some applications will benefit from the powerful capabilities of Flash: games, heavily interactive widgets.</p>
+<p>This aside, there’s clearly a user experience benefit in not having to rely on an external plugin to play rich media elements, and it will be interesting to see the uptake of the <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code> elements. Although it will initially be down to browser makers to define the interface elements involved, we will need to figure out how to integrate them into everyday web experiences. The good news is that they can be styled in the same way as any other <abbr>HTML</abbr> element. If your visual aesthetic relies on slanted images with box shadows, it&#8217;s trivial to apply this to video too.</p>
+<p>That said, we can&#8217;t ignore the elephant in the room: <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2009-June/020620.html">the thorny codec issue</a>. I&#8217;m sure we&#8217;d all agree that the sooner it&#8217;s resolved, the better.</p>
+<h2>What can designers do?</h2>
+<p>Only the most patient and detail-oriented designer will relish the idea of reading the spec in full and arguing the finer points on the <a href="http://www.whatwg.org/mailing-list">WHATWG list</a>. That’s just not the way designers roll.</p>
+<p>But as a community it’s important that we start talking about <abbr>HTML</abbr>5. If you&#8217;re new to <abbr>HTML</abbr>, now&#8217;s a great time to learn. The <a href="/article-archive/">articles on this site</a> and <a href="http://www.alistapart.com/articles/previewofhtml5/">A preview of HTML5</a> give useful guidance on the differences between <abbr>HTML</abbr>5 and its predecessors. Above all, designers should get chatting with their developer friends: there can’t be many left who no longer have an opinion on this technology. How do they see their practices changing? What can we do today to prepare our sites for the advent of HTML5? How can we build on its strong points to make the web a better place?</p>
+<p>We don&#8217;t yet know what we&#8217;ll accomplish with <abbr>HTML</abbr>5, but then it&#8217;s not often that the vocabulary of the web changes this deeply. However, one thing is clear: if we prepare now, we have a great chance to bring innovation to our users&#8217; online lives.</p>
+<p class="disclaimer">This article was jointly published on <a href="http://www.cennydd.co.uk/">Ineffable</a>, Cennydd&#8217;s personal website.</p>
+<p><a href="http://html5doctor.com/why-designers-should-care-about-html5/" rel="bookmark">Why designers should care about HTML5</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 14, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/why-designers-should-care-about-html5/feed/</wfw:commentRss>
+		<slash:comments>16</slash:comments>
+		</item>
+	</channel>
+</rss>

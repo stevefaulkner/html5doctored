@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>microdata &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/microdata/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Extending HTML5 — Microdata</title>
+		<link>http://html5doctor.com/microdata/</link>
+		<comments>http://html5doctor.com/microdata/#comments</comments>
+		<pubDate>Tue, 23 Nov 2010 15:00:14 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[extend]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[microdata]]></category>
+		<category><![CDATA[vocabulary]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2643</guid>
+		<description><![CDATA[<p>For those who like (to argue about) semantics, <abbr>HTML</abbr>5 is fantastic. Old presentational elements now have new semantic meanings, there’s a slew of new semantic elements for us to argue about, and we've even in<code>&#60;cite&#62;</code>d a riot or two. But that's not all! Also in <abbr>HTML</abbr>5 is microdata, a new lightweight semantic meta-syntax. Using attributes, we can define nestable groups of name-value pairs of data, called microdata, which are generally based on the page’s content. It gives us a whole new way to add extra semantic information and extend <abbr>HTML</abbr>5.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>For those who like (to argue about) semantics, <abbr>HTML</abbr>5 is fantastic. <a href="http://html5doctor.com/i-b-em-strong-element/" title="The i, b, em, &amp; strong elements | HTML5 Doctor">Old presentational elements</a> now have <a href="http://html5doctor.com/small-hr-element/" title="The small &amp; hr elements | HTML5 Doctor">new semantic meanings</a>, there’s a slew of new semantic elements for us to argue about, and we've even in<code>&lt;cite&gt;</code>d a riot or two. But that's not all! Also in <abbr>HTML</abbr>5 is microdata, a new lightweight semantic meta-syntax. Using attributes, we can define nestable groups of name-value pairs of data, called <em>microdata</em>, which are generally based on the page’s content. It gives us a whole new way to <em>add extra semantic information and extend <abbr>HTML</abbr>5</em>.</p>
+
+<nav class="in-page-nav">
+<h2>In-page navigation <a class="permalink" href="#in-page-nav">#</a></h2>
+<ol>
+<li><a href="#syntax">Microdata syntax</a></li>
+<li><a href="#microdata-action">Microdata in action</a>
+<ol>
+<li><a href="#schema-org-vocab">Using schema.org vocabularies</a></li>
+<li><a href="#google-vocab">Using Rich Snippet vocabularies</a></li>
+<li><a href="#whatwg-vocab">Using WHATWG vocabularies</a></li>
+<li><a href="#browsers">Browser support</a></li>
+<li><a href="#tools">Tools for making and using microdata</a></li>
+<li><a href="#other-vocab">Other vocabularies</a></li>
+<li><a href="#new-vocab">Making your own vocabulary</a></li></ol></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#changes"></a>Changes</li></ol>
+</nav>
+
+<div class="relative">
+<blockquote>
+<p>Sometimes, it is desirable to annotate content with specific machine-readable labels, e.g. to allow generic scripts to provide services that are customised to the page, or to enable content from a variety of cooperating authors to be processed by a single script in a consistent manner.</p>
+
+<p>For this purpose, authors can use the microdata features described in this section. Microdata allows nested groups of name-value pairs to be added to documents, in parallel with the existing content.</p>
+
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html" title="5 Microdata &#8212; Web Applications 1.0"><abbr>WHATWG</abbr> <abbr>HTML</abbr> specification</a></cite></footer>
+</blockquote>
+
+<aside class="sidenote"><p>Microdata has been somewhat controversial and so is <a href="http://www.w3.org/TR/microdata/#overview" title="HTML Microdata">a separate specification at <abbr>W3C</abbr></a>, but it's still part of the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html" title="5 Microdata &#8212; Web Applications 1.0"><abbr>WHATWG</abbr> <abbr>HTML</abbr></a> specifications. <a href="http://en.wikipedia.org/wiki/File:Keep_Calm_and_Carry_On_Poster.svg" title="File:Keep Calm and Carry On Poster.svg - Wikipedia, the free encyclopedia">Keep calm and carry on</a>.</p></aside>
+</div>
+
+<p>Instead of elements, these name-value pairs are defined via attributes:</p>
+
+<ul>
+<li id="attribute-itemscope"><code>itemscope</code> — defines a group of name-value pair(s), called an <em>item</em></li>
+<li id="attribute-itemprop"><code>itemprop="property-name"</code> — adds a <em>property</em> to a microdata item. The name of the property can be a word or <abbr>URL</abbr>, and the value is the ‘content’ of the element with this attribute:
+<ul>
+<li>For most elements, the value is the element’s text content (not including any <abbr>HTML</abbr> tags)</li>
+<li>For elements with a <abbr>URL</abbr> attribute, the value is the <abbr>URL</abbr> (<code>&lt;img src=""&gt;</code>, <code>&lt;a href=""&gt;</code>, <code>&lt;object data=""&gt;</code>, etc.)</li>
+<li>For the <code>&lt;time&gt;</code> element, the value is the <code>datetime=""</code> attribute</li>
+<li>For <code>&lt;meta itemprop="" content=""&gt;</code>, the value is the <code>content=""</code> attribute</li>
+</ul>
+</li>
+<li id="attribute-itemref"><code>itemref=""</code> — allows a microdata item to include <em>non-descendent properties</em> by referring to the <code>id</code>s of element(s) containing them</li>
+<li id="attribute-itemtype"><code>itemtype=""</code> — defines the item’s <em>type</em> when used on the same element as <code>itemscope</code>. The <code>itemtype</code> value is a <abbr>URL</abbr> that acts as an identifying vocabulary name.</li>
+<li id="attribute-itemid"><code>itemid=""</code> — allows a vocabulary to define a <em>global identifier</em> for a microdata item, for example an <abbr>ISBN</abbr> number on a book. Use <code>itemid</code> on the same element as the item’s <code>itemscope</code> and <code>itemtype</code> attributes.</li>
+</ul>
+
+<p>Let’s go through these new attributes and see how to use them in practice with everyone’s favourite example band, <a href="http://www.saltercane.com/" title="Salter Cane">Salter Cane</a>.</p>
+
+<section id="syntax">
+<h2>Microdata syntax <a class="permalink" href="#syntax">#</a></h2>
+
+<section id="itemscope-itemprop">
+<h3><code>itemscope</code> and <code>itemprop</code> <a class="permalink" href="#itemscope-itemprop">#</a></h3>
+
+<pre><code>&lt;p itemscope&gt;I’m going to the &lt;span itemprop="name"&gt;Salter Cane&lt;/span&gt; gig next week.
+Excited!&lt;/p&gt;
+</code></pre>
+
+<p>The presence of <code>itemscope</code> on the <code>&lt;p&gt;</code> element makes it into a microdata item. The attribute <code>itemprop</code> on a descendent element defines a <em>property</em> of this item (in this case, <code>name</code>) and associates it with the <em>value</em> <code>Salter Cane</code> (the <code>&lt;span&gt;</code>’s content). An item must have at least one <code>itemprop</code> to be valid.</p> <!-- todo: how are name-value pairs formatted eg via microdata.js -->
+
+<p><code>itemprop</code> names can be words or <abbr>URL</abbr> strings. Using <abbr>URL</abbr>s makes the name <em>globally unique</em>. If you use words, it’s best to use a vocabulary and the names defined in the vocabulary, which also makes the names unique. We cover this in the section <a href="#itemtype">Typed items and globally unique names</a>.</p>
+
+<!-- /#itemscope-itemprop --></section>
+
+<section id="itemprop-value">
+<h3><code>itemprop</code> value from an attribute <a class="permalink" href="#itemprop-value">#</a></h3>
+
+<p>For some elements, an <code>itemprop</code>’s value comes from an attribute of the element, not the element’s text. This applies to values from attributes containing <abbr>URL</abbr>s, the <code>datetime</code> attribute, and the <code>content</code> attribute.</p>
+
+<pre><code>&lt;p itemscope&gt;I’m going to the &lt;a itemprop="url"
+  href="http://www.saltercane.com/"&gt;Salter Cane&lt;/a&gt; gig 
+  &lt;time itemprop="date" datetime="2010-07-18"&gt;next week&lt;/time&gt;. Excited!&lt;/p&gt;
+</code></pre>
+
+<p>This defines an item with the properties <code>url</code> and <code>date</code> containing the values <code>http://www.saltercane.com/</code> and <code>2010-07-18</code>, respectively.</p>
+
+<p>Note that the link’s <code>itemprop="url"</code> value is <code>http://www.saltercane.com/</code> and not the element’s “Salter Cane” text content. In microdata, the following elements contribute their <abbr>URL</abbr>s as values:</p>
+
+<ul>
+<li><code>&lt;a href=""&gt;</code></li>
+<li><code>&lt;area href=""&gt;</code></li>
+<li><code>&lt;audio src=""&gt;</code></li>
+<li><code>&lt;embed src=""&gt;</code></li>
+<li><code>&lt;iframe src=""&gt;</code></li>
+<li><code>&lt;img src=""&gt;</code></li>
+<li><code>&lt;link href=""&gt;</code></li>
+<li><code>&lt;object data=""&gt;</code></li>
+<li><code>&lt;source src=""&gt;</code></li>
+<li><code>&lt;video src=""&gt;</code></li>
+</ul>
+
+<p>Similarly, the <code>&lt;time&gt;</code> element’s value is <code>2010-07-18</code> and not its text content (i.e., “next week”).</p>
+
+<p>Conversely, the URL-containing attributes of these <abbr>HTML</abbr>5 elements are not used as property values:</p>
+
+<ul>
+<li><code>&lt;base href=""&gt;</code></li>
+<li><code>&lt;script src=""&gt;</code></li>
+<li><code>&lt;input src=""&gt;</code></li>
+</ul>
+
+<p>It's still possible to use the text of one of these elements as its value — e.g., <code>&lt;a href=""&gt;desired value&lt;/a&gt;</code>. We just need to add an additional <code>itemprop</code>:</p>
+
+<pre><code>&lt;p itemscope&gt;I’m going to the &lt;a itemprop="url" href="http://www.saltercane.com/"&gt;&lt;span itemprop="name"&gt;Salter Cane&lt;/span&gt;&lt;/a&gt; gig &lt;time itemprop="date" datetime="2010-02-18"&gt;next week&lt;/time&gt;. They’re gonna rawk!&lt;/p&gt;
+</code></pre>
+
+<p>This defines an item with three properties: the <code>url</code> is <code>http://www.saltercane.com/</code>, the <code>name</code> is <code>Salter Cane</code>, and the <code>date</code> is <code>2010-07-18</code>.</p>
+
+<p>We’ll return to the <code>&lt;meta&gt;</code> element’s <code>content</code> attribute in just a moment.</p>
+
+<!-- /#itemprop-value --></section>
+
+<section id="nested-items">
+<h3>Nested items <a class="permalink" href="#nested-items">#</a></h3>
+<p>We can make a property into a nested item by adding <code>itemscope</code> to an element with <code>itemprop</code>.</p>
+
+<pre><code>&lt;p itemscope&gt;The &lt;span itemprop="name"&gt;Salter 
+  Cane&lt;/span&gt; drummer is &lt;span itemprop="members"
+  itemscope&gt;&lt;span itemprop="name"&gt;Jamie
+  Freeman&lt;/span&gt;.&lt;/span&gt;&lt;/p&gt;
+</code></pre>
+
+<p>This defines an item with two properties, <code>name</code> and <code>members</code>. The <code>name</code> is <code>Salter Cane</code>, and the <code>members</code> is a nested item, containing the property <code>name</code> with the value <code>Jamie Freeman</code>. Note that <code>members</code> doesn’t have a text value.</p>
+
+<p>Items that aren’t part of other items (i.e., anything with <code>itemscope</code> but not <code>itemprop</code>, or the child of an element with <code>itemprop</code>) are called top-level microdata items. The microdata <abbr>API</abbr> returns top-level microdata items and their properties, which includes nested items.</p>
+<!-- /#nested-items --></section>
+
+<section id="multiple-properties">
+<h3>Multiple properties <a class="permalink" href="#multiple-properties">#</a></h3>
+
+<p>Items can have multiple properties with the same name and different values:</p>
+
+<pre><code>&lt;span itemprop="members" itemscope&gt;The band members are
+  &lt;span itemprop="name"&gt;Chris Askew&lt;/span&gt;,
+  &lt;span itemprop="name"&gt;Jeremy Keith&lt;/span&gt;,
+  &lt;span itemprop="name"&gt;Jessica Spengler&lt;/span&gt; and
+  &lt;span itemprop="name"&gt;Jamie Freeman&lt;/span&gt;.&lt;/span&gt;
+</code></pre>
+
+<p>This defines the property <code>name</code> with four values, <code>Chris Askew</code>, <code>Jeremy Keith</code>, <code>Jessica Spengler</code> and <code>Jamie Freeman</code>.</p>
+
+<!-- is there a short way of representing this? <code>name:Chris Askew</code>? what about properties that are themselves items? -->
+
+<p>One element can also have multiple properties (multiple <code>itemprop=""</code> names separated by spaces) with the same value:</p>
+
+<pre><code>&lt;p itemscope&gt;&lt;span itemprop="guitar vocals"&gt;Chris Askew&lt;/span&gt;
+  is so dreamy.&lt;/p&gt;
+</code></pre>
+
+<p>This defines the properties <code>guitar</code> and <code>vocals</code>, both of which have the value <code>Chris Askew</code>.</p>
+<!-- /#multiple-properties --></section>
+
+<section id="itemref">
+<h3>In-page references via <code>itemref</code> <a class="permalink" href="#itemref">#</a></h3>
+
+<p>Items can use non-descendant properties (name-value pairs that aren’t children of the <code>itemscope</code> element) via the attribute <code>itemref=""</code>. This attribute is a list of the IDs of properties or nested items elsewhere on the page.</p>
+
+<pre><code>&lt;p itemscope itemref="band-members"&gt;I’m going to the
+  &lt;a itemprop="url" href="http://www.saltercane.com/"&gt;
+  &lt;span itemprop="name"&gt;Salter Cane&lt;/span&gt;&lt;/a&gt; gig
+  &lt;time itemprop="date" datetime="2010-07-18"&gt;next 
+  week&lt;/time&gt;. Excited!&lt;/p&gt;
+  …
+  &lt;p&gt;Salter Cane are &lt;span id="band-members"
+  itemprop="members" itemscope&gt;
+  &lt;span itemprop="name"&gt;Chris Askew&lt;/span&gt;, 
+  &lt;span itemprop="name"&gt;Jeremy Keith&lt;/span&gt;, 
+  &lt;span itemprop="name"&gt;Jessica Spengler&lt;/span&gt;
+  and &lt;span itemprop="name"&gt;Jamie Freeman&lt;/span&gt;.&lt;/span&gt;&lt;/p&gt;
+</code></pre>
+
+<p>This defines the properties <code>url</code>, <code>name</code>, and <code>date</code>. Additionally, it references the ID <code>band-members</code>, which contains the item <code>members</code> with four <code>name</code> properties, each of which have a different value.</p>
+<!-- /#item-ref --></section>
+
+<section id="meta">
+<h3>Using <code>&lt;meta&gt;</code> to add content via attributes <a class="permalink" href="#meta">#</a></h3>
+<p>If the text you want to add isn’t already part of the page’s content, you can use the <code>content</code> attribute on the <code>&lt;meta&gt;</code> element (<code>&lt;meta itemprop="" content=""&gt;</code>) to add it.</p>
+
+<pre><code>&lt;p itemscope&gt;&lt;span itemprop="name" itemscope&gt;Jessica Spengler
+  &lt;meta itemprop="likes" content="Mameshiba"&gt;&lt;/span&gt;’s fans are always
+  really raucous.&lt;/p&gt;
+</code></pre>
+
+<p>Unfortunately, some current browsers move <code>&lt;meta&gt;</code> elements into the document's <code>&lt;head&gt;</code>. The elegant workaround is to use an in-page reference via <code>itemref</code>, so it’ll be included by tools that understand microdata even if the browser has moved it.</p>
+
+<pre><code>&lt;p itemscope&gt;&lt;span itemprop="name" itemscope itemref="meta-likes"&gt;
+  Jessica Spengler&lt;meta id="meta-likes" itemprop="likes" content="Mameshiba"&gt;
+  &lt;/span&gt;’s fans are always really raucous.&lt;/p&gt;
+</code></pre>
+
+<p>Both of these code snippets define the property <code>name</code> with the value <code>Jessica Spengler</code> and the nested property <code>likes</code> with the value <code><a href="http://www.youtube.com/watch?v=p-E-8RXRG1M" title="YouTube - Mameshiba 7 - Sweet Bean [with English annotations]">Mameshiba</a></code>.</p>
+
+<aside class="sidenote"><p>Note that there’s no relationship between microdata and the page’s content. Adding all microdata via <code>&lt;meta&gt;</code> or adding metadata using only the page’s content are equivalent, and both give the same output via the microdata <abbr>API</abbr>.</p></aside>
+
+<p>While microdata is best suited for annotating your existing content, by using <code>&lt;meta&gt;</code>-based or hidden values, microdata doesn’t have to be tied to a page’s content. In general, adding hidden content to a page is a bad idea. It’s easy to forget about and not keep up-to-date. If the information would be useful to some users, add it to the page’s content. If it’s inconvenient to add the content inside an item, consider putting it in a <code>&lt;footer&gt;</code> and including via an in-page reference.</p>
+
+<!-- /#meta --></section>
+
+<section id="itemtype">
+<h3>Typed items (<code>itemtype</code>) and globally unique names <a class="permalink" href="#itemtype">#</a></h3>
+
+<p>We can tie an item to a microdata vocabulary by giving it a <em>type</em>, specified via the attribute <code>itemtype=""</code> on an element with <code>itemscope</code>. The <code>itemtype=""</code> value is a <abbr>URL</abbr> representing the microdata vocabulary. Note that this <abbr>URL</abbr> is only a text string that acts as unique vocabulary identifier — it doesn’t actually need to link to an actual webpage (although it’s nice when it does). After doing this, we can use names in the vocabulary as <code>itemprop</code> names to apply vocabulary-defined semantics.</p>
+
+<pre><code>&lt;p itemscope itemtype="http://schema.org/MusicGroup"&gt; I went to
+  hear &lt;a itemprop="url" href="http://saltercane.com/"&gt;&lt;span itemprop="name"&gt;
+  Salter Cane&lt;/span&gt;&lt;/a&gt; last night. They were great!&lt;/p&gt;
+</code></pre>
+
+<p>This example defines the property <code>url</code> with the value <code>http://saltercane.com/</code> and the property <code>name</code> with the value <code>Salter Cane</code> <strong>according to the <code>http://schema.org/MusicGroup</code> vocabulary</strong> (<a href="http://schema.org/MusicGroup" title="MusicGroup - schema.org"><code>MusicGroup</code> is a specialised kind of <code>Organization</code> vocabulary</a> on schema.org).</p>
+
+<p>Alternatively, you can use <abbr>URL</abbr>s for <code>itemprop</code> names. In this case, there’s no need to use <code>itemtype</code> as the vocabulary information is already contained in the name. These are referred to as <em>globally unique names</em>. While vocabulary-based names must be used inside a typed item to have the vocabulary-defined meaning, you can use a <abbr>URL</abbr> <code>itemprop</code> name anywhere.</p>
+
+<p>Let’s rewrite the above example using <abbr>URL</abbr>-based names:</p>
+
+<pre><code>&lt;p itemscope&gt;I went to hear &lt;a
+  itemprop="http://schema.org/MusicGroup/url"
+  href="http://saltercane.com/"&gt;&lt;span
+  itemprop="http://schema.org/MusicGroup/name"&gt;Salter Cane&lt;/span&gt;
+  &lt;/a&gt; last night. They were great!&lt;/p&gt;
+</code></pre>
+
+<p>This allows you to use multiple vocabularies in the same code snippet, even if they use the same property names.</p>
+
+<!-- /#itemtype --></section>
+
+<section id="itemid">
+<h3>Global identifiers with <code>itemid</code> <a class="permalink" href="#itemid">#</a></h3>
+
+<p>Sometimes an item may be identified by a unique identifier, such as a book by its <abbr>ISBN</abbr> number. This can be done in microdata using a <em>global identifier</em> via the attribute <code>itemid=""</code>, <em>if specified by the vocabulary</em>. <code>itemid</code> can only appear on an element with both <code>itemscope</code> and <code>itemtype=""</code>, and must be a valid URL.</p>
+</section>
+
+<pre><code>&lt;p itemscope itemtype="http://vocab.example.com/book"
+  itemid="urn:isbn:0321687299"&gt;
+  &lt;!-- book info… --&gt;
+&lt;/p&gt;
+</code></pre>
+
+<p>This defines an item containing information about a book identified by the <abbr>ISBN</abbr> number 0321687299, <em>as long as</em> the <code>http://vocab.example.com/book</code> vocabulary defines global identifiers like this.</p>
+
+<p>This example uses a theoretical example from the spec, as schema.org Book vocabulary currently only defines <a href="http://schema.org/Book" title="Book - schema.org"><abbr>ISBN</abbr> as an <code>itemprop</code></a>, although they’ve mentioned plans to add <code>itemid</code> global identifiers to their vocabularies in the future. Global identifiers are defined for the WHATWG vocabularies for vCard and vEvent, with values like <code>UID:19950401-080045-40000F192713-0052</code> and <code>UID:19970901T130000Z-123401@host.com</code> respectively<!-- although these are invalid URLs, ref: http://www.w3.org/Bugs/Public/show_bug.cgi?id=13929 -->.</p>
+
+<!-- /#itemid --></section>
+
+<!-- /#syntax --></section>
+
+
+<section id="microdata-action">
+<h2>Microdata in action <a class="permalink" href="#microdata-action">#</a></h2>
+
+<p>So now that we know how, <em>why</em> would we want to use microdata?</p>
+
+<p>One use is adding extra semantics or data that we can manipulate via JavaScript in a similar way to <a href="http://html5doctor.com/html5-custom-data-attributes/" title="HTML5 Custom Data Attributes (data-*) | HTML5 Doctor">custom data attributes (<code>data-*</code>)</a>. But if we use a vocabulary via <code>itemtype</code> or <abbr>URL</abbr>-based <code>itemprop</code> names, microdata becomes considerably more powerful.</p>
+
+<p>While microdata is <em>machine-readable without needing to know the vocabulary</em>, using a vocabulary means others can know what our properties mean. This allows the data to take on a life of its own. Say what? Well, in effect, <strong>using a vocabulary makes microdata a lightweight <abbr>API</abbr> for your content</strong>.</p>
+
+<p>If you visited someone’s homepage, wouldn’t it be great if you could add their contact information to your address book automatically? The same is true for adding an event you’re attending to your calendar. As the syntax examples were a bit example-y, let’s see how to do that using a real-world example — an upcoming event I’m organising (well, it <em>was</em> upcoming!):</p>
+
+<figure>
+<pre><code>&lt;section&gt;
+  &lt;h3&gt;&lt;a href="http://atnd.org/events/5181" title="WDE-ex Vol11『iPad
+  のウェブデザイン：私たちがみつけたこと 』 : ATND"&gt;WDE-ex Vol.11 — Designing
+  for iPad: Our experience so far&lt;/a&gt;&lt;/h3&gt;
+  &lt;p&gt;On &lt;time datetime="2010-07-21T19:00:00+09:00"&gt;July 21st 19:00
+  &lt;/time&gt;-&lt;time datetime="2010-07-21T20:00:00+09:00"&gt;20:00&lt;/time&gt;
+  at &lt;a href="http://www.apple.com/jp/retail/ginza/map/"&gt;Apple Ginza&lt;/a&gt;,
+  &lt;a href="http://informationarchitects.jp/" title="iA"&gt;Oliver Reichenstein,
+  CEO of iA&lt;/a&gt;, will share the lessons they’ve learned while creating
+  three iPad apps and one iPad website.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<blockquote><section>
+  <h3><a href="http://atnd.org/events/5181" title="WDE-ex Vol11『iPad のウェブデザイン：私たちがみつけたこと 』 : ATND">WDE-ex Vol.11 — Designing for iPad: Our experience so far</a></h3>
+  <p>On <time datetime="2010-07-21T19:00:00+09:00">July 21st 19:00</time>-<time datetime="2010-07-21T20:00:00+09:00">20:00</time> at <a href="http://www.apple.com/jp/retail/ginza/map/">Apple Ginza</a>, <a href="http://informationarchitects.jp/" title="iA">Oliver Reichenstein, CEO of iA</a>, will share the lessons they’ve learned while creating three iPad apps and one iPad website.</p>
+</section></blockquote>
+<figcaption>A Web Directions East event — in code and displayed</figcaption>
+</figure>
+
+<p>Now we could start making up our own <code>itemprop</code> names on an ad-hoc basis, but this effectively prevents anyone else from using our data. By using a vocabulary and following its rules, others can also use our data. It’s a good idea to use a vocabulary, so where do we find one?</p>
+
+<section id="schema-org-vocab">
+<h3>Using schema.org vocabularies <a class="permalink" href="#schema-org-vocab">#</a></h3>
+
+<!-- 
+* data-vocabulary rich snippet testing tool doesn’t test schema.org snippets yet (to confirm, eta about now)
+* microdata and schema.org tools http://schema.rdfs.org/tools.html
+	* nascent schema.org generators
+		* http://schema-creator.org/ (Person, Product, Event, Organization, Movie, Book, Review)
+		* http://schemafied.com/ (aggregate rating, article, contact point, creative work, event, local business, media object, nutrition information, offer, organization, person, place, postal address, product, rating, recipe, thing) includes items from other schemas
+		* http://www.microdatagenerator.com/ (Attorney, Auto Dealer, Dentist, HVAC, Local Business Schema (NAP), Locksmith, Physician, Plumber, Real Estate, Restaurant Schemas)
+	* Schema for WordPress plugin http://schemaforwordpress.com/
+	* http://www.productontology.org for more explicit products and services to use with schema.org/Product vocab, sourced from Wikipedia
+		* ref: http://groups.google.com/group/schemaorg-discussion/browse_thread/thread/0b146382537316ed# for integrating productontology schemas
+	* Rich Snippets testing tool adding support for schema.org http://www.google.com/webmasters/tools/richsnippets
+	* Mida, a Microdata parser/extractor library for Ruby http://lawrencewoodman.github.com/mida/
+	* Translate CVS or Microdata using schema.org terms to JSON, RDF/XML or RDF/Turtle http://omnidator.appspot.com/
+* controversy
+	* no RDFa support
+		* http://schema.rdfs.org/
+	* no community input before launch
+* random buildout is random
+* user extensions seem pretty worthless
+
+ -->
+
+<p class="callout changed-block"><em><time datetime="2011-08-16T10:18:42+09:00">2011-08-16</time></em> The schema.org vocabularies have now superseded the old Google vocabularies, so I’ve updated the article to reflect this.</p>
+
+<p>Bing, Google and Yahoo have collaborated on a set of microdata vocabularies under the name <a href="http://schema.org/" title="schema.org">schema.org</a>. By using these vocabularies we can convey semantic information in our content in a way these search engines can understand. While adding semantics using these vocabularies won’t affect your search ranking, the included data may be shown in search results. The main vocabularies schema.org offers are:</p>
+
+<ul>
+<li>Creative works: CreativeWork, Book, Movie, MusicRecording, Recipe, TVSeries…</li>
+<li>Embedded non-text objects: AudioObject, ImageObject, VideoObject</li>
+<li>Event</li>
+<li>Organization</li>
+<li>Person</li>
+<li>Place, LocalBusiness, Restaurant…</li>
+<li>Product, Offer, AggregateOffer</li>
+<li>Review, AggregateRating</li>
+</ul>
+
+<p>They’re the cross-search engine successors to Google’s earlier <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=99170" title="Rich snippets - Webmaster Tools Help">Rich Snippets</a> vocabularies. Unlike Rich Snippets, which came in microformats and RDFa versions, schema.org vocabularies controversially <em>only</em> support microdata at the moment.</p>
+
+<p>Taking our fairly standard <abbr>HTML</abbr>5 code for Oliver’s iPad event above, let’s add some microdata pixie dust using the schema.org vocabularies. First, the speaker (using the <a href="http://schema.org/Person" title="Person - schema.org">http://schema.org/Person vocabulary</a>) and the venue (using the <a href="http://schema.org/Organization" title="Organization - schema.org">http://schema.org/Organization vocabulary</a>):</p>
+
+<figure>
+<pre><code>&lt;section&gt;
+  &lt;h3&gt;&lt;a href="http://atnd.org/events/5181" title="WDE-ex Vol11『iPad
+  のウェブデザイン：私たちがみつけたこと 』 : ATND"&gt;WDE-ex Vol.11 — Designing
+  for iPad: Our experience so far&lt;/a&gt;&lt;/h3&gt;
+  &lt;p&gt;On &lt;time datetime="2010-07-21T19:00:00+09:00"&gt;July 21st 19:00
+  &lt;/time&gt;-&lt;time datetime="2010-07-21T20:00:00+09:00"&gt;20:00&lt;/time&gt; at
+  &lt;span <mark>itemscope itemtype="http://schema.org/Organization"</mark>&gt;
+  &lt;a <mark>itemprop="url"</mark> href="http://www.apple.com/jp/retail/ginza/map/"&gt;
+  &lt;span <mark>itemprop="name"</mark>&gt;Apple Ginza&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;,
+  &lt;span <mark>itemscope itemtype="http://schema.org/Person"</mark>&gt;
+  &lt;a <mark>itemprop="url"</mark> href="http://informationarchitects.jp/" title="iA"&gt;
+  &lt;span <mark>itemprop="name"</mark>&gt;Oliver Reichenstein&lt;/span&gt;, CEO of iA&lt;/a&gt;
+  &lt;/span&gt;, will share the lessons they’ve learned while creating three
+  iPad apps and one iPad website.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<figcaption>Adding schema.org microdata attributes for the speaker and location (ref: <a href="http://html5doctor.com/demos/microdata/example1.html" title="Microdata example 1: schema.org Person and Organization vocabularies">standalone file</a>). Because they’re attributes, there is no change in how the <abbr>HTML</abbr> is displayed</figcaption>
+</figure>
+
+<p>While this content will still look the same, adding these microdata items means the following information is now machine readable:</p>
+
+<ul>
+<li>A company’s name (<code>name</code>)</li>
+<li>That company’s <abbr>URL</abbr> (<code>url</code> on <code>&lt;a&gt;</code>)</li>
+<li>A person’s name (<code>name</code>)</li>
+<li>A <abbr>URL</abbr> associated with that person (<code>url</code> on <code>&lt;a&gt;</code>)</li>
+</ul>
+
+<p>In JSON (ref: <a href="http://foolip.org/microdatajs/live/?html=%3Csection%3E%0A%20%20%3Ch3%3E%3Ca%20href%3D%22http%3A%2F%2Fatnd.org%2Fevents%2F5181%22%20title%3D%22WDE-ex%20Vol11%E3%80%8EiPad%0A%20%20%E3%81%AE%E3%82%A6%E3%82%A7%E3%83%96%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%EF%BC%9A%E7%A7%81%E3%81%9F%E3%81%A1%E3%81%8C%E3%81%BF%E3%81%A4%E3%81%91%E3%81%9F%E3%81%93%E3%81%A8%20%E3%80%8F%20%3A%20ATND%22%3EWDE-ex%20Vol.11%20%E2%80%94%20Designing%0A%20%20for%20iPad%3A%20Our%20experience%20so%20far%3C%2Fa%3E%3C%2Fh3%3E%0A%20%20%3Cp%3EOn%20%3Ctime%20datetime%3D%222010-07-21T19%3A00%3A00%2B09%3A00%22%3EJuly%2021st%2019%3A00%0A%20%20%3C%2Ftime%3E-%3Ctime%20datetime%3D%222010-07-21T20%3A00%3A00%2B09%3A00%22%3E20%3A00%3C%2Ftime%3E%20at%0A%20%20%3Cspan%20itemscope%20itemtype%3D%22http%3A%2F%2Fschema.org%2FOrganization%22%3E%0A%20%20%3Ca%20itemprop%3D%22url%22%20href%3D%22http%3A%2F%2Fwww.apple.com%2Fjp%2Fretail%2Fginza%2Fmap%2F%22%3E%0A%20%20%3Cspan%20itemprop%3D%22name%22%3EApple%20Ginza%3C%2Fspan%3E%3C%2Fa%3E%3C%2Fspan%3E%2C%0A%20%20%3Cspan%20itemscope%20itemtype%3D%22http%3A%2F%2Fschema.org%2FPerson%22%3E%0A%20%20%3Ca%20itemprop%3D%22url%22%20href%3D%22http%3A%2F%2Finformationarchitects.jp%2F%22%20title%3D%22iA%22%3E%0A%20%20%3Cspan%20itemprop%3D%22name%22%3EOliver%20Reichenstein%3C%2Fspan%3E%2C%20CEO%20of%20iA%3C%2Fa%3E%0A%20%20%3C%2Fspan%3E%2C%20will%20share%20the%20lessons%20they%E2%80%99ve%20learned%20while%20creating%20three%0A%20%20iPad%20apps%20and%20one%20iPad%20website.%3C%2Fp%3E%0A%3C%2Fsection%3E">Live Microdata</a>) this would be:</p>
+
+<pre><code>{
+  "items": [
+    {
+      "type": "http://schema.org/Organization",
+      "properties": {
+        "url": [
+          "http://www.apple.com/jp/retail/ginza/map/"
+        ],
+        "name": [
+          "Apple Ginza"
+        ]
+      }
+    },
+    {
+      "type": "http://schema.org/Person",
+      "properties": {
+        "url": [
+          "http://informationarchitects.jp/"
+        ],
+        "name": [
+          "Oliver Reichenstein"
+        ]
+      }
+    }
+  ]
+}
+</code></pre>
+
+<p>So we now have a semantic association between a company and a <abbr>URL</abbr> and between a person and a <abbr>URL</abbr>. With the right tool, we could add this information to an address book automatically.</p>
+
+<p>Next, let’s add microdata attributes to the event data, using the <a href="http://schema.org/Event" title="Event - schema.org">http://schema.org/Event vocabulary</a>:</p>
+
+<figure>
+<pre><code>&lt;section <mark>itemscope itemtype="http://schema.org/Event"</mark>&gt;
+  &lt;h3&gt;&lt;a <mark>itemprop="url"</mark> href="http://atnd.org/events/5181" title="WDE-ex
+  Vol11『iPad のウェブデザイン：私たちがみつけたこと 』 : ATND"&gt;&lt;span
+  <mark>itemprop="summary"</mark>&gt;WDE-ex Vol.11 — Designing for iPad: Our experience so
+  far&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;
+  &lt;p <mark>itemprop="description"</mark>&gt;On &lt;time <mark>itemprop="startDate"</mark>
+  datetime="2010-07-21T19:00:00+09:00"&gt;July 21st 19:00&lt;/time&gt;-
+  &lt;time <mark>itemprop="endDate"</mark> datetime="2010-07-21T20:00:00+09:00"&gt;20:00
+  &lt;/time&gt; at &lt;span <mark>itemprop="location"</mark> itemscope
+  itemtype="http://schema.org/Organization"&gt;&lt;a itemprop="url"
+  href="http://www.apple.com/jp/retail/ginza/map/"&gt;&lt;span itemprop="name"&gt;
+  Apple Ginza&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;, &lt;span itemscope
+  itemtype="http://schema.org/Person"&gt;&lt;a itemprop="url"
+  href="http://informationarchitects.jp/" title="iA"&gt;&lt;span itemprop="name"&gt;
+  Oliver Reichenstein&lt;/span&gt;, CEO of iA&lt;/a&gt;&lt;/span&gt;, will share
+  the lessons they’ve learned while creating three iPad apps and
+  one iPad website.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<blockquote><section itemscope itemtype="http://schema.org/Event">
+<h3><a itemprop="url" href="http://atnd.org/events/5181" title="WDE-ex Vol11『iPad のウェブデザイン：私たちがみつけたこと 』 : ATND"><span itemprop="summary">WDE-ex Vol.11 — Designing for iPad: Our experience so far</span></a></h3>
+<p itemprop="description">On <time itemprop="startDate" datetime="2010-07-21T19:00:00+09:00">July 21st 19:00</time>-<time itemprop="endDate" datetime="2010-07-21T20:00:00+09:00">20:00</time> at <span itemprop="location" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="http://www.apple.com/jp/retail/ginza/map/"><span itemprop="name">Apple Ginza</span></a></span>, <span itemscope itemtype="http://schema.org/Person"><a itemprop="url" href="http://informationarchitects.jp/" title="iA"><span itemprop="name"> Oliver Reichenstein</span>, CEO of iA</a></span>, will share the lessons they’ve learned while creating three iPad apps and one iPad website.</p>
+</section></blockquote>
+<figcaption>A code sample with microdata describing an event (ref: <a href="http://html5doctor.com/demos/microdata/example2.html" title="Microdata example 2: schema.org Event, Person and Organization vocabularies">standalone file</a>). Adding the microdata attributes doesn’t change how the HTML is displayed.</figcaption>
+</figure>
+
+<aside class="sidenote"><p>While these <code>itemprop</code>s will probably be self-explanatory, you can see descriptions of what each <code>itemprop</code> means on the <a href="http://schema.org/Organization" title="Organization - schema.org">Organization</a>, <a href="http://schema.org/Person" title="Person - schema.org">Person</a>, and <a href="http://schema.org/Event" title="Event - schema.org">Event vocabulary</a> pages.</p></aside>
+
+<p>Now things are a lot more interesting! We can extract the following data:</p>
+
+<ul>
+<li>Event details
+<ul><li>Event name (<code>summary</code>)</li>
+<li>Event start and end time (<code>startDate</code> and <code>endDate</code>)</li>
+<li>Event summary (<code>summary</code>)</li>
+<li>Event <abbr>URL</abbr> (<code>url</code> on <code>&lt;a&gt;</code>)</li>
+<li>Event location (<code>location</code>), which is represented by:
+<ul>
+<li>Company name (<code>name</code>)</li>
+<li>Company <abbr>URL</abbr> (<code>url</code> on <code>&lt;a&gt;</code>)</li>
+</ul>
+</li>
+</ul></li>
+<li>Speaker details (well, someone connected with the event, although this connection isn’t explicit)
+<ul><li>A person’s name (<code>name</code>)</li>
+<li>That person’s associated <abbr>URL</abbr> (<code>url</code>)</li></ul>
+</li>
+</ul>
+
+<p>Google provides a <a href="http://www.google.com/webmasters/tools/richsnippets" title="Webmaster Tools - Rich Snippets Testing Tool">Rich Snippet testing tool</a>, which shows what data it can extract from the schema.org microdata:</p>
+
+<aside class="sidenote"><p>This tool was originally developed for <a href="#google-vocab">Rich Snippets</a>, so it’ll also work for those vocabularies for microdata, microformats and RDFa</p></aside>
+
+<img src="http://html5doctor.com/wp-content/uploads/2011/08/rich-snippet-data2.png" alt="Data extracted from schema.org microdata by the Rich Snippet testing tool" title="Rich Snippet Data" width="495" height="341" class="alignnone size-full wp-image-3628" srcset="http://html5doctor.com/wp-content/uploads/2011/08/rich-snippet-data2.png 495w, http://html5doctor.com/wp-content/uploads/2011/08/rich-snippet-data2-300x206.png 300w" sizes="(max-width: 495px) 100vw, 495px" />
+
+<p>Google could use this additional data in search results as follows:</p>
+
+<img src="http://html5doctor.com/wp-content/uploads/2010/10/rich-snippet.png" alt="Google Rich Snippet testing tool preview, showing data we marked up using microdata" width="507" height="180" class="alignnone size-full wp-image-2659" srcset="http://html5doctor.com/wp-content/uploads/2010/10/rich-snippet.png 507w, http://html5doctor.com/wp-content/uploads/2010/10/rich-snippet-300x106.png 300w" sizes="(max-width: 507px) 100vw, 507px" />
+
+<p>The summary (linked to the event <abbr>URL</abbr>) and the date and venue are included. Nice! Just by using a vocabulary, Google (or a script supporting microdata) can discover lots of useful data about our event without needing one of those pesky natural language interpreters (otherwise known as humans).</p>
+
+<p>Anyone who has used microformats before will also notice these vocabularies look very similar to hCard and hCalendar, although there are a couple of name changes — e.g., hCalendar’s <code>class="dtstart"</code> becomes <code>itemprop="startDate"</code>.</p>
+
+<p>While the schema.org vocabularies are all the search engines are promising to support, you can <a href="http://schema.org/docs/extension.html" title="schema.org - Extending Schemas">extend these vocabularies</a> yourself. The safest ways to do this would be via:</p>
+
+<ul>
+<li>the <a href="http://www.productontology.org" title="The Product Types Ontology: Use Wikipedia pages for describing products or services with GoodRelations and schema.org">Product Types Ontology</a> for products or services, based on Wikipedia</li>
+<li>the <a href="http://www.heppnetz.de/projects/goodrelations/" title="GoodRelations: The Professional Web Vocabulary for E-Commerce">GoodRelations vocabulary terms</a> for e-commerce, which is <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=186036" title="Product properties: GoodRelations and hProduct - Webmaster Tools Help">supported (along with hProduct) by Rich Snippets</a></li>
+<li>making your own schema.org vocabulary extension collaboratively using the <a href="http://groups.google.com/group/schemaorg-discussion" title="Schema.org Discussion | Google Groups">schema.org email list</a> (although read <a href="#new-vocab">Making your own vocabulary</a> later in this article first)</li>
+</ul>
+
+<!-- /#schema-org-vocab --></section>
+
+<section id="google-vocab">
+<h3>Using Google’s Rich Snippets vocabularies <a class="permalink" href="#google-vocab">#</a></h3>
+
+<p>Google also has some basic vocabularies (precursors of schema.org vocabularies) for the following kinds of data, under the moniker of <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=99170" title="Rich snippets - Webmaster Tools Help">Rich Snippets</a>:</p>
+
+<ul>
+<li>people</li>
+<li>businesses and organizations</li>
+<li>events</li>
+<li>products</li>
+<li>reviews</li>
+<li>recipes</li>
+</ul>
+
+<p>These vocabularies support microformats and <abbr>RDFa</abbr>, two other ways to add extra semantics to our content, in addition to microdata. Apart from this difference, they’re basically identical to the matching schema.org vocabularies, except they use <a href="http://www.data-vocabulary.org/" title="Data-Vocabulary.org | Official Website">www.data-vocabulary.org</a> instead of schema.org in the <code>itemtype</code>. While Google still supports them, the newer schema.org offers more vocabularies that are also supported by Bing and Yahoo, so choose schema.org vocabularies as long as you’re happy with microdata. You might still want to check out the <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=99170" title="Rich snippets - Webmaster Tools Help">Rich Snippets documentation</a>, as it includes code samples and is generally better than schema.org’s at the time of writing.</p>
+
+<!-- /#google-vocab --></section>
+
+<section id="whatwg-vocab">
+<h3>Using <abbr>WHATWG</abbr>/microformats.org vocabularies <a class="permalink" href="#whatwg-vocab">#</a></h3>
+
+<p>If you’re familiar with microformats or want more properties than Google’s vocabularies, the <abbr>WHATWG</abbr> <abbr>HTML</abbr>5 specification actually contains microdata vocabularies for both the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#vcard" title="4.12 Links &mdash; HTML5 (including next generation additions still in development)">vCard</a> and <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#vevent" title="4.12 Links &mdash; HTML5 (including next generation additions still in development)">vEvent<!-- todo: iCalendar? check --></a> specifications that hCard and hCalendar are based on, plus <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#licensing-works" title="4.12 Links &mdash; HTML5 (including next generation additions still in development)">a licensing vocabulary</a>.</p>
+
+<p>Let’s take our earlier example and rewrite it using these vocabularies instead:</p>
+
+<figure>
+<pre><code>&lt;section itemscope
+  itemtype="http://microformats.org/profile/hcalendar#vevent"&gt;
+  &lt;h3&gt;&lt;a itemprop="url" href="http://atnd.org/events/5181" title="WDE-ex
+  Vol11『iPad のウェブデザイン：私たちがみつけたこと 』 : ATND"&gt;&lt;span
+  itemprop="summary"&gt;WDE-ex Vol.11 — Designing for iPad: Our experience so
+  far&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;
+  &lt;p itemprop="description"&gt;On &lt;time itemprop="dtstart"
+  datetime="2010-07-21T19:00:00+09:00"&gt;July 21st 19:00&lt;/time&gt;-
+  &lt;time itemprop="dtend" datetime="2010-07-21T20:00:00+09:00"&gt;20:00&lt;/time&gt;
+  at &lt;span itemprop="location" itemscope
+  itemtype="http://microformats.org/profile/hcard"&gt;&lt;a itemprop="url"
+  href="http://www.apple.com/jp/retail/ginza/map/"&gt;&lt;span itemprop="fn org"&gt;
+  Apple Ginza&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;, &lt;span itemscope
+  itemtype="http://microformats.org/profile/hcard"&gt;&lt;a itemprop="url"
+  href="http://informationarchitects.jp/" title="iA"&gt;&lt;span itemprop="fn"&gt;
+  Oliver Reichenstein&lt;/span&gt;, CEO of iA&lt;/a&gt;&lt;/span&gt;, will share
+  the lessons they’ve learned while creating three iPad apps and one
+  iPad website.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<figcaption>An HTML code sample with microdata describing an event, using vCard- and vEvent-based vocabularies (ref: <a href="http://html5doctor.com/demos/microdata/example3.html" title="Microdata example 3: WHATWG/microformats.org vEvent and vCard vocabularies">standalone file</a>)</figcaption>
+</figure>
+
+<p>Currently, search engines don’t map these vocabularies to schema.org ones. It’s possible they will at some stage, so decide which vocabularies to use based on what information you want to mark up, as the data is accessible regardless.</p>
+
+<section id="uf-wiki">
+<h4>Criticism on microformats.org <a class="permalink" href="#uf-wiki">#</a></h4>
+
+<p>Despite these vocabularies being based on vCard and vEvent and using microformats.org as their <abbr>URL</abbr>s, the microformats wiki actually warns against using the vCard and vEvent microdata vocabularies, stating:</p>
+
+<blockquote><p>For common semantics on the web … microformats are still simpler and easier than microdata, and are already well implemented across numerous services and tools.</p>
+<footer><cite><a href="http://microformats.org/wiki/microdata#summary" title="microdata · Microformats Wiki">Microdata — Microformats wiki</a></cite></footer>
+</blockquote>
+
+<p>Personally, I think the difference is marginal. If you use the recommended microformat <code>profile</code> links, I’d say it’s a wash. (But of course no one does ;). Microdata is actually simpler to use for date/time data than the microformat equivalents (although it is less permissive for <a href="http://html5doctor.com/the-time-element/" title="The time element (and microformats) | HTML5 Doctor">fuzzy or ancient antiquity times</a>), and it's more explicit, for example, avoiding the internationalisation issues of the “implied <code>fn</code> optimisation”. Tool support is a valid concern, but again I expect this to change over time — microdata is relatively new after all.</p>
+
+<!-- /#uf-wiki --></section>
+<!-- /#whatwg-vocab --></section>
+
+<section id="browsers">
+<h3>Browser support <a class="permalink" href="#browsers">#</a></h3>
+
+<p>The microdata specification describes the <a href="http://www.w3.org/TR/microdata/#using-the-microdata-dom-api" title="HTML Microdata">microdata <abbr>DOM</abbr> <abbr>API</abbr></a>, which allows us to access top-level items and their properties. <del datetime="2011-08-16T11:03:53+0900">Unfortunately, no browser supports this yet.</del> <ins datetime="2011-08-16T11:16:22+0900"><a href="http://my.opera.com/desktopteam/blog/2011/07/27/latency-microdata-qresync" title="Opera Desktop Team - Network latency improvements, Microdata and QRESYNC">Opera has experimental support in their latest snapshot</a>, with support expected in Opera 12.</ins> It’s also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=591467">being implemented by Mozilla</a>.</p>
+
+<table>
+	<caption>Browser support for microdata <i>(as of <time datetime="2011-08-16">16th August, 2011</time>)</i></caption>
+<thead>
+	<tr><th scope="col">Browser</th><th scope="col">Support</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">Chrome</th><td>No</td></tr>
+	<tr><th scope="row">Safari</th><td>No</td></tr>
+	<tr><th scope="row">Firefox</th><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=591467">Work in progress</a></td></tr>
+	<tr><th scope="row">Opera</th><td><a href="http://my.opera.com/desktopteam/blog/2011/07/27/latency-microdata-qresync" title="Opera Desktop Team - Network latency improvements, Microdata and QRESYNC">In snapshot 12.00-1033</a></td></tr>
+	<tr><th scope="row">Internet Explorer</th><td>No</td></tr>
+</tbody>
+</table>
+
+<p>But that’s okay because this data is still useful for search engine robots and third party tools. For example, Bing, Google, and Yahoo are using microdata with the schema.org vocabularies in search results.</p>
+
+<!-- /#browsers --></section>
+
+<section id="tools">
+<h3>Tools for making and using microdata <a class="permalink" href="#tools">#</a></h3>
+
+<p>With the right tools, we could use this data complete with its explicit semantics to, for example, add a microdata-annotated event directly into a calendar — very handy if you were planning to attend. With the release of schema.org, <a href="http://schema.rdfs.org/tools.html" title="schema.rdfs.org - Tools">tools for microdata are starting to appear</a>, but are still somewhat thin on the ground. (No Firefox plugin?! Inconceivable!). However we have libraries for three languages now:</p>
+
+<ul>
+<li><a href="http://foolip.org/microdatajs/live/" title="Live Microdata">Live Microdata</a> and the associated <a href="http://gitorious.net/microdatajs/microdatajs" title="microdatajs in HTML5 Microdata JavaScript - Gitorious">microdatajs</a> by <a href="http://twitter.com/foolip" title="@foolip on Twitter">Philip Jägenstedt</a></li>
+<li><ins datetime="2011-07-14T06:25:19+0900">the <a href="http://soyrex.com/php-microdata/" title="PHP Microdata Parser - Library to parse microdata from HTML">PHP Microdata Parser</a> by <a href="https://twitter.com/soyrex">Alex Holt</a></ins></li>
+<li><ins datetime="2011-08-16T11:22:17+0900"><a href="http://lawrencewoodman.github.com/mida/" title="Mida - A Microdata extractor/parser library for Ruby">Mida</a>, a Microdata parser/extractor library for Ruby and command line tool by <a href="http://techtinkering.com/" title="TechTinkering">Lawrence Woodman</a></ins></li>
+</ul>
+
+<p>Live Microdata converts microdata into <abbr>JSON</abbr>. If you’re using <abbr>WHATWG</abbr>/microformats.org vocabularies for vCard or vEvent, it also produces vCard and iCal output. <ins datetime="2011-07-14T06:31:07+0900">The PHP Microdata library allows you to parse microdata in an HTML file, returning JSON or a PHP array.</ins> <ins datetime="2011-08-16T11:30:16+0900">Mida allows you to extract microdata as JSON, and search for or inspect items. It supports defining vocabularies, and includes schema.org vocabularies. You can even use it from the command line.</ins></p>
+
+<p>Until there is native <abbr>API</abbr> support in browsers, we can use these libraries to access microdata. For example, you could put microdatajs on your own server to provide vCard and iCal file downloads, to allow adding the data to an address book or calendar app.</p>
+
+<p><a href="http://validator.nu/">Validator.nu</a> will validate your use of microdata, but not whether it conforms to a vocabulary. Google’s <a href="http://www.google.com/webmasters/tools/richsnippets" title="Webmaster Tools - Rich Snippets Testing Tool">Rich Snippets testing tool</a> also validates microdata. In addition, if you’re using the schema.org or Rich Snippets vocabularies it <em>should</em> display how that data could be incorporated into search results, as we saw in the <a href="#schema-org-vocab">Using schema.org vocabularies</a> examples above. At the time of writing it isn’t, possibly due to this tool being updated for schema.org vocabularies.</p>
+
+<p>If you have valid microdata in these vocabularies search engines <em>will</em> understand that data, but currently you have to <a href="http://www.google.com/support/webmasters/bin/request.py?contact_type=rich_snippets_feedback" title="Interested in Rich Snippets? - Webmaster Tools Help">“register your interest” in having your rich snippets actually be displayed</a> (<a href="http://knol.google.com/k/google-rich-snippets-tips-and-tricks#Frequently_Asked_Questions" title="Google Rich Snippets Tips and Tricks - Google Rich Snippetsさんのコレクション">more information</a>).</p>
+
+<p>If you’d like a simple way to create microdata, with schema.org there are now several web-based form options:</p>
+
+<ul>
+<li><a href="http://schema-creator.org/" title="Schema Creator">Schema Creator</a> supports the schema.org vocabularies for Person, Product, Event, Organization, Movie, Book, and Review</li>
+<li><a href="http://schemafied.com/" title="schemafied">Schemafied</a> supports the schema.org vocabularies for aggregate rating, article, contact point, creative work, event, local business, media object, nutrition information, offer, organization, person, place, postal address, product, rating, recipe, and thing, and also includes relevant items from other schemas</li>
+<li><a href="http://www.microdatagenerator.com/" title="Schema.org Generator For Local SEO | Rich Snippets &amp; Microdata Generator">Microdata Generator</a> supports the schema.org vocabularies for Attorney, Auto Dealer, Dentist, HVAC, Local Business Schema (NAP), Locksmith, Physician, Plumber, Real Estate, and Restaurant</li>
+<li><a href="http://microdata.freebaseapps.com/">HTML5 Microdata Templates</a> supports the WHATWG and Rich Snippets vocabularies for events, organisations, people, reviews, and content</li>
+</ul>
+
+<p>For <abbr>CMS</abbr>s, there’s a <a href="http://schemaforwordpress.com/" title="Schema for WordPress &#124; Home">Schema for WordPress plugin</a>, and initial work on adding microdata to Drupal too.</p>
+
+<!-- /#tools --></section>
+
+<section id="other-vocab">
+<h3>Other vocabularies <a class="permalink" href="#other-vocab">#</a></h3>
+
+<p>Here's a short list of microdata vocabularies and their <code>itemtype</code>s:</p>
+
+<dl>
+<dt>Person</dt>
+<dd><ul>
+<li><a href="http://schema.org/Person">schema.org Person</a> — <code>http://schema.org/Person</code></li>
+<li><a href="http://microformats.org/profile/hcard" title="hCard 1.0.1 XMDP profile">vCard</a> — <code>http://microformats.org/profile/hcard</code></li>
+<li><a href="http://data-vocabulary.org/Person" title="Data-Vocabulary.org | Person microdata description">Rich Snippets Person</a> — <code>http://data-vocabulary.org/Person</code></li>
+</ul></dd>
+<dt>Organisation or business</dt>
+<dd><ul>
+<li><a href="http://schema.org/Organization">schema.org Organization</a> — <code>http://schema.org/Organization</code></li>
+<li><a href="http://microformats.org/profile/hcard" title="hCard 1.0.1 XMDP profile">vCard</a> (using <code>fn org</code>) — <code>http://microformats.org/profile/hcard</code></li>
+<li><a href="http://data-vocabulary.org/Organization" title="Data-Vocabulary.org | Organization microdata description">Rich Snippets Organization</a> — <code>http://data-vocabulary.org/Organization</code></li>
+</ul></dd>
+<dt>Calendar</dt>
+<dd><ul>
+<li><a href="http://schema.org/Event">schema.org Event</a> — <code>http://schema.org/Event</code></li>
+<li><a href="http://microformats.org/profile/hcalendar#vevent" title="hCalendar 1.0.1 XMDP profile">vEvent</a> — <code>http://microformats.org/profile/hcalendar#vevent</code></li>
+<li><a href="http://data-vocabulary.org/Event" title="Data-Vocabulary.org | Event microdata description">Rich Snippets Event</a> — <code>http://data-vocabulary.org/Event</code></li>
+</ul></dd>
+<dt>Review</dt>
+<dd><ul>
+<li><a href="http://schema.org/Review">schema.org Review</a> — <code>http://schema.org/Review</code></li>
+<li><a href="http://www.schema.org/AggregateRating">schema.org AggregateRating</a> — <code>http://www.schema.org/<mark>AggregateRating</mark></code> (different to Rich Snippets <code>itemtype</code>)</li>
+<li><a href="http://microformats.org/wiki/hreview" title="hReview 0.3 &middot; Microformats Wiki">hReview</a> — <code>http://microformats.org/wiki/hreview</code></li>
+<li><a href="http://data-vocabulary.org/Review" title="Data-Vocabulary.org | Review microdata description">Rich Snippets Review</a> — <code>http://data-vocabulary.org/Review</code></li>
+<li><a href="http://www.data-vocabulary.org/Review-aggregate/" title="Data-Vocabulary.org | Review microdata description">Rich Snippets Review-aggregate</a> — <code>http://www.data-vocabulary.org/Review-aggregate</code></li>
+</ul></dd>
+<dt>License</dt>
+<dd><ul><li><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#licensing-works" title="4.12 Links &mdash; HTML5 (including next generation additions still in development)">Licensing works</a> — <code>http://n.whatwg.org/work</code></li></ul></dd>
+<dt>Products and services</dt>
+<dd><ul>
+<li><a href="http://schema.org/Product">schema.org Product</a> — <code>http://schema.org/Product</code>
+<ul><li>This can be extended with <a href="http://www.productontology.org" title="The Product Types Ontology: Use Wikipedia pages for describing products or services with GoodRelations and schema.org">productontology.org descriptions</a> (<a href="http://www.productontology.org/#microdata">example</a>)</li></ul>
+</li>
+<li><a href="http://microformats.org/wiki/hproduct" title="hProduct &middot; Microformats Wiki">hProduct</a> — <code>http://microformats.org/wiki/hproduct</code></li>
+<li><a href="http://purl.org/goodrelations/">GoodRelations Product</a> — <code>http://purl.org/goodrelations/</code> (e.g. <code>&lt;a itemprop="http://purl.org/goodrelations/v1#availableDeliveryMethods"      href="hhttp://purl.org/goodrelations/v1#UPS"&gt;via UPS&lt;/a&gt;</code>)</li>
+<li><a href="http://data-vocabulary.org/Product" title="Data-Vocabulary.org | Product microdata description">Rich Snippets Product</a> — <code>http://data-vocabulary.org/Product</code></li>
+</ul></dd>
+<dt>Atom feed</dt>
+<dd><ul>
+<li><a href="http://microformats.org/wiki/hatom" title="hAtom 0.1 &middot; Microformats Wiki">hAtom</a> — <code>http://microformats.org/wiki/hatom</code></li>
+</ul></dd>
+<dt>Recipes</dt>
+<dd><ul>
+<li><a href="http://schema.org/Recipe" title="Recipe - schema.org">schema.org Recipe</a> — <code>http://schema.org/Recipe</code></li>
+<li><a href="http://microformats.org/wiki/hrecipe" title="hRecipe 0.22 &middot; Microformats Wiki">hRecipe</a> — <code>http://microformats.org/wiki/hrecipe</code></li>
+<li><a href="http://data-vocabulary.org/Recipe" title="Data-Vocabulary.org | Recipe microdata description">Rich Snippets Recipe</a> — <code>http://data-vocabulary.org/Recipe</code></li>
+</ul></dd>
+</dl>
+
+<p>It’s also possible to use <abbr>RDFa</abbr> vocabularies by <strong>both</strong> specifying the <code>itemtype</code> and using URLs for <code>itemprop</code> names. Refer to <a href="http://schema.rdfs.org/" title="schema.rdfs.org - Home">schema.rdfs.org</a> for Linked Data versions of schema.org vocabularies, and the <abbr>RDF</abbr> vocabulary clearing-house (“namespace lookup”) <a href="http://prefix.cc/">http://prefix.cc</a>.</p>
+
+<!-- /#other-vocab --></section>
+
+<section id="new-vocab">
+<h3>Making your own vocabulary <a class="permalink" href="#new-vocab">#</a></h3>
+
+<p>If you don’t see a suitable vocabulary, you could make your own. The microdata vocabularies in the <abbr>HTML</abbr>5 spec are included as examples of how to do it. Basically:</p>
+
+<ol>
+<li><strong>Work out your vocabulary’s rules.</strong> This is a little like setting up a database — work out names for each type of data, then think what kind of data each name’s value should/must contain (<abbr>URL</abbr>, datetime, free text, text with restrictions…), and whether something needs to be the child of something else.</li>
+<li><strong>Make up a <abbr>URL</abbr></strong> on a domain you control, and ideally put your vocabulary specification there.</li>
+<li><strong>Use the URL in <code>itemtype=""</code></strong> to reference your vocabulary.</li>
+</ol>
+
+<p>There are, however, very good reasons <em>not</em> to make your own vocabulary. They can be quite hard to create, as evidenced by the work that goes into <a href="http://microformats.org/wiki/process" title="process &middot; Microformats Wiki">microformats vocabularies</a>. For truly site-specific data, you’re fine with <a href="http://html5doctor.com/html5-custom-data-attributes/" title="HTML5 Custom Data Attributes (data-*) | HTML5 Doctor">HTML5 custom <code>data-*</code> attributes</a>, or using microdata the same way. But to really get the quasi-<abbr>API</abbr> benefits of microdata, you need to use a vocabulary that’s on more than just your site. To make a vocabulary like that, you need to cover not just your own needs, but 80% of the needs of everyone else in the same subject area.</p>
+
+<p>First, check out <a href="http://microformats.org/wiki" title="Microformats">microformats.org</a> to see if there’s anything in roughly the same area you can just microdata-ify. After that, try <abbr>RDFa</abbr> vocabularies. If you still have no luck, try collaborating on a vocabulary with other people in your subject domain. If you’re going to write your own microdata vocabulary from scratch, I’d recommend <a href="http://microformats.org/wiki/process" title="process &middot; Microformats Wiki">trying to write a microformat first</a>, as you’ll get a lot of good feedback and they have good info on how to write one. It’s easy to then convert the resulting microformat vocabulary into a microdata vocabulary.</p>
+
+<!-- /#new-vocab --></section>
+
+<!-- /#microdata-action --></section>
+
+<section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+
+<p>We’ve gone through the building blocks of microdata: a simple five-attribute combo of <code>itemscope</code>, <code>itemprop=""</code>, <code>itemref=""</code>, <code>itemtype=""</code>, and <code>itemid=""</code> on most any element, plus using <code>content</code> on <code>&lt;meta&gt;</code>. We’ve looked at how to combine these attributes to add complex semantic annotations and relationships to your content. We’ve also looked at using common vocabularies, or even creating a vocabulary, to allow the annotated data to be reused widely. This makes creating a meta-<abbr>API</abbr> for your website easy enough that <em>even a designer</em> could do it! ;-)</p>
+
+<p>But microdata is not the only way to extend the semantics of <abbr>HTML</abbr>5 and add extra meaning. We’ve already looked at <a href="http://html5doctor.com/microformats/" title="Extending HTML5 — Microformats | HTML5 Doctor">Microformats</a>, and RDFa is up next.</p>
+
+<section id="further-reading">
+<h3>Further reading and related links <a class="permalink" href="#further-reading">#</a></h3>
+<ul>
+<li>Dive into HTML5 — <a href="http://diveinto.html5doctor.com/extensibility.html" title="Distributed Extensibility - Dive Into HTML 5">“Distributed,” “Extensibility,” &amp; Other Fancy Words</a>, by Mark Pilgrim</li>
+<li><a href="http://blog.foolip.org/2009/08/23/microformats-vs-rdfa-vs-microdata/" title="Microformats vs RDFa vs Microdata &laquo; Philip Jägenstedt">Microformats vs RDFa vs Microdata</a> by Philip Jägenstedt</li>
+<li><a href="http://www.google.com/support/webmasters/bin/topic.py?topic=21997" title="Rich snippets and structured markup - Webmaster Tools Help">Google Help — Rich Snippets</a>; contains a great introduction to microdata, microformats and <abbr>RDFa</abbr>, with code samples in each language</li>
+<li><a href="http://knol.google.com/k/google-rich-snippets-tips-and-tricks#" title="Google Rich Snippets Tips and Tricks">Knol — Rich Snippets Tips and Tricks</a> has more information on Google’s Rich Snippets</li>
+</ul>
+<!-- /#further-reading --></section>
+
+<p><small>My thanks to <a href="http://saltercane.com/" title="Salter Cane">Salter Cane</a> for agreeing to be microdata-ified. Much obliged! Their new album <a href="http://saltercane.com/sorrow/" title="Salter Cane: Sorrow">Sorrow</a> is worth checking out… ;-)</small></p>
+<!-- /#conclusion --></section>
+
+<section id="changes" class="changes">
+<h2>Changes <a class="permalink" href="#changes">#</a></h2>
+
+<ol class="semantic-list">
+<li><time datetime="2011-07-14">2011-07-14</time> Added PHP Microdata Parser to the <a href="#tools">tools section</a></li>
+<li><time datetime="2011-08-16">2011-08-16</time> Updating article for <a href="#schema-org-vocab">schema.org vocabularies</a> which are also supported by Bing and Yahoo, and supersede the <a href="#google-vocab">Google-only Rich Snippets</a> ones. Also updating <a href="#browsers">browser support</a> (Opera) and <a href="#tools">tools</a> (Mida) sections</li>
+<li><time datetime="2011-08-29T10:38:31+09:00">2011-08-29</time> Finished <a href="#schema-org-vocab">schema.org updates</a>, added valicator.nu to the <a href="#tools">tools section</a>, and rewrote <a href="#itemid"><code>itemid</code> section</a> for clarity, since <a href="http://www.brucelawson.co.uk/2011/microdata-help-please/" title="Bruce Lawson&#8217;s  personal site&nbsp;: microdata help, please">Dr Bruce was having a spot of bother</a> with it</li>
+</ol>
+<!-- /#changes --></section>
+<p><a href="http://html5doctor.com/microdata/" rel="bookmark">Extending HTML5 — Microdata</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 23, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/microdata/feed/</wfw:commentRss>
+		<slash:comments>53</slash:comments>
+		</item>
+	</channel>
+</rss>

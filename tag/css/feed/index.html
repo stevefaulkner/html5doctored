@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; CSS</title>
+	<atom:link href="http://html5doctor.com/tag/css/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The scoped attribute</title>
+		<link>http://html5doctor.com/the-scoped-attribute/</link>
+		<comments>http://html5doctor.com/the-scoped-attribute/#comments</comments>
+		<pubDate>Tue, 13 Sep 2011 13:30:57 +0000</pubDate>
+		<dc:creator><![CDATA[Jack Osborne]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[semantics]]></category>
+		<category><![CDATA[style]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3634</guid>
+		<description><![CDATA[<p>The scoped attribute for the style element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>The <code>scoped</code> attribute for the <code>&lt;style&gt;</code> element allows you to include styles mid-document that targets a specific element and its children. Depending upon how you look at this, it’ll either be a godsend or a curse. Once you’ve reached the end of this article, I hope you can form your own opinion.</p>
+
+<p>Let’s take a quick look at the spec:</p>
+
+<blockquote>
+<p>The <code>scoped</code> attribute is a boolean attribute. If set, it indicates that the styles are intended just for the subtree rooted at the style element’s parent element, as opposed to the whole Document.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-scoped" title="Scoped attribute — HTML5">WHATWG</a></cite></footer>
+</blockquote>
+
+<section id="bad">
+<h2>Isn’t this bad practice?</h2>
+<p>For years, we’ve been told (and have actively told others) to separate content and presentation layers. So why would we introduce something that seems to go against everything we’ve been preaching?</p>
+
+<p>The separation of these layers is still vitally important, but let’s look at a few use cases to shed some light on why this attribute has been introduced. Scoped style provides a W3C-approved way to:</p> 
+
+<ul>
+  <li>Add one-off CSS styles.</li>
+  <li>Add user-defined styles to wiki or CMS content.</li>
+  <li>Add theme-defined styles via CMS plugins.</li>
+  <li>Keep syndicated content together (e.g., keeping example code together with the example).</li>
+</ul>
+</section>
+
+<section id="how-does">
+<h2>How does it work?</h2>
+<p>In this section, I’ll show you how this new attribute will work when it gets rolled out to browsers.</p>
+
+<section id="starting">
+<h3>Our starting point</h3>
+
+<p>We’ll be using the following code sample as a starting point:</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<p>This is a basic example, with two headings and two paragraphs set within the article element.</p>
+</section>
+
+<section id="addingscope">
+<h3>Adding the <code>scoped</code> attribute</h3>
+
+<p>In the next example, we’ll change the foreground color of the second paragraph to red (from whatever was defined in the master CSS file):</p>
+
+<pre><code>&#60;article&#62;
+  &#60;h1&#62;Style Scoped&#60;/h1&#62;
+  &#60;p&#62;The scoped attribute for the style element will eventually allow for you to include style elements mid-document. To do this, you must mark up your style element with the scoped attribute.&#60;/p&#62;
+  &#60;section&#62;
+    &#60;style <mark>scoped</mark>&#62;
+      p { color: red; }
+    &#60;/style&#62;
+    &#60;h2&#62;How does it work?&#60;/h2&#62;
+    &#60;p&#62;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&#60;/p&#62;
+  &#60;/section&#62;
+&#60;/article&#62;</code></pre>
+
+<aside class="sidenote"><p>It’s worth noting that the <code>scoped</code> attribute can’t be the first attribute of the body element. I also received a validation error using <code>&#60;body style="..."&#62;</code>.</p></aside>
+
+<p id="example">This screenshot shows how things might render in the browser:</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2011/09/scoped1.gif" alt="" title="scoped" width="526" height="297" class="alignnone size-full wp-image-3735" />
+<figcaption>How the <code>scoped</code> attribute will render</figcaption>
+</figure>
+</section>
+</section>
+
+<section id="link">
+<h2>Can I apply <code>scoped</code> to &#60;link&#62;?</h2>
+<p>While I was writing this article, Dr. Rich asked whether it was possible to add this attribute to <code>&lt;link&gt;</code> elements. Turns out you can’t, but I stumbled across this tidbit in the WHATWG mailing list:</p>
+
+<blockquote>
+  <p>You can use &#60;style scoped&#62;@import url(whatever);&#60;/style&#62;</p>
+  <p>And this even enables you to add some specific styles ([be they embedded] or from another external sheet) on a per-use basis if the need arises. For example, a long dissertation relying on many quotes may benefit from adding stronger visual highlights on the &#60;em&#62; elements within the last quote to reinforce the final conclusion.</p>
+  <footer>— <cite><a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2011-March/031049.html"> Eduard Pascuals WHATWG mailing list response #031049</a></cite></footer>
+</blockquote>
+</section>
+
+<section id="compatibility">
+<h2>Backwards compatibility</h2>	
+<p>Unfortunately, scoped style isn’t all puppy dogs and kittens.</p>
+
+<p>Since this newly introduced attribute isn’t understood by current browsers, CSS rules in <code>&#60;style scoped&#62;</code> are just added to the page’s CSS. Therefore, if you were to include a <code>scoped</code> style block mid-page, its declarations would be applied to every matching element in the document, regardless of whether the element were inside or outside of the scope’s range.</p>
+
+<p>For the sake of backwards compatibility, Louis Lazaris has suggested <a href="http://www.impressivewebs.com/scoped-styles-html5/">a brand new element called <code>&#60;scopedstyle&#62;</code></a>. This new element would only be recognised by supporting browsers and ignored by everything else. This way, scoped styles wouldn’t be added to the whole document. Instead, the browser would just throw away the unrecognised <code>&lt;scopedstyle&gt;</code> element and move on.</p>
+</section>
+
+<section id="support">
+<h2>Browser support</h2>
+
+<table class="wide">
+<caption>Browser support for <code>&lt;style scoped&gt;</code> <i>(as of <time datetime="2011-09-06">6th September, 2011</time>)</i></caption>
+<thead>
+<tr>
+<th scope="col">Browser</th>
+<th scope="col">Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <th scope="row">Chrome 13</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Safari 5</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Firefox 6</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Opera 11.51</th>
+  <td>No</td>
+</tr>
+<tr>
+  <th scope="row">Internet Explorer 9</th>
+  <td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>Currently, the <code>scoped</code> attribute isn’t working in any of the browser alpha versions (Opera.Next, Mozilla Aurora, or WebKit nightly builds). There’s work in progress by <a href="https://bugs.webkit.org/show_bug.cgi?id=49142">Roland Steiner for support in WebKit</a>.</p>
+</section>
+
+<section id="using-today">
+<h2>Using <code>&#60;style scoped&#62;</code> today</h2>
+<p>So you’ve read this article and decided that you <em>need</em> scoped style in your life. What now? Well, just like every other new HTML5 thing, we have a polyfill for it. <a href="http://twitter.com/#!/thingsinjars">Simon Madine</a> has created a <a href="https://github.com/thingsinjars/jQuery-Scoped-CSS-plugin">jQuery scoped CSS plugin on GitHub</a>.</p>
+
+<aside class="sidenote"><p>Please note that Oli used a wrapper <code>&lt;div&gt;</code> because of <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13102">validation problems explained in this bug</a>.</p></aside>
+
+<p>You could also assign a CSS prefix to target the section of your document you want to style. You’d still be able to stick your styles inline, but you’ve also provided a fallback for the older browsers. In fact, Dr. Oli has done just that on his <a href="http://html5doctor.com/blockquote-q-cite/">latest article</a>. (View source and search for <code>&#60;div class="faint"&#62;</code>.)</p>
+</section>
+
+<section id="opinions">
+<h2>Opinions</h2>
+
+<p>There’s no denying that we’re breaking backwards compatibility by introducing <code>&lt;style scoped&gt;</code>. To me, this just doesn’t make any sense. I feel this needs to be addressed by either creating a new element like <code>&lt;scopedstyle&gt;</code> or using some protective mechanism like the <code>&#60;!--</code> and <code>--&#62;</code> delimiters that have been used within <code>&lt;style&gt;</code> and <code>&lt;script&gt;</code> elements.</p>
+
+<p>Let’s not end this article with negative sentiment, though. As with anything, it’s what you make of it. Scoped style is pretty plain vanilla, but if people abuse it, it’ll end up with a bad rap. <a href="http://html5doctor.com/author/olib/">Dr. Oli</a> has spoken at length about his love for this attribute as it allows him to have live code examples with the CSS in <code>&#60;pre&#62;</code> and also in a <code>&#60;style scoped&#62;</code> within a <code>&#60;figure&#62;</code>.</p>
+
+<p>So now it’s time for you to express your views. What do you think about the new <code>scoped</code> attribute? Do you think it has a future? Should it be fast-tracked into the spec? Or do you think it’s a waste of time that could ultimately end up mixing our content and presentation layers together again? Let us know in the comments!</p>
+</section><p><a href="http://html5doctor.com/the-scoped-attribute/" rel="bookmark">The scoped attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 13, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-scoped-attribute/feed/</wfw:commentRss>
+		<slash:comments>85</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions #14</title>
+		<link>http://html5doctor.com/your-questions-14/</link>
+		<comments>http://html5doctor.com/your-questions-14/#comments</comments>
+		<pubDate>Fri, 26 Nov 2010 14:30:07 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[article]]></category>
+		<category><![CDATA[aside]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[footer]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[id]]></category>
+		<category><![CDATA[nav]]></category>
+		<category><![CDATA[section]]></category>
+		<category><![CDATA[stylesheets]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2543</guid>
+		<description><![CDATA[<p>The clinic is getting busy with more <abbr>HTML</abbr>5 ailments. This week, we'll cover questions about aside, blogging platforms, stylesheet links, id attribute validation and a mammoth semantic journey.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is getting busy with more <abbr>HTML</abbr>5 ailments. This week, we&#8217;ll cover questions about <code>&lt;aside&gt;</code>, blogging platforms, stylesheet links, <code>id</code> attribute validation, and take a mammoth semantic journey.</p>
+
+<section>
+  <h2>Aside question</h2>
+  <p>Lukasz asked:</p>
+  <blockquote>
+    <p>I wonder if such use of aside tag inside <code>section</code> would be correct:</p>
+<pre><code>&lt;section id="about"&gt;
+  &lt;h1&gt;about me&lt;/h1&gt;
+  &lt;p&gt;blablabla&lt;/p&gt;
+  &lt;aside&gt;
+    &lt;h2&gt;you can also find me on:&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#"&gt;twitter&lt;/a&gt;&lt;/li&gt;
+      ...
+    &lt;/ul&gt;
+  &lt;/aside&gt;
+&lt;/section&gt;</code></pre>
+    <p>Thanks in advance for any help and keep up the good work!</p>
+  </blockquote>
+  <p>Hard to give definitive advice without seeing the whole page, but it seems fine to me. See <a href="http://html5doctor.com/aside-revisited/">Mike&#8217;s article on <code>&lt;aside&gt;</code></a>.</p> 
+
+	<p>In general, use <code>&lt;aside&gt;</code> for a section of a page that consists of content that is tangentially <em>related to</em> but <em>separate from</em> the surrounding content. In print, this would be a sidebar, pull-quote, or footnote. On a weblog article, this could be article metadata in the margin or the comments section.</p>
+
+	<p>If your social network links are main content, then <code>&lt;aside&gt;</code> isn&#8217;t the element (maybe <code>&lt;section&gt;</code>, maybe <code>&lt;nav&gt;</code>). If they&#8217;re just related content (i.e., they could be omitted when showing this page in a feed reader), then <code>&lt;aside&gt;</code> is a good choice.</p>
+
+	<p>peace &#8211; Oli</p>
+</section>
+
+<section>
+  <h2>Blogging services</h2>
+  <p>Patrick asked:</p>
+  <blockquote>
+    <p>Do you have any suggestions to people implementing <abbr>HTML</abbr>5 on blogging services like Tumblr? The last time I checked, there are problems making <abbr>HTML</abbr>5 blogs on these sites:</p>
+    <ul>
+      <li>Tumblr &#8211; inserted iframe breaks <abbr>HTML</abbr>5 conformance</li>
+      <li>Posterous &#8211; no Javascript allowed at the moment (according to their doc)</li>
+      <li>Blogger &#8211; it doesn&#8217;t preserve my <abbr>HTML</abbr>5 DOCTYPE</li>
+    </ul>
+		<p>Are there blogging services that don&#8217;t mess with the <abbr>HTML</abbr>5 markup?</p>
+  </blockquote>
+  <p>I used to use Tumblr, and you can use <abbr>HTML</abbr>5 in your templates. But any new <abbr>HTML</abbr>5 elements (e.g., <code>&lt;section&gt;</code>) in your articles get munged, even
+using the “Raw <abbr>HTML</abbr>” setting. Unfortunately, I think that managed blogging services will probably be a little slow to adopt <abbr>HTML</abbr>5 (= fix the <abbr>HTML</abbr>5 errors they/their tools have), and you&#8217;ll have to use your own <abbr>CMS</abbr> for that level of control.</p>
+
+	<p>You can of course build your own theme for something like WordPress, and a little birdie did tell me that the latest version of WordPress has <em>some</em> <abbr>HTML</abbr>5 in its default template, so this might carry over into their hosted service. If you can&#8217;t wait and don&#8217;t have a server, remember that <abbr>HTML</abbr>5 is a sliding scale — I was using <code>&lt;div class="section"&gt;</code> with Tumblr for a while.</p>
+
+	<p>peace &#8211; Oli</p>
+</section>
+
+<section>
+  <h2>Link stylesheet</h2>
+  <p>Steve asked:</p>
+  <blockquote>
+    <p>Hello, can we get rid of type=&#8221;text/css&#8221; when declaring a link rel=&#8221;stylesheet&#8221;?</p>
+
+		<p>Thank you and long live the web.</p>
+  </blockquote>
+  <p>You certainly can do that. Same with including JavaScript:</p>
+
+<pre><code>&lt;link rel="stylesheet" media="screen, projection" href="http://html5doctor.com/css/style.css"&gt;
+&lt;script src="http://html5doctor.com/js/html5.js"&gt;&lt;/script&gt;</code></pre>
+
+  <p>Thanks, Tom</p>
+</section>
+
+<section>
+  <h2>ID attribute validation</h2>
+  <p>Andrés asked:</p>
+  <blockquote>
+    <p>Does the id attribute allows to begin with a number or a hyphen, unlike previous specs? Is there any set of character that aren&#8217;t allowed, besides space character?</p>
+  </blockquote>
+  <p>There are three rules for the value of the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-id-attribute">ID attribute</a>:</p>
+
+  <ol>
+    <li>It must be at least one character long,</li>
+    <li>it must contain no space characters, and</li>
+    <li>it must be unique within the page.</li>
+  </ol>
+
+	<p>So a hyphen would be valid as an ID value. It validates too. However, you may run into legacy stuff that hasn&#8217;t been updated yet (<abbr>HTML</abbr> Tidy, <abbr>WYSIWYG</abbr> plugins for a <abbr>CMS</abbr>, etc), so I&#8217;d advise testing within your workflow and in a browser (no idea if <abbr>IE</abbr> would barf on that, and it wouldn’t surprise me if it did).</p>
+
+	<p>peace &#8211; Oli</p>
+</section>
+
+<section>
+  <h2>I&#8217;m so confused &#8211; article, header, footer, nav?</h2>
+  <p>Benjamin asked:</p>
+  <blockquote>
+    <p>Hey Doctor(s), I&#8217;m so confused right now.</p>
+
+		<p>I&#8217;ve been trying to implement <abbr>HTML</abbr>5 for my new blog and <abbr>CMS</abbr>, but having difficulties trying to figure out where advanced content should go. All the demonstrations and examples about <abbr>HTML</abbr>5 are over-simplified and just don&#8217;t include any real world information. For example, an article typically includes (in no particular order):</p>
+
+    <ul>
+      <li>Article
+        <ul>
+          <li>Title</li>
+          <li>Tagline</li>
+          <li>Tags</li>
+          <li>Avatar</li>
+          <li>Content</li>
+          <li>Links to child articles (eg. download, docs, demo)
+            <ul>
+              <li>Link Title</li>
+              <li>Link Avatar</li>
+              <li>Link Author Name</li>
+            </ul>
+          </li>
+          <li>Links to recommended articles (related content)
+            <ul>
+              <li>Link Title</li>
+              <li>Link Avatar</li>
+              <li>Link Author Name</li>
+            </ul>
+          </li>
+          <li>Article Author Details
+            <ul>
+              <li>Author Name</li>
+              <li>Author Avatar</li>
+            </ul>
+          </li>
+          <li>Article Details
+            <ul>
+              <li>Published Date</li>
+              <li>Modified Date</li>
+            </ul>
+          </li>
+          <li>Share Buttons</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>So all in all, way more complicated than the typical:</p>
+    <ul>
+      <li>Article
+        <ul>
+          <li>Article Title</li>
+          <li>Article Content</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>So say for example, where should all the stuff in the complicated (real-world) example go? Should the avatar go in the header, the article, or the footer? Or maybe even a details element? Should the navigation links to other articles be like: nav &gt; ul &gt; li &gt; article &gt; header &gt; a &gt; h1 With the a containing the link, and the h1 containing the article header? Should the post details (despite we want them display perhaps underneath the title, and before the content) be in a details element? And should that be within the header element or be below the header element? Should they use for example:</p>
+
+<pre><code>&lt;dl&gt;
+  &lt;dt class="published"&gt;Published At:&lt;/dt&gt;
+  &lt;dd class="published"&gt;...&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+
+    <p>or:</p>
+
+<pre><code>&lt;ul&gt;
+  &lt;li class="published"&gt;
+    &lt;label&gt;Published At:&lt;/label&gt;
+    &lt;span&gt;...&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+    <p>or something else? The second example seems to remove the duplication of the css class, but seems to add more complications though. Should those tag and article links in nav elements be inside the header? Or footer? Or just article? How many footers and headers can be in article?</p>
+
+    <p>I&#8217;m soo confused. Any help would be greatly appreciated? Perhaps the best help out there would be a detailed HTML5 example of the real-world article structure I posted above.</p>
+  </blockquote>
+  <p>OK now, take a deeeep breath and relax. There, feeling a little better? ;)</p>
+
+  <p>That&#8217;s a mammoth e-mail, so here are some basics to get you started:</p>
+
+  <ul>
+    <li>Start with a basic page before attempting something complex — don&#8217;t jump in the deep end.</li>
+    <li>Look at websites in <a href="http://html5gallery.com"><abbr>HTML</abbr>5 Gallery</a> and check their code.</li>
+    <li>Look at the code for this site. Granted, it&#8217;s not perfect, but it&#8217;s pretty good, and we have a lot of the content you list.</li>
+    <li>Use the most appropriate element for each piece of content, even if it&#8217;s not one of the new ones. (Hopefully it ends up being what you used before.) Perhaps <a href="http://html5doctor.com/happy-1st-birthday-us/">our handy flowchart</a> might help for that.</li>
+  </ul>
+
+  <p>Some more specific answers:</p>
+  
+  <p><q>&#8220;Should the navigation links to other articles be like: nav &gt; ul &gt; li &gt; article &gt; header &gt; a &gt; h1 With the a containing the link, and the h1 containing the article header?&#8221;</q> The title of an article is not the same as an article, so it&#8217;d be wrong to use <code>&lt;article&gt;</code> or <code>&lt;header&gt;</code> here. I assume you didn’t use <code>&lt;h1&gt;</code> in <a href="http://html5doctor.com/nav-element/">navigation</a> lists before, right?</p>
+
+  <p><q>&#8220;Should the post details (despite we want them display perhaps underneath the title, and before the content) be in a details element?&#8221;</q> Possibly, if you wanted that interaction, but likely not as you probably want them visible all the time. See what the <a href="http://dev.w3.org/html5/markup/details">spec says about <code>&lt;details&gt;</code></a>. Decide on the semantics of each piece of content first. Worry about styling later.</p>
+
+  <p><q>&#8220;And should that be within the header element or be below the header element?&#8221;</q> <a href="http://html5doctor.com/the-header-element/">Header</a> or <a href="http://html5doctor.com/the-footer-element/">footer</a> seem like good places to put them. <code>&lt;label&gt;</code> is a caption for a form control, not an element to use whenever you need to label something.</p>
+
+  <p>I recommend you start with your <abbr>HTML</abbr>4 or <abbr>XHTML</abbr>1 knowledge and build on it. <abbr>HTML</abbr>5 is an evolution, not a revolution. In fact, I’d recommend you start out making a site in <abbr>HTML</abbr>4 with the <abbr>HTML</abbr>5 doctype (and validate it as <abbr>HTML</abbr>5), then change bits over time as you read each article on <a href="http://html5doctor.com"><abbr>HTML</abbr>5 Doctor</a> and learn more ;-)</p>
+
+  <p>peace &#8211; Oli</p>
+</section>
+
+<section>
+	<h2>Got a question for us?</h2>
+	<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-14/" rel="bookmark">Your Questions #14</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 26, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-14/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Reset Stylesheet</title>
+		<link>http://html5doctor.com/html-5-reset-stylesheet/</link>
+		<comments>http://html5doctor.com/html-5-reset-stylesheet/#comments</comments>
+		<pubDate>Mon, 27 Jul 2009 14:00:42 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Boilerplates]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[reset]]></category>
+		<category><![CDATA[stylesheet]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=622</guid>
+		<description><![CDATA[We've had a number of people asking about templates, boilerplates and styling for <abbr>HTML</abbr> 5 so to give you all a helping hand and continue on from those basic building blocks that Remy talked about last week I've created a HTML 5 reset stylesheet for you to take away and use, edit, amend and update in your projects.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;ve had a number of people ask about templates, boilerplates, and styling for <abbr>HTML</abbr> 5. Last week, <a href="/author/remys/">Remy</a> introduced some <a href="/html-5-boilerplates/">basic boilerplates for HTML 5</a>, so to keep the momentum going, I&#8217;ve modified <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer&#8217;s <abbr>CSS</abbr> reset</a> for you to use in your HTML 5 projects.</p>
+
+<h2>The code</h2>
+
+<p>Let&#8217;s start with the complete <abbr>CSS</abbr> stylesheet:</p>
+
+<pre><code>/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}</code></pre>
+
+<h2>So what&#8217;s new?</h2>
+
+<p>Quite a bit! The next few sections explain what I changed and why I changed it.</p>
+
+<h3>The basics</h3>
+
+<p>I started by removing elements that have been deprecated from the <abbr>HTML</abbr> 5 specification, like <code>&lt;acronym&gt;</code>, <code>&lt;center&gt;</code> and <code>&lt;big&gt;</code>. (We&#8217;ll cover deprecated elements in more detail in another post). I also added new <abbr>HTML</abbr> 5 elements, like <code>and</code>, in order to remove any default padding, margin, and borders. I&#8217;ve also added an explicit <code>display:block</code> property for elements that are required to render as blocks.</p>
+
+<p>I also removed the explicit unstyling of the <code>:focus</code> pseudo-class. There are two reasons for this. First, by declaring <code>outline:0</code>, you remove the focus identifier for keyboard users. Second, Eric released his stylesheet in good faith that people would explicitly style <code>:focus</code>, but they generally don&#8217;t, so it&#8217;s safer to leave the default <code>:focus</code> styles in place. (I also set defaults for <code>&lt;ins&gt;</code>, since I don&#8217;t think that got updated very often either.)</p>
+
+<p>I&#8217;ve left the default list styles in place simply as a personal preference. I tend to add the list style back when using Eric&#8217;s reset anyway. I have, however, included <code>nav ul {list-style:none;}</code> to remove those pesky bullets from your navigation. </p>
+
+<h3>Using attribute selectors</h3>
+
+<p>You&#8217;ll notice that I&#8217;ve included attribute selectors for <code>&lt;abbr&gt;</code> and <code>&lt;dfn&gt;</code>. This way, the style will only appear <em>if</em> there is a title attribute on the element. This is primarily for accessibility. For example, we use <code>&lt;abbr&gt;</code> regularly on this site but don&#8217;t always include a title attribute. We think it&#8217;s safe to assume all of our readers (no matter what device they&#8217;re using) know what <abbr>HTML</abbr> stands for. We do still use the <code>&lt;abbr&gt;</code> element to make sure screen readers read the text as H-T-M-L rather than struggling to pronounce &#8220;HTML&#8221;.</p>
+
+<h3>What&#8217;s that bit about mark?</h3>
+
+<p><code>&lt;mark&gt;</code> is a new element introduced in <abbr>HTML</abbr> 5 used to (you guessed it) mark text in a document. According to the spec: <q>&#8220;The mark element represents a run of text in one document marked or highlighted for reference purposes, due to its relevance in another context.&#8221;</q>. I anticipate it will be used for highlighting phrases in search results and other similar purposes. We&#8217;ll post more on <code>&lt;mark&gt;</code> soon.</p>
+
+<h2>Where are all those application elements?</h2>
+
+<p>Application elements is a term I&#8217;ve loosely used to describe elements like menu, etc. These elements are more likely found in web <em>apps</em> than web <em>sites</em>. I left these out since, at the time of writing, browsers implement barely any of what was &#8220;Web Applications 1.0&#8221;. Also, this stylesheet is intended primarily for authors serving their pages as <code>text/html</code>, not <abbr>XML</abbr>.</p>
+
+<h2>Go grab it</h2>
+
+<p>The stylesheet is released <del datetime="2010-12-16T17:21:13+00:00">under a Creative Commons license</del> <del datetime="2015-07-13T12:06:33+00:00"><ins datetime="2010-12-16T17:21:13+00:00">in the public domain</ins></del> <ins datetime="2015-07-13T12:06:33+00:00">free of charge under a CC0 Public Domain Dedication and MIT License</ins>, so you can use it for both personal and commercial work. Go <a href="http://code.google.com/p/html5resetcss/downloads/list">grab it from Google Code</a> or the <a href="https://github.com/richclark/HTML5resetCSS">Github page</a> and let us know about any improvements you make!</p>
+
+<ul>
+<li><a href="http://code.google.com/p/html5resetcss/downloads/list">HTML 5 Reset Stylesheet</a></li>
+</ul>
+
+<p><small>Permission is hereby granted, free of charge, to any person obtaining a copy of any version of <a href="https://code.google.com/p/html5resetcss/downloads/list">this file on Google Code</a> or <a href="https://github.com/richclark/HTML5resetCSS">this file on Github</a> (the &#8220;Software”), to deal in the Software under the terms of the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>, or,alternatively, to deal in the Software under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</small></p>
+<p><a href="http://html5doctor.com/html-5-reset-stylesheet/" rel="bookmark">HTML5 Reset Stylesheet</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 27, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html-5-reset-stylesheet/feed/</wfw:commentRss>
+		<slash:comments>250</slash:comments>
+		</item>
+	</channel>
+</rss>

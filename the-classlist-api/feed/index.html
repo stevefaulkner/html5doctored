@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: The classList API</title>
+	<atom:link href="http://html5doctor.com/the-classlist-api/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/the-classlist-api/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Thu, 28 Jul 2016 17:36:34 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Jan</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-2131947</link>
+		<dc:creator><![CDATA[Jan]]></dc:creator>
+		<pubDate>Sun, 10 Jul 2016 02:54:08 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-2131947</guid>
+		<description><![CDATA[From the following page:
+
+https://github.com/eligrey/classList.js
+
+I saved the classList.js script in the same folder as my web page, and reference it like this:
+
+
+
+But IE8 still gives error on the following line:
+
+document.getElementById(&quot;myDropdown1&quot;).classList.toggle(&quot;show&quot;);
+
+Any input on this would be appreciated!
+
+Thanks.]]></description>
+		<content:encoded><![CDATA[<p>From the following page:</p>
+<p><a href="https://github.com/eligrey/classList.js" rel="nofollow">https://github.com/eligrey/classList.js</a></p>
+<p>I saved the classList.js script in the same folder as my web page, and reference it like this:</p>
+<p>But IE8 still gives error on the following line:</p>
+<p>document.getElementById(&#8220;myDropdown1&#8221;).classList.toggle(&#8220;show&#8221;);</p>
+<p>Any input on this would be appreciated!</p>
+<p>Thanks.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: allonestring</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-2131370</link>
+		<dc:creator><![CDATA[allonestring]]></dc:creator>
+		<pubDate>Mon, 04 Jul 2016 20:20:11 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-2131370</guid>
+		<description><![CDATA[classList.item() was just what I needed - thank you ☺]]></description>
+		<content:encoded><![CDATA[<p>classList.item() was just what I needed &#8211; thank you ☺</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Richard Hunter</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-2054135</link>
+		<dc:creator><![CDATA[Richard Hunter]]></dc:creator>
+		<pubDate>Sat, 07 Nov 2015 19:54:12 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-2054135</guid>
+		<description><![CDATA[It would be nice if add() would take an array of classes but it seems to only half work( i.e. not at all!)  producing a weird comma separated string.
+
+You can use apply() though to do the same thing:
+
+&lt;code&gt;
+
+var el = document.getElementById(&#039;myel&#039;);
+
+el.classList.add.apply(el.classList,  [&#039;red&#039;, &#039;green&#039;]);
+
+&lt;/code&gt;
+
+Js fiddle demonstrating this here:
+
+&lt;a href=&#039;http://jsfiddle.net/Richardinho/7n7jwasb/1/&#039; rel=&quot;nofollow&quot;&gt;here&lt;/a&gt;
+
+Works in latest desktop Safari, Chrome and Firefox at least.]]></description>
+		<content:encoded><![CDATA[<p>It would be nice if add() would take an array of classes but it seems to only half work( i.e. not at all!)  producing a weird comma separated string.</p>
+<p>You can use apply() though to do the same thing:</p>
+<p><code></code></p>
+<p>var el = document.getElementById('myel');</p>
+<p>el.classList.add.apply(el.classList,  ['red', 'green']);</p>
+<p></p>
+<p>Js fiddle demonstrating this here:</p>
+<p><a href='http://jsfiddle.net/Richardinho/7n7jwasb/1/' rel="nofollow">here</a></p>
+<p>Works in latest desktop Safari, Chrome and Firefox at least.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Uxus</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-49872</link>
+		<dc:creator><![CDATA[Uxus]]></dc:creator>
+		<pubDate>Wed, 28 May 2014 06:13:16 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-49872</guid>
+		<description><![CDATA[You have duplicate declaration of `classes` variable in your `addmany` and `removemany` methods. The var keyword is not necessary there cause `classes` variable is already declared. And I modified the mthods so they don&#039;t have explicit variable declarations: 
+&lt;code&gt;
+DOMTokenList.prototype.addmany = function(classes) {
+    classes.split(&#039; &#039;).forEach(function(cls){
+        if(!this.contains(cls)){
+            this.remove(cls);
+        }
+    }, this);
+};
+&lt;/code&gt;
+This of course not so fast as `for loop` but more readable.]]></description>
+		<content:encoded><![CDATA[<p>You have duplicate declaration of `classes` variable in your `addmany` and `removemany` methods. The var keyword is not necessary there cause `classes` variable is already declared. And I modified the mthods so they don&#8217;t have explicit variable declarations:<br />
+<code><br />
+DOMTokenList.prototype.addmany = function(classes) {<br />
+    classes.split(' ').forEach(function(cls){<br />
+        if(!this.contains(cls)){<br />
+            this.remove(cls);<br />
+        }<br />
+    }, this);<br />
+};<br />
+</code><br />
+This of course not so fast as `for loop` but more readable.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Chris Riesbeck</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-49077</link>
+		<dc:creator><![CDATA[Chris Riesbeck]]></dc:creator>
+		<pubDate>Fri, 18 Apr 2014 20:28:06 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-49077</guid>
+		<description><![CDATA[Nice writeup and so happy to find classList exists. But to remove all classes or replace with a new list, why not simply set className? No loops needed at all.]]></description>
+		<content:encoded><![CDATA[<p>Nice writeup and so happy to find classList exists. But to remove all classes or replace with a new list, why not simply set className? No loops needed at all.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Serkan Sipahi</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-48734</link>
+		<dc:creator><![CDATA[Serkan Sipahi]]></dc:creator>
+		<pubDate>Mon, 17 Mar 2014 09:55:33 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-48734</guid>
+		<description><![CDATA[hi,
+
+and if you want to find/know where come &quot;DOMTokenList&quot; then you can do this: 
+
+var r = document.createElement(&#039;div&#039;).classList.constructor.name;
+
+r === &quot;DOMTokenList&quot; // :)]]></description>
+		<content:encoded><![CDATA[<p>hi,</p>
+<p>and if you want to find/know where come &#8220;DOMTokenList&#8221; then you can do this: </p>
+<p>var r = document.createElement(&#8216;div&#8217;).classList.constructor.name;</p>
+<p>r === &#8220;DOMTokenList&#8221; // :)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Judaica</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-39670</link>
+		<dc:creator><![CDATA[Judaica]]></dc:creator>
+		<pubDate>Wed, 13 Nov 2013 21:56:34 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-39670</guid>
+		<description><![CDATA[The classlist. certainly does it for me. A great way to manipulate and allow interaction. I&#039;m all for it.]]></description>
+		<content:encoded><![CDATA[<p>The classlist. certainly does it for me. A great way to manipulate and allow interaction. I&#8217;m all for it.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Binyamin</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-37413</link>
+		<dc:creator><![CDATA[Binyamin]]></dc:creator>
+		<pubDate>Tue, 13 Aug 2013 07:17:20 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-37413</guid>
+		<description><![CDATA[Cannot toggle multiple classes &lt;code&gt;element.classList.toggle(&#039;one&#039;, &#039;two&#039;)&lt;/code&gt;.]]></description>
+		<content:encoded><![CDATA[<p>Cannot toggle multiple classes <code>element.classList.toggle('one', 'two')</code>.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Binyamin</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-37412</link>
+		<dc:creator><![CDATA[Binyamin]]></dc:creator>
+		<pubDate>Tue, 13 Aug 2013 07:12:46 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-37412</guid>
+		<description><![CDATA[Both 
+&lt;code&gt;element.classList.remove(&#039;one&#039;, &#039;two&#039;, &#039;three&#039;);&lt;/code&gt;
+and 
+&lt;code&gt;element.classList.add(&#039;one&#039;, &#039;two&#039;, &#039;three&#039;);&lt;/code&gt;
+are supported on Chrome 28 stable and Opera 15.
+Multiple classes remove/add not supported even on Firefox Nightly.]]></description>
+		<content:encoded><![CDATA[<p>Both<br />
+<code>element.classList.remove('one', 'two', 'three');</code><br />
+and<br />
+<code>element.classList.add('one', 'two', 'three');</code><br />
+are supported on Chrome 28 stable and Opera 15.<br />
+Multiple classes remove/add not supported even on Firefox Nightly.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: zzzzBov</title>
+		<link>http://html5doctor.com/the-classlist-api/#comment-37336</link>
+		<dc:creator><![CDATA[zzzzBov]]></dc:creator>
+		<pubDate>Thu, 08 Aug 2013 14:43:21 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206#comment-37336</guid>
+		<description><![CDATA[@Derek Johnson, if the future implementation is not compatible with the implementation provided by the prototype extension, your usage of the prototype extension will break.
+
+Worse, if you then decide to use a library that uses feature detection for features on the &lt;code&gt;classList&lt;/code&gt; API, the library will be tricked into believing that the browser supports features that it doesn&#039;t, and would then use the incompatible implementation.
+
+You&#039;re better off making a utility class or set of functions to fill in the gaps, while not interfering with the browser&#039;s native objects.
+
+A good example is how Historyjs creates the &lt;code&gt;History&lt;/code&gt; object which calls the native &lt;code&gt;history&lt;/code&gt; object if it exists.]]></description>
+		<content:encoded><![CDATA[<p>@Derek Johnson, if the future implementation is not compatible with the implementation provided by the prototype extension, your usage of the prototype extension will break.</p>
+<p>Worse, if you then decide to use a library that uses feature detection for features on the <code>classList</code> API, the library will be tricked into believing that the browser supports features that it doesn&#8217;t, and would then use the incompatible implementation.</p>
+<p>You&#8217;re better off making a utility class or set of functions to fill in the gaps, while not interfering with the browser&#8217;s native objects.</p>
+<p>A good example is how Historyjs creates the <code>History</code> object which calls the native <code>history</code> object if it exists.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
+
+<!-- Dynamic page generated in 0.591 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-10-21 16:50:43 -->

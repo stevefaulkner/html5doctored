@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Output element test Example 4</title>
+<style>
+body {
+	padding:2em;
+	font-family:Georgia;
+	font-size:1em;
+}
+
+form{
+	background:#fff7db;
+	padding:1em;
+	width:300px;
+}
+
+label {
+	display:inline-block;
+	width:130px;
+	text-align:right;
+}
+
+input {
+	display:inline-block;
+	width:70px;
+	margin:0 1em;
+	padding:2px 3px;
+	border-radius:3px;
+	border:1px solid #ccc;
+	font-size:1em;
+}
+
+legend {
+	font-weight:bold;
+}
+
+p:last-of-type {
+	margin-left:67px;
+	text-transform:uppercase;
+	font-weight:bold;
+}
+
+strong {
+	margin-left:0.9em;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Output element example</h1>
+
+<form onsubmit="return false" oninput="amount.value = (hours.valueAsNumber * rate.valueAsNumber) + ((hours.valueAsNumber * rate.valueAsNumber) * vat.valueAsNumber)">
+	<legend>Invoice</legend>
+
+	<p><label for="hours">Number of hours:</label>
+	<input type="number" min="0" id="hours" name="hours"></p>
+
+	<p><label for="rate">Rate:</label>
+	<input type="number" min="0" id="rate" name="rate">(&pound;'s)</p>
+
+	<p><label for="vat">VAT:</label>
+	<input type="number" min="0" id="vat" value="0.20" name="vat"></p>
+
+	<p>Total: <strong>&pound;<output name="amount" for="hours rate vat">0</output></strong></p>
+</form>
+
+</body>
+</html>

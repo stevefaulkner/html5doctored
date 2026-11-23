@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<title>classList.toggle() demo</title>
+		<style>
+			.is-hidden {
+				overflow: hidden;
+				max-height: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav role="navigation">
+			<ul>
+				<li><a href="#1">Home</a></li>
+				<li>
+					<a href="#1" class="control">Services</a>
+					<ul class="subnav">
+						<li><a href="#1">Planting</a></li>
+						<li><a href="#1">Spraying</a></li>
+						<li><a href="#1">Felling</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#1" class="control">About</a>
+					<ul class="subnav">
+						<li><a href="#1">History</a></li>
+						<li><a href="#1">Staff</a></li>
+					</ul>
+				</li>
+				<li><a href="#1">Contact</a></li>
+			</ul>
+		</nav>
+
+		<script>
+			(function(doc) {
+				// variables
+				var subnavs = doc.querySelectorAll('.subnav'),
+					controls = doc.querySelectorAll('.control'),
+					i = 0,
+					j = 0,
+					ii = subnavs.length,
+					jj = controls.length,
+
+				// toggle the sub menus
+					toggle_submenu = function(e) {
+						var next = this.nextSibling;
+
+						if(next.nodeType === 3) {
+							next = next.nextSibling;
+						}
+
+						next.classList.toggle('is-hidden');
+
+						e.preventDefault();
+					};
+
+				// hide all sub menus to begin with
+				for(i; i<ii; i++) {
+					subnavs[i].classList.add('is-hidden');
+				}
+
+				for(j; j<jj; j++) {
+					controls[j].addEventListener('click', toggle_submenu, false);
+				}
+			})(document);
+		</script>
+	</body>
+</html>

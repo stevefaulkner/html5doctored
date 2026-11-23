@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; rt</title>
+	<atom:link href="http://html5doctor.com/tag/rt/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The ruby element and her hawt friends, rt and rp</title>
+		<link>http://html5doctor.com/ruby-rt-rp-element/</link>
+		<comments>http://html5doctor.com/ruby-rt-rp-element/#comments</comments>
+		<pubDate>Tue, 11 May 2010 14:00:55 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[i18n]]></category>
+		<category><![CDATA[rp]]></category>
+		<category><![CDATA[rt]]></category>
+		<category><![CDATA[ruby]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1745</guid>
+		<description><![CDATA[<p>The <code>&#60;ruby&#62;</code>, <code>&#60;rt&#62;</code> and <code>&#60;rp&#62;</code> elements allow us to add ‘ruby’ phonetic annotations in languages like Japanese and Chinese. Despite the terrors of internationalisation and patchy browser support — with a little fiddling and a lot of caution — this sexy threesome with adorable accents are ready to use now.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://en.wikipedia.org/wiki/Ruby_character" title="Ruby character - Wikipedia, the free encyclopedia">Ruby text</a> is a short annotation for some base text. It’s typically used to give pronunciation guidance in a phonetic script for kanji in Chinese, Japanese, and Korean (<abbr title="Chinese, Japanese and Korean">CJK</abbr>) languages. It’s named after an old printers’ term for the very small size of 5.5 points.</p>
+
+<blockquote cite="http://dev.w3.org/html5/markup/ruby">
+<p>The ruby element allows spans of phrasing content to be marked with ruby annotations.</p>
+<cite><a href="http://dev.w3.org/html5/markup/ruby" title="HTML5: ruby — ruby annotation (NEW)">W3C Specification</a></cite>
+</blockquote>
+
+<p>As the name implies, ruby text is small<!-- IE=6pt, Webkit=60% -->, displayed by default above the base text in horizontal text and to the right in vertical text. Browsers without <code>&lt;ruby&gt;</code> support put the ruby text inline after the base text.</p>
+
+<p>These are the elements used in creating ruby text in <abbr>HTML</abbr>5:</p>
+
+<ul>
+<li><code>&lt;ruby&gt;</code> — an inline element that contains base text with ruby annotations</li>
+<li><code>&lt;rt&gt;</code> — ruby text, coming after the base text it defines</li>
+<li><code>&lt;rp&gt;</code> — ruby parentheses, an element used to wrap opening and closing parentheses around <code>&lt;rt&gt;</code> ruby text. These are for user agents that don’t support ruby text, so that it makes sense when displayed inline. Browsers that support <code>&lt;ruby&gt;</code> hide <code>&lt;rp&gt;</code> via <code>{display:none;}</code>.</li>
+</ul>
+
+<section id="examples">
+<h2>Examples</h2>
+
+<p>If you’ve never seen ruby in action you’re probably wondering what I’m talking about, so here are some examples:</p>
+
+<figure>
+<img src="/wp-content/uploads/2010/05/vagabond.jpg" width="279" height="250" alt="Vagabond">
+<figcaption><i lang="ja-latn">Furigana</i> ruby text in the Japanese manga <a href="http://en.wikipedia.org/wiki/Vagabond_(manga)" title="Vagabond (manga) - Wikipedia, the free encyclopedia">Vagabond</a></figcaption>
+</figure>
+
+<figure>
+<img src="/wp-content/uploads/2010/05/bopomofo-newspaper.png" width="38" height="147" alt="Bopomofo Newspaper" />
+<figcaption>Snippet of a <a href="http://wss.djes.tp.edu.tw/report/Lists/Photos/951222%E5%9C%8B%E8%AA%9E%E6%97%A5%E5%A0%B1/%E5%9C%8B%E8%AA%9E%E6%97%A5%E5%A0%B1.jpg" title="Image of a Taiwanese newspaper with bopomofo ruby for students">Taiwanese newspaper for students</a>, with <i lang="zh-latn">bopomofo</i> ruby</figcaption>
+</figure>
+
+<figure>
+<img src="/wp-content/uploads/2010/05/chosun.png" width="405" height="72" alt="Typical Korean usage of hanji in a Korean news website" />
+<figcaption>Korean <i lang="kr-latn">hangul</i> followed by <i lang="kr-latn">hanja</i> in an editorial on <a href="http://news.chosun.com/site/data/html_dir/2010/04/19/2010041902457.html">Chosun.com</a></figcaption>
+</figure>
+
+</section>
+
+<section id="browser-support">
+<h2>Browser support</h2>
+
+<p>As is often the way with internationalisation features, browser support is — well, sparse. In a break from your expectations, Internet Explorer has supported <code>&lt;ruby&gt;</code> since <abbr>IE</abbr>5 — three years before the actual 2001 <a href="http://www.w3.org/TR/ruby/" title="Ruby Annotation">W3C Ruby Annotation</a> specification! While this specification was incorporated into <a href="http://www.w3.org/TR/xhtml11/changes.html#a_changes" title="XHTML 1.1 - Changes from XHTML 1.0 Strict"><abbr>XHTML</abbr> 1.1</a>, no browser ever implemented it.</p>
+
+<p><code>&lt;ruby&gt;</code> in <abbr>HTML</abbr>5 is based on a reverse-engineering of <abbr>IE</abbr>’s implementation. It also lacks Ruby Annotation’s ‘complex <code>&lt;ruby&gt;</code>’, as these can normally be accomplished via nesting. (Please submit feedback if you have a real-world example that can’t be.) <a href="http://webkit.org/blog/948/ruby-rendering-in-webkit/" title="Surfin’ Safari - Blog Archive  » Ruby Rendering in WebKit">Webkit</a> added <abbr>HTML</abbr>5 <code>&lt;ruby&gt;</code> support at the start of 2010. At the time of writing, <code>&lt;ruby&gt;</code> has made it into Chrome but not Safari. Firefox and Opera have yet to implement <code>&lt;ruby&gt;</code> natively, although there are Firefox extensions for <code>&lt;ruby&gt;</code> support (<a href="http://htmlruby.codeplex.com/" title="HTML Ruby"><abbr>HTML</abbr> Ruby (basic ruby including <abbr>HTML</abbr>5)</a> and <a href="http://piro.sakura.ne.jp/xul/_rubysupport.html.en" title="XUL Apps &gt; XHTML Ruby Support - outsider reflex"><abbr>XHTML</abbr> Ruby (complex ruby)</a>).</p>
+
+<p>On the styling side, there’s the <a href="http://www.w3.org/TR/css3-ruby/" title="CSS3 Ruby Module">W3C <abbr>CSS</abbr>3 Ruby Module</a> (2003). It’s based on Ruby Annotation’s ‘complex ruby’ and is being updated for <abbr>HTML</abbr>5 <code>&lt;ruby&gt;</code>. Because of this, it’s also yet to be implemented beyond the default <abbr>IE</abbr>-level formatting. Ruby text will be used in combination with the <a href="http://dev.w3.org/csswg/css3-text-layout/" title="CSS Text Layout Module Level 3">W3C <abbr>CSS</abbr> Text Layout Module Level 3</a> properties <code>direction</code>, <code>block-flow</code>, and <code>writing-mode</code> for alternative text flow (such as vertical text), but again these have .</p>
+
+<table>
+<caption>Summary of browser support for <code>&lt;ruby&gt;</code> display &amp; styling in the five main browsers</caption>
+<thead>
+<tr>
+<th>Browser</th>
+<th>Basic <code>&lt;ruby&gt;</code></th>
+<th><code>writing-mode</code></th>
+<th>‘Complex <code>&lt;ruby&gt;</code>’</th>
+<th><abbr>CSS</abbr>3 Ruby (2003)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Internet Explorer</th>
+<td><abbr>IE</abbr>5.5+</td>
+<td><abbr>IE</abbr>6+<a href="#css-note1">*</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">Firefox</th>
+<td>(via plugin)</td>
+<td>-</td>
+<td>(via plugin)</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">Chrome</th>
+<td>Chrome5+</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">Safari</th>
+<td>Safari5+</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">Opera</th>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p id="css-note1">Note: <code>writing-mode</code> support in <abbr>IE</abbr>6 was <code>lr-tb</code> and <code>tb-rl</code> only. <a href="http://blogs.msdn.com/ie/archive/2009/05/29/the-css-corner-writing-mode.aspx" title="IEBlog : The CSS Corner: writing-mode"><abbr>IE</abbr>8 added support for all possible combinations</a>.</p>
+
+<section id="usable-css">
+<h3><abbr>CSS</abbr> we <em>can</em> use</h3>
+
+<p>Having said that no browsers support the <abbr>CSS</abbr>3 Ruby module yet, there are still a few things we can do to style <code>&lt;ruby&gt;</code> and friends. Default browser styles use <code>font-size</code> and <code>display</code>, so we can safely change these to affect display in both supporting and non-supporting browsers.</p>
+
+<p>If you want to de-emphasise the <code>&lt;rt&gt;</code> ruby text when it’s displayed inline in non-supporting browsers, you could do this via setting the size of <code>&lt;rt&gt;</code> and <code>&lt;rp&gt;</code>, as <abbr>IE</abbr> and Webkit do:</p>
+
+<pre><code>rt, rp {font-size: 60%;} /* = Webkit value */</code></pre>
+
+<p>You can also move ruby text and parentheses to after the base text, mimicking non-supporting browser rendering on supporting browsers:</p>
+
+<pre><code>rt, rp {display: inline; font-size: 100%;}</code></pre>
+
+<p>Finally, if you’re brave/foolish, you can implement ruby display yourself via <abbr>CSS</abbr> <code>inline-table</code> (<a href="http://sideshowbarker.net/2009/11/13/html5-ruby/#comment-3388" title="Carl’s ‘faking ruby’ comment on Mike Smith’s weblog"><abbr>CSS</abbr> with explanation</a> and <a href="http://hiragana.jp/" title="Hiragana Megane (How to Read Japanese)">demonstration (Hiragana.jp)</a>). Note that <a href="https://bugs.webkit.org/show_bug.cgi?id=36803">this currently doesn’t work in Chrome</a> because of a bug with <code>display:inline-table</code> on <code>&lt;ruby&gt;</code> (fixed in trunk), and as you’ll probably need per-browser style tweaks, I recommend against it.</p>
+
+</section>
+</section>
+
+<section id="code-samples">
+<h2>Code samples and output</h2>
+
+<p><a href="http://oli.jp/example/ruby/" title="Ruby examples ❧ Oli.jp (@boblet)">These code samples</a> (with notes and <abbr>CSS</abbr>) are also available separately.</p>
+
+<section id="ja">
+<h3><code>&lt;ruby&gt;</code> in Japanese — <i lang="ja-latn">furigana</i> and <i lang="ja-latn" title="romaji">rōmaji</i></h3>
+
+<section id="without-rp">
+<h4>Using <code>&lt;ruby&gt;</code> without <code>&lt;rp&gt;</code></h4>
+<figure>
+<pre><code>&lt;ruby&gt;攻殻&lt;rt&gt;こうかく&lt;/rt&gt;機動隊&lt;rt&gt;きどうたい&lt;/rt&gt;&lt;/ruby&gt;</code></pre>
+<img src="/wp-content/uploads/2010/05/gits.png" width="100" height="50" alt="Furigana example using ruby in a supporting browser (displayed above base text)" />
+<img src="/wp-content/uploads/2010/05/gits-inline.png" width="235" height="50" alt="Furigana example using ruby in a non-supporting browser (displayed inline after base text)">
+<figcaption>Using <code>&lt;ruby&gt;</code> to indicate the pronunciation of the Japanese name of the <a href="http://en.wikipedia.org/wiki/Ghost_in_the_shell" title="Ghost in the Shell - Wikipedia, the free encyclopedia">Ghost in the Shell anime series</a> in <i lang="ja-latn">furigana</i>. Notice that the lack of <code>&lt;rp&gt;</code> makes it pretty unreadable in a non-supporting browser (you may have to trust me on this!).<!-- this could be faked in browsers supporting generated content via rt:before {content: "(";} and rt:after {content: ")";}, but you can’t then turn it off for supporting browsers --></figcaption>
+</figure>
+</section>
+
+<section id="with-rp">
+<h4>Using <code>&lt;ruby&gt;</code> with <code>&lt;rp&gt;</code></h4>
+<figure>
+<pre><code>&lt;ruby&gt;攻殻&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;こうかく&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;機動隊&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;きどうたい&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;&lt;/ruby&gt;</code></pre>
+<img src="/wp-content/uploads/2010/05/gits.png" width="100" height="50" alt="Furigana example using ruby in a supporting browser (displayed above base text)" />
+<img src="/wp-content/uploads/2010/05/gits-parentheses.png" width="300" height="50" alt="Furigana example using ruby in a non-supporting browser (displayed inline with parentheses)" />
+<figcaption>The above example with <code>&lt;rt&gt;</code> text surrounded by <code>&lt;rp&gt;</code> parentheses degrades gracefully on non-supporting browsers.</figcaption>
+</figure>
+</section>
+
+<section id="nested-ruby">
+<h4>Nested <code>&lt;ruby&gt;</code> for multiple ruby texts</h4>
+<figure>
+<pre><code>&lt;ruby&gt;&lt;ruby&gt;攻&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;こう&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;殻&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;かく&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;機&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;き&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;動&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;どう&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;隊&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;たい&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;&lt;/ruby&gt;&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;Kōkakukidōtai&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;&lt;/ruby&gt;</code></pre>
+<img src="/wp-content/uploads/2010/05/gits-two-ruby.png" width="110" height="50" alt="Two ruby texts in a supporting browser (both displayed above base text)">
+<img src="/wp-content/uploads/2010/05/gits-two-ruby-paren.png" width="520" height="36" alt="Two ruby texts in a non-supporting browser (displayed inline in source order)">
+<figcaption>The scope of <code>&lt;rt&gt;</code> depends on the amount of base text before it, from one character to an entire phrase. <code>&lt;ruby&gt;</code> can also be nested to provide multiple ruby texts for one base text — in this case <i lang="ja-latn">furigana</i> and <i lang="ja-latn" title="romaji">rōmaji</i>. Although per-kanji <code>&lt;ruby&gt;</code> is more informative, it degrades somewhat poorly in non-supporting browsers. Copy &amp; paste support is also poor, as browsers just use source order, for example “攻こう殻かく機き動どう隊たい Kōkakukidōtai”. It’s also a <abbr title="pain in the arse">PITA</abbr> to code :-|</figcaption>
+</figure>
+</section>
+
+<!-- Example of vertical text? -->
+
+<section id="jp-glossary">
+<h4>Japanese glossary</h4>
+
+<p><i lang="ja-latn">Furigana</i> is the name given to using <i lang="ja-latn">hiragana</i> phonetic script beside words written in kanji to aid reading. It’s used extensively in education for learners of Japanese, and in reading material for children. It’s also sometimes used when writing kanji a literate adult may not be able to read.</p>
+
+<p><i lang="ja-latn" title="romaji">Rōmaji</i> is the romanisation of Japanese into the latin alphabet. <i lang="ja-latn" title="romaji">Rōmaji</i> is generally used for those who don’t know Japanese, especially in signage and tourism information.</p>
+</section>
+
+</section>
+
+<section id="zh">
+<h3><code>&lt;ruby&gt;</code> in Chinese — <i lang="zh-latn" title="pinyin">Pīnyīn</i> and <i lang="zh-latn" Title="Zhuyin Fuhao">zhùyīn fúhào</i> (<i lang="zh-latn">bopomofo</i>)</h3>
+
+<p>Ruby is used to some extent in China (<i lang="zh-latn" title="pinyin">pīnyīn</i>), and more so in Taiwan (<i lang="zh-latn" Title="Zhuyin Fuhao">zhùyīn fúhào</i>), especially in textbooks and signage.</p>
+
+<section id="pinyin">
+<h4><i lang="zh-latn" title="pinyin">Pīnyīn</i></h4>
+<figure>
+<pre><code>&lt;p&gt;The &lt;b&gt;Grass mud horse&lt;/b&gt; — &lt;ruby&gt;草泥馬&lt;rp&gt;(&lt;/rp&gt;&lt;rt&gt;Cǎo Ní Mǎ&lt;/rt&gt;&lt;rp&gt;)&lt;/rp&gt;&lt;/ruby&gt; — is … characterised as “lively, intelligent and tenacious”. However, their existence is said to be threatened by the “river crabs” — &lt;ruby class="styled"&gt;河蟹&lt;rp&gt; (&lt;/rp&gt;&lt;rt&gt;héxiè&lt;/rt&gt;&lt;rp&gt;) &lt;/rp&gt;&lt;/ruby&gt; — which are invading their habitat.&lt;/p&gt;</code></pre>
+<img src="/wp-content/uploads/2010/05/gmh.png" width="570" height="100" alt="Ruby text in a paragraph of text in a supporting browser, leading to significant line-height differences">
+<img src="/wp-content/uploads/2010/05/gmh-combo.png" width="570" height="80" alt="Ruby text in a non-supporting browser, with font-size set on rt and rp elements for the second ruby instance">
+<figcaption>In this example of <i lang="zh-latn">pinyin</i> you can see how <code>&lt;ruby&gt;</code> significantly affects the leading (<code>&lt;line-height&gt;</code>) of text blocks in supporting browsers. Setting <code>font-size</code> for <code>&lt;rt&gt;</code> and <code>&lt;rp&gt;</code> can de-emphasise ruby text in non-supporting browsers, as demonstrated in the second <code>&lt;ruby&gt;</code> in the second image.</figcaption>
+</figure>
+</section>
+
+<section id="bopomofo">
+<h4><i lang="zh-latn" Title="Zhuyin Fuhao">Zhùyīn fúhào</i></h4>
+<figure>
+<pre><code>&lt;ruby&gt;&lt;ruby&gt;世&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄕˋ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;上&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄕㄤˋ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;無&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄨˊ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;難&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄋㄢˊ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;事&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄕˋ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;只&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄓˇ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;怕&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄆㄚˋ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;有&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄧㄡˇ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;心&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄒㄧㄣ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;人&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;ㄖㄣˊ&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;&lt;/ruby&gt;&lt;rp&gt; （&lt;/rp&gt;&lt;rt&gt;Anything can be done with enough perseverance&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;&lt;/ruby&gt;</code></pre>
+<img src="/wp-content/uploads/2010/05/bopomofo.png" width="471" height="56" alt="How this bopomofo *should* look in a supporting browser (which doesn’t exist as far as I know)" />
+<img src="/wp-content/uploads/2010/05/bopomofo-chrome.png" width="230" height="55" alt="This bopomofo example in Chrome" />
+<img src="/wp-content/uploads/2010/05/bopomofo-firefox.png" width="467" height="84" alt="This bopomofo example in Firefox" />
+<!-- http://en.wikiquote.org/wiki/Chinese_proverbs -->
+<figcaption>Unfortunately, no browser can render this example of <i lang="zh-latn" Title="Zhuyin Fuhao">Zhùyīn fúhào</i> (<i lang="zh-latn">bopomofo</i>) ruby on horizontal Mandarin Chinese correctly. I’ve included an ideal rendering and how it appears in both a browser supporting simple ruby (with incorrectly rendered <i lang="zh-latn">bopomofo</i>) and a non-supporting browser.</figcaption>
+</figure>
+</section>
+
+<section id="zh-glossary">
+<h4>Chinese glossary</h4>
+<p><a href="http://en.wikipedia.org/wiki/Pinyin" title="Pinyin - Wikipedia, the free encyclopedia"><i lang="zh-latn" title="pinyin">Pīnyīn</i></a> is a romanised phonetic system for Chinese, generally written above or after the word. <a href="http://en.wikipedia.org/wiki/Bopomofo" title="Bopomofo - Wikipedia, the free encyclopedia"><i lang="zh-latn">Bopomofo</i> (<i lang="zh-latn" Title="Zhuyin Fuhao">Zhùyīn fúhào</i>)</a> is a phonetic script for transcribing Chinese, especially Mandarin. It is generally written (in both horizontal and vertical scripts) vertically to the right of each <i lang="ja-latn">hanzi</i> character.</p>
+</section>
+</section>
+
+<section id="ko">
+<h3>Korean ruby</h3>
+<p>While the use of <i lang="ko-latn">hanja</i> (kanji) is decreasing in South Korea, they are still used for disambiguation and proper names.</p>
+
+<figure>
+<pre><code>&lt;ruby&gt;한자&lt;rp&gt;(&lt;/rp&gt;&lt;rt&gt;漢字&lt;/rt&gt;&lt;rp&gt;)&lt;/rp&gt;&lt;/ruby&gt;</code></pre>
+<img src="/wp-content/uploads/2010/05/hanja.png" alt="Hangul followed inline by hanja in brackets">
+<figcaption>Current Korean ruby use is to have the <i lang="kr-latn">hangul</i> coming <em>before</em> the <i lang="kr-latn">hanja</i> in parentheses (the opposite way from the default fallback style). For styling use: <code>rt, rp {display: inline; font-size: 100%;}</code>. This formatting is also used when foreign words such as English are included in Korean text.</figcaption>
+</figure>
+
+<section id="ko-glossary">
+<h4>Korean glossary</h4>
+<p><a href="http://en.wikipedia.org/wiki/Hangul" title="Hangul - Wikipedia, the free encyclopedia"><i lang="kr-latn">Hangul</i></a> is the Korean script, and <a href="http://en.wikipedia.org/wiki/Hanja" title="Hanja - Wikipedia, the free encyclopedia"><i lang="kr-latn">hanja</i></a> is Korean for Chinese characters. Traditionally written Korean used <i lang="kr-latn">hanja</i>, but now it’s mainly used in academic texts and occasionally for disambiguation.</p>
+</section>
+</section>
+
+<section id="en">
+<h3>Using <code>&lt;ruby&gt;</code> for English</h3>
+
+<p>Not everyone is using East Asian languages, but any short annotation is (theoretically) applicable. While English doesn’t typically have pronunciation guidance, phonetic annotations are used in dictionaries:</p>
+
+<!-- styled to make rt appear inline -->
+<figure>
+<pre><code>&lt;ruby&gt;&lt;strong&gt;cromulent&lt;/strong&gt; &lt;rp&gt;(&lt;/rp&gt;&lt;rt&gt;crôm-yü-lənt&lt;/rt&gt;&lt;rp&gt;)&lt;/rp&gt;&lt;/ruby&gt;</code></pre>
+<img src="/wp-content/uploads/2010/05/cromulent.png" width="570" height="80" alt="Displaying ruby text after the base text for an English dictionary">
+<figcaption>Using ruby text for a dictionary definition by displaying the ruby text inline after the base text</figcaption>
+</figure>
+</section>
+</section>
+
+<section id="use-it">
+<h2><code>&lt;ruby&gt;</code>: to use or not to use</h2>
+
+<p>The main use case of <code>&lt;ruby&gt;</code> is marking up pronunciation in Asian writing, such as <i lang="zh-latn" title="phonetic system for transcribing Chinese">bopomofo</i> for traditional Chinese and <i lang="ja-latn" title="addition of small kana next to kanji to aid reading">furigana</i> for Japanese. I don’t know whether Arabic diacritics like Taškīl, Hebrew Niqqud, or other non-<abbr title="Chinese, Japanese and Korean languages">CJK</abbr> languages would use <code>&lt;ruby&gt;</code> for marking up phonetic annotations or diacritics. The <abbr>WHATWG</abbr> specification says:</p>
+
+<blockquote>
+<p>Ruby annotations are short runs of text presented alongside base text, primarily used in East Asian typography as a guide for pronunciation or to include other annotations</p>
+<footer><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-ruby-element" title="4.6 Text-level semantics &mdash; HTML5 (including next generation additions still in development)">WHATWG specification</a></cite></footer>
+</blockquote>
+
+<p>As someone who uses tools like <a href="http://www.popjisyo.com/WebHint/Portal_e.aspx" title="POPjisyo.com - Dictionary Translation Japanese/Chinese/Korean/Kanji/Hanzi">Popjisyo</a> to add pop-up readings and translations to kanji, I definitely see <code>&lt;ruby&gt;</code> as semantic (and valuable) for ‘phonetic annotation,’ in the same way that <code>&lt;abbr&gt;</code> provides extra information on potentially confusing content. Outside of this usage, however, <code>&lt;ruby&gt;</code> could be seen as a presentational hack. Oh noes! I believe the Korean and English examples above are valid uses, but much like <code>&lt;q&gt;</code> some people think the extra code of using <code>&lt;ruby&gt;</code> is not justified when the default presentation is the same as plain text.</p>
+
+<p>To further muddy the waters, the 2001 W3 Ruby specification included an <a href="http://www.w3.org/TR/ruby/#fig1.6" title="Ruby Annotation">abbreviated word marked up with a visible definition via <code>&lt;ruby&gt;</code></a>, and <a href="http://www.w3.org/TR/ruby/#fig1.9" title="Ruby Annotation">a use-by date where the day, month, and year are added via <code>&lt;ruby&gt;</code></a>. These uses seem like presentational hacks to me, and while they’re not forbidden, the lack of such examples in <abbr>HTML</abbr>5 indicate they’re not exactly blessed either ;-)</p>
+</section>
+
+<section id="conclusion">
+<h2>In conclusion…</h2>
+
+<p>The most important thing is that the <code>&lt;ruby&gt;</code>, <code>&lt;rt&gt;</code>, and <code>&lt;rp&gt;</code> elements are <em>valid <abbr>HTML</abbr>5</em>, and even if they’re not officially supported, they will by default display <em>as if they were <code>&lt;span&gt;</code>s</em> in non-supporting browsers. Because of this, <strong>if you actually need to use <code>&lt;ruby&gt;</code>, especially for phonetic annotations, do it</strong>! It might not look perfect yet in non-supporting browsers, but this will change, and hey, at least you don’t have <abbr>IE</abbr> support to worry about! ;-)</p>
+
+<p>For non-phonetic annotation, consider using <code>&lt;abbr&gt;</code> to give an expanded reading via mouse-over for an abbreviation or acronym, unless displaying the reading by default is important. Consider <code>&lt;small&gt;</code> for <em>phrasing content</em>-level side comments, if the comment placement is not important and the association with the relevant content doesn’t need to be explicit.</p>
+</section>
+
+<section id="ref">
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="http://webkit.org/blog/948/ruby-rendering-in-webkit/" title="Surfin&#8217; Safari - Blog Archive  &raquo; Ruby Rendering in WebKit">Ruby rendering in Webkit</a> announcement on the Safari weblog</li>
+<li><a href="http://my.opera.com/tagawa/blog/the-html5-ruby-element-in-words-of-one-syllable-or-less" title="Daniel Davis - The HTML5 &lt;ruby&gt; element in words of one syllable or less">The <abbr>HTML</abbr>5 &lt;ruby&gt; element in words of one syllable or less</a> by the unstoppable <a href="http://twitter.com/ourmaninjapan" title="Daniel Davis on Twitter @ourmaninjapan">Daniel Davis</a> of Opera</li>
+</ul>
+</section>
+
+<section id="feedback">
+<h2>Feedback please!</h2>
+
+<p>So what do you think of <code>&lt;ruby&gt;</code> and friends? Let us know in the comments! If you know about the use of annotations like this in other languages, or have used <code>&lt;ruby&gt;</code>, tell us about it too!</p>
+
+<!-- Bonus for source readers…
+
+Questions to Hixie:
+* would the expiry date would still be valid
+* why was complex ruby dropped? no use case?
+* would the WWW abbr-as-ruby would still be valid (what about <ruby><abbr>WWW</abbr><rt>world wide web</rt></ruby>)
+
+Answers:
+* HTML5 ruby is basically what IE supports
+* complex ruby may return in future if there’s a definite use case for it that can’t be solved by nested ruby
+* Hixie thought the non-language uses were a bit dodgy ;-) -->
+</section><p><a href="http://html5doctor.com/ruby-rt-rp-element/" rel="bookmark">The ruby element and her hawt friends, rt and rp</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 11, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/ruby-rt-rp-element/feed/</wfw:commentRss>
+		<slash:comments>31</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,1049 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Accessibility &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/category/accessibility/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Computer says NO to HTML5 document outline</title>
+		<link>http://html5doctor.com/computer-says-no-to-html5-document-outline/</link>
+		<comments>http://html5doctor.com/computer-says-no-to-html5-document-outline/#comments</comments>
+		<pubDate>Thu, 09 Jun 2016 10:50:17 +0000</pubDate>
+		<dc:creator><![CDATA[Steve Faulkner]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Elements]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=6030</guid>
+		<description><![CDATA[What a brilliant idea! For the longest time HTML5 specified, and advised developers, that it no longer mattered what the number (1 to 6) was in a heading element (when used in conjunction with sectioning elements). What mattered was the nesting level of the H1-h6 in sectioning elements, just like the X&#60;H&#62;TML promised land, but [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<h2>What a brilliant idea!</h2>
+<p><img class="size-thumbnail wp-image-6042" src="http://html5doctor.com/wp-content/uploads/2016/06/Capture-150x150.png" alt="Patrick lauke with red lips and styled hair" width="150" height="150" srcset="http://html5doctor.com/wp-content/uploads/2016/06/Capture-150x150.png 150w, http://html5doctor.com/wp-content/uploads/2016/06/Capture-32x32.png 32w, http://html5doctor.com/wp-content/uploads/2016/06/Capture-64x64.png 64w, http://html5doctor.com/wp-content/uploads/2016/06/Capture-96x96.png 96w, http://html5doctor.com/wp-content/uploads/2016/06/Capture-128x128.png 128w, http://html5doctor.com/wp-content/uploads/2016/06/Capture-100x100.png 100w" sizes="(max-width: 150px) 100vw, 150px" /><img class="size-full wp-image-6035 alignnone" src="http://html5doctor.com/wp-content/uploads/2016/06/pinkunicorn.png" alt="pink unicorn unleashes H1's for everyone" width="200" height="119" /></p>
+<p>For the longest time HTML5 specified, and advised developers, that it no longer mattered what the number (1 to 6) was in a <a href="http://w3c.github.io/html/sections.html#the-h1-h2-h3-h4-h5-and-h6-elements">heading element</a> (when used in conjunction with <a href="http://w3c.github.io/html/sections.html#sections">sectioning elements</a>). What mattered was the nesting level of the H1-h6 in sectioning elements, just like the <a href="http://www.w3.org/TR/xhtml2/mod-structural.html#sec_8.5.">X&lt;H&gt;TML promised land</a>, but <em>better</em> as it recycled current heading elements. This concept was embraced by many a web standards afficianado and has been spread far and wide by web standards <em>evangelists</em>, in speeches, articles and books.</p>
+<p><strong>How the outline should work: using nested <code>section</code> and <code>h1</code> elements</strong></p>
+<pre>&lt;body&gt;
+ &lt;h1&gt;top level heading (parent sectioning element is body)&lt;/h1&gt;
+ &lt;section&gt;
+ &lt;h1&gt;2nd level heading (nested within one sectioning element)&lt;/h1&gt; 
+  &lt;section&gt;
+  &lt;h1&gt;3rd level heading (nested within 2 sectioning elements)&lt;/h1&gt; 
+  &lt;/section&gt; 
+ &lt;/section&gt;
+&lt;/body&gt;</pre>
+<p><strong>document outline:</strong></p>
+<pre> → top level heading
+ → → 2nd level heading
+ → → → 3rd level heading</pre>
+<h2>Trouble in outline nerdvana</h2>
+<p><b>Document outline semantics exposed by browsers and assistive technology:</b></p>
+<pre>→ top level heading
+→ top level heading
+→ top level heading</pre>
+<p>Brilliant as it is, this idea as specified has not been taken up by <a href="https://www.w3.org/wiki/HTML/Usage/Headings/h1only#Heading_semantics_exposed_by_browsers">user agents</a>. So after 7 years or more we have a concept without interoperable implementations (<em>super sad face</em>).</p>
+<p>For the last few years, the HTML5 specification has included <a href="http://w3c.github.io/html/sections.html#creating-an-outline">a warning</a> about the lack of implementations and has suggested that the document outline algorithm not be relied upon to convey heading semantics to users. Recently this has been taken a step further. Now the HTML 5.1 specification  requires developers to use <code>h1-h6</code> to convey document structure. The simple reason for this change is that the HTML5 document outline is not implemented and <a href="https://www.w3.org/wiki/HTML/Usage/Headings/h1only#Notes">despite efforts</a> to get it implemented, the general response from user agent developers has not been enthusiastic. You can read the updated advice and requirements in the <a href="http://w3c.github.io/html/sections.html#the-h1-h2-h3-h4-h5-and-h6-elements">HTML 5.1 specification</a></p>
+<p><strong>Comments or questions? Bring &#8217;em on!</strong></p>
+<p><strong>PS:</strong> If you find any bugs in the <a href="http://w3c.github.io/html/index.html">HTML 5.1 spec</a> you can <a href="https://github.com/w3c/html/issues/new">open an issue</a> or send a  <a href="https://github.com/w3c/html/pulls">pull request</a>.</p>
+<h2 id="bonus">Update 21/06/16 &#8211; Heading-level outline view</h2>
+<p>You can now check the <strong>heading-level outline</strong> of a page using the <a href="https://validator.w3.org/nu/">W3C HTML checker</a> or the <a href="https://validator.w3.org/">W3C markup validation service</a> (same output different UI) with thanks to <a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">Mike[TM]Smith</a>. It is provided alongside the structural outline, so you can compare semantic reality and theory.</p>
+<p><div id="attachment_6053" style="width: 280px" class="wp-caption alignnone"><img class="size-medium wp-image-6053" src="http://html5doctor.com/wp-content/uploads/2016/06/Capture-1-270x300.png" alt="outline view screenshot" width="270" height="300" srcset="http://html5doctor.com/wp-content/uploads/2016/06/Capture-1-270x300.png 270w, http://html5doctor.com/wp-content/uploads/2016/06/Capture-1.png 449w" sizes="(max-width: 270px) 100vw, 270px" /><p class="wp-caption-text">Example of heading-level outline and structural outline displayed by the Nu HTML Checker</p></div></p>
+<p><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/" rel="bookmark">Computer says NO to HTML5 document outline</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 9, 2016.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/computer-says-no-to-html5-document-outline/feed/</wfw:commentRss>
+		<slash:comments>31</slash:comments>
+		</item>
+		<item>
+		<title>The woes of date input</title>
+		<link>http://html5doctor.com/the-woes-of-date-input/</link>
+		<comments>http://html5doctor.com/the-woes-of-date-input/#comments</comments>
+		<pubDate>Tue, 19 Jan 2016 14:39:31 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[date]]></category>
+		<category><![CDATA[datepicker]]></category>
+		<category><![CDATA[input]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5961</guid>
+		<description><![CDATA[One of the many new input types that HTML5 introduced is the date input type which, in theory, should allow a developer to provide the user with a simple, usable, recognisable method of entering a date on a web page. But sadly, this input type has yet to reach its full potential. Briefly, the date [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>One of the many <a href="http://html5doctor.com/html5-forms-input-types/">new input types</a> that <abbr>HTML5</abbr> introduced is the date input type which, in theory, should allow a developer to provide the user with a simple, usable, recognisable method of entering a date on a web page. But sadly, this input type has yet to reach its full potential.</p>
+<section id="introduction">
+<p>Briefly, the date input type is a form element that allows the capture of a date from a user, usually via a datepicker. The implementation of this datepicker is up to the browser vendor, as the <a href="http://www.w3.org/TR/html51/semantics.html#date-state-%28type=date%29"><abbr>HTML5</abbr> specification</a> does not tell vendors how to implement the input&#8217;s <abbr title="User Interface">UI</abbr>.</p>
+<p>The input itself can of course be used without using any of its available attributes:</p>
+<pre><code>&lt;label for="when">Date:&lt;/label>
+&lt;input id="when" name="when" type="date"></code></pre>
+</p>
+<p>Or you can specify minimum and maximum date values via the <code>min</code> and <code>max</code> attributes, ensuring that a user can only choose dates within a specific range:</p>
+<pre><code>&lt;label for="when">Date:&lt;/label>
+&lt;input id="when" name="when" type="date" min="2016-01-01" max="2016-12-01"></code></pre>
+</p>
+<p>You can also use the <code>step</code> attribute to specify, in days, how a date can increment. The default is 1.</p>
+<p>This of course is the theory and a fine reality it would be, if it were so but alas it is not.</p>
+</section>
+<section id="features">
+<h2>Features</h2>
+<p>Rather than talk about <a href="http://caniuse.com/#feat=input-datetime">browser support</a> for the date input type, I will instead talk about the various features that are part of this input type:</p>
+<ul>
+<li><a href="#feature-input-field">the input field</a></li>
+<li><a href="#feature-min-max-attributes">the <code>min</code> and <code>max</code> attributes</a></li>
+<li><a href="#feature-step-attribute">the <code>step</code> attribute</a></li>
+<li><a href="#feature-datepicker">the datepicker</a></li>
+<li><a href="#feature-events">events</a></li>
+</ul>
+<section id="feature-input-field">
+<h3>The <code>input</code> field</h3>
+<p>Neither Firefox nor Safari support this input type; it is treated as a simple text field with no formatting and no special interaction.</p>
+<p>Microsoft Edge has no special interactions and in fact the input field appears to be read-only.</p>
+<p>Chrome and Opera have the same implementations which display a date placeholder (or date value if the input&#8217;s <code>value</code> attribute has been set) using the user&#8217;s system settings&#8217; date format. There are also some controls that allow the user to clear the input field, some arrows to cycle up and down between values, and an arrow that will open a datepicker (see Figure 1). There are some <a href="http://www.tjvantoll.com/2013/04/15/list-of-pseudo-elements-to-style-form-controls/#input_date">WebKit prefixed pseudo selectors</a> available that allow you to change the appearance of the various bits within the input date field.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-date-input.jpg" alt="Screenshot of WebKit's native date input on Chrome"></p>
+<figcaption>Figure 1. &#8211; WebKit&#8217;s date input field as seen on Chrome</figcaption>
+</figure>
+</section>
+<section id="feature-min-max-attributes">
+<h3>The <code>min</code> and <code>max</code> attributes</h3>
+<p>All of those browsers that support the date input type also support the <code>min</code> and <code>max</code> attributes.</p>
+<p>Chrome and Opera both work fine if both the <code>min</code> and <code>max</code> attributes are set, but the <abbr title="User Interface">UI</abbr> is poor when only one of them is set. In these browsers, the date input displays up and down arrows for the user to change each value (day, month, and year). If a date input has a minimum value set at today&#8217;s date, then if the user highlights the year and then clicks the down arrow, the year will change to 275760 as the arrows cycle between the valid values and, since no maximum has been set, the default maximum is used (see Figure 2). This has been <a href="https://code.google.com/p/chromium/issues/detail?id=577680">reported as a bug</a> but has been marked as &#8220;won&#8217;t fix&#8221; as apparently it is the desired behaviour, I disagree.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-date-input-bug.jpg" alt="Screenshot of WebKit's native date input on Chrome showing the year cycling to 275760"></p>
+<figcaption>Figure 2. &#8211; WebKit&#8217;s buggy date input field with a <code>min</code> value set but no <code>max</code></figcaption>
+</figure>
+<p>Something similar happens when only a <code>max</code> value is set in that pressing the up arrow will cycle around to the year 0001, which is the default minimum. Again this leads to a very confusing <abbr title="User Experience">UX</abbr> for the user, so please use both <code>min</code> and <code>max</code> where possible.</p>
+<p>With Android, the setting of these attributes can cause some weird quirks with the <a href="#feature-datepicker">datepicker</a>.</p>
+</section>
+<section id="feature-step-attribute">
+<h3>The <code>step</code> attribute</h3>
+<p>None of the browsers tested support the <code>step</code> attribute.</p>
+</section>
+<section id="feature-datepicker">
+<h3>The datepicker</h3>
+<p>Firefox and Safari do not support the date input type and therefore do not open a datepicker on desktop. But they <em>do</em> open a device&#8217;s native datepicker on mobile devices when the date input field receives focus.</p>
+<p>Microsoft Edge opens a datepicker, but its <abbr>UI</abbr> is very poor (see Figure 3).</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/edge-datepicker.png" alt="Screenshot of the the Edge's datepicker, which displays a list of selectable dates with one highlighted and two buttons at the bottom, once with a tick and the other with an X"></p>
+<figcaption>Figure 3. &#8211; Microsoft Edge&#8217;s native datepicker</figcaption>
+</figure>
+<p>Chrome and Opera open a fairly decent datepicker on desktop but you cannot style it at all. It looks how it looks (see Figure 4), and there&#8217;s nothing that you can do about it, no matter what your designer says. With these browsers you can <a href="http://trac.webkit.org/wiki/Styling%20Form%20Controls#Dateinputtype">disable the native datepicker</a> if you want and implement your own, but this will <em>not</em> work with mobile devices. This gives you the best of both worlds: you can implement a nicer datepicker for desktop and let a device use its own native datepicker.</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/webkit-datepicker.jpg" alt="Screenshot of WebKit's native datepicker and date input on Chrome"></p>
+<figcaption>Figure 4. &#8211; WebKit&#8217;s native datepicker and date input field as seen on Chrome</figcaption>
+</figure>
+</section>
+<p>All the native datepickers that I tested on Android displayed some sort of confusing display quirks when valid <code>min</code> and <code>max</code> attribute are set. A user is correctly restricted from selecting a date outside of the specified range, but the visual datepickers often display &#8220;previous&#8221;, &#8220;current&#8221;, and &#8220;next&#8221; values for day, month, and year, and the values displayed for &#8220;previous&#8221; are either empty (in the case of the month) or set to 9999 (in the case of the year, see Figure 5).</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2016/01/android-4.3-native-datepicker.png" alt="Screenshot of the native datepicker on Android 4.3, with a selected date and the previous year set to 9999"></p>
+<figcaption>Figure 5. &#8211; The native datepicker on Android 4.3</figcaption>
+</figure>
+</section>
+<section id="feature-events">
+<h3>Events</h3>
+<p>Like most of the other input fields, the date input supports the <a href="http://www.w3.org/TR/html51/semantics.html#event-input-input"><code>input</code></a> and <a href="http://www.w3.org/TR/html51/semantics.html#event-input-change"><code>changed</code></a> events. The <code>input</code> event is fired every time a user interacts with the input field, while the <code>change</code> event is usually only fired when the value is committed, i.e. the input field loses focus.</p>
+<p>For those browsers mentioned above that support the native date input field, no specific events are fired that will allow you to determine if the user has done anything &#8220;date specific&#8221; such as opened or closed the datepicker, or cleared the input field. You can work out if the field has been cleared by listening for the <code>input</code> or <code>change</code> events and then checking the input field&#8217;s value.</p>
+<p>If you have an event listener set up for the <code>change</code> event and one for the <code>input</code> event, <code>changed</code> will never actually fire as <code>input</code> takes precendence.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion</h2>
+<p>So, what can we deduce from all this? Should we use the input date type or not? And as usual the answer is &#8220;it depends&#8221; as only you know what you&#8217;re building and how and where it will be used, so it might fit perfectly for your needs or it might not.</p>
+<p>I think in general it&#8217;s safe to use the input date type on occasions where a <code>min</code> and <code>max</code> does not need to be set as the quirks when these attributes are used are too irritating to ignore. Since not all browsers support a datepicker and you will have to get one from somewhere else to support these browsers, I would also recommend turning off the datepicker for all desktop browsers (using the method linked to above) as this will still allow devices to use their own.</p>
+<p>Have fun!</p>
+</section>
+</section>
+<p><a href="http://html5doctor.com/the-woes-of-date-input/" rel="bookmark">The woes of date input</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 19, 2016.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-woes-of-date-input/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>HTML Developers: Please Consider</title>
+		<link>http://html5doctor.com/html-developers-please-consider/</link>
+		<comments>http://html5doctor.com/html-developers-please-consider/#comments</comments>
+		<pubDate>Wed, 09 Dec 2015 14:51:50 +0000</pubDate>
+		<dc:creator><![CDATA[Steve Faulkner]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[WAI-ARIA]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5930</guid>
+		<description><![CDATA[ARIA is an amazing technology, it allows developers to add meaning to meaningless HTML or override meaning on HTML that is being repurposed and sometimes misused, so that users who rely upon the meaning of HTML, as implemented in browsers, can understand and interact with HTML User Interfaces successfully. ARIA allows developers to re-invent and [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.w3.org/TR/wai-aria-1.1/">ARIA</a> is an amazing technology, it allows developers to add meaning to meaningless <a href="http://www.w3.org/TR/html5/">HTML</a> or override meaning on HTML that is being repurposed and <a href="http://w3c.github.io/html-aria/">sometimes misused</a>, so that users who rely upon the meaning of HTML, as implemented in browsers, can understand and interact with HTML User Interfaces successfully.</p>
+<p><span id="more-5930"></span></p>
+<p><a href="http://www.w3.org/TR/wai-aria-1.1/">ARIA</a> allows developers to re-invent and extend native <a href="http://www.w3.org/TR/html5/">HTML</a> features in meaningful ways. But like all <em>bolt-on</em> technologies its features are <strong><a href="http://w3c.github.io/aria-in-html/#aria-touch">brittle</a></strong> compared to its <em>built-in</em> counterparts.</p>
+<p>Whenever you are considering:</p>
+<ul>
+<li>Using <code>role=button</code> consider using a <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/button.html"><code>&lt;button&gt;</code></a> element, or the various other native HTML button types, instead.</li>
+<li>Using <code>role=link,</code> consider using an <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/a-href.html"><code>&lt;a href&gt;</code></a> element instead.</li>
+<li>Using <code>role=heading</code> and <code>aria-level="1-6",</code> consider using <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/h1-h6.html"><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code></a> elements instead.</li>
+<li>Using <code>role=list</code> and <code>role=listitem,</code> consider using <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/ol-li.html"><code>&lt;ol&gt;</code></a> or <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/ul-li.html"><code>&lt;ul&gt;</code></a> and <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/ul-li.html"><code>&lt;li&gt;</code></a> elements instead.</li>
+<li>Using <code>role=listbox</code> and <code>role=option</code>, consider using <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/select-option.html"><code>&lt;select&gt;</code> and <code>&lt;option&gt;</code></a> elements instead.</li>
+<li>Using <code>role=checkbox</code> or <code>role=radio</code>, consider using <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/input-checkbox.html"><code>&lt;input type="checkbox"&gt;</code></a> or <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/input-radio.html"><code>&lt;input type="radio"&gt;</code></a> elements instead.</li>
+<li>Using <code>role=textbox</code>, consider using an <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/input-text.html"><code>&lt;input type="text"&gt;</code></a> or <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/input-search.html"><code>search</code></a> or <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/input-email.html"><code>email</code></a> or <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/input-url.html"><code>url</code></a> or <a href="http://thepaciellogroup.github.io/AT-browser-tests/test-files/input-tel.html"><code>tel</code></a> instead.</li>
+<li>and so on&#8230;</li>
+</ul>
+<p>By using native <a href="http://www.w3.org/TR/html5/">HTML features</a>, wherever practical, over custom HTML with bolt-on semantics and interaction behaviours, you will save yourselves and users a lot of grief and ensure that your User Interfaces work robustly across the largest number of devices, operating systems, input devices, browsers and assistive technologies.</p>
+<h2>Further Reading</h2>
+<ul>
+<li id="w3c-recommendation-28-october-2014" class="no-num no-toc"><a href="http://www.w3.org/TR/html5/">HTML5 &#8211; W3C Recommendation 28 October 2014</a></li>
+<li id="title" class="title p-name"><a href="http://w3c.github.io/aria-in-html/">Notes on Using <abbr title="Accessible Rich Internet Applications">ARIA</abbr> in HTML</a></li>
+</ul>
+<p><a href="http://html5doctor.com/html-developers-please-consider/" rel="bookmark">HTML Developers: Please Consider</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on December 9, 2015.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html-developers-please-consider/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>The ride to 5</title>
+		<link>http://html5doctor.com/the-ride-to-5/</link>
+		<comments>http://html5doctor.com/the-ride-to-5/#comments</comments>
+		<pubDate>Tue, 28 Oct 2014 17:06:48 +0000</pubDate>
+		<dc:creator><![CDATA[Steve Faulkner]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5548</guid>
+		<description><![CDATA[Forwards In recent weeks I contacted around 40 people, a cross section of those who have banged away at, or banged on about, HTML5. I asked them for their perspectives on HTML5 becoming a W3C Recommendation. Below are the words of the 28 people who responded, pretty much in the order they hit my inbox: [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.w3.org/TR/2014/REC-html5-20141028/"><img class="alignleft wp-image-5688 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/html5dated.png" alt="W3C HTML5 Recommendation" width="513" height="384" srcset="http://html5doctor.com/wp-content/uploads/2014/10/html5dated.png 513w, http://html5doctor.com/wp-content/uploads/2014/10/html5dated-300x224.png 300w" sizes="(max-width: 513px) 100vw, 513px" /></a></p>
+<h2>Forwards</h2>
+<p class="callout">In recent weeks I contacted around 40 people, a cross section of those who have <em>banged away</em> at, or <em>banged on</em> about, HTML5. I asked them for their perspectives on <a href="http://www.w3.org/TR/2014/REC-html5-20141028/">HTML5</a> becoming a W3C Recommendation. Below are the words of the 28 people who responded, <em>pretty much</em> in the order they hit my inbox:</p>
+<h2>HTML5 is a W3C Recommendation, what do you think?</h2>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5667 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/tim-e1414476372849.png" alt="" width="150" height="167" /> <a href="https://twitter.com/timberners_lee"><cite>Tim Berners-Lee</cite></a><br />
+&#8211; Director of the World Wide Web Consortium (W3C), the place to agree on web standards.</h3>
+</footer>
+<p>HTML began 25 years ago to provide content and links, the initial flesh and bones of the web. HTML5 is still the basis of a web of links and content, but it is now also the user interface part of an entire computing platorm. Now every web page can be programmed like a computer. That is a huge change, and we can only imagine what will be deployed in the future on top of the Open Web Platform.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5603 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/ms-e1414048507324.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/sideshowbarker"><cite>Mike[tm] Smith</cite></a>:</h3>
+</footer>
+<p>I showed up at the W3C in 2007 to do three things: chew bubblegum, help get a new HTML spec to Recommendation, and kick ass. We&#8217;re now near the end of 2014, HTML5 has finally reached Rec, and I&#8217;m all out of bubblegum.</p></blockquote>
+<blockquote><footer>
+<h3 id="molly"><a href="https://twitter.com/mollydotcom"><img class="alignleft wp-image-5699 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/molly-e1414681808447.jpg" alt="" width="120" height="120" /><cite>Molly E. Holzschlag</cite></a>:</h3>
+</footer>
+<p>The publication of the spec reflects a formidable success at finally gaining consensus. This is always difficult, but made more so in a group that could not move forward and at one point due to to infighting and the inability to do exactly what Tim Berners-Lee suggested we do in his remarks at yesterday&#8217;s W3C 20th Anniversary: &#8220;Sacrifice your own way of thinking.&#8221; So we&#8217;ve made big progress on that front. Insofar as the spec itself &#8211; as with all specifications &#8211; some good, some bad, some intolerable, some ridiculous. In the end it doesn&#8217;t matter, really, because it is not always what is specified that is pragmatic. That which is implemented and understood first become the languages, tools and techniques we actually put to use.</p>
+<p>Again, my most sincere thanks for including me &#8211; each step forward in my work is a step forward in my enjoyment of life no matter my personal circumstance.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5556 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/sp-e1413833048715.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/shelleypowers"><cite>Shelley Powers</cite></a>:</h3>
+</footer>
+<p>The path to HTML5 has been more than a little rocky, and if the road to get to this point isn&#8217;t littered with dead bodies, there are some walking wounded among the specification participants.</p>
+<p>But none of the interesting times spent working on this spec matters once HTML5 is officially done, and launched. All that matters is we have something we can all live with, being implemented in all our favorite tools, and providing us so much more than what we had before the effort started. That&#8217;s the win, the gold star, and the only reward so many hard working people will get for their effort with this spec: the web is a better, richer place.</p>
+<p>So thank you hard working people, in the W3C and out. Thank you for not giving up, and seeing it to the end.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft size-full wp-image-5554" src="http://html5doctor.com/wp-content/uploads/2014/10/ar-e1413832623539.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/slightlylate"><cite>Alex Russell</cite></a>:</h3>
+</footer>
+<p>All systems that are going to improve must &#8220;breathe&#8221;; they must undergo periods of expansion and consolidation. HTML5 represents important consolidation for the web platform and I&#8217;m glad that the W3C is putting a bow on it and getting broad agreement about what it &#8220;is&#8221;.</p>
+<p>This isn&#8217;t to say we&#8217;re done; the reason I&#8217;ve worked on Web Components in the recent past is to help ensure that the next breath won&#8217;t need to be so deep or long. The driver of nearly all progress is iterative improvement. That HTML5&#8217;s parsing includes support for custom-element definitions helps ensure that we can democratize the evolution of our shared platform so that when we get around to it, HTML6 can be informed by a vibrant community of extensions that pave a path for new semantics without fighting the language in the interim.</p></blockquote>
+<blockquote><footer>
+<h3><a href="https://twitter.com/rogerjohansson"><img class="alignleft wp-image-5559 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/rj-e1413833339226.png" alt="" width="80" height="80" /><cite>Roger Johansson</cite></a>:</h3>
+</footer>
+<p>Finally a stable HTML5 specification that authors can develop against, knowing it will not change from one day to the next. And a lot sooner than the 2022 date that was previously mentioned.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5560 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/operaFoto.jpg" alt="" width="67" height="100" /> <a href="https://twitter.com/chaals"><cite>Chaals</cite></a>:</h3>
+</footer>
+<p>There are some really good things in HTML5. The re-think of how the spec works, as a way to take more or less anything that claims to be HTML and produce a DOM is a big step forward. And of course it is aligned with reality, and browsers have worked much harder to align with it than they ever did with HTML4 or 3.2, which makes everyone a winner.</p>
+<p>There are things that are not that great. Writing a huge pile of algorithms makes the document very hard to read, and it is *very* big, which in itself is a drawback. Similarly, there are some steps forward for accessibility, and the inclusion of SVG and MathML is a step forward accessibility that should bring other advantages, although there are some problems in the real world that make this less valuable than one could hope.</p>
+<p>But the disadvantages are minor compared with the advantage of having a modern spec that is pretty close to what browsers, web pages, and other tools actually work with. It&#8217;s high time to publish what is there, although it is important to keep working &#8211; the web is a living platform, and while different bits move at very different speeds we have been a bit slow in offering a stable target since XHTML 1.0 was published as the last significant revision of HTML.</p></blockquote>
+<blockquote class="twitter-tweet" lang="en" data-conversation="none"><p><a href="https://twitter.com/briankardell">@briankardell</a> <a href="https://twitter.com/stevefaulkner">@stevefaulkner</a> ASK BRIAN&#8217;S MOM</p>
+<p>— Sylvain Galineau (@sgalineau) <a href="https://twitter.com/sgalineau/status/524219650146439169">October 20, 2014</a></p></blockquote>
+<blockquote class="twitter-tweet" lang="en" data-conversation="none"><p><a href="https://twitter.com/stevefaulkner">@stevefaulkner</a> I&#8217;m assuming this is <a href="https://twitter.com/sgalineau">@sgalineau</a>&#8216;s quote for HTML5 transitioning to REC :-p &#8220;ASK BRIAN&#8217;S MOM&#8221;. I did, she said &#8220;YAY!&#8221;.</p>
+<p>— вкαя∂εℓℓ (@briankardell) <a href="https://twitter.com/briankardell/status/524232001474138113">October 20, 2014</a></p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5562 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/hp-e1413872670988.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/heydonworks"><cite>Heydon Pickering</cite></a>:</h3>
+</footer>
+<p>I&#8217;ve been experimenting with Meteor, recently; a javascript application framework. It returned a curious error just yesterday, when I started the application after editing the master HTML file: &#8216;Can&#8217;t set DOCTYPE here. (Meteor sets for you)&#8217;. Five, maybe four years ago this would have been considered highly dictatorial &#8211; irresponsible even.</p>
+<p>The fact is, HTML5 is now the de facto language of the web. We know that already, so arguably a &#8216;recommendation&#8217; from on high feels somewhat irrelevant. I see it like this: Together we &#8211; the implementers and authors &#8211; have embraced and advanced HTML5. We are the tide and the recommendation is the high water mark. It&#8217;s nice to see how far we&#8217;ve come.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5568 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/spf-e1413876626128.jpeg" alt="" width="80" height="90" /> <cite><a href="https://twitter.com/silviapfeiffer">Silvia Pfeiffer</a></cite>:</h3>
+</footer>
+<p>Developing standards is not unlike developing software: you can&#8217;t just continue to develop new features &#8211; you have to stop from time to time, assess the features that you have, remove those that aren&#8217;t working, fix those that have bugs, and release a new version. HTML is such a beast and while it is important to continue its development, it&#8217;s also good to have a fixed feature set that people can reference and rely on. So: congratulations to the W3C for getting HTML5 to Recommendation status.</p>
+<p>But what does it mean? HTML5 is the basis for a new stable and fully interoperable Web. It lists a feature set that Web developers should be able to rely on in all browsers. Thus, HTML5 is a Recommendation to browser developers to make that interoperability uniform. Find those features that your browser isn&#8217;t supporting yet in the list of HTML5 features and implement them (well, yeah: by also looking at the version of that feature in the WHATWG spec, where bugs are fixed and features continue to evolve).</p>
+<p>This means, to everyone else: HTML5 is a Recommendation to develop more benchmarks that test the interoperability of the features. There are places like <a href="http://html5test.com/" target="_blank">http://html5test.com/</a> , <a href="http://caniuse.com/" target="_blank">http://caniuse.com/</a> , or the <a href="http://w3c.github.io/test-results/html/details.html">W3C&#8217;s own test </a><a href="http://w3c.github.io/test-results/html/details.html">suite</a>, already, but HTML5 is big, so find your favorite features and help make the Recommendation become a real standard.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5571 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/tink-twitter-avatar-e1413880745573.png" alt="" width="80" height="80" /> <a href="https://twitter.com/LeonieWatson"><cite>Léonie Watson</cite></a>:</h3>
+</footer>
+<p>It&#8217;s marvellous that HTML5 has reached this point of maturity, and that accessibility has truly emerged as a core design principle. The inclusion of ARIA puts critical semantic information right where developers need it &#8211; at the heart of the HTML specification. Coupled with features that were introduced in HTML5 (like native controls and new structural elements), we&#8217;re now in a position to design and build innovative interfaces that are usable by everyone.</p>
+<p>This milestone is a time to look to the future as much as to past accomplishments though. As HTML development continues, we need to achieve and maintain a faster and more flexible way of working, without sacrificing the inherent stability and resilience of this open W3C standard.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5574 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/7490-karl-e1413884520772.jpg" alt="" width="80" height="80" /> <a href="https://twitter.com/karlpro"><cite>Karl Dubost</cite></a>:</h3>
+</footer>
+<p>People hardly remember in what limbo state was (X)HTML in 2007. At the time, I was part of W3C staff. We were struggling and discussing about the best outcome for the future of HTML. WhatWG had started since 2004 to rewrite the lingua franca MarkUp language with a much more implementers oriented specification. Finally W3C rebooted the HTML WG on March 2007.</p>
+<p>To see HTML5 being finally released is a huge step for all people of good will participating into this effort. Imagine that. For the first time, we defined a precise algorithm for parsing HTML as it is written on the Web. It means less ambiguity. We got an enriched semantics for authors with a lot better support by browsers than in the past. It means better accessibility. And so many other things.</p>
+<p>There will be more struggles in the future. How do we, the Web community altogether, decide to evolve the Web? But, we now have a solid foundation where we can build upon and explore new areas. This is HTML5. Let&#8217;s celebrate.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5579 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/intertwingly-e1413887486476.png" alt="" width="80" height="80" /> <a href="https://twitter.com/samruby"><cite>Sam Ruby</cite></a>:</h3>
+</footer>
+<p>HTML 5.0 isn&#8217;t a destination, but rather a long-overdue step on a long journey.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5588 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/jz-e1413970005769.png" alt="" width="80" height="80" /> <a href="https://twitter.com/zeldman"><cite>Jeffrey Zeldman</cite></a>:</h3>
+</footer>
+<p>I have mixed feelings about the process, but I’m delighted that HTML5 will be “finished” in 2014. Sure beats 2022. As for the idea that there will be subsequent updates (HTML5.1, HTML5.2, etc.), well, of course there will be. Specifications make more sense to me than the idealistic but somewhat vague idea of HTML as a “living standard.” Living standards are nice, but it’s also nice to be able to say that Browser X fully supports HTML 5.0 (or HTML 5.1, and so on).</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5590 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/rs-e1413991825743.jpg" alt="" width="80" height="103" /> <a href="https://twitter.com/rschwer"><cite>Richard Schwerdtfeger</cite></a>:</h3>
+</footer>
+<p>Prior to HTML5, HTML did little to ensure consistent implementation across browsers and accessibility features were added late in the cycle without a comprehensive look at accessibility and how accessibility could be added in a way that made it easier for the developer to produce custom accessible applications. The release of HTML5 to recommendation status by the W3C specifies how HTML must be implemented across browsers to ensure consistency.</p>
+<p>HTML5 is also the first host language to give authors a comprehensive set of tools to produce accessible custom rich internet applications, through its integration of WAI-ARIA, and accessible rich media to support the blind and visually impaired. These changes leverage the browser to produce cross-platform accessible applications at a dramatically reduced cost over native platforms as the cost of mapping the accessibility information to platform accessibility API services layers is pushed off to the user agent.</p>
+<p>In short, HTML5 has established the core plumbing needed for accessibility and browser consistency and the work here can now be carried over and built upon for electronic books, Scalable Vector Graphics, and CSS &#8211; the bar has been raised. With the core plumbing in place the greater areas of innovation will now be in accessible graphics, device independent interaction, enhance web application functionality, CSS driven content and navigation, and context aware application infrastructure development.</p></blockquote>
+<blockquote><footer>
+<h3><a href="https://twitter.com/wendyabc"><img class="alignleft wp-image-5645 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/wc-e1414340809300.jpeg" alt="" width="80" height="80" /><cite>Wendy Chisholm</cite></a>:</h3>
+</footer>
+<p><strong>Finally! w00t!</strong></p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5592 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/jk-e1413992309448.png" alt="" width="80" height="80" /> <a href="https://twitter.com/adactio"><cite>Jeremy Keith</cite></a>:</h3>
+</footer>
+<p>On the one hand, it doesn&#8217;t really matter whether HTML5 is W3C recommendation or not. After all, what really matters to developers is what they can use in browsers today. So, from that perspective, the way the WHATWG views HTML as a &#8220;Living Standard&#8221; makes a lot of sense.</p>
+<p>On the other hand, it&#8217;s awfully nice to have some stability in the ever-changing world of web standards and browsers. That&#8217;s where the W3C provides balance. They are the yin to the WHATWG&#8217;s yang.</p>
+<p>HTML5 reaching recommendation status provides a welcome punctuation in the ongoing story of the most important format ever created.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5595 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/BY_Patrick-e1413993625612.jpg" alt="" width="80" height="120" /> <a href="https://twitter.com/brucel"><cite>Bruce Lawson</cite></a>:</h3>
+</footer>
+<p>Gosh! It&#8217;s not 2022, yet we&#8217;re getting HTML5 early! Of course, many web developers know that much of &#8220;HTML5&#8221; has been ready for a long time in browsers, but it&#8217;s important that IT Directors, compliance people and clients know that this is a *stable* standard that reflects what&#8217;s in browsers now. With an incredibly active community of developers, browser vendors and spec authors, this is a milestone but emphatically *not* the destination. Onwards, and vive le web!</p></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/html5_yoda">@html5_yoda</a> Don&#8217;t speak too soon. I&#8217;m still here. <a href="https://twitter.com/stevefaulkner">@stevefaulkner</a> <a href="https://twitter.com/html5doctor">@html5doctor</a></p>
+<p>— Vader (@html5_vader) <a href="https://twitter.com/html5_vader/status/525545820322824192">October 24, 2014</a></p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5598 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/bk-e1414047819257.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/briankardell"><cite>Brian Kardell</cite></a>:</h3>
+<p>&nbsp;<br />
+</footer>
+<p>Many people do not realize that agreement and adoption happens on a continuum: Early adopters pay a price to do it. As things settle down, waves of increasingly less knowledgeable or risk-averse adopters join in, and all the while we are honing the proposal, and implementations. Given this, for many of us, promotion of HTML 5 to REC will seem like a non-event &#8211; a kind of statement of the obvious. At some level, it is: A recommendation, at its best, is a statement of agreement about already at that point *is* standard, not what should be. The value in REC is setting of a goal more than the eventual arrival. It&#8217;s true that there is a long tail of developers who are unwilling (or even unable) adopt until something reaches this level of maturity officially, and for them, this move will be a very big deal indeed. For the rest of us, I&#8217;d suggest that this is the time to appreciate the many hurdles crossed and the long struggles to arrive to this point &#8211; step back, assess and examine the things that made it much harder and more frustrating than it should have been at times and the ways that we can improve it all dramatically by changing the model, involving developers, building up and letting us #extendthewebforward.
+</p></blockquote>
+<p>  </p>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5625 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/dg-e1414061029531.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/glazou"><cite>Daniel Glazman</cite></a>:</h3>
+<p>&nbsp;<br />
+</footer>
+<p>I am very pleased to see the World Wide Web Consortium release a new version of html in a specification that is not going to change overnight. Even if a frozen state implies imperfections, I don&#8217;t see that as a problem if errata are correctly and timely dealt with. That&#8217;s the mistake the W3C made years ago not maintaining HTML4 and I think they got the message. A frozen html5 was needed by some industries out there that just cannot cope with living standards. Some of our partners in Standardization, like IDPF or ISO, also need to refer to a given version of our specifications. The world of our users is very different from the world of our implementers and we neglected some of them. The W3C has implemented considerable changes to its process to achieve that html5 release. Some came easily, some were heavily discussed and triggered a lot of noise. After a start based on a rather heavy process, the HTML WG came back to more pragmatism. I see that as a mark of maturity. I now look forward to the modularization of html, the specification looking too heavy to me to remain as is in the future.
+</p></blockquote>
+<p>  </p>
+<blockquote class="twitter-tweet" lang="en"><p>HTML5! HTML5! HTML5! — Chewbacca (@HTML5_Chewbacca) <a href="https://twitter.com/HTML5_Chewbacca/status/525254558197366784">October 23, 2014</a></p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5630 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/robin-e1414075762403.jpg" alt="" width="107" height="80" /> <a href="https://twitter.com/robinberjon"><cite>Robin Berjon</cite></a>:</h3>
+</footer>
+<p>The relatively popular opposition between living standards and snapshots is a false dichotomy. More importantly, we don&#8217;t need to choose: as a community we have vast amounts of experience with a processes that marry continuous updates, testing, and periodic releases as that is a common and proven way of producing software.</p>
+<p>Standards are similar to software in more ways than one, yet we have long been remiss in applying our knowledge of the latter to the former. This needs to change.</p>
+<p>HTML5 exhibits many of the travails of large software projects. Is it perfect? No. Is it complete? Not in the least. But we&#8217;re now in a good place to move on to a new phase in which we push open standards towards a saner, happier open source-like model. I for one welcome this bright future.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5632 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/em-e1414142237638.png" alt="" width="80" height="80" /> <a href="https://twitter.com/meyerweb"><cite>Eric A. Meyer</cite></a>:</h3>
+</footer>
+<p>Milestones are an important part of any journey, and this is a significant milestone. I&#8217;m glad to see us reach this one, and I&#8217;m looking forward to seeing what comes as we approach the next.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5637 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/id-e1414174807352.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/iandevlin"><cite>Ian Devlin</cite></a>:</h3>
+</footer>
+<p>It will be great to finally have a version of HTML that can be used as a standard to work from. Although some of us are lucky enough to work in an environment where we can happily use experimental and non-standard HTML features, there are others for whom standards are very important &#8211; perhaps even mandatory &#8211; and having one for HTML allows them to move up a step to something stable. This can only be a good thing.</p>
+<p>In the beginning it was said that HTML5 would not be &#8220;ready&#8221; until 2022, but here we are at the end of 2014 and we&#8217;re nearly there. A lot of hard work by a lot of different people &#8211; in the W3C, WHATWG, and outside &#8211; has gone into getting the specification this far, and long may it continue to evolve.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5639 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/mc-e1414291246836.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/marcosc"><cite>Marcos Caceres</cite></a>:</h3>
+</footer>
+<p>HTML5 going to Rec is a significant milestone and something of significant value for society. It will be the first time we have an actual (royalty) free and open standard that describes how core parts of the Web Platform *actually work*. Despite the success of the Web, previous attempts to standardize HTML were not very successful, forcing browser vendors to reverse engineer each others browsers. This led to many years of stagnation in the platforms.</p>
+<p>With HTML, we actually have a more realistic understanding of how the platform works. And with the IPR assurance that comes from HTML5 going to Rec, it means that everyone will be free to implement what is in the HTML5 specification without fear of legal repercussion from other W3C members who were part of the HTML WG. We are talking about big big big companies with large patent portfolios potentially worth millions, which they are essentially giving to the commons. Thanks, Apple, Google, Microsoft, IBM, etc.! you is good peoples.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5641 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/codepo8-e1414291567472.png" alt="" width="80" height="80" /> <a href="https://twitter.com/codepo8"><cite>Christian Heilmann</cite></a>:</h3>
+</footer>
+<p>It is time for HTML5 to graduate. It seems to me that we&#8217;ve done a too good job hyping HTML5 whilst we created and implemented it in browsers and we moved fast and broke a lot of things. You&#8217;d be hard pushed to find &#8220;HTML5 solutions&#8221; out there using plain vanilla code and not rely on many abstractions, polyfills and libraries. Even worse, many tell you flat out to use a certain browser &#8211; a massive mistake we already made with IE6 in the past. In the enterprise world, none of these &#8220;fixes&#8221; are applicable without certification or auditing and even HTML5 wasn&#8217;t really an option until it is a recommendation.</p>
+<p>It will be an interesting talk to convince people to upgrade all the old systems that rely on bespoke browser technology of 1999 and move towards a multi-browser world. Having a recommendation sanctified by the W3C is a great stake in the ground to work from.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5649 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/hs.png" alt="" width="80" height="80" srcset="http://html5doctor.com/wp-content/uploads/2014/10/hs.png 80w, http://html5doctor.com/wp-content/uploads/2014/10/hs-32x32.png 32w, http://html5doctor.com/wp-content/uploads/2014/10/hs-64x64.png 64w" sizes="(max-width: 80px) 100vw, 80px" /> <a href="https://twitter.com/hsivonen"><cite>Henri Sivonen</cite></a>:</h3>
+</footer>
+<p>I think the <a href="http://www.w3.org/TR/2014/REC-html5-20141028/">W3C HTML5 Recommendation</a> is important in the sense that some very big companies have committed (or are about to commit) to exclude the important Web functionality described by the W3C HTML5 Recommendation (which is a modified snapshot of <a href="https://html.spec.whatwg.org/">WHATWG HTML</a>) from patent aggression. However, I think the W3C HTML5 Recommendation should not be oversold as being useful for purposes other than a reference point under the <a href="http://www.w3.org/Consortium/Patent-Policy/">W3C Patent Policy</a>. In particular, the “<a href="http://dev.w3.org/html5/decision-policy/html5-2014-plan.html">Plan 2014</a>” process arrangement that allowed HTML5 to proceed to Recommendation with relatively sparse test coverage means that it’s quite possible that there are areas of the specification that developers shouldn’t be relying on in case those areas of the specification turn out to be wrong due to inadequate test coverage.</p>
+<p>In general, it’s a bad idea for both browser developers and Web developers to read old specification snapshots. Browser developers should generally read Editor’s Drafts instead of Recommendation snapshots and test suites should also track the most recent spec edits instead of reflecting snapshots whose bugs may already have been fixed in more recent edits. For Web developers it often makes sense to refer to Web developer-targeted documentation such as <a href="https://developer.mozilla.org/en-US/">Mozilla Developer Network</a> or <a href="http://caniuse.com/">Can I Use</a> and, when those fail, also refer to Editor’s Drafts of the relevant specifications.</p>
+<p>The cost of getting to this snapshot has been very high, unfortunately. It’s very sad that the HTML WG ended up driving away many of the people who had contributed to the HTML5 effort at the WHATWG and had come over to the HTML WG when the new HTML WG was established in 2007 to bring the WHATWG’s work on HTML5 into the W3C. I hope the divergence between WHATWG HTML and W3C HTML won’t be permanent.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5652 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/JamesGraham-e1414388679432.jpg" alt="" width="80" height="80" /><a href="https://github.com/jgraham"><cite>James Graham</cite></a>:</h3>
+</footer>
+<p>One of the most pleasing aspects of the W3C&#8217;s work on HTML 5 has been the renewed commitment to testing, through initiatives such as <a href="http://testthewebforward.org/">Test the Web Forward</a> and the <a href="https://github.com/w3c/web-platform-tests#description">web-platform-tests</a> open source project. Implementation differences have long been a source of frustration for  web developers, and the creation of cross-browser testsuites for the web platform is the best way to eliminate them in the future.</p>
+<p>Just because HTML 5 has now reached Recommendation status, this testing work does not stop. Although HTML now has a more substantial testsuite than at any time in the past, we know that there are large areas that still have poor test coverage. Rectifying this is an ongoing project, and one where all web developers can make an invaluable contribution by submitting tests to web-platform-tests whenever they encounter incompatibilities between different browsers.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5663 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/ade2-e1414444136349.jpg" alt="" width="80" height="80" /> <a href="https://twitter.com/adrianba"><cite>Adrian Bateman</cite></a>:</h3>
+</footer>
+<p>HTML5 is an important step forward for browser interoperability. When HTML 4.01 was published back in 1999, it said “Since user agents may vary in how they handle error conditions, authors and users must not rely on specific error recovery behavior.” This meant that the behaviour of malformed HTML was undefined despite a huge percentage of pages being malformed (some deliberately for better performance in some browsers). Back them, few would have believed that it was possible to write down a common algorithm for parsing HTML and then get all the popular browser engines to adopt and implement it. But HTML5 did that. And it did so much more. The HTML5 Recommendation brought a level of preciseness to the core pieces of the web that we didn’t have before.</p>
+<p>Is HTML5 finished? Is it perfect? No, it’s a software project and it is a work in progress as is the whole web. The web keeps growing, keeps adding new capabilities, and keeps getting better. But shipping is a feature and the web community has spent the last couple of years stabilising and scoping the HTML5 specification. This is an important stabilisation milestone on the way to an even better future.</p></blockquote>
+<blockquote><footer>
+<h3><img class="alignleft wp-image-5684 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/avatar-e1414479345567.jpg" alt="" width="80" height="107" /> <a href="https://github.com/travisleithead"><cite>Travis Leithead</cite></a>:</h3>
+</footer>
+<p>The HTML5 parsing steps and I become acquainted long before I joined the editor team; I ran the spec algorithm on a particular input that was exploiting a defect in IE to confirm both that 1) if IE had only implemented the spec this wouldn’t be a problem and that 2) the HTML5 spec was going to take more than a mild investment to fully understand. Boy, was that an understatement.</p>
+<p>HTML5 changed a lot of things. It redefined the expectations of what degree of detail is necessary to achieve broad interop. It brought together and standardized diverse new capabilities like media and canvas. It demystified name lookup on the window. It even provided all those who had the pleasure of working with it a great deal of &lt;/sarcasm&gt;. Literally.</p>
+<p>Getting this spec to Rec is a major accomplishment for so many people. While HTML’s journey will surely continue on, it’s great to pause and appreciate this significant milestone. I’ve had a wonderful time getting to know the many amazing, talented, and persistent people behind the scenes making it all happen. Thanks and congratulations!</p></blockquote>
+<blockquote><footer>
+<h3 id="bolder"><img class="alignleft wp-image-5703 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/bolder-e1415637208498.jpeg" alt="" width="80" height="80" /> <a href="https://twitter.com/davidbolter"><cite>David Bolter</cite></a>:</h3>
+</footer>
+<p>To keep the web truly open we need to protect our multi-browser supported web. This is an epic milestone in the hard work for an interoperable web platform. To be continued!</p></blockquote>
+<h2>Afterwards</h2>
+<p><div id="attachment_5615" style="width: 510px" class="wp-caption alignnone"><img class="wp-image-5615 size-full" src="http://html5doctor.com/wp-content/uploads/2014/10/html-worldstandard3-e1414054323973.jpg" alt="" width="500" height="278" /><p class="wp-caption-text"><a href="https://plus.google.com/u/0/111991826926222544385/about">Mike[tm] Smith,</a> &#8211; W3C HTML Working Group Assistant Remedy Engineer, relaxing (off duty) in front of the <a href="http://plaza.rakuten.co.jp/htmlblog/">HTML World Standard</a> sign.</p></div></p>
+<p class="callout">Work continues apace on HTML at the <a href="http://www.w3.org/html/wg/drafts/html/master/">W3C</a> and <a href="https://html.spec.whatwg.org/multipage/">WHATWG</a> and any place where people are working on HTML and the <a href="http://en.wikipedia.org/wiki/Open_Web_Platform">Open Web Platform</a>.  <a href="http://www.w3.org/TR/2014/REC-html5-20141028/">HTML5 to REC</a> is a promise to the <a href="http://en.wikipedia.org/wiki/Open_Web_Platform">Open Web Platform</a>. Now <em>there is no excuse</em>, we can all <em>officially</em> say goodbye to HTML 4 and XHTML 1.1.</p>
+<blockquote><p>&#8230;and right now, RIGHT NOW, its time to KICK OUT THE JAMS MOTHERFUCKER!</p>
+<p>&#8211; <cite><a href="http://youtu.be/uo35O1AJOfg">MC5</a></cite></p></blockquote>
+<p><iframe src="//www.youtube.com/embed/uo35O1AJOfg?rel=0" width="480" height="360" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<p><a href="http://html5doctor.com/the-ride-to-5/" rel="bookmark">The ride to 5</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 28, 2014.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-ride-to-5/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>The main element</title>
+		<link>http://html5doctor.com/the-main-element/</link>
+		<comments>http://html5doctor.com/the-main-element/#comments</comments>
+		<pubDate>Wed, 26 Jun 2013 08:33:59 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[aria]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[main]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5081</guid>
+		<description><![CDATA[<p>Recently, main was formally added to the W3C HTML specification. Now that the dust has settled, it's about time we dive in to find out where and when it's appropriate to use main. Let's get started.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Recently, <code>&lt;main&gt;</code> was formally added to the W3C HTML specification. Now that the dust has settled, it&#8217;s about time we dive in to find out where and when it&#8217;s appropriate to use <code>&lt;main&gt;</code>. Let&#8217;s get started.</p>
+
+<h2>History</h2>
+
+<p>The inclusion of a main element (or similar) has long been debated in the working groups with authors and others often questioning why we had new elements such as <code>&lt;header&gt;</code>, <code>&lt;article&gt;</code>, and <code>&lt;footer&gt;</code> but no element to accurately describe the primary content of a page.</p>
+
+<p><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/">Steve Faulkner</a>, an accessibility consultant and new doctor in residence, undertook the hard graft of carrying out research, gathering data and use cases, and speaking to implementers to get them interested. As Steve explains, he talked to:</p>
+
+<blockquote>
+<p>as many implementers (both general browser implementers and accessibility implementers), developers, authors and users as I could and got advice and input from them. I went where the various people hung out; on IRC, mailing lists, twitter, blogs, conferences — anywhere.</p>
+<footer><cite><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/">Steve Faulkner</a></cite></footer>
+</blockquote>
+
+<p>This led to his writing an <a href="https://dvcs.w3.org/hg/html-extensions/raw-file/tip/maincontent/index.html">extension specification for <code>&lt;main&gt;</code></a> and a thorough <a href="http://www.w3.org/html/wg/wiki/User:Sfaulkne/main-usecases#Introduction">use case rationale</a>.</p>
+
+<p>The proposal <a href="http://lists.w3.org/Archives/Public/public-html/2012Nov/0232.html">was accepted in November 2012</a>, and <code>&lt;main&gt;</code> was then rolled into the HTML5.1 specification. Recently, it was added to the HTML5 specification following no objections. Lets have a look at how the spec describes <code>&lt;main&gt;</code>.</p>
+
+<h2>W3C Specification</h2>
+
+<p><aside class="sidenote">You should still use the ARIA role until all browsers map the role to the <code>&lt;main&gt;</code> element.</aside></p>
+
+<p>The primary purpose of <code>&lt;main&gt;</code> is to map <a href="http://www.w3.org/TR/wai-aria/roles#landmark_roles">ARIA&#8217;s landmark role <code>main</code></a> to an element in HTML. This will help screen readers and other assistive technologies understand where the main content begins. The W3C spec describes <code>&lt;main&gt;</code> as representing:</p>
+
+<blockquote>
+<p>The main content of the body of a document or application. The main content area consists of content that is directly related to or expands upon the central topic of a document or central functionality of an application.</p>
+
+<footer><cite><a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-main-element">W3C HTML Editors Draft</a></cite></footer>
+</blockquote>
+
+<p>Since the <code>&lt;main&gt;</code> element is now included in the HTML specification, the <code>&lt;body&gt;</code> element has reverted to its HTML4 definition:</p>
+
+<blockquote>
+<p>The body element represents the content of the document.</p>
+
+<footer><cite><a href="http://www.w3.org/html/wg/drafts/html/master/sections.html#the-body-element">W3C HTML Editors Draft</a></cite></footer>
+</blockquote>
+
+<h3>More Details</h3>
+
+<p>One important facet of <code>&lt;main&gt;</code> is that it can only be used once per page. <a href="http://lists.w3.org/Archives/Public/public-html/2013Jan/0230.html">Jeremy Keith wrote to the working group</a> to understand why this is the case (rather than allowing multiple <code>&lt;main&gt;</code>s). Although I won&#8217;t go into detail, the discussion is an interesting read.</p>
+
+<p>As per the spec, the <a href="http://validator.w3.org/nu/">W3C validator</a> throws an error if you attempt to use multiple <code>&lt;main&gt;</code> elements per document.</p>
+
+<p>Another stipulation of <code>&lt;main&gt;</code> is that it can&#8217;t be used as a descendant of an <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;header&gt;</code>, or <code>&lt;nav&gt;</code> element.</p>
+
+<p>Because <code>&lt;main&gt;</code> isn&#8217;t <a href="http://www.w3.org/html/wg/drafts/html/master/dom.html#sectioning-content-0">sectioning content</a>, it doesn&#8217;t affect the document outline in the same way <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, or <code>&lt;section&gt;</code> do.</p>
+
+<h2>Getting Going</h2>
+
+<p>Just as with the introduction of many other new HTML5 elements, not all browsers recognise <code>&lt;main&gt;</code> or have preset styles for it. You&#8217;ll need to ensure it displays as a block level element in your CSS:</p>
+
+<p><code><pre>main {display:block;}</code></pre></p>
+
+<p>For the time being, you'll also need to use JavaScript to create the element for older versions of IE:</p>
+
+<p><code><pre>&lt;script&gt;document.createElement('main');&lt;/script&gt;</code></pre></p>
+
+<p>Of course, if you use the <a href="https://github.com/aFarkas/html5shiv">html5shiv</a>, <code>&lt;main&gt;</code> is now baked in directly.</p>
+
+<h2>Implementing <code>&lt;main&gt;</code> on HTML5 Doctor</h2>
+
+<p>The easiest way to implement <code>&lt;main&gt;</code> is to replace that <code>&lt;div&gt;</code> that you've likely got with an <code>id</code> or <code>class</code> of something like <code>main</code> or <code>content</code>.</p>
+
+<p>So what does that look like in practice? Well, here's our pre-<code>&lt;main&gt;</code> markup on HTML5 Doctor:</p>
+
+<pre><code>&lt;body&gt;
+&lt;header role="banner"&gt;
+[...]
+&lt;/header&gt;
+
+&lt;div id="content" class="group" role="main"&gt;
+[...]
+&lt;/div&gt;
+
+&lt;footer role="contentinfo"&gt;
+    [...]
+&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+<p>And here's what it's like now:</p>
+
+<p><aside class="sidenote">We'll get around to removing the <code>id="content"</code> at some point too.</aside></p>
+
+<pre><code>&lt;body&gt;
+&lt;header role="banner"&gt;
+[...]
+&lt;/header&gt;
+
+&lt;main id="content" class="group" role="main"&gt;
+[...]
+&lt;/main&gt;
+
+&lt;footer role="contentinfo"&gt;
+    [...]
+&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+<p>Yes, it's really that simple. With any luck, it'll take you less than five minutes to implement.</p>
+
+<h2>The WHATWG Version</h2>
+
+<p>The WHATWG definition of <code>&lt;main&gt;</code> differs from the W3C version in that the element has no meaning. It's merely a styling hook (like a <code>&lt;div&gt;</code> with a new name) and represents its children.</p>
+
+<blockquote>
+<p>The main element can be used as a container for the dominant contents of another element. It represents its children.</p>
+
+<footer><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-main-element">WHATWG HTML</a></cite></footer>
+</blockquote>
+
+<p>We recommend using the W3C version of <code>&lt;main&gt;</code> as described above.</p>
+
+<h2>Browser Support</h2>
+
+<p><a href="http://www.mozilla.org/en-US/firefox/21.0/releasenotes/">Firefox 21</a>, Chrome 26, and a <a href="http://nightly.webkit.org/builds/trunk/mac/14">WebKit r140374</a> have all implemented basic support for <code>&lt;main&gt;</code>.</p>
+
+<p>They have all mapped the ARIA <code>role="main"</code> to the <code>&lt;main&gt;</code> element so assistive technologies can now recognise the <code>&lt;main&gt;</code> element without issue.</p>
+
+<h2>Summary</h2>
+
+<p>As you've seen, it's super easy to get up and running with <code>&lt;main&gt;</code>. It only takes a few minutes, so now really is the time to start adding it to the sites you're developing.</p>
+
+<p>If you aren't sure when or where to use <code>&lt;main&gt;</code>, be sure to ask us in the comments and one of us will try to help you out.</p>
+
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="http://www.sitepoint.com/html5-main-element/">Sitepoint — HTML5 Main Element</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/HTML/Element/main">MDN — main</a></li>
+<li><a href="http://www.iandevlin.com/blog/2013/01/html5/the-main-element">Ian Devlin — The main element</a></li>
+<li><a href="http://www.brucelawson.co.uk/2013/the-main-element/">Bruce Lawson — Using the main element</a></li>
+<li><a href="http://filamentgroup.com/lab/the_main_element/">Filament Group — The main element</a></li>
+<li><a href="http://www.w3.org/html/wg/wiki/User:Sfaulkne/main-usecases#Introduction">W3C — main element use cases</a></li>
+<li><a href="http://www.webmonkey.com/2013/02/main-element-lands-a-starring-role-in-html/">Web Monkey — The main element lands a starring role in html</a></li>
+<li><a href="http://www.webmonkey.com/2012/12/proposed-main-element-would-help-html-get-to-the-point/">Web Monkey — The main element would help HTML get to the point</a></li>
+</ul>
+<p><a href="http://html5doctor.com/the-main-element/" rel="bookmark">The main element</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 26, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-main-element/feed/</wfw:commentRss>
+		<slash:comments>106</slash:comments>
+		</item>
+		<item>
+		<title>Review: Pro HTML5 Accessibility by Joshue O Connor</title>
+		<link>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/</link>
+		<comments>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/#comments</comments>
+		<pubDate>Tue, 11 Dec 2012 10:00:48 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Reviews]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[oconnor]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4830</guid>
+		<description><![CDATA[TL;DR: this is a good book, let down by a bad tech editor and a publisher who has low production values. <div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.apress.com/9781430241942">Pro HTML5 Accessibility</a> is an exhaustive book. Author Joshue O Connor is senior accessibility consultant with National Council for the Blind of Ireland&#8217;s Centre for Inclusive Technology and a stalwart of many W3C working groups.</p>
+<p>Don&#8217;t be afraid of the title. The book doesn&#8217;t assume that you&#8217;re a professional accessibility expert &#8211; quite the opposite; the first 100 pages don&#8217;t really deal with HTML5 at all, but survey the landscape of disability, assitive technologies and W3C WAI-ARIA. The last chapters of the book usefully survey testing methodologies and tools which will be invaluable to the lone developer told &#8220;oh, and it must be accessible/ DDA-/508-compliant, too&#8221;.</p>
+<p>Joshue does an admirable job of explaining how to use HTML5/ARIA to make sites accessible, and gives a thorough overview of how current browsers communicate new widgets (date pickers, sliders, video controls etc) to assistive technology now, rather than in some glorious unspecified future. </p>
+<p>He writes engagingly, too: &#8220;Remember that the <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements are semantically neutral elements. They have no meaning, poor things, and are merely empty hooks—ciphers for you to do with what you will. They cheer up to no end when you give them meaning. Existential crisis averted!&#8221;</p>
+<p>I also appreciated Joshue&#8217;s pragmatism: &#8220;Good semantics are really important, but real-world accessibility is very nuanced—particularly for new content and element types. However, bear in mind that an unencoded ampersand (which will throw a validation error) never resulted in an inaccessible webpage.&#8221;</p>
+<p>However, I didn&#8217;t understand &#8220;Having some heading structure, rather than none, on a web document is far more important than merely ensuring the headings are ordered in the correct way.&#8221; Surely &#8220;merely ensuring the headings are ordered in the correct way&#8221; is exactly the same as &#8220;having some heading structure rather than none&#8221;?</p>
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2012/12/A9781430241942-3d_2.png" alt=""  width="277" height="350" class="aligncenter size-full wp-image-4845" srcset="http://html5doctor.com/wp-content/uploads/2012/12/A9781430241942-3d_2.png 277w, http://html5doctor.com/wp-content/uploads/2012/12/A9781430241942-3d_2-237x300.png 237w" sizes="(max-width: 277px) 100vw, 277px" /></p>
+<figcaption><a href="http://www.apress.com/9781430241942"><cite>Pro HTML5 Accessibility</cite> by Joshue O Connor</a></figcaption>
+</figure>
+<p>It&#8217;s also unclear to me why the author chose to markup buttons to control a video player as</p>
+<pre> 
+<code>&lt;div id="back" tabindex="0"&gt;
+&lt;img src="player/back_button.png" role="button" alt="Jump Back" /&gt;
+&lt;/div&gt;
+</code>
+</pre>
+<p>rather than simply use a <code>&lt;button&gt;</code> element which by default has a role of button and is focussable. But it doesn&#8217;t much matter; it gets the job done.</p>
+<p>There are some errors which the technical editor should have picked up. Chapter 3 says &#8220;JavaScript has some event handlers that can be activated only by using the mouse, such as onClick&#8221;, which <a href="http://websiteaccessibility.donaldevans.com/2011/06/30/when-does-onclick-work-with-the-keyboard-enter-key/">isn&#8217;t strictly true</a>. The same chapter also says &#8220;IE 9 doesn’t support the <code>&lt;video&gt;</code> element&#8221;, which is just wrong: it does. A cursory code-test would have shown that chapter 5&#8217;s example <code>&lt;img scr="myserver/usful_andgroovy_image.png"&gt;</code> won&#8217;t work, as there is no <code>scr</code> attribute (it&#8217;s obviously a typo for <code>src</code>).</p>
+<p>The most significant failing of the book isn&#8217;t the author&#8217;s fault: it&#8217;s  the lack of love for presentation that I&#8217;ve found endemic in all Apress books lately. For example, the tables in chapter 5 could easily have been formatted for a more attractive presentation, but they look exactly as a basic Word document. Similarly, the multi-page bulleted lists could easily have been a single, multi-column page.</p>
+<p>It looks as if Apress just doesn&#8217;t care about quality, which is incomprehensible from a publisher. In a publishing environment where ebooks have advantages such as portability, searchability, updateability in case of errors,  dead-tree publishers need to work hard to ensure their products remain competitive. They need to play to the traditional strengths of print: beautiful layouts, colours, good design and high-quality paper. We see these in books from Five Simple Steps, Smashing Magazine and A Book Apart. I&#8217;ve only seen a PDF of this book, but a previous physical Apress book I own has a paper quality redolent of 1970s East German toilet paper. Certainly Apress has expended no effort at all to lay out the pages for a pleasant read.</p>
+<p>That rant aside, the content of this book will be invaluable to a developer new to the world of accessibility, trying to use  modern web standards. </p>
+<p><a href="http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/" rel="bookmark">Review: Pro HTML5 Accessibility by Joshue O Connor</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on December 11, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/review-pro-html5-accessibility-by-joshue-o-connor/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>Video Subtitling and WebVTT</title>
+		<link>http://html5doctor.com/video-subtitling-and-webvtt/</link>
+		<comments>http://html5doctor.com/video-subtitling-and-webvtt/#comments</comments>
+		<pubDate>Tue, 29 Nov 2011 15:33:59 +0000</pubDate>
+		<dc:creator><![CDATA[Tom Leadbetter]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[subtitles]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webvtt]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4084</guid>
+		<description><![CDATA[<p>We’ve been able to play video in the browser without a plugin for a couple of years now, and whilst there are still some codec annoyances, things appear to have settled down on the video front. The next step is adding resources to the video to make it more accessible and provide more options to the viewer.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We’ve been able to play video in the browser without a plugin for a couple of years now, and whilst there are still some codec annoyances, things appear to have settled down on the video front. The next step is adding resources to the video to make it more accessible and provide more options to the viewer.</p>
+<p>We currently have no means to provide information about what’s happening or being said in the video, which means the video isn’t very accessible and the user can’t easily navigate to a particular section of the video. Thankfully, there’s a new format specification in the works called <a href="http://www.whatwg.org/specs/web-apps/current-work/webvtt.html">WebVTT (Web Video Text Tracks)</a>. As of now, it’s only in the WHATWG spec, but the recently established <a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a> should introduce a WebVTT spec to the W3C soon.</p>
+<p class="callout">You may recall a similar format called WebSRT (Web Subtitle Resource Tracks) that was recently under discussion. WebSRT was renamed to, and has been replaced by, WebVTT.</p>
+<p>A WebVTT (.vtt) file is simply plain text containing several types of information about the video:</p>
+<dl>
+<dt>Subtitles</dt>
+<dd>The transcription or translation of the dialogue.</dd>
+<dt>Captions</dt>
+<dd>Similar to subtitles, but may also include sound effects and other audio information.</dd>
+<dt>Descriptions</dt>
+<dd>Intended to be a separate text file that describes the video through a screenreader.</dd>
+<dt>Chapters</dt>
+<dd>Intended to help the user navigate through the video.</dd>
+<dt>Metadata</dt>
+<dd>Information and content about the video, which isn’t intended to be displayed to the viewer by default, though you may wish to do so using JavaScript.</dd>
+</dl>
+<p>This article will mostly be talking about <a href="#contents">subtitles and captions</a>, but it will briefly touch on <a href="#chapters">chapters</a> too.</p>
+<p class="callout">Beyond the scope of this article but worth mentioning is the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#text-track-api">text track API</a>, which, amongst other things, denotes how many text tracks there are and which ones have loaded and are ready for use. If you have used this API, <a href="http://html5doctor.com/ask-the-doctor/">let us know</a>.</p>
+<section id="how">
+<h2>How to Make and Link to a WebVTT file <a href="#how" class="permalink">#</a></h2>
+<p>All you need to make a WebVTT file is a simple text editor. Type <code>WEBVTT</code> as the first line of the file and save it as a .vtt file. In the future, we expect existing captioning tools such as <a href="http://www.universalsubtitles.org/">Universal Subtitles</a> to export to WebVTT format.</p>
+<figure>
+<pre><code>WEBVTT</code></pre>
+<figcaption>The simplest possible valid WebVTT file</figcaption>
+</figure>
+<p>That’s all you need to get started. Next, we have to link to the file in the HTML document. We do this via the <a href="http://html5doctor.com/video-the-track-element-and-webm-codec/"><code>&lt;track&gt;</code> element</a>, which is a child of the video element. The <code>&lt;track&gt;</code> element has several optional attributes:</p>
+<ul>
+<li>the source WebVTT file (<code>src</code>),</li>
+<li>the language of the track (<code>srclang</code>),</li>
+<li>a user-readable <code>label</code>, and</li>
+<li>what <code>kind</code> of track it is. The values of the <code>kind</code> attribute come from the list above (i.e., <code>subtitles</code>, <code>captions</code>, etc.).</li>
+</ul>
+<p>In the following example, we’re using a <code>&lt;track&gt;</code> element for subtitles:</p>
+<pre><code>&lt;video width=&quot;640&quot; height=&quot;480&quot; controls&gt;
+  &lt;source src=&quot;video.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+  &lt;source src=&quot;video.webm&quot; type=&quot;video/webm&quot; /&gt;
+  &lt;track src=&quot;subtitles.vtt&quot; kind=&quot;subtitles&quot; srclang=&quot;en&quot; label=&quot;English&quot; /&gt;
+  &lt;!-- fallback for rubbish browsers --&gt;
+&lt;/video&gt;</code></pre>
+<p>A few notes about the attributes:</p>
+<ul>
+<li>If no <code>kind</code> is specified, the default is <code>subtitles</code>.</li>
+<li>If the <code>kind</code> is <code>subtitles</code>, then <code>srclang</code> is required.</li>
+<li>There should not be two tracks of the same <code>kind</code> with the same <code>label</code>.</li>
+</ul>
+<p>In the above example, we use a <code>&lt;video&gt;</code> element with two different <code>&lt;src&gt;</code> elements (for cross-browser loveliness). After the sources comes the <code>&lt;track&gt;</code> element. You can have several <code>&lt;track&gt;</code> elements as you might have subtitles, captions, and descriptions all in different languages.</p>
+<p class="callout"><code>&lt;track&gt;</code> doesn’t presuppose a particular file format.  the <a href="http://www.w3.org/TR/ttaf1-dfxp/"><abbr title="Timed Text Markup Language">TTML</abbr></a> format, but this format will not be implemented by other browser vendors.</p>
+</section>
+<section id="contents">
+<h2>WebVTT Contents <a href="#contents" class="permalink">#</a></h2>
+<p>We now know how to make a WebVTT file and how to reference it in an HTML document, but what goes inside it? Within the file, we list what are known as “cues”. The WebVTT file might only have one cue, but it can contain as many as you want. Each cue starts with an ID, followed by the time settings, followed by the text. Each cue is separated by a blank line. Here’s an example of captions:</p>
+<figure>
+<pre><code>WEBVTT
+
+1
+00:00:01.000 --&gt; 00:00:10.000
+This is the first line of text, displaying from 1-10 seconds
+
+2
+00:00:15.000 --&gt; 00:00:20.000
+And the second line of text
+separated over two lines</code></pre>
+<figcaption>WebVTT example content</figcaption>
+</figure>
+<p>The above example has two cues. Times must be written in <code>hh:mm:ss.mmm</code> format, so the timings in this example occur in the first twenty seconds. The second cue will split the text over two lines automatically.</p>
+<p>If you have a segment of text that needs to appear in a karaoke/paint-on caption style, then you can place timers inline with text:</p>
+<figure>
+<pre><code>1
+00:00:01.000 --&gt; 00:00:10.000
+Never gonna give you up &lt;00:00:01.000&gt; Never gonna let you down &lt;00:00:05.000&gt; Never gonna run around and desert you</code></pre>
+<figcaption>Karaoke-style captioning</figcaption>
+</figure>
+</section>
+<section id="styling">
+<h2>Styling Options <a href="#styling" class="permalink">#</a></h2>
+<p>The previous examples specify the minimum configuration you need for subtitling and captioning, but you can style your captions too. Let’s start with the cue settings, which are done on the same line as the time settings:</p>
+<dl>
+<dt><code>D:vertical / D:vertical-lr</code></dt>
+<dd>Display the text vertically rather than horizontally. This also specifies whether the text grows to the left (<code>vertical</code>) or to the right (<code>vertical-lr</code>).</dd>
+<dt><code>L:X / L:X%</code></dt>
+<dd>Either a number or a percentage. If a percentage, then it is the position from the top of the frame. If a number, this represents what line number it will be.</dd>
+<dt><code>T:X%</code></dt>
+<dd>The position of the text horizontally on the video. <code>T:100%</code> would place the text on the right side of the video.</dd>
+<dt><code>A:start / A:middle / A:end</code></dt>
+<dd>The alignment of the text within its box – <code>start</code> is left-aligned, <code>middle</code> is centre-aligned, and <code>end</code> is right-aligned.</dd>
+<dt><code>S:X%</code></dt>
+<dd>The width of the text box as a percentage of the video width.</dd>
+</dl>
+<p>To make use of these settings, put them alongside the time settings, like this:</p>
+<pre><code>00:00:01.000 --&gt; 00:00:10.000 A:middle T:50%
+00:00:01.000 --&gt; 00:00:10.000 A:end D:vertical
+00:00:01.000 --&gt; 00:00:10.000 A:start T:100% L:0%</code></pre>
+<p>which would result in something like the following:</p>
+<figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2011/11/video-subtitles-demo1.png" alt="Examples of subtitle display" width="354" height="109" /></p>
+<figcaption>Examples of subtitle display and alignment</figcaption>
+</figure>
+<p>Along with the above cue settings, you can use inline styles for text:</p>
+<dl>
+<dt>Bold text</dt>
+<dd><code>&lt;b&gt;Lorem ipsum&lt;/b&gt;</code></dd>
+<dt>Italic text</dt>
+<dd><code>&lt;i&gt;dolor sit amet&lt;/i&gt;</code></dd>
+<dt>Underlined text</dt>
+<dd><code>&lt;u&gt;consectetuer adipiscing&lt;/u&gt;</code></dd>
+<dt>Ruby text</dt>
+<dd><code>&lt;ruby&gt;見&lt;rt&gt;み&lt;/rt&gt;&lt;/ruby&gt;</code></dd>
+</dl>
+<p>You can even apply a CSS class to a section of text using <code>&lt;c.myClass&gt;Lorem ipsum&lt;/c&gt;</code>, giving us many more styling options.</p>
+<p>Finally, you can add a declaration representing the name of the voice: <code>&lt;v Tom&gt;Hello world&lt;/v&gt;</code>. This declaration accomplishes three things:</p>
+<ol>
+<li>The caption will display the voice (Tom) in addition to the caption text.</li>
+<li>The name of the voice can be read by a screenreader, possibly event using a different voice for male or female names.</li>
+<li>It offers a hook for styling so that, for example, all captions for Tom could be in blue.</li>
+</ol>
+<section id="chapters">
+<h3>Chapters</h3>
+<p>You can provide a chapter list for the video the same way you would provide subtitles or captions. Start with the same <code>WEBVTT</code> declaration, and then for each cue, declare the chapter number, the start and stop times, and the chapter title:</p>
+<figure>
+<pre><code>&lt;track src=&quot;chapters.vtt&quot; kind=&quot;chapters&quot; srclang=&quot;en&quot; /&gt;</code></pre>
+<figcaption>HTML <code>&lt;track&gt;</code> element for providing chapters to a video</figcaption>
+</figure>
+<figure>
+<pre><code>WEBVTT
+
+Chapter 1
+00:00:01.000 --&gt; 00:00:10.000>
+Introduction to HTML5</code></pre>
+<figcaption>WebVTT file containing video chapter markers</figcaption>
+</figure>
+</section>
+</section>
+<section id="browsers">
+<h2>Browser Support <a href="#browsers" class="permalink">#</a></h2>
+<p>One slight glitch with WebVTT: not a single browser currently supports it. All major browsers have started working on implementations, so we should see some results soon. Thankfully, in the meantime, there are several JavaScript polyfills available:</p>
+<ul>
+<li><a href="http://www.storiesinflight.com/js_videosub/">js_videosub</a></li>
+<li><a href="http://www.delphiki.com/html5/playr/">Playr</a></li>
+<li><a href="http://mediaelementjs.com/">MediaElementJS</a></li>
+<li><a href="http://dev.mennerich.name/showroom/html5_video/">LeanBack player</a> (and upcoming <a href="http://leanbackplayer.com/test/webvtt.html">new version</a>)</li>
+<li><a href="https://github.com/cgiffard/Captionator">Captionator</a>&nbsp;</li>
+</ul>
+</section>
+<section id="demo">
+<h2>Demo <a href="#demo" class="permalink">#</a></h2>
+<p>We&#8217;ve put together a <a href="http://html5doctor.com/demos/webvtt/">quick demo</a> which uses the <a href="http://www.delphiki.com/html5/playr/">Playr</a> polyfill. We started using <a href="http://mediaelementjs.com/">MediaElementJS</a>, but it doesn’t sport as many features as <a href="http://www.delphiki.com/html5/playr/">Playr</a>, such as separate lines of text and CSS classes. In the <a href="http://html5doctor.com/demos/webvtt/">demo</a>, the subtitles start at 2 seconds and 15 seconds and use bold, underline, and custom styles. Here’s the <a href="http://html5doctor.com/demos/webvtt/subtitles.vtt">associated WebVTT file</a>.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion <a href="#conclusion" class="permalink">#</a></h2>
+<p>This article covers the basics of creating a WebVTT file suitable for subtitles or captions for a video. We know how to add cues and chapters and how to add styles and change how the text appears on the video. Although no browser yet supports it, there’s a lot more to come for accessible video, so stay tuned to the <a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a>.</p>
+<p>What are your thoughts on WebVTT? Are any of you using it now? How can it be improved?</p>
+<p>Finally, let’s thank <a href="http://twitter.com/#!/silviapfeiffer">@silviapfeiffer</a> for taking the time to answer some questions about WebVTT and for her tremendous work in this field.</p>
+</section>
+<section id="reading">
+<h2>Reading <a href="#reading" class="permalink">#</a></h2>
+<ul>
+<li>Follow <a href="http://twitter.com/#!/silviapfeiffer">@silviapfeiffer</a></li>
+<li><a href="http://www.w3.org/community/texttracks/">W3C Web Media Text Tracks Community Group</a></li>
+<li><a href="http://blog.gingertech.net/2011/06/27/recent-developments-around-webvtt/">Recent developments around WebVTT</a></li>
+<li><a href="http://html5videoguide.net/presentations/WebVTT/">Presentation: HTML5 video accessibility and the WebVTT file format</a></li>
+<li><a href="http://www.youtube.com/watch?v=gK72pcu3cpk">HTML5 video accessibility and the WebVTT file format &#8211; Audio Described</a></li>
+<li><a href="http://leanbackplayer.com/other/webvtt.html">A review with notes and thoughts for LeanBack Player</a></li>
+<li><a href="http://quuz.org/webvtt/">WebVTT validator</a></li>
+<li><a href="http://www.iandevlin.com/blog/2011/05/html5/webvtt-and-video-subtitles">WebVTT and Video Subtitles</a></li>
+<li><a href="http://www.openmediadevelopers.org/pmwiki.php/Main/OVC2011VidA11y">The Open Video Alliance</a></li>
+<li><a href="http://www.delphiki.com/webvtt/">Understanding WebVTT file format (draft)</a></li>
+<li><a href="http://scottbw.wordpress.com/2011/06/28/creating-subtitles-and-audio-descriptions-with-html5-video/">Creating subtitles and audio descriptions with HTML5 video</a></li>
+</ul>
+</section>
+<p><a href="http://html5doctor.com/video-subtitling-and-webvtt/" rel="bookmark">Video Subtitling and WebVTT</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 29, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/video-subtitling-and-webvtt/feed/</wfw:commentRss>
+		<slash:comments>21</slash:comments>
+		</item>
+		<item>
+		<title>Goodbye time, datetime, and pubdate. Hello data and value.</title>
+		<link>http://html5doctor.com/time-and-data-element/</link>
+		<comments>http://html5doctor.com/time-and-data-element/#comments</comments>
+		<pubDate>Wed, 02 Nov 2011 16:53:08 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4071</guid>
+		<description><![CDATA[<p>While HTML5 is stable and being implemented we’re still not past losing (or gaining) an element, as demonstrated by the removal of <code>&#60;time&#62;</code> and the addition of <code>&#60;data&#62;</code>. Rather than jumping into the ensuing brouhaha, we’ve spent some time figuring out what this really means. In short? Well… it’s complicated.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p class=disclaimer>Please note that since this was written, <code>&lt;time&gt;</code>, <code>datetime</code> and (possibly) <code>pubdate</code> have been reinstated, and made more powerful. Doctor Bruce has the low-down in his blogpost <a href="http://www.brucelawson.co.uk/2012/best-of-time/">The best of &lt;time&gt;s</a>. We preserve this merely to show our grandchildren that we played a role in the Time Wars.</p>
+<p>We’ve come a long way in the HTML5 specification’s steady march towards ratification and implementation. The WHATWG’s energy has recently been more on <em>post</em>-HTML5 features that are being added to “<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/" title="HTML Standard">HTML The Living Standard</a>”, plus tidying up HTML5 for Last Call. However we’re still not past losing (or gaining) an element, with last week seeing <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13240" title="Bug 13240 &ndash; Consider replacing &lt;time&gt; with &lt;data&gt;">the removal of <code>&lt;time&gt;</code> and the addition of <code>&lt;data&gt;</code></a>.</p>
+
+<div id="2011-11-13" class="callout changed-block">
+<p><em><time datetime="2011-11-13T23:36:24+09:00">2011-11-13</time>:</em> As per the <a href="http://lists.w3.org/Archives/Public/public-html/2011Nov/0098.html" title="HTML5 spec reverted to cvs r1.5431, svn r6782 [was: Revert request  for r6783] from Michael[tm] Smith on 2011-11-10 (public-html@w3.org from November 2011)">HTML Working Group Chairs request</a>, the <a href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-time-element" title="4.6 Text-level semantics &#8212; HTML5">W3 HTML5 Editor’s Draft spec</a> has been reverted to include <code>&lt;time&gt;</code>. Note this means it no longer includes <code>&lt;data&gt;</code>. The <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-data-element" title="4.6 Text-level semantics &#8212; HTML Standard">WHATWG HTML: Living Standard spec</a> is currently the opposite, still retaining <code>&lt;data&gt;</code> but with no <code>&lt;time&gt;</code>. According to <a href="http://blog.whatwg.org/weekly-tpac-2011" title="The WHATWG Blog  — WHATWG Weekly: TPAC 2011">Anne Van Kesteren’s post on the WHATWG Weblog</a>, <code>&lt;time&gt;</code> will return to the WHATWG spec taking into account <a href="http://wiki.whatwg.org/wiki/Time_element" title="Time element - WHATWG Wiki">new use cases on the WHATWG Wiki</a>.</p>
+<p>TL;DR — it looks like <code>&lt;time&gt;</code> will remain, probably with more permissive <code>datetime</code>s, and <code>&lt;data&gt;</code> will also remain, but it’ll take a little while before the dust settles.</p>
+</div>
+
+<p><code>&lt;time&gt;</code> was originally added to allow dates and times to be machine readable, via the <code>datetime</code> attribute. This gives us human-readable content (“yesterday”) plus hidden machine-readable content (“2011-11-02”) with no accessibility problems. It allows for e.g. browsers to offer to localise dates. The <code>pubdate</code> attribute indicating an article’s date of publication was added for HTML to Atom conversion (also removed from HTML5 in this change), and would make it easy for search engines to sort by date. Having <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#dates-and-times">permitted dates and times specified in HTML5</a> (a subset of ISO 8601) allows a validator to check a <code>datetime</code> value is valid.</p>
+
+<p><code>&lt;time&gt;</code> has been one of the easier elements to understand for authors, as it’s semantically obvious. By comparison the <a href="http://microformats.org/wiki/value-class-pattern">microformats Class-Value pattern</a> for datetimes is clunky.</p>
+
+<p>HTML5 <code>&lt;time&gt;</code> element:</p>
+<pre class="callout"><code>&lt;time class="dtstart" datetime="2011-10-05T09:00Z"&gt;9am on October 5&lt;/time&gt;</code></pre>
+
+<p>Microformats Value-Class pattern:</p>
+<pre class="callout"><code>&lt;span class="dtstart"&gt;&lt;abbr class="value" title="09:00"&gt;9am&lt;/abbr&gt; on &lt;abbr class="value" title="2011-10-05"&gt;October 5&lt;/abbr&gt;&lt;/span&gt;</code></pre>
+
+<p><code>&lt;time&gt;</code> has been pretty widely used for weblog article publication dates, and has made it into WordPress and Drupal <del title="Removing due to lack of evidence, as the example I found can also be explained by Google just munging text for patterns.">plus being used by Google for search results</del>.</p>
+
+<p><a href="http://wiki.whatwg.org/wiki/Time">The issues raised about <code>&lt;time&gt;</code></a> by authors were mainly that it didn’t do <em>everything</em>: it didn’t cover ancient and vague times, time durations, and there was no “last updated” attribute equivalent to <code>pubdate</code>. The other problem is there are a bunch of other less common but similar kinds of data that would also benefit from being machine readable and validatable, such as weights and prices. Minting a new element for each one would (arguably) be a lot of work, so Ian Hickson has added a generic element for these use cases instead — the <code>&lt;data&gt;</code> element, with a required <code>value</code> attribute.</p>
+
+<blockquote>
+<p>The data element represents its contents, along with a machine-readable form of those contents in the value attribute.</p>
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-data-element" title="4.6 Text-level semantics &#8212; HTML Standard">WHATWG HTML Living Standard specification</a></cite> </footer>
+</blockquote>
+
+<p>The <code>value</code> attribute contains the machine-readable equivalent of the element’s content. The <code>&lt;data&gt;</code> element can be used as-is as an element equivalent of <code>data-*</code> for marking up private data for scripts (although without the dataset <abbr>API</abbr>). It can also be used in conjunction with <a href="http://html5doctor.com/microdata/" title="Extending HTML5 — Microdata | HTML5 Doctor">microdata vocabularies</a> (and potentially <a href="http://html5doctor.com/microformats/" title="Extending HTML5 — Microformats | HTML5 Doctor">microformats</a>), in which case the format of the <code>value</code> attribute is specified by the vocabulary.</p>
+
+<p>This is a welcome addition as it gives us an easy way to duplicate microformats’ Value-Class pattern for more than just the datetimes <code>&lt;time&gt;</code> allowed. However as part of introducing <code>&lt;data&gt;</code>, <a href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13240"><code>&lt;time&gt;</code> together with <code>datetime</code> and <code>pubdate</code> have been dropped</a>.</p>
+
+<p>This is controversial, with :</p>
+
+<blockquote>
+<p>I think this is a bad decision</p>
+</blockquote>
+
+<p><a href="http://lists.w3.org/Archives/Public/public-html/2011Oct/0163.html">Steve Faulkner has requested this change be reverted</a>, and <a href="https://twitter.com/#!/search/occupyhtml5">comments on the Twitters</a> and blogs (<a href="http://www.brucelawson.co.uk/2011/goodbye-html5-time-hello-data/#comments">Bruce</a>, <a href="http://www.webmonkey.com/2011/10/html5-drops-the-time-element/#comments">WebMonkey</a>, <a href="http://www.zeldman.com/2011/10/31/goodbye-html5-element/#comments">Zeldman</a>) have been mostly ranging from shock to outrage.</p>
+
+<p>This is because while <code>&lt;time&gt;</code> is semantically obvious, <code>&lt;data&gt;</code> is seen as an equivalent to <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code>. However, “semantics for the sake of it” isn’t enough to justify being in the spec, despite the benefits. Another reason for the dismay is many people have had trouble pushing to use HTML5, and having an element removed gives fuel to anyone arguing HTML5 isn’t suitable for production.</p>
+
+<section id="problems">
+<h2>What’s wrong with this picture <a class="permalink" href="#problems">#</a></h2>
+
+<p>In <a href="http://meiert.com/en/blog/20111026/on-semantics-in-html/">On Semantics in HTML</a>, <a href="https://twitter.com/j9t">Jens Meiert</a> lists five types of semantics in HTML markup, ordered from most to least meaningful:</p>
+
+<ul>
+<li>Standards bodies: elements, attributes</li>
+<li>Communities: microdata and microformats vocabularies, <abbr title="plain old semantic HTML">POSH</abbr> formats</li>
+<li>Common sense: functional ID and class names</li>
+<li>Generic names</li>
+<li>Obfuscated, random, or presentational names</li>
+</ul>
+
+<p>Demoting datetimes from spec-specified to vocabulary-specified has several effects. For one, it’s more complex. Compare these two examples using <code>&lt;time&gt;</code> and <code>&lt;data&gt;</code> respectively:</p>
+
+<p>Using <code>&lt;time&gt;</code>:</p>
+<pre class="callout"><code>&lt;article&gt;
+ …
+ &lt;footer&gt;Published <mark>&lt;time pubdate datetime="2011-11-03"&gt;</mark>today<mark>&lt;/time&gt;</mark>.&lt;/footer&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p>Using <code>&lt;data&gt;</code> plus the <a href="http://schema.org/BlogPosting" title="BlogPosting  - schema.org">BlogPosting schema.org microdata vocabulary</a>:</p>
+<pre class="callout"><code>&lt;article <mark>itemscope itemtype="http://schema.org/BlogPosting"</mark>&gt;
+ …
+ &lt;footer&gt;Published <mark>&lt;data itemprop="datePublished" value="2011-11-03"&gt;</mark>today<mark>&lt;/data&gt;</mark>.&lt;/footer&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p>While Google would no doubt love everyone to start using schema.org vocabularies, it’s a big increase in complexity. Adding <code>&lt;time datetime="…" pubdate&gt;</code> is fairly straightforward — learning and implementing microdata plus an appropriate schema.org vocabulary … not so much. Because of this fewer people will implement machine-readable article published dates.</p>
+
+<p>To make matters worse, Google’s Rich Snippets Testing Tool (so presumably Google Search too) understandably <a href="http://www.google.com/webmasters/tools/richsnippets?url=http%3A%2F%2Foli.jp%2Ftest%2Fmicrodata%2Fblogposting.html&amp;view=" title="Webmaster Tools - Rich Snippets Testing Tool">does not yet know about <code>&lt;data&gt;</code></a>. This means if you use <code>&lt;data&gt;</code> to replace <code>&lt;time&gt;</code> now, Google will only see the <em>human</em>-readable text. <code>&lt;data itemprop="datePublished" value="2011-11-03"&gt;today&lt;/data&gt;</code> is interpreted as <code>datePublished = <mark>today</mark></code>, not <code>datePublished = 2011-11-03</code>.</p>
+
+<p>Also, now that specifying a datetime is not part of HTML5 we (presumably) can no longer validate datetime values using the HTML5 validator. Instead our only option is currently doing the two-step with Google’s Rich Snippets Testing Tool. Ironically as <a href="http://schema.org/Date" title="Date  - schema.org">schema.org defined dates using ISO 8601</a>, the imprecise dates and durations requested for <code>&lt;time&gt;</code> are now valid for <code>datePublished</code>, even though <code>pubdate</code> is the one usage of <code>datetime</code> everyone agreed on.</p>
+
+<!-- /#problems --></section>
+
+<section id="swings-roundabouts">
+<h2>Pros &amp; Cons <a class="permalink" href="#swings-roundabouts">#</a></h2>
+
+<p>Ian Hickson and, it seems, browser makers in general are for this change, whereas authors are in general against it (ahem, <a href="http://www.w3.org/TR/html-design-principles/#priority-of-constituencies" title="HTML Design Principles">priority of constituencies</a>). A couple of options would be:</p>
+
+<ol>
+<li>Scrap <code>&lt;data&gt;</code> and allow the <code>value</code> attribute on any element</li>
+<li>Add a <code>type</code> attribute to <code>&lt;data&gt;</code> to make it more semantic</li>
+<li>Bring back <code>&lt;time&gt;</code></li>
+</ol>
+
+<p>Unfortunately there are pros and cons for each of these options:</p>
+
+<section id="value-everywhere">
+<h3>Allow <code>value</code> on any element <a class="permalink" href="#value-everywhere">#</a></h3>
+
+<p>This conflicts with microdata, where the values of some elements are their URLs rather than their content. For example, currently <code>&lt;img itemprop="photo" src="http://oli.jp/photo.jpg"&gt;</code> gives the microdata output of <code>photo = "http://oli.jp/photo.jpg"</code>. Adding <code>value</code> to the mix means there’d be two machine-readable values, so authors would need to know <a href="http://html5doctor.com/microdata/#itemprop-value" title="Extending HTML5 — Microdata | HTML5 Doctor">which elements couldn’t accept <code>value</code></a>.</p>
+
+<!-- /#value-everywhere --></section>
+
+<section id="type-attribute">
+<h3>Add a <code>type</code> attribute to <code>&lt;data&gt;</code> <a class="permalink" href="#type-attribute">#</a></h3>
+
+<p>This means the HTML5 specification has to specify each approved <code>type</code> value. While not as much work for implementers as a new element for each type of data, it’s still a bunch of work if the browsers actually do anything with that knowledge (like auto-converting <code>type="money"</code> into your currency). If <code>type</code> is required it also limits <code>&lt;data&gt;</code> to the types that are defined.</p>
+
+<!-- /#type-attribute --></section>
+
+<section id="more-time">
+<h3>Bring back <code>&lt;time&gt;</code> <a class="permalink" href="#more-time">#</a></h3>
+
+<p>The easiest way to make everyone happy is to keep <code>&lt;time&gt;</code> <em>in addition to</em> adding <code>&lt;data&gt;</code>. However the cons for this are we’d have two confusingly similar but not always interchangeable ways to mark up datetimes, potentially with different rules on what’s a valid datetime. For example, we’d need to mark up an article’s published date and updated date using different syntax. Special cases and exceptions make things harder to teach and learn.</p>
+
+<!-- /#more-time --></section>
+
+<!-- /#swings-roundabouts --></section>
+
+
+<section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+
+<p>While our private conversation between doctors about this has tended towards the <abbr>WTF</abbr> end of the spectrum, I’m personally up in the air about it. Despite the easy response (“bring back <code>&lt;time&gt;</code>!”), this is one of those thorny problems where there’s no simple right answer. <abbr>WHATWG</abbr> is performing a delicate balancing act: pragmatically adding only features that have a lot of value, and <a href="http://wiki.whatwg.org/wiki/FAQ#Is_there_a_process_for_removing_bad_ideas_from_a_specification.3F" title="FAQ - WHATWG Wiki">removing any that don’t make the grade</a>. In this case Hixie decided the cons of <code>&lt;time&gt;</code> (and of removing it from HTML5) outweighed the pros, and <code>&lt;data&gt;</code> is the result.</p>
+
+<p>The one thing that bothers me about Hixie’s argument is that while datetimes are similar to other types of data that <code>&lt;data&gt;</code> now lets us mark up, they’re orders of magnitude more common on the web. Regardless of how it’s marked up, almost all weblog posts have the published date, and the majority of sites have a copyright date in the footer. In these use cases <code>&lt;time&gt;</code> was perfect, and definitely covered the 80%.</p>
+
+<p>In my ideal world I’d like <code>&lt;time&gt;</code> to return, with the addition of a “<code>pubupdate</code>” attribute, and for all <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#dates-and-times" title="2.5 Common microsyntaxes &#8212; HTML Standard">dates and times that fall inside HTML5’s definition</a> to use <code>&lt;time&gt;</code>. For datetimes that <code>&lt;time&gt;</code> currently doesn’t cover, and for general use, we’d have <code>&lt;data&gt;</code>. Then again, I’m not sure I’d want to try teaching such intricacies to someone.</p>
+
+<p>What do you think about this? While you’re welcome to just jump on the hogpile, I’d be interested to hear people consider all the pros and cons, and try to come up with a better (or less problematic) solution.</p>
+
+<!-- /#conclusion --></section>
+
+<footer><small>(Thanks to <a href="https://twitter.com/estellevw">Estelle Weyl</a>, <a href="https://twitter.com/annevk">Anne van Kesteren</a> and <a href="https://twitter.com/foolip">Philip Jägenstedt</a> for their feedback.)</small></footer><p><a href="http://html5doctor.com/time-and-data-element/" rel="bookmark">Goodbye time, datetime, and pubdate. Hello data and value.</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 2, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/time-and-data-element/feed/</wfw:commentRss>
+		<slash:comments>60</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Simplequiz #4: figures, captions and alt text</title>
+		<link>http://html5doctor.com/html5-simplequiz-4-figures-captions-and-alt-text/</link>
+		<comments>http://html5doctor.com/html5-simplequiz-4-figures-captions-and-alt-text/#comments</comments>
+		<pubDate>Fri, 05 Nov 2010 14:15:49 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Simplequiz]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[WAI-ARIA]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2694</guid>
+		<description><![CDATA[Simplequiz #4 asks about alt text on images that are captioned using HTML5 figure and figcaption. Steve Faulkner moderates this week.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>A few years ago, <a href="http://www.simplebits.com/">Dan Cederholm</a> published a series of articles called <a href="http://simplebits.com/categories/simplequiz/">Simplequiz</a>. Dan posed some options for marking up a specified piece of content and invited readers to choose the one they felt was the best way to mark that up. The value was in the comments, where people defended their choices and debated the options (which means it is <em>the law</em> that you read the preceding comments before adding your own).</p>
+<p>With Dan&#8217;s blessing, we&#8217;re running an occasional series of <abbr>HTML</abbr>5 Simplequizzes.</p>
+<p><abbr>HTML</abbr>5 offers a way to associate a figure (which can be an image, a video, a graph, a table, a pull-quote) with a caption using the <a href="http://dev.w3.org/html5/spec/grouping-content.html#the-figure-element"><code>&lt;figure&gt;</code> element</a>. This is very common in print, but there has been no way to do this in <abbr>HTML</abbr>4, as there is no element that groups a figure and a caption (other than a semantically-empty <code>&lt;div&gt;</code>).</p>
+<p>Our question this week is about alternate text for images that are captioned. I&#8217;ve gotten this wrong before (in print, embarrassingly), as have two highly-clueful friends of mine. The man who set us right will be your moderator and quizmaster this week, <a href="http://twitter.com/stevefaulkner">Steve Faulkner</a> of <a href="http://www.paciellogroup.com/">The Paciello Group</a>, possibly the most respected accessibility agency out there.</p>
+<p>We have an image as a figure in a story simply about a dignitary opening a new branch of Mr Lidl&#8217;s marvelous emporium. The caption will be &#8220;Mayor of Casterbridge opens a new Lidl supermarket&#8221;.</p>
+<p><img src="http://www.html5doctor.com/wp-content/uploads/2010/11/figure.jpg" alt="Generic picture of man cutting ribbon"></p>
+<p>What&#8217;s the best markup for this? Show your working out.</p>
+<h2>A:</h2>
+<pre><code> &lt;figure&gt;
+ &lt;img src=blah.png 
+  alt=&quot;A portly gent cuts a ribbon. He is with five small children, and is watched by two middle-aged woman, a very tall smiling man, and a small crowd&quot;&gt;
+  &lt;figcaption&gt;
+  Mayor of Casterbridge opens a new Lidl supermarket.
+  &lt;/figcaption&gt;
+ &lt;/figure&gt;</code></pre>
+<h2>B:</h2>
+<pre><code>&lt;figure role=img aria-labelledby=lidl&gt;
+&lt;img src=blah.png alt=&quot;&quot;&gt;
+ &lt;figcaption id=lidl&gt;
+  Mayor of Casterbridge opens a new Lidl supermarket.
+ &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<h2>C:</h2>
+<pre><code>&lt;figure&gt;
+&lt;img src=blah.png&gt;
+ &lt;figcaption&gt;
+ Mayor of Casterbridge opens a new Lidl supermarket.
+ &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<h2>D:</h2>
+<pre><code>&lt;figure&gt;
+&lt;img src=blah.png alt=&quot;&quot;&gt;
+ &lt;figcaption&gt;
+ &lt;p&gt;Mayor of Casterbridge opens a new Lidl supermarket.&lt;/p&gt;
+ &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<h2>E:</h2>
+<pre><code>&lt;figure&gt;
+&lt;img src=blah.png alt=&quot;Mayor of Casterbridge opens a new Lidl supermarket.&quot;&gt;
+ &lt;figcaption&gt;
+  Mayor of Casterbridge opens a new Lidl supermarket.
+&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>Steve will wrap up the quiz next Thursday.</p>
+<p><a href="http://html5doctor.com/html5-simplequiz-4-figures-captions-and-alt-text/" rel="bookmark">HTML5 Simplequiz #4: figures, captions and alt text</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 5, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-simplequiz-4-figures-captions-and-alt-text/feed/</wfw:commentRss>
+		<slash:comments>63</slash:comments>
+		</item>
+		<item>
+		<title>Video: the track element and webM codec</title>
+		<link>http://html5doctor.com/video-the-track-element-and-webm-codec/</link>
+		<comments>http://html5doctor.com/video-the-track-element-and-webm-codec/#comments</comments>
+		<pubDate>Thu, 24 Jun 2010 13:45:42 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[codec]]></category>
+		<category><![CDATA[track]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webm]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2089</guid>
+		<description><![CDATA[There are a couple of interesting developments in the world of HTML5 multimedia that you'll be interested in&#8212;the webM video format, and a proposed solution to HTML5 multimedia accessibility.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>There are a couple of interesting developments in the world of <abbr>HTML</abbr>5 multimedia that you&#8217;ll be interested in. The first is the new <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#the-track-element"><code>&lt;track&gt;</code> element</a> (currently only in the WHAT-WG spec due to political stuff).</p>
+
+<p><code>&lt;track&gt;</code> is a child of a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element that links to a <b>timed track</b>, or time-based data. The kind of data is set via a <code>kind</code> attribute, which can take values of <code>subtitles</code>, <code>captions</code>, <code>descriptions</code>, <code>chapters</code> or <code>metadata</code>, depending on the type of information you&#8217;re adding to your media. These point to a source file containing timed text that the browser will expose via some kind of user interface, if the visitor requires additional data.</p>
+
+<p>This will allow for &#8220;write once, use everywhere&#8221; accessibility; anyone linking to that file with a <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element that includes the element can access your information.</p>
+
+<pre><code>&lt;track kind=captions src=blah.srt&gt;</code></pre>
+
+<p>The file format is a new format called <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#websrt">WebSRT</a>, which competes with about <a href="http://wiki.whatwg.org/wiki/Timed_track_formats">50 other timed formats</a>, including some W3C formats (hence the omission of <code>&lt;track&gt;</code> from the W3C spec).</p><p>Added 9 July 2010: Here&#8217;s a readable <a href="http://www.delphiki.com/websrt/">overview of the SRT format</a>.</p>
+
+<p>Given that the format itself isn&#8217;t fully specified yet, it will be a while until we see implementation in browsers. But it&#8217;s good to know that there will be an official way to add accessibility information to media. Until then, I have a <a href="http://dev.opera.com/articles/view/accessible-html5-video-with-javascripted-captions/">JavaScript hack</a> to take timed <code>&lt;span&gt;</code>s out of an in-page transcript to superimpose over a video.</p>
+
+<h2>WebM video format</h2>
+<p>The big news of the last month is that Google open-sourced the VP8 video codec that it acquired when it <a href="http://investor.google.com/releases/2010/0219.html">took over On2 Technologies</a>. When combined with the Vorbis audio codec (that Spotify uses) and wrapped in a subset of the <a href="http://en.wikipedia.org/wiki/Matroska">Matroska container format</a>, it&#8217;s collectively known as <a href="http://www.webmproject.org/">WebM</a>.</p>
+
+<p>All YouTube videos are being transcoded to WebM, and Adobe have also announced they will include it in their Flash player. It&#8217;s available in an <a href="http://www.opera.com/browser/next">Opera 10.60 beta</a>, a <a href="http://nightly.mozilla.org/webm/">Firefox testing build</a>, and a <a href="http://www.chromium.org/getting-involved/dev-channel">Chromium dev channel</a>. Even Microsoft have said that IE9 will support it if the codec is installed on the computer.</p>
+
+<p>The <a href="http://www.streamingmedia.com/Articles/Editorial/Featured-Articles/First-Look-H.264-and-VP8-Compared-67266.aspx">VP8 video codec itself is high-quality</a> (Google had said that Ogg Theora wasn&#8217;t good enough compression-to-quality for YouTube, but Theora was based on the VP3 precursor to VP8). It&#8217;s available for <a href="http://zaheer.merali.org/articles/2010/06/02/webm-and-vp8-streaming-live-from-flumotion/">streaming</a> too.</p>
+
+<p>If you want to encode to WebM, you can try the <a href="http://www.mirovideoconverter.com/">Miro Video Converter</a> utility. Although it doesn&#8217;t allow you to optimise settings, it&#8217;s very easy to use. As the codec becomes more widespread, expect to see many more tools for content creation, editing, and transcoding.</p>
+
+<p>Once production versions of the browsers are available, you should encode your videos with WebM as the first option, Ogg for older versions of Opera, Firefox and Chrome, falling back to royalty-encumbered H.264 for Safari and links to downloads or a Flash player for legacy browsers:</p>
+
+<pre><code>&lt;video controls&gt;
+&lt;source src=video.webm type='video/webm; codecs="vorbis,vp8"'&gt;
+&lt;source src=video.mp4 type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'&gt;
+&lt;source src=video.ogv type='video/ogg; codecs="theora, vorbis"'&gt;
+&lt;!-- embed Flash here --&gt;
+&lt;p&gt;Your browser does not support video; download the &lt;a href=&quot;video.webm&quot;&gt;WebM&lt;/a&gt;, &lt;a href=&quot;video.mp4&quot;&gt;mp4&lt;/a&gt; or &lt;a href=&quot;video.ogg&quot;&gt;Ogg&lt;/a&gt; video for off-line viewing.&lt;/p&gt;
+&lt;/video&gt;</code>
+</pre>
+
+<p>If, however, you&#8217;re having problems with the iPad, put the MP4 version first in the <code>&lt;source&gt;</code> element; apparently there&#8217;s a bug that causes the iPad only to see the first <code>&lt;source&gt;</code> element.</p>
+
+<p>It’s a long haul, and it’s not over yet, but <code>&lt;track&gt;</code> and .webM show significant progress towards our goal of accessible, open, and royalty-free video playing natively in the browser.</p>
+<p><a href="http://html5doctor.com/video-the-track-element-and-webm-codec/" rel="bookmark">Video: the track element and webM codec</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 24, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/video-the-track-element-and-webm-codec/feed/</wfw:commentRss>
+		<slash:comments>33</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 2.920 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-07-04 16:37:58 -->

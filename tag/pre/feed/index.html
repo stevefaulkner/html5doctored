@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; pre</title>
+	<atom:link href="http://html5doctor.com/tag/pre/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>Your Questions #15</title>
+		<link>http://html5doctor.com/your-questions-15/</link>
+		<comments>http://html5doctor.com/your-questions-15/#comments</comments>
+		<pubDate>Fri, 14 Jan 2011 14:30:23 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[code]]></category>
+		<category><![CDATA[figcaption]]></category>
+		<category><![CDATA[figure]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[pre]]></category>
+		<category><![CDATA[wikipedia]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2744</guid>
+		<description><![CDATA[<p>The clinic is busy as ever with more <abbr>HTML</abbr>5 ills. This week, we'll cover marking up Wikipedia infoboxes, anchors in <code>&#60;hgroup&#62;</code>, <code>&#60;figure&#62;</code> for avatars, header(s), and how to use <code>&#60;code&#62;</code> and <code>&#60;pre&#62;</code>.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/"     class="crp_title">Simplequiz #7: Pinterest</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is busy as ever with more <abbr>HTML</abbr>5 ills. This week, we&#8217;ll cover marking up Wikipedia infoboxes, anchors in <code>&lt;hgroup&gt;</code>, <code>&lt;figure&gt;</code> for avatars, header(s), and how to use <code>&lt;code&gt;</code> and <code>&lt;pre&gt;</code>.</p>
+
+<section>
+  <h2>Wikipedia Infoboxes</h2>
+  <p>Andrés asked:</p>
+  <blockquote>
+    <p>Hello. I want to ask how I can code some stuff based on Wikipedia infoboxes with <abbr>HTML</abbr>5, which most of the time uses tables. I think that all of these can be surrounded by a figure tag, but I&#8217;m not sure about the subtleties.</p>
+
+    <p>Reference page: <a href="http://en.wikipedia.org/wiki/Help!_%28album%29">http://en.wikipedia.org/wiki/Help!_%28album%29</a>. It has a main infobox that:</p>
+
+    <ul>
+    	<li>Has a heading</li>
+    	<li>Has a thumbnail image</li>
+    	<li>Has 3 sections each separated by a faux table heading:
+    		<ul>
+    			<li>One that has a table with two columns, one with keys and other with labels, which I believe that can be done better with definition list but not sure if table is suited too</li>
+    			<li>One that has a list of links of magazines that have reviewed the disc. I believe it is fine as is coded but still</li>
+    			<li>One with a &#8220;chronology&#8221;, which is like a navigation menu in a table with the previous, current (no link) and next installment. Not idea if there&#8217;s an ideal way to markup it</li>
+    		</ul>
+    	</li>
+    </ul>
+
+    <p>There&#8217;s a 2nd infobox that feature a long list of links of related contents divided by some kind of table headings. I suppose it may better done by lists but there&#8217;s may be another approach. The 3rd infobox repeats the chronology noted above.</p>
+  </blockquote>
+  
+  <p>It&#8217;s a blessing and curse of <abbr>HTML</abbr> that there is often more than one correct answer. This is even more true with <abbr>HTML</abbr>5. Let&#8217;s look at the Help! album page:</p>
+
+  <ul>
+  	<li>Is the infobox essential to understanding? If yes, use <code>&lt;figure&gt;</code>; if no, use <code>&lt;aside&gt;</code> (inside <code>&lt;article&gt;</code>). If this data is just a summary of information already in the article, <code>&lt;aside&gt;</code> would be appropriate. If it contains unduplicated data, I prefer <code>&lt;figure&gt;</code>. I don’t think <code>&lt;table&gt;</code> is the best container element for the infobox.</li>
+  	<li>For the “studio album” details section, either <code>&lt;dl&gt;</code> or <code>&lt;table&gt;</code> would be appropriate.</li>
+  	<li>“Professional reviews” and “chronology” both look like lists, although either could also be a table.</li>
+  	<li>I actually find the chronology formatting quite strange, as it’ll only work well for 1–3 items. Assuming this would be used for a full chronology, an ordered list would be more suitable. I guess that this is <em>only</em> to list the previous and next albums (a partial chronology). I don’t think it’s suitable for <code>&lt;nav&gt;</code> as the Beatles released more than three albums (but might be if all albums were listed). It’d be good to use <code>rel="previous"</code> and <code>rel="next"</code> attributes on these links.</li>
+  	<li>The blue background titles would be best represented by <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code>
+  titles, ideally titling each <code>&lt;section&gt;</code>.</li>
+
+  <p>I&#8217;m guessing the second infobox you refer to is the large table of links at the bottom of the page. This seems appropriate as a series of inline lists (ordered by time or alphabetically) in a table.</p>
+
+  <p>I&#8217;m also guessing the third infobox you refer to is the &#8220;US Release&#8221; one that uses the same template as the first. The first infobox notes apply here too.</p>
+
+  <p>Peace — Oli</p>
+</section>
+    
+<section>
+	<h2>No anchor elements allowed in <code>&lt;hgroup&gt;</code> elements</h2>
+	<p>Daniel asked:</p>
+	<blockquote>
+		<p>Consider the following code:<p>
+
+<pre><code>&lt;hgroup&gt;
+&lt;a href="/"&gt;
+  &lt;h1&gt;Title&lt;/h1&gt;
+  &lt;h2&gt;Sub Title&lt;/h2&gt;
+&lt;/a&gt;
+&lt;/hgroup&gt;</code></pre>
+
+    <p>When using <a href="http://html5.validator.nu/">http://html5.validator.nu/</a> to validate my page, it says that this is invalid &#8220;Error: Element a  not allowed as child of element hgroup  in this context.&#8221;</p>
+
+    <p>I know that this validator is in beta (at least I think so), so maybe it&#8217;s wrong, but would you tell me if this is really valid or invalid? If it is invalid, would putting the anchor tags inside the heading tags fix it (despite having to use more markup :(</p>
+    </p>
+	</blockquote>
+	
+	<p>This example is in fact invalid. Only <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> elements can be a child of <code>&lt;hgroup&gt;</code>.</p>
+
+	<p>You can get around it using <a href="http://html5doctor.com/block-level-links-in-html-5/">block-level links</a> like so (but bear in mind some browsers have trouble with block-level links):</p>
+
+<pre><code>&lt;a href="/"&gt;
+&lt;hgroup&gt;
+  &lt;h1&gt;Title&lt;/h1&gt;
+  &lt;h2&gt;Sub Title&lt;/h2&gt;
+&lt;/hgroup&gt;
+&lt;/a&gt;</code></pre>
+
+  <p>Hope that helps.</p>
+
+  <p>Rich</p>
+</section>
+
+<section>
+	<h2>Using <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> as the avatar/id in a blog comment</h2>
+	<p>BigAB asked:</p>
+	<blockquote>
+		<p>Would this be a proper use of the figure and figcaption tags: representing the common case of avatar/username on comments (or forum entries) as a figure? Example:</p>
+<pre><code>&lt;article class="comment"&gt;
+   &lt;h4&gt;Comment on &lt;a href="/the-blog-article"&gt;The Blog Article&lt;/a&gt;&lt;/h4&gt;
+   &lt;figure&gt;
+       &lt;img class="avatar" src="/my-avatar" /&gt;
+       &lt;figcaption&gt;&lt;a rel="nofollow" href="http://my-website.exp"&gt;My Name&lt;/a&gt;&lt;/figcaption&gt;
+   &lt;/figure&gt;
+   &lt;p&gt;I am commenting on our blog article. This is my comment. I have much to comment on and am doing so in this comment.&lt;/p&gt;
+   &lt;p&gt;Thank you for letting me comment here.  I think it good that we can comment.  Feel free to comment on my comment.&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+	</blockquote>
+
+	<p>Doesn&#8217;t feel right to me. The spec says this:</p>
+	
+	<blockquote>
+	  <p>&#8220;The figure element represents some flow content, optionally with a caption, that is self-contained and is typically referenced as a single unit from the main flow of the document.</p>
+    
+    <p>The element can thus be used to annotate illustrations, diagrams, photos, code listings, etc, that are referred to from the main content of the document, but that could, without affecting the flow of the document, be moved away from that primary content, e.g. to the side of the page, to dedicated pages, or to an appendix.&#8221;</p>
+    
+    <footer>
+      <cite><a href="http://www.w3.org/TR/html5/grouping-content.html#the-figure-element">W3C Specification</a></cite>
+    </footer>
+  </blockquote>
+
+  <p>By &#8220;referred to&#8221;, I understand that to be &#8220;See figure 9&#8243;, but your example doesn&#8217;t do that. Personally, I&#8217;d just write:</p>
+
+  <pre><code>&lt;a href="#"&gt;&lt;img alt="Bob's homepage"&gt;Bob Smith&lt;/a&gt;</code></pre>
+
+  <p>Cheers, Bruce</p>
+</section>
+
+<section>
+	<h2>HTML5 Header</h2>
+	<p>Josh asked:</p>
+	<blockquote>
+		<p>I have read up a lot on the header element, and nesting numbered headers inside the hgroup element, and so forth. I&#8217;ve put a lot of the things I&#8217;ve seen on HTML5Doctor.com into practice on my own site, but was wondering if I can actually put the numbered header anywhere in the header, instead of having the numbered header (eg, h1-h6) first.</p>
+
+    <p>I was also wondering if putting links inside an h1-h6 itself would actually damage either page rank or usability. I mean, I don&#8217;t imagine how it would, but I like to be very careful, almost too careful with how I do things. I do auto-validations of all my markup constantly, and do manual validation once in a while. So, I&#8217;m a little OCD when it comes to items such as the header. Of course, putting the a element around the header itself may not hurt either &#8211; but like I said, I love to be careful.</p>
+
+    <p>Plus, great work on the site and the organization, folks! Some friends and myself make some articles on topics such as CSS and XHTML, more-recently HTML5, and it&#8217;s refreshing to come here to see a view from some real experts!</p>
+	</blockquote>
+	
+	<p>Thanks for your e-mail.</p>
+	
+  <ul>
+  	<li><code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> elements can go anywhere inside <code>&lt;header&gt;</code>, although we advise you to mark up your content first before thinking about <abbr>CSS</abbr>, so your page makes sense even without <abbr>CSS</abbr>.</li>
+  	<li>If you have more than one <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> as children of a <code>&lt;header&gt;</code>, wrap them in <code>&lt;hgroup&gt;</code>. If there’s nothing else in the <code>&lt;header&gt;</code>, just use the <code>&lt;hgroup&gt;</code> and not the <code>&lt;header&gt;</code>.</li>
+  	<li>If you only have one <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> and no other heading content, you don’t need either <code>&lt;hgroup&gt;</code> or <code>&lt;header&gt;</code>, although they might still be useful for a <abbr>CMS</abbr> template (where more stuff might be inserted) or as <abbr>CSS</abbr> hooks.</li>
+  	<li>Links inside <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> don’t affect page ranking or usability in isolation (but might affect usability if, for example, the link is to the current page).</li>
+  	<li>You can use block-level links around a <code>&lt;header&gt;</code> or <code>&lt;hgroup&gt;</code>, but test and be careful of Firefox’s <a href="http://remysharp.com/2009/08/10/defining-the-vomit-bug/">vomit</a> <a href="http://oli.jp/2009/html5-block-level-links/">bug</a>.</li>
+  </ul>
+
+  <p>Finally, while we applaud your studious approach to coding, do keep in mind that <abbr>HTML</abbr> is quite forgiving :-) As long as you validate occasionally and follow the spec, you’ll be fine. The web stack is a deep rabbit hole to go down, so while it’s great to do the best you possibly can, we also prescribe going outside once in a while ;-)</p>
+
+  <p>Peace — Oli</p>
+</section>
+
+<section>
+	<h2><code>&lt;code&gt;</code> vs <code>&lt;pre&gt;</code></h2>
+	<p>Daniel asked:</p>
+	<blockquote>
+		<p>Dear HTML5doctors,</p>
+
+    <p>How should I markup code example correctly? I have some that are inline inside my text, I think that&#8217;s <code>code</code> then, but others are multi lined. I need them to be white-spaced correctly as they would get them with <code>pre</code>, but isn&#8217;t that semantically wrong?</p>
+
+    <p>Or do I put <code>&lt;code&gt;</code> inside <code>&lt;pre&gt;</code>? <code>&lt;pre&gt;</code> inside <code>&lt;code&gt;</code>? Or is <code>&lt;pre&gt;</code> to <code>&lt;code&gt;</code> as <code>&lt;b&gt;</code> is to <code>&lt;strong&gt;</code>?</p>
+
+    <p>Many thanks</p>
+	</blockquote>
+	
+	<p>For inline code, just use <code>&lt;code&gt;...&lt;/code&gt;</code>, a phrasing (inline) element. For multi-line code, use <code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>. <code>&lt;pre&gt;</code> is a flow (block-level) element. Finally, the entities &amp;lt; and &amp;gt; map to &lt; and &gt;, which you’ll need to escape inside any <abbr>HTML</abbr> code snippets (although you only really need to do the first one).</p>
+
+  <p>Peace — Oli</p>
+</section>
+
+<section>
+	<h2>Got a question for us?</h2>
+	<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-15/" rel="bookmark">Your Questions #15</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 14, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/your-html5-questions-20/"     class="crp_title">Your HTML5 Questions 20</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-simplequiz-7-pinterest/"     class="crp_title">Simplequiz #7: Pinterest</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-15/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+	</channel>
+</rss>

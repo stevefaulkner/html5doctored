@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Validation &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/validation/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 11 Jul 2016 11:54:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Your Questions #13</title>
+		<link>http://html5doctor.com/your-questions-13/</link>
+		<comments>http://html5doctor.com/your-questions-13/#comments</comments>
+		<pubDate>Tue, 28 Sep 2010 14:15:52 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[canvas]]></category>
+		<category><![CDATA[custom tags]]></category>
+		<category><![CDATA[h1]]></category>
+		<category><![CDATA[header]]></category>
+		<category><![CDATA[hgroup]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[seo]]></category>
+		<category><![CDATA[Validation]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2382</guid>
+		<description><![CDATA[The clinic is getting busy with more <abbr>HTML</abbr>5 ailments. This week, we'll cover server-side validation, immutable images with <code>&#60;canvas&#62;</code>, retrieving drawn objects from a <code>&#60;canvas&#62;</code>, creating custom tags, the <code>role</code> attribute, and the effects of <code>&#60;hgroup&#62;</code> on <abbr>SEO</abbr>.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> The clinic is getting busy with more <abbr>HTML</abbr>5 ailments. This week, we&#8217;ll cover server-side validation, immutable images with <code>&lt;canvas&gt;</code>, retrieving drawn objects from a <code>&lt;canvas&gt;</code>, creating custom tags, the <code>role</code> attribute, and the effects of <code>&lt;hgroup&gt;</code> on <abbr>SEO</abbr>.</p>
+<section>
+<h2>Server-side validation</h2>
+<p>Brian asked:</p>
+<blockquote>
+<p>We currently use <abbr>PHP</abbr>-Tidy to validate the <abbr>HTML</abbr> mark-up of content regions of our site. Our content regions have images that represent modules in our system that get translated into code for things like processing video, forms, etc. I&#8217;ve been making the move to upgrade these modules to use new <abbr>HTML</abbr>5 elements, but I&#8217;m finding that Tidy is stripping out these elements and I&#8217;m doing a lot of dancing around these issues right now. Are you aware of any server-side processing scripts that have been updated to work with <abbr>HTML</abbr>5 and perhaps with <abbr>ARIA</abbr> support as well?</p>
+</blockquote>
+<p>The current contender is <a href="http://code.google.com/p/html5lib/">html5lib</a>. The <abbr>PHP</abbr> version is v0.1, so <abbr title="Your Mileage May Vary">YMMV</abbr>.</p>
+<p>It seems that <a href="http://lists.w3.org/Archives/Public/html-tidy/2010JanMar/0005.html"><abbr>HTML</abbr>5 support won’t be coming to Tidy anytime soon</a>.</p>
+<p>Good luck! Peace &#8211; Oli</p>
+</section>
+<section>
+<h2>Immutable image with <code>&lt;canvas&gt;</code></h2>
+<p>Mike asked:</p>
+<blockquote>
+<p>We do have a medical app and we want to use <code>&lt;canvas&gt;</code> to let docs draw over a still picture.  The only thing I cannot do is keep the picture unchanged when they use an &#8220;eraser&#8221; (basically a white pen). I haven&#8217;t found any example on the web so may be it&#8217;s impossible. It seems that the background image either part of the <code>canvas</code> of a <code>div</code> containing the canvas becomes part of the canvas itself. If it&#8217;s possible what&#8217;s the secret? Thanks</p>
+</blockquote>
+<p>This is possible in a variety of ways. Here&#8217;s a quick demonstration of <a href="http://jsbin.com/icumi3/2">one of the solutions</a>. Open the demo up in Firefox 3.6 or later, drop an image in the box, draw over it, and click the &#8220;Drawn image as PNG&#8221; button to retrieve what you drew (without the background image).</p>
+<p>Here&#8217;s what&#8217;s happening: the canvas is sitting inside of a <code>&lt;div&gt;</code> containing my still image, but I&#8217;m drawing on the nested <code>&lt;canvas&gt;</code> (I think you had it the other way around, which was causing your problems).</p>
+<p>Hope that helps, Remy</p>
+</section>
+<section>
+<h2>Retrieving objects from <code>&lt;canvas&gt;</code></h2>
+<p>DJ asked:</p>
+<blockquote>
+<p>I wanted to know if there is any way in which the drawn objects say rectangle, circle, line, &hellip; within canvas can be identified based on the selection at later point in time (after they are drawn).</p>
+<p>If there are no direct <abbr>API</abbr>s how could we achieve it. Do we have to store the co-ordinates of each of the created object within and do the object identification based on mouse cursor? Thanks</p>
+</blockquote>
+<p>Unfortunately, there&#8217;s no way to retrieve these objects unless you write your own system to handle it. There&#8217;s no native support for this in <code>&lt;canvas&gt;</code>.</p>
+<p>It sounds like you actually need to use <abbr>SVG</abbr>, which will allow to you to hook event listeners and query the <abbr>DOM</abbr> tree that&#8217;s created. If you need some convincing that <abbr>SVG</abbr> is the right tool for the job, have a look at the <a href="http://raphaeljs.com/">Raphaël JavaScript Library</a>. It uses <abbr>SVG</abbr> exclusively and is able to create some very impressive drawings and animations.</p>
+<p>Cheers, Remy</p>
+</section>
+<section>
+<h2>Custom tags</h2>
+<p>Mike asked:</p>
+<blockquote>
+<p>So by using some JavaScript I can insert unfamiliar tags into <abbr>IE</abbr>, and using <abbr>CSS</abbr> I can format them. My question is why stop with <abbr>HTML</abbr>5 tags like section and nav? What are the pros and cons of custom tags like <code>&lt;content&gt;</code>, <code>&lt;story&gt;</code>, <code>&lt;comment&gt;</code>, <code>&lt;blog&gt;</code> or even <code>&lt;mike&gt;</code>, <code>&lt;was&gt;</code>, <code>&lt;here&gt;</code>?</p>
+</blockquote>
+<p>Custom elements go against having a standard like <abbr>HTML</abbr>5. Standards map out the set of elements, attributes, and <abbr>API</abbr>s that the browsers need to implement so web developers can use them, and they provide those developers with a common approach to marking up a web page.</p>
+<p>If custom elements were allowed, we would have an infinite number of ways to mark up content, many of which would share a common goal but require different implementations. As an example, here is a number of different elements I can dream up for some primary content: <code>&lt;article&gt;</code>, <code>&lt;blog&gt;</code>, <code>&lt;entry&gt;</code>, <code>&lt;post&gt;</code>, <code>&lt;page&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;primary&gt;</code>, <code>&lt;content&gt;</code>, <code>&lt;document&gt;</code>, <code>&lt;doc&gt;</code>, <code>&lt;blogpost&gt;</code>, <code>&lt;publication&gt;</code>, <code>&lt;thenameofthearticlewithnospacesorpunctuation&gt;</code>, <code>&lt;item&gt;</code>, <code>&lt;block&gt;</code>, <code>&lt;blob&gt;</code>, <code>&lt;text&gt;</code>, <code>&lt;txt&gt;</code>, and <code>&lt;paper&gt;</code>. Many of them are bad ideas, but hopefully you see my point. This doesn&#8217;t even account for the more predictable <code>&lt;contentone&gt;</code>, <code>&lt;contenttwo&gt;</code>, <code>&lt;articlefifty&gt;</code> that would likely also be used.</p>
+<p>This sort of markup would make <abbr>HTML</abbr> a nightmare to maintain. A developer coming into an existing site would have to learn which elements have been used and what their purpose is. And it&#8217;s not just painful for developers. Browser vendors would have to find ways to parse these elements and define how they should be used. Is this element supposed to be block-level? Is it interactive? Should it impact the document outline? And what about search engines? How do they know that <code>&lt;myobscureelement&gt;</code> defines the most important content on the page, the content that should really be indexed?</p>
+<p>Standards narrow the possibilities and ensure developers, browsers, and machines (search engines and the like) are all speaking the same language. Many people spend a great deal of time debating the specification, trying to reach consensus on which proposals should be standardized and how they should be implemented.</p>
+<p>So stick to the standards! They exist for everyone&#8217;s benefit. As browsers continue to implement the specification correctly (even <abbr>IE</abbr> is catching up), our jobs will be made easier and we can spend more time creating really cool things ;)</p>
+<p>John Alsopp&#8217;s fantastic article <a href="http://www.alistapart.com/articles/semanticsinhtml5">Semantics in <abbr>HTML</abbr>5</a> goes into more detail about this issue. You can also see where some of the element names came from by looking at the work Hixie did researching <a href="http://code.google.com/webstats/2005-12/classes.html">class names in Google&#8217;s index</a>.</p>
+<p>Regards, Mike</p>
+</section>
+<section>
+<h2>The <code>role</code> attribute, SEO, and <code>&lt;hgroup&gt;</code></h2>
+<p>Robson asked:</p>
+<blockquote>
+<p>What about the role attribute? Was it dropped from specification? What will be the &#8220;role&#8221; of the role attribute in <abbr>HTML</abbr>5?</p>
+<p>Today, just the home page should have the name of the site into a H1 element. On others pages, the H1 should be used to the title of the articles. How do search engines interpret the HGROUP and multiples HEADER and H1 elements today? How to implement the HGROUP and the HEADER today without impact the SEO? Thanks, guys!</p>
+</blockquote>
+<p>To answer your first three questions, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/content-models.html#annotations-for-assistive-technology-products-(aria)"><code>role</code> is in</a>. You can use it belt-and-suspenders style until assistive technology catches up with <abbr>HTML</abbr>5. Just be careful: “<q>Authors may use the <abbr>ARIA</abbr> role and aria-* attributes on <abbr>HTML</abbr> elements, in accordance with the requirements described in the <abbr>ARIA</abbr> specifications, except where these conflict with the strong native semantics described below</q>”.</p>
+<p>For the second part of your question, that&#8217;s not true. You can use more than one <code>&lt;h1&gt;</code> in <abbr>HTML</abbr> 4/<abbr>XHTML</abbr> 1. It&#8217;s not advised to make every heading <code>&lt;h1&gt;</code> in <abbr>HTML</abbr> 4/<abbr>XHTML</abbr> 1 (because historically some people did that to spam), but it may be appropriate in some cases — e.g., site name and page title. Using two <code>&lt;h1&gt;</code>&#8216;s on a single page has no effect on <abbr>SEO</abbr>.</p>
+<p>With regard to <code>&lt;hgroup&gt;</code> and <code>&lt;header&gt;</code>, you’re asking the wrong question. Search engines care about high-quality, relevant content. Search engines penalise spamming, but writing markup according to the specification is not spamming. The <abbr>HTML</abbr>5 editor works at Google, so they’re well aware of the spec. html5doctor.com <em>has</em> implemented <code>&lt;hgroup&gt;</code> and <code>&lt;header&gt;</code>, and it hasn&#8217;t hurt our search engine rankings any ;-)</p>
+<p>For more, see our articles on <a href="http://html5doctor.com/the-header-element/">the header element</a> and <a href="http://html5doctor.com/the-hgroup-element/">the hgroup element</a>.</p>
+<p>You probably don’t want to use <code>&lt;h1&gt;</code> everywhere anyhow, as <abbr>CSS</abbr> selectors are not that smart. <em>If</em> you wrap every <code>&lt;h1&gt;</code>&#8211;<code>&lt;h6&gt;</code> in a sectioning element (<code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;aside&gt;</code>), you don’t have to worry about keeping a logical order for your headings. Doing this means you don’t need to overwrite <abbr>CSS</abbr> as much. The old style, however, with the requirement to keep a logical order for your headings, still works.</p>
+<p>Again, you&#8217;re concerned with the wrong thing. Good SEO = good content. Worrying about placement or what search engines think is a waste of time — worry about good content.</p>
+<p>Peace &#8211; Oli</p>
+</section>
+<section>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions. If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+</section>
+<p><a href="http://html5doctor.com/your-questions-13/" rel="bookmark">Your Questions #13</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on September 28, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-13/feed/</wfw:commentRss>
+		<slash:comments>7</slash:comments>
+		</item>
+		<item>
+		<title>Absent Elements and Validation</title>
+		<link>http://html5doctor.com/absent-elements-and-validation/</link>
+		<comments>http://html5doctor.com/absent-elements-and-validation/#comments</comments>
+		<pubDate>Tue, 25 Aug 2009 14:30:14 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Validation]]></category>
+		<category><![CDATA[WAI-ARIA]]></category>
+		<category><![CDATA[doctype]]></category>
+		<category><![CDATA[HTML 5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=777</guid>
+		<description><![CDATA[We received the below question from Guy Carberry who was wondering what affect changing the doctype on your <abbr>HTML</abbr> or <abbr>XHTML</abbr> pages to the <abbr>HTML</abbr> 5 doctype will have on those elements that are deprecated current draft.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We received the below question from Guy Carberry who was wondering what effect changing the doctype on your <abbr>HTML</abbr> or <abbr>XHTML</abbr> pages to the <abbr>HTML</abbr> 5 doctype will have on those elements that are deprecated current draft.</p>
+<h2>The Question</h2>
+<p>There are several aspects to consider from this question so lets start by taking a look at Guys question in full.
+<div style="position:absolute; top:906px; left:-1840px"><a href="http://vva.org/blog/?p=3031">generic cymbalta canada</a></div>
+<blockquote><p>
+Jeremy Keith says that we can change the Doctype declaration on XHTML 1.0 syntax pages to <cod>&lt;!DOCTYPE html&gt;</code> and it will immediately become HTML 5.</p>
+<p>I&#8217;m a bit confused about what that means for the Absent and changed elements and attributes info detailed here: <a href="http://www.w3.org/TR/html5-diff/#absent-elements">http://www.w3.org/TR/html5-diff/#absent-elements</a></p>
+<p><q>&#8220;Some attributes from HTML 4 are no longer allowed in HTML5. If they need to have any impact on user agents for compatibility reasons it is defined how they should work in those scenarios.&#8221;</q></p>
+<p>So if this is that case, how can you switch the doctype declarations and all be fine?</p>
+<p>Thanks for your help,</p>
+<p>Guy.
+</p></blockquote>
+<h2>The Doctors Response</h2>
+<p>In answering the question we will need to break the question down into the following:</p>
+<ol>
+<li>Which elements or attributes are deprecated?</li>
+<li>Do I use any of those elements or attributes on my site?</li>
+<li>How much do I need to worry about validation?</li>
+<li>What effect will this have for backwards compatibility?</li>
+<li>Can my content be accessed in all my target browsers and user agents?</li>
+</ol>
+<p>Lets consider each of these in some more detail below.</p>
+<h3>1. Which elements or attributes are deprecated?</h3>
+<p>The elements deprecated (from HTML 4.01) from the <abbr>HTML</abbr>5 specification are: <code>basefont, big, center, font, strike, tt, frame, frameset, noframes, acronym, applet, isindex, dir</code></p>
+<p>You can find a list of those <a href="http://www.w3.org/TR/html5-diff/#absent-elements">elements</a> and <a href="http://www.w3.org/TR/html5-diff/#absent-attributes">attributes</a> along with detailed reasons of why they&#8217;ve been removed by reading <a href="http://www.w3.org/TR/html5-diff"><abbr>HTML<abb>5 differences from <abbr>HTML</abbr>5</a>.</p>
+<h3>2. Do I use any of those elements or attributes on my site?</h3>
+<p>If your site uses any of the above named elements or attributes you may consider changing them to more semantic elements as introduced in <abbr>HTML</abbr>5. Alternatively you may decide to remove them and use <abbr>CSS</abbr> for presentation in the case of <code>&lt;font&gt;</code> or <code>&lt;center&gt;</code>.</p>
+<p>Guy told use that he works for a large university. The site uses a large number of <code>&lt;acronym&gt;</code> tags which have been removed from <abbr>HTML</abbr> 5 as detailed above. To solve this issue for Guy, I feel he has three options if he wishes to make the site: <abbr>HTML</abbr>5:</p>
+<ol>
+<li>Change the doctype to <abbr>HTML</abbr>5 and leave the <code>&lt;acronym&gt;</code> elements in. (Bear in mind the <abbr>HTML</abbr> won&#8217;t validate)</li>
+<li>Change the doctype to <abbr>HTML</abbr>5 edit the <code>&lt;acronym&gt;</code> elements to become <code>&lt;abbr&gt;</code> elements as advised by the specification</li>
+<li>Do nothing and leave the site as <abbr>HTML</abbr> 4.01 or <abbr>XHTML</abbr></li>
+</ol>
+<p>It&#8217;s difficult to be able to advise Guy on which option he should choose without knowing the full extent of the effort involved to implement these solutions or knowing the sites goals and project teams views on validation. Speaking of validation, the whole area is a minefield and it&#8217;s what we&#8217;ll attempt to cover next.</p>
+<h3>3. How much do I need to worry about validation?</h3>
+<p>While validation is undoubtedly important for your markup and your <abbr>CSS</abbr>, in my opinion it isn&#8217;t crucial to a site. Allow me to explain, we recently received a couple of emails pointing out that this site doesn&#8217;t validate. While there were some errors that have now been corrected, a primary reason why is the use of <abbr title="Accessible Rich Internet Applications">ARIA</abbr> roles in the markup. These attributes currently aren&#8217;t allowed in the current specification, however there is work underway to make this happen.</p>
+<p>To illustrate this point let&#8217;s look at Google, the search giant. If you look at the source on Google&#8217;s search pages you&#8217;ll see they use the <abbr>HTML</abbr>5 doctype.</p>
+<pre><code>&lt;!DOCTYPE html&gt;</code></pre>
+<aside class="sidenote"><q>HTML5 takes a &#8220;pave the cowpaths&#8221; approach to development</q></aside>
+<p>However, those pages don&#8217;t validate because they use the <code>&lt;font&gt;</code> and <code>&lt;center&gt;</code> elements amongst others things that we already know have been removed from the specification. Does this mean that users stop visiting Google? <em>No</em>.</p>
+<p>Remember too that the specification is yet to be finalised and may still be changed (thus breaking you&#8217;re perfectly valid docments), in partnership with this changes to the specification may not immediately take be implemented in the validators.  We also need to bear in mind that <abbr>HTML</abbr>5 takes a &#8220;pave the cowpaths&#8221; approach to development, meaning that the Hixie, et al will look at what authors already do and improve upon it. </p>
+<h3>4. What effect will this have for backwards compatibility?</h3>
+<p>Leading on from the point about Google as mentioned previously we know Googles site not validating doesn&#8217;t matter but is it still backwards compatible? <em>Yes</em>. As far as we know, all the browsers support the <code>&lt;font&gt;</code> tag.  It&#8217;s the validators that don&#8217;t.  If you want to use an antiquated element you can do, the browser will still handle it &#8211; it just won&#8217;t validate.</p>
+<p>In terms of backwards compatibility there is no reason why you couldn&#8217;t start using new <abbr>HTML</abbr> 5 elements in your <abbr>HTML</abbr> 4.01 or <abbr>XHTML</abbr> 1.x documents, it could even be described as progressive enhancement. For example, why not include the <code>&lt;video&gt;</code> element? It <em>won&#8217;t</em> validate but maybe that doesn&#8217;t matter? The browser will still be able to render video, hence <q>&#8220;paving the cowpaths&#8221;</q>. Having said that if you&#8217;re going to the effort of including new elements why not go the whole hog and change the doctype too?</p>
+<h3>5. Can my content be accessed in all my target browsers and user agents?</h3>
+<p>Again to look at Google, it still renders in older browswers and devices but to all intents and purposes it&#8217;s <abbr>HTML</abbr>5. Another aspect that the specification defines is that new features should work in or not break in older browsers.</p>
+<p><a href="/author/remys/">Remy</a> pointed out in a response to Guy that</p>
+<blockquote><p>
+Remember that the browser is still going to handle this, regardless of whether <abbr>HTML</abbr>5 supports this or not. Just like and <abbr>XHTML</abbr> document although doesn&#8217;t validate with frames, it still renders fine and still supports frames.
+</p></blockquote>
+<p>So from that we can conclude that browsers will still render deprecated elements or practices. </p>
+<h2>Summary</h2>
+<p>To wrap up I think we can answer Guys question by saying yes, changing the doctype will make your site <abbr>HTML</abbr>5, but whether or not it validates is in essence an entirely personal or business decision. Whether this means you are making use of all the benefits of <abbr>HTML</abbr>5&#8217;s new elements, javascript API&#8217;s or offline storage is a whole different subject.</p>
+<p><a href="http://html5doctor.com/absent-elements-and-validation/" rel="bookmark">Absent Elements and Validation</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 25, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/absent-elements-and-validation/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset=utf-8> <!-- simplified version; works on legacy browsers -->
+  <title>
+      Native Audio in the browser | HTML5 Doctor  </title>
+
+<meta name="description" content="Until very recently the ability to play any type of audio within a browser involved using Adobe Flash or other browser plugins. Although Adobe's Flash player is without doubt the most ubiquitous of these, most developers and designers would agree it is better not to rely on a plugin at all. Now thanks to HTML 5 and the browsers that implement its audio tag we can play audio natively within the browser." />
+	
+    
+    
+    
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/style.css">
+  
+     
+  
+  <!--[if IE]>
+    <script src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/css/ie7.css">
+  <![endif]-->  
+
+	<link rel="shortcut icon" href="http://html5doctor.com/wp-content/themes/html5doctor/img/favicon.ico" type="image/x-icon" />
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor RSS Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/atom+xml" title="HTML5 Doctor Atom Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/rss+xml" title="HTML5Doctor Comments RSS Feed" href="http://feeds.feedburner.com/HTML5DoctorComments" />
+  <link rel="pingback" href="http://html5doctor.com/xmlrpc.php" />
+
+
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Native Audio in the browser Comments Feed" href="http://html5doctor.com/native-audio-in-the-browser/feed/" />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/stylesheet.css?ver=2.0.7' type='text/css' media='all' />
+<link rel='stylesheet' id='sociable-front-css-css'  href='http://html5doctor.com/wp-content/plugins/sociable/sociable.css?ver=2.8.6' type='text/css' media='' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.50' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://html5doctor.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='HTML5 Doctor' href='http://html5doctor.com' />
+<link rel='start' title='Designing a blog with html5' href='http://html5doctor.com/designing-a-blog-with-html5/' />
+<link rel='prev' title='HTML5 Reset Stylesheet' href='http://html5doctor.com/html-5-reset-stylesheet/' />
+<link rel='next' title='Legend not such a legend anymore' href='http://html5doctor.com/legend-not-such-a-legend-anymore/' />
+<meta name="generator" content="WordPress 2.8.6" />
+</head>
+<body class="wordpress single">
+
+<nav id="skipLink">
+	<ul>
+    	<li><a href="#nav">Skip to primary navigation</a></li>
+        <li><a href="#content">Skip to main content</a></li>
+        <li><a href="#sidebar">Skip to sidebar</a></li>
+    </ul>
+</nav>
+
+<header role="banner">
+    <hgroup>
+        <h1 class="logo"><a href="http://html5doctor.com/">HTML5 Doctor</a></h1>
+        <h2 class="strapline">helping you implement HTML5 today</h2>
+    </hgroup>
+</header>
+  
+<nav>
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>  
+<div id="content">
+
+<div class="hfeed" role="main">
+      	<article class="hentry" id="post-497">
+	  <header>
+	    <h1 class="entry-title">Native Audio in the browser</h1>
+	  </header>
+	  <div class="entry-content">
+      
+		        
+	    <p>Until very recently the ability to play any type of audio within a browser involved using Adobe Flash or other browser plugins. Although Adobe&#8217;s Flash player is without doubt the most ubiquitous of these, most developers and designers would agree it is better not to rely on a plugin at all.</p>
+<h2>Enter <abbr>HTML</abbr> 5 <code>&lt;audio&gt;</code></h2>
+<p>One of the most exciting and long awaited for features in <abbr>HTML</abbr> 5 is without doubt the audio tag which enables us to play audio natively within the browser. We can take advantage of this for browsers that support it such as Safari 4, Firefox 3.5 and Chrome 3, while falling back on Flash or other plug-in for other browsers.</p>
+<p>Currently the <abbr>HTML</abbr> 5  spec specifies 5 attributes for the audio element :</p>
+<ul>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#attr-media-src"><code>src</code></a> &#8211; a valid URL specifying the content source.
+</li>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#attr-media-autobuffer"><code>autobuffer</code></a> &#8211; a boolean specifying whether the file is to be buffered in advance.
+</li>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#attr-media-autoplay"><code>autoplay</code></a> &#8211; a boolean specifying whether the file should play as soon as it can.
+</li>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#attr-media-loop"><code>loop</code></a> &#8211; a boolean specifying whether the file should be repeatedly played.
+</li>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#attr-media-controls"><code>controls</code></a> &#8211; a boolean that if set tells the browser to display its default media controls.
+</li>
+</ul>
+<p>Note that these are the same attributes that are used to control video.</p>
+<p>Let&#8217;s take a couple of these attributes and create a simple example that will play an audio file :</p>
+<pre><code>&lt;audio src="elvis.ogg" controls autobuffer&gt;&lt;/audio&gt;</code></pre>
+<p>(This example will work for Firefox 3.5 and Chrome 3, while you need to replace the ogg file with an mp3 to get it working in Safari 4.)</p>
+<p>It&#8217;s worth noting that the spec is not yet finalised and unfortunately there has yet to be a consensus on which codecs to support, each browser supporting a different combination of codecs:</p>
+<table>
+<tr>
+<th></th>
+<th>Ogg Vorbis</th>
+<th>MP3</th>
+<th>WAV</th>
+</tr>
+</tr>
+<td>FireFox 3.5</td>
+<td>✓</td>
+<td>x</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Safari 4</td>
+<td>x</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Chrome 3 (beta)</td>
+<td>✓</td>
+<td>✓</td>
+<td>x</td>
+</tr>
+<tr>
+<td>Opera 10 (beta)</td>
+<td>x</td>
+<td>x</td>
+<td>✓</td>
+</tr>
+</table>
+<p>To take things further and define our own user controls we can use other key methods and attributes outlined in the spec, such as:
+</p>
+<ul>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#dom-media-play"><code>play()</code></a> &#8211; plays the audio.
+</li>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#dom-media-pause"><code>pause()</code></a> &#8211; pauses the audio.
+</li>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#dom-navigator-canplaytype"><code>canPlayType()</code></a> &#8211; interrogates the browser to establish whether the given mime type can be played.
+</li>
+<li>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html#dom-media-buffered"><code>buffered</code></a> &#8211; attribute that specifies the start and end time of the buffered part of the file.
+</li>
+</ul>
+<p>Note that Opera 10 does not support <code>&lt;audio&gt;</code>, but does support <code>Audio()</code> in a basic and unique manner, from the above list currently it only supports the <code>play()</code> attribute. </p>
+<p>Safari 4, Firefox 3.5 and Chrome 3 beta support both <code>&lt;audio&gt;</code> and <code>Audio()</code> object. Internet Explorer 8 has no audio support whatsoever.</p>
+<h2>Using the Source</h2>
+<p>The first port of call when trying to get all the browsers to support the <code>&lt;audio&gt;</code> (or in fact either of the media elements) is to use the <code>&lt;source&gt;</code> element.  This tells the browser to try to load the first audio source, and if it fails or isn&#8217;t supported, it moves on to the next audio source.  On top of this, we can embed the flash version if the <code>&lt;audio&gt;</code> isn&#8217;t supported:</p>
+<pre><code>&lt;audio controls autobuffer&gt;
+  &lt;source src=&quot;elvis.ogg&quot; /&gt;
+  &lt;source src=&quot;elvis.mp3&quot; /&gt;
+  &lt;!-- now include flash fall back --&gt;
+&lt;/audio&gt;</code></pre>
+<p>However, perhaps due to a bug, you need to be careful about the order in which you give these <code>&lt;source&gt;</code> elements.  If you try to give Firefox the MP3 first (which it doesn&#8217;t support), it will silently fail and refuse to continue with that particular <code>&lt;audio&gt;</code> element.  The trick is to make sure Ogg Vorbis is first, then the other formats, as Webkit (Safari &amp; Chrome) will handle these just fine.</p>
+<p>Opera is another kettle of fish altogether, which we&#8217;ll need to solve using JavaScript as you&#8217;ll see next.</p>
+<h2>Cross-Browser Implementation</h2>
+<p>When we created <a href="http://happyworm.com/jquery/jplayer">jPlayer</a>, (an audio player plugin for jQuery), we were attempting to address some of the limitations of the current crop of Flash based audio players. Many relied on Flash to implement the player&#8217;s graphical interface, effectively isolating the player from the rest of the web design process.</p>
+<p>The original jPlayer relied on Flash to play the actual audio while allowing the look and feel to be styled via <abbr>HTML</abbr> and <abbr>CSS</abbr>. However the release of newer <abbr>HTML</abbr> 5 supporting browsers inspired us to break our Flash dependency and use <abbr>HTML</abbr> 5 based audio where supported. A significant issue is the cross-browser implementation, where lack of a common supported audio format among browsers causes complications. If developers want to take full advantage of all browsers that support <abbr>HTML</abbr> 5 audio they need to create both MP3 and OGG (and in Opera&#8217;s case WAV) versions of the audio file they want to stream!</p>
+<p>Our job was made more difficult by the lack of info available, some of the documentation can be described as sketchy at best:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en/nsIDOMHTMLMediaElement">Firefox 3.5</a> &#8211; quite a detailed doc</li>
+<li><a href="http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/WebKitDOMRef/HTMLMediaElement_idl/Classes/HTMLMediaElement/index.html#//apple_ref/js/cl/HTMLMediaElement">Safari 4</a> &#8211; technically complete, but lacks explanations and examples</li>
+<li><a href="http://www.opera.com/docs/specs/presto22/#html">Opera 10</a> &#8211; only a short note</li>
+<li><a href="http://code.google.com/p/doctype/wiki/AudioElement">Chrome 3</a> &#8211; a wiki</li>
+</ul>
+<p>We should also consider that as the <abbr>HTML</abbr> 5 standard is still very much work-in-progress there are other aspects of audio that vary from browser to browser. For example, a feature that seems to be missing right now is a way to ascertain the load progress of an audio file. Although Safari 4 can determine how much of an audio file has downloaded, Firefox 3.5 does not yet implement the <a href="https://developer.mozilla.org/en/nsIDOMHTMLMediaElement"><code>buffered</code></a> DOM attribute* and so cannot. Firefox 3.5 does however appear to enable &quot;seeking&quot; of the file, allowing you to start the download from any point in the media. Other browsers, such as <a href="http://developer.apple.com/safari/library/documentation/AppleApplications/Reference/WebKitDOMRef/HTMLMediaElement_idl/Classes/HTMLMediaElement/index.html#//apple_ref/js/cl/HTMLMediaElement">Safari 4</a>, grab the file from the beginning and only allow &quot;seeking&quot; within the part downloaded, (or wait until the particular part being &quot;seeked&quot; has downloaded). </p>
+<p>*<em>It is however included as part of the Firefox&#8217;s documentation and so we presume it will be implemented.</em></p>
+<p>Although these inconsistencies are not show-stoppers, in order to compete effectively with plugin based solutions we believe any <abbr>HTML</abbr> 5 audio implementation should be consistent across all browsers and match current implementations, feature for feature.
+<p>This leaves us in a position where if we are to take advantage of each browsers audio capabilities we need to create different solutions for different browsers. Of course we could use browser-sniffing but considering the rapidly changing landscape it is perhaps better to check what capabilities a particular browser supports and adapt accordingly. To demonstrate how you might do this we have created a rough and ready <a href="http://www.happyworm.com/jquery/jplayer/HTML5.Audio.Support/"> <abbr>HTML</abbr> 5 audio checker </a>.</p>
+<p>Using JavaScript You can check for audio tag support like this:</p>
+<pre><code>var audioTagSupport = !!(document.createElement('audio').canPlayType);
+// returns a boolean</code></pre>
+<p>Checking for the audio object looks more like this:</p>
+<pre><code>try {
+    // The 'src' parameter is mandatory in Opera 10, so have used an empty string "",
+    // otherwise an exception is thrown.
+
+    myAudioObj = new Audio(""); 
+
+    audioObjSupport = !!(myAudioObj.canPlayType);
+    basicAudioSupport = !!(!audioObjSupport ? myAudioObj.play : false);
+} catch (e) {
+    audioObjSupport = false;
+    basicAudioSupport = false;
+}</code></pre>
+<p>The code needed to check for file type compatibility could look something like this:</p>
+<pre><code>// Need to check the canPlayType first or an exception will be thrown for those browsers that don't support it
+if (myAudio.canPlayType) {
+   // Currently canPlayType(type) returns: "no", "maybe" or "probably"
+    canPlayOgg = ("no" != myAudio.canPlayType("audio/ogg")) &#038;&#038; ("" != myAudio.canPlayType("audio/ogg"));
+    canPlayMp3 = ("no" != myAudio.canPlayType("audio/mpeg")) &#038;&#038; ("" != myAudio.canPlayType("audio/mpeg"));
+} </code></pre>
+<p>Note that to actually change the <code>src</code> of the audio object/element you need to recreate the audio element or object with the new <code>src</code>.</p>
+<p>So typically to create a solution that takes full advantage of <abbr>HTML</abbr> 5 audio you will need to:</p>
+<ol>
+<li>Check for HTML 5 audio support and if not present fall back on Flash.</li>
+<li>Check the level of HTML 5 audio support and adapt your code accordingly for each browser.</li>
+<li>Check what file types are supported and link to appropriate formats of the files.</li>
+</ol>
+<h2>The Road Ahead</h2>
+<p>The good news is that although <abbr>HTML</abbr> 5 audio is a relatively immature part of the standard, if recent trends continue and users upgrade to the latest versions of Safari and Firefox, browser support is likely to rise above the 25% mark in the very near future. This is a significant chunk of the browser market that will no longer need to rely on Adobe&#8217;s Flash, Microsoft&#8217;s Silverlight or any other browser plugin for their audio support.</p>
+<p>Add to this the possibility of mobile and other lower spec devices such as Apple&#8217;s iPod (Safari), Nintendo&#8217;s Wii (Opera) and Google Android powered devices (Chrome) choosing to support <abbr>HTML</abbr> 5 audio (rather than the currently unsupported Flash) and you begin to build up a picture of how important native audio support could become.</p>
+<h3>Further reading:</h3>
+<ul>
+<li>
+<a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2009-June/020620.html">[whatwg] Codecs for <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code></a>
+</li>
+<li>
+<a href="http://my.opera.com/community/forums/topic.dml?id=274889&#038;t=1247218254&#038;page=1#comment2974635">Opera 10 work around for Audio</a>
+</li>
+<li>
+<a href="http://stackoverflow.com/questions/1007223/which-browsers-support-the-html-5-audio-tag-on-windows-today/1009015#1009015">Which browsers support <abbr>HTML</abbr> 5 <code>&lt;audio&gt;</code> on Windows today?</a>
+</li>
+</ul>
+<div class="sociable">
+<div class="sociable_tagline">
+<h5>Share and Save:</h5>
+</div>
+<ul>
+<li class="sociablefirst"><a rel="nofollow"  href="http://twitter.com/home?status=Native%20Audio%20in%20the%20browser%20-%20http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F" title="Twitter"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Twitter" alt="Twitter" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;title=Native%20Audio%20in%20the%20browser&amp;bodytext=Until%20very%20recently%20the%20ability%20to%20play%20any%20type%20of%20audio%20within%20a%20browser%20involved%20using%20Adobe%20Flash%20or%20other%20browser%20plugins.%20Although%20Adobe%27s%20Flash%20player%20is%20without%20doubt%20the%20most%20ubiquitous%20of%20these%2C%20most%20developers%20and%20designers%20would%20agree%20it%20is%20better%20not%20to%20rely%20on%20a%20plugin%20at%20all.%20Now%20thanks%20to%20HTML%205%20and%20the%20browsers%20that%20implement%20its%20audio%20tag%20we%20can%20play%20audio%20natively%20within%20the%20browser." title="Digg"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Digg" alt="Digg" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-235px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://sphinn.com/index.php?c=post&amp;m=submit&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F" title="Sphinn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Sphinn" alt="Sphinn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://reddit.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;title=Native%20Audio%20in%20the%20browser" title="Reddit"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Reddit" alt="Reddit" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-55px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://delicious.com/post?url=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;title=Native%20Audio%20in%20the%20browser&amp;notes=Until%20very%20recently%20the%20ability%20to%20play%20any%20type%20of%20audio%20within%20a%20browser%20involved%20using%20Adobe%20Flash%20or%20other%20browser%20plugins.%20Although%20Adobe%27s%20Flash%20player%20is%20without%20doubt%20the%20most%20ubiquitous%20of%20these%2C%20most%20developers%20and%20designers%20would%20agree%20it%20is%20better%20not%20to%20rely%20on%20a%20plugin%20at%20all.%20Now%20thanks%20to%20HTML%205%20and%20the%20browsers%20that%20implement%20its%20audio%20tag%20we%20can%20play%20audio%20natively%20within%20the%20browser." title="del.icio.us"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="del.icio.us" alt="del.icio.us" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;title=Native%20Audio%20in%20the%20browser" title="StumbleUpon"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="StumbleUpon" alt="StumbleUpon" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://technorati.com/faves?add=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F" title="Technorati"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Technorati" alt="Technorati" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-271px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.netvibes.com/share?title=Native%20Audio%20in%20the%20browser&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F" title="Netvibes"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Netvibes" alt="Netvibes" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.facebook.com/share.php?u=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;t=Native%20Audio%20in%20the%20browser" title="Facebook"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Facebook" alt="Facebook" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;title=Native%20Audio%20in%20the%20browser&amp;annotation=Until%20very%20recently%20the%20ability%20to%20play%20any%20type%20of%20audio%20within%20a%20browser%20involved%20using%20Adobe%20Flash%20or%20other%20browser%20plugins.%20Although%20Adobe%27s%20Flash%20player%20is%20without%20doubt%20the%20most%20ubiquitous%20of%20these%2C%20most%20developers%20and%20designers%20would%20agree%20it%20is%20better%20not%20to%20rely%20on%20a%20plugin%20at%20all.%20Now%20thanks%20to%20HTML%205%20and%20the%20browsers%20that%20implement%20its%20audio%20tag%20we%20can%20play%20audio%20natively%20within%20the%20browser." title="Google Bookmarks"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Google Bookmarks" alt="Google Bookmarks" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-91px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.friendfeed.com/share?title=Native%20Audio%20in%20the%20browser&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F" title="FriendFeed"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="FriendFeed" alt="FriendFeed" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-37px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://news.ycombinator.com/submitlink?u=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;t=Native%20Audio%20in%20the%20browser" title="HackerNews"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="HackerNews" alt="HackerNews" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-127px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;title=Native%20Audio%20in%20the%20browser&amp;source=HTML5+Doctor+helping+you+implement+HTML5+today&amp;summary=Until%20very%20recently%20the%20ability%20to%20play%20any%20type%20of%20audio%20within%20a%20browser%20involved%20using%20Adobe%20Flash%20or%20other%20browser%20plugins.%20Although%20Adobe%27s%20Flash%20player%20is%20without%20doubt%20the%20most%20ubiquitous%20of%20these%2C%20most%20developers%20and%20designers%20would%20agree%20it%20is%20better%20not%20to%20rely%20on%20a%20plugin%20at%20all.%20Now%20thanks%20to%20HTML%205%20and%20the%20browsers%20that%20implement%20its%20audio%20tag%20we%20can%20play%20audio%20natively%20within%20the%20browser." title="LinkedIn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="LinkedIn" alt="LinkedIn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-1px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.newsvine.com/_tools/seed&amp;save?u=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;h=Native%20Audio%20in%20the%20browser" title="NewsVine"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="NewsVine" alt="NewsVine" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.sphere.com/search?q=sphereit:http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;title=Native%20Audio%20in%20the%20browser" title="SphereIt"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="SphereIt" alt="SphereIt" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-181px -55px" class="sociable-hovers" /></a></li>
+<li class="sociablelast"><a rel="nofollow"  href="http://www.tumblr.com/share?v=3&amp;u=http%3A%2F%2Fhtml5doctor.com%2Fnative-audio-in-the-browser%2F&amp;t=Native%20Audio%20in%20the%20browser&amp;s=Until%20very%20recently%20the%20ability%20to%20play%20any%20type%20of%20audio%20within%20a%20browser%20involved%20using%20Adobe%20Flash%20or%20other%20browser%20plugins.%20Although%20Adobe%27s%20Flash%20player%20is%20without%20doubt%20the%20most%20ubiquitous%20of%20these%2C%20most%20developers%20and%20designers%20would%20agree%20it%20is%20better%20not%20to%20rely%20on%20a%20plugin%20at%20all.%20Now%20thanks%20to%20HTML%205%20and%20the%20browsers%20that%20implement%20its%20audio%20tag%20we%20can%20play%20audio%20natively%20within%20the%20browser." title="Tumblr"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Tumblr" alt="Tumblr" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-325px -55px" class="sociable-hovers" /></a></li>
+</ul>
+</div>
+	  </div>
+	  <footer>
+    		<div>
+                <div class="author-blurb author">
+            	<p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></span>. Mark is a developer and co-founder of <a href="http://happyworm.com">happyworm</a>. He is interested in technologies such as AJAX and Comet and their role in improving web user experience.  Positively brimming with ideas, he recently came up with the jQuery audio plugin;  <a>jPlayer</a>. When not working Mark likes to scoot around Chiantishire on his Vespa. You can follow <a href="http://twitter.com/maboa">Mark on Twitter</a>.</p>
+               <img alt='' src='http://www.gravatar.com/avatar/4c1f7ad0026132535ddc7af0a48ca8be?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+            	</div>
+                
+            	<span>Posted on <time class="published updated" datetime="2009-07-29">July 29th, 2009</time></span>
+                
+				<p>				Got anything to add or ask? <a href="#respond">then leave a response</a>,<br />or <a href="http://html5doctor.com/native-audio-in-the-browser/trackback/" rel="trackback">trackback</a> from your own site.
+				            </div>
+            <p>Categorised under: <a href="http://html5doctor.com/category/browser-compatibility/" title="View all posts in Browser Compatibility" rel="category tag">Browser Compatibility</a>,  <a href="http://html5doctor.com/category/elements/" title="View all posts in Elements" rel="category tag">Elements</a>.</p>
+            <p>Tagged with: <a href="http://html5doctor.com/tag/audio/" rel="tag">audio</a>, <a href="http://html5doctor.com/tag/codecs/" rel="tag">codecs</a>, <a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a>, <a href="http://html5doctor.com/tag/jquery/" rel="tag">jquery</a>, <a href="http://html5doctor.com/tag/source/" rel="tag">source</a>.</p>
+	  </footer>
+      </article>
+	    
+<!-- You can start editing here. -->
+<div id="comments">
+    <h3 id="comment-head">
+    43 Responses    to &#8220;
+    Native Audio in the browser    &#8221;</h3>
+<article class=" " id="comment-399">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.metal.by/' rel='external nofollow' class='url'>Andrey Superstar</a></cite> at <a class="commentmetadata" href="#comment-399">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 29th, 2009        at
+        8:51 pm    </time></a></p>
+            <p>Ough! Why Firefox and Opera browsers don&#8217;t support .mp3?! That&#8217;s a new pitty!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4ad0a3bcbf588808a2fc7068d925f9b3?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-400">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Garrett Albright</cite> at <a class="commentmetadata" href="#comment-400">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 29th, 2009        at
+        9:02 pm    </time></a></p>
+            <p>How about MP4/AAC? I&#8217;ll take a guess that only Safari supports it currently…</p>
+<p>But all said, plugin-less audio sounds altogether doable, especially if we can use something like jPlayer to abstract the differences away. Is there anything similar to jPlayer for video?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/35a1011797dc40862da9d470d49b8fb6?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" author_comment" id="comment-401">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://happyworm.com' rel='external nofollow' class='url'>Mark Boas</a></cite> at <a class="commentmetadata" href="#comment-401">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 29th, 2009        at
+        9:46 pm    </time></a></p>
+            <p>@Andrey agreed &#8211; it&#8217;s a real pain! To be fair Safari could also support Ogg Vorbis that would give us a bit of choice. From what I can gather it all boils down to licensing and patents sadly. </p>
+<p>@Garrett &#8211; now if we could abstract all HTML 5 differences away we&#8217;d be on to a winner <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />  Regarding video you may want to check out <a href="http://camendesign.com/code/video_for_everybody" rel="nofollow">http://camendesign.com/code/video_for_everybody</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4c1f7ad0026132535ddc7af0a48ca8be?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-404">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blogs.adobe.com/jd' rel='external nofollow' class='url'>John Dowdell</a></cite> at <a class="commentmetadata" href="#comment-404">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 29th, 2009        at
+        11:08 pm    </time></a></p>
+            <p><em>&#8220;most developers and designers would agree it is better not to rely on a plugin at all.&#8221;</em></p>
+<p>Got a citation for that?</p>
+<p>Opera&#8217;s MAMA study showed that about a third of sites used Flash, but only one site in 25 would validate:<br />
+<a href="http://dev.opera.com/articles/view/mama-key-findings/" rel="nofollow">http://dev.opera.com/articles/view/mama-key-findings/</a></p>
+<p>jd/adobe</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/120f6678dc7990a340d3ad465602bfd3?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" author_comment" id="comment-405">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://happyworm.com' rel='external nofollow' class='url'>Mark Boas</a></cite> at <a class="commentmetadata" href="#comment-405">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 29th, 2009        at
+        11:29 pm    </time></a></p>
+            <p>@John &#8211; You&#8217;re absolutely right to pick me up on that &#8211; I should have written :<br />
+<em> “I think most developers and designers would agree it is better not to rely on a plugin at all.” </em><br />
+Maybe we should do a poll <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>Incidentally I wonder how many sites are using Flash just to play audio.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4c1f7ad0026132535ddc7af0a48ca8be?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-411">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ajaxian.com/archives/the-doctor-subscribes-html-5-audio-cross-browser-support' rel='external nofollow' class='url'>Ajaxian &raquo; The Doctor subscribes HTML 5 Audio cross browser support</a></cite> at <a class="commentmetadata" href="#comment-411">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        12:14 pm    </time></a></p>
+            <p>[...] doctor is in, and this time the specialist is Mark Boas who walks us through HTML5 Audio in various browsers and how to get audio working on the various implementations that are in the wild [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-413">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://seven-lotus.net/audio/no-catagories/native-audio-in-the-browser-html5-doctor/' rel='external nofollow' class='url'>audio &raquo; Blog Archive &raquo; Native Audio in the browser | HTML5 Doctor</a></cite> at <a class="commentmetadata" href="#comment-413">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        4:22 pm    </time></a></p>
+            <p>[...] S&#173;e&#173;e&#173; the&#173; or&#173;ig&#173;inal pos&#173;t he&#173;r&#173;e&#173;: N&#173;a&#173;t&#173;i&#173;ve&#173; A&#173;udi&#173;o&#173; i&#173;n&#173; t&#173;he&#173; bro&amp;#173&#8230; [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-414">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.csskarma.com' rel='external nofollow' class='url'>Tim Wright</a></cite> at <a class="commentmetadata" href="#comment-414">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        4:28 pm    </time></a></p>
+            <p>That&#8217;s really strange that the filetype would matter so much</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/103663efaac407f2d83c6b1d48b679e4?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-415">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">F. Piat</cite> at <a class="commentmetadata" href="#comment-415">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        4:42 pm    </time></a></p>
+            <p>@Andrey &amp; @Mark &#8211; Opera or FireFox don&#8217;t make it bad : MP3 is a patented format and they can&#8217;t use it (for example see Licensing and patent issues in <a href="http://en.wikipedia.org/wiki/Mp3)" rel="nofollow">http://en.wikipedia.org/wiki/Mp3)</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/1b34a05d7ca674bddebcd89e4b53554f?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt author_comment" id="comment-416">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://happyworm.com' rel='external nofollow' class='url'>Mark Boas</a></cite> at <a class="commentmetadata" href="#comment-416">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        4:58 pm    </time></a></p>
+            <p>@Tim It seems to matter very much indeed to the people who make browsers and it&#8217;s a shame that things have to turn political at the detriment of the developer community at large. </p>
+<p>Let&#8217;s say that for the average developer it&#8217;s pretty much possible to start using the new  tag right now falling back on Flash for Internet Explorer, Opera and older browser support. Then the choice is whether to support Firefox, Safari (or both) depending on which audio formats you provide. Chrome for now is the only given.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4c1f7ad0026132535ddc7af0a48ca8be?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" author_comment" id="comment-418">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://happyworm.com' rel='external nofollow' class='url'>Mark Boas</a></cite> at <a class="commentmetadata" href="#comment-418">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        4:59 pm    </time></a></p>
+            <p>@F. Piat &#8211; Sure. I can appreciate Opera and Firefox&#8217;s point of view.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4c1f7ad0026132535ddc7af0a48ca8be?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-419">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.guildfa.net/the-doctor-subscribes-html-5-audio-cross-browser-support/' rel='external nofollow' class='url'>The Doctor subscribes HTML 5 Audio cross browser support | Guilda Blog</a></cite> at <a class="commentmetadata" href="#comment-419">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        5:24 pm    </time></a></p>
+            <p>[...] doctor is in, and this time the specialist is Mark Boas who walks us through HTML5 Audio in various browsers and how to get audio working on the various implementations that are in the wild [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-422">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Adam</cite> at <a class="commentmetadata" href="#comment-422">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        9:36 pm    </time></a></p>
+            <p>is the autoplay attribute strongly and I mean <em>STRONGLY</em> advised against?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/42c36e62e123408ac5ddfca3756a4b21?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-423">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Adam</cite> at <a class="commentmetadata" href="#comment-423">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        9:37 pm    </time></a></p>
+            <p>or should that be <strong>STRONGLY</strong> ?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/42c36e62e123408ac5ddfca3756a4b21?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-424">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Garrett Albright</cite> at <a class="commentmetadata" href="#comment-424">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 30th, 2009        at
+        10:35 pm    </time></a></p>
+            <p>Adam, I strongly against using it if you want me to stick around on your site. Few things will annoy me more about your web site than if it starts making noises without my permission. And I know I&#8217;m not alone.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/35a1011797dc40862da9d470d49b8fb6?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-425">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Adam</cite> at <a class="commentmetadata" href="#comment-425">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 31st, 2009        at
+        12:19 am    </time></a></p>
+            <p>I know, I meant to ask if it was strongly advised against <em>in the spec</em></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/42c36e62e123408ac5ddfca3756a4b21?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" author_comment" id="comment-430">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://happyworm.com' rel='external nofollow' class='url'>Mark Boas</a></cite> at <a class="commentmetadata" href="#comment-430">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 31st, 2009        at
+        9:35 am    </time></a></p>
+            <p>@Adam on the subject of Autoplay the spec <a href="http://dev.w3.org/html5/spec/Overview.html" rel="nofollow">http://dev.w3.org/html5/spec/Overview.html</a> does not appear to advise against using it. After all if a feature is in the spec it is expected to be used in some form.</p>
+<p>However it does mention:<br />
+<em>Note : Authors are urged to use the autoplay attribute rather than using script to trigger automatic playback, as this allows the user to override the automatic playback when it is not desired, e.g. when using a screen reader. Authors are also encouraged to consider not using the automatic playback behavior at all, and instead to let the user agent wait for the user to start playback explicitly.</em></p>
+<p>As to whether you use the autoplay attribute, I think that is down to the individual.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4c1f7ad0026132535ddc7af0a48ca8be?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-431">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://happyworm.com/blog/2009/07/31/html-5-and-audio/' rel='external nofollow' class='url'>HTML 5 and Audio | The Worm Hole</a></cite> at <a class="commentmetadata" href="#comment-431">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 31st, 2009        at
+        9:59 am    </time></a></p>
+            <p>[...] the HTML 5 Doctors. They were interested in publishing a piece on the state of HTML 5 Audio and we were happy to oblige. The post was also picked up by [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-432">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blogografia.com/soporte-de-audio-en-html5-para-los-diferentes-navegadores.html' rel='external nofollow' class='url'>Soporte de audio en HTML5 para los diferentes navegadores : Blogografia</a></cite> at <a class="commentmetadata" href="#comment-432">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 31st, 2009        at
+        10:40 am    </time></a></p>
+            <p>[...] html5Doctor hacen una tabla, muy útil, de los navegadores y los estándares soportados por cada uno de [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-435">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://soft4each.com/blog/the-doctor-subscribes-html-5-audio-cross-browser-support.html' rel='external nofollow' class='url'>The Doctor subscribes HTML 5 Audio cross browser support</a></cite> at <a class="commentmetadata" href="#comment-435">
+    <time datetime="2009-07-29T16:00+00:00">
+        July 31st, 2009        at
+        1:46 pm    </time></a></p>
+            <p>[...] doctor is in, and this time the specialist is Mark Boas who walks us through HTML5 Audio in various browsers and how to get audio working on the various implementations that are in the wild [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-543">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://satabyte.com/?p=9553' rel='external nofollow' class='url'>Windows losing out to Web-centric development? | SataByte.com</a></cite> at <a class="commentmetadata" href="#comment-543">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 4th, 2009        at
+        11:08 pm    </time></a></p>
+            <p>[...] Native Audio in the browser | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-601">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://4u-webhost.com/test/?p=21' rel='external nofollow' class='url'>The Doctor subscribes HTML 5 Audio cross browser support | Simple Test</a></cite> at <a class="commentmetadata" href="#comment-601">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 7th, 2009        at
+        11:42 pm    </time></a></p>
+            <p>[...] doctor is in, and this time the specialist is Mark Boas who walks us through HTML5 Audio in various browsers and how to get audio working on the various implementations that are in the wild [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-610">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://satabyte.com/?p=9890' rel='external nofollow' class='url'>Mozilla issues first Firefox 3.6 alpha version | SataByte.com</a></cite> at <a class="commentmetadata" href="#comment-610">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 9th, 2009        at
+        11:12 am    </time></a></p>
+            <p>[...] Native Audio in the browser | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-649">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://browsers.endot.info/native-audio-in-the-browser-html5-doctor/' rel='external nofollow' class='url'>Native Audio in the browser | HTML5 Doctor</a></cite> at <a class="commentmetadata" href="#comment-649">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 11th, 2009        at
+        1:43 am    </time></a></p>
+            <p>[...] Read more: Native Audio in the browser | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-664">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Ben</cite> at <a class="commentmetadata" href="#comment-664">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 11th, 2009        at
+        8:48 pm    </time></a></p>
+            <p>Why are people confusing native playing ability with built-in codecs?!?  Flash came about not because the browsers don&#8217;t have built in video players (well, they don&#8217;t), but to solve the CODEC problem.  Now in HTML 5 they&#8217;re trying to conquer both at once and the problems are evident even with audio, let alone video.  Likely some browsers don&#8217;t support MP3 cause it still is licensed to fraunhaffer (sp?) and requires a licensing fee to put it in your application.  Instead, HTML5 should just say the browser needs to support video playback without using an embed, BUT you still have to have the CODEC installed on your O/S.  This doesn&#8217;t mean they need to bundle the CODEC&#8217;s with the browser!  If they try to dictate a codec that every HTML5 browser has to support, it will likely be obsolete before any actual implementation (this was the whole reason for codec&#8217;s in the first place &#8211; so media player software didn&#8217;t become useless when new formats came out).</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/9ca29cdf8cef88b037d170caf2daa6a5?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-665">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Ben</cite> at <a class="commentmetadata" href="#comment-665">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 11th, 2009        at
+        8:52 pm    </time></a></p>
+            <p>sorry, I meant the ubiquitous use of flash for video playback came about to solve the CODEC problem, not that flash itself was created for video playback (it in fact, was not originally meant for that sole purpose).</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/9ca29cdf8cef88b037d170caf2daa6a5?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-702">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://proteus-tech.com' rel='external nofollow' class='url'>Ben Scherrey</a></cite> at <a class="commentmetadata" href="#comment-702">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 12th, 2009        at
+        7:17 pm    </time></a></p>
+            <p>Is HTML5 silent on streaming audio? Most interesting audio services are those that broadcast a continuous stream rather than selecting individual fixed files. I&#8217;d be very interested in hearing about any planned support for this.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/a3012175633acf628035547bbb30a332?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-706">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://satabyte.com/?p=10128' rel='external nofollow' class='url'>Microsoft releases preview for next SQL Server | SataByte.com</a></cite> at <a class="commentmetadata" href="#comment-706">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 13th, 2009        at
+        12:13 am    </time></a></p>
+            <p>[...] Native Audio in the browser | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-707">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://satabyte.com/?p=10127' rel='external nofollow' class='url'>Kaleidescape loses, DVD copying falls again | SataByte.com</a></cite> at <a class="commentmetadata" href="#comment-707">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 13th, 2009        at
+        12:21 am    </time></a></p>
+            <p>[...] Native Audio in the browser | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-708">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://satabyte.com/?p=10126' rel='external nofollow' class='url'>CNET News Daily Podcast: Microsoft, Nokia partner to fend off rivals | SataByte.com</a></cite> at <a class="commentmetadata" href="#comment-708">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 13th, 2009        at
+        12:26 am    </time></a></p>
+            <p>[...] Native Audio in the browser | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-709">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://satabyte.com/?p=10125' rel='external nofollow' class='url'>Docstoc opens up a shop for publishers | SataByte.com</a></cite> at <a class="commentmetadata" href="#comment-709">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 13th, 2009        at
+        12:27 am    </time></a></p>
+            <p>[...] Native Audio in the browser | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-769">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://webdev.stephband.info' rel='external nofollow' class='url'>stephband</a></cite> at <a class="commentmetadata" href="#comment-769">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 17th, 2009        at
+        2:56 pm    </time></a></p>
+            <p>In all the discussion of the merits of native audio support against Quicktime or Flash plugin alternatives I&#8217;ve yet to see any sensible discussion of the merits of the codecs.</p>
+<p>For me, the main reason not to use Flash is that it is (still) only capable of playing mp3 files.  Some people are bemoaning the lack of native mp3 support in the audio tag, but I can only see this as an advance, because the sound quality of mp3 playback does not compare well with playback of more modern codecs, .m4a (aac) or .oga (vorbis), in files of the same size.  For reasons of sound quality alone I have always turned to QuickTime to deliver audio on the web.</p>
+<p>mp3 is getting on for 20 years old, and it is high time it is retired.  Roll on audio tags with native support for newer, better codecs.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4dcfc9f14d4ff854a8ae3be61321a9bd?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-770">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://webdev.stephband.info' rel='external nofollow' class='url'>stephband</a></cite> at <a class="commentmetadata" href="#comment-770">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 17th, 2009        at
+        2:59 pm    </time></a></p>
+            <p>And, to follow on from that, I&#8217;d be really happy if the table above noted that Safari 4 is capable of taking an .m4a file as a source!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4dcfc9f14d4ff854a8ae3be61321a9bd?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-772">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://webdev.stephband.info' rel='external nofollow' class='url'>stephband</a></cite> at <a class="commentmetadata" href="#comment-772">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 17th, 2009        at
+        4:11 pm    </time></a></p>
+            <p>&#8230; although I haven&#8217;t figured out how to detect the m4a mime type.  I&#8217;ve tried:</p>
+<p>audio/m4a<br />
+audio/mp4a<br />
+audio/mp4a-latm<br />
+audio/quicktime</p>
+<p>Any ideas?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4dcfc9f14d4ff854a8ae3be61321a9bd?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-792">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Joeri Kassenaar</cite> at <a class="commentmetadata" href="#comment-792">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 18th, 2009        at
+        11:54 pm    </time></a></p>
+            <p>Uggh&#8230;</p>
+<p>Cool ! A html tag that needs javascript by default to get to work&#8230; Hooray!<br />
+No thanks, I&#8217;ll stick to swfObjects if I need to add javascript, it allows me to create nice pause and rewind features.</p>
+<p>O and while I&#8217;m at it ( hacking I mean ):<br />
+still no  ? When is that going to happen? HTML12?<br />
+With wmv support in IE, mp4 in Safari and m2v with no audio in FF?&#8230;</p>
+<p>Useless features hooray.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/aae1a25ea383dd8e13de968e4edc695c?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-793">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Joeri Kassenaar</cite> at <a class="commentmetadata" href="#comment-793">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 18th, 2009        at
+        11:56 pm    </time></a></p>
+            <p>( cool site btw, great work here )<br />
+Sorry that I used &lt; tags for my little rant&#8230; made it unreadable. Ofcourse I read your remark only after my post.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/aae1a25ea383dd8e13de968e4edc695c?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-810">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.bestpsdtohtml.com' rel='external nofollow' class='url'>Andrew Jhonson</a></cite> at <a class="commentmetadata" href="#comment-810">
+    <time datetime="2009-07-29T16:00+00:00">
+        August 20th, 2009        at
+        8:56 am    </time></a></p>
+            <p>To rescue the web designers from this aching job of testing browser compatibility in different browsers there are few websites which offer this service. On these websites you can check the compatibility of your website in all desired browsers. You can find these websites at <a href="http://www.bestpsdtohtml.com/7-awesome-resources-to-test-cross-browser-compatibility-of-your-website/" rel="nofollow">http://www.bestpsdtohtml.com/7-awesome-resources-to-test-cross-browser-compatibility-of-your-website/</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/676f0611744491569040ff40af2090b1?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1027">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Victor Rodrigues</cite> at <a class="commentmetadata" href="#comment-1027">
+    <time datetime="2009-07-29T16:00+00:00">
+        September 17th, 2009        at
+        11:40 pm    </time></a></p>
+            <p>Do you know if it accepts a live stream instead of a file?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/ab36a3e1ae82262911528dd926417768?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" author_comment" id="comment-1081">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://happyworm.com' rel='external nofollow' class='url'>Mark Boas</a></cite> at <a class="commentmetadata" href="#comment-1081">
+    <time datetime="2009-07-29T16:00+00:00">
+        September 21st, 2009        at
+        10:03 am    </time></a></p>
+            <p>@Victor &#8211; the short answer is no. Browsers implementing native audio currently only support file formats such as OGG, MP3, M4A and WAV. I&#8217;m no expert on streaming media but I believe the process requires purpose-built formats. I do wonder whether you could stream a file-format such as OGG with the correct server-side technology but I suspect that there are very real problems in achieving this. Would be happy to be proved wrong though <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>@stephband &#8211; Did you ever find a satisfactory mime format for M4A? I had a  look but could only find the same references as you.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/4c1f7ad0026132535ddc7af0a48ca8be?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1183">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Hamranhansenhansen</cite> at <a class="commentmetadata" href="#comment-1183">
+    <time datetime="2009-07-29T16:00+00:00">
+        September 29th, 2009        at
+        1:06 am    </time></a></p>
+            <p>&gt; It’s worth noting that the spec is not yet finalised and unfortunately there has yet to be<br />
+&gt; a consensus on which codecs to support, each browser supporting a different<br />
+&gt; combination of codecs</p>
+<p>Audio standardization is outside the scope of the HTML5 specification. It&#8217;s not up to browser makers or Web developers or anyone at W3C to tell the world how to store and play digital audio. The responsibility for browser makers is to bring their products into compliance with existing audio standardization, which means playback support for ISO MPEG-4 AAC, aka MP4. The responsibility for Web developers is to publish audio and video in the existing standards, which means MP4. You are responsible for this in the same way that Kodak and Apple and even Zune all support MPEG-4.</p>
+<p>The thing that&#8217;s really important here is to compare the success of Web standardization, which has never, ever succeeded:</p>
+<p>- during the HTML4 years we made proprietary Internet Explorer 6 apps with Flash audio video (FAIL)<br />
+- during the HTML3 years we made proprietary Netscape apps with proprietary QuickTime audio video (FAIL)</p>
+<p>&#8230; with the success of audio video standardization, which has never failed:</p>
+<p>[1980]<br />
+- CD was universal<br />
+[1990]<br />
+- MPEG (CD-ROM) was universal<br />
+- MPEG-2 (DVD) was universal<br />
+- MPEG-2 audio layer 3 (MP3) was universal<br />
+[2000]<br />
+- MPEG-4 (iTunes, YouTube, Flash, QuickTime, iPod, iPhone, Palm, Nokia, Blackberry, Zune, Blu-Ray, NVIDIA, Android, Kodak, Flip, Avid, Final Cut, iMovie, Logic, Pro Tools, Performer, many more) was universal</p>
+<p>Me, I&#8217;m an audio producer and Web developer, and a huge supporter of HTML5, so I&#8217;m embarrassed to see Web developers attempting to open up an audio video standardization debate at this time, as if they are the Kings of the World not just the World Wide Web. Especially when the Ogg vs MPEG-4 debate literally happened 10 years ago and Ogg lost by far, solely on technical merits. Unless there is also a Time Machine in the HTML5 spec, there is no going back to 1999 and redoing the last 10 years of the world&#8217;s audio video in Ogg. Had the W3C been thinking about audio video instead of XML at the turn of the century, they might have had some input into MPEG-4. Apple delayed MPEG-4 for 6 months because of issues they had with the licensing (there was a content tax put in, Apple would not support MPEG-4 until the content tax was taken out) but the W3C said nothing. They left audio video to Flash and QuickTime as usual. Well, Flash and QuickTime have both since standardized on MPEG-4. To say now that the Web standard is not MPEG-4 is not practical. The computer time to transcode all the media to Ogg does not exist, the Ogg audio video toolchain does not exist, and we are already into user generated content and camcorders that shoot MPEG-4 and upload via Wi-Fi. How can we say to them &#8220;I know you&#8217;re making ISO standard media, but we&#8217;d like you to find a Linux computer and transcode to Ogg before you upload please so that we can be in compliance with HTML5.&#8221; It is not practical.</p>
+<p>Also, notice that if the HTML5 spec were to say &#8220;Ogg is standard, MPEG-4 is not&#8221; that would mean that YouTube could NEVER comply with the HTML5 spec. YouTube is all MPEG-4 in the back end, no matter what you upload, they create an MPEG-4 to use and store your original as a backup. That is why it runs on mobiles, where the ONLY video playback is MPEG-4. Google has already done a study of &#8220;YouTube Ogg&#8221; and found that there is currently not enough Internet bandwidth to support it. In other words, if YouTube were switched to Ogg overnight tonight by magic, then tomorrow it would need more bandwidth than exists in the world just to serve its current users, even if everyone else stopped using the Internet for the day somehow. YouTube is also growing, so the day after they would need even more.</p>
+<p>If YouTube is not Web video then I don&#8217;t know what is. And there you have Google being a full supporter of HTML5, they are moving YouTube to it quite steadily, and we&#8217;re going to say &#8220;sorry, you&#8217;re out of spec because you use the same audio video format as the rest of the world&#8221;?</p>
+<p>It&#8217;s also important to understand that MPEG-4 is the ISO standardization of the Apple QuickTime file format that is used almost universally by audio video authoring tools. Therefore, MPEG-4 compatibility in the authoring toolchain came almost for free. What was there was standardized, rather than creating a whole new thing and standardizing that. Instead of replacing QuickTime with something else (which still doesn&#8217;t exist), QuickTime was standardized so that now there are  &#8220;QuickTime Players&#8221; from hundreds of manufacturers now. In that sense, MPEG-4 is as practical for audio video people as HTML5 is for Web developers, standardizing what is already happening. So to create a schism between HTML5 and MPEG-4 is terrible sabotage. It would be like HTML5 not supporting UTF-8 text, or JPEG images. It&#8217;s so impractical as to make a mockery of the practicality of the whole HTML5 spec. MPEG-4 is how the world&#8217;s audio video is stored. Browsers need to be able to (continue to) display it.</p>
+<p>If you&#8217;re a Web developer or browser maker and you&#8217;re not working with ISO MPEG-4 then your audio video is non-standard. The fact that you&#8217;re proud of your standardized HTML5 markup in that case is a joke.</p>
+<p>&gt; Did you ever find a satisfactory mime format for M4A?</p>
+<p>- audio-only MPEG-4 files are audio/mp4<br />
+- audio video MPEG-4 files are video/mp4<br />
+- MPEG-4 files that contain scripts or Java or other application code are application/mp4</p>
+<p>Here is a link to the <a href="http://www.rfc-editor.org/rfc/rfc4337.txt" rel="nofollow">RFC</a>. This stuff is ancient, even if you&#8217;re new to it.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/2dfb34e745148c3ad4c6b00cc280045f?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1465">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">John-Paul Harold</cite> at <a class="commentmetadata" href="#comment-1465">
+    <time datetime="2009-07-29T16:00+00:00">
+        October 23rd, 2009        at
+        3:23 pm    </time></a></p>
+            <p>re: m4a mimetypes</p>
+<p>I asked about this in a related question on the <a href="http://lists.macosforge.org/pipermail/webkit-dev/2009-April/007247.html" rel="nofollow">webkit</a> mailing list. I ended up not using the m4a mimetype as Safari ignores it, and I set my source tags so that Chrome uses the vorbis.</p>
+<p>hope it helps</p>
+<p>jp</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/1580ceee2e4eb6368eefa9819e9f50f4?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1564">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://tomkox.net/' rel='external nofollow' class='url'>TomkOx</a></cite> at <a class="commentmetadata" href="#comment-1564">
+    <time datetime="2009-07-29T16:00+00:00">
+        November 4th, 2009        at
+        8:18 pm    </time></a></p>
+            <p>@stephband: MP4:AAC mime type is: <code>audio/x-m4a</code>.<br />
+<a href="http://tomkox.net/demoscena/sid-6581-times/" rel="nofollow">HTML5 audio tag and MP4:AAC usage example</a>.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/6a2d2fe2d24d5ddf2dec2c38c9040a2b?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1608">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.ndedesigns.com/blog/2009/11/university-dissertation/' rel='external nofollow' class='url'>My University Dissertation | NDE Designs</a></cite> at <a class="commentmetadata" href="#comment-1608">
+    <time datetime="2009-07-29T16:00+00:00">
+        November 16th, 2009        at
+        10:06 am    </time></a></p>
+            <p>[...] A few things I want to cover are: the new tags in HTML5 that will help simple interactivity (&lt;audio&gt; and &lt;video&gt;, probably &lt;canvas&gt; too), examples of enhancing interactivity in HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+</section>
+<section id="respond">
+<h3>Leave a Reply</h3>
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+        <p>
+        <label for="author">Name
+        (required)        </label>
+        <input required aria-required="true" type="text" name="author" id="author" value="" size="22" />
+    </p>
+    <p>
+        <label for="email">Email (will not be published)
+        (required)        </label>
+        <input required aria-required="true" type="email" name="email" id="email" value="" size="22"  />
+    </p>
+    <p>
+        <label for="url">Website</label>
+        <input type="url" name="url" id="url" value="" size="22"  />
+    </p>
+        <p>You can use these tags: &lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strong&gt;</p>
+    <p>You can also use &lt;code&gt;, and remember to use &amp;lt; and &amp;gt; for brackets.</p>
+    <p>
+        <label for="comment" class="screenreader">Enter comment</label>
+        <textarea required aria-required="true" name="comment" id="comment"  cols="40" rows="10"></textarea>
+        <input name="submit" type="submit" id="submit"  value="Submit Comment" />
+        <input type="hidden" name="comment_post_ID" value="497" />
+    </p>
+    
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+</form>
+</div>	
+			
+	
+<!--    <section class="ask-doctor">
+        <form action="">
+            <label>Got a question about html5? Ask the doctor....
+            <input type="text">
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+    </section>-->
+
+</div><!-- //end hfeed -->
+
+<aside role="complementary">
+
+<div>
+	    <form id="searchform" method="get" action="http://html5doctor.com" role="search">
+
+      <div>
+
+        
+        <input id="s" name="s" type="search" value="Search" size="20" tabindex="1" onfocus="if (!this.reset) { this.value = ''; this.reset = true }" />
+
+        
+        <input id="searchsubmit" name="searchsubmit" class="btn" type="submit" value="Go" tabindex="2" />
+
+      </div>
+
+    </form> 
+</div>
+
+<aside>
+	<ul class="ads">
+    	<li><a href="http://www.authenticjobs.com/?aff=dcacc"><img src="http://www.authenticjobs.com/img/aj_125x125.gif" alt="Post a job. Find one. authenticjobs.com" width="125" height="125" /></a></li>
+    	<li><a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/mt-125x125-dk.png" alt="Proudly Hosted by Media Temple"></a></li>
+    </ul>
+</aside>
+
+<aside class="ask-banner">
+	<a href="/ask-the-doctor/"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/ask-doctor-banner.png" alt="Got a question about html5? Ask the doctor" /></a>
+</aside>
+
+<nav>
+	<h3>Recent Articles</h3>
+	<ul class="recent">
+			<li><a href='http://html5doctor.com/the-address-element/' title='The Address Element'>The Address Element</a></li>
+	<li><a href='http://html5doctor.com/aside-revisited/' title='Aside Revisited'>Aside Revisited</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-3/' title='Your Questions Answered #3'>Your Questions Answered #3</a></li>
+	<li><a href='http://html5doctor.com/why-designers-should-care-about-html5/' title='Why designers should care about HTML5'>Why designers should care about HTML5</a></li>
+	<li><a href='http://html5doctor.com/dd-details-wrong-again/' title='dd-details wrong again'>dd-details wrong again</a></li>
+	<li><a href='http://html5doctor.com/measure-up-with-the-meter-tag/' title='Measure up with the meter tag'>Measure up with the meter tag</a></li>
+	<li><a href='http://html5doctor.com/the-footer-element-update/' title='The Footer Element Update'>The Footer Element Update</a></li>
+	<li><a href='http://html5doctor.com/september-html5-spec-changes/' title='September HTML5 spec changes'>September HTML5 spec changes</a></li>
+	<li><a href='http://html5doctor.com/the-section-element/' title='The section element'>The section element</a></li>
+	<li><a href='http://html5doctor.com/absent-elements-and-validation/' title='Absent Elements and Validation'>Absent Elements and Validation</a></li>
+	<li><a href='http://html5doctor.com/its-bug-report-time/' title='It&#8217;s bug report time!'>It&#8217;s bug report time!</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-2/' title='Your questions answered #2'>Your questions answered #2</a></li>
+    </ul> 
+</nav>
+
+<nav>
+	<h3><abbr>HTML</abbr>5 Doctors (Authors)</h3>
+	<ul>
+    	<li><a href="/author/richc/">Richard Clark</a></li>
+    	<li><a href="/author/brucel/">Bruce Lawson</a></li>
+    	<li><a href="/author/jacko/">Jack Osborne</a></li>
+    	<li><a href="/author/miker/">Mike Robinson</a></li>
+    	<li><a href="/author/remys/">Remy Sharp</a></li>
+    	<li><a href="/author/toml/">Tom Leadbetter</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Contributing Authors</h3>
+	<ul>
+    	    	<li><a href="/author/cennyddb/">Cennydd Bowles</a></li>
+    	<li><a href="/author/markb/">Mark Boas</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Categories</h3>
+	<ul>
+    		<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" title="View all posts filed under Accessibility">Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" title="View all posts filed under Attributes">Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" title="View all posts filed under Boilerplates">Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" title="View all posts filed under Browser Compatibility">Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" title="View all posts filed under Comment">Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" title="View all posts filed under CSS">CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" title="View all posts filed under Elements">Elements</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" title="View all posts filed under JavaScript APIs">JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" title="View all posts filed under Questions">Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" title="View all posts filed under Quick Tips">Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" title="View all posts filed under Specification Changes">Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" title="View all posts filed under Structure">Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" title="View all posts filed under Validation">Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" title="View all posts filed under WAI-ARIA">WAI-ARIA</a>
+</li>
+    </ul>    
+</nav>
+
+<section>
+	<h3>About</h3>
+	<p>HTML5doctor is run by a bunch of volunteers that are passionate about making <abbr>HTML</abbr>5 happen here and now. Read more about them on the <a href="/about/">about page</a>.</p>    
+</section>
+
+<section>
+<script type="text/javascript" src="http://feeds.delicious.com/v2/js/html5gallery?title=HTML5%20Articles%20Elsewhere&amp;icon=rss&amp;count=5&amp;sort=date&amp;extended&amp;showadd"></script>
+</section>
+</aside>
+</div><!--// end content -->
+<aside class="extras">
+	    <section>
+        <h3>Follow us on twitter</h3><a href="http://www.twitter.com/html5doctor"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/twitter.jpg" alt="Follow us on twitter"></a>
+        </section>
+   	    <section>
+	    <h3>Want to write for us?</h3> 
+        <p>We're always on the lookout for new writers, so if you feel you've got a grip on <abbr>HTML</abbr> 5 &amp; have something to add then please <a href="/contact/">get in touch</a>.</p>
+        </section>
+	    <section>        
+    	<h3>Sites using HTML5</h3><a href="http://html5gallery.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/html5gallery-thumb.png" alt="html5gallery - A showcase of sites using html5 markup"></a>
+		</section>
+	    <section>      
+    	<h3>Make a donation</h3>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHTwYJKoZIhvcNAQcEoIIHQDCCBzwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYBDcBlRDdUE5wHnlolMsrKtSMA1M8psZ9cT4QL+njWkbJp1o+mnAo1j1DYOF1YCcisLLFmkeyiu36CoHFTw3kV/wjTHLGVJxZVH+Y1LU5tYgrMRoqL6sumsqHEC0iUuKWKE3EJyN6Sz7nf449uAPzS7rCwyiGsdBF/JccXGw4Yj7DELMAkGBSsOAwIaBQAwgcwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIOr6Q6TgFHOGAgahR+dy9JOhu1CdbF/YLdM2fsT3IOMTC2QB/X1TJEcjObWOwVxHLWFiHZYSVwEyO41ke6a5eIfcSeZZdr67IJwvNGcDTLSyKbxyP2IEyzyLzPBlfIxtsvfylRn+CpmB6Fh5ZKZhGcryv+LjvgFO13DsDD8aECHgF+V64OWkynwB69CUB7iqPhFCQjoiBh9S/Fg0NIbzLyG1iy7kjNZ9/0JVBjSssPryEDSigggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0wOTA2MjEwNzM1NDdaMCMGCSqGSIb3DQEJBDEWBBRMQfr1dhDKl1RT5iuvFxdcR/a79DANBgkqhkiG9w0BAQEFAASBgEAPWRu9fIytGIkf/Jab2LvmYtzR3aJgw+52GB7MpA71tJStAhPzvsgjDBMReM5OWt/NV8WFBua4Gc0XaVm4F07iUnbWVPDitQFKTWto61aq19/sB9TnTbCOTyVEYqF0cvKEbEg6Vy1Hlag9BUM7rGfZJ+qWAxgAkof45WezTlpE-----END PKCS7-----
+">
+		<p>Unfortunately the hosting doesn't pay itself, if you've found the site useful please help us out by making a donation.<br />
+		<input type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online."></p>
+		<img alt="" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+		</form>
+		</section>
+</aside>
+
+<nav class="nav-footer">
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>
+
+<footer role="contentinfo">
+	<p><small>This site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/uk/">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</small></p>
+</footer>
+
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5doc.js"></script>
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/prettify.js"></script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8916679-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>  
+
+</body>
+</html>

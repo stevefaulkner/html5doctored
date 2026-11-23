@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; microformats</title>
+	<atom:link href="http://html5doctor.com/tag/microformats/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Extending HTML5 — Microformats</title>
+		<link>http://html5doctor.com/microformats/</link>
+		<comments>http://html5doctor.com/microformats/#comments</comments>
+		<pubDate>Tue, 17 Aug 2010 13:30:18 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[microformats]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2304</guid>
+		<description><![CDATA[<p>HTML5 contains a bunch of new semantic goodness, but sometimes we need more semantics than what’s available. This is the first article in a series looking at various ways to extend HTML5 — first up, microformats.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>While <abbr>HTML</abbr>5 has a bunch of semantic elements, including new ones like <a href="http://html5doctor.com/the-article-element/" title="The article element | HTML5 Doctor"><code>&lt;article&gt;</code></a> and <a href="http://html5doctor.com/nav-element/" title="Semantic navigation with the nav element | HTML5 Doctor"><code>&lt;nav&gt;</code></a>, sometimes there just isn’t an element with the right meaning. What we want are ways to extend what we’ve got, to add <em>extra semantics</em> that are <em>machine-readable</em> — data that a browser, script, or robot can use.</p>
+
+<nav>
+<h2>In-page navigation</h2>
+<ol>
+<li><a href="#native-ways">Native ways to extend <abbr>HTML</abbr></a></li>
+<li><a href="#introducing">Introducing microformats</a>
+	<ol>
+		<li><a href="#uf-specs">Microformat specifications</a>
+		<ol>
+			<li><a href="#uf-published">Published microformats</a></li>
+			<li><a href="#uf-draft">Draft microformats</a></li>
+			<li><a href="#uf-patterns">Microformat patterns</a></li>
+		</ol>
+		</li>
+	</ol>
+</li>
+<li><a href="#lightning">A lightning introduction to using microformats</a>
+	<ol>
+		<li><a href="#rel-license">Using rel-license for licensing information</a></li>
+		<li><a href="#xfn">Using XHTML Friends Network (<abbr>XFN</abbr>)</a></li>
+		<li><a href="#hcard">Using hCard for contact information</a>
+			<ol><li><a href="#hcard-org">Organisations, addresses, and phone numbers</a></li></ol>
+		</li>
+		<li><a href="#hcalendar">Using hCalendar for event information</a></li>
+	</ol>
+</li>
+<li><a href="#uf-in-html5">Using microformats in <abbr>HTML</abbr>5</a>
+	<ol>
+		<li><a href="#votelinks">The <code>rev</code>-based VoteLinks microformat</a></li>
+		<li><a href="#profile">The <code>profile</code> attribute</a></li>
+		<li><a href="#uf-wiki">Microformats specifications vs <abbr>HTML</abbr>5</a></li>
+		<li><a href="#uf-tools">Microformats-consuming tools (or, the problem with <abbr>HTML</abbr> Tidy)</a>
+			<ol><li><a href="#uf-tools-table">Microformats Tool support</a></li></ol>
+		</li>
+	</ol>
+</li>
+<li><a href="#conclusion">Conclusion</a>
+	<ol><li><a href="#ref">Reference books and DVDs</a></li></ol>
+</li>
+<li><a href="#changes">Changes</a></li>
+</ol>
+</nav>
+
+<section id="native-ways">
+<h2>Native ways to extend <abbr>HTML</abbr></h2>
+
+<p>There were five fundamental ways we could extend <abbr>HTML</abbr> 4:</p>
+
+<ul>
+<li><code>&lt;meta&gt;</code> element</li>
+<li><code>class</code> attribute</li>
+<li><code>rel</code> attribute</li>
+<li><code>rev</code> attribute</li>
+<li><code>profile</code> attribute</li>
+</ul>
+
+<p>In <abbr>HTML</abbr>5, <code>rev</code> has fallen by the wayside, becoming obsolete since hardly anyone used it correctly, and because it can be replaced by <code>rel</code>. <code>profile</code> is also obsolete, and there is no support for namespaces in <abbr>HTML</abbr>5. However, <code>&lt;meta&gt;</code>, <code>class</code>, and <code>rel</code> <em>are</em> all in <abbr>HTML</abbr>5. In fact, <code>&lt;meta&gt;</code> now has <a href="http://dev.w3.org/html5/spec-author-view/semantics.html#standard-metadata-names" title="4 The elements of HTML &mdash; HTML5 (Edition for Web Authors)">spec-defined <code>name</code>s</a> and a way to <a href="http://wiki.whatwg.org/wiki/MetaExtensions" title="MetaExtensions - WHATWG Wiki">submit new <code>name</code> values</a>, and <code>rel</code> has <a href="http://dev.w3.org/html5/spec-author-view/links.html#linkTypes" title="4.12 Links — HTML5 (Edition for Web Authors)">several new link types</a> defined in the <abbr>HTML</abbr>5 specification and <a href="http://wiki.whatwg.org/wiki/RelExtensions" title="RelExtensions - WHATWG Wiki">a way to submit more</a> too.</p>
+
+<p>Even better, <a href="http://dev.w3.org/html5/spec-author-view/content-models.html#annotations-for-assistive-technology-products-aria" title="3.2.5 Content models — HTML5 (Edition for Web Authors)"><abbr>WAI</abbr>-<abbr>ARIA</abbr>’s <code>role</code> and <code>aria-*</code> attributes are allowed in <abbr>HTML</abbr>5</a>, and <abbr>HTML</abbr>5 validators can check <abbr>HTML</abbr>5+<abbr>ARIA</abbr>. Other new methods of extending <abbr>HTML</abbr>5 include <a href="http://html5doctor.com/html5-custom-data-attributes/" title="HTML5 Custom Data Attributes (data-*) | HTML5 Doctor">custom data attributes (<code>data-*</code>)</a>, <a href="http://html5doctor.com/microdata/" title="Extending HTML5 — Microdata | HTML5 Doctor">microdata</a>, and <abbr>RDFa</abbr>.</p>
+
+<p>Finally there are <strong>microformats</strong>. As Dr. Bruce touched on microformats in his article on <a href="http://html5doctor.com/the-time-element/" title="The time element (and microformats) | HTML5 Doctor">the <code>&lt;time&gt;</code> element</a>, let’s delve a little deeper into what microformats are and how to use them in HTML5.</p>
+</section><!-- /#native-ways -->
+
+<section id="introducing">
+<h2>Introducing microformats</h2>
+
+<p><a href="http://microformats.org/wiki/Main_Page" title="Welcome to the microformats wiki! &middot; Microformats Wiki">Microformats</a> are a collection of vocabularies for extending <abbr>HTML</abbr> with additional <em>machine-readable</em> semantics. They are designed for humans first and machines second. This is currently accomplished via agreed-upon <code>class</code>, <code>rel</code>, <code>rev</code> and <code>profile</code> attributes, coding patterns, and nesting.</p>
+
+<p>Being machine readable means a robot or script that understands the microformat vocabulary being used can understand and process the marked-up data. Each microformat defines a specific type of data and is usually based on existing data formats — like <b>vcard</b> (address book data; <a href="http://www.ietf.org/rfc/rfc2426.txt" title="vCard MIME Directory Profile">RFC2426</a>) and <b>icalendar</b> (calendar data; <a href="http://www.ietf.org/rfc/rfc2445.txt" title="Internet Calendaring and Scheduling Core Object Specification (iCalendar)">RFC 2445</a>) — or common coding patterns (‘paving the cowpaths’ of the web).</p>
+
+<p>Despite their humble beginnings, microformats have also been a runaway success, and they're <a href="http://microformats.org/2010/07/08/microformats-org-at-5-hcards-rich-snippets" title="Microformats | weblog | microformats.org at 5: Two Billion Pages With hCards, 94% of Rich Snippets">far more widely deployed</a> than other “big S” <a href="http://en.wikipedia.org/wiki/Semantic_Web" title="Semantic Web - Wikipedia, the free encyclopedia">Semantic web</a> technologies. For example, many services, such as Twitter and Flickr, offer profile information in hCard format by default, so you may already have a microformatted profile even if you’ve never used microformats before.</p>
+
+<section id="uf-specs">
+<h3>Microformat specifications</h3>
+
+<p>There are currently 34 microformats specifications (listed below) in varying levels of completion, and you can find out more about them on the <a href="http://microformats.org/wiki/Main_Page" title="Welcome to the microformats wiki! &middot; Microformats Wiki">microformats wiki</a>.</p>
+
+<section id="uf-published">
+<h4>Published microformats</h4>
+
+<ul>
+<li>Elemental (simple) microformats
+<ul>
+<li><abbr title="XHTML Friends Network">XFN</abbr> — specify relationships with people<!--(人間関係を表現する)--></li>
+<li><abbr title="XHTML Meta Data Profiles">XMDP</abbr> — add metadata profiles<!--(メタデータのプロフィール)--></li>
+<li>VoteLinks — indicate agreement or disagreement with, or indifference to, the link’s destination<!--(投票のリンク)--></li>
+<li>rel-nofollow — don’t give ‘weight’ to a link (don’t give ‘Google juice’; mainly for search engines)<!--(リンクにランキングの指標として用いないように)--></li>
+<li>rel-license — specify license information<!--(コンテンツのライセンス情報)--></li>
+<li>rel-tag — add tags<!--(キーワードやテーマのタグ)--></li>
+</ul>
+</li>
+<li>Compound microformats
+<ul>
+<li>hCard — contact information for people and organisations<!--(人や会社、組織や場所情報)--></li>
+<li>hCalendar — time-based information, such as events<!--(カレンダー・イベント情報)--></li>
+<li><abbr title="Extensible Open XHTML Outlines">XOXO</abbr> — outlines <!--(アウトラインフォーマット)--></li>
+</ul>
+</li>
+</ul>
+</section><!-- /#uf-published -->
+
+<section id="uf-draft">
+<h4>Draft microformats</h4>
+
+<ul class="columns">
+<li>adr</li>
+<li>geo</li>
+<li>hAtom</li>
+<li>hAudio</li>
+<li>hListing</li>
+<li>hMedia</li>
+<li>hNews</li>
+<li>hProduct</li>
+<li>hRecipe</li>
+<li>hResume</li>
+<li>hReview</li>
+<li>rel-directory</li>
+<li>rel-enclosure</li>
+<li>rel-home</li>
+<li>rel-payment</li>
+<li>robots exclusion</li>
+<li><ins datetime="2010-08-18T21:42:52+09:00">Species</ins></li>
+<li>xFolk</li>
+</ul>
+
+<p>Despite being drafts, many of these are in widespread use.</p>
+</section><!-- /#uf-draft -->
+
+<section id="uf-patterns">
+<h4>Microformat patterns</h4>
+
+<p>These common coding patterns are just best practices that are frequently used in writing plain old semantic <abbr>HTML</abbr> (POSH) to create microformats.</p>
+
+<ul class="column">
+<li><code>&lt;abbr&gt;</code> design pattern</li>
+<li><code>class</code> design pattern</li>
+<li>date design pattern</li>
+<li>datetime design pattern</li>
+<li>include pattern</li>
+<li>value <code>class</code> pattern</li>
+<li><code>rel</code> design pattern</li>
+</ul>
+</section><!-- /#uf-patterns -->
+
+<p>These specifications and patterns cover many common types of data. They’ve been created by a grass-roots organisation of interested people, and anyone is welcome to contribute or even propose a new microformat.</p>
+</section><!-- /#uf-specs -->
+</section><!-- /#introducing -->
+
+<section id="lightning">
+<h2>A lightning introduction to using microformats</h2>
+
+<p>For those of you that haven't used microformats before, I’ll briefly introduce some simple microformats — hopefully so simple you’ll be encouraged to use them right away!</p>
+
+<section id="rel-license">
+<h3>Using rel-license for licensing information</h3>
+
+<p>Adding license information is quite a common activity, and while we can add a link to Creative Commons or another license easily enough, someone would have to read it to understand the content’s license:</p>
+
+<pre><code>&lt;small&gt;This article is licensed under a 
+  &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-sa/2.0/&quot;&gt;
+  Creative Commons Attribution Non-commercial Share-alike 
+  (By-&lt;abbr&gt;NC&lt;/abbr&gt;-&lt;abbr&gt;SA&lt;/abbr&gt;) license&lt;/a&gt;.
+&lt;/small&gt;</code></pre>
+
+<p>If this information was machine-readable, search engines could use it to help consumers searching by license. By using the <code>rel-license</code> microformat to add <code>rel="license"</code> to the license link (indicating it’s the license for the page’s main content), we can do just that:</p>
+
+<figure>
+<pre><code>&lt;small&gt;This article is licensed under a 
+  &lt;a <mark>rel=&quot;license&quot;</mark> href=&quot;http://creativecommons.org/licenses/by-nc-sa/2.0/&quot;&gt;
+  Creative Commons Attribution Non-commercial Share-alike 
+  (By-&lt;abbr&gt;NC&lt;/abbr&gt;-&lt;abbr&gt;SA&lt;/abbr&gt;) license&lt;/a&gt;.
+&lt;/small&gt;</code></pre>
+<blockquote><p><small>This article is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.0/">Creative Commons Attribution Non-commercial Share-alike (By-<abbr>NC</abbr>-<abbr>SA</abbr>) license</a>.</small></p></blockquote>
+<figcaption>A rel-license-formatted code sample with an example rendering</figcaption>
+</figure>
+
+<p>This may be so easy you don’t even realise you’ve just microformatted the link! In fact, Google already uses this data to allow us to search by license (look in , in the extra options).</p>
+
+<img src="http://html5doctor.com/wp-content/uploads/2010/07/google-license-search.png" alt="Google advanced search options, showing the “Usage rights” pulldown" width="540" height="227" />
+</section><!-- /#rel-license -->
+
+<section id="xfn">
+<h3>Using XHTML Friends Network (<abbr>XFN</abbr>)</h3>
+
+<p>Maybe we should term this one eXtensible Friends Network instead :-) <abbr>XFN</abbr> is a way of specifying your relationship with people — everything from “met” to “sweetheart” — using the <code>rel</code> attribute on a link to their homepage.</p>
+
+<p>There are two main values: <code>rel="contact"</code> for someone you know how to get in touch with, and <code>rel="me"</code>. The <code>rel="me"</code> value allows you to claim ownership of your various websites, including your accounts on social networks. For example, I could have a profile with a link to my Twitter account:</p>
+
+<pre><code>&lt;p&gt;Oli Studholme &mdash; &lt;a href=&quot;http://twitter.com/boblet&quot;&gt;follow me on
+  Twitter (@boblet)&lt;/a&gt;&lt;/p&gt;</code></pre>
+
+<p>A person can infer that @boblet is my Twitter username, but by adding <code>rel="me"</code> we can state this relationship in a machine-readable way.</p>
+
+<pre><code>&lt;p&gt;Oli Studholme &mdash; &lt;a <mark>rel=&quot;me&quot;</mark> href=&quot;http://twitter.com/boblet&quot;&gt;follow me on
+  Twitter (@boblet)&lt;/a&gt;&lt;/p&gt;</code></pre>
+
+<p>In order to actually work, this would need to be on my personal homepage, with the same homepage added to my Twitter profile. By doing this, a social web app that understands <abbr>XFN</abbr> could confirm @boblet is me, check my friends on Twitter, check if those people are already registered, and then allow me to follow them all with one click — much easier.</p>
+
+<p>For more on this idea, check out <a href="http://gmpg.org/xfn/and/#idconsolidation" title="XFN: Services &amp; Technologies">Identity consolidation and the <abbr>XFN</abbr> <code>rel="me"</code> value</a>, <a href="http://microformats.org/wiki/RelMeAuth" title="RelMeAuth &middot; Microformats Wiki">the RelMeAuth proposal</a> on the microformats wiki, and <a href="http://code.google.com/apis/socialgraph/docs/" title="About the Social Graph - Social Graph API - Google Code">Google’s Social Graph <abbr>API</abbr></a>. It seems <a href="http://tantek.com/2010/191/t1/facebook-distributed-social-web-diso-rel-me-representative-hcard-microformats">Facebook is supporting <code>rel="me"</code></a> too.</p>
+</section><!-- /#xfn -->
+
+<p>Rel-license and <abbr>XFN</abbr> are simple <code>rel</code>-based microformats, but even with their simplicity you can see the potential power in this machine-readable stuff. Now let’s look at microformats for contact and event information.</p>
+
+<section id="hcard">
+<h3>Using hCard for contact information</h3>
+
+<p>Almost every website has an about page with some contact information:</p>
+
+<pre><code>&lt;p&gt;Oli Studholme &mdash; &lt;a href=&quot;http://oli.jp/&quot;&gt;http://oli.jp&lt;/a&gt;, or 
+&lt;a href=&quot;http://twitter.com/boblet&quot;&gt;follow me on Twitter (@boblet)&lt;/a&gt;.&lt;/p&gt;</code></pre>
+
+<p>Unfortunately, adding someone’s contact information to your phone or address book generally involves a lot of copying and pasting. If the data was machine-readable, however, we could use a tool to do that. Let’s add the <a href="http://microformats.org/wiki/hcard" title="hCard 1.0 · Microformats Wiki">hCard</a> microformat to this code snippet.</p>
+
+<figure>
+<pre><code>&lt;p <mark>class=&quot;vcard&quot;</mark>&gt;&lt;span <mark>class=&quot;fn&quot;</mark>&gt;Oli Studholme&lt;/span&gt; &mdash; 
+&lt;a <mark>class=&quot;url&quot;</mark> href=&quot;http://oli.jp/&quot;&gt;http://oli.jp&lt;/a&gt;, or 
+&lt;a <mark>class=&quot;url&quot;</mark> href=&quot;http://twitter.com/boblet&quot;&gt;follow me on Twitter 
+(@&lt;span <mark>class=&quot;nickname&quot;</mark>&gt;boblet&lt;/span&gt;)&lt;/a&gt;.&lt;/p&gt;</code></pre>
+<blockquote><p class="vcard"><span class="fn">Oli Studholme</span> — <a class="url" href="http://oli.jp/">http://oli.jp</a>, or <a class="url" href="http://twitter.com/boblet">follow me on Twitter (@<span class="nickname">boblet</span>)</a>.</p></blockquote>
+<figcaption>An hCard-formatted code sample with an example rendering</figcaption>
+</figure>
+
+<p>So we’ve added a bunch of classes. There’s nothing special about that, of course, until you realise they're all part of the hCard microformat. The first one is <code>vcard</code> on the containing <code>&lt;p&gt;</code> element, indicating that there's hCard data here. Then we have <code>fn</code>, which stands for full name, <code>url</code> for an associated homepage, and <code>nickname</code> for, well, a nickname.</p>
+
+<p>This is a simple example, and in fact a valid hCard (generally) only requires <code>vcard</code> and <code>fn</code>. But hCard has much more depth. We can mark up all kinds of contact-related data: addresses, company information, even a profile photo. For example, we can explicitly specify a given name and family name (this is required for Chinese, Korean, Japanese and Vietnamese names), even middle names and titles.</p>
+
+<pre><code>&lt;span <mark>class=&quot;vcard&quot;</mark>&gt;&lt;span <mark>class=&quot;fn n&quot;</mark> lang=&quot;ja&quot;&gt;&lt;span <mark>class=&quot;family-name&quot;</mark>&gt;
+スタッドホルム&lt;/span&gt;・&lt;span <mark>class=&quot;given-name&quot;</mark>&gt;オリ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</code></pre>
+
+<p>The additional <code>n</code> value is actually required, but can be inferred (the so-called “<a href="http://microformats.org/wiki/hcard#Implied_.22n.22_Optimization" title="hCard 1.0 &middot; Microformats Wiki">implied <code>n</code> optimisation</a>”) and therefore omitted for names that follow these patterns:</p>
+<ul>
+<li>given-name family-name</li>
+<li>family-name, given-name</li>
+</ul>
+
+<p>So what’s the benefit of this? Well, there are several tools that will convert this hCard-microformatted data into a vcard file we can download and automatically add to our address book. Nifty!</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2010/07/operator-hcard.png" alt="The Firefox Operator plugin’s hCard export options" width="370" height="125">
+<figcaption>The <a href="https://addons.mozilla.org/firefox/addon/4106">Firefox plugin Operator</a> can save hCard-formatted content as a vcard, or add it to Yahoo Contacts</figcaption>
+</figure>
+
+<p>It’s also recognised by <a href="http://www.google.com/support/webmasters/bin/answer.py?hl=en&amp;answer=99170">Google’s Rich Snippets</a> and <a href="http://developer.yahoo.com/searchmonkey/" title="SearchMonkey - YDN">Yahoo’s SearchMonkey</a>, useful for the contact information on any company website.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2010/07/google-rich-snippet.png" alt="A preview of how rich snippet data may be incorporated into Google’s search results—in this example “Osaka” and “designer”" width="494" height="175">
+<img src="http://html5doctor.com/wp-content/uploads/2010/07/google-rich-snippet-data.png" alt="Microformat hCard data extracted by the Google Rich Snippet testing tool" width="290" height="248">
+<figcaption>Google’s Rich Snippet testing tool for an hCard (Note the “Osaka - designer” in the search preview)</figcaption>
+</figure>
+
+<section id="hcard-org">
+<h4>Organisations, addresses, and phone numbers</h4>
+
+<p>Smaller company websites often have the company name and contact details in the footer, so let’s briefly see how to do that.</p>
+
+<figure>
+<pre><code>&lt;p class="vcard"&gt;
+&lt;a class="fn org url" href="http://www.w3.org/Consortium/contact-keio" title="Contact Information for W3C/Keio"&gt;&lt;span class="organization-name"&gt;W3C&lt;/span&gt;/&lt;span class="organization-unit"&gt;Keio&lt;/span&gt;&lt;/a&gt;&lt;br&gt;
+&lt;span class="adr"&gt;&lt;a class="extended-address" href="http://www.keio.ac.jp/english/about_keio/campus_info/sfc1.html"&gt;Keio University Shonan Fujisawa Campus&lt;/a&gt;&lt;br&gt;
+&lt;span class="street-address"&gt;5322 Endo&lt;/span&gt;, &lt;span class="locality"&gt;Fujisawa city&lt;/span&gt;,&lt;br&gt;
+&lt;span class="region"&gt;Kanagawa prefecture&lt;/span&gt; &lt;span class="postal-code"&gt;252-8520&lt;/span&gt; &lt;b class="country"&gt;Japan&lt;/b&gt;&lt;br&gt;
+&lt;span class="tel"&gt;Telephone: &lt;span class="value"&gt;+81-466-49-1170&lt;/span&gt;&lt;/span&gt;&lt;br&gt;
+&lt;span class="tel"&gt;&lt;span class="type"&gt;Fax&lt;/span&gt;: &lt;span class="value"&gt;+81-466-49-1171&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/p&gt;
+</code></pre>
+<p class="vcard">
+<a class="fn org url" href="http://www.w3.org/Consortium/contact-keio" title="Contact Information for W3C/Keio"><span class="organization-name">W3C</span>/<span class="organization-unit">Keio</span></a><br>
+<span class="adr"><a class="extended-address" href="http://www.keio.ac.jp/english/about_keio/campus_info/sfc1.html">Keio University Shonan Fujisawa Campus</a><br>
+<span class="street-address">5322 Endo</span>, <span class="locality">Fujisawa city</span>,<br>
+<span class="region">Kanagawa prefecture</span> <span class="postal-code">252-8520</span> <b class="country">Japan</b><br>
+<span class="tel">Telephone: <span class="value">+81-466-49-1170</span></span><br>
+<span class="tel"><span class="type">Fax</span>: <span class="value">+81-466-49-1171</span></span></span>
+</p>
+<figcaption>A microformatted example company hCard, complete with address, and a sample rendering</figcaption>
+</figure>
+
+<p>By using <code>fn</code> together with <code>org</code> we can create an hCard for an organisation. Each part of the address is specified (<code>&lt;span&gt;</code>licious!), and we’ve also included a phone number (<code>tel</code>’s default type is voice) and fax number (specifying <code>type</code> and using the value class pattern).</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2010/08/google-rich-snippet2.png" alt="A preview of how rich snippet data may be incorporated into Google’s search results—in this example “Kanagawa Prefecture” and “W3C”" width="475" height="165">
+<img src="http://html5doctor.com/wp-content/uploads/2010/08/google-rich-snippet-data2.png" alt="Microformat hCard data extracted by the Google Rich Snippet testing tool" width="415" height="283">
+<figcaption>Google’s Rich Snippet testing tool for an organisation hCard (note the address and organisation info in the search preview)</figcaption>
+</figure>
+
+<p>And with Operator, we can add this hCard to our computer’s address book in one click. If you’ve ever manually added an address to your address book, you’ll love this ;-)</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2010/08/operator-hcard-export.png" alt="Exporting an hCard to your computer’s address book via Operator" width="139" height="85">
+<img src="http://html5doctor.com/wp-content/uploads/2010/08/address-book.png" alt="An hCard exported by Operator is automatically added to the address book" width="599" height="340">
+<figcaption>Adding hCard-formatted contact information to your address book with one click</figcaption>
+</figure>
+</section><!-- /#hcard-org -->
+
+</section><!-- /#hcard -->
+
+<section id="hcalendar">
+<h3>Using hCalendar for event information</h3>
+
+<p>Let’s briefly look at marking up a simple event. Here’s one I’m involved with:</p>
+
+<pre><code>&lt;h3&gt;&lt;a href=&quot;http://atnd.org/events/5181&quot;&gt;WDE-ex Vol.11 &mdash;
+  Designing for iPad: Our experience so far&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;July 21st 19:00-20:00 at 
+&lt;a href=&quot;http://www.apple.com/jp/retail/ginza/map/&quot;&gt;Apple Ginza&lt;/a&gt;.&lt;/p&gt;</code></pre>
+
+<p>Just by reading, we understand the event name, date, time, and location. But this information is difficult for computers to extract. By using the hCard microformat, it will be machine-readable.</p>
+
+<figure>
+<pre><code>&lt;div <mark>class=&quot;vevent&quot;</mark>&gt;
+  &lt;h3&gt;&lt;a <mark>class=&quot;url summary&quot;</mark> href=&quot;http://atnd.org/events/5181&quot;&gt;
+  WDE-ex Vol.11 &mdash; Designing for iPad: Our experience so far&lt;/a&gt;&lt;/h3&gt;
+  &lt;p&gt;&lt;span <mark>class=&quot;dtstart&quot;</mark>&gt;&lt;abbr <mark>class=&quot;value&quot;</mark> title=&quot;2010-07-21&quot;&gt;
+  July 21st&lt;/abbr&gt; &lt;span <mark>class=&quot;value&quot;</mark>&gt;19:00&lt;/span&gt;&lt;/span&gt;-
+  &lt;span <mark>class=&quot;dtend&quot;</mark>&gt;&lt;span <mark>class=&quot;value&quot;</mark>&gt;20:00&lt;/span&gt;&lt;/span&gt; at 
+  &lt;a <mark>class=&quot;location url&quot;</mark> href=&quot;http://www.apple.com/jp/retail/ginza/map/&quot;&gt;
+  Apple Ginza&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<blockquote><div class="vevent">
+  <h3><a class="url summary" href="http://atnd.org/events/5181">WDE-ex Vol.11 — Designing for iPad</a>: Our experience so far</h3>
+  <p><span class="dtstart"><abbr class="value" title="2010-07-21">July 21st</abbr> <span class="value">19:00</span></span>-<span class="dtend"><span class="value">20:00</span></span> at <a class="location url" href="http://www.apple.com/jp/retail/ginza/map/">Apple Ginza</a></p>
+</div></blockquote>
+<figcaption>Example hCard-formatted event, including a sample rendering</figcaption>
+</figure>
+
+<p>We’ve added <code>vevent</code> on a wrapping element to indicate this is an hCalendar. Events are required to have a summary and a starting time, so we’ve added <code>summary</code> and indicated the starting date and time using <code>dtstart</code>. While historically datetimes were indicated using <code>&lt;abbr title=""&gt;</code>, the required <a href="http://microformats.org/wiki/iso-8601" title="iso-8601 · Microformats Wiki">ISO 8601 format</a> (for example “<code>2010-07-10T19:01:29</code>”) is very unfriendly to screen readers. Imagine having those numbers read to you! For this reason, the <a href="http://microformats.org/wiki/hcalendar" title="hCalendar 1.0 · Microformats Wiki">hCalendar specification</a> recommends either breaking the datetime into separate date and time pieces, using the <a href="http://microformats.org/wiki/value-class-pattern" title="Value Class Pattern &middot; Microformats Wiki">value class pattern</a>, or possibly doing both. The specification is also smart enough to know that if the end datetime <code>dtend</code> is only a time, then it’s on the same day, so we don’t need to specify the date again, although tool support for this is spotty. Finally, we’ve added some <abbr>URL</abbr>s, one of which is for the event’s location.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2010/07/operator-hcalendar-debug.png" alt="The Firefox Operator plugin’s debug window, showing information about the current hCalendar" width="383" height="238">
+<figcaption>The Firefox plugin Operator’s debug view, showing the microformat properties it has recognised</figcaption>
+</figure>
+
+<p>With this data now being machine-readable, we can <em>do things</em> with it. For example, we can add the event to a calendar app with one click.</p>
+
+<figure>
+<img src="http://html5doctor.com/wp-content/uploads/2010/07/operator-hcalendar.png" alt="The Firefox Operator plugin’s options for hCalendar-formatted content" width="541" height="172">
+<figcaption>Operator can save hCalendar-formatted content as an ical file (for easy importing into your address book software), or add it to various online calendars</figcaption>
+</figure>
+</section><!-- /#hcalendar -->
+</section><!-- /#lightning -->
+
+<section id="uf-in-html5">
+<h2>Using microformats in <abbr>HTML</abbr>5</h2>
+
+<p>So now we’ve had a whistle-stop introduction to microformats and gotten a glimpse of the benefits they provide. The question is: Can we use them in <abbr>HTML</abbr>5 pages? Let’s start with the good news.</p>
+
+<p>As most microformats use only <code>class</code> and/or <code>rel</code> — basic parts of <abbr>HTML</abbr> that remain unchanged in HTML5 — <strong>these microformats are completely fine in <abbr>HTML</abbr>5</strong>. Yay! However there are a few wrinkles to keep us on our toes.</p>
+
+<section id="votelinks">
+<h3>The <code>rev</code>-based VoteLinks microformat</h3>
+
+<p>One of the things that’s been cut in <abbr>HTML</abbr>5 is the <code>rev</code> attribute, which was the reverse relationship of <code>rel</code>. On the question of whether microformats should use <code>rev</code>, the <a href="http://microformats.org/wiki/rev#Should_rev_even_be_used" title="rel-faq · Microformats Wiki">microformats wiki</a> states:</p>
+
+<blockquote><p>The short answer is unfortunately “NO”. Use of “rev” should be avoided. However, VoteLinks’ use of rev has been grandfathered since it was such an early use.</p>
+<footer><cite><a href="http://microformats.org/wiki/rev#Should_rev_even_be_used" title="rel-faq · Microformats Wiki">Rel <abbr>FAQ</abbr> — Microformats wiki</a></cite></footer></blockquote>
+
+<p>The <a href="http://microformats.org/wiki/vote-links" title="Vote Links · Microformats Wiki">VoteLinks specification</a> mentioned here allowed us to add <code>vote-for</code>, <code>vote-against</code>, or <code>vote-abstain</code> values to a link via the <code>rev</code> attribute, indicating agreement, disagreement, or indifference (respectively) toward the destination <abbr>URL</abbr>. However, as the default state of a link is an implicit vote of agreement, and as the rel-nofollow link microformat is equivalent to <code>vote-abstain</code>, the only one we’re unable to replicate is <code>vote-against</code> (no link? ;-) ). I expect that the microformats community will eventually come up with <code>rel</code>-based equivalent names for VoteLinks, but until then you’ll need to avoid this microformat when using <abbr>HTML</abbr>5.</p>
+</section><!-- /#votelinks -->
+
+
+<section id="profile">
+<h3>The <code>profile</code> attribute</h3>
+
+<p>The <code>profile</code> attribute is obsolete in <abbr>HTML</abbr>5, as it was determined unnecessary. Currently, microformat profiles are very rarely used in the wild and are not required, so this probably won’t affect you.</p>
+<!-- 
+Ian Hickson wrote:
+Summary: profile="" doesn't work in practice so we have dropped it. We haven't replaced it with anything since there isn't really a problem to solve - conflicts don't occur in practice, as Microformat names are picked to be rather unique and recognisable. The market takes care of problems like this without the need for namespace syntax.
+—WHATWG email list, Wed, May 7, 2008 at 11:27 PM
+-->
+</section><!-- /#profile -->
+
+<section id="uf-wiki">
+<h3>Microformats specifications vs <abbr>HTML</abbr>5</h3>
+
+<p>While microformats using <code>class</code> and <code>rel</code> work fine, some of the new features in <abbr>HTML</abbr>5 aren’t supported yet. The <a href="http://microformats.org/wiki/html5" title="Microformats in HTML 5 · Microformats Wiki">Microformats in <abbr>HTML</abbr>5</a> page on the microformats wiki currently begins:</p>
+
+<blockquote><p>This page is to document <strong>future</strong> use of microformats in <abbr>HTML</abbr> 5. None of the items documented are supported now, and may change upon proper development within the microformats community, or changes in the <abbr>HTML</abbr> 5 specification.</p>
+<footer><cite><a href="http://microformats.org/wiki/html5" title="Microformats in HTML 5 · Microformats Wiki">Microformats in <abbr>HTML</abbr>5 — Microformats wiki</a></cite></footer></blockquote>
+
+<p>This includes the <a href="http://html5doctor.com/the-time-element/" title="The time element (and microformats) | HTML5 Doctor">nifty new <code>&lt;time datetime=""&gt;</code> element</a>, which would be perfect for microformat times, such as <code>dtstart</code> and <code>dtend</code> in the hCalendar microformat. It’s also true for adding microformats via microdata rather than <code>class</code> and <code>rel</code>. There has been talk of a general way to map any microformat into microdata, but this hasn’t eventuated as of yet.</p>
+</section><!-- /#uf-wiki -->
+
+<section id="uf-tools">
+<h3>Microformats-consuming tools (or, the problem with <abbr>HTML</abbr> Tidy)</h3>
+
+<p>The microformats wiki’s warning about <code>&lt;time&gt;</code> brings us to another caveat: tool support. Even if <code>&lt;time datetime=""&gt;</code> was valid in the microformats spec, at present most of the microformats tools can’t get this information from the <code>datetime=""</code> attribute. Now, you <em>could</em> wrap <code>&lt;time datetime=""&gt;</code> around a microformats <code>dtstart</code> or <code>dtend</code>:</p>
+
+<pre><code>&lt;time datetime=&quot;2010-07-21T19:00:00+09:00&quot;&gt;&lt;span class=&quot;dtstart&quot;&gt;
+  &lt;abbr class=&quot;value&quot; title=&quot;2010-07-21&quot;&gt;July 21st&lt;/abbr&gt;
+  &lt;span class=&quot;value&quot;&gt;19:00
+&lt;/span&gt;&lt;/span&gt;&lt;/time&gt;</code></pre>
+
+<p>However, as the <code>&lt;time datetime=""&gt;</code> data is then not explicitly part of the microformat, doing this isn’t really getting you anywhere, except bloated code-ville.</p>
+
+<div class="callout changed-block">
+<p>The problem is actually way worse as many tools use the parser <a href="http://tidy.sourceforge.net/" title="HTML Tidy Project Page"><abbr>HTML</abbr> Tidy</a> (“last updated March 2009”!), which <a href="http://lists.w3.org/Archives/Public/html-tidy/2010JanMar/0005.html" title="Re: teach tidy new attributes ?? from Bjoern Hoehrmann on 2010-02-02 (html-tidy@w3.org from January to March 2010)">probably won’t be fixed for new <abbr>HTML</abbr>5 elements</a>. This means <em>any</em> microformats classes on new <abbr>HTML</abbr>5 elements will be ignored. The potential alternative <a href="http://code.google.com/p/html5lib/" title="html5lib - Project Hosting on Google Code">html5lib.php</a> is still pretty young. You can get around this by wrapping <abbr>HTML</abbr>5 elements in <code>&lt;div&gt;</code>s and <code>&lt;spans&gt;</code> and applying the microformats classes to them, but that’s hardly ideal.</p>
+
+<p>However, there’s a ray of sunshine here. The tool you’ll most want to use is <a href="http://dev.h2vx.com/" title="H2VX">H2VX.com</a> — it converts hCard and hCalendar microformats into vcard and ical files for users to download and add to their address books and calendars, respectively. While h2vx.com uses Tidy, Tantek Çelik and Brian Suda (the maintainers of H2VX) have a version of H2VX that <strong>does</strong> work with HTML5 elements and <code>&lt;time&gt;</code>’s <code>datetime</code> attribute. We’re saved! Check it out at <a href="http://dev.h2vx.com/" title="H2VX">dev.h2vx.com</a>.</p>
+</div>
+
+<section id="uf-tools-table">
+<h4>Microformats Tool support</h4>
+<table>
+<thead><tr><th></th><th><a href="https://addons.mozilla.org/en-US/firefox/addon/4106/">Operator</a></th><th><a href="http://microformatique.com/optimus/" title="Optimus—Microformats Transformer">Optimus</a></th><th><a href="http://h2vx.com/" title="H2VX">h2vx.com</a></th><th><ins><a href="http://dev.h2vx.com" title="H2VX">dev.h2vx.com</a></ins></th></tr></thead>
+<tbody>
+<tr><th>can use classes on <abbr>HTML</abbr>5 elements</th><td>yes</td><td>yes<!-- todo: re-check --></td><td>no</td><td><ins>yes</ins></td></tr>
+<tr><th>supports <abbr>HTML</abbr>5’s <code>&lt;time&gt;</code></th><td>no</td><td>no</td><td>no</td><td><ins>yes</ins></td></tr>
+<tr><th>Understands the value class pattern</th><td>yes</td><td>no</td><td>yes</td><td><ins>yes</ins></td></tr>
+<tr><th>Understands implied <code>dtend</code></th><td>yes</td><td>no</td><td><ins>yes</ins></td><td><ins>yes</ins></td></tr>
+<tr><th>Understands timezones</th><td>yes</td><td>yes</td><td><ins>yes</ins></td><td><ins>yes</ins></td></tr>
+</tbody>
+</table>
+
+<p>I didn’t expect anyone to support <code>&lt;time&gt;</code> until it became part of a microformat specification. Given how &hellip; <em>non-micro</em> expressing datetimes is in microformats currently, I am very thankful H2VX has in <a href="http://dev.h2vx.com" title="H2VX">dev.h2vx.com</a>!</p>
+</section> <!-- /#uf-tools-table -->
+</section> <!-- /#uf-tools -->
+
+</section> <!-- /#uf-in-html5 -->
+
+<section id="conclusion">
+<h2>Conclusion</h2>
+
+<p>So where does that leave us? Well, if you keep the above caveats in mind <strong>you can safely use microformats in <abbr>HTML</abbr>5</strong>. Google has no problem with microformats in <abbr>HTML</abbr>5, even on new elements, and I’m under the impression that Yahoo is the same. However, remember that if you want to offer a “click to download” link via H2VX, you’ll have to use <a href="http://dev.h2vx.com" title="H2VX">dev.h2vx.com</a>.</p>
+
+<p id="controversy">An important thing to note about microformats: as wonderful as they are, the current method of using the plain old semantic <abbr>HTML</abbr> tools of <code>class</code>, <code>rel</code>, and coding patterns is something of a brilliant hack. The use of <code>class</code> (an <span title="arbitrary HTML extension point for authors">author playground</span>) and the lack of use/demise of <code>profile</code>, combined with the complexity of coding to detect for microformats in the wild, means that native browser support is unlikely anytime soon<!-- another possible reason is that no browser makers care enough to implement support -->. There was the expectation that at some stage there’d be a better way to easily add extra semantic information for others to use. In future articles, we’ll look at <a href="http://html5doctor.com/microdata/" title="Extending HTML5 — Microdata | HTML5 Doctor">microdata</a> and <abbr>RDFa</abbr>, and see what they have to offer over plain old semantic <abbr>HTML</abbr>.</p>
+
+<p>If you have common types of data in your content that are covered by a microformat, and you want to make them machine-readable for others (and who wouldn’t), you should definitely consider using microformats in <abbr>HTML</abbr>5. Adding microformats is basically adding a lightweight <abbr>API</abbr> to your content, and is simple enough that <em>even a designer</em> can do it! This helps search engines and savvy users to more easily use your content. Check out the <a href="http://microformats.org/wiki/" title="Welcome to the microformats wiki! · Microformats Wiki">microformats wiki</a>, grab the indispensable <a href="http://suda.co.uk/projects/microformats/cheatsheet/" title="suda.co.uk/projects/microformats [Cheat Sheet]">microformats cheat sheet</a> by <a href="http://twitter.com/briansuda" title="@briansuda">Brian Suda</a>, peruse these books and DVDs on microformats, and start getting (even more) semantic!</p>
+
+<section id="ref">
+<h3>Books and DVDs</h3>
+<ul class="amazon">
+<li><img src="http://html5doctor.com/wp-content/uploads/2010/08/microformats_ja.jpg" alt="Microformats: Empoering your markup" width="50" height="75" />Microformats: Empowering Your Markup for Web 2.0 — John Allsopp<br>
+<div class="amzshcs" id="amzshcs-8a874135a3ce872dc17872b6e19a8bb8"><span class="amzshcs-item" id="amzshcs-item-ca3b214c4f8566611bd6690219fa2a2b"> <a href="http://www.amazon.co.uk/Microformats-Empowering-Your-Markup-Web/dp/1590598148%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1590598148">Amazon UK</a></span></div> | <div class="amzshcs" id="amzshcs-5055b9f29c7cba51ba1714e0f05b3fc9"><span class="amzshcs-item" id="amzshcs-item-adc0339bcd4414e99f890aa52e5b13d7"> <a href="http://www.amazon.com/Microformats-Empowering-Your-Markup-Web/dp/1590598148%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1590598148">Amazon US</a> </span></div> | <div class="amzshcs" id="amzshcs-b574af46f845bc576c4028e3d20910d3"><span class="amzshcs-item" id="amzshcs-item-6a0697ac150924872e2d35f2e763a0c3"> <a href="http://www.amazon.de/Microformats-Empowering-Your-Markup-Web/dp/1590598148%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1590598148">Amazon DE</a> </span></div> | <div class="amzshcs" id="amzshcs-b9418b3f4b0ca6700027f76f19a2f2da"><span class="amzshcs-item" id="amzshcs-item-3ba74a4b213b831047f748be6bc8e4d6"> <a href="http://www.amazon.co.jp/Microformats-Empowering-Your-Markup-Web/dp/1590598148%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D1590598148">Amazon JP</a> </span></div> | <div class="amzshcs" id="amzshcs-8ca2f799ff27ab30f84242cf8d7d646c"><span class="amzshcs-item" id="amzshcs-item-edefeeefe744fbb240365caa2f62be2b"> <a href="http://www.amazon.co.jp/%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88-%7EWeb%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E3%82%88%E3%82%8A%E4%BE%BF%E5%88%A9%E3%81%AB%E3%81%99%E3%82%8B%E6%9C%80%E6%96%B0%E3%83%9E%E3%83%BC%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF%7E-Web-Designing-BOOKS/dp/4839925445%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4839925445">Amazon JP (日本語版)</a> </span></div></li>
+<li><img src="http://html5doctor.com/wp-content/uploads/2010/08/microformats_ac.jpg" alt="Designning with Microformats" width="50" height="75" />Designing with Microformats for a Beautiful Web (DVD) — Andy Clarke<br>
+<div class="amzshcs" id="amzshcs-95f1b9b80bde174f6f9c9d7ee9f9d59e"><span class="amzshcs-item" id="amzshcs-item-554c5b0c2e314aba0ce5f9a303a79773"> <a href="http://www.amazon.co.uk/DESIGNING-MICROFORMATS-BEAUTIFUL-WEB/dp/0321680146%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321680146">Amazon UK</a> </span></div> | <div class="amzshcs" id="amzshcs-efcffcf308e8a6c623ce78e4bc7f7cd6"><span class="amzshcs-item" id="amzshcs-item-a7fc05944786e81d5d79eed14e4ac61d"> <a href="http://www.amazon.com/Designing-Microformats-Beautiful-Andy-Clarke/dp/0321680146%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321680146">Amazon US</a> </span></div> | <div class="amzshcs" id="amzshcs-d0ce2f4154e95bfae6274f8a6897b158"><span class="amzshcs-item" id="amzshcs-item-33522c588d14e9934a0d834285ae380a"> <a href="http://www.amazon.de/Designing-Microform-Ats-Beautiful-Book/dp/0321680146%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321680146">Amazon DE</a> </span></div> | <div class="amzshcs" id="amzshcs-32b039997ba527fbd9157def627f4dd5"><span class="amzshcs-item" id="amzshcs-item-9468700ba7f9e93e03416265f7ff3cec"> <a href="http://www.amazon.co.jp/Designing-Microformats-Beautiful-Voices-Matter/dp/0321680146%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321680146">Amazon JP</a> </span></div></li>
+<li><img src="http://html5doctor.com/wp-content/uploads/2010/08/microformats_el.jpg" alt="Microformats Made Simple" width="50" height="75" /> Microformats Made Simple — Emily P. Lewis and Tantek Celik<br>
+<div class="amzshcs" id="amzshcs-09639a7f48fb10d8f851ab7d3e86be26"><span class="amzshcs-item" id="amzshcs-item-0fe33ff215f833e24d23fdbd33512644"> <a href="http://www.amazon.co.uk/Microformats-Made-Simple-Emily-Lewis/dp/0321660773%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321660773">Amazon UK</a> </span></div> | <div class="amzshcs" id="amzshcs-b9a1200a9484c14ac7b0205999c2af7d"><span class="amzshcs-item" id="amzshcs-item-91c60b321652ee65e6b68ea1bbed534f"> <a href="http://www.amazon.co.uk/Microformats-Made-Simple-Emily-Lewis/dp/0321660773%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321660773">Amazon US</a> </span></div> | <div class="amzshcs" id="amzshcs-bf7926010bfcfb17c6d7ef8f864b817b"><span class="amzshcs-item" id="amzshcs-item-540e55e65c683a64f6376981f34766a6"> <a href="http://www.amazon.de/Microformats-Made-Simple-Emily-Lewis/dp/0321660773%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321660773">Amazon DE</a> </span></div> | <div class="amzshcs" id="amzshcs-99d06a2264916bda2ba2341b25df7ca1"><span class="amzshcs-item" id="amzshcs-item-e8ae9d804c21a13653d24d727ff5de1d"> <a href="http://www.amazon.co.jp/Microformats-Made-Simple-Emily-Lewis/dp/0321660773%3FSubscriptionId%3DAKIAIFYRWAKK7IFCGGSQ%26tag%3Dhtml5doctor-21%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321660773">Amazon JP</a> </span></div></li>
+</ul>
+</section> <!-- /#ref -->
+</section> <!-- /#conclusion -->
+
+<section id="changes">
+<h2>Changes <a class="permalink" href="#changes">#</a></h2>
+<ol class="semantic-list">
+<li><time datetime="2011-09-23T01:10:04+12:00"><em>2011-09-23</em></time> Minor copyedits and the major addition of <a href="http://dev.h2vx.com" title="H2VX">dev.h2vx.com</a> support, with thanks and apologies for the delay to Brian Suda and Tantek Çelik.</li>
+</ol>
+<!-- /#changes --></section>
+<p><a href="http://html5doctor.com/microformats/" rel="bookmark">Extending HTML5 — Microformats</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 17, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/microformats/feed/</wfw:commentRss>
+		<slash:comments>30</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered #6</title>
+		<link>http://html5doctor.com/your-questions-answered-6/</link>
+		<comments>http://html5doctor.com/your-questions-answered-6/#comments</comments>
+		<pubDate>Thu, 08 Apr 2010 14:30:59 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Questions]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[h1]]></category>
+		<category><![CDATA[hcard]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[microformats]]></category>
+		<category><![CDATA[time]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1578</guid>
+		<description><![CDATA[We're back with another round of patient questions about <abbr>HTML</abbr>5. In this article, we'll discuss using multiple <code>&#60;h1&#62;</code>s, audio codecs, microformats, post bylines, and the <code>&#60;time&#62;</code> element.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><img src="http://html5doctor.com/wp-content/uploads/2009/07/html5doctor-treatment.gif" alt="Doctor treating a patient illustration" class="alignright size-full wp-image-424" /> We&#8217;re back with another round of patient questions about <abbr>HTML</abbr>5. In this article, we&#8217;ll discuss using multiple <code>&lt;h1&gt;</code>s, audio codecs, microformats, post bylines, and the <code>&lt;time&gt;</code> element.</p>
+<h2>Using multiple <code>&lt;h1&gt;</code>s</h2>
+<p>Bnonn asked:</p>
+<blockquote><p>I&#8217;m unsure of how <code>h1</code> is supposed to be used now that pages can be divided into sections and articles. In (X)HTML4, a page was basically a page, and so you only had one <code>h1</code> element: the top level heading for the page. I&#8217;m not even sure if that was a requirement of HTML4, or if it was just a de facto standard, but it made sense.</p>
+<p>Now, however, there are any number of possible sections and articles per page; each of which may contain any number of heading elements (and one of those might be inside a <code>header</code> element). Given that <code>h1</code> is a top-level heading, it seems as if each section and/or article should have one, in addition to the page-level <code>h1</code>. However, this contradicts what I know of accepted usage, so I&#8217;m confused about the way in which I should be marking up headings in HTML5. It doesn&#8217;t seem right to start headings in a <code>section</code>, for instance, with <code>h2</code>, because then&#8230;where&#8217;s the top-level heading for that element? But it doesn&#8217;t seem right to start them with <code>h1</code>, because that element in current web usage has more &#8220;power&#8221; than warrants its use there.</p>
+<p>There is also SEO to wonder about. Even if using multiple <code>h1</code> elements is right, I wouldn&#8217;t want to be penalized for it by Google. So what&#8217;s the story with that?</p>
+<p>Any help is much appreciated.</p>
+<p>Regards,</p>
+<p>Bnonn</p>
+</blockquote>
+<p>Basically, you can use multiple <code>&lt;h1&gt;</code>s in order to shape the document outline. So an <code>&lt;h1&gt;</code> within a <code>&lt;section&gt;</code> will be treated like an <code>&lt;h2&gt;</code> (if it is a nested <code>&lt;section&gt;</code>). If that <code>&lt;section&gt;</code> (and only that <code>&lt;section&gt;</code>) is aggregated elsewhere on the web, however, it will fit seamlessly into that external document&#8217;s outline. This means that your original <code>&lt;h1&gt;</code> could be treated as an <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, or <code>&lt;h4&gt;</code> as appropriate.</p>
+<p>I hope that makes sense! Bruce&#8217;s article on <a href="http://html5doctor.com/the-section-element">the section element</a> touches on this, and we also hope to talk more about document outlines in the future.</p>
+<p>Cheers,</p>
+<p>Rich</p>
+<p>P.S. Multiple <code>&lt;h1&gt;</code>s in <abbr>HTML</abbr>4 are perfectly legal, but seldom used.</p>
+<h2>Audio Codecs</h2>
+<p>Adam asked:</p>
+<blockquote><p>Hello,</p>
+<p>I&#8217;ve got a query about the issues regarding what codecs to use for the audio tag. I don&#8217;t quite get why Firefox won&#8217;t support mp3. Surely the browser calls on the codecs present on the operating system, not within the browser, so how are the licensing issues a problem to the browsers if they are simply leaving what is already present (and in theory already licensed)?</p>
+<p>I fully admit that I am no lawyer. It just seems very odd the line of argument Mozilla has taken.</p>
+<p>Adam Wilcox</p>
+</blockquote>
+<p>I&#8217;m not sure why they&#8217;ve taken that stance, but I know that Mozilla only plans to support Ogg and Apple are keen to push MP3 and MP4, so we&#8217;re at stalemate. Because of this, discussion of specific codecs has been removed from the spec altogether.</p>
+<p>Although not related to audio, see this article I wrote about <a href="http://html5doctor.com/youtube-and-vimeo-support-html5-video/">YouTube and Vimeo supporting <abbr>HTML5</abbr> video</a>. It explains a little about codecs.</p>
+<p>Sorry I can&#8217;t be of more help.</p>
+<p>Rich</p>
+<p><small>Since writing this reply there has been a lot more talk over codecs for both video and audio since Microsoft announced they would be supporting H.264 in <abbr>IE</abbr>9. We&#8217;ll cover this in more detail soon.</small></p>
+<h2>hCards</h2>
+<p>Ken asked:</p>
+<blockquote><p>How does html 5 deal with hCards and microformats in general? Specifically, can you have more than one hCard per page? As I understand it currently, having more than one is problematic. I&#8217;m asking now because of the treatment &#8220;footer&#8221; and &#8220;aside&#8221; has gotten, i.e. they are context sensitive to their &#8220;article&#8221; or &#8220;section&#8221; unless top-level, then applied to the page. Also, the use of scoped on style tags: hCards should be updated in a like manner for html 5.</p>
+<p>Thanks for hearing me out. I don&#8217;t know if this is the appropriate place for this question, but as html 5 is much more useful, I thought maybe a post is in order ;)</p>
+<p>Also, &#8220;article&#8221;&#8216;s impact on the hAtom microformat makes for an interesting article, don&#8217;t ya think?</p>
+</blockquote>
+<p>We touched upon microformats in our articles on the <a href="http://html5doctor.com/the-address-element/"><code>&lt;address&gt;</code></a> and <a href="http://html5doctor.com/the-time-element/"><code>&lt;time&gt;</code></a> elements, but we&#8217;ll try to cover more soon (possibly in an article on the <code>&lt;article&gt;</code> element).</p>
+<p>I haven&#8217;t heard that having more than one hCard is problematic. I&#8217;ve certainly never had any issues doing that. If you check out the source code on the homepage of HTML5Doctor, you&#8217;ll see we&#8217;ve used multiple hCards — one for each author&#8217;s name associated with a post.</p>
+<p>Hope that helps a little.</p>
+<p>Cheers,</p>
+<p>Rich</p>
+<h2>Article bylines</h2>
+<p>Eric asked:</p>
+<blockquote><p>I tweeted to you guys a few days ago (@ericdfields), wondering what you recommend for bylines for blog posts. Bylines, borrowing a newspaper term, would be the &#8216;Posted by SoandSo on Nov 1, 2010&#8217; copy you find under the article of your typical blog post.</p>
+<p>To me, they seem like something of an &#8216;aside&#8217; for the header of the document.</p>
+<p>I don&#8217;t know if its perfectly valid, but here&#8217;s the <a href="http://theeem.com/html5/test.html">test case I whipped up</a>.</p>
+<p>Thanks in advance for any insight!</p>
+</blockquote>
+<p>In my opinion, they&#8217;re header or footer information, so I do:</p>
+<pre><code>&lt;header&gt;
+  &lt;hgroup&gt;
+    &lt;h1&gt;Foo&lt;/h1&gt;
+    &lt;h2&gt;Bar&lt;/h2&gt;
+  &lt;/hgroup&gt;
+  &lt;p&gt;Posted by Bruce on &lt;time datetime="2009-11-01"&gt;1st November&lt;/time>&lt;/p&gt;
+&lt;/header&gt;</code></pre>
+<p>Thanks, Bruce</p>
+<h2>How to use <code>&lt;time&gt;</code> with a date in astrology</h2>
+<blockquote><p>Dear HTML5Doctors,</p>
+<p>I was confused in how to using the <code>time</code> tag with the Astrology date. For example if I have a chunk of content like this:</p>
+<p>ARIES: 13 Apr &#8211; 14 May</p>
+<p>how can I use attribute &#8220;datetime&#8221; to explain the format of that date?</p>
+<pre><code>&lt;p&gt;ARIES: &lt;time title="start" datetime="???"&gt;13 Apr&lt;/time&gt; - &lt;time title="end" datetime="???"&gt;14 May&lt;/time&gt;&lt;/p&gt;</code></pre>
+<p>The year of birth is not fixed, please advice me some solutions about this.</p>
+<p>Thank you,</p>
+<p>radiz</p>
+</blockquote>
+<p>Hi Radiz,</p>
+<p>The time element is for one specific day, not a range or &#8220;imprecise&#8221; date. So you can&#8217;t use it for &#8220;13 April.&#8221; You need to use it for a specific &#8220;13 April&#8221; and give a year. For more, see our article on <a href="http://html5doctor.com/the-time-element/">the <code>&lt;time&gt;</code> element</a>.</p>
+<p>Thanks, Bruce</p>
+<h2>Got a question for us?</h2>
+<p>That wraps up this round of questions! If you&#8217;ve got a query about the <abbr>HTML</abbr>5 spec or how to implement it, you can <a href="http://html5doctor.com/ask-the-doctor/">get in touch</a> with us and we&#8217;ll do our best to help.</p>
+<p><a href="http://html5doctor.com/your-questions-answered-6/" rel="bookmark">Your Questions Answered #6</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 8, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-6/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>The time element (and microformats)</title>
+		<link>http://html5doctor.com/the-time-element/</link>
+		<comments>http://html5doctor.com/the-time-element/#comments</comments>
+		<pubDate>Tue, 09 Feb 2010 14:49:14 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[microformats]]></category>
+		<category><![CDATA[time]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1293</guid>
+		<description><![CDATA[Please note that since this was written, &#60;time&#62;, datetime have been made more powerful, so this article is obsolete. Doctor Bruce has the low-down in his blogpost The best of &#60;time&#62;s. Microformats are a way of adding extra semantic information to a webpage using HTML classes &#8212; information like an event&#8217;s date and time, a [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p class=disclaimer>Please note that since this was written, <code>&lt;time&gt;</code>, <code>datetime</code> have been made more powerful, so <strong>this article is obsolete</strong>. Doctor Bruce has the low-down in his blogpost <a href="http://www.brucelawson.co.uk/2012/best-of-time/">The best of &lt;time&gt;s</a>.</p>
+<p><a href="http://www.microformats.org/">Microformats</a> are a way of adding extra semantic information to a webpage using <abbr>HTML</abbr> classes &mdash; information like an event&#8217;s date and time, a person&#8217;s phone number, an organisation&#8217;s email address, etc.</p>
+<p>They aren&#8217;t a &#8220;standard&#8221; <i>per se</i>, but they are a widely adopted convention within the geek community. And since they use an agreed-upon set of class names, they are as compatible with <abbr>HTML</abbr>5 as they are with <abbr>HTML</abbr>4 or <abbr>XHTML</abbr>.</p>
+<p><abbr>HTML</abbr>5 offers one potential addition to the microformats arsenal. Because earlier versions of some microformats presented accessibility problems in the way they encoded dates and times (see an article called <a href="http://www.webstandards.org/2007/04/27/haccessibility/">hAccessibility</a> that I co-wrote with James Craig), <abbr>HTML</abbr>5 offers a new element for unambiguously encoding dates and times for machines while still displaying them in a human-readable way.</p>
+<blockquote><p>The time element represents either a time on a 24 hour clock, or a precise date in the proleptic Gregorian calendar, optionally with a time and a time-zone offset.</p>
+<footer><cite><a href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-time-element">W3C specfication</a></cite></footer>
+</blockquote>
+<p>The format is very simple:</p>
+<pre><code>&lt;time&gt;2009-11-13&lt;/time&gt;
+ &lt;!-- without @datetime content must be a valid date, time, or precise datetime --&gt;
+&lt;time datetime="2009-11-13"&gt;13&lt;sup&gt;th&lt;/sup&gt; November&lt;/time&gt;
+ &lt;!-- when using @datetime the content can be anything relevant --&gt;
+&lt;time datetime="20:00"&gt;starting at 8pm&lt;/time&gt;
+ &lt;!-- time example --&gt;
+&lt;time datetime="2009-11-13T20:00+00:00"&gt;8pm on my birthday&lt;/time&gt;
+ &lt;!-- datetime with time-zone example --&gt;
+&lt;time datetime="2009-11-13T20:00Z"&gt;8pm on my birthday&lt;/time&gt;
+ &lt;!-- datetime with time-zone “Z” --&gt;</code></pre>
+<p>When using the <code>datetime</code> attribute you can have whatever you want between the tags.</p>
+<p>Note that the last two examples show the use of a timezone offset, which is <em>required</em> for a date + time. <a href="http://en.wikipedia.org/wiki/Time_zone#Examples" title="Time zone - Wikipedia, the free encyclopedia">Timezones range from -12:00 to +14:00</a>. You can use “Z” to represent <a href="http://en.wikipedia.org/wiki/Coordinated_Universal_Time">Coordinated Universal Time (<abbr>UTC</abbr>)</a>, which is the same as <code>+00:00</code>.</p>
+<h2>The fly in the ointment</h2>
+<p>The only trouble with <code>&lt;time&gt;</code> is that it must contain a positive date on the <a href="http://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar">Proleptic Gregorian calendar</a>, meaning you can&#8217;t encode a date before the Christian Era. Neither can you encode imprecise dates such as &#8220;July 1904&#8221;. Microformats, however, aren&#8217;t subjected to this restriction and are often employed to mark up, for example, very old events on Wikipedia or imprecise dates on museum websites. It&#8217;s likely that authors will continue using the current, more flexible microformat patterns unless the restrictions on the <code>&lt;time&gt;</code> element are lifted. (The <abbr>HTML</abbr>5 working group has been continually petitioned to remove their arbitrary restrictions and widen the scope of time, but with no success).</p>
+<p>Unfortunately current microformat clients can&#8217;t consume microformats such as hCalendar if they&#8217;re coded to use <code>&lt;time&gt;</code>. Stefan Schipor wrote to us saying:</p>
+<blockquote><p>The problem is that I need to parse the site with H2VX or any other similar thing for exporting. Sadly, H2VX doesn&#8217;t seem to read the datetime attribute in the <code>&lt;time&gt;</code> elements. Nor does the FF add-on Tails. I tried the microformats IRC channel and the microformateers twitter account but I didn&#8217;t get any response. Do you know if there is any support for this? It would kill me to add <code>&lt;abbr&gt;</code> elements just for it to work.</p>
+</blockquote>
+<p>For more on this problem refer to <a href="http://html5doctor.com/the-time-element/comment-page-1/#comment-2258" title="The time element (and microformats) | HTML5 Doctor">Oli’s comment below</a>, and our article <a href="http://html5doctor.com/microformats/#uf-wiki" title="Extending HTML5 — Microformats | HTML5 Doctor">Extending HTML5 — Microformats</a>.</p>
+<h2>Indicating publication date</h2>
+<p>In previous drafts of the spec, there was a <code>pubdate</code> attribute to show that this particular date is the publication date for the text associated with it. This was removed. It&#8217;s generally a good practice to add a date to articles, so users can judge its relevance. If you want to expose that with markup, you can use <a href="http://schema.org/BlogPosting">schema.org&#8217;s BlogPosting schema</a> and <a href="/microdata/">HTML5 microdata</a>.</p>
+<p>My personal site is marked up:</p>
+<pre><code>&lt;article role="article"
+  itemscope itemtype="http://schema.org/BlogPosting"&gt;
+&lt;header&gt;
+&lt;h2>Heading&lt;/h2&gt;
+&lt;time itemprop="dateCreated" datetime="2013-10-30"&gt; Wednesday 30 October 2013&lt;/time&gt;
+&lt;/header&gt;
+&hellip;
+&lt;/article&gt;</code></pre>
+<h2>Where could time be used?</h2>
+<p>The uses of unambiguous dates in web pages aren&#8217;t hard to imagine. A browser could offer to add events to a user&#8217;s calendar. A Thai-localised browser could offer to transform Gregorian dates into <a href="http://dspace.anu.edu.au/bitstream/1885/41890/3/thai_time.html">Thai Buddhist era dates</a>. A Japanese browser could localise <code>&lt;time&gt;16:00&lt;/time&gt;</code> to “16:00時”. Content aggregators can produce visual timelines of events.</p>
+<p>Search engines can produce smarter search results. For example, in the recent heavy snow in the UK, I searched for school closures in my town and discovered my kids&#8217; school was closed. After receiving a phone call from the school asking me where my kids were, I re-examined the webpage. In small print at the bottom of the page were the words &quot;Published 5 January 2008&quot;. I expect that operators of search engines would rank more current pages more highly on searches connected with current events.</p>
+<p><a href="http://html5doctor.com/the-time-element/" rel="bookmark">The time element (and microformats)</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 9, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-time-element/feed/</wfw:commentRss>
+		<slash:comments>78</slash:comments>
+		</item>
+	</channel>
+</rss>

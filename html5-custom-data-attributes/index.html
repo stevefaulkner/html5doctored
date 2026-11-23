@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>
+		  HTML5 Custom Data Attributes (data-*) | HTML5 Doctor    </title>
+    <link rel="stylesheet" href="http://html5doctor.com/wp-content/themes/html5doctor2/style.css" media="screen" />
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Feed" href="http://html5doctor.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Comments Feed" href="http://html5doctor.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; HTML5 Custom Data Attributes (data-*) Comments Feed" href="http://html5doctor.com/html5-custom-data-attributes/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/html5doctor.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://html5doctor.com/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=4.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://html5doctor.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel='prev' title='The article element' href='http://html5doctor.com/the-article-element/' />
+<link rel='next' title='The dl element' href='http://html5doctor.com/the-dl-element/' />
+<link rel="canonical" href="http://html5doctor.com/html5-custom-data-attributes/" />
+<link rel='shortlink' href='http://html5doctor.com/?p=1874' />
+<link rel="alternate" type="application/json+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fhtml5-custom-data-attributes%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://html5doctor.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fhtml5doctor.com%2Fhtml5-custom-data-attributes%2F&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+	  
+  
+	</head>
+<body class="single single-post postid-1874 single-format-standard" id="com-html5doctor">
+<header role="banner">
+    <div class="inner group">
+    <a href="http://html5doctor.com" rel="home"><div>
+        <div class="logo">
+        <h1>HTML5 Doctor</h1>
+        <h2>Helping you implement HTML5 today</h2>
+        </div><!-- end logo -->
+    </div></a><!-- wrapper div for Firefox 3.x ref: http://01i.jp/html5bll -->
+
+ 	<ul id="menu-top-nav" class="semantic-list"><li id="menu-item-3272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3272"><a href="http://html5doctor.com/about/">About</a></li>
+<li id="menu-item-3275" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3275"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+<li id="menu-item-3276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>
+<li id="menu-item-3253" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3253"><a href="#">Doctor Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-3273" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3273"><a href="http://html5gallery.com">HTML5 Gallery</a></li>
+	<li id="menu-item-3580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3580"><a href="http://docteurhtml5.com/html5/">Docteur HTML5</a></li>
+	<li id="menu-item-3973" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3973"><a href="https://github.com/html5doctor/">HTML5 Doctor on Github</a></li>
+</ul>
+</li>
+</ul>      <!-- end #top-nav -->
+    
+    <nav>
+		<ul id="menu-main_nav" class=""><li id="menu-item-3297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3297"><a href="/">Home</a></li>
+<li id="menu-item-3250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3250"><a href="http://html5doctor.com/article-archive/">Article Archive</a></li>
+<li id="menu-item-3291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3291"><a href="http://html5doctor.com/element-index/">Element Index</a></li>
+<li id="menu-item-3968" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3968"><a href="http://html5doctor.com/resources/">Resources</a></li>
+</ul>    	<!-- end ul -->
+    	<ul>
+    		<li><form id="search-form" action="/search/" role="search"  method="get">
+    <div>
+    <input type="text" name="q" value="" />
+    <input type="submit" id="search-button" value="Search" />
+    </div>
+</form>
+</li>
+    	</ul>
+    	<!-- end ul -->	
+    </nav>
+    <!-- end nav -->
+	</div>
+	<!-- end .inner -->
+</header>
+<!-- end header -->
+<main id="content" class="group" role="main">
+    <div class="main">
+        <article class="post group">
+            <header class="post-1874 post type-post status-publish format-standard hentry category-attributes tag-attributes tag-data tag-html-5 tag-html5" id="post-1874">
+                 <h1>HTML5 Custom Data Attributes (data-*) </h1>
+                <small><time datetime="2010-05-27" pubdate>Thursday, May 27th, 2010</time> by <a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick" rel="author">Chris Bewick</a>.</small>
+                <p class="tweet"><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="html5doctor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+            </header>
+            <!-- end header -->
+             <ul class="commentlist">
+                        </ul>
+           
+            <div class="entry">
+
+		
+                <p>Have you ever found yourself using element <code>class</code> names or <code>rel</code> attributes to store arbitrary snippets of metadata for the sole purpose of making your JavaScript simpler? If you have, then I have some exciting news for you! If you haven&#39;t and you&#39;re thinking, <q>Wow, that&#39;s a great idea!</q> I implore you to rid your mind of that thought immediately and continue reading.</p>
+
+<p>Thanks to <abbr>HTML</abbr>5, we now have the ability to embed custom data attributes on all <abbr>HTML</abbr> elements. These new custom data attributes consist of two parts:</p>
+
+<dl> <dt>Attribute Name</dt> <dd>The data attribute name must be at least one character long and must be prefixed with &#39;<code>data-</code>&#39;. It should not contain any uppercase letters.</dd> <dt>Attribute Value</dt> <dd>The attribute value can be any string.</dd></dl>
+
+<p>Using this syntax, we can add application data to our markup as shown below:</p>
+
+<pre><code>&lt;ul id="vegetable-seeds"&gt;
+  &lt;li data-spacing="10cm" data-sowing-time="March to June"&gt;Carrots&lt;/li&gt;
+  &lt;li data-spacing="30cm" data-sowing-time="February to March"&gt;Celery&lt;/li&gt;
+  &lt;li data-spacing="3cm" data-sowing-time="March to September"&gt;Radishes&lt;/li&gt;
+&lt;/ul&gt; </code></pre>
+
+<p>We can now use this stored data in our site&#8217;s JavaScript to create a richer, more engaging user experience. Imagine that when a user clicks on a vegetable a new layer opens up in the browser displaying the additional seed spacing and sowing instructions. Thanks to the <code>data-</code> attributes we&#8217;ve added to our <code>&lt;li&gt;</code> elements, we can now display this information instantly without having to worry about making any Ajax calls and without having to make any server-side database queries.</p>
+
+<p>Prefixing the custom attributes with <code>data-</code> ensures that they will be completely ignored by the user agent. As far as the browser and indeed the website&#8217;s end user are concerned, this data does not exist.</p>
+
+<p>The spec says (emphasis ours):</p>
+
+<blockquote><p><strong>Custom data attributes are intended to store custom data private to the page or application, for which there are no more appropriate attributes or elements.</strong></p>
+
+<p>These attributes are not intended for use by software that is independent of the site that uses the attributes.</p>
+
+<p>Every HTML element may have any number of custom data attributes specified, with any value.</p>
+
+<cite><a href="http://dev.w3.org/html5/spec/elements.html#embedding-custom-non-visible-data">W3C Specification</a></cite></blockquote>
+
+
+<h2>How can I use data attributes?</h2>
+
+<p>As custom data attributes are valid <abbr>HTML</abbr>5, they can be used in any browser that supports <abbr>HTML</abbr>5 doctypes. Thankfully, this is pretty much all of them. In addition to aiding backwards compatibility, this also ensures that custom data attributes will remain a scalable, cross-platform solution well into the future.</p>
+
+<p>Now that we have a broad understanding of what data attributes are, let&#39;s take a look at how they can be used:</p>
+
+<ul>
+	<li>To store the initial height or opacity of an element which might be required in later JavaScript animation calculations</li>
+	<li>To store parameters for a Flash movie that&#8217;s loaded via JavaScript</li>
+	<li>To store custom web analytics tagging data as demonstrated by <a title="Google Analytics Tagging with HTML5 data-* Attributes" href="http://jasonkarns.com/blog/2010/03/10/google-analytics-tagging/">Jason Karns</a></li>
+	<li>To store data about the health, ammo, or lives of an element in a JavaScript game</li>
+	<li>To power accessible JavaScript <code>&lt;video&gt;</code> subtitles as demonstrated by <a title="Accessible HTML5 Video with JavaScripted captions" href="http://dev.opera.com/articles/view/accessible-html5-video-with-javascripted-captions/">Bruce Lawson</a></li>
+</ul>
+
+
+
+<h2>What shouldn&#8217;t I use data attributes for?</h2>
+
+<p>Although flexible, data attributes aren&#8217;t an appropriate solution for all problems.</p>
+
+<ul>
+	<li>Data attributes should not be used if there is a existing attribute or element which is more appropriate for storing your data. For example, date/time data should probably be presented semantically in a time element instead rather than stored in custom data attributes.</li>
+	<li>Custom data attributes are not intended to compete with microformats. It is clearly stated in the spec that the data is not intended to be publicly usable. External software should not interact with it. Marking up contact details or event details using custom data attributes would be wrong, unless of course it is only intended to be used by your own internal scripts.</li>
+	<li>The presence/absence of a particular data attribute should not be used as a <abbr>CSS</abbr> hook for any styling. Doing so would suggest that the data you are storing is of immediate importance to the user and should be marked up in a more semantic and accessible manner.</li>
+</ul>
+
+
+
+<h2>Using <code>data-</code> attributes with JavaScript</h2>
+
+<p>Now that we understand what custom <code>data-</code> attributes are and when we can use them, we should probably take a look at how we can interact with them using JavaScript.</p>
+
+<p>If we wanted to retrieve or update these attributes using existing, native JavaScript, then we can do so using the <code>getAttribute</code> and <code>setAttribute</code> methods as shown below:</p>
+
+<pre><code>&lt;div id='strawberry-plant' data-fruit='12'&gt;&lt;/div&gt;
+
+&lt;script&gt;
+// 'Getting' data-attributes using getAttribute
+var plant = document.getElementById('strawberry-plant');
+var fruitCount = plant.getAttribute('data-fruit'); // fruitCount = '12'
+
+// 'Setting' data-attributes using setAttribute
+plant.setAttribute('data-fruit','7'); // Pesky birds
+&lt;/script&gt;</code></pre>
+
+<p>This method will work in all modern browsers, but it is not how <code>data-</code> attributes are intended to be used. The second (new and improved) way to achieve the same thing is by accessing an element&#8217;s <code>dataset</code> property. This <code>dataset</code> property — part of the new <abbr>HTML</abbr>5 JavaScript <abbr>API</abbr>s — will return a <code>DOMStringMap</code> object of all the selected element&#39;s <code>data-</code> attributes. When using this approach, rather than using the full attribute name, you can ditch the <code>data-</code> prefix and refer to the custom data directly using the name you have assigned to it. Data attribute names which contain hyphens will be stripped of their hyphens and converted to <a href="http://en.wikipedia.org/wiki/CamelCase">CamelCase</a>.</p>
+
+<pre><code>&lt;div id='sunflower' data-leaves='47' data-plant-height='2.4m'&gt;&lt;/div&gt;
+
+&lt;script&gt;
+// 'Getting' data-attributes using dataset 
+var plant = document.getElementById('sunflower');
+var leaves = plant.dataset.leaves; // leaves = 47;
+
+// 'Setting' data-attributes using dataset
+var tallness = plant.dataset.plantHeight; // 'plant-height' -&gt; 'plantHeight'
+plant.dataset.plantHeight = '3.6m';  // Cracking fertiliser
+&lt;/script&gt;</code></pre>
+
+<p>If, at some point in your script, a specific <code>data-</code> attribute becomes redundant and is no longer needed, it is also possible to completely remove that attribute from the DOM element by setting it to a value of <code>null</code>.</p>
+
+<pre><code>plant.dataset.leaves = null; // Caterpillars attack!</code></pre>
+
+<p>Unfortunately, the new <code>dataset</code> property has not yet been implemented in any browser, so in the meantime it&#8217;s best to use <code>getAttribute</code> and <code>setAttribute</code> as demonstrated earlier.</p>
+
+<p>While developing your application, you may find it useful to be able to select elements based on the presence of — or indeed the specific values of — their custom <code>data-</code> attributes. This can be achieved quickly and easily using <code>querySelectorAll</code> as shown below:</p>
+
+<pre><code>// Select all elements with a 'data-flowering' attribute
+document.querySelectorAll('[data-flowering]');
+
+// Select all elements with red leaves
+document.querySelectorAll('[data-foliage-colour="red"]');</code></pre>
+
+
+
+<h2>A word of warning</h2>
+
+<p>As data attributes become more widely used, the potential for clashes in naming conventions becomes much greater. If you use an unimaginative attribute name such as <code>data-height</code>, then it is likely you will eventually come across a library or plugin that uses the same attribute name. Multiple scripts getting and setting a common <code>data-</code> attribute will probably cause chaos. In order to avoid this, I encourage people to choose a standard string (perhaps the site/plugin name) to prefix all their <code>data-</code> attributes — e.g. <code>data-html5doctor-height</code> or <code>data-my-plugin-height</code>.</p>
+
+
+
+<h2>Summary</h2>
+
+<p>Custom <code>data-</code> attributes are a great way to simplify the storage of application data in your web pages. Although you can&#8217;t utilise the new JavaScript <abbr>API</abbr>s just yet, you can enjoy great success using <code>getAttribute</code> and <code>setAttribute</code> safe in the knowledge that they will work in all major browsers.</p>
+
+
+
+<h2>Homework</h2>
+
+<p>If you&#8217;re super keen to have a play with the new <code>dataset</code> property but disappointed that it hasn&#8217;t been implemented, fear not!, for there is a light at the end of the tunnel. You might be interested in looking at <a href="/author/remys/">Dr Remy&#8217;s</a>  <a title="Code to enable dataset functionality in some browsers" href="http://gist.github.com/362081">experimental code</a>, which partially enables the <code>dataset</code> functionality in some browsers by editing the <code>Element.prototype</code>.</p>
+
+<p>The code supports the retrieval of <code>data-</code> attributes in the latest versions of Firefox, Safari, Opera, and Chrome, but sadly will not work in any version of <abbr>IE</abbr> (since <abbr>IE</abbr> does not expose the Element object). This code also partially supports the setting of data attributes, but it will only store the new attribute values within the JavaScript and will not update the <abbr>DOM</abbr> element as a full, native implementation of the <code>dataset</code> property would. Although this code is mainly a proof of concept, it may be useful for mobile application or intranet development in closed environments where cross-browser (<abbr>IE</abbr>) compatibility is not an issue.</p>
+                        
+            </div>
+            <!-- end .entry -->
+            
+            <aside>
+                <ul class="semantic-list">
+                    <li class="category">
+                        <h3>Category</h3>
+                        <ul class="semantic-list"><li><a href="http://html5doctor.com/category/attributes/" rel="category tag">Attributes</a></li></ul>
+
+                    </li>
+                    <li class="tags">
+                        <ul class="semantic-list"><li><h3>Tags</h3></li><li><a href="http://html5doctor.com/tag/attributes/" rel="tag">Attributes</a></li><li><a href="http://html5doctor.com/tag/data/" rel="tag">data</a></li><li><a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a></li><li><a href="http://html5doctor.com/tag/html5/" rel="tag">html5</a></li></ul>                    </li>
+                </ul>
+
+		 
+            </aside>
+            <!-- end aside -->
+            
+            <aside id="author-bio">
+                <h4><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick" rel="author">Chris Bewick</a></h4>
+                <div class="author-blurb author">
+                    <p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick" rel="author">Chris Bewick</a></span>. Chris Bewick is a front end developer currently working at <a href="http://www.yell.com">Yell.com</a> in Reading, England. When he isn't tinkering with html, css and javascript you may well find him snowboarding, BBQing or playing guitar. You can find out more about Chris by subscribing to his <a href="http://twitter.com/stompfrog">140 character ramblings</a> or by clicking around his <a href="http://chrisbewick.com">blog</a>.</p>
+                    <img alt='' src='http://1.gravatar.com/avatar/7362ac439c85c3d1be525abfbe2f5e67?s=128&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7362ac439c85c3d1be525abfbe2f5e67?s=256&amp;d=mm&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' />                </div>
+            </aside>
+            <!-- end #author-bio -->
+            
+            <section id="comments">
+                
+<!-- You can start editing here. -->
+
+	<h3>45 Responses on the article “HTML5 Custom Data Attributes (data-*)”</h3>
+
+		<li class="comment even thread-even depth-1" id="comment-4597">
+				<div id="div-comment-4597" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d656c4ab1e862ddb258d6250e980ab47?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d656c4ab1e862ddb258d6250e980ab47?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.getlocalload.com/' rel='external nofollow' class='url'>Brian LePore</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-4597">
+			May 27, 2010 at 3:18 pm</a>		</div>
+
+		<p>I firmly do not see why it is inappropriate to use custom data attributes for external applications provided that these external applications are not a requirement for viewing the page.</p>
+<p>I am the author of a Firefox extension named <a href="http://www.getlocalload.com/" rel="nofollow">Local Load</a>. My extension allows developers to save bandwidth by using custom data attributes so that any user with the extension installed will instead load common JavaScript frameworks (e.g. jQuery, Prototype, etc.) from the hard drive rather than download them from the Web. If a user does not have the extension installed it will still load the framework from the Web, so there is nothing wrong there. The extension needs some form of additional markup to let it know that the script can be replaced, what the script is, and what the version is. The most appropriate mechanism of doing this is a custom data attribute. Just trying to guess what the version/script is could potentially break a ton of sites, so I would prefer to keep the script replacement feature an opt-in mechanism.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=4597#respond' onclick='return addComment.moveForm( "div-comment-4597", "4597", "respond", "1874" )' aria-label='Reply to Brian LePore'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4598">
+				<div id="div-comment-4598" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/bb30b31e415950006cd819c061523d9c?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/bb30b31e415950006cd819c061523d9c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Julian Reschke</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-4598">
+			May 27, 2010 at 4:10 pm</a>		</div>
+
+		<p>Brian,</p>
+<p>it is inappropriate because the spec says so.</p>
+<p>The idea is that there are <em>other</em> extension points for your use case (such as custom attributes in other namespaces (in XHTML), RDFa, Microdata, Meta tags, whatnot).</p>
+<p>If you believe that the restrictions for data-* should be lifted, or a similar mechanism allowing your use case should be added, you really should send feedback to the W3C HTML Working Group (for instance, through <a href="http://lists.w3.org/Archives/Public/public-html-comments/" rel="nofollow">http://lists.w3.org/Archives/Public/public-html-comments/</a>).</p>
+<p>Julian</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=4598#respond' onclick='return addComment.moveForm( "div-comment-4598", "4598", "respond", "1874" )' aria-label='Reply to Julian Reschke'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-4600">
+				<div id="div-comment-4600" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/330555fba743b009765f9d38d7137e6f?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/330555fba743b009765f9d38d7137e6f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://makedatamakesense.com' rel='external nofollow' class='url'>Scott Reynen</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-4600">
+			May 27, 2010 at 6:31 pm</a>		</div>
+
+		<p>I don&#8217;t understand why this article quotes the part of the spec saying data-* attributes are site-specific, and then gives a warning promoting namespacing. If you follow the spec, you&#8217;re creating <em>all</em> of the attribute names, so there&#8217;s zero reason for namespacing. That&#8217;s exactly <em>why</em> that&#8217;s in the spec.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=4600#respond' onclick='return addComment.moveForm( "div-comment-4600", "4600", "respond", "1874" )' aria-label='Reply to Scott Reynen'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-remys odd alt thread-odd thread-alt depth-1" id="comment-4602">
+				<div id="div-comment-4602" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-4602">
+			May 28, 2010 at 12:46 am</a>		</div>
+
+		<p>@Scott &#8211; the namespacing isn&#8217;t to create &#8220;site-specific&#8221; data attributes, but in-application namespacing.</p>
+<p>For example (and IIRC the spec mentions this) a widget&#8217;s controls (like a tree view) may have data attributes, but the data attributes may have been created using a specific library, such as jQuery or Dojo &#8211; so to avoid data attribute collisions the application module may want to namespace it.</p>
+<p>I can&#8217;t see where Chris referred to the data attribute being site-specific (but it&#8217;s late and I may have missed it).</p>
+<p>There&#8217;s a lot of cases where you won&#8217;t want or need to use namespacing, but there are some cases where it makes sense. But since this just builds on existing content attributes rules &#8211; you&#8217;re free to decide how you use them.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=4602#respond' onclick='return addComment.moveForm( "div-comment-4602", "4602", "respond", "1874" )' aria-label='Reply to Remy Sharp'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-4604">
+				<div id="div-comment-4604" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/068350fc938384f72110ef643b2a5ebe?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/068350fc938384f72110ef643b2a5ebe?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://jpv.typepad.com' rel='external nofollow' class='url'>jpvincent</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-4604">
+			May 28, 2010 at 9:34 am</a>		</div>
+
+		<p>I&#8217;m using the data-* with getAttribute and setAttribute since I saw a post about that 2 years ago by Jon Resig, so I can confirm that this way of using it works for all browsers/platforms, starting with IE6.<br />
+I just hope that any browser implementing data-* natively won&#8217;t break the getAttribute method (it shouldnt but we never know)</p>
+<p>From a performance point of view, accessing the DOM via getAttribute() is obviously slower than accessing to a JS variable, event stored in an array, so the use case you give of a JS game using it to store values will probably never happen : developers will use it to transmit info from server to client, but once the DOM has been harvested, it&#8217;s best to keep all the values in JS for quicker access</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=4604#respond' onclick='return addComment.moveForm( "div-comment-4604", "4604", "respond", "1874" )' aria-label='Reply to jpvincent'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-chrisb bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-4606">
+				<div id="div-comment-4606" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7362ac439c85c3d1be525abfbe2f5e67?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7362ac439c85c3d1be525abfbe2f5e67?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Chris Bewick</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-4606">
+			May 28, 2010 at 10:29 am</a>		</div>
+
+		<p>@jpvincent &#8211; Yeah, I totally agree with you.</p>
+<p>I guess the initial health and ammo data could be stored in a database and using a data-attribute would be a valid mechanism to transfer this information to the game&#8217;s javascript. But once this initialisation task is complete there is very little point in continuing to make costly DOM updates with the latest health/ammo stats.</p>
+<p>Thanks for your comment.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=4606#respond' onclick='return addComment.moveForm( "div-comment-4606", "4606", "respond", "1874" )' aria-label='Reply to Chris Bewick'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-4607">
+				<div id="div-comment-4607" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/97f3197dc647112f56cb6272fa5822f0?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/97f3197dc647112f56cb6272fa5822f0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://yiduren.com' rel='external nofollow' class='url'>pengkai</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-4607">
+			May 28, 2010 at 11:17 am</a>		</div>
+
+		<p>it&#8217;s really useful to app. with more info.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=4607#respond' onclick='return addComment.moveForm( "div-comment-4607", "4607", "respond", "1874" )' aria-label='Reply to pengkai'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-9983">
+				<div id="div-comment-9983" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/0caca8029f744a874969ea19a36870cc?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/0caca8029f744a874969ea19a36870cc?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">skippy</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-9983">
+			July 30, 2010 at 9:11 pm</a>		</div>
+
+		<p>Or ya&#8217; know you could try to design a clean separation of model and view layers&#8230;..</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=9983#respond' onclick='return addComment.moveForm( "div-comment-9983", "9983", "respond", "1874" )' aria-label='Reply to skippy'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-10011">
+				<div id="div-comment-10011" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d613d2145633372c632e1a02a49657e0?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d613d2145633372c632e1a02a49657e0?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://leevigraham.com' rel='external nofollow' class='url'>Leevi Graham</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-10011">
+			August 2, 2010 at 2:25 pm</a>		</div>
+
+		<p>Your article mentions that you shouldn&#8217;t use data-* for CSS hooks. What if the data-* attribute was used in the JS but you also wanted to apply styles to it. Wouldn&#8217;t it make sense to target the attribute rather than add a secondary class.</p>
+<p>Take this form for example:</p>
+<p><code>&lt;form&gt;<br />
+	&lt;div data-field_type=&quot;text&quot;&gt;<br />
+		&lt;label&gt;Title &lt;em&gt;*is required&lt;/em&gt;&lt;/label&gt;<br />
+		&lt;div class=&quot;note&quot;&gt;<br />
+			&lt;p&gt;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.&lt;/p&gt;<br />
+		&lt;/div&gt;<br />
+		&lt;input type=&quot;text&quot; /&gt;<br />
+	&lt;/div&gt;<br />
+&lt;/form&gt;</code></p>
+<p>data-field_type=&#8221;text&#8221; could be used for both validation and styling layout.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=10011#respond' onclick='return addComment.moveForm( "div-comment-10011", "10011", "respond", "1874" )' aria-label='Reply to Leevi Graham'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-10286">
+				<div id="div-comment-10286" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/b29fdd83b1892552393de35af1dd8dd8?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/b29fdd83b1892552393de35af1dd8dd8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">mattcoz</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-10286">
+			September 1, 2010 at 9:22 pm</a>		</div>
+
+		<p>Pretty cool feature, although no browsers support it yet.  This little bit of code works to add support for the dataset property to any browser that supports __defineGetter__.  I wrote it before I realized you linked some code that does pretty much the same thing.  My code, on the other hand, has support for actually udpating the attribute values, but it does not support adding new attributes.</p>
+<p>Element.prototype.__defineGetter__(&#8216;dataset&#8217;, function(){<br />
+	var dataset = {};<br />
+	for (var i=0, l=this.attributes.length; i&lt;l; i++) {<br />
+		var attr = this.attributes[i];<br />
+		if (attr.name &amp;&amp; attr.name.indexOf(&#039;data-&#039;) == 0) {<br />
+			var el = this, name = new String(attr.name), key = name.substring(5).replace(/-([a-z])/ig, function (a, b) { return b.toUpperCase(); });<br />
+			dataset.__defineGetter__(key, function(){ return el.getAttribute(name); });<br />
+			dataset.__defineSetter__(key, function(value){ el.setAttribute(name, value); });<br />
+		}<br />
+	}<br />
+	return dataset;<br />
+});</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=10286#respond' onclick='return addComment.moveForm( "div-comment-10286", "10286", "respond", "1874" )' aria-label='Reply to mattcoz'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-10889">
+				<div id="div-comment-10889" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/2101d75ccd71c5dfb984991a7ba53b9b?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2101d75ccd71c5dfb984991a7ba53b9b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Harm</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-10889">
+			September 18, 2010 at 12:09 pm</a>		</div>
+
+		<p>Would these attributes work in the new Internet Explorer 9?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=10889#respond' onclick='return addComment.moveForm( "div-comment-10889", "10889", "respond", "1874" )' aria-label='Reply to Harm'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-11879">
+				<div id="div-comment-11879" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9f986af48c2763480bcb7d1071d6002e?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9f986af48c2763480bcb7d1071d6002e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://whatcould.com' rel='external nofollow' class='url'>David R</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-11879">
+			November 1, 2010 at 4:27 pm</a>		</div>
+
+		<p>The data-* certainly will be useful, but that carrot example isn&#8217;t a great example. You would use the data in data-* attributes for, not for display of content. As you say, &#8220;It is clearly stated in the spec that the data  is not intended to be publicly usable&#8221;</p>
+<p>Instead of this:<br />
+<code>&lt;li data-spacing="10cm" data-sowing-time="March to June"&gt;Carrots&lt;/li&gt;</code></p>
+<p>You should include the content in actual html text, not in your attributes. That way your data is search engine indexed, accessible to machines in a readable format, etc. If I got the gt and lt right, it&#8217;d be something like:</p>
+<p><code>&lt;li"&gt;Carrots&lt;span class="hidden"&gt;Spacing: 10cm. Sowing time: March to June&lt;/span&gt;&lt;/li&gt;</code></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=11879#respond' onclick='return addComment.moveForm( "div-comment-11879", "11879", "respond", "1874" )' aria-label='Reply to David R'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-12134">
+				<div id="div-comment-12134" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a42a7350945138024ad1d83df2fe7b9b?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a42a7350945138024ad1d83df2fe7b9b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://ericleads.com/' rel='external nofollow' class='url'>Eric Leads</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-12134">
+			November 30, 2010 at 7:44 pm</a>		</div>
+
+		<p>My take is that if you&#8217;re creating classes that will never be styled, or storing variables in hidden form fields that never get read from on the server, those are both good use cases for the data- attribute.</p>
+<p>However, you should ask yourself, &#8220;will I ever want to style this info or create any user feedback based on this data?&#8221;</p>
+<p>If the answer is yes, then data- is the wrong approach.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=12134#respond' onclick='return addComment.moveForm( "div-comment-12134", "12134", "respond", "1874" )' aria-label='Reply to Eric Leads'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-14602">
+				<div id="div-comment-14602" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/3abd996685c8b3e759d277299bbe03d7?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/3abd996685c8b3e759d277299bbe03d7?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://blog.evonet.com.au' rel='external nofollow' class='url'>Bartek</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-14602">
+			March 5, 2011 at 4:20 am</a>		</div>
+
+		<p>Thanks for the explanation of the data- attributes.  Microsoft are planning on incorporating HTML data- attributes into the next version of ASP.NET webforms in their validator controls, and your article helped me out a lot when I was trying to get my head around it all &#8230; !</p>
+<p><a href="http://blog.evonet.com.au/post/2011/03/05/What%E2%80%99s-coming-in-the-next-version-of-ASPNET-Webforms.aspx" rel="nofollow">http://blog.evonet.com.au/post/2011/03/05/What%E2%80%99s-coming-in-the-next-version-of-ASPNET-Webforms.aspx</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=14602#respond' onclick='return addComment.moveForm( "div-comment-14602", "14602", "respond", "1874" )' aria-label='Reply to Bartek'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-14662">
+				<div id="div-comment-14662" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f71237f309255196fbe75ae3914f7fd8?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f71237f309255196fbe75ae3914f7fd8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">John Doherty</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-14662">
+			March 10, 2011 at 10:24 am</a>		</div>
+
+		<p>I posted a current day alternative to this attribute on code project if anyone is interested <a href="http://www.codeproject.com/KB/scripting/XHTML-CSS-Data-Attributes.aspx" rel="nofollow">http://www.codeproject.com/KB/scripting/XHTML-CSS-Data-Attributes.aspx</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=14662#respond' onclick='return addComment.moveForm( "div-comment-14662", "14662", "respond", "1874" )' aria-label='Reply to John Doherty'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-15055">
+				<div id="div-comment-15055" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c9032b380b3921a09893012243cdf1e2?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c9032b380b3921a09893012243cdf1e2?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Conrad Damon</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-15055">
+			May 27, 2011 at 12:41 am</a>		</div>
+
+		<p>What about expando properties? Data attributes strike me as a namespaced (with &#8220;data-&#8220;) hash of expando properties, with the added dataset convenience. How do the following compare?</p>
+<p>    plant.setAttribute(&#8216;data-fruit&#8217;,&#8217;7&#8242;);</p>
+<p>    plant.fruit = 7;</p>
+<p>In general I&#8217;ve just stored element-related data in memory in a hash or object that can be retrieved based on the element&#8217;s ID.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=15055#respond' onclick='return addComment.moveForm( "div-comment-15055", "15055", "respond", "1874" )' aria-label='Reply to Conrad Damon'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-15179">
+				<div id="div-comment-15179" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9b7fae80b6d4d087e0e69e47f6f4321c?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9b7fae80b6d4d087e0e69e47f6f4321c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Matt</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-15179">
+			June 16, 2011 at 4:57 pm</a>		</div>
+
+		<p>I&#8217;ve found a case where I feel using the data-* attributes for CSS hooks is valid. Feedback is, of course, welcome.</p>
+<p>I have an HTML table of data that can be sorted, ascending and descending, with AJAX by clicking on the column headers. I opted to use a data-sort-dir=&#8221;asc&#8221; attribute on the column header to not only tell the AJAX call which direction to sort the request, but also to create an arrow next to the column header indicating which direction the arrow points.</p>
+<p><code><br />
+a[data-sort-dir="asc"] {<br />
+    /* Show the ascending arrow */<br />
+}</code></p>
+<p>a[data-sort-dir="desc"] {<br />
+    /* Show the descending arrow */<br />
+}<br />
+</p>
+<p>When a column header is clicked, the data-sort-dir attribute is updated or moved to properly reflect which direction is being sorted.</p>
+<p>I also agree that the carrot example was a poor example since you&#8217;re storing data to display to the user in another method which was stated to be against the spec. In that case, the hidden element option David R posed in the comments or using the title attribute probably would&#8217;ve been better.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=15179#respond' onclick='return addComment.moveForm( "div-comment-15179", "15179", "respond", "1874" )' aria-label='Reply to Matt'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-17037">
+				<div id="div-comment-17037" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/627a9cbfc7df507aa8f8bda2335ffb0a?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/627a9cbfc7df507aa8f8bda2335ffb0a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.faventi.com' rel='external nofollow' class='url'>Andres</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-17037">
+			August 3, 2011 at 6:17 pm</a>		</div>
+
+		<p>If i&#8217;m using ARIA, should I  add the attribute as &#8220;data-role&#8221; or just &#8220;role&#8221;????</p>
+<p>are both valid?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=17037#respond' onclick='return addComment.moveForm( "div-comment-17037", "17037", "respond", "1874" )' aria-label='Reply to Andres'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-chrisb bypostauthor even thread-even depth-1" id="comment-17041">
+				<div id="div-comment-17041" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7362ac439c85c3d1be525abfbe2f5e67?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7362ac439c85c3d1be525abfbe2f5e67?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Chris Bewick</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-17041">
+			August 4, 2011 at 8:53 am</a>		</div>
+
+		<p>@Andres &#8211; data-* is only for storing data which is to be used within your own website. As the primary purpose of ARIA roles is to communicate additional page structure to the browser/screenreader this would not be an appropriate time to use them. Stick with role=&#8221;main&#8221;.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=17041#respond' onclick='return addComment.moveForm( "div-comment-17041", "17041", "respond", "1874" )' aria-label='Reply to Chris Bewick'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-17061">
+				<div id="div-comment-17061" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/e40cbe65c731e116f4f44dd506b7fb2c?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e40cbe65c731e116f4f44dd506b7fb2c?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.urbanrenters.ca/' rel='external nofollow' class='url'>kevin</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-17061">
+			August 8, 2011 at 4:34 pm</a>		</div>
+
+		<p>I use the data attributes a lot for jQuery apps. This attribute is for you to store private data for your application. If you are planning to have data understood by the search engines, you could use microdata which is more semantic.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=17061#respond' onclick='return addComment.moveForm( "div-comment-17061", "17061", "respond", "1874" )' aria-label='Reply to kevin'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-17158">
+				<div id="div-comment-17158" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fd06cefb959e4e9dfefb35621f4a993e?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fd06cefb959e4e9dfefb35621f4a993e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://ryanvanetten.com' rel='external nofollow' class='url'>ryanve</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-17158">
+			August 13, 2011 at 5:24 pm</a>		</div>
+
+		<p>Would data attributes be appropriate for something like switching an &#8220;&#8217;s src attribute between a hi-res and lo-res version (for better performing responsive design)? (<a href="http://stackoverflow.com/questions/7050976/each-attr-or-this" rel="nofollow">Something like this</a>)</p>
+<p>Also what is the best way to test support for this?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=17158#respond' onclick='return addComment.moveForm( "div-comment-17158", "17158", "respond", "1874" )' aria-label='Reply to ryanve'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-17260">
+				<div id="div-comment-17260" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/101fb8f46515bf3e4e69470b1da91310?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/101fb8f46515bf3e4e69470b1da91310?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">BJ</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-17260">
+			August 21, 2011 at 8:42 pm</a>		</div>
+
+		<p>&#8220;Thanks to HTML5, we now have the ability to embed custom data attributes on all HTML elements[!!11!!1!1!]&#8221;</p>
+<p>Wow, like expando properties avail since IE4? Thanks HTML5, you&#8217;re the best!  </p>
+<p>OK, assuming &#8220;dataset&#8221; provides a collection of values across multiple elements, that&#8217;s kind of useful (although already trivial via jQuery) .. but this article smacks of feature amnesia.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=17260#respond' onclick='return addComment.moveForm( "div-comment-17260", "17260", "respond", "1874" )' aria-label='Reply to BJ'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-17520">
+				<div id="div-comment-17520" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/254302d38a9c48e3d321f353c29b70ae?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/254302d38a9c48e3d321f353c29b70ae?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.stardotbmp.com' rel='external nofollow' class='url'>Jonathon</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-17520">
+			September 8, 2011 at 11:18 am</a>		</div>
+
+		<p>surely styling to data-* makes sense in a data rich web app rather than bloating the class attribute? </p>
+<p>in pseudo code interfacing with the data as a user interface: <code>remove class X<br />
+add class Y </code><br />
+as a feedback on and as a consequence of a user action</p>
+<p>vs <code>change data-* to Y</code></p>
+<p>not that looking at the underlying DOM is critical for the enduser, but filling class with non-hierarchical data FOR THE SAKE OF STYLING seems more wrong than styling to data also being held???</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=17520#respond' onclick='return addComment.moveForm( "div-comment-17520", "17520", "respond", "1874" )' aria-label='Reply to Jonathon'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-17839">
+				<div id="div-comment-17839" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d1520b9f64b139313b58ea13bd9dc640?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d1520b9f64b139313b58ea13bd9dc640?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.gleenk.com/' rel='external nofollow' class='url'>Gleenk</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-17839">
+			September 30, 2011 at 12:49 pm</a>		</div>
+
+		<p>But what are the support for html5 doctype?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=17839#respond' onclick='return addComment.moveForm( "div-comment-17839", "17839", "respond", "1874" )' aria-label='Reply to Gleenk'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-17958">
+				<div id="div-comment-17958" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7402eb56b804734fa06b95a57b059052?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7402eb56b804734fa06b95a57b059052?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Mag Leahy</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-17958">
+			October 7, 2011 at 4:34 pm</a>		</div>
+
+		<p>I like this a lot!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=17958#respond' onclick='return addComment.moveForm( "div-comment-17958", "17958", "respond", "1874" )' aria-label='Reply to Mag Leahy'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-23151">
+				<div id="div-comment-23151" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fd06cefb959e4e9dfefb35621f4a993e?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fd06cefb959e4e9dfefb35621f4a993e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://ryanvanetten.com' rel='external nofollow' class='url'>ryanve</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-23151">
+			February 8, 2012 at 5:37 pm</a>		</div>
+
+		<p>Have any browsers implemented the dataset deletion <a href="http://dev.w3.org/html5/spec/Overview.html#dom-dataset" rel="nofollow">algorithm</a>? Doing `plant.dataset.leaves = null` in Chrome it does not remove the attribute. It converts it to the text &#8216;null&#8217;. Is that in the spec?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=23151#respond' onclick='return addComment.moveForm( "div-comment-23151", "23151", "respond", "1874" )' aria-label='Reply to ryanve'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-23406">
+				<div id="div-comment-23406" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/ddd4a2da70cd8a90e53a134a3cfb28d1?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/ddd4a2da70cd8a90e53a134a3cfb28d1?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.vzio.com' rel='external nofollow' class='url'>jason</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-23406">
+			February 10, 2012 at 9:05 am</a>		</div>
+
+		<p>Well it appears that facebook is using the data- tag for a while now&#8230; so I would say it widely accepted by most browsers&#8230;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=23406#respond' onclick='return addComment.moveForm( "div-comment-23406", "23406", "respond", "1874" )' aria-label='Reply to jason'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-23448">
+				<div id="div-comment-23448" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fd06cefb959e4e9dfefb35621f4a993e?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fd06cefb959e4e9dfefb35621f4a993e?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://ryanvanetten.com' rel='external nofollow' class='url'>ryanve</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-23448">
+			February 10, 2012 at 5:17 pm</a>		</div>
+
+		<p>@ryanve To remove data attributes, `delete plant.dataset.leaves` works.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=23448#respond' onclick='return addComment.moveForm( "div-comment-23448", "23448", "respond", "1874" )' aria-label='Reply to ryanve'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-24512">
+				<div id="div-comment-24512" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/adab9d37edf1f55a295e9d1cd04eb676?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/adab9d37edf1f55a295e9d1cd04eb676?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.askwhyweb.com' rel='external nofollow' class='url'>ASKWHYWEB Solutions</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-24512">
+			February 21, 2012 at 2:35 pm</a>		</div>
+
+		<p>Nice article, perhaps it needs a slight modification to be understandable by some of the very fresh and new entries into JS and HTML5.</p>
+<p>Overall, Very good effort. I like it.<br />
+Thanks</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=24512#respond' onclick='return addComment.moveForm( "div-comment-24512", "24512", "respond", "1874" )' aria-label='Reply to ASKWHYWEB Solutions'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-25462">
+				<div id="div-comment-25462" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/55e2801343571fcf88da76c1bf47ae90?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/55e2801343571fcf88da76c1bf47ae90?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.threelas.com' rel='external nofollow' class='url'>putri</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-25462">
+			May 11, 2012 at 5:57 pm</a>		</div>
+
+		<p>Thank you for posting this topic, I really need this as reference.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=25462#respond' onclick='return addComment.moveForm( "div-comment-25462", "25462", "respond", "1874" )' aria-label='Reply to putri'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-25934">
+				<div id="div-comment-25934" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/55e2801343571fcf88da76c1bf47ae90?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/55e2801343571fcf88da76c1bf47ae90?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.threelas.com' rel='external nofollow' class='url'>Putri</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-25934">
+			May 22, 2012 at 10:17 am</a>		</div>
+
+		<p>I am newbie in here, but I get understand about HTML5 attribute from your explanation. Thank you, I like to come in here again and again</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=25934#respond' onclick='return addComment.moveForm( "div-comment-25934", "25934", "respond", "1874" )' aria-label='Reply to Putri'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-28607">
+				<div id="div-comment-28607" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fcc9ff7a93fc37453d6719b7430925b5?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fcc9ff7a93fc37453d6719b7430925b5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://designrjc.com' rel='external nofollow' class='url'>Rudy Chou</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-28607">
+			July 6, 2012 at 11:33 pm</a>		</div>
+
+		<p>Very nice article write up on the HTML5 data attribute.  This gave me a good overview of the possibilities and things to come in the specs.</p>
+<p>As far as how I&#8217;ll be using it, I&#8217;m thinking using it for analytics or event triggers for js. </p>
+<p>Thanks.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=28607#respond' onclick='return addComment.moveForm( "div-comment-28607", "28607", "respond", "1874" )' aria-label='Reply to Rudy Chou'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-28749">
+				<div id="div-comment-28749" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/7d8e0328e551b7c1a5d97c164b32432b?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7d8e0328e551b7c1a5d97c164b32432b?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.muhammedbasil.in' rel='external nofollow' class='url'>muhammed basil</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-28749">
+			July 25, 2012 at 7:00 am</a>		</div>
+
+		<p>Hi<br />
+I&#8217;ve found an issue with the data attribute. If we put long number as value of data attribute ( data-longnumber = 111111111111111222222222222222222222233333333333333333333333333333333333333333333333333331111111111111111122222222222222222222222222222222222222222222222222222222211111111111 )<br />
+and when fetched using jquery<br />
+$(&#8216;div&#8217;).data(&#8216;longnumber&#8217;)<br />
+it returns an exponential value ( 1.1111111111111112e+209)<br />
+What will be the issue?<br />
+Is there any solution for this?</p>
+<p>Thanks</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=28749#respond' onclick='return addComment.moveForm( "div-comment-28749", "28749", "respond", "1874" )' aria-label='Reply to muhammed basil'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-29307">
+				<div id="div-comment-29307" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/fd34d8e812f47ff34ffba86f824fd02a?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/fd34d8e812f47ff34ffba86f824fd02a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.VipulSChawathe.ind.in' rel='external nofollow' class='url'>Vipul S. Chawathe</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-29307">
+			November 20, 2012 at 3:26 pm</a>		</div>
+
+		<p>Is there any guideline for consuming RDFa in XHTML5?<br />
+As per my limited understanding, DOCTYPE is ignored within these files, version attribute is deprecated. I&#8217;m using <code>&lt;link rel="profile" href="http://www.w3.org/1999/xhtml/vocab"/&gt;</code> within head tag.<br />
+The property attribute is used by creative commons license I&#8217;m placing at the file&#8217;s footer.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=29307#respond' onclick='return addComment.moveForm( "div-comment-29307", "29307", "respond", "1874" )' aria-label='Reply to Vipul S. Chawathe'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-29535">
+				<div id="div-comment-29535" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/9fcef2d28f423ddcf5a09dd1b36e8bd5?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9fcef2d28f423ddcf5a09dd1b36e8bd5?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.iintera.org' rel='external nofollow' class='url'>Steve Paesani</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-29535">
+			January 7, 2013 at 2:51 am</a>		</div>
+
+		<p>Since we&#8217;re talking scripting and thus the DOM<br />
+setAttribute has been specified as capable since DOM Core 1.0 to set user defined attributes and there are no implementation issues.</p>
+<p>Those of us however that script xml documents, including htmlN.. documents, usually use an object reference to elements and store user defined variables there as they are faster to access and address any scripting need:</p>
+<p>var a=elobj[&#8216;elementid&#8217;].user_defined_attribute;</p>
+<p>is faster than</p>
+<p>var a=element.getAttribute(user_defined_attribute);</p>
+<p>and can address any scripting need that data-* or any other markup language scripting feature pretends to introduce or provide.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=29535#respond' onclick='return addComment.moveForm( "div-comment-29535", "29535", "respond", "1874" )' aria-label='Reply to Steve Paesani'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-30502">
+				<div id="div-comment-30502" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/be3e871bf130569fa0a1cf6e90939cda?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/be3e871bf130569fa0a1cf6e90939cda?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">DAL</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-30502">
+			January 24, 2013 at 7:00 pm</a>		</div>
+
+		<p>Hello all</p>
+<p>I am a professionnal programmer and i am now switching to html5 and App building&#8230;</p>
+<p>So far so good, but i have one small problem i cannot seems to be able to solve.</p>
+<p>I want to simply: </p>
+<p>read a remote text file on my server<br />
+read the file by lines<br />
+localstore by pairs</p>
+<p>period&#8230; simple right? well, i found about 20 different answers online, none works.</p>
+<p>Where can i find a REAL answer?</p>
+<p>How does game makers do to upload a dictionnary of words for example in a mobile device in pairs?</p>
+<p>Thanks</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=30502#respond' onclick='return addComment.moveForm( "div-comment-30502", "30502", "respond", "1874" )' aria-label='Reply to DAL'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-31522">
+				<div id="div-comment-31522" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/65551bc57129d08d1ed6cb4e757e247f?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/65551bc57129d08d1ed6cb4e757e247f?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.venturarodriguez.net' rel='external nofollow' class='url'>Ventura Rodríguez</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-31522">
+			February 13, 2013 at 5:50 pm</a>		</div>
+
+		<p>I&#8217;m starting with HTML5 and the truth is I did not know this label. Apparently it is very últil, the study it thoroughly to use it in my next projects.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=31522#respond' onclick='return addComment.moveForm( "div-comment-31522", "31522", "respond", "1874" )' aria-label='Reply to Ventura Rodríguez'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-31696">
+				<div id="div-comment-31696" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f59e58f783e114ff34a333a7da3fcdf3?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f59e58f783e114ff34a333a7da3fcdf3?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Pierre-Adrien</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-31696">
+			February 23, 2013 at 1:59 pm</a>		</div>
+
+		<p>I noticed this kind of fields when dealing with Rails projects, but did not find time to investigate this at the moment. I&#8217;m glad I did today, thanks for this really helpful article.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=31696#respond' onclick='return addComment.moveForm( "div-comment-31696", "31696", "respond", "1874" )' aria-label='Reply to Pierre-Adrien'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-34251">
+				<div id="div-comment-34251" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/24c0659c4e5bf4908c70c82c5a8ebcba?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/24c0659c4e5bf4908c70c82c5a8ebcba?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">programaths</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-34251">
+			May 9, 2013 at 10:13 am</a>		</div>
+
+		<p>@BJ,</p>
+<p>Expando properties and &#8220;data-*&#8221; attributes aren&#8217;t quite the same thing.</p>
+<p>if someone write :<br />
+<code><br />
+&lt;div src="image.png"&gt;&lt;/div&gt;<br />
+</code></p>
+<p>How can the validators/engines knows that the author didn&#8217;t want to write<br />
+<code><br />
+&lt;img src="image.png"&gt;<br />
+</code></p>
+<p>With &#8220;data-*&#8221; attributes, it&#8217;s possible to know the Author&#8217;s intention.</p>
+<p>If someone write:<br />
+<code><br />
+&lt;div data-src="image.png"&gt;&lt;/div&gt;<br />
+</code><br />
+He probably meant it.</p>
+<p>That&#8217;s how Microsoft got wrong and continue to be.<br />
+Admitingly, expando properties were a good idea (On the implemenation side, it means LESS validation required) but not as good than requiring &#8220;data-&#8221; prefix.</p>
+<p>Also, imagine than in HTML6, divs can take a &#8220;src&#8221; attribute to load asynchronous content. (Eg. you are rendering something complex so you want the user to not wait in front of a blank page)<br />
+Without the &#8220;data-&#8221; attribute, you can&#8217;t simply change your doctype to &#8220;html6&#8221;, it makes migration harder.</p>
+<p>With the &#8220;data-*&#8221; attribute you are certain that your html website won&#8217;t be broken because the spec did add a new attribute.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=34251#respond' onclick='return addComment.moveForm( "div-comment-34251", "34251", "respond", "1874" )' aria-label='Reply to programaths'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-34543">
+				<div id="div-comment-34543" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/f7852e1ae65ae499f70112b05896ce48?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/f7852e1ae65ae499f70112b05896ce48?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://www.martinrohwedder.dk' rel='external nofollow' class='url'>Martin Rohwedder</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-34543">
+			May 16, 2013 at 3:13 pm</a>		</div>
+
+		<p>Nice explanation thank you!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=34543#respond' onclick='return addComment.moveForm( "div-comment-34543", "34543", "respond", "1874" )' aria-label='Reply to Martin Rohwedder'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-37337">
+				<div id="div-comment-37337" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/079c35c4cdab398fc94f466961445fa8?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/079c35c4cdab398fc94f466961445fa8?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn"><a href='http://BenRacicot.com' rel='external nofollow' class='url'>Ben Racicot</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-37337">
+			August 8, 2013 at 3:49 pm</a>		</div>
+
+		<p>Can we use the new dataset selector yet?!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=37337#respond' onclick='return addComment.moveForm( "div-comment-37337", "37337", "respond", "1874" )' aria-label='Reply to Ben Racicot'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-37406">
+				<div id="div-comment-37406" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/ae5ab05d6f675e99828395909f7c572a?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/ae5ab05d6f675e99828395909f7c572a?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">Matt</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-37406">
+			August 12, 2013 at 3:39 pm</a>		</div>
+
+		<p><a href="http://caniuse.com/#search=dataset" rel="nofollow">http://caniuse.com/#search=dataset</a></p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=37406#respond' onclick='return addComment.moveForm( "div-comment-37406", "37406", "respond", "1874" )' aria-label='Reply to Matt'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-43930">
+				<div id="div-comment-43930" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://2.gravatar.com/avatar/54bc92e6279dea4769f517d86cdc55ab?s=48&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/54bc92e6279dea4769f517d86cdc55ab?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">jhonatan</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-43930">
+			January 1, 2014 at 8:42 pm</a>		</div>
+
+		<p>hello, I&#8217;m using custom data attribute to loading posts content with JavaScript without an Ajax query.</p>
+<p>EX:</p>
+<p><code><br />
+&lt;a href="#" rel="nofollow">load content&lt;/a><br />
+</code></p>
+<p>am i wrong if I put html content in the data attribute?? please I have this doubt</p>
+<p>could it be that a SEO trouble??</p>
+<p>thanks!</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=43930#respond' onclick='return addComment.moveForm( "div-comment-43930", "43930", "respond", "1874" )' aria-label='Reply to jhonatan'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-48774">
+				<div id="div-comment-48774" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/a1695fa72854650efaafe6a93332a189?s=48&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a1695fa72854650efaafe6a93332a189?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">gautham</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-48774">
+			March 22, 2014 at 1:40 pm</a>		</div>
+
+		<p>isn&#8217;t using/storing data values in html markup a bad design?<br />
+so if we consider things like single responsibility principle(not like a design pattern that it is,but like a word of wisdom),aren&#8217;t we messing up with what HTML is designed to do???</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=48774#respond' onclick='return addComment.moveForm( "div-comment-48774", "48774", "respond", "1874" )' aria-label='Reply to gautham'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-2055187">
+				<div id="div-comment-2055187" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='http://0.gravatar.com/avatar/c146cce42156e256649af75c626f4414?s=48&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c146cce42156e256649af75c626f4414?s=96&amp;d=mm&amp;r=g 2x' class='avatar avatar-48 photo' height='48' width='48' />			<cite class="fn">manojkumar</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://html5doctor.com/html5-custom-data-attributes/#comment-2055187">
+			November 10, 2015 at 1:25 pm</a>		</div>
+
+		<p>s there any guideline for consuming RDFa in XHTML5?<br />
+As per my limited understanding, DOCTYPE is ignored within these files, version attribute is deprecated. I’m using  within head tag.<br />
+The property attribute is used by creative commons license I’m placing at the file’s footer.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://html5doctor.com/html5-custom-data-attributes/?replytocom=2055187#respond' onclick='return addComment.moveForm( "div-comment-2055187", "2055187", "respond", "1874" )' aria-label='Reply to manojkumar'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+
+ 
+
+
+<div id="form">
+
+<h3>Join the discussion.</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/html5-custom-data-attributes/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Name (required)</label><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required="true" required />
+</p>
+
+<p>
+<label for="email">Mail (will not be published) (required)</label><input type="email" name="email" id="email" value="" size="22" tabindex="2" aria-required="true" required />
+</p>
+
+<p>
+<label for="url">Website</label><input type="url" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+<div id="form-code">
+    <h4>Some HTML is ok</h4>
+    <p>You can use these tags:<br><code><span class="tag">&lt;a </span><span class="atn">href</span><span class="tag">=</span><span class="atv">""</span><span class="tag"> </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;abbr </span><span class="atn">title</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;b&gt;</span></code><br> <code><span class="tag">&lt;blockquote </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;cite&gt;</span></code><br> <code><span class="tag">&lt;del </span><span class="atn">datetime</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;em&gt;</span></code><br> <code><span class="tag">&lt;i&gt;</span></code><br> <code><span class="tag">&lt;q </span><span class="atn">cite</span><span class="tag">=</span><span class="atv">""</span><span class="tag">&gt;</span></code><br> <code><span class="tag">&lt;strong&gt;</span></code></p><p>You can also use <code><span class="tag">&lt;code&gt;</span></code>, and <strong>remember to use <code><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span></code> and <code><span class="pun">&amp;</span><span class="pln">gt</span><span class="pun">;</span></code> for brackets</strong>.</p>
+</div>
+<p><label class="screenreader" for="comment">Enter comment</label>
+<textarea aria-required="true" required name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='1874' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="77d0bb3844" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="40"/></p>
+</form>
+
+</div>
+
+            </section>
+                <!-- end #comments -->
+                
+        </article>
+        <!-- end .post -->
+    </div>
+    <!-- end .main -->	
+                    
+ 	     <aside class="secondary">
+            
+        <section class="mod ads">
+            <h3>Element Index</h3>
+            <a href="/element-index/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/element-index.png" width="260" height="158" alt="View the HTML5 Element Index" /></a>
+        </section>
+        <!-- end nav -->
+            
+		            <aside class="mod ads group">
+                <h3>Sponsors</h3>
+                <div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+            </aside>        
+		                       <!-- end nav -->
+        
+        <nav class="ui-tabs mod">
+          <h3>More HTML5 Doctor</h3>
+          <ul class="ui-tabs-nav group">
+            <li class="ui-tabs-selected"><a href="#articles">Articles</a></li>
+            <li class="ui-tab"><a href="#categories">Categories</a></li>
+            <li class="ui-tab"><a href="#authors">Authors</a></li>
+          </ul>
+          
+          <div class="tab" id="articles">
+              <ul>
+			<li><a href='http://html5doctor.com/computer-says-no-to-html5-document-outline/'>Computer says NO to HTML5 document outline</a></li>
+	<li><a href='http://html5doctor.com/the-woes-of-date-input/'>The woes of date input</a></li>
+	<li><a href='http://html5doctor.com/html-developers-please-consider/'>HTML Developers: Please Consider</a></li>
+	<li><a href='http://html5doctor.com/on-html-belts-and-aria-braces/'>On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+	<li><a href='http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/'>HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+              </ul>
+              <p class="btn"><a href="/article-archive/">View article archive</a></p>
+          </div>
+
+
+          <div class="tab" id="categories">
+                <ul>
+                    	<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" >Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" >Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" >Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" >Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" >Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" >CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" >Elements</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://html5doctor.com/category/events/" >Events</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://html5doctor.com/category/forms/" >forms</a>
+</li>
+	<li class="cat-item cat-item-380"><a href="http://html5doctor.com/category/interviews/" >interviews</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" >JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://html5doctor.com/category/marketing/" >Marketing</a>
+</li>
+	<li class="cat-item cat-item-132"><a href="http://html5doctor.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://html5doctor.com/category/multimedia/" >multimedia</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" >Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" >Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="http://html5doctor.com/category/reviews/" >Reviews</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://html5doctor.com/category/simplequiz/" >Simplequiz</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" >Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" >Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" >Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" >WAI-ARIA</a>
+</li>
+ 
+                </ul>
+          </div>
+          <div class="tab" id="authors">
+                <ul>
+                    <li><a href="http://html5doctor.com/author/alexg/" title="Posts by Alex Gibson">Alex Gibson</a></li><li><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></li><li><a href="http://html5doctor.com/author/cennyddb/" title="Posts by Cennydd Bowles">Cennydd Bowles</a></li><li><a href="http://html5doctor.com/author/chrisb/" title="Posts by Chris Bewick">Chris Bewick</a></li><li><a href="http://html5doctor.com/author/derekj/" title="Posts by Derek Johnson">Derek Johnson</a></li><li><a href="http://html5doctor.com/author/iand/" title="Posts by Ian Devlin">Ian Devlin</a></li><li><a href="http://html5doctor.com/author/jacko/" title="Posts by Jack Osborne">Jack Osborne</a></li><li><a href="http://html5doctor.com/author/markb/" title="Posts by Mark Boas">Mark Boas</a></li><li><a href="http://html5doctor.com/author/miker/" title="Posts by Mike Robinson">Mike Robinson</a></li><li><a href="http://html5doctor.com/author/olib/" title="Posts by Oli Studholme">Oli Studholme</a></li><li><a href="http://html5doctor.com/author/peterg/" title="Posts by Peter Gasston">Peter Gasston</a></li><li><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></li><li><a href="http://html5doctor.com/author/richc/" title="Posts by Richard Clark">Richard Clark</a></li><li><a href="http://html5doctor.com/author/stevef/" title="Posts by Steve Faulkner">Steve Faulkner</a></li><li><a href="http://html5doctor.com/author/taba/" title="Posts by Tab Atkins Jnr">Tab Atkins Jnr</a></li><li><a href="http://html5doctor.com/author/toml/" title="Posts by Tom Leadbetter">Tom Leadbetter</a></li>            	            	
+                </ul>
+          </div>
+        </nav>
+        <!-- end .mod -->
+        
+        <section class="ads mod">
+          <h3>Submit your site to the Gallery</h3>
+          <a href="http://html5gallery.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor2/images/the-gallery.png" alt="HTML5 Gallery" style="width:93%;" /></a>
+        </section>
+        <!-- end .mod --> 
+                 
+	<div class="mod">
+         	<h3><a href="http://thewebevolved.com">Beginning HTML5 &amp; CSS3</a></h3> 
+		<a href="http://thewebevolved.com">
+			<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		</a>
+		<p>The Web Evolved: A new book on HTML5 &amp; CSS3 by Richard Clark, Oli Studholme, Christopher Murphy and Divya Manian.</p>
+		<p><a class="btn" href="http://thewebevolved.com">Buy it now</a></p>
+	</div>      
+		
+    </aside>
+    <!-- end .secondary -->                   
+        <aside id="sub-footer" class="sub-footer group">
+        <div>
+            <div class="mod">
+                                <div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>                        
+            </div><!-- end .mod -->
+            <div class="mod">
+                <h3>Recent Posts</h3>
+                <ul class="related">
+                                                        <li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/">Computer says NO to HTML5 document outline</a></li>
+                                        <li><a href="http://html5doctor.com/the-woes-of-date-input/">The woes of date input</a></li>
+                                        <li><a href="http://html5doctor.com/html-developers-please-consider/">HTML Developers: Please Consider</a></li>
+                                        <li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/">On HTML belts and ARIA braces (The Default Implicit ARIA semantics they didn&#8217;t want you to know about)</a></li>
+                                        <li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/">HTML5 &#8211; Check it Before you Wreck it with Mike[tm] Smith</a></li>
+                                                </ul>
+            </div><!-- end .mod -->
+        </div> 
+        <!-- end div -->
+        <div class="ads">
+            <div class="mod">
+                <h3>Recommended</h3>
+                <a href="http://introducinghtml5.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 Book by Bruce Lawson and Remy Sharp" /></a>
+                <p class="btn"><a href="http://introducinghtml5.com">Buy this book</a></p>
+            </div>
+        </div>
+        <!-- end .ads -->
+    </aside>
+    <!-- end #sub-footer -->
+	
+
+    
+</main>
+<!-- end #content -->
+
+<footer role="contentinfo">
+	<div class="inner">
+    	<img width="64" height="64" class="w3c-logo" alt="W3C HTML5 logo (not CSS3!)" src="http://html5doctor.com/wp-content/themes/html5doctor2/images/HTML5_Badge_64.png">
+		<p id="copyright">This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.0/uk/" rel="license">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</p>
+        <p>Copyright &copy; 2016 HTML5 Doctor. All rights reserved. Hosted by <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">(mt) Media Temple</a>. Branding by <a href="http://olik.co.uk/">Oliver Ker</a>.</p>
+	</div>
+    <!-- end .inner -->
+</footer>
+<!-- end footer -->
+
+    <!-- BuySellAds.com Ad Code -->
+    <script>
+    (function(){
+      var bsa = document.createElement('script');
+         bsa.type = 'text/javascript';
+         bsa.async = true;
+         bsa.src = '//s3.buysellads.com/ac/bsa.js';
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+    </script>
+    <!-- END BuySellAds.com Ad Code -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<!-- TODO: move scripts in head to before /body —oli -->
+	   
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/searchhi.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/prettify.js"></script>    
+	<script src="http://html5doctor.com/wp-content/themes/html5doctor2/js/master.js"></script>    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8916679-1']);
+  _gaq.push(['_setDomainName', 'html5doctor.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script async type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&serve=C6ADVKE&placement=html5doctor" id="_fancybar_js"></script>
+</body>
+</html>
+<!-- Dynamic page generated in 0.939 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-12-08 01:51:39 -->
+
+<!-- super cache -->

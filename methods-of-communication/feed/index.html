@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Methods of communication</title>
+	<atom:link href="http://html5doctor.com/methods-of-communication/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/methods-of-communication/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 25 May 2016 22:16:45 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Junior</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-20607</link>
+		<dc:creator><![CDATA[Junior]]></dc:creator>
+		<pubDate>Wed, 14 Dec 2011 11:02:37 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-20607</guid>
+		<description><![CDATA[Hi all
+
+Someone to know how to do an Audio Streaming between clients with HTML5?   (In any browser)]]></description>
+		<content:encoded><![CDATA[<p>Hi all</p>
+<p>Someone to know how to do an Audio Streaming between clients with HTML5?   (In any browser)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Tom Kersten</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-18262</link>
+		<dc:creator><![CDATA[Tom Kersten]]></dc:creator>
+		<pubDate>Mon, 31 Oct 2011 03:26:41 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-18262</guid>
+		<description><![CDATA[@cclark: This is an old comment, but to follow up, if you add a listener for the &quot;close&quot; event on the request object, you can do any sort of necessary cleanup.
+
+For example, to close down a redis pub/sub connection when someone closes their window, you can do the following:
+
+&lt;code&gt;
+req.on(&quot;close&quot;, function() {
+  // close down this pub/sub connection when a client
+  // closes their browser window
+  pub_sub_client.unsubscribe();
+  pub_sub_client.quit();
+});
+&lt;/code&gt;]]></description>
+		<content:encoded><![CDATA[<p>@cclark: This is an old comment, but to follow up, if you add a listener for the &#8220;close&#8221; event on the request object, you can do any sort of necessary cleanup.</p>
+<p>For example, to close down a redis pub/sub connection when someone closes their window, you can do the following:</p>
+<p><code><br />
+req.on("close", function() {<br />
+  // close down this pub/sub connection when a client<br />
+  // closes their browser window<br />
+  pub_sub_client.unsubscribe();<br />
+  pub_sub_client.quit();<br />
+});<br />
+</code></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: CClark</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-16168</link>
+		<dc:creator><![CDATA[CClark]]></dc:creator>
+		<pubDate>Tue, 12 Jul 2011 21:49:45 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-16168</guid>
+		<description><![CDATA[I have a question about using server side code (Node.js) and SSE.  It seems once you open a response, you will keep trying to post to the response stream even if it has been closed by the client.  In the code you posted sseConnections is an array that holds every http response object that is created.  Once a browser closes the connection and then starts back up, you will still be sending SSEs to response objects that no longer exist...
+
+Is there any way to determine if a response object is still valid?  
+
+So that if you have 100&#039;s of people connecting to your site, you will not keep trying to update them once they have closed the browser?]]></description>
+		<content:encoded><![CDATA[<p>I have a question about using server side code (Node.js) and SSE.  It seems once you open a response, you will keep trying to post to the response stream even if it has been closed by the client.  In the code you posted sseConnections is an array that holds every http response object that is created.  Once a browser closes the connection and then starts back up, you will still be sending SSEs to response objects that no longer exist&#8230;</p>
+<p>Is there any way to determine if a response object is still valid?  </p>
+<p>So that if you have 100&#8217;s of people connecting to your site, you will not keep trying to update them once they have closed the browser?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Remy Sharp</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-14716</link>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+		<pubDate>Mon, 21 Mar 2011 11:13:13 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-14716</guid>
+		<description><![CDATA[@Nicholas - I&#039;ve also written an EventSource polyfill that I&#039;m using in &lt;a href=&quot;http://jsconsole.com&quot; rel=&quot;nofollow&quot;&gt;jsconsole.com&gt; for the &lt;a href=&quot;http://jsconsole.com/remote-debugging.html&quot; rel=&quot;nofollow&quot;&gt;remote device debugging&lt;/a&gt; that&#039;s used on the mobile devices that don&#039;t natively support EventSource - like the Android 2.2 and Palm Pre.  Exactly as you described, it defaults down to Ajax based polling: https://github.com/remy/polyfills/blob/master/EventSource.js
+
+It&#039;s not 100% perfect, but it definitely mirrors basic usage of EventSource and gives me the device support I needed.]]></description>
+		<content:encoded><![CDATA[<p>@Nicholas &#8211; I&#8217;ve also written an EventSource polyfill that I&#8217;m using in <a href="http://jsconsole.com" rel="nofollow">jsconsole.com> for the </a><a href="http://jsconsole.com/remote-debugging.html" rel="nofollow">remote device debugging</a> that&#8217;s used on the mobile devices that don&#8217;t natively support EventSource &#8211; like the Android 2.2 and Palm Pre.  Exactly as you described, it defaults down to Ajax based polling: <a href="https://github.com/remy/polyfills/blob/master/EventSource.js" rel="nofollow">https://github.com/remy/polyfills/blob/master/EventSource.js</a></p>
+<p>It&#8217;s not 100% perfect, but it definitely mirrors basic usage of EventSource and gives me the device support I needed.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Nicholas C. Zakas</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-14712</link>
+		<dc:creator><![CDATA[Nicholas C. Zakas]]></dc:creator>
+		<pubDate>Mon, 21 Mar 2011 03:39:21 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-14712</guid>
+		<description><![CDATA[@Ricardo - Web workers are very different than setTimeout(). The setTimeout() function simply tells the browser to wait until later to execute JavaScript - but it does so on the same thread (called the UI thread, the same one responsible for repaints and reflows). Web workers actually execute outside of the UI thread, so they can be executing at the exact same time as code that manipulates the DOM. Keep in mind that Web Workers cannot access the DOM because they don&#039;t execute on the UI thread, so you are limited to passing data into and out of a worker. You may want to check out my presentation about JavaScript performance, which has some info about this: http://www.slideshare.net/nzakas/high-performance-javascript-fronteers-2010]]></description>
+		<content:encoded><![CDATA[<p>@Ricardo &#8211; Web workers are very different than setTimeout(). The setTimeout() function simply tells the browser to wait until later to execute JavaScript &#8211; but it does so on the same thread (called the UI thread, the same one responsible for repaints and reflows). Web workers actually execute outside of the UI thread, so they can be executing at the exact same time as code that manipulates the DOM. Keep in mind that Web Workers cannot access the DOM because they don&#8217;t execute on the UI thread, so you are limited to passing data into and out of a worker. You may want to check out my presentation about JavaScript performance, which has some info about this: <a href="http://www.slideshare.net/nzakas/high-performance-javascript-fronteers-2010" rel="nofollow">http://www.slideshare.net/nzakas/high-performance-javascript-fronteers-2010</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Nicholas C. Zakas</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-14711</link>
+		<dc:creator><![CDATA[Nicholas C. Zakas]]></dc:creator>
+		<pubDate>Mon, 21 Mar 2011 03:35:06 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-14711</guid>
+		<description><![CDATA[Even though Server-Sent Events are only &quot;officially&quot; supported in some browsers, it&#039;s pretty easy to add support in others. In Firefox, for example, you can use progress events on the XHR object to mimic the behavior. Unfortunately, IE will still need to do polling until they support progress events, but it&#039;s very easy to switch to the correct approach on the server. In my YUI EventSource component, I just add a custom header via JavaScript telling the server that the browser only supports polling, which allows you to write server-side code similar to the example posted here: http://yuilibrary.com/gallery/show/eventsource]]></description>
+		<content:encoded><![CDATA[<p>Even though Server-Sent Events are only &#8220;officially&#8221; supported in some browsers, it&#8217;s pretty easy to add support in others. In Firefox, for example, you can use progress events on the XHR object to mimic the behavior. Unfortunately, IE will still need to do polling until they support progress events, but it&#8217;s very easy to switch to the correct approach on the server. In my YUI EventSource component, I just add a custom header via JavaScript telling the server that the browser only supports polling, which allows you to write server-side code similar to the example posted here: <a href="http://yuilibrary.com/gallery/show/eventsource" rel="nofollow">http://yuilibrary.com/gallery/show/eventsource</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Sean</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-14698</link>
+		<dc:creator><![CDATA[Sean]]></dc:creator>
+		<pubDate>Thu, 17 Mar 2011 13:40:15 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-14698</guid>
+		<description><![CDATA[Thanks for this summary, this is a subject I am sorely lacking in. This is a great jumping point for research.]]></description>
+		<content:encoded><![CDATA[<p>Thanks for this summary, this is a subject I am sorely lacking in. This is a great jumping point for research.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ricardo Lucio</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-14202</link>
+		<dc:creator><![CDATA[Ricardo Lucio]]></dc:creator>
+		<pubDate>Fri, 11 Feb 2011 12:16:12 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-14202</guid>
+		<description><![CDATA[Regarding the Web Worker, I&#039;m a little more than a newbie in javascript programmer, and I always thought you could reach multi-thread capabilities within javascript with the usage of the setTimeout() function.
+
+Can you please clarify that? What are the benefits of WebWorker (besides the context isolation) over the well-known setTimeout() function?]]></description>
+		<content:encoded><![CDATA[<p>Regarding the Web Worker, I&#8217;m a little more than a newbie in javascript programmer, and I always thought you could reach multi-thread capabilities within javascript with the usage of the setTimeout() function.</p>
+<p>Can you please clarify that? What are the benefits of WebWorker (besides the context isolation) over the well-known setTimeout() function?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Phil Leggetter</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-13963</link>
+		<dc:creator><![CDATA[Phil Leggetter]]></dc:creator>
+		<pubDate>Thu, 20 Jan 2011 17:30:43 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-13963</guid>
+		<description><![CDATA[Although Comet was &lt;a href=&quot;http://infrequently.org/2006/03/comet-low-latency-data-for-the-browser/&quot; rel=&quot;nofollow&quot;&gt;originally defined&lt;/a&gt; as a paradigm for Ajax to allow server to client push that definition, along with the technology, has evolved. In &lt;a href=&quot;http://infrequently.org/wp-content/Comet.png&quot; rel=&quot;nofollow&quot;&gt;Alex Russell’s diagram&lt;/a&gt; he lists a “Comet engine” and I believe the technology behind the Comet engine doesn’t have to be JavaScript (in the same way WebSockets isn’t just for Web Browsers).&lt;/a&gt;
+
+The same method of connecting to a server and receiving push updates has been used in many client applications using many technologies. In &lt;a href=&quot;http://kwwika.com&quot; rel=&quot;nofollow&quot;&gt;Kwwika&lt;/a&gt; for instance, which uses clustered Comet servers under the hood, we have APIs for JavaScript &lt;strong&gt;and&lt;/strong&gt; .NET, Silverlight, ActionScript (Flash), C, Objective-C (iPhone/iPad) and Java. Just because we have these client APIs that connect to our service does this mean that we can’t call our servers Comet servers. IMHO, no!
+
+A good Comet server implementation will hide away the underlying communication protocol. The client API will choose the most appropriate means of communication for the client technology and runtime environment (including network) as well as having a fallback strategy e.g. try HTTP Streaming then HTTP long-polling then, if you really have to, fallback to HTTP classic polling.
+
+The next evolution for Comet servers has been to add support for the WebSocket protocol as one of it’s communication options. The WebSockets protocol is still under development so my preferred choice of communication would probably still be HTTP Streaming as it’s more reliable and is less likely to be interfered with by proxies and firewalls (WebSockets rely on HTTP headers which can easily be mangled. HTTPS connections are a solution).
+
+So, I wouldn’t put it as you have. Instead of:
+&lt;blockquote cite=&quot;http://html5doctor.com/methods-of-communication/&quot;&gt;It’s my opinion that Web Sockets replaces Comet. Comet is a way of hacking the browser to giving us real-time server messages. The Web Sockets API provides that natively.&lt;/blockquote&gt;
+
+I would instead say:
+&lt;blockquote&gt;WebSockets may replace HTTP Streaming as the preferred method of client/server communication.&lt;/blockquote&gt;
+
+If WebSockets gets the support it deserves it will win out. The native bi-directional support is a really big deal and I hope that the protocol becomes rock solid and that the Internet Infrastructure quickly updates to make it suitable for all production environments.
+
+Note: This is a resubmission of my comment on January 18th, 2011 at 7:13 pm since the previous one is still awaiting moderation.]]></description>
+		<content:encoded><![CDATA[<p>Although Comet was <a href="http://infrequently.org/2006/03/comet-low-latency-data-for-the-browser/" rel="nofollow">originally defined</a> as a paradigm for Ajax to allow server to client push that definition, along with the technology, has evolved. In <a href="http://infrequently.org/wp-content/Comet.png" rel="nofollow">Alex Russell’s diagram</a> he lists a “Comet engine” and I believe the technology behind the Comet engine doesn’t have to be JavaScript (in the same way WebSockets isn’t just for Web Browsers).</p>
+<p>The same method of connecting to a server and receiving push updates has been used in many client applications using many technologies. In <a href="http://kwwika.com" rel="nofollow">Kwwika</a> for instance, which uses clustered Comet servers under the hood, we have APIs for JavaScript <strong>and</strong> .NET, Silverlight, ActionScript (Flash), C, Objective-C (iPhone/iPad) and Java. Just because we have these client APIs that connect to our service does this mean that we can’t call our servers Comet servers. IMHO, no!</p>
+<p>A good Comet server implementation will hide away the underlying communication protocol. The client API will choose the most appropriate means of communication for the client technology and runtime environment (including network) as well as having a fallback strategy e.g. try HTTP Streaming then HTTP long-polling then, if you really have to, fallback to HTTP classic polling.</p>
+<p>The next evolution for Comet servers has been to add support for the WebSocket protocol as one of it’s communication options. The WebSockets protocol is still under development so my preferred choice of communication would probably still be HTTP Streaming as it’s more reliable and is less likely to be interfered with by proxies and firewalls (WebSockets rely on HTTP headers which can easily be mangled. HTTPS connections are a solution).</p>
+<p>So, I wouldn’t put it as you have. Instead of:</p>
+<blockquote cite="http://html5doctor.com/methods-of-communication/"><p>It’s my opinion that Web Sockets replaces Comet. Comet is a way of hacking the browser to giving us real-time server messages. The Web Sockets API provides that natively.</p></blockquote>
+<p>I would instead say:</p>
+<blockquote><p>WebSockets may replace HTTP Streaming as the preferred method of client/server communication.</p></blockquote>
+<p>If WebSockets gets the support it deserves it will win out. The native bi-directional support is a really big deal and I hope that the protocol becomes rock solid and that the Internet Infrastructure quickly updates to make it suitable for all production environments.</p>
+<p>Note: This is a resubmission of my comment on January 18th, 2011 at 7:13 pm since the previous one is still awaiting moderation.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ian Alderson</title>
+		<link>http://html5doctor.com/methods-of-communication/#comment-13934</link>
+		<dc:creator><![CDATA[Ian Alderson]]></dc:creator>
+		<pubDate>Tue, 18 Jan 2011 22:58:28 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847#comment-13934</guid>
+		<description><![CDATA[Hi. Great blog, but I disagree with your opinion that &quot;that Web Sockets replaces Comet&quot;. I believe that Web Sockets are best used within a Comet implementation as the best possible streaming connection technique, rather than as a replacement for Comet. There are various reasons for my belief, but these are the ones that immediately come to mind. In the interests of full disclosure, I work for a company that provides a Comet server, however I believe the following statements are impartial observations of some genuine issues with Web Sockets.
+
+1. There are Web Socket issues with proxy servers. The protocol looks somewhat like http, however it isn&#039;t quite http. It smuggles an 8 byte body to the server during the negotiation stage which is likely to cause massive issues with proxy servers. Web proxies love to interfere with HTTP connections and until they are all updated to understand Web Socket protocol (or, more unlikely, if even possible, the Web Socket protocol is changed so that it conforms to http) this is likely to become a more significant barrier than browser support for Web Sockets. In this scenario a Comet library can failover to a non Web Socket connection type.
+
+2. There is no intrinsic support (at the moment) for heartbeats to keep connection alive. Badly configured firewalls have a wonderful tendency to decide that a connection must be dead if no data has been sent through it for a while, defeating the purpose of a supposed persistent connection. Comet implementations typically already have application level heartbeats to solve this. Obviously a Web Socket implementation can do this too, but you&#039;re starting on a slippery slope of writing more code to get around their deficiencies - surely it would be better to use a library that already does this for you (and covers all the scenarios you haven&#039;t thought of yet).
+
+3. With Web Sockets you need to write your own reconnection logic, potentially including failover to another server if a connection to the original server cannot be established. This is a very real scenario when dealing with the transient network connectivity of mobile devices. Again Comet implementations will typically handle this for you.
+
+Web Sockets are absolutely awesome, providing full duplex connection. However the fact that they are low level means that you need to write a reasonable amount of code to make them reliable within a production environment. Couple this with the fact that they aren&#039;t supported in all browsers, and the most sensible route I can see is to use a library that encapsulates all of this logic for you. if someone decided to write one of these from scratch, rather than using one of the existing Comet libraries, then, for me at least, I would consider it to be a Comet implementation, but one that only happens to use the Web Socket protocol.]]></description>
+		<content:encoded><![CDATA[<p>Hi. Great blog, but I disagree with your opinion that &#8220;that Web Sockets replaces Comet&#8221;. I believe that Web Sockets are best used within a Comet implementation as the best possible streaming connection technique, rather than as a replacement for Comet. There are various reasons for my belief, but these are the ones that immediately come to mind. In the interests of full disclosure, I work for a company that provides a Comet server, however I believe the following statements are impartial observations of some genuine issues with Web Sockets.</p>
+<p>1. There are Web Socket issues with proxy servers. The protocol looks somewhat like http, however it isn&#8217;t quite http. It smuggles an 8 byte body to the server during the negotiation stage which is likely to cause massive issues with proxy servers. Web proxies love to interfere with HTTP connections and until they are all updated to understand Web Socket protocol (or, more unlikely, if even possible, the Web Socket protocol is changed so that it conforms to http) this is likely to become a more significant barrier than browser support for Web Sockets. In this scenario a Comet library can failover to a non Web Socket connection type.</p>
+<p>2. There is no intrinsic support (at the moment) for heartbeats to keep connection alive. Badly configured firewalls have a wonderful tendency to decide that a connection must be dead if no data has been sent through it for a while, defeating the purpose of a supposed persistent connection. Comet implementations typically already have application level heartbeats to solve this. Obviously a Web Socket implementation can do this too, but you&#8217;re starting on a slippery slope of writing more code to get around their deficiencies &#8211; surely it would be better to use a library that already does this for you (and covers all the scenarios you haven&#8217;t thought of yet).</p>
+<p>3. With Web Sockets you need to write your own reconnection logic, potentially including failover to another server if a connection to the original server cannot be established. This is a very real scenario when dealing with the transient network connectivity of mobile devices. Again Comet implementations will typically handle this for you.</p>
+<p>Web Sockets are absolutely awesome, providing full duplex connection. However the fact that they are low level means that you need to write a reasonable amount of code to make them reliable within a production environment. Couple this with the fact that they aren&#8217;t supported in all browsers, and the most sensible route I can see is to use a library that encapsulates all of this logic for you. if someone decided to write one of these from scratch, rather than using one of the existing Comet libraries, then, for me at least, I would consider it to be a Comet implementation, but one that only happens to use the Web Socket protocol.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

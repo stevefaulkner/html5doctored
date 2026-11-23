@@ -1,0 +1,2899 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset="utf-8" /> <!-- simplified version; works on legacy browsers -->
+  <title>
+      Designing a blog with html5 | HTML5 Doctor  </title>
+
+<meta name="description" content="Much of HTML 5&#8242;s feature set involves JavaScript APIs that make it easier to develop interactive web pages but there are a slew of new elements that allow you extra semantics in your conventional Web 1.0 pages. In order to investigate these, let&#8217;s look at marking up a blog. Firstly what we&#8217;ll do is use [...]" />
+	
+    
+    
+    
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/style.css">
+  
+   
+  
+  <script src="http://html5doctor.com/wp-content/themes/html5doctor/js/searchhi.js"></script>
+  
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/css/ie7.css">
+  <![endif]-->  
+
+	<link rel="shortcut icon" href="http://html5doctor.com/wp-content/themes/html5doctor/img/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="http://html5doctor.com/wp-content/themes/html5doctor/img/apple-touch-icon-precomposed.png" />
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor RSS Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/atom+xml" title="HTML5 Doctor Atom Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/rss+xml" title="HTML5Doctor Comments RSS Feed" href="http://feeds.feedburner.com/HTML5DoctorComments" />
+  <link rel="pingback" href="http://html5doctor.com/xmlrpc.php" />
+  
+  <meta name="viewport" content="width=device-width">
+
+	<link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; Designing a blog with html5 Comments Feed" href="http://html5doctor.com/designing-a-blog-with-html5/feed/" />
+<link rel='stylesheet' id='msw_wpfm_scan-css'  href='http://html5doctor.com/wp-content/plugins/wordpress-file-monitor/wordpress-file-monitor.php?ver=scan' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/styles.css?ver=2.4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='sociable-front-css-css'  href='http://html5doctor.com/wp-content/plugins/sociable/sociable.css?ver=3.0.1' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.50' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.4.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://html5doctor.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='HTML5 Doctor' href='http://html5doctor.com/' />
+<link rel='start' title='Designing a blog with html5' href='http://html5doctor.com/designing-a-blog-with-html5/' />
+<link rel='prev' title='The footer element' href='http://html5doctor.com/the-footer-element/' />
+<link rel='next' title='HTML 5 + XML = XHTML 5' href='http://html5doctor.com/html-5-xml-xhtml-5/' />
+<link rel='canonical' href='http://html5doctor.com/designing-a-blog-with-html5/' />
+<link rel='shortlink' href='http://html5doctor.com/?p=47' />
+<script type="text/javascript">
+//<![CDATA[
+var _wpcf7 = { cached: 1 };
+//]]>
+</script>
+<meta name="tweetmeme-title" content="Designing a blog with html5" />  
+	  
+  
+	    
+  
+</head>
+<body class="wordpress single">
+
+<!-- BuySellAds.com Ad Code -->
+<script type="text/javascript">
+(function(){
+  var bsa = document.createElement('script');
+     bsa.type = 'text/javascript';
+     bsa.async = true;
+     bsa.src = '//s3.buysellads.com/ac/bsa.js';
+  (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+})();
+</script>
+<!-- END BuySellAds.com Ad Code -->
+
+<nav id="skipLink">
+	<ul>
+    	<li><a href="#primary">Skip to primary navigation</a></li>
+        <li><a href="#content">Skip to main content</a></li>
+        <li><a href="#sidebar">Skip to sidebar</a></li>
+    </ul>
+</nav>
+
+<header role="banner">
+    <hgroup>
+        <h1 class="logo"><a href="http://html5doctor.com/">HTML5 Doctor</a></h1>
+        <h2 class="strapline">helping you implement HTML5 today</h2>
+    </hgroup>
+</header>
+  
+<nav id="primary">
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+<li class="page_item page-item-56"><a href="http://html5doctor.com/glossary/" title="Glossary">Glossary</a></li>
+        <li><a href="/speaking/">Speaking</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>  
+<div id="content">
+
+<div class="hfeed" role="main">
+      	<article class="hentry" id="post-47">
+	    <h1 class="entry-title">Designing a blog with html5 </h1>
+	  
+      <div class="entry-content">
+      
+		        
+        <p class="disclaimer">This article is an edited version of two articles published by Opera Web Evangelist, <a href="http://www.brucelawson.co.uk/">Bruce Lawson</a>, reproduced with permission. All rights reserved.</p>                
+                
+	    <div class="tweetmeme_button" style="float: right; margin-left: 10px;"><iframe src="http://api.tweetmeme.com/button.js?url=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;source=html5doctor&amp;style=normal&amp;service=is.gd&amp;b=2" height="61" width="50" frameborder="0" scrolling="no"></iframe></div>
+<p>Much of <abbr>HTML</abbr> 5&#8242;s feature set involves JavaScript <abbr>API</abbr>s that make it easier to develop interactive web pages but there are a slew of new elements that allow you extra semantics in your conventional Web 1.0 pages. In order to investigate these, let&#8217;s look at marking up a blog.</p>
+<p>Firstly what we&#8217;ll do is use the <code>header</code>, <code>footer</code>, <code>and nav </code>elements to mark up the broad structure of the page. We&#8217;ll make the blog comments form much smarter by using the new data types and built-in validation available in <abbr>HTML</abbr> 5-aware browsers. </p>
+<p>Then we&#8217;ll do some work on the guts of the page, using <abbr>HTML</abbr> 5&#8217;s <code>article</code> elements to better mark up blog posts and comments and show how to use the <code>section</code> elements to better structure accessible hierarchical headings on sites that are <abbr>CMS</abbr>-driven. As blogs are chronologically ordered, we&#8217;ll  see what <abbr>HTML 5</abbr> offers us for representing dates and times.</p>
+<p>So take the phone of the hook, and make a cup of tea and we&#8217;ll get started.</p>
+<section>
+<h2>Setting the DOCTYPE</h2>
+<p><abbr>HTML</abbr> 5, when used as plain <abbr>HTML</abbr> rather than its <abbr>XHTML</abbr> 5 sibling doesn&#8217;t need a DOCTYPE. But all browsers do, otherwise they go into <a href="http://en.wikipedia.org/wiki/Quirks_mode">Quirksmode</a>, which you don&#8217;t want: the collision of <abbr>HTML</abbr> 5 and Quirksmode is like matter and anti-matter meeting, and will cause a negative reality inversion that will make your underwear catch fire. </p>
+<p>You&#8217;ve been warned, so at the top of your document, you need the line <code>&lt;!DOCTYPE html&gt;</code>.</p>
+<p>Some sites &#8220;use&#8221; <abbr>HTML</abbr> 5, when in actual fact all they&#8217;ve done is take their existing code and change the DOCTYPE. That&#8217;s fine and dandy if you&#8217;ve been using valid, semantic code as <abbr>HTML</abbr> 5 is very similar to valid <abbr>HTML</abbr> 4.01. <a href="http://meyerweb.com/eric/thoughts/2009/01/02/an-event-apart-and-html-5/">Eric Meyer mentions small differences</a> like &#8220;not permitting a value attribute on an image submit&#8221;, and there are a few differences between the languages, summarised in the document <a href="http://dev.w3.org/html5/html4-differences/">HTML 5 differences from HTML 4</a>.</p>
+<p>However, I don&#8217;t want simply to  rebadge my existing code, but to use some of the new structural elements now.</p>
+</section>
+<section>
+<h2>Using some new structural elements</h2>
+<p>My blog &#8211; like millions of others &#8211; has a header denoted by <code>&lt;div id="header"&gt;</code>, a footer <code>&lt;div id="footer"&gt;</code>, some articles (wrapped by an area called &#8220;content&#8221;, <code>&lt;div id="content"&gt;</code>) and some navigation (wrapped up in an area called &#8220;sidebar&#8221; <code>&lt;div id="sidebar"&gt;</code>). Most sites on the Web have similar constructs, although depending on your choice they might be called &quot;branding&quot; or &quot;info&quot; or &quot;menu&quot;, or you might use the equivalent words in your own language. </p>
+<p>Although these all have very different functions within the page, they  use  the same generic <code>div</code> in the markup. as <abbr>HTML 4</abbr> has no other way to code them. <abbr>HTML</abbr> 5 has new elements for distinguishing  these logical areas: <code>header</code>, <code>nav</code>, <code>footer</code> and friends. (There&#8217;s  more on this in an artice by Lachlan Hunt on A List Apart: <a href="http://www.alistapart.com/articles/previewofhtml5">A Preview of <abbr>HTML</abbr> 5</a>.)</p>
+<p>The overall aim is to replace this structure:</p>
+<p><img src="/wp-content/uploads/2009/06/html5-before1.gif" alt="structure chart before redesign"></p>
+<p>with this:</p>
+<p><img src="/wp-content/uploads/2009/06/html5-after1.gif" alt="structure chart after redesign"></p>
+<p>It&#8217;s a simple matter to change the <abbr>HTML</abbr> <code>div</code>s into the new elements. The only difficulty I had was deciding which element to use to mark up my sidebar, as it also includes a search field and &#8220;colophon&#8221; information as well as site-wide navigation. I decided against the <code>aside</code> element,  as <a href="http://dev.w3.org/html5/spec/Overview.html#the-aside-element">the spec says</a> it &#8220;represents a section of a page that consists of content that is tangentially related to the content around the aside element, and which could be considered separate from that content&#8221;, but it&#8217;s nevertheless <em>content</em> rather than navigation. So I decided to go for the <code>nav</code> element as the closest fit.</p>
+<p>I&#8217;ve wrapped the main content in a <code>section</code> element (previously I&#8217;d kept it as a <code>div</code>). <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-section-element"><code>section</code> is defined</a> in the spec</p>
+<blockquote cite="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-section-element"><p>The section element represents a generic document or application section. A section, in this context, is a thematic grouping of content, typically with a heading, possibly with a footer.</p></blockquote>
+<p class="warning"><strong>Please note: I no longer recommend wrapping the whole content area in a <code>section</code> element, and suggest that you use a <code>div</code> element. Read more about <a href="/the-section-element">using section appropriately</a>.</strong></p>
+<p>In this case, the &#8220;generic document section&#8221; is that of main content. I&#8217;ve retained an <code>id</code> so that a <a href="http://juicystudio.com/article/skip-links.php">skip links</a> feature will work, although I hope that in the future, assistive technology will offer an automatic way for people to go to the first <code>section</code> or <code>article</code>.</p>
+<p>My fellow <abbr>HTML</abbr> 5 doctor, Remy Sharp, also notes  that if you retain the <code>div</code>, Internet Explorer without JavaScript would style the div, but none of the other content, making the site  very hard to read.</p>
+</section>
+<section>
+<h2>New form attributes</h2>
+<p>As well as the main structural item on the page, I&#8217;ve added some new attributes on <code>input</code> elements in the comments form.</p>
+<p><abbr>HTML</abbr> 5 was designed to reflect what developers actually do rather than to reflect a philosophical purity, and that&#8217;s very clearly manifested in the new attributes which mean the browser takes up much of the work currently done by developers re-inventing validation routines in JavaScript. (Extending forms functionality was <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/introduction.html#history-0">how the <abbr>HTML</abbr> 5 spec began</a>).</p>
+<p>So I amended the email input field in the comments to be <code>input type="email"</code> which means that when the user submits the form, an <abbr>HTML</abbr> 5-aware browser will use built-in validation routines to check that it&#8217;s in the correct format, without any JavaScript. Check it out in the current version of <a href="http://www.opera.com/">Opera</a>, as that the only full implementation at the time of writing (June 2009), and note that it also adds a &#8220;mail&#8221; icon in the input field as a cue to the user.</p>
+<p>There are similar input validation routines triggered by some of the  new <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/forms.html#attr-input-type"><code>input</code> types</a>, such as <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/forms.html#url-state"><code>url</code></a> (which I use on the field that asks for the user&#8217;s web address), <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/forms.html#number-state"><code>number</code></a> and <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/forms.html#attr-input-pattern"><code>pattern</code></a> which compares the input with an arbitrary regular expression.</p>
+<p>Another good example is <code>input type="date"</code>, which pops up a calendar widget/ date picker when the user focusses on the input field. You can <a href="http://people.opera.com/brucel/demo/html5-forms-demo.html">test the date picker</a>, or here&#8217;s a screenshot from Opera 9.6:</p>
+<p><img src="/wp-content/uploads/2009/06/html5-form-date.gif" alt="date picker pops up next to input field"></p>
+<p>A very useful new attribute I used on both <code>input</code> fields for commenter&#8217;s name and email address, and the comment <code>textarea</code> was <code>type="required"</code> which generates a message on submission if the fields are left blank. Each different localisation of a browser would need to have a different message, and it&#8217;s not (so far) customisable by the developer. </p>
+<p><img src="/wp-content/uploads/2009/06/html5-required-feedback.gif" alt="red-bordered browser message 'You have to specify a value'" next to unfilled required field"></p>
+<p>The good thing with all this new form fabulousness is it&#8217;s all formed around new attributes on an exisiting element, so people using older browsers just see a plain old <code>input</code> field.</p>
+<section>
+<h3>A note on screenreaders and <abbr>HTML 5</abbr></h3>
+<p>I hope screenreaders are ready for these new interactions; I asked the html 5 group to formally <a href="http://lists.w3.org/Archives/Public/public-html/2007Jul/1249.html">invite screenreader vendors to participate</a> in the specification; to my knowledge, <a href="http://lists.w3.org/Archives/Public/public-html/2008Aug/0795.html">none have done so</a>.</p>
+</section>
+</section>
+<section>
+<h2>Laying out the new elements</h2>
+<p>It&#8217;s not too hard to layout the new elements. In all the non-<abbr>IE</abbr> browsers, you can lay out anything using <abbr>CSS</abbr> &#8211; even a <a href="http://people.opera.com/brucel/demo/html5-nonsense-element.html">nonsense element</a>. One gotcha  is that that the current crop of browsers have no &#8220;knowledge&#8221; of these elements, although <a href="http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(HTML_5)">support is improving all the time</a>.</p>
+<p>All browsers have default settings for the elements they &#8220;know about&#8221;&mdash;how much padding, margin they element gets, does it display as a block or inline?. (Here&#8217;s a <a href="http://www.w3.org/TR/CSS2/sample.html">sample default stylesheet</a>.) Unless over-ridden by <abbr>CSS</abbr>, these defaults apply. But the browsers don&#8217;t know about <code>header</code>, <code>nav</code> and the like, so have no defaults to apply to them.</p>
+<p>I got terrible rendering oddities until I explicitly told the browsers </p>
+<pre><code>header, footer, nav, article {display:block;}</code></pre>
+<section>
+<h3><abbr>IE</abbr> layout</h3>
+<p>There&#8217;s one gotcha about styling <abbr>HTML</abbr> 5 pages in <abbr>IE</abbr>: it doesn&#8217;t work. You can force it to quite easily with a JavaScript hack <code>document.createElement('element name')</code>. (Lachlan Hunt gets to the bottom of <a href="http://blog.whatwg.org/supporting-new-elements-in-ie">why IE needs this</a>.)</p>
+<p>For your convenience, Remy Sharp has written an <a href="http://remysharp.com/2009/01/07/html5-enabling-script/"><abbr>HTML</abbr> 5 enabling script</a> which I use in the header to conjure all the missing elements into existence all at once.</p>
+<p>But let&#8217;s be clear: <strong>this won&#8217;t work if your <abbr>IE</abbr> user doesn&#8217;t have JavaScript turned on</strong>. How much of that&#8217;s a big deal that is for you to decide. Pragmatically, it seems to me that the sites that will benefit the most from HTML 5’s new “Ajax”-style features, such as drag-and-drop, are the sites that currently have no hope of working without JavaScript. </p>
+</section>
+<section>
+<h3>Firefox 2 and Camino 1 layout</h3>
+<p>Firefox 2 and Camino 1 both use Gecko 1.9 which has a bug and so gets grumpy if you don&#8217;t serve the page as <abbr>XHTML</abbr>. (Go figure; that&#8217;s almost enough to trigger a negative reality inversion and you know how bad that can be). However, Firefox and Camino users upgrade frequently so Firefox is in version 3, while Camino 2 beta is out, so the problem will soon cease to exist. (Read more at <a href="/how-to-get-html5-working-in-ie-and-firefox-2/">How to get HTML5 working in IE and Firefox 22</a> by Remy Sharp.)</p>
+</section>
+</section>
+<section>
+<h2>What&#8217;s the point of those new structural elements?</h2>
+<p>Well, they add semantics to the page. The browser now knows which area of your site is the header or the footer because there are <code>header</code> and <code>footer</code> elements, whereas <code>div</code> might be called &#8220;branding&#8221; and &#8220;legal&#8221;, or even  &#8220;<span lang="fr">en-tete</span>&#8221; and &#8220;<span lang="fr">pied-de-page</span>&#8221; or &#8220;<span lang="de">kopfzeile</span>&#8221; and &#8220;<span lang="de">fusszeile</span>&#8220;.</p>
+<p>But <em>so what</em>?</p>
+<p>Robin Berjon expressed it beautifully in a <a href="http://www.alistapart.com/comments/semanticsinhtml5?page=2#12">comment on <cite>A List Apart</cite></a>: </p>
+<blockquote cite="http://www.alistapart.com/comments/semanticsinhtml5?page=2#12">
+<p>Pretty much everyone in the Web community agrees that “semantics are yummy, and will get you cookies”, and that’s probably true. But once you start digging a little bit further, it becomes clear that very few people can actually articulate a reason why. So before we all go another round on this, I have to ask: what’s it you wanna do with them darn semantics?</p>
+<p>The general answer is “to repurpose content”. That’s fine on the surface, but you quickly reach a point where you have to ask “repurpose to what?” &hellip; I think <abbr>HTML</abbr> should add only elements that either expose functionality that would be pretty much meaningless otherwise (e.g. <code>canvas</code>) or that provide semantics that help repurpose for Web browsing uses.</p>
+</blockquote>
+<p>In my view, there are a couple of things I want to do with those semantics. The first is for search engine use; it&#8217;s easy to imagine Messrs Google or Yahoo! giving lower weighting to content in <code>footer</code> elements, or extra weight to content in the <code>header</code>. The second reason is to make the site navigable for people with disabilities. People with learning difficulties might instruct their browser always to put the articles before the navigation, for example. User agents might very well have a keyboard shortcut which jumped straight to the <code>nav</code> for example, or jumped straight past the navigation, in a programmatic implementation of &#8220;<a href="http://juicystudio.com/article/skip-links.php">skip links</a>&#8220;.</p>
+<p>Which brings me to&hellip;</p>
+</section>
+<section>
+<h2>Further refining the <abbr>HTML</abbr> 5 structure</h2>
+<section>
+<h3>The blog home page</h3>
+<p>An interesting thing about a blog homepage is that there are generally the last 5 or so posts, each with a heading, a &quot;body&quot; and data about the post (time, who wrote it, how many comments etc.) and usually a link to another page that has the full blog post (if the homepage just showed an excerpt) and its comments.</p>
+<p><abbr>HTML</abbr> 5 has an <a href="http://dev.w3.org/html5/spec/Overview.html#the-article-element"><code>article</code> element</a> which I use to wrap each story: </p>
+<blockquote cite="http://dev.w3.org/html5/spec/Overview.html#the-article-element">
+<p>The article element represents a section of a page that consists of a composition that forms an independent part of a document, page, or site. This could be a forum post, a magazine or newspaper article, a Web log entry, a user-submitted comment, or any other independent item of content.</p>
+</blockquote>
+<p>Let&#8217;s look in more detail at the guts of how I mark up each blogpost.</p>
+<h3>Anatomy of a blog post</h3>
+<p><img src="/wp-content/uploads/2009/06/html5-article-outline.gif" alt="diagram of article structure; explanation follows"></p>
+<p>The wrapper is no longer a generic <code>div</code> but an <code>article</code>. Within that is a <code>header</code>, comprising a heading (the title of the blogpost) and then the time of publication,  marked up using the <code>time</code> element.</p>
+<p>Then there are the pearls of wit and wisdom that consitute each of my posts, marked up as paragraphs, blockquotes etc., and is pulled unchanged out of the database. Following that is data about the blog post (category, how many comments) marked up as a footer and, in the case of pages that show a single blogpost, there are comments expressing undying admiration and love. Finally, there may be navigation from one article to the next.</p>
+<section>
+<h4>Data about the article</h4>
+<p>Following the content there is some &#8220;metadata&#8221; about the post: what category it&#8217;s in, how many comments there are. I&#8217;ve marked this up as <code>footer</code>.  I previously used <a href="http://www.whatwg.org/specs/web-apps/current-work/#the-aside-element"><code>aside</code></a> which &#8220;represents a section of a page that consists of content that is tangentially related to the content around the aside element, and which could be considered separate from that content&#8221; but decided that it was too much of a stretch; data <em>about</em> a post is intimately related.</p>
+<p><a href="http://www.whatwg.org/specs/web-apps/current-work/#the-footer-element"><code>footer</code></a> is a much better fit: &#8220;A footer typically contains information about its section such as who wrote it, links to related documents, copyright data, and the like.&#8221; I was initially thrown off-course by the presentational name of the element; my use here isn&#8217;t at the bottom of the page, or even at the bottom of the article, but it certainly seems to fit the bill &#8211; it&#8217;s information about its section, containing author name, links to related documents (comments) and the like. There&#8217;s no reason that you can&#8217;t have more than one <code>footer</code> on page; the spec&#8217;s description says &quot;the footer element represents a footer for the section it applies to&quot; and a page may have any number of sections. The spec also says &quot;Footers don&#8217;t necessarily have to appear at the end of a section, though they usually do.&quot;</p>
+</section>
+<section>
+<h4>Comments</h4>
+<p>I&#8217;ve marked up comments as <code>article</code>s, too, as the spec says that an <code>article</code> could be &#8220;a user-submitted comment&#8221;, but nested these inside the parent <code>article</code>. The spec says</p>
+<blockquote cite="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-article-element"><p>When article elements are nested, the inner article elements represent articles that are in principle related to the contents of the outer article. For instance, a Web log entry on a site that accepts user-submitted comments could represent the comments as article elements nested within the article element for the Web log entry.</p></blockquote>
+<p>These are headed with the  date and the time of the comment and name of its author&mdash;if you want, you can wrap these in a <code>header</code>, too, but to me it seems like markup for the sake of it.</p>
+</section>
+<section>
+<h4>Times and dates</h4>
+<p>Most blogs, news sites and the like provide dates of article publication.</p>
+<p>Microformats people, the most vocal advocates of marking up dates and times, believe that  computer-formatted dates are best for people: their <a href="http://microformats.org/wiki/index.php?title=date-design-pattern&#038;diff=37974&#038;oldid=34166">wiki  says</a> &#8220;the ISO8601 YYYY-MM-DD format for dates is the best choice that is the most accurately readable for the most people worldwide, and thus the most accessible as well&#8221;. I don&#8217;t agree (and neither do candidates in my vox pop of non-geeks, my wife, brother and parents). </p>
+<p>I do agree with the microformats people that <a href="http://microformats.org/wiki/principles">hidden metadata is not as good as visible, human-readable data</a> and therefore elected not to use the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-article-element"><code>pubdate</code> attribute of <code>article</code></a>.</p>
+<p>Therefore I&#8217;ve used the <abbr>HTML</abbr> 5 <code>time</code> element to give a  machine parsable date to computers, while giving people a human-readable date. Blog posts get the date, while comments get the date and time.</p>
+<p>The spec is quite hard to understand, in my opinion, but the format you use is 2004-02-28T15:19:21+00:00, where T separates the date and the time, and the + (or a -) is the offset from <a href="http://en.wikipedia.org/wiki/Coordinated_Universal_Time"><abbr>UTC</abbr></a>. Dates on their own don&#8217;t need a timezone; full datetimes do. Oddly, the spec suggests that if you use a time without a date, you don&#8217;t need a timezone either.</p>
+<p>There&#8217;s considerable controversy over the time element at the moment. Recently one of the inner circle, <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-March/018687.html">Henri Sivonen, wrote</a> that it&#8217;s for marking up future events only and not for timestamping blogs or news items: &#8220;The expected use cases of hCalendar are mainly transferring <i>future</i> event entries from a Web page into an application like iCal.&quot; This seems very silly to me; if there is a <code>time</code> element, why not allow me to mark up any time or date? </p>
+<p>The <a href="http://dev.w3.org/html5/spec/Overview.html#the-time-element">spec for <code>time</code></a> does not mention the future event-only restriction: &quot;The time element represents a precise date and/or a time in the proleptic Gregorian calendar&quot; and gives three examples, two of which are about the past and none of which are &quot;future events&quot;. Although the spec doesn&#8217;t (currently) limit use of the element, it does limit format to precise dates in &quot;the proleptic Gregorian calendar&quot;. This means I can mark up an archive page for &quot;all blog posts today&quot; using time, but not &quot;all July 2008 posts&quot; as that&#8217;s not a full YYYY-MM-DD date. Neither can you mark up precise, but ancient dates, so the date of Julius Ceasar&#8217;s assassination, <a href="http://en.wikipedia.org/wiki/Ides_of_March">15 March 44 <abbr>BC</abbr></a> is not compatible.</p>
+<p>I don&#8217;t expect this to be resolved. If you think as I do, feel free to <a href="http://www.whatwg.org/mailing-list#specs">mail the Working Group</a> to express your feeling!</p>
+</section>
+</section>
+<p>Hopefully, this brief article (geddit?) has given you a quick overview of how to use some of the new semantic elements. Let me know what you think!</p>
+<div id="crp_related">
+<h3>Related Posts:</h3>
+<ul>
+<li><a href="http://html5doctor.com/aside-revisited/" rel="bookmark" class="crp_title">Aside Revisited</a></li>
+<li><a href="http://html5doctor.com/native-drag-and-drop/" rel="bookmark" class="crp_title">Native Drag and Drop</a></li>
+<li><a href="http://html5doctor.com/the-time-element/" rel="bookmark" class="crp_title">The time element (and microformats)</a></li>
+<li><a href="http://html5doctor.com/the-section-element/" rel="bookmark" class="crp_title">The section element</a></li>
+<li><a href="http://html5doctor.com/draw-attention-with-mark/" rel="bookmark" class="crp_title">Draw attention with mark</a></li>
+</ul>
+</div>
+<div class="sociable">
+<div class="sociable_tagline">
+<h5>Share and Save:</h5>
+</div>
+<ul>
+<li class="sociablefirst"><a rel="nofollow"  href="http://twitter.com/home?status=Designing%20a%20blog%20with%20html5%20-%20http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F" title="Twitter"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Twitter" alt="Twitter" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;title=Designing%20a%20blog%20with%20html5&amp;bodytext=Much%20of%20HTML%205%27s%20feature%20set%20involves%20JavaScript%20APIs%20that%20make%20it%20easier%20to%20develop%20interactive%20web%20pages%20but%20there%20are%20a%20slew%20of%20new%20elements%20that%20allow%20you%20extra%20semantics%20in%20your%20conventional%20Web%201.0%20pages.%20In%20order%20to%20investigate%20these%2C%20let%27s%20lo" title="Digg"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Digg" alt="Digg" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-235px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://sphinn.com/index.php?c=post&amp;m=submit&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F" title="Sphinn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Sphinn" alt="Sphinn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://reddit.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;title=Designing%20a%20blog%20with%20html5" title="Reddit"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Reddit" alt="Reddit" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-55px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://delicious.com/post?url=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;title=Designing%20a%20blog%20with%20html5&amp;notes=Much%20of%20HTML%205%27s%20feature%20set%20involves%20JavaScript%20APIs%20that%20make%20it%20easier%20to%20develop%20interactive%20web%20pages%20but%20there%20are%20a%20slew%20of%20new%20elements%20that%20allow%20you%20extra%20semantics%20in%20your%20conventional%20Web%201.0%20pages.%20In%20order%20to%20investigate%20these%2C%20let%27s%20lo" title="del.icio.us"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="del.icio.us" alt="del.icio.us" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;title=Designing%20a%20blog%20with%20html5" title="StumbleUpon"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="StumbleUpon" alt="StumbleUpon" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://technorati.com/faves?add=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F" title="Technorati"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Technorati" alt="Technorati" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-271px -55px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.netvibes.com/share?title=Designing%20a%20blog%20with%20html5&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F" title="Netvibes"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Netvibes" alt="Netvibes" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.facebook.com/share.php?u=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;t=Designing%20a%20blog%20with%20html5" title="Facebook"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Facebook" alt="Facebook" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -1px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;title=Designing%20a%20blog%20with%20html5&amp;annotation=Much%20of%20HTML%205%27s%20feature%20set%20involves%20JavaScript%20APIs%20that%20make%20it%20easier%20to%20develop%20interactive%20web%20pages%20but%20there%20are%20a%20slew%20of%20new%20elements%20that%20allow%20you%20extra%20semantics%20in%20your%20conventional%20Web%201.0%20pages.%20In%20order%20to%20investigate%20these%2C%20let%27s%20lo" title="Google Bookmarks"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Google Bookmarks" alt="Google Bookmarks" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-91px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.friendfeed.com/share?title=Designing%20a%20blog%20with%20html5&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F" title="FriendFeed"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="FriendFeed" alt="FriendFeed" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-37px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://news.ycombinator.com/submitlink?u=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;t=Designing%20a%20blog%20with%20html5" title="HackerNews"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="HackerNews" alt="HackerNews" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-127px -19px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;title=Designing%20a%20blog%20with%20html5&amp;source=HTML5+Doctor+helping+you+implement+HTML5+today&amp;summary=Much%20of%20HTML%205%27s%20feature%20set%20involves%20JavaScript%20APIs%20that%20make%20it%20easier%20to%20develop%20interactive%20web%20pages%20but%20there%20are%20a%20slew%20of%20new%20elements%20that%20allow%20you%20extra%20semantics%20in%20your%20conventional%20Web%201.0%20pages.%20In%20order%20to%20investigate%20these%2C%20let%27s%20lo" title="LinkedIn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="LinkedIn" alt="LinkedIn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-1px -37px" class="sociable-hovers" /></a></li>
+<li><a rel="nofollow"  href="http://www.newsvine.com/_tools/seed&amp;save?u=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;h=Designing%20a%20blog%20with%20html5" title="NewsVine"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="NewsVine" alt="NewsVine" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -37px" class="sociable-hovers" /></a></li>
+<li class="sociablelast"><a rel="nofollow"  href="http://www.tumblr.com/share?v=3&amp;u=http%3A%2F%2Fhtml5doctor.com%2Fdesigning-a-blog-with-html5%2F&amp;t=Designing%20a%20blog%20with%20html5&amp;s=Much%20of%20HTML%205%27s%20feature%20set%20involves%20JavaScript%20APIs%20that%20make%20it%20easier%20to%20develop%20interactive%20web%20pages%20but%20there%20are%20a%20slew%20of%20new%20elements%20that%20allow%20you%20extra%20semantics%20in%20your%20conventional%20Web%201.0%20pages.%20In%20order%20to%20investigate%20these%2C%20let%27s%20lo" title="Tumblr"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Tumblr" alt="Tumblr" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-325px -55px" class="sociable-hovers" /></a></li>
+</ul>
+</div>
+	  </div>
+      
+	  <footer>
+    		<div>
+                <div class="author-blurb author">
+            	<p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/brucel/" title="Posts by Bruce Lawson">Bruce Lawson</a></span>. Bruce evangelises Open Web Standards for Opera. He's a member of the Web Standards Project's Accessibility Task Force and the W3C Mobile Best Practices Working Group. Previously, he was technical lead for the Solicitors Regulation Authority site. 
+
+He's been a tarot card reader in Istanbul, a volunteer pharmacist in Calcutta, a Bollywood movie extra in Mumbai and English tutor to a Princess' daughter in Thailand. Nowadays, he blogs at <a href="http://www.brucelawson.co.uk">www.brucelawson.co.uk</a>, is training for his blue belt in kickboxing and drinks too much Guinness.</p>
+               <img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+            	</div>
+                
+            	<span>Posted on <time class="published updated" datetime="2009-06-30" pubdate>June 30th, 2009</time></span>
+                
+				<p>				Got anything to add or ask? <a href="#respond">then leave a response</a>,<br />or <a href="http://html5doctor.com/designing-a-blog-with-html5/trackback/" rel="trackback">trackback</a> from your own site.
+				            </div>
+            <p>Categorised under: <a href="http://html5doctor.com/category/attributes/" title="View all posts in Attributes" rel="category tag">Attributes</a>, <a href="http://html5doctor.com/category/elements/" title="View all posts in Elements" rel="category tag">Elements</a>, <a href="http://html5doctor.com/category/structure/" title="View all posts in Structure" rel="category tag">Structure</a>.</p>
+            <p>Tagged with: <a href="http://html5doctor.com/tag/article/" rel="tag">article</a>, <a href="http://html5doctor.com/tag/aside/" rel="tag">aside</a>, <a href="http://html5doctor.com/tag/footer/" rel="tag">footer</a>, <a href="http://html5doctor.com/tag/header/" rel="tag">header</a>, <a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a>, <a href="http://html5doctor.com/tag/section/" rel="tag">section</a>, <a href="http://html5doctor.com/tag/time/" rel="tag">time</a>.</p>
+	  </footer>
+      		
+	  
+<!-- You can start editing here. -->
+<aside id="comments">
+    <h3 id="comment-head">
+    168 Responses    to &#8220;
+    Designing a blog with html5    &#8221;</h3>
+    
+	        
+<article class=" " id="comment-43">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ocean90.de' rel='external nofollow' class='url'>ocean90</a></cite> at <a class="commentmetadata" href="#comment-43">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 30th, 2009        at
+        3:24 pm    </time></a></p>
+            <p>Nice article.<br />
+A good help, because I&#8217;m creating currently a theme with HTML5.</p>
+<p>The link for the date picker doens&#8217;nt work.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/dbe684d68caa86df9bcf4db5d496f6d9?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt author_comment" id="comment-44">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> at <a class="commentmetadata" href="#comment-44">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 30th, 2009        at
+        4:03 pm    </time></a></p>
+            <p>fixed</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-45">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://bothofus.org' rel='external nofollow' class='url'>JB</a></cite> at <a class="commentmetadata" href="#comment-45">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 30th, 2009        at
+        5:39 pm    </time></a></p>
+            <p>This is great. Bruce, you and the other authors here are going to accelerate the use of HTML 5 by providing articles like this to everyday bloggers and web professionals. Thanks for your forward looking work.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/ea0568da9cb5312f7be197332572442c?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-46">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://thatstandardsguy.co.uk' rel='external nofollow' class='url'>Karl</a></cite> at <a class="commentmetadata" href="#comment-46">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 30th, 2009        at
+        6:05 pm    </time></a></p>
+            <p>Very interesting &#8211; pictures *and* colour too. You spoil us Mr. Ambassador <img src='http://html5doctor.com/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> </p>
+<p>Looking at my markup for a single post, I&#8217;ve put the &#8220;pearls of wisdom&#8221; inside a section (hmm, I probably done this for an hAtom hook) but comments as nested articles? Seems a bit incongruous with the element name to me despite the spec description. I think I copped out there and went old skool with an ordered list within another section. A nav tag for the article navigation, yes I umm, yes. Next iteration&#8230;</p>
+<p>best regards, Karl</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/42010648ae42325272598acded13dba4?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-48">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Alejandro Moreno</cite> at <a class="commentmetadata" href="#comment-48">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 30th, 2009        at
+        9:37 pm    </time></a></p>
+            <p>Thanks for posting this here!</p>
+<p>I read the first part in your blog, but somehow missed the rest.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/f28826ec6b9c46a776b13a2c4147f8ec?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-50">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.twitter.com/miketaylr' rel='external nofollow' class='url'>Mike T.</a></cite> at <a class="commentmetadata" href="#comment-50">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 1st, 2009        at
+        1:14 am    </time></a></p>
+            <p>Great read! Can you recommend any resources that detail browser implementations of forms 2.0, other than Opera?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/b0ec6d61189c4090f52876305b357573?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-51">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://everyonelookbusy.net' rel='external nofollow' class='url'>ysbreker</a></cite> at <a class="commentmetadata" href="#comment-51">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 1st, 2009        at
+        8:40 am    </time></a></p>
+            <p>PPK wrote a nice indepth article about the (problems with) the time-tag: <a href="http://www.quirksmode.org/blog/archives/2009/04/making_time_saf.html#more" rel="nofollow">http://www.quirksmode.org/blog/archives/2009/04/making_time_saf.html#more</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/5758104738cf060a8c604fcf8beb697a?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt author_comment" id="comment-53">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> at <a class="commentmetadata" href="#comment-53">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 1st, 2009        at
+        9:52 am    </time></a></p>
+            <p>I believe Safari implements some of the web forms stuff (esp input type=&#8221;range&#8221;)</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-55">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.twitter.com/miketaylr' rel='external nofollow' class='url'>Mike T.</a></cite> at <a class="commentmetadata" href="#comment-55">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 1st, 2009        at
+        2:28 pm    </time></a></p>
+            <p>@Bruce, thanks. PPK has been tweeting about html5 forms support just this morning (well, morning for me):</p>
+<p><a href="https://twitter.com/ppk/status/2419144715" rel="nofollow">https://twitter.com/ppk/status/2419144715</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/b0ec6d61189c4090f52876305b357573?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-56">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://daveharrison.net' rel='external nofollow' class='url'>Dave</a></cite> at <a class="commentmetadata" href="#comment-56">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 1st, 2009        at
+        2:33 pm    </time></a></p>
+            <p>Hi Bruce</p>
+<p>I&#8217;ve tried to implement some HTML5 features on my own site but sadly had to back track as I was unable to get around issues with IE. I did use the JS hack adding elements on the fly but it didn&#8217;t seem to work. My JS was not inline maybe this is an issue, must run some tests when I get a minute. Do you know of any other issues when using HTML5 in IE like block elements not clearing that could have effected my layout?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/3bf32e785ba583565ee8975251f8b0cd?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" author_comment" id="comment-57">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> at <a class="commentmetadata" href="#comment-57">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 1st, 2009        at
+        4:09 pm    </time></a></p>
+            <p>None that I know of, Dave.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-60">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://eternalrise.com' rel='external nofollow' class='url'>Sean</a></cite> at <a class="commentmetadata" href="#comment-60">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 2nd, 2009        at
+        8:47 am    </time></a></p>
+            <p>Great article, not only is the content of great interest as a web developer, but it&#8217;s well written and easy to follow without wanting to hurry up and finish the article. Love the color-coded tag demonstrations.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/903d8503015efb0952ae5a2b11f3a1c3?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-68">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.tomleadbetter.co.uk' rel='external nofollow' class='url'>Tom</a></cite> at <a class="commentmetadata" href="#comment-68">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 2nd, 2009        at
+        6:14 pm    </time></a></p>
+            <p>Bruce, superb article. It will be interesting to see how others interpret and act on this.</p>
+<p>I love the new form options the most.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/400bc8ed888564aefbd9a8858deb9ddd?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-88">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Another Dave</cite> at <a class="commentmetadata" href="#comment-88">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 3rd, 2009        at
+        10:50 pm    </time></a></p>
+            <p>I&#8217;m really surprised that Webkit haven&#8217;t implemented more of the HTML5 web forms stuff. With the soft keyboard on the iPhone you think they&#8217;d jump at any way to make data entry easier.</p>
+<p>I&#8217;d also heard that the spec for that stuff had changed since Opera implemented it. Is that true?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/264776352ba65ecb947f6404e0d4601f?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" author_comment" id="comment-90">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> at <a class="commentmetadata" href="#comment-90">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 4th, 2009        at
+        7:32 am    </time></a></p>
+            <p>Yes, Another Dave: <a href="http://my.opera.com/community/forums/topic.dml?id=215544" rel="nofollow">http://my.opera.com/community/forums/topic.dml?id=215544</a>. It&#8217;s why Opera calls their implementation &#8220;experimental&#8221; as it was made at least a year ago, on a spec that&#8217;s a moving target.</p>
+<p>Disclosure: I work for Opera.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-101">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://storyfanatic.com' rel='external nofollow' class='url'>Jim</a></cite> at <a class="commentmetadata" href="#comment-101">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 6th, 2009        at
+        10:27 pm    </time></a></p>
+            <p>I have no idea how I found this site, but I&#8217;m really glad I did!  Looks like exactly the kind of information I need to update my sites to HTML5.  Thanks for taking the time to write this up.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/d1f05197b85e1b808159c51a35bc2201?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-127">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://francescogavello.it/sviluppare-un-blog-in-html-5' rel='external nofollow' class='url'>Sviluppare un Blog in HTML 5 &raquo; Francesco Gavello - Blog Marketing Tips, Web &amp; Blogosfera</a></cite> at <a class="commentmetadata" href="#comment-127">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 9th, 2009        at
+        2:15 pm    </time></a></p>
+            <p>[...] HTML 5 Doctor ci viene in aiuto con un dettagliata analisi sull&#8217;utilizzo dei nuovi elementi strutturali, del corretto modo di definire la struttura di un post, dei nuovi attributi disponibili per i form. E molti altri accorgimenti utili che puoi iniziare ad adottare sin da oggi. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-190">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://simon.vansintjan.org' rel='external nofollow' class='url'>Simon Vansintjan</a></cite> at <a class="commentmetadata" href="#comment-190">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 15th, 2009        at
+        9:48 pm    </time></a></p>
+            <p>Carsonified linked me here with their newsletter, and it&#8217;s been a great way to catch up with all the updates and rush for HTML5. I&#8217;ve started rewriting the code of my site to reflect these changes, and this site has been really helpful. </p>
+<p>Thanks!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/2535bd0bc4d6354744e864a164903665?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-223">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.iheni.com/html5-tips-structure-doctype-aria/' rel='external nofollow' class='url'>HTML5 Tips: structral elements, Doctype and ARIA &raquo; iheni :: making the web worldwide</a></cite> at <a class="commentmetadata" href="#comment-223">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 17th, 2009        at
+        2:05 pm    </time></a></p>
+            <p>[...] posts contained within an &lt;article&gt; you may have another &lt;article&gt; housing comments. Designing a blog post with HTML5 from HTML5 Doctor has an excellent overview of [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-258">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.evolve-mma.com' rel='external nofollow' class='url'>BJJ</a></cite> at <a class="commentmetadata" href="#comment-258">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 20th, 2009        at
+        8:12 am    </time></a></p>
+            <p>i’m getting help, really thankful to you <img src='http://html5doctor.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/e54e9debc20a54122c06ba55c00ab1bd?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-288">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.webkrauts.de/2009/07/21/html5doctor-html-5-in-der-praxis/' rel='external nofollow' class='url'>Webkrauts &raquo; html5doctor: HTML 5 in der Praxis</a></cite> at <a class="commentmetadata" href="#comment-288">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 21st, 2009        at
+        8:16 pm    </time></a></p>
+            <p>[...] und nav und ergänzen die Theorie mit eindrucksvollen Beispielen, die Mut machen, zum Beispiel den Umbau eines Blogs in Angriff zu nehmen. Für den extra leichten Umstieg hält der Doktor eine HTML 5 Vorlage bereit, [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-303">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.lumenws.com.br/blog/24-resources-para-html5/' rel='external nofollow' class='url'>24 Resources para HTML5 | Blog &#8212; Lúmen Web Solutions</a></cite> at <a class="commentmetadata" href="#comment-303">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 22nd, 2009        at
+        3:32 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 – Tutorial de como desenvolver um blog utilizando a especificação HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-346">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blog.caointeractive.com/23-essential-html-5-resources/' rel='external nofollow' class='url'>CaoInteractive Blog &raquo; Blog Archive &raquo; 23 Essential HTML 5 Resources</a></cite> at <a class="commentmetadata" href="#comment-346">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 27th, 2009        at
+        2:53 am    </time></a></p>
+            <p>[...] Designing a blog with html5 – A tutorial on how to build a blog in HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-599">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://millionaire.websitesuperhero.com/2009/08/07/designing-a-blog-with-html5/' rel='external nofollow' class='url'>Designing a blog with html5</a></cite> at <a class="commentmetadata" href="#comment-599">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 7th, 2009        at
+        1:57 pm    </time></a></p>
+            <p>[...] The rest is here: Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-628">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://trackteq.com/2009/70-must-have-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources | trackteq.com</a></cite> at <a class="commentmetadata" href="#comment-628">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 10th, 2009        at
+        9:02 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; A finish educational for office office building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-638">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.iconlandia.it/442/70-must-have-css3-and-html5-tutorials-and-resources-2.html' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources - Iconlandia</a></cite> at <a class="commentmetadata" href="#comment-638">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 10th, 2009        at
+        4:04 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-654">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://album.amb.com.tw/2009/08/10/70-must-have-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>AMB Album &raquo; 70 Must-Have CSS3 and HTML5 Tutorials and Resources</a></cite> at <a class="commentmetadata" href="#comment-654">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 11th, 2009        at
+        5:43 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-697">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ikent.net/wordpress/?p=126' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources @ Kent&#39;s Blog</a></cite> at <a class="commentmetadata" href="#comment-697">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 12th, 2009        at
+        5:45 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-700">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.scripting.com.cn/70-must-have-css3-and-html5-tutorial-and-resource/' rel='external nofollow' class='url'>70+ 必备的 CSS3 和 HTML5 教程资源 &laquo; 脚本</a></cite> at <a class="commentmetadata" href="#comment-700">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 12th, 2009        at
+        7:03 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; 一个利用 HTML5 建设博客站点的完整教程。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-710">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.neurosoftware.ro/programming-blog/blogposter/web-resources/70-must-have-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources - Programming Blog</a></cite> at <a class="commentmetadata" href="#comment-710">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 13th, 2009        at
+        1:51 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-726">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Garrett Albright</cite> at <a class="commentmetadata" href="#comment-726">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 13th, 2009        at
+        11:31 pm    </time></a></p>
+            <p>Hmm. Instead of type=&#8221;required&#8221; for form elements for which we want to require a value, shouldn&#8217;t it be required=&#8221;required&#8221;? That seems to be what this spec doc is asking for:<br />
+<a href="http://www.whatwg.org/specs/web-apps/current-work/#attr-input-required" rel="nofollow">http://www.whatwg.org/specs/web-apps/current-work/#attr-input-required</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/35a1011797dc40862da9d470d49b8fb6?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-737">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://Hikari.ws' rel='external nofollow' class='url'>Hikari</a></cite> at <a class="commentmetadata" href="#comment-737">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 15th, 2009        at
+        2:56 am    </time></a></p>
+            <p>VERY interesting post!</p>
+<p>U went beyond typical &#8220;colored layout&#8221; and talked about each of its piece and why you chose each element.</p>
+<p>About post, I&#8217;d add a section element around the main post, and another around comments. I agree with u on chooseing footer element for metadata, but the way you did became too loose. header and footer elements are related to main post, not to comments, but they are all on the same level. Using 2 section elements you can semantically show what header and footer are related to, and that comment articles are other section of the article. I&#8217;d also put nav below footer (or above header, as it is more used), since it is also related to post and not to comments.</p>
+<p>After reading that you may think that my opinion is that comments are not part of the article, but that&#8217;s not the case. For me, comments are as valuable content as the post, sometimes even more implortant and valuable, since they represent visitor&#8217;s contribution, and sometimes visitors even talk to each other as if it was a forum. Because of that, I think that threaded comments should nest article elements, but I&#8217;m not sure about that. The advantage would be to make threads semantic, but whould browsers and search engines understand that? And comments may also have multiple pages, requiring their own nav element, making their section element even more necessary.</p>
+<p>And of course, as you did, post and comments are all surrounded by an article element, showing that all of them are part of a &#8220;macro&#8221; article, separated by sections and &#8220;mini&#8221; articles.</p>
+<p>But I have a question, what about big posts with many headers? I use to make very big posts, some have 2 or 3 heading lvls. I even created a WordPress plugin to dynamically and automatically generate an index of contents. In this case, should I wrap each block on an section element, and each heading on a header element? Or would that be too abusive and I should stick with h1, h2, h3 and leave everything on a unique block?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/e486dddd09146eb1b00db415869843d3?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-762">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://designadept.com/blog/70-must-have-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>Adept &gt; 70 Must-Have CSS3 and HTML5 Tutorials and Resources</a></cite> at <a class="commentmetadata" href="#comment-762">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 16th, 2009        at
+        9:38 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-778">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://netfire.us/2009/08/17/70-css3-and-html-5-tutorials-and-resources/' rel='external nofollow' class='url'>70 CSS3 and HTML 5 tutorials and resources | Netfire.us - Design tutorials, articles, resources, and creative inspiration.</a></cite> at <a class="commentmetadata" href="#comment-778">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 17th, 2009        at
+        11:50 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-811">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://huibit05.com/tutorials/70-must-have-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources | huibit05.com</a></cite> at <a class="commentmetadata" href="#comment-811">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 20th, 2009        at
+        9:05 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-814">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.css3gallery.net/css3-articles/70-css3-html5-tutorials/' rel='external nofollow' class='url'>CSS3 Gallery, Showcase &amp; Inspiration. Showcasing the best CSS3 Web Design on the Internet | 70 CSS3 &amp; HTML5 Tutorials | CSS 3 Gallery</a></cite> at <a class="commentmetadata" href="#comment-814">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 20th, 2009        at
+        10:59 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-839">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.bclennox.com/2009/08/moving-to-html-5/' rel='external nofollow' class='url'>Moving to HTML 5 (on Brandan Lennox's Blog)</a></cite> at <a class="commentmetadata" href="#comment-839">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 22nd, 2009        at
+        1:20 am    </time></a></p>
+            <p>[...] worth detailing here. Starting out with the reset stylesheet and Bruce Lawson&#8217;s article on designing a blog in HTML 5, almost everything worked out of the box. Site navigation went in a &lt;nav&gt;, blog posts went in [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-864">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://huibit05.com/tutorials/25-great-html-5-resources-to-get-you-started/' rel='external nofollow' class='url'>25+ Great HTML 5 Resources to Get You Started | huibit05.com</a></cite> at <a class="commentmetadata" href="#comment-864">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 25th, 2009        at
+        12:41 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-896">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blog.almacenplantillasweb.es/2009/08/css3-y-html5-tutoriales-y-recursos-para-el-nuevo-diseno-web/' rel='external nofollow' class='url'>CSS3 y HTML5: Tutoriales y recursos para el nuevo diseño web | Recursos para desarrollo y diseño web - AlmacenPlantillasWeb Blog</a></cite> at <a class="commentmetadata" href="#comment-896">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 31st, 2009        at
+        9:48 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; Tutorial sobre la construcción de un blog  con HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-928">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk/2009/future-of-web-design-bristol/' rel='external nofollow' class='url'>Bruce Lawson&#8217;s personal site&nbsp; : Future of Web Design, Bristol</a></cite> at <a class="commentmetadata" href="#comment-928">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 11th, 2009        at
+        5:59 pm    </time></a></p>
+            <p>[...] there are no slides to publish, but I have an article called Designing a blog with HTML that covers the same ground. (Two articles on this blog cover it in much more detail: Redesigning [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-1381">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://robertnyman.com/2009/10/14/an-introduction-to-html5/' rel='external nofollow' class='url'>An introduction to HTML5 - Robert's talk</a></cite> at <a class="commentmetadata" href="#comment-1381">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 14th, 2009        at
+        9:34 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-1391">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.digitalistic.com/2009/10/15/links-for-2009-10-15/' rel='external nofollow' class='url'>links for 2009-10-15 | Digitalistic - Mashup or die trying</a></cite> at <a class="commentmetadata" href="#comment-1391">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 15th, 2009        at
+        3:05 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 | HTML5 Doctor (tags: html5 tutorial html webdesign blog) [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-1392">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://catcubed.com' rel='external nofollow' class='url'>Colin</a></cite> at <a class="commentmetadata" href="#comment-1392">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 15th, 2009        at
+        8:28 pm    </time></a></p>
+            <p>I disagree with putting all your sidebar in a nav element. This is exactly what an aside is made for and you can even add separate nav elements in your aside. Anyway, don&#8217;t take my option, the W3C says the same thing:</p>
+<blockquote><p>The element can be used for typographical effects like pull quotes or sidebars, for advertising, for groups of nav elements, and for other content that is considered separate from the main content of the page. ~ From <a href="http://dev.w3.org/html5/spec/Overview.html#the-aside-element" rel="nofollow">W3C note on the aside element</a></p></blockquote>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/5e6a29d1032b4394ce51e13f438cb320?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-1395">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://richclarkdesign.com' rel='external nofollow' class='url'>Rich</a></cite> at <a class="commentmetadata" href="#comment-1395">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 15th, 2009        at
+        9:09 pm    </time></a></p>
+            <p>@Colin, we&#8217;re back to the old semantics debate here, let&#8217;s remember that we have to describe the meaning of the content with web standards, so if Bruce&#8217;s nav contains (which aren&#8217;t specified in the article) links to categories, pages and recent posts then it&#8217;s entirely appropriate to use nav, If however it contains advertising etc then it would be entirely appropriate to use aside.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/90fbce3924bb9b26f23f6f4d5ceeaf6e?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-1397">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://catcubed.com/2009/10/15/the-semantics-of-html5-structural-elements/' rel='external nofollow' class='url'>CatCubed &raquo; The Semantics of HTML5 Structural Elements</a></cite> at <a class="commentmetadata" href="#comment-1397">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 16th, 2009        at
+        2:06 am    </time></a></p>
+            <p>[...] Doctor: Designing a Blog with HTML5 (I do not agree with everything in this article, and most notably nor does the W3C [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt author_comment" id="comment-1407">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brucelawson.co.uk' rel='external nofollow' class='url'>Bruce Lawson</a></cite> at <a class="commentmetadata" href="#comment-1407">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 16th, 2009        at
+        5:36 pm    </time></a></p>
+            <p>@Colin</p>
+<blockquote><p>I disagree with putting all your sidebar in a nav element. This is exactly what an aside is made for and you can even add separate nav elements in your aside. </p></blockquote>
+<p>Indeed. The spec changed after I did the redesign. You&#8217;re correct &#8211; and if I did it again, that&#8217;s what I&#8217;d do.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/6f3ec7315ad0715ae2a5f89a52877218?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-1690">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://sureshkvnec.wordpress.com/2009/11/22/css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>CSS3 and HTML5 Tutorials and Resources &laquo; Web Developer Blog</a></cite> at <a class="commentmetadata" href="#comment-1690">
+    <time datetime="2009-06-30T15:00+00:00">
+        November 22nd, 2009        at
+        3:04 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 – A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-1702">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Online Car Insurance &gt;&gt; http://onlinecarinsuranceclaims.com/</cite> at <a class="commentmetadata" href="#comment-1702">
+    <time datetime="2009-06-30T15:00+00:00">
+        November 23rd, 2009        at
+        9:17 pm    </time></a></p>
+            <p>[... - html5doctor.com is another useful source of tips. Online Car insurance claims  [... -</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/783b12d96a41d391992dc7e2d735ef1b?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-1909">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://speckyboy.com/2009/12/11/a-collection-of-html5-resources-and-tutorials/' rel='external nofollow' class='url'>A Collection of HTML5 Resources and Tutorials : Speckyboy Design Magazine</a></cite> at <a class="commentmetadata" href="#comment-1909">
+    <time datetime="2009-06-30T15:00+00:00">
+        December 11th, 2009        at
+        6:26 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-1912">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.neurosoftware.ro/programming-blog/blogposter/web-resources/a-collection-of-html5-resources-and-tutorials/' rel='external nofollow' class='url'>A Collection of HTML5 Resources and Tutorials | Programming Blog</a></cite> at <a class="commentmetadata" href="#comment-1912">
+    <time datetime="2009-06-30T15:00+00:00">
+        December 11th, 2009        at
+        8:05 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-1958">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Ray</cite> at <a class="commentmetadata" href="#comment-1958">
+    <time datetime="2009-06-30T15:00+00:00">
+        December 16th, 2009        at
+        10:48 pm    </time></a></p>
+            <p>There is 137 errors and 297 warnings on this page!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/e01ede56ad1fe43627cdfb502fcb3c78?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-1959">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://Hikari.ws' rel='external nofollow' class='url'>Hikari</a></cite> at <a class="commentmetadata" href="#comment-1959">
+    <time datetime="2009-06-30T15:00+00:00">
+        December 16th, 2009        at
+        11:07 pm    </time></a></p>
+            <p>But it loads accordinly even on IE6.</p>
+<p>HTML5 is still a prototype, even validators can be buggy yet.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/e486dddd09146eb1b00db415869843d3?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-2052">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://yamablo.com/2009/12/30-185101.php' rel='external nofollow' class='url'>yamablo &raquo; HTML5における新しいフォームのマークアップ</a></cite> at <a class="commentmetadata" href="#comment-2052">
+    <time datetime="2009-06-30T15:00+00:00">
+        December 30th, 2009        at
+        9:57 am    </time></a></p>
+            <p>[...] なお、当記事は、&lt;html&gt;5 doctor::Designing a blog with html5の記事を、自分なりに和訳して理解したものを書いています。場合によっては和訳が間違っており、正しくないことを書いてしまっている場合もあります。もし、おかしな点などございましたら、上記サイトから、該当箇所を確認していただくか、コメント欄やtwitter(@1987yama3)までご連絡いただけたらと思います。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-2071">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.webdesigners-hub.com' rel='external nofollow' class='url'>Vijendra Mishra</a></cite> at <a class="commentmetadata" href="#comment-2071">
+    <time datetime="2009-06-30T15:00+00:00">
+        January 2nd, 2010        at
+        5:24 pm    </time></a></p>
+            <p>Nice Representation of HTML5 &#8230;</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/d100c20212edd0a3ff963bf348e277ff?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-2097">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://yamablo.com/2010/01/07-001358.php' rel='external nofollow' class='url'>yamablo &raquo; HTML5によるブログのマークアップ</a></cite> at <a class="commentmetadata" href="#comment-2097">
+    <time datetime="2009-06-30T15:00+00:00">
+        January 6th, 2010        at
+        3:16 pm    </time></a></p>
+            <p>[...] なお、当記事は、&lt;html&gt;5 doctor::Designing a blog with html5の記事を、自分なりに和訳して理解したものを書いています。場合によっては和訳が間違っており、正しくないことを書いてしまっている場合もあります。もし、おかしな点などございましたら、上記サイトから、該当箇所を確認していただくか、コメント欄やtwitter(@1987yama3)までご連絡いただけたらと思います。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-2110">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.mangguo.org/70-must-have-css3-and-html5-tutorial-and-resource/' rel='external nofollow' class='url'>70+ 必备的 CSS3 和 HTML5 教程资源 | 芒果</a></cite> at <a class="commentmetadata" href="#comment-2110">
+    <time datetime="2009-06-30T15:00+00:00">
+        January 9th, 2010        at
+        7:10 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; 一个利用 HTML5 建设博客站点的完整教程。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-2116">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://smashingwebs.com/?p=217' rel='external nofollow' class='url'>SmashingWebs: Online Show case for Designers &raquo; &raquo; Most Wanted HTML 5 Tutorials</a></cite> at <a class="commentmetadata" href="#comment-2116">
+    <time datetime="2009-06-30T15:00+00:00">
+        January 18th, 2010        at
+        4:09 am    </time></a></p>
+            <p>[...] 7. Designing a Blog with HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-2117">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.multimediadev.ca/2010/01/18/most-wanted-html-5-tutorials/' rel='external nofollow' class='url'>Most Wanted HTML 5 Tutorials &#8211; multimediaDev</a></cite> at <a class="commentmetadata" href="#comment-2117">
+    <time datetime="2009-06-30T15:00+00:00">
+        January 18th, 2010        at
+        6:03 am    </time></a></p>
+            <p>[...] 7. Designing a Blog with HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-2118">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.gaixiaohui.com/?p=258' rel='external nofollow' class='url'>70+ 必备的 CSS3 和 HTML5 教程资源 &laquo; SomeDay I&#39;ll Fly | Gabriel&#39;s blog</a></cite> at <a class="commentmetadata" href="#comment-2118">
+    <time datetime="2009-06-30T15:00+00:00">
+        January 19th, 2010        at
+        5:00 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; 一个利用 HTML5 建设博客站点的完整教程。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-2196">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://channy.creation.net/blog/776' rel='external nofollow' class='url'>HTML5의 모든 것 :: Channy&#8217;s Blog</a></cite> at <a class="commentmetadata" href="#comment-2196">
+    <time datetime="2009-06-30T15:00+00:00">
+        February 3rd, 2010        at
+        12:34 am    </time></a></p>
+            <p>[...] Designing a blog with HTML5  HTML5 기반 WordPress 테마 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-2338">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">johno</cite> at <a class="commentmetadata" href="#comment-2338">
+    <time datetime="2009-06-30T15:00+00:00">
+        March 2nd, 2010        at
+        4:43 pm    </time></a></p>
+            <p>great article man!</p>
+<p>JO<br />
+<a href="http://www.google-directions.com" rel="nofollow">Google Driving Directions</a>.<br />
+<a href="http://www.mapquestdrivingdirections.net" rel="nofollow">Mapquest Directions</a>.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/dc14ca963d8b957994c261d495329ba9?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-2340">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">bigrick</cite> at <a class="commentmetadata" href="#comment-2340">
+    <time datetime="2009-06-30T15:00+00:00">
+        March 2nd, 2010        at
+        4:46 pm    </time></a></p>
+            <p>Yes this is a great article on html, great stuff!!</p>
+<p><a href="http://www.peliculas-online-gratis.com" rel="nofollow">Ver Peliculas Online</a>.<br />
+<a href="http://www.krugerrand-coins.com" rel="nofollow">Gold Coins</a>.<br />
+<a href="http://www.googleearthgratis.com" rel="nofollow">Google Earth</a>.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/646da6b2c09057dfbfb3f21ce2a1cdd7?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-2341">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">juanpetey</cite> at <a class="commentmetadata" href="#comment-2341">
+    <time datetime="2009-06-30T15:00+00:00">
+        March 2nd, 2010        at
+        4:50 pm    </time></a></p>
+            <p>i&#8217;ve always preferred coding with html, this article shows why</p>
+<p><a href="http://www.smirlo.com" rel="nofollow">Gana Dinero</a>.<br />
+<a href="http://www.traductor-google.com" rel="nofollow">Traductor de Google</a>.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/87639c9427bac6f5bed33360b6318b82?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-2471">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://chris-mcmanus.com/dude/html-5-and-css3/' rel='external nofollow' class='url'>HTML 5 and CSS3&nbsp;|&nbsp;Chris McManus</a></cite> at <a class="commentmetadata" href="#comment-2471">
+    <time datetime="2009-06-30T15:00+00:00">
+        March 13th, 2010        at
+        7:44 pm    </time></a></p>
+            <p>[...] found a pretty good link for you read as well, from the html5 doctor himself. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-2546">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://designerwall.co.za/2010/03/70-fantastic-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>70 Fantastic CSS3 and HTML5 Tutorials and Resources | DesignerWall</a></cite> at <a class="commentmetadata" href="#comment-2546">
+    <time datetime="2009-06-30T15:00+00:00">
+        March 18th, 2010        at
+        1:58 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 – A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-2567">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.maxkiesler.com/2010/03/20/html5-articles-tutorials-and-websites/' rel='external nofollow' class='url'>HTML5 articles, tutorials and websites - Max Kiesler &#8211; Designer</a></cite> at <a class="commentmetadata" href="#comment-2567">
+    <time datetime="2009-06-30T15:00+00:00">
+        March 21st, 2010        at
+        4:51 am    </time></a></p>
+            <p>[...] Designing a blog with html5  Much of HTML 5’s feature set involves JavaScript APIs that make it easier to develop interactive web pages but there are a slew of new elements that allow you extra semantics in your conventional Web 1.0 pages. In order to investigate these, let’s look at marking up a blog. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-2599">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://desainkrispi.com/blog/fitur-fitur-baru-html-5' rel='external nofollow' class='url'>desainkrispi.com &raquo; Fitur-fitur Baru HTML 5</a></cite> at <a class="commentmetadata" href="#comment-2599">
+    <time datetime="2009-06-30T15:00+00:00">
+        March 26th, 2010        at
+        9:33 am    </time></a></p>
+            <p>[...] Designing a blog with HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3016">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://designerwall.co.za/2010/04/70-fantastic-css3-and-html5-tutorials-and-resources/' rel='external nofollow' class='url'>70 Fantastic CSS3 and HTML5 Tutorials and Resources | Designer Wall</a></cite> at <a class="commentmetadata" href="#comment-3016">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 3rd, 2010        at
+        8:13 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 – A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3033">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.bhuwanonline.com/blog/2010/04/what-the-heck-is-html-5/' rel='external nofollow' class='url'>What the heck is HTML 5 | New Age Media</a></cite> at <a class="commentmetadata" href="#comment-3033">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 6th, 2010        at
+        6:51 am    </time></a></p>
+            <p>[...] App Coding a HTML 5 layout from scratch HTML 5 and CSS3: The techniques you’ll soon be using Designing a blog with HTML 5 HTML 5 tutorial – A simple web page [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3127">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://webmasterside.net/other/70-musthave-css3-html5-tutorials-resources/' rel='external nofollow' class='url'>70 Must-Have CSS3 and HTML5 Tutorials and Resources | WebMasterSide.net | Web Resource Center</a></cite> at <a class="commentmetadata" href="#comment-3127">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 15th, 2010        at
+        10:59 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 – A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3308">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.smashingshare.com/2010/04/28/ultimate-collection-of-html5-and-css3-resources/' rel='external nofollow' class='url'>Ultimate Collection of HTML5 and CSS3 Resources</a></cite> at <a class="commentmetadata" href="#comment-3308">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 27th, 2010        at
+        9:25 pm    </time></a></p>
+            <p>[...] Designing A Blog With HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3313">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://webdesignledger.com/tutorials/15-useful-html5-tutorials-and-cheat-sheets' rel='external nofollow' class='url'>15 Useful HTML5 Tutorials and Cheat Sheets | Tutorials</a></cite> at <a class="commentmetadata" href="#comment-3313">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        6:03 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3314">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://patterninc.com/15-useful-html5-tutorials-and-cheat-sheets/' rel='external nofollow' class='url'>Pattern Inc &raquo; 15 Useful HTML5 Tutorials and Cheat Sheets</a></cite> at <a class="commentmetadata" href="#comment-3314">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        6:20 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3315">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://websitedesign-virginia.com/?p=128' rel='external nofollow' class='url'>15 Useful HTML5 Tutorials and Cheat Sheets</a></cite> at <a class="commentmetadata" href="#comment-3315">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        6:47 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3316">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.neurosoftware.ro/programming-blog/facebook-web-design/design/15-useful-html5-tutorials-and-cheat-sheets/' rel='external nofollow' class='url'>15 Useful HTML5 Tutorials and Cheat Sheets - Programming Blog</a></cite> at <a class="commentmetadata" href="#comment-3316">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        6:47 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3319">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.thewebdesignlondon.co.uk/%post_title%' rel='external nofollow' class='url'>web design london, web designers london, london web design</a></cite> at <a class="commentmetadata" href="#comment-3319">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        10:31 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3320">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://read.vn/?p=2657' rel='external nofollow' class='url'>15 Useful HTML5 Tutorials and Cheat Sheets | Duong Luat</a></cite> at <a class="commentmetadata" href="#comment-3320">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        10:58 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3321">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://caintechnews.wordpress.com/2010/04/28/useful-html5-tutorials-and-cheat-sheets/' rel='external nofollow' class='url'>Useful HTML5 Tutorials and Cheat Sheets &laquo; Caintech.co.uk</a></cite> at <a class="commentmetadata" href="#comment-3321">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        6:51 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3322">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://thenewdrop.com/?p=371' rel='external nofollow' class='url'>15 Useful HTML5 Tutorials and Cheat Sheets | The New Drop</a></cite> at <a class="commentmetadata" href="#comment-3322">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        7:34 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3323">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">elfynity</cite> at <a class="commentmetadata" href="#comment-3323">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        10:56 pm    </time></a></p>
+            <p>Hi there! I am looking to put one blog page in my own website.  I have searched on how to do this with html, etc, and haven&#8217;t found the code yet to put one into my own website! </p>
+<p>I&#8217;m sure it must be javascript related.  if you have any coding info on this &#8230; please reply with leads, if you can!!!</p>
+<p>Thank you!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/3ecf1818e84d6bacc63bd01a6084ea37?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-3324">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://wordpress.Hikari.ws' rel='external nofollow' class='url'>Hikari</a></cite> at <a class="commentmetadata" href="#comment-3324">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 28th, 2010        at
+        11:24 pm    </time></a></p>
+            <p>elfynity, just use WordPress.</p>
+<p>You can set a (static) page to home page, and set the &#8220;blog page&#8221; to a subfolder of the site, and all posts will be listed there.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/e486dddd09146eb1b00db415869843d3?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-3329">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://lickablewallpaper.net/15-useful-html5-tutorials-and-cheat-sheets/' rel='external nofollow' class='url'>15 Useful HTML5 Tutorials and Cheat Sheets | Focus of Photography</a></cite> at <a class="commentmetadata" href="#comment-3329">
+    <time datetime="2009-06-30T15:00+00:00">
+        April 29th, 2010        at
+        12:36 pm    </time></a></p>
+            <p>[...] Designing a journal with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3419">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://maxstudiopro.wordpress.com/2010/05/03/html-5/' rel='external nofollow' class='url'>HTML 5 &laquo; Max Studio Pro</a></cite> at <a class="commentmetadata" href="#comment-3419">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 3rd, 2010        at
+        12:00 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3426">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ltlatnd.wordpress.com/2010/05/04/what-is-html5/' rel='external nofollow' class='url'>What is HTML5? &laquo; NspireD2: Learning Technology in Higher Ed.</a></cite> at <a class="commentmetadata" href="#comment-3426">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 4th, 2010        at
+        1:02 pm    </time></a></p>
+            <p>[...] Image source: HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3428">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.dertagundich.de/linkeria-27-april-29-april/1713/' rel='external nofollow' class='url'>Linkeria (27. April &#8211; 4. Mai) &raquo; der tag und ich</a></cite> at <a class="commentmetadata" href="#comment-3428">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 4th, 2010        at
+        3:01 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3505">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.sev7en.com/?p=1696' rel='external nofollow' class='url'>利用Html5开发的15个方法教程 | 尚7科技</a></cite> at <a class="commentmetadata" href="#comment-3505">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 7th, 2010        at
+        6:44 am    </time></a></p>
+            <p>[...] 使用 HTML5 设计博客 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3537">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://huedesigner.com/blog/?p=57' rel='external nofollow' class='url'>15 Useful HTML5 Tutorials and Cheat Sheets - www.huedesigner.com</a></cite> at <a class="commentmetadata" href="#comment-3537">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 10th, 2010        at
+        1:25 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3548">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://qiuai.name/blog/1778' rel='external nofollow' class='url'>15个 HTML5 教程和参考手册 - 秋爱博客</a></cite> at <a class="commentmetadata" href="#comment-3548">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 11th, 2010        at
+        11:41 am    </time></a></p>
+            <p>[...] 使用 HTML5 设计博客 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3578">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.wowhtml5.com/?p=405' rel='external nofollow' class='url'>70+ 必备的 CSS3 和 HTML5 教程资源</a></cite> at <a class="commentmetadata" href="#comment-3578">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 12th, 2010        at
+        3:12 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5&nbsp;&ndash; 一个利用 HTML5 建设博客站点的完整教程。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-3592">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://parazzi.me/2010/05/html5s-some-notes/' rel='external nofollow' class='url'>HTML5的一些资料笔记整理 - Parazzi</a></cite> at <a class="commentmetadata" href="#comment-3592">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 13th, 2010        at
+        4:02 pm    </time></a></p>
+            <p>[...] 使用 HTML5 设计博客 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-3683">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://htmlmaster.ru' rel='external nofollow' class='url'>Anton</a></cite> at <a class="commentmetadata" href="#comment-3683">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 17th, 2010        at
+        3:47 pm    </time></a></p>
+            <p>Glad to offer:<br />
+<a href="http://htmlmaster.ru" rel="nofollow">HTML 5 lessons</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/47dabf5be976671dacb62a4ad34c73f6?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-3684">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.cybadesign.co.za' rel='external nofollow' class='url'>elfynity</a></cite> at <a class="commentmetadata" href="#comment-3684">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 17th, 2010        at
+        3:54 pm    </time></a></p>
+            <p>THis is great! thank you for the info!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/3ecf1818e84d6bacc63bd01a6084ea37?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-4497">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://html5.appcloud.cc/?p=22' rel='external nofollow' class='url'>15个实用的HTML教程和快速参考手册 | HTML5主题站</a></cite> at <a class="commentmetadata" href="#comment-4497">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 20th, 2010        at
+        6:24 pm    </time></a></p>
+            <p>[...] 用HTML5设计BLOG [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-4579">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://51feeling.com/?p=379' rel='external nofollow' class='url'>70+ 必备的 CSS3 和 HTML5 教程资源 | 51Feeling</a></cite> at <a class="commentmetadata" href="#comment-4579">
+    <time datetime="2009-06-30T15:00+00:00">
+        May 24th, 2010        at
+        3:16 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; 一个利用 HTML5 建设博客站点的完整教程。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-4627">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.blogmars.com/archives/184.html' rel='external nofollow' class='url'>HTML5 和 CSS3 教程资源大网罗</a></cite> at <a class="commentmetadata" href="#comment-4627">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 1st, 2010        at
+        2:59 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 &#8211; 一个利用 HTML5 建设博客站点的完整教程。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-4636">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ntt.cc/2010/06/03/30-useful-html5-tutorials-for-web-designers.html' rel='external nofollow' class='url'>30+ Useful HTML5 Tutorials For Web Designers - Ntt.cc</a></cite> at <a class="commentmetadata" href="#comment-4636">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 3rd, 2010        at
+        8:07 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5502">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.daqianduan.com/web-design-30-html5/' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源-大前端</a></cite> at <a class="commentmetadata" href="#comment-5502">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        12:28 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5509">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.unicac.cn/?p=858' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源</a></cite> at <a class="commentmetadata" href="#comment-5509">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        2:25 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5511">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.chendeng.net/?p=19' rel='external nofollow' class='url'>前端的30个HTML5参考资源</a></cite> at <a class="commentmetadata" href="#comment-5511">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        2:57 am    </time></a></p>
+            <p>[...] Coding a CSS3 and HTML5 One Page Website Template（制作CSS3和 HTML5 一页式站点模板）这篇文章介绍了如何利用CSS3 和jQuery的新特性制作HTML5 网页模版。 HTML5 仍在完善当中，你也可以选择性的下载XHTML版。Comprehensive video tutorial on HTML5（全面的HTML5视频指南）这 是一个叫Brad Neuberg的工程师制作的HTML5教学视频。Create modern Web sites using HTML5 and CSS3（用HTML5与CSS3打造时尚站点）这篇文章介绍了许多HTML5的功能和语法及API，还有CSS3的新的选择器，效果和特性。最 后， 还将教你如何利用这些新特性开发一个网页。当你读完这篇文章，你就能用HTML5和CSS3开发一个自己的站点啦。Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。Designing for the Future with HTML5 and CSS3 : Tutorials and Best Practices（为未来设计：HTML 5 和 CSS3 指南与最佳案例）这篇文章将介绍用 HTML5和CSS3搭建的几个最佳站点。Design and Code a Cool iPhone App Website in HTML5（用HTML5设计和实现一个超酷 iPhone App 网站）Have a Field Day with HTML5 Forms（建立HTML 5表格）这篇文站将教你 如果用HTML 5 和高级CSS技术与最新的CSS3技术建立一个漂亮的表格。How To Create A Nice Blog Design Touching The Future(不用photoshop，完成网页设计)How to Make All Browsers Render HTML5 Mark-up Correctly – Even IE6（怎样让所有浏览器都渲染HTML5标记——即使是IE6）这篇文章将教你如何用JavaScript和CSS，使 HTML5页面向下兼容，即使是IE6也不例外。How to Make an HTML5 iPhone App（制作HTML5 iPhone 应用）这是 一篇针对iPhone的指导，但是许多技术也可用在兼容HTML5的手机浏览器上。HTML 5 and CSS 3: The Techniques You’ll Soon Be Using（HTML 5 和CSS 3：你将用到的技术）这篇文章使用HTML 5和CSS 3 搭建博客页面。如果你已经熟悉html 和CSS，将很容易跟上。HTML5 for Beginners. Use it now, its easy!（HTML 5初学指南）给 所有具有基础HTML知识的初学者的HTML 5 入门指南HTML5 Presentation这篇文章介绍了HTML5 的发展历史和它的基本特性HTML5 Tutorial – Getting Started（HTML 5 入门指导）How to Build Web Pages With HTML 5（怎样建立HTML 5网页）Simple Website Layout Tutorial Using HTML 5 and CSS 3（HTML5和CSS3布局指南）HTML5最令人期待的新标签包括&lt;header&gt;, &lt;footer&gt;, &lt;aside&gt;, &lt;nav&gt;, &lt;audio&gt;，同时它还包括画图，线下存储数据，拖放等API。页面布局将会更易理解。这里将介绍一个最简单的HTML 5 布局页面，用CSS3 设置样式。最终结果如下Structural Tags in HTML5（HTML 5 结构标签）HTML5 有许多标签帮助网页结构化，这能省去以网页中许多divHTML5 Boilerplates（HTML 5模板）此文介绍了一些你能拿来就用的HTML5 模板文件HTML 5 canvas – the basics（HTML 5 基础——Canvas）对HTML 5 Canvas使用方法的全面指导HTML 5 Tutorials（HTML 5 指南）Implementing HTML5 Drag and Drop: New Premium Tutorial（HTML 5 拖放）HTML5 的一个新特性就是拖放，不过IE早在5.5时代就支持拖放了，而HTML 5 的拖放也是基于IE的。本例将教你如果用拖放实现一个简单的购物车界面。Preview of HTML 5这是一篇比较老的文章，介绍了HTML5的特性和优点。The HTML 5 Canvas For Flash Developers : Drawing（HTML 5 Canvas 的画图功能）The Power of HTML 5 and CSS 3介绍了HTML 5 与CSS3能创造的各种效果。View Source Tutorial: Sticky Notes With HTML5 and CSS3（HTML5 和CSS3 打造便利贴效果）webOS HTML5 Database Storage Tutorial（webOS HTML5 数据存储指南）HTML5 的本地存储功能将使数据存储十分简便。Yes, You Can Use HTML 5 Today!本文介绍了一些现已被支持的HTML 5 特性，对初学者十分有用。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5514">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.lispot.info/?p=226' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源 | 行了</a></cite> at <a class="commentmetadata" href="#comment-5514">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        4:32 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5517">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://lamtin.cc/?p=21' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源 &laquo; Lamtin&#39;s BLOG</a></cite> at <a class="commentmetadata" href="#comment-5517">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        5:58 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5519">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://magentotemplate.net/%e7%bb%99%e7%bd%91%e9%a1%b5%e8%ae%be%e8%ae%a1%e5%b8%88%e7%9a%8430%e4%b8%aahtml5%e5%ad%a6%e4%b9%a0%e8%b5%84%e6%ba%90/' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源 | Magento Template | Magento Theme | Magento Skin | Magento Design</a></cite> at <a class="commentmetadata" href="#comment-5519">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        6:13 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5525">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.TwaMix.com/blog/2010/06/html5-introduction-advanced-upgrade.html' rel='external nofollow' class='url'>HTML5入门-进阶-提升 | TwaMix</a></cite> at <a class="commentmetadata" href="#comment-5525">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        10:50 am    </time></a></p>
+            <p>[...] 11、Designing a blog with html5（用html5设计博客） [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5527">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.digicake.cn/to-the-comrades-of-the-30-web-designers-learning-resources-html5.html' rel='external nofollow' class='url'>给网页设计师同志的30个HTML5学习资源 | 小cake的博客</a></cite> at <a class="commentmetadata" href="#comment-5527">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        11:09 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5529">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://lich.sh.cn/blog/?p=306' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源 | 星星小屋</a></cite> at <a class="commentmetadata" href="#comment-5529">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 5th, 2010        at
+        2:04 pm    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5539">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.leespot.info/?p=281' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源 | 那么点想法</a></cite> at <a class="commentmetadata" href="#comment-5539">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 7th, 2010        at
+        3:35 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5543">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.wowhtml5.com/?p=747' rel='external nofollow' class='url'>” 30个给网页设计师的HTML5学习资源– HTML5,CSS3,WEB前端设计开发资讯站</a></cite> at <a class="commentmetadata" href="#comment-5543">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 7th, 2010        at
+        2:10 pm    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客） [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5547">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.uini.net/2010/06/web-designer-for-30-html5-learning-resources.html' rel='external nofollow' class='url'>给网页设计师的 30个HTML5学习资源-传播、沟通、分享-一直“有你”</a></cite> at <a class="commentmetadata" href="#comment-5547">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 7th, 2010        at
+        4:04 pm    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5551">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://creativefan.com/the-ultimate-html5-toolbox-60-articles-tutorials-resources-and-inspiring-showcases/' rel='external nofollow' class='url'>The Ultimate HTML5 Toolbox: 60+ Articles, Tutorials, Resources and Inspiring Showcases | CreativeFan</a></cite> at <a class="commentmetadata" href="#comment-5551">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 7th, 2010        at
+        7:29 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5552">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.1stwebdesigner.com/resources/the-ultimate-roundup-of-indispensable-and-helpful-html5-tutorials/' rel='external nofollow' class='url'>The Ultimate Roundup of Indispensable and Helpful HTML5 Tutorials</a></cite> at <a class="commentmetadata" href="#comment-5552">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 7th, 2010        at
+        10:02 pm    </time></a></p>
+            <p>[...] 8.Designing a blog with HTML5  [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5553">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.neurosoftware.ro/programming-blog/blogposter/web-resources/the-ultimate-roundup-of-indispensable-and-helpful-html5-tutorials/' rel='external nofollow' class='url'>The Ultimate Roundup of Indispensable and Helpful HTML5 Tutorials - Programming Blog</a></cite> at <a class="commentmetadata" href="#comment-5553">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 8th, 2010        at
+        12:17 am    </time></a></p>
+            <p>[...] 8.Designing a blog with HTML5  [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5556">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://rscreative.com.au/2010/06/the-ultimate-roundup-of-indispensable-and-helpful-html5-tutorials/' rel='external nofollow' class='url'>The Ultimate Roundup of Indispensable and Helpful HTML5 Tutorials | Cairns Web Design</a></cite> at <a class="commentmetadata" href="#comment-5556">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 8th, 2010        at
+        2:44 pm    </time></a></p>
+            <p>[...] 8.Designing a blog with HTML5  [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5563">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://insbire.wordpress.com/2010/06/09/30%e4%b8%aahtml5%e5%ad%a6%e4%b9%a0%e8%b5%84%e6%ba%90/' rel='external nofollow' class='url'>30个HTML5学习资源 | Insbire&#39;s Blog</a></cite> at <a class="commentmetadata" href="#comment-5563">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 9th, 2010        at
+        11:15 pm    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客） 许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5568">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://kinvix.kdv.cn/blog/?p=464' rel='external nofollow' class='url'>网站开发人员30个HTML5学习资源 &laquo; i在云端</a></cite> at <a class="commentmetadata" href="#comment-5568">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 10th, 2010        at
+        10:30 am    </time></a></p>
+            <p>[...]  Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5573">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.bizmedical.com' rel='external nofollow' class='url'>bizmedical</a></cite> at <a class="commentmetadata" href="#comment-5573">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 11th, 2010        at
+        1:46 am    </time></a></p>
+            <p>The key to marketing for anyone in the medical profession is to convince prospective patients of the quality of care they will receive for the price they are charged.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/024bdded500daceb13507983e34ae8fc?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-5609">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.webhostingsecretrevealed.com/featured-articles/learn-html5-10-must-read-lessons/' rel='external nofollow' class='url'>Learn HTML5: 10 Must Read Lessons</a></cite> at <a class="commentmetadata" href="#comment-5609">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 16th, 2010        at
+        9:04 am    </time></a></p>
+            <p>[...] Read Designing a blog with HTML5  [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5611">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blog.templateland.biz/?p=944' rel='external nofollow' class='url'>TemplateLand Blog &raquo; Blog Archive &raquo; 25 Essential HTML5 Tutorials and Techniques</a></cite> at <a class="commentmetadata" href="#comment-5611">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 16th, 2010        at
+        11:12 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5617">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.bizmedical.com' rel='external nofollow' class='url'>bizmedical</a></cite> at <a class="commentmetadata" href="#comment-5617">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 18th, 2010        at
+        12:57 am    </time></a></p>
+            <p>Through Doctor Web Site, patients can also find and connect to your medical practice by searching the state lists within the section aligned with your specialty. This is a powerful second source of patient referral—the first being your website&#8217;s own search engine presence—that only Medical Doctor Web Site can provide.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/024bdded500daceb13507983e34ae8fc?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-5620">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://bhlog.com' rel='external nofollow' class='url'>Backward Heroes</a></cite> at <a class="commentmetadata" href="#comment-5620">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 18th, 2010        at
+        5:17 pm    </time></a></p>
+            <p>Digital publishing starts now!<br />
+<a href="http://bhlog.com/posts/2010/6/18/html5-the-webs-pagemaker.html" rel="nofollow">http://bhlog.com/posts/2010/6/18/html5-the-webs-pagemaker.html</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/c30168b0d093bfb98a358365fe383188?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-5626">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://bestwebmagazine.com/2010/04/28/15-useful-html5-tutorials-and-cheat-sheets/' rel='external nofollow' class='url'>15 Useful HTML5 Tutorials and Cheat Sheets | Best Web Magazine</a></cite> at <a class="commentmetadata" href="#comment-5626">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 20th, 2010        at
+        12:31 am    </time></a></p>
+            <p>[...] ScratchHTML 5 and CSS 3: The Techniques You’ll Soon Be Using Have a Field Day with HTML5 FormsDesigning a blog with html5Touch The Future: Create An Elegant Website With HTML 5 And CSS3Structural Tags in HTML5Coding a [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5635">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://iswf.wordpress.com.cn/2010/06/22/html5-designing-a-blog-with-html5/' rel='external nofollow' class='url'>校长的博客 &raquo; Blog Archive &raquo; html5&#8211;Designing a blog with html5</a></cite> at <a class="commentmetadata" href="#comment-5635">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 22nd, 2010        at
+        7:16 am    </time></a></p>
+            <p>[...] 原文地址     Leave a Reply [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5640">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://psychocoder.net/?p=76' rel='external nofollow' class='url'>Blog.Parse(typeof(PsychoCoder), Richard McCutchen); &raquo; Blog Archive &raquo; Useful HTML5 Tutorials &amp; Snippets</a></cite> at <a class="commentmetadata" href="#comment-5640">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 23rd, 2010        at
+        8:08 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5665">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://hcy9.com/?p=41' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源 &laquo; 互次元|关注前端，探索未来</a></cite> at <a class="commentmetadata" href="#comment-5665">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 24th, 2010        at
+        4:44 pm    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计一个博客） [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5687">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.duetsch.info/destillat-46-web-und-softwareentwicklung.html' rel='external nofollow' class='url'>Destillat #46 &#8211; Web- und Softwareentwicklung | Open Source und Wetware</a></cite> at <a class="commentmetadata" href="#comment-5687">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 25th, 2010        at
+        9:10 am    </time></a></p>
+            <p>[...] Designing a blog with html5Erklärung für input type=&#8221;date&#8221; und Umgang mit IE8 (Stichwort: HTML5 enabling script), was aber nur dann funktioniert wenn IE8 Javascript aktiviert hat! [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5747">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://smashingwebs.com/2010/01/most-wanted-html-5-tutorials/' rel='external nofollow' class='url'>Most Wanted HTML 5 Tutorials - Smashingwebs</a></cite> at <a class="commentmetadata" href="#comment-5747">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 29th, 2010        at
+        6:30 pm    </time></a></p>
+            <p>[...] 7. Designing a Blog with HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5757">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.designdazzling.com/2010/06/15-useful-tutorials-and-cheat-sheets-of-html5/' rel='external nofollow' class='url'>15 Useful Tutorials and Cheat Sheets of HTML5 | Design Dazzling</a></cite> at <a class="commentmetadata" href="#comment-5757">
+    <time datetime="2009-06-30T15:00+00:00">
+        June 30th, 2010        at
+        11:53 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5806">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.tripwiremagazine.com/2010/07/30-very-useful-html5-tutorials-techniques-and-examples-for-web-developers.html' rel='external nofollow' class='url'>30+ Very Useful HTML5 Tutorials, Techniques and Examples for Web Developers | tripwire magazine</a></cite> at <a class="commentmetadata" href="#comment-5806">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 7th, 2010        at
+        11:50 am    </time></a></p>
+            <p>[...] Designing A Blog With HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5812">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.techfleck.com/2010/07/08/30-very-useful-html5-tutorials-techniques-and-examples-for-web-developers/' rel='external nofollow' class='url'>30+ Very Useful HTML5 Tutorials, Techniques and Examples for Web Developers | TechFleck</a></cite> at <a class="commentmetadata" href="#comment-5812">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 8th, 2010        at
+        7:08 am    </time></a></p>
+            <p>[...] Designing A Blog With HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5814">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.b2bweb.fr' rel='external nofollow' class='url'>molokoloco</a></cite> at <a class="commentmetadata" href="#comment-5814">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 8th, 2010        at
+        11:58 pm    </time></a></p>
+            <p>Yep good news since HTML5 became native Apps<br />
+<a href="http://www.b2bweb.fr/molokoloco/anything-cool-in-the-browsers/" rel="nofollow">http://www.b2bweb.fr/molokoloco/anything-cool-in-the-browsers/</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/9f1206b8e7a52b372208bc7570cef8a2?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-5824">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.petermikhael.com/lets-html5.html' rel='external nofollow' class='url'>Let&#8217;s HTML5 | Peter Mikhael</a></cite> at <a class="commentmetadata" href="#comment-5824">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 9th, 2010        at
+        2:56 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 – A tutorial on how to build a blog in HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5837">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.b2bweb.fr/shared-items/30-very-useful-html5-tutorials-techniques-and-examples-for-web-developers/' rel='external nofollow' class='url'>- b2bweb.fr &#8211; Work Wild Web @ BornToBeWeb</a></cite> at <a class="commentmetadata" href="#comment-5837">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 10th, 2010        at
+        3:34 pm    </time></a></p>
+            <p>[...] Designing A Blog With HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5845">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.ha97.com/1076.html' rel='external nofollow' class='url'>70个必备的CSS3和HTML5教程资源</a></cite> at <a class="commentmetadata" href="#comment-5845">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 12th, 2010        at
+        10:41 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 – 一个利用 HTML5 建设博客站点的完整教程。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5849">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.0blog.cn/?p=97' rel='external nofollow' class='url'>30个HTML5给网页设计师的学习资源 &laquo; 零博客</a></cite> at <a class="commentmetadata" href="#comment-5849">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 13th, 2010        at
+        4:04 pm    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5865">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.ha97.com/1132.html' rel='external nofollow' class='url'>15个有用的HTML5教程和参考手册</a></cite> at <a class="commentmetadata" href="#comment-5865">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 16th, 2010        at
+        12:54 pm    </time></a></p>
+            <p>[...] 使用 HTML5 设计博客 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5868">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.h304.com/2010/07/16/recursos-html5/' rel='external nofollow' class='url'>Recursos para HTML5 | H304</a></cite> at <a class="commentmetadata" href="#comment-5868">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 16th, 2010        at
+        5:36 pm    </time></a></p>
+            <p>[...] Designing a blog with HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5898">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://armno.in.th/20100720/my-first-wordpress-theme' rel='external nofollow' class='url'>My First WordPress Theme : ArmNo.in.th : บล็อกนี้มีคนชอบดูดาว</a></cite> at <a class="commentmetadata" href="#comment-5898">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 20th, 2010        at
+        1:32 am    </time></a></p>
+            <p>[...] ก็พอได้ไอเดียจากบทความนี้ครับ “Design a blog with HTML5” จาก html5doctor.com .. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-5904">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.webaxes.com/2010/07/10-amazing-tutorials-and-cheat-sheets-of-html5/' rel='external nofollow' class='url'>10+ Amazing Tutorials and Cheat Sheets of HTML5 | WEBAXES.COM</a></cite> at <a class="commentmetadata" href="#comment-5904">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 20th, 2010        at
+        6:30 am    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-5908">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.lufree.com/show_1204.html' rel='external nofollow' class='url'>30多个资源可帮你开始学习HTML5 | LuFree网页游戏开发网</a></cite> at <a class="commentmetadata" href="#comment-5908">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 20th, 2010        at
+        9:25 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-6673">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">ronaldo r9</cite> at <a class="commentmetadata" href="#comment-6673">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 21st, 2010        at
+        6:41 pm    </time></a></p>
+            <p>ROnaldo!!!!!!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/6563cc878a696796262e355a797118dd?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-9472">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://creativeproject.wordpress.com/2010/07/27/14-of-the-best-html5-tutorials/' rel='external nofollow' class='url'>14 Of The Best HTML5 Tutorials &laquo; The Creative Project</a></cite> at <a class="commentmetadata" href="#comment-9472">
+    <time datetime="2009-06-30T15:00+00:00">
+        July 27th, 2010        at
+        5:58 am    </time></a></p>
+            <p>[...] 7. Designing a blog with HMTL5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-10005">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://xuui.net/ui-design/15-useful-html5-tutorials-and-cheat-sheets.html' rel='external nofollow' class='url'>15个 HTML5 教程和参考手册 - Xu Design</a></cite> at <a class="commentmetadata" href="#comment-10005">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 1st, 2010        at
+        3:09 am    </time></a></p>
+            <p>[...] 使用 HTML5 设计博客 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-10042">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.orcastudio.us/?p=24' rel='external nofollow' class='url'>给网页设计师的30个HTML5学习资源 | 虎鲸趋势</a></cite> at <a class="commentmetadata" href="#comment-10042">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 5th, 2010        at
+        6:55 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5设计博客）许多HTML5 特性要结合JavaScript API一起使用，以增加网页的互动性。但仍有一些新元素可让传统的Web1.0页面更加语义化。为了学习这些，我们来看怎样建立一个博客。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-10094">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://sspathania.com/' rel='external nofollow' class='url'>ss pathania</a></cite> at <a class="commentmetadata" href="#comment-10094">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 13th, 2010        at
+        7:31 am    </time></a></p>
+            <p>html 5 is vey useful to design a blogger template or layout&#8230;&#8230;</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/2f3c675fd3632560568c7acda75be221?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-10095">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://webconnecttechnologies.com' rel='external nofollow' class='url'>web connect</a></cite> at <a class="commentmetadata" href="#comment-10095">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 13th, 2010        at
+        7:36 am    </time></a></p>
+            <p>Blogging,blogger template management  and designing are very important jobs for a successful blogger&#8230;.<br />
+HTML5 helps it to make easy&#8230;</p>
+<p>web connect provides web design service&#8230;</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/2f3c675fd3632560568c7acda75be221?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-10104">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://guideforhtml.blogspot.com' rel='external nofollow' class='url'>Donny Salazar</a></cite> at <a class="commentmetadata" href="#comment-10104">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 14th, 2010        at
+        12:16 pm    </time></a></p>
+            <p>I think HTML 5 are not yet supported for all types of browsers. But it has a good features: &lt;a href=&quot;http://guideforhtml.blogspot.com</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/a6302d9a1e355f8bd44b9f912865fac7?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-10105">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://guideforhtml.blogspot.com' rel='external nofollow' class='url'>Donny Salazar</a></cite> at <a class="commentmetadata" href="#comment-10105">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 14th, 2010        at
+        12:18 pm    </time></a></p>
+            <p>I think HTML 5 are not yet supported for all types of browsers. But it has a good features: <a href="http://guideforhtml.blogspot.com" rel="nofollow"> HTML for Beginners</a></p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/a6302d9a1e355f8bd44b9f912865fac7?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-10188">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.yuyinkeji.com/index.php/archives/2321.html' rel='external nofollow' class='url'>70+ 必备的 CSS3 和 HTML5 教程资源 | 俊顶视觉设计网 - 视觉创意,前端开发,web标准设计,高端网站,网页设计教程,网站策划,网站推广,网络营销。</a></cite> at <a class="commentmetadata" href="#comment-10188">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 18th, 2010        at
+        2:02 pm    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 – 一个利用 HTML5 建设博客站点的完整教程。 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-10229">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.laleydeatraccioelsecreto.com' rel='external nofollow' class='url'>La ley de atraccion</a></cite> at <a class="commentmetadata" href="#comment-10229">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 23rd, 2010        at
+        12:17 am    </time></a></p>
+            <p>Good article&#8230;I&#8217;m so used tu use &#8220;wordpress &#8221; that I forgot ti try make one by my self,I&#8217;m going to make it! Let&#8217;s see&#8230;je,je</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/7a6e08907bcffaf054946b02acbcf7e3?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-10249">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.tripwiremagazine.com/2009/08/25-great-html-5-resources-to-get-you-started.html' rel='external nofollow' class='url'>25+ Great HTML 5 Resources to Get You Started — tripwire magazine</a></cite> at <a class="commentmetadata" href="#comment-10249">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 25th, 2010        at
+        6:51 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-10260">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://maparam.wordpress.com/2010/08/27/tripwire-magazine-30-very-useful-html5-tutorials-techniques-and-examples-for-web-developers/' rel='external nofollow' class='url'>[Tripwire magazine] 30+ Very Useful HTML5 Tutorials, Techniques and Examples for Web Developers &laquo; MayBeMayBe</a></cite> at <a class="commentmetadata" href="#comment-10260">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 27th, 2010        at
+        8:15 am    </time></a></p>
+            <p>[...] Designing A Blog With HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-10269">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.webdevtuts.net/freebies/45-resources-tutorials-for-designers-and-developers/' rel='external nofollow' class='url'>45 Resources &amp; Tutorials for designers and developers | Webdevtuts</a></cite> at <a class="commentmetadata" href="#comment-10269">
+    <time datetime="2009-06-30T15:00+00:00">
+        August 30th, 2010        at
+        1:40 am    </time></a></p>
+            <p>[...] Designing a blog with html5 &#8211; Much of HTML 5’s feature set involves JavaScript APIs that make it easier to develop interactive web pages but there are a slew of new elements that allow you extra semantics in your conventional Web 1.0 pages&#8230; [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-10288">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Laura</cite> at <a class="commentmetadata" href="#comment-10288">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 1st, 2010        at
+        9:55 pm    </time></a></p>
+            <p>I am very excited about designing with HTML5. It is going to make designing much easier.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/13932cec68382a26fb0839047a46a7b7?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-10319">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://daimaren.cn/blog/?p=30' rel='external nofollow' class='url'>也谈谈html5&nbsp;|&nbsp;代码人-tomie&#039;s blog</a></cite> at <a class="commentmetadata" href="#comment-10319">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 3rd, 2010        at
+        5:40 pm    </time></a></p>
+            <p>[...] 用html5设计博客： <a href="http://html5doctor.com/designing-a-blog-with-html5/" rel="nofollow">http://html5doctor.com/designing-a-blog-with-html5/</a> [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-10459">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://submitstory.org/japan/howto/web%e3%83%87%e3%82%b6%e3%82%a4%e3%83%8a%e3%83%bc%e3%81%ae%e3%81%9f%e3%82%81%e3%81%ae%e4%b8%8a10%e3%81%ae%e5%9f%ba%e6%9c%achtml-5%e3%81%ae%e3%83%81%e3%83%a5%e3%83%bc%' rel='external nofollow' class='url'>Japan &#8211; News And Articles &raquo; Blog Archive &raquo; Webデザイナーのための上10の基本HTML 5のチュートリアル</a></cite> at <a class="commentmetadata" href="#comment-10459">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 10th, 2010        at
+        11:30 am    </time></a></p>
+            <p>[...] 2） 設計のHTML 5ブログ [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-10465">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.freelancers.vn/Home/2010/09/bo-suu-tap-resources-html5-va-css3/' rel='external nofollow' class='url'>Bộ sưu tập resources HTML5 và CSS3 | Freelancers.vn - Hành Trang cho Freelancers</a></cite> at <a class="commentmetadata" href="#comment-10465">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 10th, 2010        at
+        6:37 pm    </time></a></p>
+            <p>[...] Designing A Blog With HTML5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-10528">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Bộ sưu tập resources HTML5 và CSS3 | Freelancers.vn - Hành Trang cho Freelancers</cite> at <a class="commentmetadata" href="#comment-10528">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 12th, 2010        at
+        4:54 pm    </time></a></p>
+            <p>[...] Designing [...] 2） 設計のHTML 5ブログ [...]</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://0.gravatar.com/avatar/6f379090252f27ecca448dde87c044dd?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class=" " id="comment-10554">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://wordpress.huabaner.net/?p=248' rel='external nofollow' class='url'>选自g u l u 7 7的一些资源站点 不错 &laquo; 花瓣儿网</a></cite> at <a class="commentmetadata" href="#comment-10554">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 13th, 2010        at
+        7:08 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-10695">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.w3webdesigner.com/?p=125' rel='external nofollow' class='url'>70 CSS3 and HTML5 Tutorials and Resources &laquo; W3 Web Designer | Kerala Web Designer</a></cite> at <a class="commentmetadata" href="#comment-10695">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 15th, 2010        at
+        6:14 am    </time></a></p>
+            <p>[...] Designing a Blog with HTML 5 – A complete tutorial for building a blog website with HTML 5. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-10922">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://letrungsin.wordpress.com/2010/09/19/link-h%e1%bb%8dc-design-html5/' rel='external nofollow' class='url'>Link học design HTML5 &laquo; Le Trung Sin&#039;s Blog</a></cite> at <a class="commentmetadata" href="#comment-10922">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 19th, 2010        at
+        12:19 pm    </time></a></p>
+            <p>[...] <a href="http://html5doctor.com/designing-a-blog-with-html5/" rel="nofollow">http://html5doctor.com/designing-a-blog-with-html5/</a> [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-11045">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://itpak.net/tutorials/html-xhtml-xml-forms-w3c/25-essential-html5-tutorials-and-techniques-read-more-about-25-essential-html5-tutorials-and-techniques.itpak' rel='external nofollow' class='url'>25 Essential HTML5 Tutorials and Techniques Read more about 25 Essential HTML5 Tutorials and Techniques &laquo; ItPak.net Be a Part of Itpak.Net</a></cite> at <a class="commentmetadata" href="#comment-11045">
+    <time datetime="2009-06-30T15:00+00:00">
+        September 24th, 2010        at
+        6:11 pm    </time></a></p>
+            <p>[...] Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-11250">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.webdesignish.com/18-highly-useful-html5-tutorials-and-techniques.html' rel='external nofollow' class='url'>18 Highly Useful HTML5 Tutorials And Techniques</a></cite> at <a class="commentmetadata" href="#comment-11250">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 2nd, 2010        at
+        8:21 am    </time></a></p>
+            <p>[...] 3) Designing a Blog with HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-11356">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://submitstory.org/albanian/news/18-highly-useful-html5-tutorials-dhe-teknikat/' rel='external nofollow' class='url'>18 Highly Useful HTML5 Tutorials dhe teknikat | Albanian News And Articles</a></cite> at <a class="commentmetadata" href="#comment-11356">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 4th, 2010        at
+        11:34 am    </time></a></p>
+            <p>[...] 3) Hartimi i një Blog me HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-11375">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ideaseternal.com/html5/designing-blog-html5.html' rel='external nofollow' class='url'>Designing a blog with html5</a></cite> at <a class="commentmetadata" href="#comment-11375">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 4th, 2010        at
+        8:19 pm    </time></a></p>
+            <p>[...] Web 1.0 pages. In order to investigate these, let’s look at marking up a blog. Source : <a href="http://html5doctor.com/designing-a-blog-with-html5/" rel="nofollow">http://html5doctor.com/designing-a-blog-with-html5/</a>      This entry was posted on Monday, October 4th, 2010 at 7:19 pm and is filed under Html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-11412">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://team.ten2.tw/30%e5%80%8b%e8%b6%85%e5%84%aa%e7%a7%80%e7%9a%84-html5-%e5%ad%b8%e7%bf%92%e8%b3%87%e6%ba%90/' rel='external nofollow' class='url'>30個超優秀的 HTML5 學習資源 | tenten Blog</a></cite> at <a class="commentmetadata" href="#comment-11412">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 5th, 2010        at
+        10:30 am    </time></a></p>
+            <p>[...] Designing a blog with html5（用html5設計部落格） [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-11466">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://pecciola.com/2010/10/8-tutorials-html5-essenziali-per-sviluppatori-e-web-designers.html' rel='external nofollow' class='url'>8 Tutorials Html5 essenziali per sviluppatori e web designers | Pecciola</a></cite> at <a class="commentmetadata" href="#comment-11466">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 8th, 2010        at
+        3:11 am    </time></a></p>
+            <p>[...] 2) Designing a Blog with HTML 5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class="alt " id="comment-11762">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://stylishwebdesigner.com/15-highly-useful-html5-tutorials-for-web-designers/' rel='external nofollow' class='url'>15 Highly Useful HTML5 Tutorials For Web Designers</a></cite> at <a class="commentmetadata" href="#comment-11762">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 19th, 2010        at
+        10:32 am    </time></a></p>
+            <p>[...] 3. Designing a blog with html5 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+        
+<article class=" " id="comment-11809">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.wpfanatics.com' rel='external nofollow' class='url'>WPF</a></cite> at <a class="commentmetadata" href="#comment-11809">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 23rd, 2010        at
+        12:36 pm    </time></a></p>
+            <p>This kind of read is so practical when you are developing a HTML5 theme. Thumbs up for taking the time and sharing!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://1.gravatar.com/avatar/1ea04a29b148413f2ac342d2670342bc?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+
+        
+<article class="alt " id="comment-11823">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://buyfromchina-asia.cn/?p=24' rel='external nofollow' class='url'>22优秀HTML5的教程(转) &#124; Zhou Blog</a></cite> at <a class="commentmetadata" href="#comment-11823">
+    <time datetime="2009-06-30T15:00+00:00">
+        October 25th, 2010        at
+        8:45 am    </time></a></p>
+            <p>[...] 4。 设计一个博客与HTML5的 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+
+
+<section id="respond">
+<h3>Leave a Reply</h3>
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+        <p>
+        <label for="author">Name
+        (required)        </label>
+        <input required aria-required="true" type="text" name="author" id="author" value="" size="22" />
+    </p>
+    <p>
+        <label for="email">Email (will not be published)
+        (required)        </label>
+        <input required aria-required="true" type="email" name="email" id="email" value="" size="22"  />
+    </p>
+    <p>
+        <label for="url">Website</label>
+        <input type="url" name="url" id="url" value="" size="22"  />
+    </p>
+        <p>You can use these tags: &lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strong&gt;</p>
+    <p>You can also use &lt;code&gt;, and remember to use &amp;lt; and &amp;gt; for brackets.</p>
+    <p>
+        <label for="comment" class="screenreader">Enter comment</label>
+        <textarea required aria-required="true" name="comment" id="comment"  cols="40" rows="10"></textarea>
+        <input name="submit" type="submit" id="submit"  value="Submit Comment" />
+        <input type="hidden" name="comment_post_ID" value="47" />
+    </p>
+    
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+</form>
+</section><!-- //end respond -->
+
+</aside>      
+      </article>
+	    
+	
+			
+	
+
+</div><!-- //end hfeed -->
+
+<aside role="complementary" id="sidebar">
+
+<div>
+<form action="/search/" id="cse-search-box" role="search">
+  <div>
+    <input type="search" name="q" size="31" />
+    <input type="submit" value="GO" />
+  </div>
+</form>
+</div>
+
+<aside class="buysellads">
+
+<!-- BuySellAds.com Zone Code -->
+<div id="bsap_1242929" class="bsarocks bsap_ab161e2bf71edb940eeca26a4739f522"></div>
+<!-- END BuySellAds.com Zone Code -->
+
+</aside>
+
+<!--<aside>
+	<ul class="ads">
+    	<li><a href="http://www.authenticjobs.com/?aff=dcacc"><img src="http://www.authenticjobs.com/img/aj_125x125.gif" alt="Post a job. Find one. authenticjobs.com" width="125" height="125" /></a></li>
+    	<li><a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com"><img src="/img/mt-125x125-dk.png" alt="Proudly Hosted by Media Temple"></a></li>
+    </ul>
+</aside>-->
+
+<aside class="ask-banner">
+    <a href="http://introducinghtml5.com/"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/introducing-html5-ad.jpg" alt="Introducing HTML5 by Bruce Lawson and Remy Sharp" /></a>
+</aside>
+
+<aside class="ask-banner">
+    <a href="http://html5gallery.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/h5g-banner2.jpg" alt="Built a site with HTML5?" /></a>
+</aside>
+
+<!--<aside>
+ <a href="http://www.amazon.co.uk/gp/product/0321687299?ie=UTF8&tag=h07d-21&linkCode=as2&camp=1634&creative=19450&creativeASIN=0321687299"><img border="0" src="31jNdZ3CyYL._SL160_.jpg"></a><img src="http://www.assoc-amazon.co.uk/e/ir?t=h07d-21&l=as2&o=2&a=0321687299" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+</aside>-->
+
+<nav>
+	<h3>Recent Articles</h3>
+	<ul class="recent">
+			<li><a href='http://html5doctor.com/video-canvas-magic/' title='video + canvas = magic'>video + canvas = magic</a></li>
+	<li><a href='http://html5doctor.com/html5-simplequiz-3-how-to-mute-a-video/' title='HTML5 Simplequiz #3: how to mute a video'>HTML5 Simplequiz #3: how to mute a video</a></li>
+	<li><a href='http://html5doctor.com/html5-simplequiz-2-citing-people/' title='HTML5 Simplequiz #2: citing people'>HTML5 Simplequiz #2: citing people</a></li>
+	<li><a href='http://html5doctor.com/your-questions-13/' title='Your Questions #13'>Your Questions #13</a></li>
+	<li><a href='http://html5doctor.com/html5-simplequiz-1/' title='HTML5 Simplequiz #1'>HTML5 Simplequiz #1</a></li>
+	<li><a href='http://html5doctor.com/net-awards-nomination/' title='.net Awards Nomination'>.net Awards Nomination</a></li>
+	<li><a href='http://html5doctor.com/microformats/' title='Extending HTML5 — Microformats'>Extending HTML5 — Microformats</a></li>
+	<li><a href='http://html5doctor.com/your-questions-12/' title='Your Questions Answered #12'>Your Questions Answered #12</a></li>
+	<li><a href='http://html5doctor.com/an-introduction-to-the-canvas-2d-api/' title='An introduction to the Canvas 2D API'>An introduction to the Canvas 2D API</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-11/' title='Your Questions Answered #11'>Your Questions Answered #11</a></li>
+	<li><a href='http://html5doctor.com/reviewing-html5-for-web-designers/' title='Reviewing HTML5 for Web Designers'>Reviewing HTML5 for Web Designers</a></li>
+	<li><a href='http://html5doctor.com/you-can-still-use-div/' title='You can still use div'>You can still use div</a></li>
+    </ul> 
+</nav>
+
+<nav>
+	<h3><abbr>HTML</abbr>5 Doctors (Authors)</h3>
+	<ul>
+    	<li><a href="/author/richc/">Richard Clark</a></li>
+    	<li><a href="/author/brucel/">Bruce Lawson</a></li>
+    	<li><a href="/author/jacko/">Jack Osborne</a></li>
+    	<li><a href="/author/miker/">Mike Robinson</a></li>
+    	<li><a href="/author/remys/">Remy Sharp</a></li>
+    	<li><a href="/author/toml/">Tom Leadbetter</a></li>
+        <li><a href="/author/olib/">Oli Studholme</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Contributing Authors</h3>
+	<ul>
+    	    	<li><a href="/author/cennyddb/">Cennydd Bowles</a></li>
+    	<li><a href="/author/markb/">Mark Boas</a></li>
+        <li><a href="/author/chrisb/">Chris Bewick</a></li>
+        <li><a href="/author/taba/">Tab Atkins</a></li>
+    </ul>    
+</nav>
+
+<nav>
+	<h3>Categories</h3>
+	<form action="http://html5doctor.com" method="get">
+	<div>
+	<select name='cat' id='cat' class='postform' >
+	<option value='-1'>Select category</option>
+	<option class="level-0" value="3">Elements</option>
+	<option class="level-0" value="4">Attributes</option>
+	<option class="level-0" value="6">Accessibility</option>
+	<option class="level-0" value="7">WAI-ARIA</option>
+	<option class="level-0" value="8">Quick Tips</option>
+	<option class="level-0" value="9">Structure</option>
+	<option class="level-0" value="17">Browser Compatibility</option>
+	<option class="level-0" value="18">JavaScript APIs</option>
+	<option class="level-0" value="21">Questions</option>
+	<option class="level-0" value="33">Boilerplates</option>
+	<option class="level-0" value="38">Validation</option>
+	<option class="level-0" value="43">CSS</option>
+	<option class="level-0" value="68">Specification Changes</option>
+	<option class="level-0" value="69">Comment</option>
+	<option class="level-0" value="103">Events</option>
+	<option class="level-0" value="128">multimedia</option>
+	<option class="level-0" value="132">Misc</option>
+	<option class="level-0" value="135">Reviews</option>
+	<option class="level-0" value="145">Simplequiz</option>
+</select>
+	<input type="submit" name="submit" value="View" class="cat-view" />
+	</div>
+	</form>
+    
+<!--	<ul>
+    	    </ul>    -->
+</nav>
+
+<!--<section>
+	<h3>About</h3>
+	<p>HTML5doctor is run by a bunch of volunteers that are passionate about making <abbr>HTML</abbr>5 happen here and now. Read more about them on the <a href="/about/">about page</a>.</p>    
+</section>-->
+
+<section>
+<script type="text/javascript" src="http://feeds.delicious.com/v2/js/html5gallery?title=HTML5%20Articles%20Elsewhere&amp;icon=rss&amp;count=5&amp;sort=date&amp;extended&amp;showadd"></script>
+</section>
+</aside>
+</div><!--// end content -->
+<aside class="extras">
+   	    <section>
+	    <h3>Quick Links</h3> 
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+<li class="page_item page-item-56"><a href="http://html5doctor.com/glossary/" title="Glossary">Glossary</a></li>
+                <li><a href="/speaking/">Speaking</a></li>
+            </ul>
+        </section>
+	    <section>
+        <h3>Social Links &amp; <abbr>RSS</abbr></h3>
+            <ul>
+                <li class="twitter"><a href="http://twitter.com/html5doctor">@HTML5Doctor</a></li>
+                <li class="friendfeed"><a href="http://friendfeed.com/html5doctor">HTML5Doctor</a></li>
+				<li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+				<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>                               
+            </ul>
+        </section>
+	    <section>      
+	    	<h3>HTML5Gallery Links</h3>
+            <ul>
+				<li class="html5"><a href="http://html5gallery.com">HTML5Gallery</a></li>
+				<li class="rss"><a href="http://feeds2.feedburner.com/html5gallery">HTML5Gallery RSS</a></li>
+                <li class="twitter"><a href="http://twitter.com/html5gallery">@HTML5Gallery</a></li>
+                <li class="delicious"><a href="http://delicious.com/html5gallery">HTML5Gallery</a></li>                
+                <li class="friendfeed"><a href="http://friendfeed.com/html5gallery">HTML5Gallery</a></li>
+                <li class="vimeo"><a href="http://www.vimeo.com/html5gallery">HTML5Gallery</a></li> 
+            </ul>            
+		</section>        
+	    <section>        
+	    	<h3>Got a subject idea?</h3>
+	        <p>Got an idea for the types of subjects you'd like us to cover? If you have, then why not <a href="/contact/">send them to us</a>.</p>
+		</section>
+</aside>
+
+
+<footer role="contentinfo">
+	<p><small>This site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/uk/">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. <br>Some authors will retain their copyright on certain articles.</small></p>
+    <p><small>Hosted with <a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com">MediaTemple</a></small></p>
+</footer>
+
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5doc.js"></script>
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/prettify.js"></script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8916679-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>  
+
+</body>
+</html>

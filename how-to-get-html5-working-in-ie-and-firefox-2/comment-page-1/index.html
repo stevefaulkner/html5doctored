@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset=utf-8> <!-- simplified version; works on legacy browsers -->
+  <title>
+      How to get HTML5 working in IE and Firefox 2 | HTML5 Doctor  </title>
+
+<meta name="description" content="HTML5 may be the latest and greatest technology, but some browsers don&#8217;t have native support for the new semantic elements.  Let&#8217;s forget for a minute about the even sexier functionality that the elements can bring, such as full control over the &#60;video&#62; element, and just focus on getting the elements to be rendered.
+
+The problematic [...]" />
+	
+    
+    
+    
+  <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/style.css">
+  
+     
+  
+  <!--[if IE]>
+    <script src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" media="screen,projection" href="http://html5doctor.com/wp-content/themes/html5doctor/css/ie7.css">
+  <![endif]-->  
+
+	<link rel="shortcut icon" href="http://html5doctor.com/wp-content/themes/html5doctor/img/favicon.ico" type="image/x-icon" />
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor RSS Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/atom+xml" title="HTML5 Doctor Atom Feed" href="http://feeds2.feedburner.com/html5doctor" />
+  <link rel="alternate" type="application/rss+xml" title="HTML5Doctor Comments RSS Feed" href="http://feeds.feedburner.com/HTML5DoctorComments" />
+  <link rel="pingback" href="http://html5doctor.com/xmlrpc.php" />
+
+
+
+  <link rel="alternate" type="application/rss+xml" title="HTML5 Doctor &raquo; How to get HTML5 working in IE and Firefox 2 Comments Feed" href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/feed/" />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://html5doctor.com/wp-content/plugins/contact-form-7/stylesheet.css?ver=2.0.6' type='text/css' media='all' />
+<link rel='stylesheet' id='sociable-front-css-css'  href='http://html5doctor.com/wp-content/plugins/sociable/sociable.css?ver=2.8.5' type='text/css' media='' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://html5doctor.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.50' type='text/css' media='all' />
+<script type='text/javascript' src='http://html5doctor.com/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://html5doctor.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://html5doctor.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='HTML5 Doctor' href='http://html5doctor.com' />
+<link rel='start' title='Designing a blog with html5' href='http://html5doctor.com/designing-a-blog-with-html5/' />
+<link rel='prev' title='Understanding aside' href='http://html5doctor.com/understanding-aside/' />
+<link rel='next' title='The footer element' href='http://html5doctor.com/the-footer-element/' />
+<meta name="generator" content="WordPress 2.8.5" />
+</head>
+<body class="wordpress single">
+
+<nav id="skipLink">
+	<ul>
+    	<li><a href="#nav">Skip to primary navigation</a></li>
+        <li><a href="#content">Skip to main content</a></li>
+        <li><a href="#sidebar">Skip to sidebar</a></li>
+    </ul>
+</nav>
+
+<header role="banner">
+    <hgroup>
+        <h1 class="logo"><a href="http://html5doctor.com/">HTML5 Doctor</a></h1>
+        <h2 class="strapline">helping you implement HTML5 today</h2>
+    </hgroup>
+</header>
+  
+<nav>
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>  
+<div id="content">
+
+<div class="hfeed" role="main">
+      	<article class="hentry" id="post-134">
+	  <header>
+	    <h1 class="entry-title">How to get HTML5 working in IE and Firefox 2</h1>
+	  </header>
+	  <section class="entry-content">
+      
+		        
+	    <p>HTML5 may be the latest and greatest technology, but <em>some</em> browsers don&#8217;t have native support for the new semantic elements.  Let&#8217;s forget for a minute about the even sexier functionality that the elements can bring, such as <a href="http://html5doctor.com/the-video-element/">full control over the <code>&lt;video&gt;</code> element</a>, and just focus on getting the elements to be rendered.</p>
+
+<p>The problematic <a href="http://developer.yahoo.com/yui/articles/gbs/"><em>a-grade browsers</em></a> are: IE8 and below, and Firefox 2 and Camino 1 (these two browsers use the same rendering engine, which is why they&#8217;re both affected).
+<span id="more-134"></span></p>
+
+<h2>IE doesn&#8217;t style HTML5 elements</h2>
+
+<p>IE has it&#8217;s own set of issues compared to the Firefox issues which I&#8217;ll discuss next.  IE quite simply doesn&#8217;t <em>see</em> the elements for them to be styled.</p>
+
+<p>This means if you have an <code>&lt;aside&gt;</code> that floats to the right, IE isn&#8217;t going to style the element what so ever, because it just doesn&#8217;t acknowledge it&#8217;s existence.</p>
+
+<p>In fact, this is exactly the same issue that we had before HTML5, where the <code>&lt;abbr&gt;</code> element couldn&#8217;t be styled in IE6 &#8211; so <a href="http://www.sovavsiti.cz/css/abbr.html">all manner</a> of <a href="http://dean.edwards.name/my/abbr-cadabra.html">work arounds</a> were created (let me add that we&#8217;ll also fix the <code>&lt;abbr&gt;</code> element while we fix IE to recognise HTML5).</p>
+
+<h3>The fix</h3>
+
+<p>There is hope! We can use JavaScript to trigger those elements under IE&#8217;s nose so that you&#8217;re able to style.  This fix works in IE6 and above (the a-grade browsers).</p>
+
+<p>This is achieved by using an <a href="http://ejohn.org/blog/html5-shiv/">HTML5 <em>shiv</em></a> posted by <a href="http://intertwingly.net/blog/2008/01/22/Best-Standards-Support#c1201006277">Sjoerd Visscher</a>.</p>
+
+<p>The fix is to simply create the new element using JavaScript, and voilà, IE is able to style the elements:</p>
+
+<pre><code>document.createElement('header');</code></pre>
+
+<p>For example, say you wanted to style the <code>&lt;time&gt;</code> element to italics, here&#8217;s the problem we see:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Header test&lt;/title&gt;
+  &lt;style&gt;
+  time { font-style: italic; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;time datetime="2009-09-13"&gt;my birthday&lt;/time&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>In IE <a href="http://jsbin.com/urawa"><em>before</em></a> we apply the fix:</p>
+
+<p><img class="alignnone size-full wp-image-143" title="IE without HTML5 style" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-without.png" alt="IE without HTML5 style" width="570" height="337" /></p>
+
+<p>And now by including the fix:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Header test&lt;/title&gt;
+  &lt;style&gt;
+  time { font-style: italic; }
+  &lt;/style&gt;
+  <strong>&lt;script&gt;document.createElement('time');&lt;/script&gt;</strong>
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;time datetime="2009-09-13"&gt;my birthday&lt;/time&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>And now <a href="http://jsbin.com/iduto">after</a> we have the fix &#8211; it&#8217;s correctly styled:</p>
+
+<p><img class="alignnone size-full wp-image-142" title="IE with HTML5 style" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-with.png" alt="IE with HTML5 style" width="565" height="327" /></p>
+
+<h3>One hit solution</h3>
+
+<p>For convenience, I wrote a single JavaScript file that can be included to trigger all the HTML5 elements (and the &lt;abbr&gt; element) in to existence for IE.</p>
+
+<p><a href="http://remysharp.com/downloads/html5.js">Download the IE HTML5 enabling script</a></p>
+
+<p>Include the script in your &lt;head&gt; tag and it will allow you to style the elements appropriately in IE:</p>
+
+<pre><code>&lt;!--[if lte IE 8]&gt;
+&lt;script src="html5.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;</code></pre>
+
+<p>Note that I&#8217;ve used a conditional comment to only apply this to IE8 and below.  It&#8217;s my hope that IE9 and onwards will support HTML5 elements &#8211; but when that day comes, make sure to double check the conditional!</p>
+
+<h3>Conditions &amp; Gotchas</h3>
+
+<h4>JavaScript required</h4>
+
+<p>Of course this means that you design now depends on JavaScript.  My personal feeling on this, is if you&#8217;ve used semantic markup for your site, then when the elements can&#8217;t be styled, the content is still completely readable.</p>
+
+<p>Here&#8217;s a screenshot of the Full Frontal web site, written using HTML5 elements, with and without JavaScript enabled in IE &#8211; you can see the content is still readable because it cascades down correctly (similarly as if CSS was disabled):</p>
+
+<p><img class="alignnone size-full wp-image-141" title="IE with and without JavaScript to fix HTML5" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-js-fix-compare.png" alt="IE with and without JavaScript to fix HTML5" width="600" height="304" /></p>
+
+<h4 id="a-little-head">A little head is always good</h4>
+
+<p>If you create the new element, and don&#8217;t use a <code>&lt;body&gt;</code> tag (which is perfectly valid), IE will put all those created elements inside the <code>&lt;head&gt;</code> tag. Pretty crazy, but something that&#8217;s easily avoided if you always use the <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> tags in your markup.  <a href="http://blog.whatwg.org/supporting-new-elements-in-ie#comment-40743">Leif Halvard explains further with demos</a></p>
+
+<h2>Firefox 2 and Camino rendering bug</h2>
+
+<p>Both Firefox 2 and Camino run have a bug in the render engine, specifically the versions prior to 1.9b5:</p>
+
+<blockquote>
+<p>Firefox 2 (or any other Gecko-based browser with a Gecko version pre 1.9b5) has a parsing bug where it will close an unknown element when it sees the start tag of a &#8220;block&#8221; element like p, h1, div, and so forth.</p>
+</blockquote>
+
+<p>According to the <a href="http://www.w3schools.com/browsers/browsers_firefox.asp">W3 Schools stats</a>, Firefox 2 only has around 3% of the market &#8211; which may be low enough to justify ignoring.</p>
+
+<p>However, without addressing this issue, a site can look really quite bad in these rendering engines.</p>
+
+<p>The bug is to do with how the Gecko rendering engine doesn&#8217;t recognise the new elements.  Roughly explained: when Gecko runs in to an unknown element, in removes it&#8217;s contents, and puts it next to the element.</p>
+
+<p>For example, the following code:</p>
+
+<pre><code>&lt;body&gt;
+  &lt;header&gt;&lt;h1&gt;Title&lt;/h1&gt;&lt;/header&gt;
+  &lt;article&gt;&lt;p&gt;...&lt;/p&gt;&lt;/article&gt;
+&lt;/body&gt;</code></pre>
+
+<p>Is rendered as if the markup were:</p>
+
+<pre><code>&lt;body&gt;
+  &lt;header&gt;&lt;/header&gt;
+  &lt;h1&gt;Title&lt;/h1&gt;
+  &lt;article&gt;&lt;/article&gt;
+  &lt;p&gt;...&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+
+<p>The visual result is similar to IE running without JavaScript &#8211; though subtly different, as the DOM tree is actually in a different order to how you intended as an author.</p>
+
+<h3>The fix</h3>
+
+<p>There&#8217;s two approaches to fixing this issue, and so far I&#8217;ve only successfully been able to use the non-JavaScript approach.</p>
+
+<p>The JavaScript approach is to cycle through the DOM tree rearranging the elements as the issues are encountered.</p>
+
+<p>Simon Pieters has a <a href="http://blog.whatwg.org/supporting-new-elements-in-firefox-2">small working example</a> of how this can be done (towards the bottom of the page), however in practise I <em>personally</em> found it didn&#8217;t work for my markup.  It&#8217;s definitely solvable using JavaScript, but it still needs work to have something that works for all permutations of markup.</p>
+
+<p>The second approach is to serve Gecko XHTML.  I&#8217;ve found this to be the easier approach if you&#8217;re either generating a page dynamically using something like PHP, or if you can create your own .htaccess file to make use of mod_rewrite.</p>
+
+<h4>XHTML</h4>
+
+<p>The first change in the markup you need to include is the <code>&lt;html&gt;</code> tag needs the <code>xmlns</code> attribute &#8211; so add this to all your pages:</p>
+
+<pre><code>&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;</code></pre>
+
+<p>Next we need to sniff the user agent string (typically a bad approach, but justifiable for our 3% of Firefox users).  If the Gecko build is less than 1.9 then we need to serve the content type as <code>application/xhtml+xml</code>.</p>
+
+<p>If you want to use mod_rewrite in an .htaccess file (or the httpd.conf file), you need the following rules:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI} \.html$
+RewriteCond %{HTTP_USER_AGENT} rv:1\.(([1-8]|9pre|9a|9b[0-4])\.[0-9.]+).*Gecko
+RewriteRule .* - [T=application/xhtml+xml]</code></pre>
+
+<p>This rule sends the xhtml content-type to all Gecko based browsers where version is less than 1.9, or &#8220;rv:1.9pre&#8221; or &#8220;rv:1.9a&#8221; or &#8220;rv:1.9bx&#8221; where x is less than 5.</p>
+
+<p>If you don&#8217;t want to use the mod_rewrite approach, you&#8217;ll need to manually send the header in your server side scripts.</p>
+
+<p>Here&#8217;s the solution for a PHP script:</p>
+
+<pre><code>if (preg_match('/rv:1\.(([1-8]|9pre|9a|9b[0-4])\.[0-9.]+).*Gecko/', $_SERVER['HTTP_USER_AGENT'])) {
+    header('Content-type: application/xhtml+xml');
+}</code></pre>
+
+<p>This snippet needs to be the first thing that&#8217;s printed by your script &#8211; i.e. as early as possible in your code.</p>
+
+<h3>Gotcha: Yellow Screen of Death</h3>
+
+<p>The Yellow Screen of Death is where there&#8217;s an XML error on the page.  If we&#8217;re serving markup as XML and telling the browser to strictly interpret this as XML, if we serve any characters it doesn&#8217;t know about, it&#8217;s going to bork:</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/4/48/Yellow_screen_of_death.png" alt="Yellow Screen of Death" title="" /></p>
+
+<p>There&#8217;s a few places where this can be a problem.</p>
+
+<h4>Strict markup</h4>
+
+<p>You need to ensure your markup is squeaky clean, but that&#8217;s easy, because you&#8217;re already a markup Jedi, right?</p>
+
+<h4>HTML entities</h4>
+
+<p>HTML entities are a no-no. i.e. <code>&amp;bull;</code> isn&#8217;t going to fly. You need to use XML entities &#8211; which are the numerical representation of these characters.</p>
+
+<p>I built a tool a while back that shows you the HTML entity and the XML value of that entity so you can look them up: <a href="http://leftlogic.com/lounge/articles/entity-lookup/">HTML entity lookup</a>.</p>
+
+<p>For example: <code>&amp;bull;</code> is 8226, so the XML entity is <code>&amp;#8226;</code>.</p>
+
+<h4>User generated content</h4>
+
+<p>If your site relies on any user generated content, for example: blog comments, then you need to sanitise the output to ensure there&#8217;s no validation issues to trigger the Yellow Screen of Death.</p>
+
+<p>This last issue alone may be justification to investigate the JavaScript solution further.</p>
+
+<p>That all said and done, Firefox has a very good automated upgrade path, and looking at the <a href="http://www.w3schools.com/browsers/browsers_firefox.asp">stats on W3Schools</a>, I think it&#8217;s safe to say the market share with this Gecko bug is going to deplete very quickly to nothing.</p>
+
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="http://blog.whatwg.org/supporting-new-elements-in-firefox-2">Firefox 2 rendering issue on WHATWG Blog</a></li>
+<li><a href="http://blog.whatwg.org/supporting-new-elements-in-ie#comment-40743">IE / missing head tag issue</a></li>
+<li><a href="http://ejohn.org/blog/html5-shiv/">HTML5 shiv</a></li>
+<li><a href="http://remysharp.com/2009/01/07/html5-enabling-script/">HTML5 enabling script</a></li>
+</ul>
+
+<div class="sociable">
+<div class="sociable_tagline">
+<h5>Share and Save:</h5>
+</div>
+
+<ul>
+    <li class="sociablefirst"><a rel="nofollow" id="twitter"  href="http://twitter.com/home?status=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202%20-%20http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F" title="Twitter"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Twitter" alt="Twitter" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -55px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="digg"  href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202&amp;bodytext=HTML5%20may%20be%20the%20latest%20and%20greatest%20technology%2C%20but%20%2Asome%2A%20browsers%20don%27t%20have%20native%20support%20for%20the%20new%20semantic%20elements.%20%20Let%27s%20forget%20for%20a%20minute%20about%20the%20even%20sexier%20functionality%20that%20the%20elements%20can%20bring%2C%20such%20as%20%5Bfull%20control%20over%20the%20%26" title="Digg"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Digg" alt="Digg" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-235px -1px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="sphinn"  href="http://sphinn.com/index.php?c=post&amp;m=submit&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F" title="Sphinn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Sphinn" alt="Sphinn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -55px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="reddit"  href="http://reddit.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202" title="Reddit"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Reddit" alt="Reddit" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-55px -55px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="del.icio.us"  href="http://delicious.com/post?url=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202&amp;notes=HTML5%20may%20be%20the%20latest%20and%20greatest%20technology%2C%20but%20%2Asome%2A%20browsers%20don%27t%20have%20native%20support%20for%20the%20new%20semantic%20elements.%20%20Let%27s%20forget%20for%20a%20minute%20about%20the%20even%20sexier%20functionality%20that%20the%20elements%20can%20bring%2C%20such%20as%20%5Bfull%20control%20over%20the%20%26" title="del.icio.us"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="del.icio.us" alt="del.icio.us" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -1px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="stumbleupon"  href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202" title="StumbleUpon"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="StumbleUpon" alt="StumbleUpon" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -55px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="technorati"  href="http://technorati.com/faves?add=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F" title="Technorati"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Technorati" alt="Technorati" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-271px -55px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="netvibes"  href="http://www.netvibes.com/share?title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F" title="Netvibes"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Netvibes" alt="Netvibes" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -37px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="facebook"  href="http://www.facebook.com/share.php?u=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;t=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202" title="Facebook"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Facebook" alt="Facebook" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -1px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="google"  href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202&amp;annotation=HTML5%20may%20be%20the%20latest%20and%20greatest%20technology%2C%20but%20%2Asome%2A%20browsers%20don%27t%20have%20native%20support%20for%20the%20new%20semantic%20elements.%20%20Let%27s%20forget%20for%20a%20minute%20about%20the%20even%20sexier%20functionality%20that%20the%20elements%20can%20bring%2C%20such%20as%20%5Bfull%20control%20over%20the%20%26" title="Google Bookmarks"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Google Bookmarks" alt="Google Bookmarks" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-91px -19px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="friendfeed"  href="http://www.friendfeed.com/share?title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202&amp;link=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F" title="FriendFeed"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="FriendFeed" alt="FriendFeed" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-37px -19px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="hackernews"  href="http://news.ycombinator.com/submitlink?u=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;t=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202" title="HackerNews"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="HackerNews" alt="HackerNews" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-127px -19px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="linkedin"  href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202&amp;source=HTML5+Doctor+helping+you+implement+HTML5+today&amp;summary=HTML5%20may%20be%20the%20latest%20and%20greatest%20technology%2C%20but%20%2Asome%2A%20browsers%20don%27t%20have%20native%20support%20for%20the%20new%20semantic%20elements.%20%20Let%27s%20forget%20for%20a%20minute%20about%20the%20even%20sexier%20functionality%20that%20the%20elements%20can%20bring%2C%20such%20as%20%5Bfull%20control%20over%20the%20%26" title="LinkedIn"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="LinkedIn" alt="LinkedIn" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-1px -37px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="newsvine"  href="http://www.newsvine.com/_tools/seed&amp;save?u=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;h=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202" title="NewsVine"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="NewsVine" alt="NewsVine" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-217px -37px" class="sociable-hovers" /></a></li>
+    <li><a rel="nofollow" id="sphereit"  href="http://www.sphere.com/search?q=sphereit:http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;title=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202" title="SphereIt"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="SphereIt" alt="SphereIt" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-181px -55px" class="sociable-hovers" /></a></li>
+    <li class="sociablelast"><a rel="nofollow" id="tumblr"  href="http://www.tumblr.com/share?v=3&amp;u=http%3A%2F%2Fhtml5doctor.com%2Fhow-to-get-html5-working-in-ie-and-firefox-2%2F&amp;t=How%20to%20get%20HTML5%20working%20in%20IE%20and%20Firefox%202&amp;s=HTML5%20may%20be%20the%20latest%20and%20greatest%20technology%2C%20but%20%2Asome%2A%20browsers%20don%27t%20have%20native%20support%20for%20the%20new%20semantic%20elements.%20%20Let%27s%20forget%20for%20a%20minute%20about%20the%20even%20sexier%20functionality%20that%20the%20elements%20can%20bring%2C%20such%20as%20%5Bfull%20control%20over%20the%20%26" title="Tumblr"><img src="http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.gif" title="Tumblr" alt="Tumblr" style="width: 16px; height: 16px; background: transparent url(http://html5doctor.com/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-325px -55px" class="sociable-hovers" /></a></li>
+</ul>
+
+<p></div></p>
+	  </section>
+	  <footer>
+    		<div>
+                <div class="author-blurb author">
+            	<p class="vcard">This article was written by <span class="fn"><a href="http://html5doctor.com/author/remys/" title="Posts by Remy Sharp">Remy Sharp</a></span>. Remy (<a href="http://twitter.com/rem">@rem</a> on Twitter) is the founder of <a href="http://jqueryfordesigners.com">jQuery for Designers</a> and the <a href="http://full-frontal.org">Full Frontal JavaScript conference</a>, otherwise he's a developer and blogger.
+
+Generally speaking, he's about as crazy about JavaScript, HTML &amp; CSS as a squirrel is about his nuts during the winter.</p>
+               <img alt='' src='http://www.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' />
+            	</div>
+                
+            	<span>Posted on <time class="published updated" datetime="2009-06-20">June 20th, 2009</time></span>
+                
+				<p>				Got anything to add or ask? <a href="#respond">then leave a response</a>,<br />or <a href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/trackback/" rel="trackback">trackback</a> from your own site.
+				            </div>
+            <p>Categorised under: <a href="http://html5doctor.com/category/browser-compatibility/" title="View all posts in Browser Compatibility" rel="category tag">Browser Compatibility</a>,  <a href="http://html5doctor.com/category/structure/" title="View all posts in Structure" rel="category tag">Structure</a>.</p>
+            <p>Tagged with: <a href="http://html5doctor.com/tag/bugs/" rel="tag">bugs</a>, <a href="http://html5doctor.com/tag/firefox/" rel="tag">firefox</a>, <a href="http://html5doctor.com/tag/html-5/" rel="tag">HTML 5</a>, <a href="http://html5doctor.com/tag/ie/" rel="tag">ie</a>, <a href="http://html5doctor.com/tag/javascript/" rel="tag">javascript</a>.</p>
+	  </footer>
+      </article>
+	    
+<!-- You can start editing here. -->
+<section id="comments">
+    <h3 id="comment-head">
+    49 Responses    to &#8220;
+    How to get HTML5 working in IE and Firefox 2    &#8221;</h3>
+<article class=" " id="comment-6">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ryanroberts.co.uk/' rel='external nofollow' class='url'>Ryan Roberts</a></cite> at <a class="commentmetadata" href="#comment-6">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        4:59 am    </time></a></p>
+            <p>Great article, this has cleared up a few mind boggling issues I&#8217;ve had with Firefox 2. I already knew about the IE fix but your Javascript file looks even better.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/8f77a5ece97f1604a21fe075132d8589?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-9">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://paulrobertlloyd.com' rel='external nofollow' class='url'>Paul Lloyd</a></cite> at <a class="commentmetadata" href="#comment-9">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        5:28 am    </time></a></p>
+            <p>After this weekend&#8217;s standrads.next meet-up, I wondered whether there was an alternative workaround to the IE issue, by using IE&#8217;s HTC (HTML Components) functionality.  Quickly looking over the documentation I was able to find that you can create new elements with this tool, but they have to be name spaced.  I only know enough to be dangerous however – is there any milage investigating a solution that follows this route at all?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/576de953e15b2f724b05332d040393f8?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-13">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Greg Hemphill</cite> at <a class="commentmetadata" href="#comment-13">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        5:46 am    </time></a></p>
+            <p>This IE hack looks very promising&#8230; makes me think using html 5 is going to be a viable option sooner than I had thought.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/fd282b0351815bc78fa28dd5e17c30ec?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-15">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Anon</cite> at <a class="commentmetadata" href="#comment-15">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        6:00 am    </time></a></p>
+            <p>Your link for &#8216;a-grade browsers&#8217; is broken&#8230;</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/57827c653bcfac737941e1c73c2a9728?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" author_comment" id="comment-16">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> at <a class="commentmetadata" href="#comment-16">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        6:10 am    </time></a></p>
+            <p>@Paul &#8211; I know what you mean about the HTC solution, and there <em>are</em> a couple of &#8220;solutions&#8221; to getting HTML5 elements to being styled without JavaScript.</p>
+<p>First up &#8211; HTC, <a href="http://dean.edwards.name/my/abbr-cadabra.html" rel="nofollow">Dean Edwards&#8217; <code>&lt;abbr&gt;</code></a> solution, but it requires the markup to be prefixed with <code>html:</code>.  Frankly, if I have to prefix every element with <code>html:</code> it&#8217;s going to really mess with the markup, and having to maintain it <img src='http://html5doctor.com/wp-includes/images/smilies/icon_sad.gif' alt=':-(' class='wp-smiley' /> </p>
+<p>The second solution was via the <a href="http://blog.whatwg.org/styling-ie-noscript" rel="nofollow">WHATWG blog</a>, which does work for a certain amount of markup, but as Simon points out, it&#8217;s not particularly scalable, specifically, you still can&#8217;t style the HTML5 elements, only those elements within those new elements, i.e. you can style:</p>
+<pre><code>article + header + h1 + p { font-weight:bold }</code></pre>
+<p>using: </p>
+<pre><code> body > * + * + h1 + p { font-weight:bold }</code>
+</pre>    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-19">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Dylan Parry</cite> at <a class="commentmetadata" href="#comment-19">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        6:32 am    </time></a></p>
+            <p>I’m probably alone here, but I really don’t understand what you’re trying to say in the section “A LITTLE HEAD IS ALWAYS GOOD”. The link to a further explanation, with examples, left me even more confused than before I’d read it!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/adf1713ee965aae74c896e8991d6340e?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-21">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Ken</cite> at <a class="commentmetadata" href="#comment-21">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        7:06 am    </time></a></p>
+            <p>&#8220;If you create the new element, and don’t use a tag (which is perfectly valid), IE will put all those created elements inside the tag.&#8221;</p>
+<p>I&#8217;ve read this sentence 10 times and I still have no clue what it means.  (There&#8217;s no tag, but it puts elements in &#8230; what?)</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/97d540da0aee796ba07e9420099552b4?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt author_comment" id="comment-22">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> at <a class="commentmetadata" href="#comment-22">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        7:33 am    </time></a></p>
+            <p>@Dylan + @Ken &#8211; damn, some markup has been stripped from the post. It&#8217;s missing the word &lt;head&gt; before the word &#8216;tag&#8217; in both instances.  I&#8217;m updating the post now to get the code back in.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-24">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Sven</cite> at <a class="commentmetadata" href="#comment-24">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 29th, 2009        at
+        8:48 am    </time></a></p>
+            <p>Actually, &amp; is a bad example for an invalid HTML entity because it is also a XML entity and every parser should understand it (the other XML entities are &quot;, &apos;, &lt; and &gt;). But you could always use the numerical entities, of course.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/db1e123fa15bc06bfb85bcf70e99cfd7?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-40">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.anieto2k.com/2009/06/30/disfruta-de-html5-en-internet-explorer-y-firefox-2/' rel='external nofollow' class='url'>Disfruta de HTML5 en Internet Explorer y Firefox 2 | aNieto2K</a></cite> at <a class="commentmetadata" href="#comment-40">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 30th, 2009        at
+        3:02 pm    </time></a></p>
+            <p>[...] sus nuevas capacidades. Y es que cada vez más los navegadores lo están adoptando, aunque aún es muy pronto para poder usarlo libremente sin preocuparnos de navegadores menos modernizados (IE8 e inferiores, Firefox [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-42">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blogografia.com/disfruta-de-html5-en-internet-explorer-y-firefox-2.html' rel='external nofollow' class='url'>Disfruta de HTML5 en Internet Explorer y Firefox 2 : Blogografia</a></cite> at <a class="commentmetadata" href="#comment-42">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 30th, 2009        at
+        3:23 pm    </time></a></p>
+            <p>[...] sus nuevas capacidades. Y es que cada vez más los navegadores lo están adoptando, aunque aún es muy pronto para poder usarlo libremente sin preocuparnos de navegadores menos modernizados (IE8 e inferiores, Firefox [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-49">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://geek.michaelgrace.org/webnet/story.php?id=28' rel='external nofollow' class='url'>pligg.com</a></cite> at <a class="commentmetadata" href="#comment-49">
+    <time datetime="2009-06-20T9:05+00:00">
+        June 30th, 2009        at
+        10:28 pm    </time></a></p>
+            <p><strong>Get HTML5 working in IE&#8230;</strong></p>
+<p>If your wanting to start using HTML5 and have your site work in IE also, this post will help you learn how to make that happen. Go HTML5!&#8230;</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-52">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://jasper22.wordpress.com/2009/07/01/how-to-get-html5-working-in-ie-and-firefox-2/' rel='external nofollow' class='url'>How to get HTML5 working in IE and Firefox 2 &laquo; Jasper Blog</a></cite> at <a class="commentmetadata" href="#comment-52">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 1st, 2009        at
+        8:45 am    </time></a></p>
+            <p>[...] Read more:&nbsp; &lt;html&gt;5doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-95">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.d-b.lt/2009/07/html5-naudoti-negalima-laukti.html' rel='external nofollow' class='url'>&raquo; HTML5: naudoti negalima laukti - Kaip tapti ekspertu?</a></cite> at <a class="commentmetadata" href="#comment-95">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 5th, 2009        at
+        10:15 pm    </time></a></p>
+            <p>[...] taipogi nenori pripažinti naujų žymų ir pritaikyti joms stilių, tačiau tai nesunkiai išsprendžiama Javascript pagalba. Jeigu vien Javascript sprendimas netenkina (unobtrussive, progressive enhancement, etc) &#8211; [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-110">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Torrance</cite> at <a class="commentmetadata" href="#comment-110">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 8th, 2009        at
+        4:01 am    </time></a></p>
+            <p>Erm, let me escape my tags. That should have read:</p>
+<p>If you create the new element, and don’t use a &lt;BODY&gt; tag (which is perfectly valid), IE will put all those created elements inside the &lt;head&gt; tag. Pretty crazy, but something that’s easily avoided if you always use the &lt;BODY&gt; tag in your markup</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/95ae692d877bc65b8a2f9b5bbfa06c40?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-111">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ejohn.org/blog/html-5-parsing/' rel='external nofollow' class='url'>John Resig - HTML 5 Parsing</a></cite> at <a class="commentmetadata" href="#comment-111">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 8th, 2009        at
+        4:01 am    </time></a></p>
+            <p>[...] there you can check the site HTML 5 Doctor for additional details on how to get the new HTML 5 elements working in all [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" author_comment" id="comment-112">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> at <a class="commentmetadata" href="#comment-112">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 8th, 2009        at
+        4:21 am    </time></a></p>
+            <p>@Torrance &#8211; darnit! You&#8217;re right, thanks &#8211; corrected!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-120">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.ldexterldesign.co.uk/' rel='external nofollow' class='url'>Lewis Litanzios</a></cite> at <a class="commentmetadata" href="#comment-120">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 9th, 2009        at
+        2:21 am    </time></a></p>
+            <p>&#8216;A little head is always good&#8217; &#8211; you joker, haha. Cheers for ya time.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/a0760401b84fb37554c3e2698bc2f328?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-130">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://joshbabetski.com/notebook/2009/07/delicious-bookmarks-2009-07-04-2009-07-09' rel='external nofollow' class='url'>Delicious Bookmarks (2009-07-04 - 2009-07-09) | Josh Babetski : Quixotic Bravado</a></cite> at <a class="commentmetadata" href="#comment-130">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 10th, 2009        at
+        3:05 am    </time></a></p>
+            <p>[...] How to get HTML5 working in IE and Firefox 2 | HTML5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-131">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.engageinteractive.co.uk/blog/2009/07/10/eternal-moonwalk-html-5-doctor-and-more/' rel='external nofollow' class='url'>Eternal Moonwalk, HTML 5 Doctor and more | Engage Interactive Blog | Web design Harrogate</a></cite> at <a class="commentmetadata" href="#comment-131">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 10th, 2009        at
+        9:28 am    </time></a></p>
+            <p>[...] got an especially useful article about implementing HTML5 on Internet Explorer 6/7 and Firefox 2, so there&#8217;s no real excuse not to start embracing the technology, even on commercial [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-135">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">eric</cite> at <a class="commentmetadata" href="#comment-135">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 11th, 2009        at
+        1:43 am    </time></a></p>
+            <p>ie hack, bleh.<br />
+I&#8217;m just going to make a HUGE red error div at the top of my website for IE viewers telling them basically &#8220;gg dipship, you&#8217;re using ie, here&#8217;s a link to firefox.&#8221;</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/2bdf151206a13b59d7eca0227a390a91?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-179">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">zcorpan</cite> at <a class="commentmetadata" href="#comment-179">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 15th, 2009        at
+        8:23 am    </time></a></p>
+            <p>&amp; does fly because it&#8217;s one of the five predefined entities in XML.</p>
+<p>There are also another possible replacement for HTML entities in XML: just straight characters. There&#8217;s no need to escape non-ASCII if you&#8217;re using UTF-8.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/9767673d472c2f27307890c27061bca3?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-180">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">zcorpan</cite> at <a class="commentmetadata" href="#comment-180">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 15th, 2009        at
+        8:23 am    </time></a></p>
+            <p>s/&amp;/&amp;amp;/</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/9767673d472c2f27307890c27061bca3?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt author_comment" id="comment-185">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://remysharp.com/' rel='external nofollow' class='url'>Remy Sharp</a></cite> at <a class="commentmetadata" href="#comment-185">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 15th, 2009        at
+        9:26 am    </time></a></p>
+            <p>@Zcorpan &#8211; darn, I was going to use &amp;bull; as the example, but I wasn&#8217;t sure if people would know what I meant.  I&#8217;ll change the article to correct it.</p>
+<p>Regarding leaving the characters as plain &#8211; I couldn&#8217;t get this to work &#8211; and it threw up the yellow screen of death (this was with <a href="http://full-frontal.org" rel="nofollow">http://full-frontal.org</a> which uses UTF-8 encoding).  If you have an example of this working, then I&#8217;ll update the post.  It might be because my page is a polyglot document (works as both XHTML and HTML 5) but I doubt if this is the cause.</p>
+<p>Thanks for the catch!</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/c67399ae31afdbeb26e2ba24e4a31a8c?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-209">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://html-five.net/2009/07/16/64/' rel='external nofollow' class='url'>How to get HTML 5 working in IE and Firefox 2 // HTML Five</a></cite> at <a class="commentmetadata" href="#comment-209">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 16th, 2009        at
+        6:44 pm    </time></a></p>
+            <p>[...] HTML5 Doctor writes a detailed article on how to get HTML 5 working in IE and Firefox 2. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-226">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.css4design.com/blog/dom-vs-namespace-pour-implementer-html5-sur-ie6-ie7-firefox2-camino-etc' rel='external nofollow' class='url'>DOM vs namespace pour implémenter HTML5 sur IE6, IE7, Firefox2, Camino, etc.</a></cite> at <a class="commentmetadata" href="#comment-226">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 17th, 2009        at
+        4:14 pm    </time></a></p>
+            <p>[...] point sur les avantages et inconvénients de ces deux techniques, voici l&#8217;excellent article How to get HTML5 working in IE and Firefox 2 suggéré par Adrien Leygues dans le fil de discussion en [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-247">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Paymeplease</cite> at <a class="commentmetadata" href="#comment-247">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 18th, 2009        at
+        12:13 pm    </time></a></p>
+            <p>I must agree the Hack looks very promising</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/0ef4e026565cf2afd20e4c84e7d35727?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-259">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://stefanm.wordpress.com/2009/07/20/cool-articles-%e2%80%93-seo-blogging-internet-marketingjuly13-july19-2009/' rel='external nofollow' class='url'>Cool articles – SEO, blogging, internet marketing(july13-july19 2009) &laquo; Stefanm, my link collection</a></cite> at <a class="commentmetadata" href="#comment-259">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 20th, 2009        at
+        8:44 am    </time></a></p>
+            <p>[...] How to get HTML5 working in IE and Firefox 2(IE doesn’t style HTML5 elements, Firefox 2 and Camino rendering bug); [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-274">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.iheni.com/html5-tips-structure-doctype-aria/' rel='external nofollow' class='url'>HTML5 Tips: structral elements, Doctype and ARIA &raquo; iheni :: making the web worldwide</a></cite> at <a class="commentmetadata" href="#comment-274">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 21st, 2009        at
+        2:44 pm    </time></a></p>
+            <p>[...] 2 and Camino can be fixed using JavaScript or by serving Gecko XHTML. Getting HTML5 working on IE and Firefox 2 from HTML Doctor has a good article about how to do [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-347">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://blog.caointeractive.com/23-essential-html-5-resources/' rel='external nofollow' class='url'>CaoInteractive Blog &raquo; Blog Archive &raquo; 23 Essential HTML 5 Resources</a></cite> at <a class="commentmetadata" href="#comment-347">
+    <time datetime="2009-06-20T9:05+00:00">
+        July 27th, 2009        at
+        2:53 am    </time></a></p>
+            <p>[...] How to get HTML5 working in IE and Firefox 2 – Another great article from HTML 5 Doctor [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-447">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Adam</cite> at <a class="commentmetadata" href="#comment-447">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 1st, 2009        at
+        4:38 am    </time></a></p>
+            <p>Is there a way to stop IE complaining about the script activex security risk when defining the html5 elements it doens&#8217;t know yet?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/42c36e62e123408ac5ddfca3756a4b21?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-485">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://bwshome.1free.ws/WordPress/general/we-are-css-2-1-complient-html5-possibillities' rel='external nofollow' class='url'>BWS Blog &raquo; Blog Archive &raquo; We are CSS 2.1 Complient!!!! &#8211; HTML5 possibillities!!!!</a></cite> at <a class="commentmetadata" href="#comment-485">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 3rd, 2009        at
+        5:14 am    </time></a></p>
+            <p>[...] the HTML5 IE issues it would be best to check out: How to get HTML5 working in IE and Firefox 2. This should help solve a lot of issues and problems that IE presents when trying to render the [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-603">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://weboverhauls.com/dennislembree/blog/2009/08/07/html-5-resources/' rel='external nofollow' class='url'>Web Standards, Accessibility &amp; More &raquo; HTML 5 Resources</a></cite> at <a class="commentmetadata" href="#comment-603">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 8th, 2009        at
+        6:03 am    </time></a></p>
+            <p>[...] How to get HTML5 working in IE and Firefox 2 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-607">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://accesstechnews.wordpress.com/2009/08/08/html-5-resources/' rel='external nofollow' class='url'>HTML 5 Resources &laquo; AccessTech News</a></cite> at <a class="commentmetadata" href="#comment-607">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 8th, 2009        at
+        9:52 pm    </time></a></p>
+            <p>[...] How to get HTML5 working in IE and Firefox 2 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-608">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://thebatchannel.wordpress.com/2009/08/08/html-5-resources/' rel='external nofollow' class='url'>HTML 5 Resources &laquo; The BAT Channel</a></cite> at <a class="commentmetadata" href="#comment-608">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 8th, 2009        at
+        9:53 pm    </time></a></p>
+            <p>[...] How to get HTML5 working in IE and Firefox 2 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-635">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://remysharp.com/2009/08/10/defining-the-vomit-bug/' rel='external nofollow' class='url'>Defining The Vomit Bug</a></cite> at <a class="commentmetadata" href="#comment-635">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 10th, 2009        at
+        1:01 pm    </time></a></p>
+            <p>[...] The old Gecko engine (for Camino and Firefox 2) suffers from the same vomit bug when introducing new (or HTML5) elements (which can be fixed by serving as XHTML). [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-640">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.theodicius.net' rel='external nofollow' class='url'>Arlen</a></cite> at <a class="commentmetadata" href="#comment-640">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 10th, 2009        at
+        4:06 pm    </time></a></p>
+            <p>@paul &#8211; You can create elements inside the htc, but the existence of those elements doesn&#8217;t get passed out to the rendering engine without namespacing. So, I thought, why not simply create the new elements for the doc tree *inside* the HTC. Can do that, *and* those new elements can be seen and styled as HTML5 elements by the rendering engine. Success? Not quite. Because the new elements lack content, and since the unknown elements don&#8217;t exist in the DOM tree, you  can&#8217;t copy the content from them into your newly created and styled elements from the HTC.</p>
+<p>Bottom Line: If you wrote the content using div class=&#8221;html5name&#8221; an HTC could walk the tree and replace all the classed divs with the HTML5 elements, including their content, and CSS selectors based on HTML5 elements would find and style them. A lot of work for an IE-only solution, and that forces yu to send it non-html5 content.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/018792bdb5a433a0f8b40654c05566d3?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-760">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.protofunc.com/2009/08/16/meinung-zu-html5/' rel='external nofollow' class='url'>protofunc() &raquo; Meinung zu HTML5</a></cite> at <a class="commentmetadata" href="#comment-760">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 16th, 2009        at
+        7:44 pm    </time></a></p>
+            <p>[...] bzw. zu nutzen empfehlen. Die tollen HTML5-Elemente (nav, aside, header, footer..), die wir mit dreckigen Tricks nutzen könnten, bringen nichts. Kein Browser, kein Screenreader und auch keine ernstzunehmende [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-847">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.tripwiremagazine.com/design/html/25-great-html-5-resources-to-get-you-started.html' rel='external nofollow' class='url'>25+ Great HTML 5 Resources to Get You Started&nbsp;|&nbsp;tripwire magazine</a></cite> at <a class="commentmetadata" href="#comment-847">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 22nd, 2009        at
+        8:57 am    </time></a></p>
+            <p>[...] How to get HTML5 working in IE and Firefox 2 [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-884">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://topsy.com/tb/bit.ly/22PwIa' rel='external nofollow' class='url'>Twitter Trackbacks for How to get HTML5 working in IE and Firefox 2 | HTML5 Doctor [html5doctor.com] on Topsy.com</a></cite> at <a class="commentmetadata" href="#comment-884">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 28th, 2009        at
+        1:14 am    </time></a></p>
+            <p>[...] link is being shared on Twitter right now. @wevertonribeiro said Testando o HTML 5 no IE e firefox [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-892">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://codejoust.com/' rel='external nofollow' class='url'>CodeJoust</a></cite> at <a class="commentmetadata" href="#comment-892">
+    <time datetime="2009-06-20T9:05+00:00">
+        August 30th, 2009        at
+        4:25 am    </time></a></p>
+            <p>If you wish to streamline the creation of the xhtml5 elements consider putting them in a loop.<br />
+var el = ['section','date','aside']; for(x=0;x&lt;el.count;x++){document.createElement(el[x]);}</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/b96e4f3c5b1eb95587507aaabfe9ac2f?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1032">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://niteshrijal.com.np/?p=103' rel='external nofollow' class='url'>HTML 5</a></cite> at <a class="commentmetadata" href="#comment-1032">
+    <time datetime="2009-06-20T9:05+00:00">
+        September 18th, 2009        at
+        3:55 am    </time></a></p>
+            <p>[...] This solution seems like a good one, but it is not perfect, so you need to go a bit further if you want to achieve support in older browsers. The problem is that some browsers (such as Firefox 2, Camino 1, and all versions of Internet Explorer) don&#8217;t see the HTML 5 elements as unrecognised; they don&#8217;t see them at all! So text marked up with an HTML 5 element can&#8217;t be styled at all in these browsers, because the elements don&#8217;t exist in their eyes. There is a workaround for this, and it is explained in the HTML 5 doctor article How to get HTML5 working in IE and Firefox 2. [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-1140">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.andrew-brundle.com' rel='external nofollow' class='url'>andrew brundle</a></cite> at <a class="commentmetadata" href="#comment-1140">
+    <time datetime="2009-06-20T9:05+00:00">
+        September 26th, 2009        at
+        2:49 pm    </time></a></p>
+            <p>&lt;style&gt;<br />
+	HEADER, FOOTER, NAV, SECTION, ARTICLE{display:block}<br />
+	SECTION, .section{width: 1000px}<br />
+&lt;/style&gt;</p>
+<p>&lt;section&gt;<br />
+&lt;!&#8211;[if IE]&gt;&lt;div class=&quot;section&quot;&gt;&lt;![endif] &#8211;&gt;	</p>
+<p>&lt;!&#8211;[if IE]&gt;&lt;/div&gt;&lt;![endif] &#8211;&gt;<br />
+&lt;/section&gt;</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/675f4a0dead9e20f258e95e0e84a93e2?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1141">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.andrew-brundle.com' rel='external nofollow' class='url'>andrew brundle</a></cite> at <a class="commentmetadata" href="#comment-1141">
+    <time datetime="2009-06-20T9:05+00:00">
+        September 26th, 2009        at
+        2:52 pm    </time></a></p>
+            <p>I just posted the code snippet above to see how it looks on this blog. It seems okay!</p>
+<p>Anyway, this is the sort of code I personally will use. No JS, and it will work in IE.</p>
+<p>Messy, sure. But functional.</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/675f4a0dead9e20f258e95e0e84a93e2?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class=" " id="comment-1261">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://ieai.pieroxy.net' rel='external nofollow' class='url'>pieroxy</a></cite> at <a class="commentmetadata" href="#comment-1261">
+    <time datetime="2009-06-20T9:05+00:00">
+        October 5th, 2009        at
+        12:07 pm    </time></a></p>
+            <p>While not exactly on topic, I would suggest that people start using the &#8220;ie no more&#8221; or the &#8216;IE awareness initiative&#8221; (my website) to try to get rid of the old and unmanageable versions of IE as soon as possible. While pretty intrusive, these initiatives can at least inform people that there are alternatives to using IE6 !</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/9cf97d929ea4e28e73f3c86384d889c1?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+<article class="alt " id="comment-1294">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.brilang.com/2009/10/08/links-for-2009-10-08/' rel='external nofollow' class='url'>links for 2009-10-08&nbsp;|&nbsp;Brilang.com</a></cite> at <a class="commentmetadata" href="#comment-1294">
+    <time datetime="2009-06-20T9:05+00:00">
+        October 8th, 2009        at
+        8:03 am    </time></a></p>
+            <p>[...] How to get HTML5 working in IE and Firefox 2 | HTML5 Doctor (tags: html5) [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-1304">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://www.blog-html5.com/html5/html5-hack-pour-internet-explorer-partie-2/' rel='external nofollow' class='url'>Blog HTML5 &#8211; Également sur CSS3, le design Web et les standards &raquo; HTML5 Hack pour Internet Explorer (Partie 2)</a></cite> at <a class="commentmetadata" href="#comment-1304">
+    <time datetime="2009-06-20T9:05+00:00">
+        October 8th, 2009        at
+        2:50 pm    </time></a></p>
+            <p>[...] aussi cet article d’HTML5 Doctor qui explique comment utiliser HTML5 sous Firefox 2 et [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class="alt " id="comment-1338">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor"><a href='http://drewmaughan.com/weblog/2009.10/html-5-in-internet-explorer/' rel='external nofollow' class='url'>HTML 5 in Internet Explorer &laquo; DREWspective</a></cite> at <a class="commentmetadata" href="#comment-1338">
+    <time datetime="2009-06-20T9:05+00:00">
+        October 12th, 2009        at
+        11:15 am    </time></a></p>
+            <p>[...] there is a JavaScript hack that solves the problem, which I&#8217;ve just applied to the site.  addthis_url = [...]</p>
+    </div>
+    
+	    
+    
+	</article>
+<article class=" " id="comment-1451">
+	<div>
+	<p class="meta">Comment by <cite class="commentauthor">Simon</cite> at <a class="commentmetadata" href="#comment-1451">
+    <time datetime="2009-06-20T9:05+00:00">
+        October 22nd, 2009        at
+        4:27 pm    </time></a></p>
+            <p>can&#8217;t you just type its instead of it&#8217;s?</p>
+    </div>
+    
+	    
+    
+	<img alt='' src='http://www.gravatar.com/avatar/db6068696ae1d17f9e031e920f73e206?s=64&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></article>
+</section>
+<section id="respond">
+<h3>Leave a Reply</h3>
+<form action="http://html5doctor.com/wp-comments-post.php" method="post" id="commentform">
+        <p>
+        <label for="author">Name
+        (required)        </label>
+        <input required aria-required="true" type="text" name="author" id="author" value="" size="22" />
+    </p>
+    <p>
+        <label for="email">Email (will not be published)
+        (required)        </label>
+        <input required aria-required="true" type="email" name="email" id="email" value="" size="22"  />
+    </p>
+    <p>
+        <label for="url">Website</label>
+        <input type="url" name="url" id="url" value="" size="22"  />
+    </p>
+        <p>You can use these tags: &lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strong&gt;</p>
+    <p>You can also use &lt;code&gt;, and remember to use &amp;lt; and &amp;gt; for brackets.</p>
+    <p>
+        <label for="comment" class="screenreader">Enter comment</label>
+        <textarea required aria-required="true" name="comment" id="comment"  cols="40" rows="10"></textarea>
+        <input name="submit" type="submit" id="submit"  value="Submit Comment" />
+        <input type="hidden" name="comment_post_ID" value="134" />
+    </p>
+    
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+</form>
+</section>	
+			
+	
+<!--    <section class="ask-doctor">
+        <form action="">
+            <label>Got a question about html5? Ask the doctor....
+            <input type="text">
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+    </section>-->
+
+</div><!-- //end hfeed -->
+
+<div role="complementary" id="sidebar">
+
+<div role="search">
+	    <form id="searchform" method="get" action="http://html5doctor.com">
+
+      <div>
+
+        
+        <input id="s" name="s" type="text" value="Search" size="20" tabindex="1" onfocus="if (!this.reset) { this.value = ''; this.reset = true }" />
+
+        
+        <input id="searchsubmit" name="searchsubmit" class="btn" type="submit" value="Go" tabindex="2" />
+
+      </div>
+
+    </form> 
+</div>
+
+<div>
+	<ul class="ads">
+    	<li><a href="http://www.authenticjobs.com/?aff=dcacc"><img src="http://www.authenticjobs.com/img/aj_125x125.gif" alt="Post a job. Find one. authenticjobs.com" width="125" height="125" /></a></li>
+    	<li><a href="http://www.mediatemple.net/go/order/?refdom=richclarkdesign.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/mt-125x125-dk.png" alt="Proudly Hosted by Media Temple"></a></li>
+    </ul>
+</div>
+
+<div class="ask-banner">
+	<a href="/ask-the-doctor/"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/ask-doctor-banner.png" alt="Got a question about html5? Ask the doctor" /></a>
+</div>
+
+<section>
+	<h3>Recent Articles</h3>
+	<ul class="recent">
+			<li><a href='http://html5doctor.com/your-questions-answered-3/' title='Your Questions Answered #3'>Your Questions Answered #3</a></li>
+	<li><a href='http://html5doctor.com/why-designers-should-care-about-html5/' title='Why designers should care about HTML5'>Why designers should care about HTML5</a></li>
+	<li><a href='http://html5doctor.com/dd-details-wrong-again/' title='dd-details wrong again'>dd-details wrong again</a></li>
+	<li><a href='http://html5doctor.com/measure-up-with-the-meter-tag/' title='Measure up with the meter tag'>Measure up with the meter tag</a></li>
+	<li><a href='http://html5doctor.com/the-footer-element-update/' title='The Footer Element Update'>The Footer Element Update</a></li>
+	<li><a href='http://html5doctor.com/september-html5-spec-changes/' title='September HTML5 spec changes'>September HTML5 spec changes</a></li>
+	<li><a href='http://html5doctor.com/the-section-element/' title='The section element'>The section element</a></li>
+	<li><a href='http://html5doctor.com/absent-elements-and-validation/' title='Absent Elements and Validation'>Absent Elements and Validation</a></li>
+	<li><a href='http://html5doctor.com/its-bug-report-time/' title='It&#8217;s bug report time!'>It&#8217;s bug report time!</a></li>
+	<li><a href='http://html5doctor.com/your-questions-answered-2/' title='Your questions answered #2'>Your questions answered #2</a></li>
+	<li><a href='http://html5doctor.com/draw-attention-with-mark/' title='Draw attention with mark'>Draw attention with mark</a></li>
+	<li><a href='http://html5doctor.com/a-little-more-conversation-with-dialog/' title='A little more conversation with dialog'>A little more conversation with dialog</a></li>
+    </ul> 
+</section>
+
+<section>
+	<h3><abbr>HTML</abbr>5 Doctors (Authors)</h3>
+	<ul>
+    	<li><a href="/author/richc/">Richard Clark</a></li>
+    	<li><a href="/author/brucel/">Bruce Lawson</a></li>
+    	<li><a href="/author/jacko/">Jack Osborne</a></li>
+    	<li><a href="/author/miker/">Mike Robinson</a></li>
+    	<li><a href="/author/remys/">Remy Sharp</a></li>
+    	<li><a href="/author/toml/">Tom Leadbetter</a></li>
+    </ul>    
+</section>
+
+<section>
+	<h3>Contributing Authors</h3>
+	<ul>
+    	    	<li><a href="/author/cennyddb/">Cennydd Bowles</a></li>
+    	<li><a href="/author/markb/">Mark Boas</a></li>
+    </ul>    
+</section>
+
+<section>
+	<h3>Categories</h3>
+	<ul>
+    		<li class="cat-item cat-item-6"><a href="http://html5doctor.com/category/accessibility/" title="View all posts filed under Accessibility">Accessibility</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://html5doctor.com/category/attributes/" title="View all posts filed under Attributes">Attributes</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://html5doctor.com/category/boilerplates/" title="View all posts filed under Boilerplates">Boilerplates</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://html5doctor.com/category/browser-compatibility/" title="View all posts filed under Browser Compatibility">Browser Compatibility</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://html5doctor.com/category/comment/" title="View all posts filed under Comment">Comment</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://html5doctor.com/category/css/" title="View all posts filed under CSS">CSS</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://html5doctor.com/category/elements/" title="View all posts filed under Elements">Elements</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://html5doctor.com/category/javascript-apis/" title="View all posts filed under JavaScript APIs">JavaScript APIs</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://html5doctor.com/category/questions/" title="View all posts filed under Questions">Questions</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://html5doctor.com/category/quick-tips/" title="View all posts filed under Quick Tips">Quick Tips</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://html5doctor.com/category/specification-changes/" title="View all posts filed under Specification Changes">Specification Changes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://html5doctor.com/category/structure/" title="View all posts filed under Structure">Structure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://html5doctor.com/category/validation/" title="View all posts filed under Validation">Validation</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://html5doctor.com/category/wai-aria/" title="View all posts filed under WAI-ARIA">WAI-ARIA</a>
+</li>
+    </ul>    
+</section>
+
+<section>
+	<h3>About</h3>
+	<p>HTML5doctor is run by a bunch of volunteers that are passionate about making <abbr>HTML</abbr>5 happen here and now. Read more about them on the <a href="/about/">about page</a>.</p>    
+</section>
+
+<section>
+<script type="text/javascript" src="http://feeds.delicious.com/v2/js/html5gallery?title=HTML5%20Articles%20Elsewhere&amp;icon=rss&amp;count=5&amp;sort=date&amp;extended&amp;showadd"></script>
+</section>
+</div>
+</div><!--// end content -->
+<section class="extras">
+    <ul>
+	    <li><h3>Follow us on twitter</h3><a href="http://www.twitter.com/html5doctor"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/twitter.jpg" alt="Follow us on twitter"></a></li>    
+	    <li><h3>Want to write for us?</h3> 
+        <p>We're always on the lookout for new writers, so if you feel you've got a grip on <abbr>HTML</abbr> 5 &amp; have something to add then please <a href="/contact/">get in touch</a>.</p></li>
+    	<li><h3>Sites using HTML 5</h3><a href="http://html5gallery.com"><img src="http://html5doctor.com/wp-content/themes/html5doctor/img/html5gallery-thumb.png" alt="html5gallery - A showcase of sites using html5 markup"></a></li>    
+    	<li><h3>Make a donation</h3>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHTwYJKoZIhvcNAQcEoIIHQDCCBzwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYBDcBlRDdUE5wHnlolMsrKtSMA1M8psZ9cT4QL+njWkbJp1o+mnAo1j1DYOF1YCcisLLFmkeyiu36CoHFTw3kV/wjTHLGVJxZVH+Y1LU5tYgrMRoqL6sumsqHEC0iUuKWKE3EJyN6Sz7nf449uAPzS7rCwyiGsdBF/JccXGw4Yj7DELMAkGBSsOAwIaBQAwgcwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIOr6Q6TgFHOGAgahR+dy9JOhu1CdbF/YLdM2fsT3IOMTC2QB/X1TJEcjObWOwVxHLWFiHZYSVwEyO41ke6a5eIfcSeZZdr67IJwvNGcDTLSyKbxyP2IEyzyLzPBlfIxtsvfylRn+CpmB6Fh5ZKZhGcryv+LjvgFO13DsDD8aECHgF+V64OWkynwB69CUB7iqPhFCQjoiBh9S/Fg0NIbzLyG1iy7kjNZ9/0JVBjSssPryEDSigggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0wOTA2MjEwNzM1NDdaMCMGCSqGSIb3DQEJBDEWBBRMQfr1dhDKl1RT5iuvFxdcR/a79DANBgkqhkiG9w0BAQEFAASBgEAPWRu9fIytGIkf/Jab2LvmYtzR3aJgw+52GB7MpA71tJStAhPzvsgjDBMReM5OWt/NV8WFBua4Gc0XaVm4F07iUnbWVPDitQFKTWto61aq19/sB9TnTbCOTyVEYqF0cvKEbEg6Vy1Hlag9BUM7rGfZJ+qWAxgAkof45WezTlpE-----END PKCS7-----
+">
+<p>Unfortunately the hosting doesn't pay itself, if you've found the site useful please help us out by making a donation.<br />
+<input type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_SM.gif" name="submit" alt="PayPal - The safer, easier way to pay online."></p>
+<img alt="" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+</form></li>
+    </ul>
+</section>
+
+<nav class="nav-footer">
+	<ul>
+    	<li><a href="/">Home</a></li>
+		<li class="page_item page-item-2"><a href="http://html5doctor.com/about/" title="About">About</a></li>
+<li class="page_item page-item-817"><a href="http://html5doctor.com/article-archive/" title="Article Archive">Article Archive</a></li>
+<li class="page_item page-item-35"><a href="http://html5doctor.com/ask-the-doctor/" title="Ask the doctor">Ask the doctor</a></li>
+<li class="page_item page-item-54"><a href="http://html5doctor.com/contact/" title="Contact">Contact</a></li>
+        <li class="rss"><a href="http://feeds2.feedburner.com/html5doctor">RSS</a></li>
+		<li class="rss"><a href="http://feeds.feedburner.com/HTML5DoctorComments">Comments RSS</a></li>        
+    </ul>
+</nav>
+
+<footer role="contentinfo">
+	<p><small>This site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/uk/">Creative Commons Attribution-Non-Commercial 2.0</a> share alike license. Feel free to change, reuse modify and extend it. Some authors will retain their copyright on certain articles.</small></p>
+</footer>
+
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/html5doc.js"></script>
+<script type="text/javascript" src="http://html5doctor.com/wp-content/themes/html5doctor/js/prettify.js"></script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8916679-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>  
+
+</body>
+</html>

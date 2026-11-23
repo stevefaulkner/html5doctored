@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; multiple</title>
+	<atom:link href="http://html5doctor.com/tag/multiple/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>HTML5 forms introduction and new attributes</title>
+		<link>http://html5doctor.com/html5-forms-introduction-and-new-attributes/</link>
+		<comments>http://html5doctor.com/html5-forms-introduction-and-new-attributes/#comments</comments>
+		<pubDate>Tue, 26 Feb 2013 14:30:58 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[autocomplete]]></category>
+		<category><![CDATA[autofocus]]></category>
+		<category><![CDATA[datalist]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[list]]></category>
+		<category><![CDATA[multiple]]></category>
+		<category><![CDATA[pattern]]></category>
+		<category><![CDATA[placeholder]]></category>
+		<category><![CDATA[required]]></category>
+		<category><![CDATA[web forms 2.0]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5001</guid>
+		<description><![CDATA[	<p>No doubt you interact with at least one form on the Web every day. Whether you're searching for content or logging in to your e-mail account or Facebook page, using online forms is one of the most common tasks performed on the Web. As designers and developers, creating forms has a certain monotony about it, particularly writing validation scripts for them. HTML5 introduces a number of new attributes, input types, and other elements for your markup toolkit. In this article we'll be focussing on the new attributes with a future article looking at the new input types.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[	<p>No doubt you interact with at least one form on the Web every day. Whether you&#8217;re searching for content or logging in to your e-mail account or Facebook page, using online forms is one of the most common tasks performed on the Web. As designers and developers, creating forms has a certain monotony about it, particularly writing validation scripts for them. HTML5 introduces a number of new attributes, input types, and other elements for your markup toolkit. In this article we&#8217;ll be focussing on the new attributes with <a href="http://html5doctor.com/html5-forms-input-types/">a future article looking at the new input types</a>.</p>
+
+	<p>As we&#8217;ll see, these new features will go a long way toward making your life easier while delivering a delightful user experience. The best thing about all this? You can start using them now. We&#8217;ll start with a (very) brief history of HTML5 forms though.</p> 
+	
+	<div class="callout highlight-block">
+		
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p>Note: As this article is a book excerpt, browser renderings of attributes and input types may have altered since the screenshots were taken. Additionally, browser support may have increased since publication so please refer to the links at the end of the article for the current state of browser support.</p>
+		
+	</div>
+	
+	<section id="history">
+		<h2>A history of HTML5 forms</h2>
+		
+		<p>The forms section of HTML5 was originally a specification titled <a href="http://j.mp/web-forms">Web Forms 2.0</a> that added new types of controls for forms. Started by Opera and edited by then-Opera employee Ian Hickson, it was <a href="http://j.mp/opera-forms">submitted to the W3C in early 2005</a>.  The work was initially carried out under the W3C. It was then combined with the Web Applications 1.0 specification to create the basis of the breakaway Web Hypertext Application Technology Working Group (WHATWG) HTML5 specification.</p>
+
+	</section>
+	
+	<section id="principles">
+		<h2>Using HTML5 design principles</h2>
+		
+		<p>One of the best things about HTML5 forms is that you can use almost all of these new input types and attributes right now. They don’t even need any shivs, hacks, or workarounds. That isn’t to say they&#8217;re all &#8220;supported&#8221; right now, but they do cool things in modern browsers that do support them-and degrade gracefully in browsers that don&#8217;t understand them. This is thanks to <a href="http://j.mp/designprinciples">HTML5&#8217;s design principles</a>. In this instance we’re specifically referring to the principle of graceful degradation. In essence, this means that there’s no excuse for not using these features right now. In fact, it means you&#8217;re ahead of the curve.</p>
+
+	</section>
+	
+	<section id="attributes">
+	
+	<h2>HTML5 form attributes</h2>
+	
+	<p>There are 14 new attributes that we&#8217;ll be looking at in this article.</p>
+	
+	<ul class="columns">
+		<li><a href="#placeholder"><code>placeholder</code></a></li>
+		<li><a href="#autofocus"><code>autofocus</code></a></li>
+		<li><a href="#autocomplete"><code>autocomplete</code></a></li>
+		<li><a href="#required"><code>required</code></a></li>
+		<li><a href="#pattern"><code>pattern</code></a></li>
+		<li><a href="#list-datalist"><code>list</code></a></li>
+		<li><a href="#multiple"><code>multiple</code></a></li>
+		<li><a href="#novalidate"><code>novalidate</code></a></li>
+		<li><a href="#novalidate"><code>formnovalidate</code></a></li>
+		<li><a href="#attr-form"><code>form</code></a></li>
+		<li><a href="#formaction"><code>formaction</code></a></li>
+		<li><a href="#formenctype"><code>formenctype</code></a></li>
+		<li><a href="#formmethod"><code>formmethod</code></a></li>
+		<li><a href="#formtarget"><code>formtarget</code></a></li>
+	</ul>
+	
+	<section id="placeholder">
+		<h3>placeholder</h3>
+		
+		<p>First up is the <code>placeholder</code> attribute, which allows us to set placeholder text as we would currently do in
+HTML4 with the <code>value</code> attribute. It should only be used for short descriptions. For anything longer, use the title attribute. The difference from HTML4 is that the text is only displayed when the field is empty and hasn&#8217;t received focus. Once the field receives focus (e.g., you click or tab to the field), and you begin to type, the text simply disappears. It&#8217;s very similar to the search box you see in Safari (see Figure 1).</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-1.png" alt="Screenshot of the browser search box in Safari with and without focus" />
+			<figcaption>Figure 1. Browser search box in Safari without and with focus</figcaption>
+		</figure>
+		
+		<p>Let&#8217;s have a look at how to implement the <code>placeholder</code> attribute.</p>
+		
+		<pre><code>&lt;input type="text" name="user-name" id="user-name" placeholder="at least 3 characters"&gt;</code></pre>
+		
+		<p>That&#8217;s it! We can hear you thinking, “What&#8217;s so great about that? I&#8217;ve been doing it with JavaScript for years.” Yes, that&#8217;s true. However, with HTML5, it’s part of the browser, meaning less scripting is required for a more accessible, cross-browser solution (even when JavaScript is disabled). Figure 2 shows the <code>placeholder</code> attribute working in Chrome.</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-2.png" alt="Screenshot of an input field in Chrome with and without focus, so showing and not showing the placeholder" />
+			<figcaption>Figure 2. Placeholder attribute support in Chrome, unfocused and focused</figcaption>
+		</figure>
+		
+		<p>Browsers that don&#8217;t support the placeholder attribute ignore it, so it won&#8217;t render. By including it, though, you&#8217;re providing an enhanced user experience for those users who have browser support and you&#8217;re “future proofing” your site. All modern browsers support <code>placeholder</code>.</p>
+		
+		<div class="callout highlight-block">
+			<p>Note: There is no official pseudo-class for styling placeholder text but both Mozilla (makers of Firefox) and WebKit offer vendor prefixed properties for styling (-mozplaceholder and –webkit-input-placeholder). This makes it safe to assume that a pseudo-class will become standard for styling placeholder text. For further detail there is <a href="http://j.mp/pseudoplaceholder">a thread on the WHATWG mailing list about this topic</a>.</p>
+		</div>
+
+	</section>
+	
+	<section id="autofocus">
+		<h3>autofocus</h3>
+		
+		<p><code>autofocus</code> does exactly what it says on the tin. Adding it to an input automatically focuses that field when the page is rendered. As with <code>placeholder</code>, <code>autofocus</code> is something that we used JavaScript for in the past.</p>
+		
+		<p>Traditional JavaScript methods do, though, have some serious usability problems. For example, if a user begins completing the form before the script loads, they will (jarringly) be returned to the first form field when the script is loaded. The <code>autofocus</code> attribute in HTML5 gets around this issue by focusing as soon as the document loads, without having to wait for the JavaScript to be loaded. However, we only recommend using it for pages whose sole purpose is the form (like Google) to prevent the usability issues.</p>
+		
+		<p>It is a Boolean attribute (except if you are writing XHTML5; see the note) and is implemented as follows:</p>
+		
+		<pre><code>&lt;input type="text" name="first-name" id="first-name" autofocus&gt;</code></pre>
+		
+		<p>All modern browsers support the attribute and, like <code>placeholder</code>, browsers that don&#8217;t support the <code>autofocus</code> attribute simply ignore it.</p>
+		
+		<div class="callout highlight-block">
+			<p>Note: Several new HTML5 form attributes are Boolean attributes. This just means they&#8217;re set if they&#8217;re present and not set if they’re absent. They can be written several ways in HTML5.</p>
+			
+			<pre><code>autofocus
+autofocus=""
+autofocus="autofocus"</code></pre>
+
+			<p>However, if you are writing XHTML5, you have to use the <code>autofocus="autofocus"</code> style.</p>
+		</div>
+		
+	</section>
+	
+	<section id="autocomplete">
+		<h3>autocomplete</h3>
+		
+		<p>The <code>autocomplete</code> attribute helps users complete forms based on earlier input. The attribute has been around since IE5.5 but has finally been standardized as part of HTML5. The default state is set to on. This means that generally we won’t have to use it. However, if you want to insist that a form field be entered each time a form is completed (as opposed to the browser autofilling the field), you would implement it like so:</p>
+		
+		<pre><code>&lt;input type="text" name="tracking-code" id="tracking-code" autocomplete="off"&gt;</code></pre>
+		
+		<p>The <code>autocomplete</code> state on a field overrides any <code>autocomplete</code> state set on the containing <code>form</code> element.</p>
+		
+	</section>
+	
+	<section id="required">
+		<h3>required</h3>
+		
+		<p>The <code>required</code> attribute doesn&#8217;t need much introduction; like <code>autofocus</code>, it does exactly what you&#8217;d expect. By adding it to a form field, the browser requires the user to enter data into that field before submitting the form. This replaces the basic form validation currently implemented with JavaScript, making things a little more usable and saving us a little more development time. <code>required</code> is a Boolean attribute, like <code>autofocus</code>. Let’s see it in action.</p>
+		
+		<pre><code>&lt;input type="text" id="given-name" name="given-name" required&gt;</code></pre>
+		
+		<p><code>required</code> is currently implemented only in Opera 9.5+, Firefox 4+, Safari 5+, Internet Explorer 10 and Chrome 5+, so for the
+time being you need to continue writing a script to check that fields are completed on the client side in other browsers (*cough* IE!). Opera, Chrome, and Firefox show the user an error message (see Figure 3) upon form submission. In most browsers, the errors are then localized based on the declared language. Safari doesn’t show an error message on submit, but instead places focus on that field.</p>
+
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-3.png" alt="Screenshot from Opera showing an error message on an input field" />
+			<figcaption>Figure 3. Form field with required attribute displaying a browser-generated error message in Opera</figcaption>
+		</figure>
+		
+		<aside class="sidenote">
+			<p>Since the book was published, Bruce has <a href="http://www.brucelawson.co.uk/2013/on-the-styling-of-forms/">written a little more on the styling of forms</a> and there is <a href="http://www.broken-links.com/2011/03/28/html5-form-validation/">another post from Peter</a> that is useful reading.</p>
+		</aside>
+		
+		<p>The default rendering of “required” error messages depends on the individual browser; at present the error message bubble can’t be styled with CSS in all browsers. Chrome, however, does have a proprietary property that you can use to style the error bubble. <a href="http://j.mp/stylingformerrors">Peter Gasston has written an article about the syntax</a>. You can also style the input <a href="http://j.mp/pseudoforms">using the :required pseudo-class</a>. An alternative is to override the wording and styling using the <code>setCustomValidity()</code> method in JavaScript. Importantly, don&#8217;t forget that this browser validation is no substitute for validating on the server as well.</p>
+		
+	</section>
+	
+	<section id="pattern">
+		<h3>pattern</h3>
+		
+		<aside class="sidenote">
+			<p>A regular expression (regex or regexp) provides a way to match entered strings of text to particular patterns. A regex might be used to check a particular format for a product or ZIP code. They can be used with a number of programming languages, some of which (Perl, Ruby) have them built into their syntax. Regex is where the <code>pattern</code> attribute originates.</p>
+		</aside>
+		
+		<p>The <code>pattern</code> attribute is likely to get a lot of developers very excited (well, as excited as you can get about form attributes). It specifies a JavaScript regular expression for the field’s value to be checked against. <code>pattern</code> makes it easy for us to implement specific validation for product codes, invoice numbers, and so on. The possibilities for <code>pattern</code> are wide-ranging, and this is just one simple example using a product number.</p>
+		
+		<pre><code>&lt;label&gt;Product Number:
+&lt;input pattern="[0-9][A-Z]{3}" name="product" type="text" title="Single digit followed by three uppercase letters."/&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>This pattern prescribes that the product number should be a single digit [0-9] followed by three uppercase letters [A-Z]{3}. For more examples, the <a href="http://j.mp/html5p">HTML5 Pattern website</a> lists common regex style patterns to help get you started.</p>
+		
+		<p>As with required, Opera 9.5+, Firefox 4+, Safari 5+, Internet Explorer 10 and Chrome 5+ are the only browsers with support for pattern at present. However, with the browser market moving at a fast pace, the others will soon catch up.</p>
+		
+	</section>
+	
+	<section id="list">
+		<h3>list and the datalist element</h3>
+		
+		<p>The <code>list</code> attribute enables the user to associate a list of options with a particular field. The value of the <code>list</code> attribute must be the same as the ID of a <code>datalist</code> element that resides in the same document. The <code>datalist</code> element is new in HTML5 and represents a predefined list of options for form controls. It works in a similar way to the in-browser search boxes that autocomplete as you type (see Figure 4).</p>
+		
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-4.png" alt="Screenshot Google's autosuggest functionality in Safaris search box" />
+			<figcaption>Figure 4. Google search autosuggestions in Safari</figcaption>
+		</figure>
+		
+		<p>The following example shows how <code>list</code> and <code>datalist</code> are combined (see Figure 5):</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+  &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+  &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+  &lt;!-- … --&gt;
+&lt;/datalist&gt;
+If other, please specify:
+  &lt;input type="text" name="fruit" list="fruits"&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>By adding a <code>select</code> element inside the <code>datalist</code> you can provide superior graceful degradation than by simply using an option element. This is an elegant markup pattern <a href="http://j.mp/datalistpattern">designed by Jeremy Keith</a> that adheres perfectly with HTML5&#8217;s principle of degrading gracefully.</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;select name="fruits"&gt;
+    &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+    &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+    &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+    &lt;!-- … --&gt;
+  &lt;/select&gt;
+If other, please specify:
+&lt;/datalist&gt;
+  &lt;input type="text" name="fruit" list="fruits"&gt;
+&lt;/label&gt;</code></pre>
+
+		<p>Browser support for <code>list</code> and <code>datalist</code> is currently limited to Opera 9.5+ (see Figure 5), Chrome 20+, Internet Explorer 10 and Firefox 4+.</p>
+		
+		<figure>
+			<img src="http://html5doctor.com/wp-content/uploads/2013/02/figure_6-5.png" alt="Screenshot of the list attribute and datalist element in Opera" />
+			<figcaption>Figure 5. The datalist element rendered in Opera</figcaption>
+		</figure>
+		
+	</section>
+	
+	<section id="multiple">
+		<h3>multiple</h3>
+		
+		<p>We can take our <code>list</code>s and <code>datalist</code>s one step further by applying the Boolean attribute <code>multiple</code> to allow more than one value to be entered from the <code>datalist</code>. Here is an example.</p>
+		
+		<pre><code>&lt;label&gt;Your favorite fruit:
+&lt;datalist id="fruits"&gt;
+  &lt;select name="fruits"&gt;
+    &lt;option value="Blackberry"&gt;Blackberry&lt;/option&gt;
+    &lt;option value="Blackcurrant"&gt;Blackcurrant&lt;/option&gt;
+    &lt;option value="Blueberry"&gt;Blueberry&lt;/option&gt;
+    &lt;!-- … --&gt;
+  &lt;/select&gt;
+If other, please specify:
+&lt;/datalist&gt;
+  &lt;input type="text" name="fruit" list="fruits" multiple&gt;
+&lt;/label&gt;</code></pre>
+
+		<p><code>multiple</code> isn&#8217;t exclusively for use with <code>datalist</code>s, though. A further example for <code>multiple</code> might be for email addresses when sending items to friend or the attachment of files, as shown here:</p>
+		
+		<pre><code>&lt;label&gt;Upload files:
+&lt;input type="file" multiple name="upload"&gt;&lt;/label&gt;</code></pre>
+
+		<p><code>multiple</code> is supported in Firefox 3.6+, Safari 4+, Opera 11.5+, Internet Explorer 10 and Chrome 4+.</p>
+		
+	</section>
+
+	<section id="novalidate">
+		<h3>novalidate and formnovalidate</h3>
+		
+		<p>The <code>novalidate</code> and <code>formnovalidate</code> attributes indicate that the form shouldn&#8217;t be validated when submitted. They are both Boolean attributes. <code>formnovalidate</code> can be applied to submit or image input types. The <code>novalidate</code> attribute can be set only on the <code>form</code> element.</p>
+
+		<p>An example use case for the <code>formnovalidate</code> attribute could be on a &#8220;save draft&#8221; button, where the form has fields that are required for submitting the draft but aren&#8217;t required for saving the draft. <code>novalidate</code> would be used in cases where you don&#8217;t want to validate the form but do want to take advantage of the more useful user interface enhancements that the new input types offer.</p>
+		
+		<p>The following example shows how to use <code>formnovalidate</code>:</p>
+		
+		<pre><code>&lt;form action="process.php"&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="text" name="email" value="gordo@example.com"&gt;
+  &lt;input type="submit" formnovalidate value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+
+		<p>And this example shows how to use <code>novalidate</code>:</p>
+		
+		<pre><code>&lt;form action="process.php" novalidate&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="text" name="email" value="gordo@example.com"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+	
+	</section>
+	
+	<section id="attr-form">
+		<h3>form</h3>
+		
+		<p>The <code>form</code> attribute is used to associate an <code>input</code>, <code>select</code>, or <code>textarea</code> element with a form (known as its <em>form owner</em>). Using <code>form</code> means that the element doesn&#8217;t need to be a child of the associated form and can be moved away from it in the source. The primary use case for this is that input buttons that are placed within tables can now be associated with a form.</p>
+		
+		<pre><code>&lt;input type="button" name="sort-l-h" form="sort"&gt;</code></pre>
+		
+	</section>
+	
+	<section>
+		<h2>formaction, formenctype, formmethod, and formtarget</h2>
+		
+		<p>The <code>formaction</code>, <code>formenctype</code>, <code>formmethod</code>, and <code>formtarget</code> attributes each have a corresponding attribute on the <code>form</code> element, which you&#8217;ll be familiar with from HTML4, so let&#8217;s run through each of them briefly. These new attributes have been introduced primarily because you may require alternative actions for different submit buttons, as opposed to having several forms in a document.</p>
+		
+		<section id="formaction">
+			<h4>formaction</h4>
+			
+			<p><code>formaction</code> specifies the file or application that will submit the form. It has the same effect as the <code>action</code> attribute on the <code>form</code> element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>). When the form is submitted, the browser first checks for a <code>formaction</code> attribute; if that isn&#8217;t present, it proceeds to look for an <code>action</code> attribute on the form.</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formaction="process.php"&gt;</code></pre>
+			
+		</section>
+		
+		<section id="formenctype">
+			<h4>formenctype</h4>
+			
+			<p><code>formenctype</code> details how the form data is encoded with the POST method type. It has the same effect as the <code>enctype</code> attribute on the form element and can only be used with a submit or image button
+(<code>type="submit"</code> or <code>type="image"</code>). The default value if not included is <code>application/x-www-formurlencoded</code>.</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formenctype="application/x-www-form-urlencoded"&gt;</code></pre>
+			
+		</section>
+		
+		<section id="formmethod">
+			<h4>formmethod</h4>
+			
+			<p><code>formmethod</code> specifies which HTTP method (GET, POST, PUT, DELETE) will be used to submit the form data. It has the same effect as the method attribute on the form element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>).</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formmethod="POST"&gt;</code></pre>
+			
+			
+		</section>
+		
+		<section id="formtarget">
+			<h4>formtarget</h4>
+			
+			<p><code>formtarget</code> specifies the target window for the form results. It has the same effect as the target attribute on the <code>form</code> element and can only be used with a submit or image button (<code>type="submit"</code> or <code>type="image"</code>).</p>
+			
+			<pre><code>&lt;input type="submit" value="Submit" formtarget="_self"&gt;</code></pre>
+			
+		</section>
+		
+	</section>
+	
+	</section>
+	
+	<section id="summary">
+		<h2>Form attributes summary</h2>
+		
+		<p>We&#8217;ve looked at several new form attributes that help improve user experience and save you development time. There are some more new attributes to discuss, which are covered together with <a href="http://html5doctor.com/html5-forms-input-types/">HTML5&#8217;s new input types in the next article in this series</a>.</p>
+		
+		<p>You can find a dummy form, using some of the examples we&#8217;ve shown in this article at our <a href="http://html5doctor.com/demos/forms/forms-example.html">HTML5 forms demo page</a>.</p>
+		
+		<p>We&#8217;ve hinted throughout the article at which browsers have support for HTML5 forms input types and attributes. With new versions of browsers being released at an ever-increasing rate, it can be difficult to keep up with what is or isn&#8217;t supported. If you want to keep an eye on the current progress, we suggest visiting When <a href="http://j.mp/caniuse">can I use &#133;</a> or <a href="http://j.mp/findmebyip">FindMeByIP</a> or <a href="http://j.mp/wufooh5">Wufoo&#8217;s HTML5 forms research</a>.</p>
+		
+	</section>
+		
+	<div class="callout highlight-block">
+		
+		<img class="book" src="/wp-content/uploads/2013/01/web-evolved.jpg" alt="Cover image of Beginning HTML5 and CSS3: The Web Evolved.">
+		<p>This is article is an excerpt from Chapter 6 of <a href="http://thewebevolved.com/">Beginning HTML5 and CSS3: The Web Evolved</a> by Christopher Murphy, Oli Studholme, Richard Clark and Divya Manian, published by Apress.</p>
+		
+		<p></p>
+		
+	</div><p><a href="http://html5doctor.com/html5-forms-introduction-and-new-attributes/" rel="bookmark">HTML5 forms introduction and new attributes</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 26, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-forms-introduction-and-new-attributes/feed/</wfw:commentRss>
+		<slash:comments>22</slash:comments>
+		</item>
+	</channel>
+</rss>

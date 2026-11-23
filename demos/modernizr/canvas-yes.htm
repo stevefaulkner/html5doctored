@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+<meta charset=utf-8 />
+<title>Canvas?</title>
+<script>
+if (Modernizr.canvas) {
+	alert("This browser supports HTML5 canvas!")
+}
+
+function draw() {
+	var canvas = document.getElementById("canvas");
+	if (canvas.getContext) {
+		var ctx = canvas.getContext("2d");
+		ctx.fillStyle = "rgb(200,0,0)";
+		ctx.fillRect (10, 10, 55, 50);
+		ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+		ctx.fillRect (30, 30, 55, 50);
+	}
+}
+</script>
+</head>
+<body onload="draw();">
+   <canvas id="canvas" width="150" height="150">
+     <p>This example requires a browser that supports the
+     <a href="http://www.w3.org/html/wg/html5/">HTML5</a> 
+     &lt;canvas&gt; feature.</p>
+   </canvas>
+   <p>Canvas example from <a href="https://developer.mozilla.org/en/Canvas_tutorial/Basic_usage">MDN</a></p>
+</body>
+</html>

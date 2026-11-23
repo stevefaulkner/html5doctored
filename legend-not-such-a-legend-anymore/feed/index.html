@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Legend not such a legend anymore</title>
+	<atom:link href="http://html5doctor.com/legend-not-such-a-legend-anymore/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com/legend-not-such-a-legend-anymore/</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Fri, 01 Jul 2016 15:47:51 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>By: Thoughts on new HTML5 elements &#8212; Nicolas Gallagher — Blog &#38; Ephemera</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-994</link>
+		<dc:creator><![CDATA[Thoughts on new HTML5 elements &#8212; Nicolas Gallagher — Blog &#38; Ephemera]]></dc:creator>
+		<pubDate>Wed, 16 Sep 2009 15:26:57 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-994</guid>
+		<description><![CDATA[[...] element may be a fieldset, figure or details element. However, Remy Sharp&#8217;s article entitled legend not such a legend anymore shows why it is not practical to use legend for the new elements details and figure &#8211; because [...]]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] element may be a fieldset, figure or details element. However, Remy Sharp&#8217;s article entitled legend not such a legend anymore shows why it is not practical to use legend for the new elements details and figure &#8211; because [&#8230;]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Aleksey</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-781</link>
+		<dc:creator><![CDATA[Aleksey]]></dc:creator>
+		<pubDate>Mon, 17 Aug 2009 23:27:03 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-781</guid>
+		<description><![CDATA[Updated my solution to include keyboard support. It works in Safari 4, but not Safari 3. Seems to work fine in Firefox too; what exactly goes wrong in Firefox with your&#039;s?]]></description>
+		<content:encoded><![CDATA[<p>Updated my solution to include keyboard support. It works in Safari 4, but not Safari 3. Seems to work fine in Firefox too; what exactly goes wrong in Firefox with your&#8217;s?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Aleksey</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-765</link>
+		<dc:creator><![CDATA[Aleksey]]></dc:creator>
+		<pubDate>Sun, 16 Aug 2009 23:47:28 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-765</guid>
+		<description><![CDATA[Sorry, small correction: legend isn&#039;t a block element, but acts like one in most browsers when forced to be used inside a details or figure element.]]></description>
+		<content:encoded><![CDATA[<p>Sorry, small correction: legend isn&#8217;t a block element, but acts like one in most browsers when forced to be used inside a details or figure element.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Aleksey</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-764</link>
+		<dc:creator><![CDATA[Aleksey]]></dc:creator>
+		<pubDate>Sun, 16 Aug 2009 21:49:53 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-764</guid>
+		<description><![CDATA[I didn&#039;t implement keyboard yet, but I think I can make it work correctly. I think we can put the ideas together and get something that at least somehow works. I don&#039;t think we&#039;ll have a choice when we start implementing this than to wrap details in a known block level element to be compatible with Firefox (new html 5 block elements don&#039;t prevent the vmoit bug).
+
+Also, there&#039;s a problem with your solution with switching the display for the elements inside the details element which would make it have problems with elements that wouldn&#039;t have a default display of block. The WHATWG recommendations specifies the default look for details like so:
+
+&lt;pre&gt;&lt;code&gt;details {binding: details; /* is a replaced element, thus technically has no style by default */}
+details &#062; _legend_wrapper {display: block; /* also has the arrow triangle thingy, but I won&#039;t write that here */}
+details &#062; _contents_wrapper {height: 0; overflow: hidden; /* everything inside details except the first legend element is to be wrapped in a virtual block (hence my div) which is then what has it&#039;s style changed when you expand/contract the details. The actual contents of the details stay untouched. */}
+details[open] &#062; _contents_wrapper {height: auto; overflow: auto;}&lt;/code&gt;&lt;/pre&gt;
+
+the DOM would then be:
+
+details
+..legend
+..p the actual details
+
+but what is getting styled would look like this:
+
+details
+..block_legend_wrapper (invisible to DOM)
+....legend
+..block_contents_wrapper (invisible to DOM)
+....p the actual details
+
+The legend is already a block element, so I just use that, but I emulate the contents wrapper with a div inside the details element which works, but is visible to the DOM of course.]]></description>
+		<content:encoded><![CDATA[<p>I didn&#8217;t implement keyboard yet, but I think I can make it work correctly. I think we can put the ideas together and get something that at least somehow works. I don&#8217;t think we&#8217;ll have a choice when we start implementing this than to wrap details in a known block level element to be compatible with Firefox (new html 5 block elements don&#8217;t prevent the vmoit bug).</p>
+<p>Also, there&#8217;s a problem with your solution with switching the display for the elements inside the details element which would make it have problems with elements that wouldn&#8217;t have a default display of block. The WHATWG recommendations specifies the default look for details like so:</p>
+<pre><code>details {binding: details; /* is a replaced element, thus technically has no style by default */}
+details &gt; _legend_wrapper {display: block; /* also has the arrow triangle thingy, but I won't write that here */}
+details &gt; _contents_wrapper {height: 0; overflow: hidden; /* everything inside details except the first legend element is to be wrapped in a virtual block (hence my div) which is then what has it's style changed when you expand/contract the details. The actual contents of the details stay untouched. */}
+details[open] &gt; _contents_wrapper {height: auto; overflow: auto;}</code></pre>
+<p>the DOM would then be:</p>
+<p>details<br />
+..legend<br />
+..p the actual details</p>
+<p>but what is getting styled would look like this:</p>
+<p>details<br />
+..block_legend_wrapper (invisible to DOM)<br />
+&#8230;.legend<br />
+..block_contents_wrapper (invisible to DOM)<br />
+&#8230;.p the actual details</p>
+<p>The legend is already a block element, so I just use that, but I emulate the contents wrapper with a div inside the details element which works, but is visible to the DOM of course.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Remy Sharp</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-753</link>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+		<pubDate>Sun, 16 Aug 2009 09:35:10 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-753</guid>
+		<description><![CDATA[@Aleksey - as much as I hate to rain on your fire, but your solution doesn&#039;t quite work :-(  (it looks great by the way) - I released a similar demo last week: http://remysharp.com/demo/details-with-js.html (but I&#039;m still not happy with it - the label element doesn&#039;t have keyboard support in Safari, and Firefox still has general problems with keyboard focus).
+
+Anyway, here&#039;s where it doesn&#039;t quite work: remove the wrapping div from the entire solution, and you&#039;ll see Firefox trigger the &lt;a href=&quot;http://remysharp.com/2009/08/10/defining-the-vomit-bug/&quot; rel=&quot;nofollow&quot;&gt;vomit bug&lt;/a&gt;.  Here&#039;s a &lt;a href=&quot;http://jsbin.com/iluga&quot; rel=&quot;nofollow&quot;&gt;demo&lt;/a&gt; of that happening.  Check out the markup delivered to Firefox, then check the rendered DOM (in Firebug), you&#039;ll see they&#039;re completely different.  ;-(
+
+Close, but interesting that the vomit bug doesn&#039;t trigger if the &lt;code&gt;details&lt;/code&gt; and &lt;code&gt;legend&lt;/code&gt; element aren&#039;t a direct decedent of the &lt;code&gt;body&lt;/code&gt; element.]]></description>
+		<content:encoded><![CDATA[<p>@Aleksey &#8211; as much as I hate to rain on your fire, but your solution doesn&#8217;t quite work :-(  (it looks great by the way) &#8211; I released a similar demo last week: <a href="http://remysharp.com/demo/details-with-js.html" rel="nofollow">http://remysharp.com/demo/details-with-js.html</a> (but I&#8217;m still not happy with it &#8211; the label element doesn&#8217;t have keyboard support in Safari, and Firefox still has general problems with keyboard focus).</p>
+<p>Anyway, here&#8217;s where it doesn&#8217;t quite work: remove the wrapping div from the entire solution, and you&#8217;ll see Firefox trigger the <a href="http://remysharp.com/2009/08/10/defining-the-vomit-bug/" rel="nofollow">vomit bug</a>.  Here&#8217;s a <a href="http://jsbin.com/iluga" rel="nofollow">demo</a> of that happening.  Check out the markup delivered to Firefox, then check the rendered DOM (in Firebug), you&#8217;ll see they&#8217;re completely different.  ;-(</p>
+<p>Close, but interesting that the vomit bug doesn&#8217;t trigger if the <code>details</code> and <code>legend</code> element aren&#8217;t a direct decedent of the <code>body</code> element.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Aleksey</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-751</link>
+		<dc:creator><![CDATA[Aleksey]]></dc:creator>
+		<pubDate>Sun, 16 Aug 2009 06:24:09 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-751</guid>
+		<description><![CDATA[I revamped my Fiks.html script and moved it to Google code. It includes the cross-browser solution for the details element and html 5 in general: http://code.google.com/p/fiks-html5/]]></description>
+		<content:encoded><![CDATA[<p>I revamped my Fiks.html script and moved it to Google code. It includes the cross-browser solution for the details element and html 5 in general: <a href="http://code.google.com/p/fiks-html5/" rel="nofollow">http://code.google.com/p/fiks-html5/</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Aleksey</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-735</link>
+		<dc:creator><![CDATA[Aleksey]]></dc:creator>
+		<pubDate>Fri, 14 Aug 2009 20:52:03 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-735</guid>
+		<description><![CDATA[I&#039;m working on this issue right now, and I have a forward and backward compatible way to make this work, but unfortunately, it does require a little addition markup:
+
+{details}
+  {legend}{span class=&quot;legend&quot;}Details{/span}{/legend}
+  {div}
+    {p}Detailed contents go here. They must be nested in a div unless I figure out a reliable way to move the original contents of the details element into a new div dynamically created. If you can help with that, I will be thankful; it&#039;ll cut down on the extra markup required.{/p}
+  {/div}
+{/details}
+
+Once I am done with my solution, I will post a link to it here.]]></description>
+		<content:encoded><![CDATA[<p>I&#8217;m working on this issue right now, and I have a forward and backward compatible way to make this work, but unfortunately, it does require a little addition markup:</p>
+<p>{details}<br />
+  {legend}{span class=&#8221;legend&#8221;}Details{/span}{/legend}<br />
+  {div}<br />
+    {p}Detailed contents go here. They must be nested in a div unless I figure out a reliable way to move the original contents of the details element into a new div dynamically created. If you can help with that, I will be thankful; it&#8217;ll cut down on the extra markup required.{/p}<br />
+  {/div}<br />
+{/details}</p>
+<p>Once I am done with my solution, I will post a link to it here.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Andy</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-722</link>
+		<dc:creator><![CDATA[Andy]]></dc:creator>
+		<pubDate>Thu, 13 Aug 2009 15:22:20 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-722</guid>
+		<description><![CDATA[Ah, scratch what I said about the Javascript. Firefox doesn&#039;t generate random fieldsets if the figure is contained within a block level element.]]></description>
+		<content:encoded><![CDATA[<p>Ah, scratch what I said about the Javascript. Firefox doesn&#8217;t generate random fieldsets if the figure is contained within a block level element.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Andy</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-692</link>
+		<dc:creator><![CDATA[Andy]]></dc:creator>
+		<pubDate>Wed, 12 Aug 2009 14:51:26 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-692</guid>
+		<description><![CDATA[Woah. That&#039;s nuts. I&#039;ve been using figure/legend quite extensively and hadn&#039;t encountered this. I think it&#039;s possibly because we aren&#039;t using the document.createElement trick? Looking at our test pages in Firebug I just see the legend element has been disappeared from the DOM and it&#039;s contents appears as a child of the figure.]]></description>
+		<content:encoded><![CDATA[<p>Woah. That&#8217;s nuts. I&#8217;ve been using figure/legend quite extensively and hadn&#8217;t encountered this. I think it&#8217;s possibly because we aren&#8217;t using the document.createElement trick? Looking at our test pages in Firebug I just see the legend element has been disappeared from the DOM and it&#8217;s contents appears as a child of the figure.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Remy Sharp</title>
+		<link>http://html5doctor.com/legend-not-such-a-legend-anymore/#comment-560</link>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+		<pubDate>Wed, 05 Aug 2009 11:46:46 +0000</pubDate>
+		<guid isPermaLink="false">http://html5doctor.com/?p=646#comment-560</guid>
+		<description><![CDATA[@Chris Mahon - looks like your markup was stripped from the comment.  None the less:
+
+1. The open=&quot;open&quot; is valid, I suspect you had open=&quot;true&quot; or just &#039;open&#039; as an attribute.  It&#039;s boolean, but not in the sense of it should be equal to true or false, it just needs to be present.
+
+2. Firebug is showing me the &lt;strong&gt;rendered DOM&lt;/strong&gt; which is what is being styled.  So, the source code is one thing, the rendered DOM is the actual thing we&#039;re interested in, and using Firebug, or the IE developer toolbar, we can see that the browser has changed the DOM to suit it&#039;s parsing rules - hence this whole mess with the &lt;code&gt;legend&lt;/code&gt; element.
+
+@Lars Gunther - thanks for testing with the HTML 5 parsing turned on - and you&#039;re right, it&#039;s not going to be on by default until FF 3.5 has died out, ignoring IE for the minute - that&#039;s going to be a long while!  Which is what takes me back to using another element other than &lt;code&gt;legend&lt;/code&gt;.  Sending XHTML is fine, but not suitable for IE, and IE &lt;em&gt;still&lt;/em&gt; and will continue to, have majority market - so we, as authors, need a solution that truly does &lt;em&gt;pave the cowpaths&lt;/em&gt;.  
+
+Regarding the querySelector and querySelectorAll - I &lt;em&gt;expect&lt;/em&gt; it to run against the rendered DOM, rather than the source.  Keep in mind that this would then break if we modified the DOM, say changing the ID of an element, and ran querySelector - it &lt;em&gt;should&lt;/em&gt; query the latest version of the DOM, and not the original source code that was delivered to the browser.
+
+@Adam - the closest I was going by the description in the specs, but I&#039;m no browser vendor, so I wouldn&#039;t like to say!  I&#039;m &lt;em&gt;assuming&lt;/em&gt; it looks like a normal &lt;code&gt;p&lt;/code&gt; element with a triangle to the right that rotates when it&#039;s open (again, this is going by the spec).  Either way, without the triangle, it should appear, something like the normal legend + fieldset combo (I &lt;em&gt;think&lt;/em&gt;!)]]></description>
+		<content:encoded><![CDATA[<p>@Chris Mahon &#8211; looks like your markup was stripped from the comment.  None the less:</p>
+<p>1. The open=&#8221;open&#8221; is valid, I suspect you had open=&#8221;true&#8221; or just &#8216;open&#8217; as an attribute.  It&#8217;s boolean, but not in the sense of it should be equal to true or false, it just needs to be present.</p>
+<p>2. Firebug is showing me the <strong>rendered DOM</strong> which is what is being styled.  So, the source code is one thing, the rendered DOM is the actual thing we&#8217;re interested in, and using Firebug, or the IE developer toolbar, we can see that the browser has changed the DOM to suit it&#8217;s parsing rules &#8211; hence this whole mess with the <code>legend</code> element.</p>
+<p>@Lars Gunther &#8211; thanks for testing with the HTML 5 parsing turned on &#8211; and you&#8217;re right, it&#8217;s not going to be on by default until FF 3.5 has died out, ignoring IE for the minute &#8211; that&#8217;s going to be a long while!  Which is what takes me back to using another element other than <code>legend</code>.  Sending XHTML is fine, but not suitable for IE, and IE <em>still</em> and will continue to, have majority market &#8211; so we, as authors, need a solution that truly does <em>pave the cowpaths</em>.  </p>
+<p>Regarding the querySelector and querySelectorAll &#8211; I <em>expect</em> it to run against the rendered DOM, rather than the source.  Keep in mind that this would then break if we modified the DOM, say changing the ID of an element, and ran querySelector &#8211; it <em>should</em> query the latest version of the DOM, and not the original source code that was delivered to the browser.</p>
+<p>@Adam &#8211; the closest I was going by the description in the specs, but I&#8217;m no browser vendor, so I wouldn&#8217;t like to say!  I&#8217;m <em>assuming</em> it looks like a normal <code>p</code> element with a triangle to the right that rotates when it&#8217;s open (again, this is going by the spec).  Either way, without the triangle, it should appear, something like the normal legend + fieldset combo (I <em>think</em>!)</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

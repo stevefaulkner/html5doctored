@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8">
+		<title>Add or remove many classes</title>
+		<style>
+			.box {
+				color: #333;
+				background: #ffa;
+				border: 1px solid #333;
+				font-family: sans-serif;
+				padding: 1em 2em;
+			}
+
+			.box--highlight {
+				color: #f33;
+				border-color: #f33;
+			}
+
+			.l-narrow {
+				width: 60%;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p id="bad-joke" class="box">Two dogs are in the park. One says, "Nice day, isn't it?" The other says, "Holy crap, a talking dog!"</p>
+
+		<button id="add">Add classes</button>
+
+		<button id="remove">Remove classes</button>
+
+		<script>
+			(function(doc) {
+				DOMTokenList.prototype.addmany = function(classes) {
+					var classes = classes.split(' '),
+						i = 0,
+						ii = classes.length;
+
+					for(i; i<ii; i++) {
+						this.add(classes[i]);
+					}
+				}
+
+				DOMTokenList.prototype.removemany = function(classes) {
+					var classes = classes.split(' '),
+						i = 0,
+						ii = classes.length;
+
+					for(i; i<ii; i++) {
+						this.remove(classes[i]);
+					}
+				}
+
+				var joke = doc.getElementById('bad-joke'),
+					button_add = doc.getElementById('add'),
+					button_remove = doc.getElementById('remove'),
+					add_classes = function() {
+						joke.classList.addmany('box box--highlight l-narrow');
+					},
+					remove_classes = function() {
+						joke.classList.removemany('box box--highlight l-narrow');
+					};
+
+					button_add.addEventListener('click',add_classes,false);
+
+					button_remove.addEventListener('click',remove_classes,false);
+			})(document);
+		</script>
+	</body>
+</html>

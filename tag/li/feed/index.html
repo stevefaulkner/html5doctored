@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; li</title>
+	<atom:link href="http://html5doctor.com/tag/li/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The ol Element and Related Attributes: type, start, value, and reversed</title>
+		<link>http://html5doctor.com/ol-element-attributes/</link>
+		<comments>http://html5doctor.com/ol-element-attributes/#comments</comments>
+		<pubDate>Tue, 21 Feb 2012 14:30:52 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[li]]></category>
+		<category><![CDATA[ol]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4397</guid>
+		<description><![CDATA[<p>The <code>&#60;ol&#62;</code> element has a new attribute <code>reversed</code> in HTML5. In addition, a couple of related attributes purged in HTML 4 have made a return, namely <code>start</code> and <code>type</code> for <code>&#60;ol&#62;</code>, and <code>value</code> for <code>&#60;li&#62;</code>. Making things more interesting, the returning attributes were removed from HTML 4 for being presentational. So why are they back? Let’s investigate…</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element" title="4.5 Grouping content — HTML Standard">The <code>&lt;ol&gt;</code> element has a new attribute <code>reversed</code></a> in HTML5. In addition, a couple of related attributes purged in HTML 4 have made a return, namely <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#attr-ol-start" title="4.5 Grouping content — HTML Standard"><code>start</code></a> and <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#attr-ol-type" title="4.5 Grouping content — HTML Standard"><code>type</code></a> for <code>&lt;ol&gt;</code>, and <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-li-element" title="4.5 Grouping content — HTML Standard"><code>value</code> for <code>&lt;li&gt;</code></a>. Making things more interesting, the returning attributes were <a href="http://www.w3.org/TR/html4/appendix/changes.html#h-A.3.2" title="HTML 4 Changes">removed from HTML 4 for being presentational</a>. So why are they back? Let’s investigate…</p>
+
+<section id="presentational-and-semantic">
+<h2>Presentational <em>and</em> semantic? <a class="permalink" href="#presentational-and-semantic">#</a></h2>
+
+<p>As we all know, presentational stuff belongs in CSS, not HTML. In HTML 4.01, the <code>type</code> attribute was replaced by <code>list-style-type</code>, and the <code>start</code> and <code>value</code> attributes were dropped, with only the potential (although fiddly) replacement in some cases of <a href="http://dev.w3.org/csswg/css3-content/#counters" title="CSS Generated Content Module Level 3">CSS generated content-based counters</a>. So why would we want to specify “presentational” stuff like a list’s style in our HTML?</p>
+
+<section id="type-attribute">
+<h3>The <code>type</code> Attribute <a class="permalink" href="#type-attribute">#</a></h3>
+
+<p>While an ordered list’s counter style is generally presentational, in some documents it can be a part of the document’s <em>meaning</em>, as the specification for the <code>type</code> attribute notes:</p>
+
+<figure>
+<blockquote>
+The <code>type</code> attribute can be used to specify the kind of marker to use in the list, in the cases where that matters (e.g. because items are to be referenced by their number/letter).
+</blockquote>
+<figcaption>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#attr-ol-type">HTML: Living Standard</a></cite>, <abbr>WHATWG</abbr></figcaption>
+</figure>
+
+<p>Examples of this include legal or technical documents, which can contain references to non-decimal list items in prose:</p>
+
+<figure>
+<blockquote id="legalese">
+<style scoped>/* yeah, just faking it here for demonstration purposes */
+#legalese div {margin-left: 3em;}
+#legalese .point-3-3:before {
+  display: block;
+  position: absolute;
+  content: "3.3 ";
+  left: -3em;
+}
+</style>
+<div class="point-3-3"><b>Obligations of the Company – Tranche One</b><br>
+Subject to satisfaction of <mark>clause 3.2(a)</mark>, on Tranche One Completion the Company will:</div>
+<div>(a) Purchase a foosball table for staff use</div>
+<div>(b) …</div>
+</ol>
+</blockquote>
+<figcaption>Mockup of an example legal document with a highlighted reference to a non-decimal list item</figcaption>
+</figure>
+
+<p>We can specify the list’s style using the <code>type</code> attribute, with the following values:</p>
+
+<table>
+<caption><code>type</code> attribute values and their corresponding list counter types</caption>
+<thead>
+<tr><th scope="col"><code>&lt;ol type=""&gt;</code> values</th><th scope="col">Equivalent <code>list-style-type</code></th></tr>
+</thead>
+<tbody>
+<tr><th scope="row"><code>type="1"</code></th><td><code>decimal</code> (default style)</td></tr>
+<tr><th scope="row"><code>type="a"</code></th><td><code>lower-alpha</code></td></tr>
+<tr><th scope="row"><code>type="A"</code></th><td><code>upper-alpha</code></td></tr>
+<tr><th scope="row"><code>type="i"</code></th><td><code>lower-roman</code></td></tr>
+<tr><th scope="row"><code>type="I"</code></th><td><code>upper-roman</code></td></tr>
+</tbody>
+</table>
+
+<p>Further emphasising that this is not a general alternative to <code>list-style-type</code>, only these five list styles are available, whereas <a href="http://www.w3.org/TR/CSS2/generate.html#list-style" title="Generated content, automatic numbering, and lists">CSS 2.1 defines eleven <code>&lt;ol&gt;</code> list styles</a>. If you’re not referring to list counters in your prose, or even if you are but you’re just using the default decimal list counters, then you should use CSS over the <code>type</code> attribute. However, if the list counter type has a semantic meaning, HTML is the place to put it. Note that CSS <code>list-style-type</code> will override HTML <code>type</code> attribute values, so they’ll only work if you <em>haven’t</em> specified a <code>list-style-type</code> in your CSS.</p>
+
+<!-- /#type-attribute --></section>
+
+<section id="start-value-attribute">
+<h3>The <code>start</code> and <code>value</code> Attributes <a class="permalink" href="#start-value-attribute">#</a></h3>
+
+<p>The <code>start</code> attribute lets us set a list’s first counter. It’s handy for lists that must be split over several <code>&lt;ol&gt;</code> elements, by allowing us to continue the list item numbering from where the previous list left off. The related <code>value</code> attribute is used on an <code>&lt;li&gt;</code> element, and lets us manually number list items. <code>value</code> on the first list item also overrides <code>start</code>. A subsequent <code>&lt;li&gt;</code> element <em>without</em> <code>value</code> will increment the previous <code>value</code> by one.</p>
+
+<figure>
+<blockquote>
+The first item in the list has the ordinal value given by the <code>ol</code> element’s <code>start</code> attribute, unless that <code>li</code> element has a <code>value</code> attribute with a value that can be successfully parsed, in which case it has the ordinal value given by that <code>value</code> attribute.
+</blockquote>
+<figcaption>— <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#the-ol-element" title="4.5 Grouping content — HTML Standard"><cite>HTML: Living Standard</cite></a>, <abbr>WHATWG</abbr></figcaption>
+</figure>
+
+<p>Here’s an example of how you could use <code>start</code> or <code>value</code> to continue a list, which also demonstrates <code>type</code>:</p>
+
+<figure>
+<pre><code>&lt;!-- Continuing a previous list with value="" --&gt;
+&lt;ol type="I"&gt;
+  &lt;li value="7"&gt;seventh item&lt;/li&gt;
+  &lt;li&gt;eighth item&lt;/li&gt;
+  &lt;li&gt;ninth item&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- Continuing a previous list with start="" --&gt;
+&lt;ol type="I" start="7"&gt;
+  &lt;li&gt;seventh item&lt;/li&gt;
+  &lt;li&gt;eighth item&lt;/li&gt;
+  &lt;li&gt;ninth item&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<div class="column">
+<ol type="I">
+  <li value="7">seventh item <span class="meta">(using <code>&lt;li value="7"&gt;</code>)</span></li>
+  <li>eighth item</li>
+  <li>ninth item</li>
+</ol>
+<ol type="I" start="7">
+  <li>seventh item <span class="meta">(using <code>&lt;ol start="7"&gt;</code>)</span></li>
+  <li>eighth item</li>
+  <li>ninth item</li>
+</ol>
+</div>
+<figcaption>Using <code>value</code> and <code>start</code> to continue a previous list of six items</figcaption>
+</figure>
+
+<p>While both of these attributes give us more control, they unfortunately also mean adding or removing list items can make your <code>start</code> or <code>value</code>-based numbering appear broken, so in general you’ll probably want to avoid them and <a href="http://dev.opera.com/articles/view/automatic-numbering-with-css-counters/" title="Automatic numbering with CSS Counters - Dev.Opera">investigate CSS generated content counters</a> instead. You’ll need to use generated content counters if you want to make “1.1.1”-style nested list counters too.</p>
+
+<!-- /#start-value-attribute --></section>
+
+<!-- /#presentational-and-semantic --></section>
+
+<section id="reverse">
+<h2>Counting It Down with <code>reverse</code> <a class="permalink" href="#reverse">#</a></h2>
+
+<p>The new attribute <code>reverse</code> allows us to make ordered lists that count <em>down</em> rather than up. If you’re coding a top ten countdown or you’re a space junkie, it’s the attribute you’ve always wanted.</p>
+
+<figure>
+<blockquote>
+The reversed attribute is a boolean attribute. If present, it indicates that the list is a descending list (..., 3, 2, 1).
+</blockquote>
+<figcaption>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/grouping-content.html#attr-ol-reversed">HTML: Living Standard</a></cite>, <abbr>WHATWG</abbr></figcaption>
+</figure>
+
+<p>By default, <code>&lt;ol reversed&gt;</code> starts from the total number of list items and counts down to one, so there’s no need to also specify <code>start</code> unless you want something different to happen. Unfortunately, as we’ll see in the <a href="#browser-support">browser support table</a> in just a moment, none of them do yet, so in the meantime you can make a reversed list by manually specifying each list item’s number with <code>value</code> (as you can see in the following example) or via CSS counters.</p>
+
+<figure>
+<pre><code>&lt;!-- default list --&gt;
+&lt;ol&gt;
+  &lt;li&gt;three&lt;/li&gt;
+  &lt;li&gt;two&lt;/li&gt;
+  &lt;li&gt;one&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- using the reversed attribute (will look the same as the third list in a supporting browser) --&gt;
+&lt;ol reversed&gt;
+  &lt;li&gt;three&lt;/li&gt;
+  &lt;li&gt;two&lt;/li&gt;
+  &lt;li&gt;one&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- using value attributes on li --&gt;
+&lt;ol&gt;
+  &lt;li value="3"&gt;three&lt;/li&gt;
+  &lt;li value="2"&gt;two&lt;/li&gt;
+  &lt;li value="1"&gt;one&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+<div class="columns">
+<ol>
+<li>three</li>
+<li>two</li>
+<li>one</li>
+</ol>
+<ol reversed>
+<li>three</li>
+<li>two</li>
+<li>one</li>
+</ol>
+<ol>
+<li value="3">three</li>
+<li value="2">two</li>
+<li value="1">one</li>
+</ol>
+</div>
+<figcaption>A normal ordered list, an ordered list with <code>reversed</code>, and an ordered list with each list item numbered manually via <code>value</code></figcaption>
+</figure>
+
+<!-- /#reverse --></section>
+
+<section id="browser-support">
+<h2>Browser support table <a class="permalink" href="#browser-support">#</a></h2>
+
+<p>Browsers support the <code>start</code>, <code>type</code>, and <code>value</code> attributes as part of supporting legacy content (<a href="http://www.w3.org/TR/REC-html32#ol" title="HTML 3.2 Reference Specification">HTML 3.2 represent!</a>), so we can use them <em>now</em>.</p>
+
+<table class="browser-support centered-data">
+<caption>Browser support for <code>type</code>, <code>start</code>, <code>value</code>, and <code>reversed</code> attributes</caption>
+<thead>
+<tr>
+  <th scope="col">Attribute</th>
+  <th scope="col"><abbr title="Internet Explorer">IE</abbr></th>
+  <th scope="col">Firefox</th>
+  <th scope="col">Safari</th>
+  <th scope="col">Chrome</th>
+  <th scope="col">Opera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <th scope="row"><code>&lt;ol type=""&gt;</code></th>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+</tr>
+<tr>
+  <th scope="row"><code>&lt;ol start=""&gt;</code></th>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+</tr>
+<tr>
+  <th scope="row"><code>&lt;li value=""&gt;</code></th>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+  <td><span title="Yes">✔</span></td>
+</tr>
+<tr>
+  <th scope="row"><code>&lt;ol reversed&gt;</code> <a href="#note-1">¹</a></th>
+  <td class="warning"><span title="No">✘</span></td>
+  <td class="warning"><span title="No">✘</span> <a href="#note-2">²</a></td>
+  <td>5.2 <a href="#note-3">³</a></td>
+  <td>18 <a href="#note-3">³</a></td>
+  <td class="warning"><span title="No">✘</span></td>
+</tr>
+</tbody>
+</table>
+
+<ol>
+<li id="note-1">We can use a JavaScript polyfill to get around the lack of native support for the <code>reversed</code> attribute, such as the , or <a href="https://gist.github.com/1671548">Titani’s polyfills</a>, which both use the <code>value</code> attribute.</li>
+<li id="note-2"><ins datetime="2012-02-22T11:15:20+13:00">It’s <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=601912">bug 601912</a>, but there’s no progress as yet</ins></li>
+<li id="note-3"><ins datetime="2012-02-22T11:15:20+13:00">Chrome 18 (in the dev channel at the time of writing) has support for <code>reversed</code> (thanks <a href="http://html5doctor.com/ol-element-attributes/#comment-24515">Philip Tellis</a>), as does Safari 5.2 Developer Release (thanks <a href="http://html5doctor.com/ol-element-attributes/#comment-24521">Sam Rayner</a>)</ins></li>
+</ol>
+
+<figure>
+<pre><code>&lt;!-- default (unsupported) reversed attribute --&gt;
+&lt;ol reversed&gt;
+  &lt;li&gt;three&lt;/li&gt;
+  &lt;li&gt;two&lt;/li&gt;
+  &lt;li&gt;one&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- using a reversed attribute polyfill --&gt;
+&lt;ol class="polyfill-me" reversed&gt;
+  &lt;li&gt;three&lt;/li&gt;
+  &lt;li&gt;two&lt;/li&gt;
+  &lt;li&gt;one&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<div>
+
+<div class="column">
+<ol reversed>
+<li>three <span class="meta">(default list with <code>reversed</code>)</span></li>
+<li>two</li>
+<li>one</li>
+</ol>
+<ol class="polyfill-me" reversed>
+<li>three <span class="meta">(list with polyfilled <code>reversed</code>)</span></li>
+<li>two</li>
+<li>one</li>
+</ol>
+</div>
+
+
+
+</div>
+<figcaption>Our earlier <code>reversed</code> example using a tweaked version of Titani’s <code>&lt;ol reversed&gt;</code> polyfill</figcaption>
+</figure>
+
+<p>You can detect for browser support using Modernizr, via the Community add-on “<a href="https://github.com/Modernizr/Modernizr/blob/master/feature-detects/lists-reversed.js">lists-reversed</a>”. If your polyfill was called <code>reversed.js</code> you could load it using the following code:</p>
+
+<pre><code>yepnope({
+  test : Modernizr.olreversed,
+  nope : ['reversed.js']
+});</code></pre>
+
+<p>The <a href="http://www.modernizr.com/download/#-addtest-lists_reversed-load" title="Modernizr Download Builder">custom Modernizr build for doing this</a> would be:</p>
+
+<ul>
+<li>Extra > Modernizr.load</li>
+<li>Extensibility > Modernizr.addTest</li>
+<li>Community add-ons > lists-reversed</li>
+</ul>
+
+<!-- /#browser-support --></section>
+
+
+<section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+
+<p>These attributes aren’t ones you’ll use often, but sometimes they’ll be just the ticket. They’ll help you avoid adding list item numbering as part of your content (leading to double numbering if your CSS with <code>list-style-type: none;</code> is disabled), or ugly hacks like <code>height:0;</code> on a bunch of filler <code>&lt;li&gt;</code> elements to get the right start value. Even better, <code>type</code>, <code>start</code>, and <code>value</code> are supported and ready to use now.</p>
+
+<p>As usual, just make sure you are only using them where appropriate:</p>
+
+<ul>
+<li>Only use <code>type</code> if the list style for counters is semantic, and the document’s meaning will change if your CSS (containing the equivalent <code>list-style-type</code> values) didn’t load.</li>
+<li>For <code>start</code>, consider whether your lists could be combined.</li>
+<li>Avoid <code>value</code> if at all possible, as it’s less fragile and error-prone to let the browser number list items for you.</li>
+<li>Unfortunately, the current lack of browser support means you’ll need to polyfill <code>reversed</code> if you want to use it for now.</li>
+</ul>
+
+<p>So what do <em>you</em> think of these new attributes? Have you needed them in the past? Have you actually <em>used</em> some of them back in the day to rock some old-skool <a href="http://www.w3.org/TR/REC-html32#ol" title="HTML 3.2 Reference Specification">HTML 3.2</a>? Will you use them in the future? Let us know in the comments!</p>
+
+
+<!-- /#conclusion --></section>
+
+<section id="updates">
+<h2>Updates <a class="permalink" href="#updates">#</a></h2>
+<ol>
+<li><em><time datetime="2012-02-22T11:18:24+13:00">2012-02-22</time></em> I’ve added more browser support information and corrections from the comments. Thanks!</li>
+</ol>
+<!-- /#updates --></section>
+<p><a href="http://html5doctor.com/ol-element-attributes/" rel="bookmark">The ol Element and Related Attributes: type, start, value, and reversed</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 21, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/ol-element-attributes/feed/</wfw:commentRss>
+		<slash:comments>16</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; q</title>
+	<atom:link href="http://html5doctor.com/tag/q/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 17 Mar 2015 16:12:06 +0000</lastBuildDate>
+	<language>en-US</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.9.1</generator>
+	<item>
+		<title>Quoting and citing with &lt;blockquote&gt;, &lt;q&gt;, &lt;cite&gt;, and the cite attribute</title>
+		<link>http://html5doctor.com/blockquote-q-cite/</link>
+		<comments>http://html5doctor.com/blockquote-q-cite/#comments</comments>
+		<pubDate>Tue, 28 Jun 2011 13:30:21 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[blockquote]]></category>
+		<category><![CDATA[cite]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[q]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3373</guid>
+		<description><![CDATA[<p>Given HTML’s roots in the academic world, it should be no surprise that quoting is well-accomodated in the elements blockquote and q, with their optional cite attribute. In addition, there’s the cite element, which over the last nine years went from ‘semantic orphan element made good’ to one of the more contentious elements in HTML5. Let’s power up the endoscope and examine the scarring, starting with blockquote.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul></div>]]></description>
+				<content:encoded><![CDATA[<p class="callout"><strong> NOTE:</strong> (6/11/2013) The definitions of <code>cite</code> and <code>blockquote</code> in <a href="http://www.w3.org/html/wg/drafts/html/master/">HTML</a> have changed. For the latest advice on using these elements refer to <a href="http://html5doctor.com/cite-and-blockquote-reloaded/">cite and blockquote – reloaded</a></p>
+Given HTML’s roots in the academic world, it should be no surprise that quoting is well-accommodated in the elements <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code>, with their optional <code>cite</code> attribute. In addition, there’s the <code>&lt;cite&gt;</code> element, which over the last nine years went from ‘semantic orphan element made good’ to one of the more contentious elements in HTML5. Let’s power up the endoscope and examine the scarring, starting with <code>&lt;blockquote&gt;</code>.
+
+<section id="blockquote">
+<h2>Quoting with <code>&lt;blockquote&gt;</code> <a class="permalink" href="#blockquote">#</a></h2>
+We’ve become pretty familiar with <code>&lt;blockquote&gt;</code> here, as most of our articles feature excerpts from the HTML5 specification. Look, here’s one right now:
+<blockquote>The <code>blockquote</code> element represents a section that is quoted from another source.
+
+<footer>— <cite><a title="4.5 Grouping content — HTML5" href="http://dev.w3.org/html5/spec/grouping-content.html#the-blockquote-element">W3C HTML5 specification</a></cite></footer></blockquote>
+Easy peasy, right? Nothing has really changed. Remember that as <code>&lt;blockquote&gt;</code> is a ‘block-level element’ (<em>flow content</em>) we can put most anything in it, including headers, images and tables, in addition to the usual paragraphs of text.
+
+There are a couple of slight differences in HTML5 though. <code>&lt;blockquote&gt;</code> is a <em>sectioning root</em>, meaning that any <code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code> elements it contains don’t become part of the document’s outline. Also, adding a single paragraph of text with no enclosing <code>&lt;p&gt;</code> tags is now completely kosher.
+
+Here are some simple <code>&lt;blockquote&gt;</code> examples (apologies for the fake content):
+
+<figure>
+<pre><code>&lt;blockquote&gt;This is a short block quote — look Ma, no paragraph tags!&lt;/blockquote&gt;</code></pre>
+<blockquote>This is a short block quote — look Ma, no paragraph tags!</blockquote>
+</figure><figure>
+<pre><code>&lt;blockquote&gt;&lt;p&gt;This is a longer block quote.&lt;/p&gt;
+  &lt;p&gt;It uses paragraph elements.&lt;/p&gt;
+&lt;/blockquote&gt;</code></pre>
+<blockquote>This is a longer block quote.
+
+It uses paragraph elements.</blockquote>
+</figure><figure>
+<pre><code>&lt;blockquote&gt;&lt;h1&gt;OMG a heading!&lt;/h1&gt;
+  &lt;ul&gt;&lt;li&gt;Block quotes can contain more than just paragraphs…&lt;/li&gt;&lt;/ul&gt;
+&lt;/blockquote&gt;</code></pre>
+<blockquote>
+<h1>OMG a heading!</h1>
+<ul>
+	<li>Block quotes can contain more than just paragraphs…</li>
+</ul>
+</blockquote>
+</figure>Historically, adding the source of a <code>&lt;blockquote&gt;</code> was a semantic conundrum. If you add it as content of the <code>&lt;blockquote&gt;</code>, then semantically it would become part of the quote, right? <code>&lt;blockquote&gt;</code> (and <code>&lt;q&gt;</code>) have a <code>cite</code> attribute for the URL of the quote’s source, to provide context. That’s hidden data, however, and despite <a href="http://www.holovaty.com/writing/176/">the potential for exposing the <code>cite</code> attribute via CSS and/or JS</a>, that’s not as useful as a visible link.
+<div class="callout warning-block" id="change-2011-07-11"><aside class="sidenote"><em>Non-conforming</em> means that while it will validate, adding a <code>&lt;footer&gt;</code> that isn’t in the quote’s source goes against the spec</aside>&nbsp;
+
+<em><time>2011-07-11</time></em> It seems our long-running convention at HTML5 Doctor of using <code>&lt;footer&gt;</code> for attribution inside a <code>&lt;blockquote&gt;</code> is actually <a title="Bug 13082" href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13082"><em>non-conforming</em></a>. However the phrase in the spec that prevents it also prevents other common block quoting patterns, so the spec will probably change. Read my article <a title="Blockquote problems and solutions ❧ Oli.jp (@boblet)" href="http://oli.jp/2011/blockquote/"><code>&lt;blockquote&gt;</code> problems and solutions</a>, and submit <a title="[whatwg] The blockquote element spec vs common quoting practices" href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032334.html">feedback via the WHATWG email list</a>, the comments here or to be via <a href="http://twitter.com/boblet">Twitter (@boblet)</a> — your feedback will influence <em>how</em> the spec changes!
+
+I’ll <a href="#updates">update this article</a> after the change, but until then be aware <strong><code>&lt;footer&gt;</code> for attribution in a <code>&lt;blockquote&gt;</code> isn’t strictly valid</strong>, and may not be in the future either. The spec currently recommends including attribution in content surrounding the <code>&lt;blockquote&gt;</code>.
+
+</div>
+<p class="callout changed-block" id="change-2012-02-14"><em><time datetime="2012-02-14T15:20:27+13:00">2012-02-14</time></em> <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2012-February/034822.html">Hixie has given his feedback on my email</a>, and it seems like our <code>&lt;footer&gt;</code> citations are still invalid. The official recommendation is to put the blockquote in a figure and add attribution in <code>&lt;figcaption&gt;</code>. Read the whole thread as there are some interesting comments. I’ll wait for the dust to settle a little yet…</p>
+
+<div class="faint"><style scoped=""><!--
+.faint {color: #777;}
+--></style>HTML5 comes to our rescue with the <code>&lt;footer&gt;</code> element, allowing us to add semantically separate information <em>about</em> the quote. For example:
+
+<figure>
+<pre><code>&lt;blockquote&gt;
+  &lt;p&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/p&gt;
+  &lt;footer&gt;— Crazy hunch-backed old guy from the movie Aladdin&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<blockquote>You know the golden rule, don’t you boy? Those who have the gold make the rules.
+
+<footer>— Crazy hunch-backed old guy from the movie Aladdin</footer></blockquote>
+</figure>Because of this semantically sound way to show the quote’s source, <ins datetime="2011-07-11T14:34:56+0900">if you’re going to add a <code>cite</code> attribute on <code>&lt;blockquote&gt;</code>, only do so <em>in addition</em> to visible attribution</ins>.
+
+<figure>
+<pre><code>&lt;blockquote cite="http://www.imdb.com/character/ch0000672/quotes"&gt;
+&lt;p&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/p&gt;
+&lt;footer&gt;— &lt;a href="http://www.imdb.com/character/ch0000672/quotes"&gt;Crazy hunch-backed old guy in Aladdin&lt;/a&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<blockquote>You’ve heard of the golden rule, haven’t you? Whoever has the gold makes the rules.
+
+<footer>— <a href="http://www.imdb.com/character/ch0000672/quotes">Crazy hunch-backed old guy in Aladdin</a></footer></blockquote>
+</figure></div>
+Even then, the <code>cite</code> attribute is probably only worth it if you can automate it (or you're just crazy OCD ;). We’ll return to <code>&lt;blockquote&gt;</code> in a bit, but let’s first probe into <code>&lt;q&gt;</code>.
+
+<!-- /#blockquote -->
+
+</section><section id="q">
+<h2>Inline quotations with <code>&lt;q&gt;</code> <a class="permalink" href="#q">#</a></h2>
+<code>&lt;q&gt;</code> is for quoting something inline within a section of prose:
+<blockquote>The <code>q</code> element represents some phrasing content quoted from another source.
+
+<footer>— <cite><a title="4.6 Text-level semantics — HTML5" href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-q-element">W3C HTML5 specification</a></cite></footer></blockquote>
+This means we can’t use <code>&lt;q&gt;</code> for sarcasm or other non-quotation uses of quote marks (“”). In those cases, add punctuation manually.
+
+The spec continues:
+<blockquote>Quotation punctuation (such as quotation marks) that is quoting the contents of the element must not appear immediately before, after, or inside <code>q</code> elements; they will be inserted into the rendering by the user agent.
+
+<footer>— <cite><a title="4.6 Text-level semantics — HTML5" href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-q-element">W3C HTML5 specification</a></cite></footer></blockquote>
+As with <code>&lt;blockquote&gt;</code>, you can also add a <code>cite</code> attribute with a URL for the quotation’s source (subject to the above caveats against hidden data). If you’re not using these extra features though, it’s a toss-up as to whether <code>&lt;q&gt;</code> is any better than just adding punctuation characters like “” as you type.
+
+Okay, let’s see some specimens:
+
+<figure><figcaption>Nested quotations:</figcaption>
+<pre><code>&lt;p&gt;Luke continued, &lt;q&gt;And then she called him a &lt;q&gt;scruffy-looking nerf-herder&lt;/q&gt;! I think I’ve got a chance!&lt;/q&gt; The poor naive fool…&lt;/p&gt;
+</code></pre>
+Luke continued, <q>And then she called him a <q>scruffy-looking nerf-herder</q>! I think I’ve got a chance!</q> The poor naive fool…
+
+</figure>
+<div class="lang-example"><style scoped=""><!--
+.lang-example :lang(ja) > q {quotes: '「' '」' '『' '』';}
+.lang-example :lang(ja-latn) > q {quotes: '“' '”' '‘' '’';}
+--></style><figure><figcaption>Language-appropriate quotations <ins datetime="2011-06-29T13:32:48+09:00">(example updated, thanks <a href="#comment-15413">Zev</a>, <a href="#comment-15433">Bertil</a>, &amp; <a href="#comment-25155">Janus</a>)</ins>:</figcaption><aside class="sidenote"><ins datetime="2011-06-29T13:32:48+09:00">For more information see <a href="#foreign-languages">styling foreign quotations</a></ins></aside>
+<pre><code>&lt;ul&gt;
+&lt;li lang="ja"&gt;彼女は&lt;q&gt;日本語に猫は『にゃん』と鳴く&lt;/q&gt;と言った。&lt;/li&gt;
+&lt;li&gt;&lt;i lang="ja-latn"&gt;Kanojo wa &lt;q&gt;Nihongo ni neko wa ‘nyan’ to naku&lt;/q&gt; to itta.&lt;/i&gt;&lt;/li&gt;
+&lt;li&gt;She said &lt;q&gt;In Japanese cats say &lt;i lang="ja-latn"&gt;nyan&lt;/i&gt;&lt;/q&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<ul class="semantic-list">
+	<li lang="ja">彼女は<q>猫は『にゃん』と鳴く</q>と言った。</li>
+	<li><i lang="ja-latn">Kanojo wa <q>Nihongo ni neko wa ‘nyan’ to naku</q> to itta.</i></li>
+	<li>She said <q>In Japanese cats say <i lang="ja-latn">nyan</i></q>.</li>
+</ul>
+</figure></div>
+<figure><figcaption>A quotation using the cite attribute. Note that I’ve also included the <code>cite</code> attribute’s link in content so it’s accessible:</figcaption>
+<pre><code>&lt;p&gt;&lt;a href="http://www.imdb.com/character/ch0000672/quotes"&gt;The Aladdin character Jafar&lt;/a&gt; presents an eloquent treatise on the recent global economic meltdown when he states &lt;q cite="http://www.imdb.com/character/ch0000672/quotes"&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/q&gt;&lt;/p&gt;</code></pre>
+<a title="Jafar (Character) - Quotes" href="http://www.imdb.com/character/ch0000672/quotes">The Aladdin character Jafar</a> presents an eloquent treatise on the recent global economic meltdown when he states <q cite="http://www.imdb.com/character/ch0000672/quotes">You know the golden rule, don’t you boy? Those who have the gold make the rules.</q>
+
+</figure>Let’s examine how to style these elements next.
+
+<!-- /#q -->
+
+</section><section id="styling">
+<h2>Styling <code>&lt;q&gt;</code> and <code>&lt;blockquote&gt;</code> <a class="permalink" href="#styling">#</a></h2>
+Historically, browser support has been patchy for controlling the punctuation used by <code>&lt;q&gt;</code>. Things have settled down now, so we can define nested, language-specific and even author-defined punctuation via CSS.
+<table class="browser-support wider" id="quotes-support"><caption>Browser support for styling quotes</caption>
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col"><abbr title="Internet Explorer">IE</abbr></th>
+<th scope="col">Firefox</th>
+<th scope="col">Safari</th>
+<th scope="col">Chrome</th>
+<th scope="col">Opera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Default <code>&lt;q&gt;</code> punctuation<a href="#quotes-1">¹</a></th>
+<td>8.0 “” ‘’</td>
+<td>1.5 “” ‘’</td>
+<td>2.0 ""
+
+4.0? "" ''</td>
+<td>1.0? "" ''</td>
+<td>4.0 “” ‘’</td>
+</tr>
+<tr>
+<th scope="row"><code>quotes</code> with Unicode escapes</th>
+<td>8.0</td>
+<td>1.5</td>
+<td>5.1<a href="#quotes-2">²</a></td>
+<td>11.0<a href="#quotes-2">²</a></td>
+<td class="warning">4.0<a href="#quotes-3">³</a></td>
+</tr>
+<tr>
+<th scope="row"><code>quotes</code> with glyphs</th>
+<td>8.0</td>
+<td>1.5</td>
+<td>5.1<a href="#quotes-2">²</a></td>
+<td>11.0<a href="#quotes-2">²</a></td>
+<td class="warning">4.0<a href="#quotes-3">³</a></td>
+</tr>
+</tbody>
+</table>
+<ol class="key">
+	<li id="quotes-1">Default <code>&lt;q&gt;</code> support requires on <code>:before</code> and <code>:after</code></li>
+	<li id="quotes-2">Webkit support has been weak, with "" and '' hard-coded until Safari 5.1 and Chrome 11. Ref: WebKit bugs <a href="https://bugs.webkit.org/show_bug.cgi?id=6503">6503 (fixed)</a> and <a href="https://bugs.webkit.org/show_bug.cgi?id=3234">3234 (new)</a>.</li>
+	<li id="quotes-3">Opera is buggy if you nest <code>&lt;q&gt;</code> to a greater depth than quote pairs in your <code>quotes</code> property (<a href="http://jsbin.com/ehevof">test case</a>)</li>
+</ol>
+“Correct” punctuation is an intricate topic and <a title="Non-English usage of quotation marks - Wikipedia, the free encyclopedia" href="http://en.wikipedia.org/wiki/Non-English_usage_of_quotation_marks">varies depending on language</a>, but it generally involves these characters:
+<table class="widest" id="punctuation-characters"><caption>Quote punctuation characters</caption>
+<thead>
+<tr>
+<th scope="col">Glyph</th>
+<th scope="col">Description</th>
+<th scope="col">Unicode escape</th>
+<th scope="col">Entity</th>
+<th scope="col">Mac</th>
+<th scope="col">Windows</th>
+<th scope="col">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">“</th>
+<td>Left double quotation mark</td>
+<td>\201C</td>
+<td><code>&amp;ldquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>[</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0147</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>V</kbd></td>
+</tr>
+<tr>
+<th scope="row">”</th>
+<td>Right double quotation mark</td>
+<td>\201D</td>
+<td><code>&amp;rdquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>[</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0148</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>B</kbd></td>
+</tr>
+<tr>
+<th scope="row">‘</th>
+<td>Left single quotation mark</td>
+<td>\2018</td>
+<td><code>&amp;lsquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>]</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0145</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd></td>
+</tr>
+<tr>
+<th scope="row">’</th>
+<td>Right single quotation mark</td>
+<td>\2019</td>
+<td><code>&amp;rsquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>]</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0146</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd></td>
+</tr>
+<tr>
+<th scope="row">«</th>
+<td>Double left-pointing angle quotation mark</td>
+<td>\00AB</td>
+<td><code>&amp;laquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>\</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>174</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>[</kbd></td>
+</tr>
+<tr>
+<th scope="row">»</th>
+<td>Double right-pointing angle quotation mark</td>
+<td>\00BB</td>
+<td><code>&amp;raquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>\</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>175</kbd></td>
+<td><kbd>AltGr</kbd>+<kbd>]</kbd></td>
+</tr>
+<tr>
+<th scope="row">‹</th>
+<td>Single left-pointing angle quotation mark</td>
+<td>\2039</td>
+<td><code>&amp;lsaquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>3</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0139</kbd></td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">›</th>
+<td>Single right-pointing angle quotation mark</td>
+<td>\203A</td>
+<td><code>&amp;rsaquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>4</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0155</kbd></td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">„</th>
+<td>Double low-9 quotation mark</td>
+<td>\201E</td>
+<td><code>&amp;bdquo;</code></td>
+<td><kbd>Option</kbd>-<kbd>Shift</kbd>-<kbd>W</kbd></td>
+<td><kbd>Alt</kbd>+<kbd>0132</kbd></td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row">‚</th>
+<td>Single low-9 quotation mark</td>
+<td>\201A</td>
+<td><code>&amp;sbquo;</code></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"></th>
+<td>Narrow no-break space</td>
+<td>\202F</td>
+<td><code>&amp;#8239;</code></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<aside class="sidenote"><a title="Shortcuts by George Hernandez" href="http://www.georgehernandez.com/h/xComputers/CharacterSets/Shortcuts.asp">More info on keyboard shortcuts for entering special characters</a>, including how to enter them via Unicode escape codes (hex input) on Macs &amp; PCs</aside>
+<p class="note">If you’re using the <code>charset</code> UTF-8 (and you should be), we recommend you use the actual characters if possible, rather than the Unicode escapes in CSS or the entities in HTML. You can enter most of these using the keyboard — e.g. “ is <kbd>Opt</kbd>-<kbd>[</kbd> on Mac, <kbd>Alt</kbd> + <kbd>0147</kbd> on Windows, and <kbd>AltGr</kbd> + <kbd>V</kbd> on Linux. Avoid using ", ' or ` in place of “” and ‘’. The “narrow no-break space” is used inside French guillemets.</p>
+Most languages alternate between two kinds of punctuation as quotes are nested, such as “” and ‘’ in English. To specify nested quote pairs in CSS, we would write this:
+<pre><code>q {quotes: '“' '”' '‘' '’';} /* opening followed by closing quote pairs */
+/* The equivalent using Unicode escapes:
+  q {quotes: '\201C' '\201D' '\2018' '\2019';} */
+q:before {content: open-quote;}
+q:after {content: close-quote;}
+</code></pre>
+Unfortunately, browsers use the last quote pair in the <code>quotes</code> property for more deeply nested quotations. <ins datetime="2011-06-29T00:17:49+09:00">In addition, Opera will use the wrong quote characters if you have more nested <code>&lt;q&gt;</code> than your <code>quotes</code> property defines quoting levels for (<a href="http://jsbin.com/ehevof">Opera quotes bug test case</a>).</ins> Make sure you have enough levels by repeating quote pairs as necessary:
+<pre><code>/* four levels of nested quotes */
+q {quotes: '“' '”' '‘' '’' '“' '”' '‘' '’';}</code></pre>
+WebKit had "" and '' hard-coded in the browser stylesheet until Safari 5.1 and Chrome 11, which prevented <code>q:before {content: open-quote;}</code> and <code>q:after {content: close-quote;}</code> from working. <a title="#2528708 Issues with quotes : reset.css : YUI Library" href="http://yuilibrary.com/projects/yui3/ticket/2528708">The workaround is to define opening and closing punctuation manually</a>, then override with <code>open-quote</code> and <code>close-quote</code>. While it’s a little more involved, that’s why we use this CSS on HTML5 Doctor:
+<pre><code>/* for two levels of nested quotations */
+q {quotes: '“' '”' '‘' '’';}
+ /* extra content definitions for pre-2011 WebKit */
+q:before {content: '“'; content: open-quote;}
+q:after {content: '”'; content: close-quote;}
+q q:before {content: '‘'; content: open-quote;}
+q q:after {content: '’'; content: close-quote;}
+  /* q in blockquote */
+blockquote q:before {content: '‘'; content: open-quote;}
+blockquote q:after {content: '’'; content: close-quote;}
+blockquote q q:before {content: '“'; content: open-quote;}
+blockquote q q:after {content: '”'; content: close-quote;}
+  /* blockquote hanging opening quote */
+blockquote:before {display: block; height: 0; content: "“"; margin-left: -.95em; font: italic 400%/1 Cochin,Georgia,"Times New Roman",serif; color: #999;}
+</code></pre>
+A more traditional English <code>&lt;blockquote&gt;</code> style uses an opening quote character before each paragraph of the quotation and a closing quote character on the last paragraph. You can do that with this CSS, but you’ll need to use <code>&lt;p&gt;</code> for the <code>&lt;blockquote&gt;</code>’s content.
+<pre><code>/* alternative blockquote style */
+blockquote {quotes: '“' '”';}
+blockquote p:before {content: '“'; content: open-quote;}
+blockquote p:after {content: ''; content: no-close-quote;}
+blockquote p:last-child:after {content: '”'; content: close-quote;}
+</code></pre>
+<p id="foreign-languages">When quoting a foreign language, we use the quotation marks of the surrounding language, so a Japanese quote in an English sentence still uses English quotation marks:</p>
+<p class="callout">All he knows how to say in Japanese is <del>「わかりません」</del> <ins>“わかりません”</ins> (I don’t understand).</p>
+If you’re dealing with multilingual content, you can specify the <code>quotes</code> property per-language:
+<pre><code>/* quotes for French, German (two kinds) and Japanese */
+:lang(fr) &gt; q {quotes: '« ' ' »' '“' '”';}
+:lang(de) &gt; q {quotes: '„' '“' '‚' '‘';}
+:lang(de) &gt; q {quotes: '»' '«' '›' '‹';} /* alternative style */
+:lang(ja) &gt; q {quotes: '「' '」' '『' '』';}
+</code></pre>
+You can learn more about this CSS in the specification: <a title="CSS Generated Content Module Level 3" href="http://dev.w3.org/csswg/css3-content/#specifying-quotes-with-the-quotes-proper">CSS Generated Content Module Level 3</a>.
+
+Okay, it’s time to put the rubber gloves on: <code>&lt;cite&gt;</code> is up next.
+
+<!-- /#styling -->
+
+</section><section id="cite">
+<h2>The rise and fall of <code>&lt;cite&gt;</code> <a class="permalink" href="#cite">#</a></h2>
+<section id="cite-history">
+<h3><code>&lt;cite&gt;</code>’s rise to stardom as the semantic super-element <a class="permalink" href="#cite-history">#</a></h3>
+<a href="http://www.w3.org/MarkUp/html-spec/html-spec_5.html#SEC5.7.1.1">In HTML 2</a> <code>&lt;cite&gt;</code> was <q cite="http://www.w3.org/MarkUp/html-spec/html-spec_5.html#SEC5.7.1.1">used to indicate the title of a book or other citation</q>. But in HTML 3.2 and HTML 4.01, <code>&lt;cite&gt;</code> was more loosely defined as
+<blockquote>Cite: Contains a citation or a reference to other sources
+
+<footer>— <a title="Paragraphs, Lines, and Phrases" href="http://www.w3.org/TR/html401/struct/text.html#edef-CITE">HTML 4.01 specification</a></footer></blockquote>
+We can define “citation” as:
+<ul>
+	<li>a reference to authority or precedent,</li>
+	<li>a quotation that’s being cited, or</li>
+	<li>a mention of someone or something</li>
+</ul>
+And “a reference to other sources” is even less specific [cue Jaws music]. The <a title="Paragraphs, Lines, and Phrases" href="http://www.w3.org/TR/html401/struct/text.html#edef-CITE">HTML 4.01 spec’s examples</a> were:
+<blockquote>As <code>&lt;CITE&gt;</code>Harry S. Truman<code>&lt;/CITE&gt;</code> said…
+
+More information can be found in <code>&lt;CITE&gt;</code>[ISO-0000]<code>&lt;/CITE&gt;</code></blockquote>
+Sadly, an example of an academic-style citation wasn’t included.
+
+Some standardistas enthusiastically adopted <code>&lt;cite&gt;</code> for its semantics, with the high point being <a href="http://diveintomark.org/archives/2002/12/27/pushing_the_envelope">Mark Pilgrim’s epic “Posts by citation”</a> (the results of which are now sadly 404’ed). In those heady days, <code>&lt;cite&gt;</code> was used in three main ways:
+<ol>
+	<li>To refer to a person, generally in connection with some reference or as the source of a quote:
+<pre class="callout warning-block"><code>&lt;!-- Not valid usage of cite in HTML5! --&gt;
+&lt;p&gt;As &lt;cite&gt;George R. R. Martin&lt;/cite&gt; wrote in…&lt;/p&gt;</code></pre>
+</li>
+	<li>To contain the title of a work being referred to or quoted from <ins datetime="2011-06-29T00:54:20+09:00">(what <code>&lt;cite&gt;</code> is now used for in HTML5 — <a href="http://html5doctor.com/blockquote-q-cite/#comment-15397">thanks Dylan</a>!)</ins>:
+<pre class="callout changed-block"><code>&lt;p&gt;&lt;cite&gt;A Game of Thrones&lt;/cite&gt;, by George R. R. Martin&lt;/p&gt;</code></pre>
+</li>
+	<li>To contain a full academic-style citation (title plus author, and maybe bibliographic information):
+<pre class="callout warning-block"><code>&lt;!-- Not valid usage of cite in HTML5! --&gt;
+&lt;p&gt;&lt;cite&gt;A Game of Thrones, by George R. R. Martin&lt;/cite&gt;&lt;/p&gt;</code></pre>
+<ul>
+	<li>Historically this might also be marked up as:
+<pre class="callout warning-block"><code>&lt;!-- Not valid usage of cite in HTML5! --&gt;
+&lt;p&gt;&lt;cite class="book-title"&gt;A Game of Thrones&lt;/cite&gt;, by &lt;cite class="author"&gt;George R. R. Martin&lt;/cite&gt;&lt;/p&gt;</code></pre>
+</li>
+	<li>or <a title="Template:Quotation - Wikipedia, the free encyclopedia" href="http://en.wikipedia.org/wiki/Template:Quotation">as Wikipedia does</a> (with <code>&lt;cite&gt;</code> set to <code>font-style: normal;</code>):
+<pre class="callout warning-block"><code>&lt;!-- Not valid usage of cite in HTML5! --&gt;
+&lt;p&gt;&lt;cite&gt;George R. R. Martin, &lt;i&gt;A Game of Thrones&lt;/i&gt;&lt;/cite&gt;&lt;/p&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+“Wow, what an all-rounder!” I hear you say. “Is there anything <code>&lt;cite&gt;</code> can’t do?” The dirty secret of all this is the <code>&lt;cite&gt;</code> element has historically been semantics for the sake of semantics. So far, the only non-site-specific application of <code>&lt;cite&gt;</code> is browser default stylesheets, which format it with <code>font-style: italic;</code>. This is not a bad thing, as using <code>&lt;cite&gt;</code> consistently on your own site allows you to do all kinds of fun stuff (as Pilgrim demonstrated). But in the past, it’s been used to refer to <em>three related but quite different types of data:</em> titles, full citations, and names. This makes web-wide use, such as by a search engine, tricky.
+
+<!-- /#cite-history -->
+
+</section><section id="cite-future">
+<h3><code>&lt;cite&gt;</code> snorts too much semantics, checks into rehab <a class="permalink" href="#cite-future">#</a></h3>
+So, in HTML5 this semantic over-achiever has ended up with a more … prosaic definition:
+<blockquote>The cite element represents the title of a work (e.g. a book, a paper, an essay, a poem, a score, a song, a script, a film, a TV show, a game, a sculpture, a painting, a theatre production, a play, an opera, a musical, an exhibition, a legal case report, etc). This can be a work that is being quoted or referenced in detail (i.e. a citation), or it can just be a work that is mentioned in passing.
+
+<mark>A person's name is not the title of a work</mark> — even if people call that person a piece of work — <mark>and the element must therefore not be used to mark up people's names</mark>
+
+<footer>— <cite><a title="4.6 Text-level semantics — HTML5" href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-cite-element">W3C HTML5 specification</a></cite></footer></blockquote>
+<aside class="sidenote"><q>A piece of work</q>, heh, that’s good</aside>This restriction has been somewhat … unpopular. Arguments for using <code>&lt;cite&gt;</code> for names (<a href="http://wiki.whatwg.org/wiki/Cite_element">now summarised on the <span class="caps">WHATWG</span> wiki</a>) were <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2008-February/014008.html">addressed by Ian Hickson</a>, who decided that historical use wasn’t enough to justify the wooly definition. <a title="24 ways: Incite A Riot" href="http://24ways.org/2009/incite-a-riot">Jeremy Keith’s 24 Ways article “<cite>Incite A Riot</cite>”</a> called for civil disobedience and HTML 4.01-style <code>&lt;cite&gt;</code>-ing, but the HTML5 spec has not changed.
+
+The in<code>&lt;cite&gt;</code>rs are irate that there are two use cases that <code>&lt;cite&gt;</code>’s new definition leaves semantically unfilled — to mark up speakers in a transcript or dialog, and to indicate the speaker or author of an inline quote (<code>&lt;q&gt;</code>). The <a title="4.6 Text-level semantics — HTML5" href="http://dev.w3.org/html5/spec/text-level-semantics.html#the-cite-element">HTML5 spec</a> adds semantic insult to injury by saying:
+<blockquote>In some cases, the <code>&lt;b&gt;</code> element might be appropriate for names; e.g. in a gossip article … In other cases, if an element is really needed, the <code>&lt;span&gt;</code> element can be used.</blockquote>
+By better defining <code>&lt;cite&gt;</code>, we increase the odds of getting usable data from it, though we now need different methods to cover these other uses. For now, it seems that these use cases aren’t specific enough to warrant new elements.
+
+Note that <code>&lt;cite&gt;</code> was never a general-purpose element for marking up a person. The still-born HTML 3.0 did try to introduce the <code>&lt;person&gt;</code> element, but if you’ve ever used hCard to semantically mark up a person’s name, you’ll know that we’d need way more than just one element to do names justice. The <abbr title="plain old semantic HTML">POSH</abbr> way of marking up a name is to use hCard (in <a title="Extending HTML5 — Microformats | HTML5 Doctor" href="http://html5doctor.com/microformats/">microformats</a>, <a title="Extending HTML5 — Microdata | HTML5 Doctor" href="http://html5doctor.com/microdata">microdata</a> or RDFa), or just with a plain old link.
+
+<!-- /#cite-future -->
+
+</section><section id="cite-examples">
+<h3>Get ex<code>&lt;cite&gt;</code>d and quote stuff <a class="permalink" href="#cite-examples">#</a></h3>
+History and encouraging angry comments aside, let’s suture up and see some examples of HTML5-style <code>&lt;cite&gt;</code> action:
+
+<figure><figcaption>Use <code>&lt;cite&gt;</code> for a movie title:</figcaption>
+<pre><code>&lt;p&gt;&lt;cite&gt;Aladdin&lt;/cite&gt; is a great movie, even after 73 viewings. Aren’t kids great?&lt;/p&gt;</code></pre>
+<cite>Aladdin</cite> is a great movie, even after 73 viewings. Aren’t kids great?
+
+</figure><figure><figcaption>Even better, use <code>&lt;cite&gt;</code> with a link:</figcaption>
+<pre><code>&lt;p&gt;&lt;cite&gt;&lt;a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)"&gt;Aladdin&lt;/a&gt;&lt;/cite&gt; is a great movie, even after 73 viewings. Aren’t kids great?&lt;/p&gt;</code></pre>
+<cite><a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)">Aladdin</a></cite> is a great movie, even after 73 viewings. Aren’t kids great?
+
+</figure><figure><figcaption>Use <code>&lt;cite&gt;</code> for the title of a book (but not the author’s name):</figcaption>
+<pre><code>&lt;p&gt;&lt;cite&gt;A Game of Thrones&lt;/cite&gt;, by George R. R. Martin&lt;/p&gt;</code></pre>
+<cite>A Game of Thrones</cite>, by George R. R. Martin
+
+</figure><figure><figcaption>If you wanted to semantically indicate the author, you could use <a title="Extending HTML5 — Microformats | HTML5 Doctor" href="http://html5doctor.com/microformats/">microformats</a>, <a title="Extending HTML5 — Microdata | HTML5 Doctor" href="http://html5doctor.com/microdata">microdata</a> or RDFa:</figcaption>
+<pre><code>&lt;p&gt;&lt;cite&gt;A Game of Thrones&lt;/cite&gt;, by &lt;span class="hcard"&gt;&lt;span class="fn n"&gt;&lt;span class="given-name"&gt;George&lt;/span&gt; &lt;span class="additional-name"&gt;R. R.&lt;/span&gt; &lt;span class="family-name"&gt;Martin&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;</code></pre>
+<cite>A Game of Thrones</cite>, by <span class="hcard"><span class="fn n"><span class="given-name">George</span> <span class="additional-name">R. R.</span> <span class="family-name">Martin</span></span></span>
+
+</figure>In this example, the author and book title are only connected by proximity. You could connect them more explicitly using <a href="http://microformats.org/wiki/hproduct">the hProduct microformat</a>, <a href="http://wiki.goodrelations-vocabulary.org/Quickstart">RDFa’s GoodRelations</a>, or to really bleed on the edge even <a href="http://schema.org/Book">Schema.org</a>.
+
+Note that you can’t use the now-Google-approved <code>rel="author"</code> attribute here, as <em>George R. R. Martin</em> is being referred to and isn’t writing the article. If you just wanted to style the author’s name, you could use <code>&lt;b class="author"&gt;</code> (gossip column style) or <code>&lt;span class="author"&gt;</code> with whatever CSS you like.
+
+<!-- /#cite-examples -->
+
+</section><!-- /#cite -->
+
+</section><section id="examples">
+<h2>All together now <a class="permalink" href="#examples">#</a></h2>
+Oay, let’s start mixing things up on the operating table and show some examples of <code>&lt;cite&gt;</code> with <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code>:
+
+<figure><figcaption>A movie <code>&lt;blockquote&gt;</code> with <code>&lt;cite&gt;</code>:</figcaption>
+<pre><code>&lt;blockquote&gt;
+&lt;p&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/p&gt;
+&lt;footer&gt;— Crazy hunch-backed old guy in &lt;cite&gt;&lt;a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)"&gt;Aladdin&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<blockquote>You know the golden rule, don’t you boy? Those who have the gold make the rules.
+
+<footer>— Crazy hunch-backed old guy in <cite><a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)">Aladdin</a></cite></footer></blockquote>
+</figure><figure><figcaption>Adding the <code>cite</code> attribute to a <code>&lt;blockquote&gt;</code> (and its <code>&lt;footer&gt;</code>):</figcaption>
+<pre><code>&lt;blockquote cite="http://www.imdb.com/character/ch0000672/quotes"&gt;
+&lt;p&gt;You know the golden rule, don’t you boy? Those who have the gold make the rules.&lt;/p&gt;
+&lt;footer&gt;— &lt;a href="http://www.imdb.com/character/ch0000672/quotes"&gt;Crazy hunch-backed old guy&lt;/a&gt; in &lt;cite&gt;&lt;a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)"&gt;Aladdin&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<blockquote cite="http://www.imdb.com/character/ch0000672/quotes">You know the golden rule, don’t you boy? Those who have the gold make the rules.
+
+<footer>— <a href="http://www.imdb.com/character/ch0000672/quotes">Crazy hunch-backed old guy</a> in <cite><a href="http://en.wikipedia.org/wiki/Aladdin_(1992_Disney_film)">Aladdin</a></cite></footer></blockquote>
+</figure><figure><figcaption>A quote from a specification:</figcaption>
+<pre><code>&lt;p&gt;I wonder if feedback on &lt;code&gt;&amp;lt;cite&amp;gt;&lt;/code&gt; prompted this:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;A person's name is not the title of a work — even if people call that person a piece of work&lt;/p&gt;
+&lt;footer&gt;&lt;cite&gt;&lt;a href="http://developers.whatwg.org/text-level-semantics.html#the-cite-element"&gt;HTML5 for Web Developers&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+I wonder if feedback on <code>&lt;cite&gt;</code> prompted this:
+<blockquote>A person's name is not the title of a work — even if people call that person a piece of work
+
+<footer>— <cite><a href="http://developers.whatwg.org/text-level-semantics.html#the-cite-element">HTML5 for Web Developers</a></cite></footer></blockquote>
+</figure><figure><figcaption>An academic-style journal citation:</figcaption>
+<pre><code>&lt;ol&gt;
+&lt;li&gt;The information capacity of the human motor system in controlling the amplitude of movement, Paul M. Fitts (1954). &lt;cite&gt;Journal of Experimental Psychology&lt;/cite&gt;, volume 47, number 6, June 1954, pp. 381–391&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+<ol>
+	<li>The information capacity of the human motor system in controlling the amplitude of movement, Paul M. Fitts (1954). <cite>Journal of Experimental Psychology</cite>, volume 47, number 6, June 1954, pp. 381–391</li>
+</ol>
+</figure><figure><figcaption>An academic-style book citation:</figcaption>
+<pre><code>&lt;blockquote&gt;
+&lt;p&gt;Citations … all include the following: author (or editor, compiler, or translator standing in place of the author), title (and usually subtitle), and date of publication.&lt;/p&gt;
+&lt;footer&gt;&lt;cite&gt;&lt;a href="http://www.chicagomanualofstyle.org/"&gt;The Chicago Manual of Style&lt;/a&gt;&lt;/cite&gt;, 15th Edition (Chicago: University of Chicago Press, 2003), 596&lt;/footer&gt;
+&lt;/blockquote&gt;</code></pre>
+<blockquote>Citations … all include the following: author (or editor, compiler, or translator standing in place of the author), title (and usually subtitle), and date of publication.
+
+<footer>— <cite><a href="http://www.chicagomanualofstyle.org/">The Chicago Manual of Style</a></cite>, 15th Edition (Chicago: University of Chicago Press, 2003), 596</footer></blockquote>
+</figure><!-- /#examples -->
+
+</section><section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+If you’ve made it this far, congratulations! You’ve now learned more about citing and quoting in HTML5 than you wanted to know ;) But don’t keep the knowledge to yourself — let us know in the comments what you think. We’d also love to hear how you’re using <code>&lt;blockquote&gt;</code>, <code>&lt;q&gt;</code>, and <code>&lt;cite&gt;</code> in HTML5. If you share your code snippets, remember to escape them!
+
+<!-- /#conclusion -->
+
+</section><section id="updates">
+<h2>Updates <a class="permalink" href="#updates">#</a></h2>
+<ol>
+	<li><em><time datetime="2011-06-29T17:20:46+09:00">2011-06-29</time></em>: It seems our long-running convention at HTML5 Doctor of using <code>&lt;footer&gt;</code> for attribution inside a <code>&lt;blockquote&gt;</code> is in keeping with the <code>&lt;footer&gt;</code> part of the spec, but <a title="Bug 13082" href="http://www.w3.org/Bugs/Public/show_bug.cgi?id=13082">not with the <code>&lt;blockquote&gt;</code> part</a>. We’re investigating…</li>
+	<li><em><time datetime="2011-07-03T23:52:47+09:00">2011-07-03</time></em>: Hixie confirmed that our use of <code>&lt;footer&gt;</code> is currently non-conforming — <code>&lt;footer&gt;</code> can currently only be included in <code>&lt;blockquote&gt;</code> if it’s quoted content. However, the phrase “content inside a blockquote must be quoted from another source” also forbids other <a title="Examples of block quote metadata ❧ Oli.jp (@boblet)" href="http://oli.jp/example/blockquote-metadata/">common changes and additions to block quotes</a>, so I’m going to see if it can be changed.</li>
+	<li><em><time datetime="2011-07-10T21:36:58+09:00">2011-07-10</time></em>: I wrote an article <a title="Blockquote problems and solutions ❧ Oli.jp (@boblet)" href="http://oli.jp/2011/blockquote/"><code>&lt;blockquote&gt;</code> problems and solutions</a> about these problems, and initial feedback from Hixie is that there are legitimate issues, and he’ll review <a title="[whatwg] The blockquote element spec vs common quoting practices" href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032334.html">feedback via the WHATWG email list</a>. So, please do that! You can also leave feedback in the comments here or ping me on <a href="http://twitter.com/boblet">Twitter (@boblet)</a>. Also, don’t miss <a title="Adactio: Journal—Citation needed" href="http://adactio.com/journal/4675/">Jeremy Keith’s excellent commentary “Citation needed”</a> on the issue (watch out for those <code>&lt;cite&gt;</code>s though ;) )</li>
+	<li><em><time datetime="2011-09-23T12:55:16+12:00">2011-09-23</time></em>: I’ve added keyboard shortcuts for punctuation characters to the <a href="#punctuation-characters">punctuation table</a>, for default (typically US) keyboards.</li>
+	<li><em><time datetime="2012-02-14T15:21:56+13:00">2012-02-14</time></em> Added <a href="#change-2012-02-14">a note about Hixie’s reply</a> to the article.</li>
+</ol>
+<!-- /#updates -->
+
+</section><!--
+* <q> is only for quotes, not other uses such as sarcasm. use “” or ‘’ instead
+* http://en.wikipedia.org/wiki/Quotation_mark
+* don’t add punctuation manually to <q>, one or the other
+* use
+<blockquote> for >1 paragraph of text
+--><p><a href="http://html5doctor.com/blockquote-q-cite/" rel="bookmark">Quoting and citing with <code>&lt;blockquote&gt;</code>, <code>&lt;q&gt;</code>, <code>&lt;cite&gt;</code>, and the cite attribute</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 28, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/lets-talk-about-semantics/"     class="crp_title">Let&#8217;s Talk about Semantics</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/your-html5-questions-19/"     class="crp_title">Your HTML5 Questions 19</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/blockquote-q-cite/feed/</wfw:commentRss>
+		<slash:comments>69</slash:comments>
+		</item>
+	</channel>
+</rss>

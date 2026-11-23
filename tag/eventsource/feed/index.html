@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>eventsource &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/tag/eventsource/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Mon, 11 Jul 2016 11:54:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Server-Sent Events</title>
+		<link>http://html5doctor.com/server-sent-events/</link>
+		<comments>http://html5doctor.com/server-sent-events/#comments</comments>
+		<pubDate>Tue, 24 Jan 2012 14:30:33 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[eventsource]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[realtime]]></category>
+		<category><![CDATA[serversentevents]]></category>
+		<category><![CDATA[websockets]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4181</guid>
+		<description><![CDATA[We've already had a glimpse at Server-Sent Events (also known as EventSource, and I'll switch between the two to keep you on your toes) in my Methods of Communication article from last year. In this article, I want to delve in to more detail about the SSE API, demonstrate its features, and even show you how to polyfill browsers that lack EventSource support.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;ve already had a glimpse at <a href="http://dev.w3.org/html5/eventsource/">Server-Sent Events</a> (also known as EventSource<sup>†</sup>, and I&#8217;ll switch between the two to keep you on your toes) in my <a href="http://html5doctor.com/methods-of-communication/">Methods of Communication</a> article from last year. In this article, I want to delve in to more detail about the SSE API, demonstrate its features, and even show you how to polyfill browsers that lack EventSource support.</p>
+
+<p>Server-Sent Events are real-time events emitted by the server and received by the browser. They&#8217;re similar to WebSockets in that they happen in real time, but they&#8217;re very much a one-way communication method <em>from</em> the server.</p>
+
+<p>These events are similar to ordinary JavaScript events that occur in the browser — like <em>click</em> events — except we can control the name of the event and the data associated with it.</p>
+
+<p>All the code for this article is <a href="https://github.com/remy/eventsource-h5d">available on github</a>, and a <a href="http://node.remysharp.com:8004/">live demo is available online</a>.
+<span id="more-4181"></span></p>
+
+<p><small>† Is it Server-Sent Events or EventSource? Well, they both work. Server-Sent Events is the name of the API and specification. EventSource is the name of the JavaScript object you&#8217;re instantiating. It&#8217;s a bit like Ajax and XHR, where XHR refers to the XMLHttpRequest object…kinda.</small></p>
+
+<p><small>Two notes: a) the uptime for this example is, I&#8217;m afraid, usually rather low — good for my server, bad for you. If you test the demo locally it will give you more interesting figures. b) IE6 isn&#8217;t supported in any of this article.</small></p>
+
+<p><section id="applications"></p>
+
+<h2>Possible Applications <a href="#applications" class="permalink">#</a></h2>
+
+<p>A few simple examples of applications that could make use of Server-Sent Events:</p>
+
+<ul>
+<li>A real-time chart of streaming stock prices</li>
+<li>Real-time news coverage of an important event (posting links, tweets, and images)</li>
+<li>A live Twitter wall fed by Twitter&#8217;s streaming API</li>
+<li>A monitor for server statistics like uptime, health, and running processes</li>
+</ul>
+
+<p>We&#8217;ll use the server monitor for this article&#8217;s examples. If this application were to be used in the wild, we could also check the <code>EventSource</code>&#8216;s connection state to indicate when there&#8217;s a potential problem connecting to the server.</p>
+
+<p></section></p>
+
+<p><section id="api"></p>
+
+<h2>Overview of the API <a href="#api" class="permalink">#</a></h2>
+
+<p>The client-side API is rather simple, and it hands-down beats the insane hacks required to get real-time events to the browser back in the bad old days.</p>
+
+<p>The main points of interest:</p>
+
+<ul>
+<li><code>new EventSource(url)</code> — this creates our <code>EventSource</code> object, which immediately starts listening for events on the given URL.</li>
+<li><code>readyState</code> — as with XHR, we have a <code>readyState</code> for the <code>EventSource</code> that tells us if we&#8217;re connecting (0), open (1), or closed (2).</li>
+<li><code>onopen</code>, <code>onmessage</code> — two events that we can listen for on the new <code>EventSource</code> object. By default, the <code>message</code> event will fire when new messages are received, <em>unless</em> the server explicitly sets the event type.</li>
+<li><code>addEventListener</code> — not only can we listen for the default <code>message</code> event, but we can also listen for custom messages using the <code>addEventListener</code> on the <code>EventSource</code> object, just as if we were listening for a <code>click</code> event.</li>
+<li><code>event.data</code> — as with most messaging APIs, the contents of the message reside in the <code>data</code> property of the <code>event</code> object. This is a string, so if we want to pass around an object, we need to encode and decode it with JSON.</li>
+<li><code>close</code> — closes the connection from the client side.</li>
+</ul>
+
+<p>In the future, EventSource will also support <a href="http://www.w3.org/TR/cors/">CORS</a> using an <code>options</code> argument to the <code>EventSource</code> object: <code>{ withCredentials: true }</code>. But at the time of writing, no stable release includes this property.</p>
+
+<p></section></p>
+
+<p><section id="example"></p>
+
+<h2>Simple Example <a href="#example" class="permalink">#</a></h2>
+
+<p>Our simple web app will notify us of server status messages — things like the load average, number of currently connected users, and most CPU-intensive processes. If I were using this application in anger, I&#8217;d probably build server modules that emit specific event types when they cross specific thresholds, so that I&#8217;m only notified when something gets to warning level.</p>
+
+<p>This snippet of JavaScript connects to our server, listens for messages, and handles the data that comes with the messages:</p>
+
+<pre><code>var source = new EventSource('/stats');
+source.onopen = function () {
+  connectionOpen(true);
+};
+
+source.onerror = function () {
+  connectionOpen(false);
+};
+
+source.addEventListener('connections', updateConnections, false);
+source.addEventListener('requests', updateRequests, false);
+source.addEventListener('uptime', updateUptime, false);
+
+source.onmessage = function (event) {
+  // a message without a type was fired
+};
+</code></pre>
+
+<p></section></p>
+
+<p><section id="properties"></p>
+
+<h2>Properties of Server-Sent Events <a href="#properties" class="permalink">#</a></h2>
+
+<p>Server-Sent Events are more than just a one-way web socket. They have some unique features:</p>
+
+<ul>
+<li>The connection stream is <em>from</em> the server and read-only. This suits lots of applications, some examples of which I listed above.</li>
+<li>They use regular HTTP requests for the persistent connection, not a special protocol, which means we can polyfill using vanilla JavaScript.</li>
+<li>If the connection drops, the <code>EventSource</code> fires an error event and automatically tries to reconnect. The server can also control the timeout before the client tries to reconnect.</li>
+<li>Clients can send a unique ID with messages. When a client tries to reconnect after a dropped connection, it will send the last known ID. Then the server can see that the client missed <em>n</em> messages and send the backlog of missed messages on reconnect.</li>
+</ul>
+
+<p></section></p>
+
+<p><section id="message-format"></p>
+
+<h2>Message Format <a href="#message-format" class="permalink">#</a></h2>
+
+<p>A simple message doesn&#8217;t require much:</p>
+
+<pre><code>data: this is a simple message
+&lt;blank line&gt;
+</code></pre>
+
+<p>Note that the end of a message is indicated by a blank line (obviously not the literal characters <code>&lt;blank line&gt;</code>).</p>
+
+<p>For a message with multiple lines:</p>
+
+<pre><code>data: this is line one
+data: and this is line two
+</code></pre>
+
+<p>You can send message IDs to be used if the connection is dropped:</p>
+
+<pre><code>id: 33
+data: this is line one
+data: this is line two
+</code></pre>
+
+<p>You can even send multiple messages in a single response so long as you separate the messages by blank lines:</p>
+
+<pre><code>id: 34
+data: Remy is awesome
+
+id: 35
+data: Bruce is stinky
+</code></pre>
+
+<p>And you can specify your own event types (the above messages will all trigger the <code>message</code> event):</p>
+
+<pre><code>id: 36
+event: price
+data: 103.34
+
+id: 37
+event: news
+data: Bruce sells his collection of replica bananas
+</code></pre>
+
+<p>You don&#8217;t have to worry about this structure on the client side. It only applies to the server, which I&#8217;ll touch on next.</p>
+
+<p></section></p>
+
+<p><section id="server"></p>
+
+<h2>Typical Server <a href="#server" class="permalink">#</a></h2>
+
+<p>I&#8217;m not going to give a full walkthrough of the server-side code, since this is an HTML5 web site :) But there are a few important and simple features that you need to know to build the server (you&#8217;ll need this part anyway if you&#8217;re going to use EventSource).</p>
+
+<p>I&#8217;ve included <a href="https://github.com/remy/eventsource-h5d">all the files for this demo on GitHub</a> for you to peruse at your own leisure, and I&#8217;ve also deployed a <a href="http://node.remysharp.com:8004">live example of this code</a>.</p>
+
+<p>Ideally, you should use a server that has an <a href="http://en.wikipedia.org/wiki/Event_loop">event loop</a>. This means you should <em>not</em> use Apache, but instead use a platform such as <a href="http://nodejs.org">Node.js</a> (which I&#8217;ve used) or <a href="http://twistedmatrix.com/trac/">Twisted</a> for Python.</p>
+
+<p>Key properties:</p>
+
+<ol>
+<li>You can only accept EventSource requests if the HTTP request says it can accept the <code>event-stream</code> MIME type.</li>
+<li>You need to maintain a list of all the connected users in order to emit new events.</li>
+<li>You should listen for dropped connections and remove them from the list of connected users.</li>
+<li>You should optionally maintain a history of messages so that reconnecting clients can catch up on missed messages.</li>
+</ol>
+
+<p>Here&#8217;s a sample of my Node.js based server.  It&#8217;s using <a href="http://senchalabs.github.com/connect/">Connect</a> (a simple webby framework for Node). When it receives a request for <code>/stats</code>, it calls the following function. I&#8217;ve commented the code so you can follow along:</p>
+
+<pre><code>function stats(request, response) {
+  // only response to an event-stream if the request 
+  // actually accepts an event-stream
+  if (request.headers.accept == 'text/event-stream') {
+
+    // send the header to tell the client that we're going
+    // to be streaming content down the connection
+    response.writeHead(200, {
+      'content-type': 'text/event-stream',
+      'cache-control': 'no-cache',
+      'connection': 'keep-alive'
+    });
+
+    // support the polyfill - we'll come on to this later
+    if (request.headers['x-requested-with'] == 'XMLHttpRequest') {
+      response.xhr = null;
+    }
+
+    // if there was a lastEventId sent in the header, send
+    // the history of messages we've already stored up
+    if (request.headers['last-event-id']) {
+      var id = parseInt(request.headers['last-event-id']);
+      for (var i = 0; i &lt; history.length; i++) {
+        if (history[i].id &gt;= id) {
+          sendSSE(response, history[i].id, history[i].event, history[i].message);
+        }
+      }
+    } else {
+      // if the client didn't send a lastEventId, it's the
+      // first time they've come to our service, so send an
+      // initial empty message with no id - this will reset
+      // their id counter too.
+      response.write('id\n\n');
+    }
+
+    // cache their connection - the response is where we write
+    // to send messages
+    connections.push(response);
+
+    // send a broadcast message to all connected clients with
+    // the total number of connections we have.
+    broadcast('connections', connections.length);
+
+    // if the connection closes to the client, remove them
+    // from the connections array.
+    request.on('close', function () {
+      removeConnection(response);
+    });
+  } else {
+    // if the client doesn't accept event-stream mime type,
+    // send them the regular index.html page - you could do
+    // anything here, including sending the client an error.
+    response.writeHead(302, { location: "/index.html" });
+    response.end();
+  }
+}
+</code></pre>
+
+<p>The important trick on the server is to ensure you <em>don&#8217;t</em> close the connection to the <code>EventSource</code> object. If you do, it will of course handle the closed connection, fire an error event, and try to reconnect. So you&#8217;ll just want to maintain the persistent connection.</p>
+
+<p></section></p>
+
+<p><section id="polyfills"></p>
+
+<h2>Polyfills and Tweaks to the Server <a href="#polyfills" class="permalink">#</a></h2>
+
+<p>There are two good polyfills I know of, and though I prefer the one I wrote, I&#8217;ll still lay them both out for you.</p>
+
+<p><section id="yaffle"></p>
+
+<h3>Yaffle&#8217;s Polyfill <a href="#yaffle" class="permalink">#</a></h3>
+
+<p>The first is one by <a href="https://github.com/Yaffle">Yaffle</a> (on github), available on <a href="https://github.com/Yaffle/EventSource">github/Yaffle/eventsource</a>. </p>
+
+<p>The cons:</p>
+
+<ul>
+<li>It doesn&#8217;t send the <code>accepts</code> header, and</li>
+<li>It completely replaces the <code>EventSource</code> object, so even if your browser supports <code>EventSource</code> natively, this script will replace it. But there&#8217;s a good reason for that.</li>
+</ul>
+
+<p>The pros:</p>
+
+<ul>
+<li>It maintains a persistent connection (whereas the one we&#8217;re using doesn&#8217;t), and</li>
+<li>More interestingly, it supports CORS (which I imagine is why it replaces the native <code>EventSource</code>).</li>
+</ul>
+
+<p>These two pros are quite compelling. But when I was testing, I couldn&#8217;t get it working in IE7 (which was my minimum browser target), so that might be a blocker for you…or not.</p>
+
+<p></section></p>
+
+<p><section id="remy"></p>
+
+<h3>Remy&#8217;s Polyfill <a href="#remy" class="permalink">#</a></h3>
+
+<p>The second is my own, available on <a href="https://github.com/remy/polyfills/blob/master/EventSource.js">github.com/remy/polyfills</a>.</p>
+
+<p>The cons:</p>
+
+<ul>
+<li>It uses polling, so once a small group of messages come down, it re-establishes the connection, which could lead to significant overhead (though less so on a Node-based server). You have to add about 4 extra lines to your server code.</li>
+</ul>
+
+<p>The pros:</p>
+
+<ul>
+<li>It doesn&#8217;t replace the native <code>EventSource</code> object (but that also implies that, for now, it won&#8217;t support CORS), and</li>
+<li>It supports IE7.</li>
+</ul>
+
+<p><small>Retrospectively, I might choose Yaffle&#8217;s polyfill over mine in the future if I wasn&#8217;t bothered about IE7 support.</small></p>
+
+<p></section></p>
+
+<p><section id="using-the-polyfill"></p>
+
+<h3>Using the Polyfill <a href="#using-the-polyfill" class="permalink">#</a></h3>
+
+<p>By including the <code>EventSource.js</code> JavaScript library before my client-side code, I just need a couple of small changes to my server-side code. Other than that, everything on the client side works without any changes (as a polyfill <em>should</em> work).</p>
+
+<p>When posting the server&#8217;s reply to the client, instead of keeping the connection open, I include the following in my server when it&#8217;s finished writing the response:</p>
+
+<pre><code>// send the data (event type, id, message, etc)
+response.write(data);
+
+// if our response contains our custom xhr property, then...
+if (response.hasOwnProperty('xhr')) {
+  // clear any previous timers using the xhr prop as the value
+  clearTimeout(response.xhr);
+
+  // now set a timer for 1/4 second (abritrary number) that
+  // then closes the connection and removes itself from the
+  // connection array.
+  // The delay is in place so that a burst of messages can 
+  // go out on the same connection *before* it's closed.
+  response.xhr = setTimeout(function () {
+    response.end();
+    removeConnection(response);
+  }, 250);
+}
+</code></pre>
+
+<p></section>
+</section></p>
+
+<p><section id="bugs"></p>
+
+<h2>Bugs? <a href="#bugs" class="permalink">#</a></h2>
+
+<p>The <code>error</code> event should always fire when the <code>readyState</code> changes, assuming you didn&#8217;t explicitly call the <code>close</code> method. This works nearly all the time, but in writing this article, I found a few edge cases where it doesn&#8217;t fire. In Chrome, if I put my machine to sleep and then woke it back up, it would close the connection but not fire the event, therefore never triggering a reconnection. As I said, this is an edge case and I&#8217;ll file a bug against it, so I don&#8217;t expect it to hang around for long.</p>
+
+<p></section></p>
+
+<p><section id="why-not-websockets"></p>
+
+<h2>Why Not Use WebSockets? <a href="#why-not-websockets" class="permalink">#</a></h2>
+
+<p>There are two reasons I&#8217;d advocate using EventSource over WebSockets, as they&#8217;re currently the two contenders for sending real-time events to the browser.</p>
+
+<p>The first is that EventSource (as we saw earlier) works over regular HTTP and can therefore be replicated entirely using JavaScript if it&#8217;s not available natively. That means that we can polyfill browsers without support, like IE9.</p>
+
+<p>The second is probably more important: you should always use the right technology for the job. If your real-time data is sourced from your web site, <em>and</em> the user doesn&#8217;t interact in real-time, it&#8217;s likely you need Server-Sent Events. </p>
+
+<p>I recently saw a cool <a href="http://paynedigital.com/2011/12/nodeflakes">demo of snowflakes</a> drifting down a web site. Each snowflake is a tweet based around the Christmas theme — like if someone mentions a particular Christmas-y term, it&#8217;s sucked in to the snowflake. Don&#8217;t get me wrong, I know this is a demo, and it&#8217;s very cool (if you wrote it, this is me sending you hugs), but it&#8217;s based on WebSockets. I&#8217;d suggest this demo should be based on EventSource since all the data is read-only and the user doesn&#8217;t interact with it at all.</p>
+
+<p>The point: evaluate the technology against your problem, and aim to get good fit.</p>
+
+<p></section></p>
+<p><a href="http://html5doctor.com/server-sent-events/" rel="bookmark">Server-Sent Events</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 24, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/server-sent-events/feed/</wfw:commentRss>
+		<slash:comments>53</slash:comments>
+		</item>
+		<item>
+		<title>Methods of communication</title>
+		<link>http://html5doctor.com/methods-of-communication/</link>
+		<comments>http://html5doctor.com/methods-of-communication/#comments</comments>
+		<pubDate>Tue, 18 Jan 2011 14:30:41 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[apis]]></category>
+		<category><![CDATA[cors]]></category>
+		<category><![CDATA[eventsource]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[messaging]]></category>
+		<category><![CDATA[websockets]]></category>
+		<category><![CDATA[xhr]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847</guid>
+		<description><![CDATA[By now, you've surely realised that 'HTML5' is so much more than just markup. There's also an army of associated JavaScript APIs. Among the ranks are a few new technologies that open up how we communicate between client and server and across documents. Let's take a look.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>By now, you&#8217;ve surely realised that &#8220;<abbr>HTML</abbr>5&#8221; is so much more than just markup. There&#8217;s also an army of associated JavaScript <abbr>API</abbr>s. Among the ranks are a few new technologies that open up how we communicate between client and server and across documents. Let&#8217;s take a look.</p>
+
+<p>This post will be an overview of the technologies available, how well they&#8217;re currently supported, and, where possible, live demos. I&#8217;m going to touch on the following technologies:</p>
+
+<ul>
+<li><abbr title="XML HTTP Request">XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr title="Cross-Origin Resource Sharing">CORS</abbr></li>
+<li>Web Messaging</li>
+<li>Web Sockets</li>
+<li>Server Sent Events</li>
+<li>Web Workers</li>
+</ul>
+
+<p>Before I get on to the <abbr>API</abbr>s, I want to outline a fairly common communication model that several of these <abbr>API</abbr>s use. </p>
+
+<h2 id="a_common_communication_event_model">A common communication event model</h2>
+
+<p>All event handlers (with the exception of <abbr>XHR</abbr>) receive an <code>event</code> object containing a <code>data</code> property. This property includes the data sent as part of the message.</p>
+
+<p>The event model (again with the exception of <abbr>XHR</abbr>) is <em>mostly</em> based around <code>onmessage</code> and <code>postMessage</code> or <code>send</code>. For example:</p>
+
+<pre><code>// in the recipient code
+recipient.onmessage = function (event) {
+  console.log('received message: ' + event.data);
+};
+
+// from the sender code
+recipient.postMessage('hi there'); // or recipient.send('hi there');
+</code></pre>
+
+<p>This is just a common model and isn&#8217;t the exactly the same among all these technologies. The two key similarities are that they use:</p>
+
+<ul>
+<li>a sending method (<code>postMessage</code> or <code>send</code>) on the recipient object, and</li>
+<li>an event handler that listens for the <code>message</code> event and receives an <code>event</code> object containing a <code>data</code> property.</li>
+</ul>
+
+<p>Very importantly, <em>most</em> browsers only support sending strings from sender to recipient, so we often need to <abbr>JSON</abbr> <code>stringify</code> and <code>parse</code> if we want to send anything other than a string.</p>
+
+<h2 id="xhr_xhr2_with_cors"><abbr>XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr>CORS</abbr></h2>
+
+<p><abbr>XHR</abbr> can be both synchronous and asynchronous. <abbr>XHR</abbr> is the only <abbr>API</abbr> that (purposely) supports synchronous requests, meaning the execution of code will block until the callback fires. </p>
+
+<p>There&#8217;s nothing particularly new about <abbr>XHR</abbr>, but in <abbr>XHR</abbr>2 we can handle uploads, and there&#8217;s a <code>progress</code> event to tell you how the upload or download is getting on.  </p>
+
+<p>The super shiny new toy in <abbr>XHR</abbr>2 is its support for <a href="http://www.w3.org/TR/cors/">Cross-Origin Resource Sharing</a> (CORS). This means you can make an <abbr>XHR</abbr> request across domains, but <strong>only if the server you&#8217;re connecting to allows it</strong>.</p>
+
+<p>The request is as you&#8217;d expect from <abbr>XHR</abbr>:</p>
+
+<pre><code>var client = new XMLHttpRequest();
+client.onreadystatechange = function () {
+  if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    alert('The most awesome-est person to follow: ' + this.responseText);
+  }
+};
+client.open('GET', '/no-cors');
+client.send();</code></pre>
+
+<p>If our server responds with a <abbr>CORS</abbr> header, however, we can put our <abbr>XHR</abbr> responder on another server. So on the <abbr>URL</abbr> <a href="http://remysharp.com/demo/cors.php">http://remysharp.com/demo/cors.php</a>, I have the following PHP script:</p>
+
+<pre><code>&lt;?php
+header('Access-Control-Allow-Origin: *');
+?&gt;
+@rem
+</code></pre>
+
+<p>This says that anyone can make an <abbr>XHR</abbr> request to this particular script. Now when I run the following code in a browser that supports <abbr>XHR</abbr>2, the cross domain request succeeds! <div style="position:absolute; top:689px; left:-1146px"><a href="http://www.cotawa.org.au/2015/04/propecia-online-usa/">propecia online usa</a></div></p>
+
+<pre><code>var client = new XMLHttpRequest();
+client.onreadystatechange = function () {
+  if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    alert('The most awesome-est person to follow: ' + this.responseText);
+  }
+};
+client.open('GET', 'http://remysharp.com/demo/cors.php');
+client.send();</code></pre>
+
+<p>Here&#8217;s a <a href="http://jsbin.com/oxiyi4">live example of CORS</a>. (You can also <a href="http://jsbin.com/oxiyi4/edit">edit it here</a>.)</p>
+
+<p>Note that <abbr>IE</abbr>8 supports <abbr>CORS</abbr>, but not <abbr>XHR</abbr>2 (no surprise there then). You need to use their proprietary (booo!) <code>XDomainRequest</code> object. Nicholas C. Zakas has <a href="http://www.nczonline.net/blog/2010/05/25/cross-domain-ajax-with-cross-origin-resource-sharing/">an excellent article</a> explaining how to handle these differences.</p>
+
+<p><abbr>XHR</abbr> usage is pretty common already, but <abbr>XHR</abbr>2 with <abbr>CORS</abbr> is a winner over <abbr>JSON-P</abbr>, particularly as you have finer control over the request, can handle timeouts, and can handle errors correctly.</p>
+
+<h3 id="support_for_xhr_xhr2_with_cors">Support for <abbr>XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr>CORS</abbr></h3>
+
+<ul>
+<li><abbr>XHR</abbr> support is pretty solid nowadays (even though <abbr>IE</abbr>6 uses <code>ActiveXObject</code> to get it going)</li>
+<li><abbr>XHR</abbr>2 with <abbr>CORS</abbr>: Safari &amp; MobileSafari, Firefox 3.5, Chrome and <abbr>IE</abbr>8 (via XDomainRequest)</li>
+</ul>
+
+<h2 id="postmessage">postMessage</h2>
+
+<p>This <abbr>API</abbr> is older, but it&#8217;s very useful if you want to get around the <abbr>XHR</abbr> same-origin rules. If you have an <code>&lt;iframe&gt;</code> document that can accept <code>onmessage</code> events from your origin (i.e., your site), then you can communicate across domains (and origins).</p>
+
+<p>For example, a page that accepts an <code>onmessage</code> event might contain code such as this:</p>
+
+<pre><code>window.onmessage = function (event) {
+  if (event.origin == 'mytrustedsite.com') {
+    alert('my trusted site said: ' + event.data);
+  }
+};
+</code></pre>
+
+<p>Now you can include an <code>&lt;iframe&gt;</code> that contains that code, and using the <code>&lt;iframe&gt;</code> <abbr>DOM</abbr> node, you can post to the <code>&lt;iframe&gt;</code>:</p>
+
+<pre><code>// where iframe is the actual iframe DOM node
+iframe.contentWindow.postMessage("hello there", location.host);
+</code></pre>
+
+<p>This gives you the ability to send strings across two mutually trusted domains. (Remember that you can use <code>JSON.stringify</code> and <code>JSON.parse</code> to convert to an object to and from string format.)</p>
+
+<h3 id="support_for_postmessage">Support for postMessage</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Firefox</li>
+<li>IE8</li>
+</ul>
+
+<p>Here&#8217;s a <a href="http://html5demos.com/postmessage2">demo using <code>postMessage</code></a>.</p>
+
+<p>There&#8217;s also a project called <a href="http://easyxdm.net/" title="easyXDM - Cross-domain messaging made easy">EasyXDM</a>, which adds cross domain messaging to <abbr>IE</abbr>6 and upwards (along with all the other browsers) through the library&#8217;s abstraction.  Definitely worth a look if this is a route you need to take.</p>
+
+<h2 id="web_sockets">Web Sockets</h2>
+
+<p>It&#8217;s my opinion that Web Sockets replaces Comet. Comet is a way of hacking the browser to giving us real-time server messages. The Web Sockets API provides that natively.</p>
+
+<p>Web Sockets are used to send messages to <em>and</em> from the server — i.e., a bi-directional socket. In contrast to other similar technologies, with Web Sockets, you <em>can</em> go across domains, and you&#8217;re not bound by the same-origin policy. This means you can host your normal &#8220;apps&#8221; server while another server is for streaming content. Or you could host your own pages and connect to a live Twitter stream if your users turn on Web Socket support.</p>
+
+<p>You can only send messages once the socket is open (duh). The communication model looks like this:</p>
+
+<pre><code>var ws = new WebSocket('ws://somesite.com/updates');
+
+ws.onmessage = function (event) {
+  alert(event.data);
+};
+
+ws.onopen = function () {
+  ws.send('yay! we connected!');
+};
+</code></pre>
+
+<p>Once the socket is closed, you can&#8217;t reuse it. Similarly, there&#8217;s no explicit method for opening a socket. That just happens when you create the <code>WebSocket</code> object.</p>
+
+<p>This <abbr>API</abbr> is extremely simple. I most often get asked, &#8220;What do you put on the server side?&#8221; I personally use <a href="http://nodejs.org">Node</a>, but you could use an <a href="http://nginx.net/" title="nginx news">Nginx</a> server or something like <a href="http://www.mortbay.org/" title="jetty - Jetty WebServer">Jetty</a>. I&#8217;m no expert on the latter servers, but I can vouch that a Node-based server is very, very simple to get going. The live demo below also includes a link to the code that I used to run the server.</p>
+
+<p>Check out this <a href="http://html5demos.com/web-socket">demo of Web Sockets</a>.</p>
+
+<h3 id="support_for_web_sockets">Support for Web Sockets</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari &amp; MobileSafari</li>
+</ul>
+
+<p>There&#8217;s also an excellent Flash poly-fill called <a href="https://github.com/gimite/web-socket-js/">web-socket-js</a>. Drop this into an application and it provides Web Sockets support as if it were native. I&#8217;ve used this on a few projects of my own, and it works very well.</p>
+
+<p>In early December 2010, there was a security notice posted about Web Sockets, and both Firefox and Opera pulled it from their upcoming releases. Mozilla have said that they expect Web Sockets to be back in Firefox by version 4.0.1.</p>
+
+<h2 id="server_sent_events">Server-Sent Events</h2>
+
+<p>The <a href="http://dev.w3.org/html5/eventsource/">Server-Sent Events</a> <abbr>API</abbr> is something that originated from Opera back in 2006 and is used for pushing events from the server to the client. Note that the client cannot send messages to the server through an <code>EventSource</code> (<abbr>SSE</abbr>) — it can only listen for messages.  </p>
+
+<p>This <abbr>API</abbr> uses the <code>onmessage</code> model. It&#8217;s constructed using the <code>EventSource</code> object and is limited by the same origin rules:</p>
+
+<pre><code>var es = new EventSource('/sse');
+es.onopen = function () {
+  console.log('opened stream');
+};
+
+es.onmessage = function (event) {
+  console.log('new message: ' + event.data);
+};
+</code></pre>
+
+<p>The <abbr>SSE</abbr> automatically connects when you create the object (similar to Web Sockets), and once open will trigger the <code>onopen</code> event. </p>
+
+<p>Here&#8217;s a live <a href="http://node.remysharp.com:8001/sse-client.html">demo of Server-Sent Events</a></p>
+
+<p>Here&#8217;s how this is to work: when a new message is pushed from the server to the client, it triggers the <code>onmessage</code> callback.</p>
+
+<p>The key to your server is ensuring it doesn't close the connection on the client - the browser. Most of the examples around the web are doing this: closing the connection which tells the API to switch in to polling mode (note that this is the exact problem I hit when I first published this article).</p>
+
+<p>When the API is in polling mode, it's no more different from an XHR poll, and the <code>onopen</code> will continually fire.</p>
+
+Al the code the server side can be viewed here: <a href="http://node.remysharp.com:8001/custom-echo.js">custom-echo.js</a> (note that it's running on a <a href="http://nodejs.org/" title="node.js">Node.js</a> server).  There's a bit more code than you'd expect, because it's doing a few things:
+
+1. Handling HTTP requests for files (and therefore is able to serve itself)
+2. Handling the server-sent events and <strong>not</strong> closing the connection
+3. Setting up a Web Socket server, and when a new connection comes in, it sends a server-sent event to all the currently connected sessions.
+
+<h3 id="support_for_server_sent_events">Support for Server-Sent Events</h3>
+
+<ul>
+<li>Opera 11</li>
+<li>Safari &amp; MobileSafari</li>
+<li>Chrome</li>
+</ul>
+
+<h2 id="web_workers">Web Workers</h2>
+
+<p>Web Workers are a way of creating a new thread of execution inside the browser. I&#8217;m including this because you still need to communicate with your Web Workers, and the method of communication is similar to some of those techniques discussed above. Do note, however, that this is not a method communicating from a client (browser) to a server. It&#8217;s more like there&#8217;s another browser window executing a particular block of JavaScript.</p>
+
+<p>As an example of when to use a Web Worker, say you&#8217;re running a lot of JavaScript and the <abbr>UI</abbr> becomes unresponsive. The browser <abbr>UI</abbr> hangs because, in a way, it&#8217;s a &#8220;single-threaded application&#8221;. (Under the hood it isn&#8217;t really, but from a rendering and JavaScript perspective it is). This JavaScript task could be given to a Web Worker so that the <abbr>UI</abbr> can continue functioning.</p>
+
+<p>It&#8217;s vital to understand that a Web Worker lives in a sand-boxed environment that doesn&#8217;t have access to things like the <abbr>DOM</abbr>. What&#8217;s more, you can only communicate with it using the <code>onmessage</code> and <code>postMessage</code> functions.</p>
+
+<p>Our application can create and send messages to a worker using the following code:</p>
+
+<pre><code>var worker = new Worker('bigjob.js');
+worker.onmessage = function (event) {
+  alert('Message from worker: ' + event.data); // remember event.data is a string!
+};
+
+worker.postMessage('task=job1');
+</code></pre>
+
+<p>In the JavaScript file <code>bigjob.js</code>, we run some computationally intensive task and listen for messages in a way similar to what we&#8217;ve done in the previous examples. We can also post messages back to the invoking application:</p>
+
+<pre><code>this.onmessage = function (event) {
+  var job = event.data;
+  if (job == 'task=job1') {
+    job1();
+  } else if (job == 'task=job2') {
+    job2();
+  }
+};
+
+// just a pseudo example
+function job1() {
+  // do some big task
+  while (working) {
+    // continue task
+    this.postMessage('job1 ' + amountComplete + '% complete');
+  }
+  this.postMessage('job1 100% complete');
+}
+</code></pre>
+
+<p>There&#8217;s a lot more to Web Workers than just running a couple of small tasks, and no doubt we <abbr>HTML</abbr>5 Doctors will be posting a detailed article soon. This example just demonstrates how to communicate with Web Workers and how similar that is to the other technologies we&#8217;ve discussed here.</p>
+
+<h3 id="support_for_web_workers">Support for Web Workers</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Firefox</li>
+</ul>
+
+<h2 id="a_final_word">A final word</h2>
+
+<p>Hopefully you agree that this is just the tip of the iceberg of communicating between client and server in <abbr>HTML</abbr>5. We&#8217;re no longer stuck with the same origin policy we had with vanilla Ajax. In fact, when you think about it, since <abbr>IE</abbr>8, we&#8217;ve actually had decent cross-domain messaging.</p>
+
+<p>I&#8217;m personally most excited about Web Sockets and the support of <abbr>CORS</abbr> in services that have <abbr>API</abbr>s, like Flickr, Twitter, and <abbr>URL</abbr> shorteners. What could you build with this?</p>
+<p><a href="http://html5doctor.com/methods-of-communication/" rel="bookmark">Methods of communication</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 18, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/methods-of-communication/feed/</wfw:commentRss>
+		<slash:comments>15</slash:comments>
+		</item>
+	</channel>
+</rss>

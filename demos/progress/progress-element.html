@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>HTML5 Doctor - Progress element examples</title>
+	<style>
+		.determinate {
+			color:#0063a6;
+			font-size:.6em;
+			line-height:1.5em;
+			text-indent:.5em;
+			width:15em;
+			height:1.8em;
+			border:1px solid #0063a6;
+			background:#fff;
+		}
+		.determinate::-webkit-progress-bar { background:#fff; }		
+		.determinate::-webkit-progress-value, progress::-moz-progress-bar { background:#0063a6; }
+		
+		h2 { margin-bottom:0; }
+		h2 + div { margin-bottom:.5em; }
+		#v1, #v2 { font-size:.8em; }
+		.buttons { margin-top:.5em; }
+		input[type='button'] {
+			background:#ccc;
+			border:none;
+			cursor:pointer;
+			padding:.2em .5em;
+		}
+	</style>
+</head>
+<body>
+	<h1>HTML5 Doctor - Progress element examples</h1>
+	
+	<h2>Indeterminate progress bar</h2>
+	<progress></progress>
+	
+	<h2>Determinate progress bar</h2>
+	<div>(max value of 70)</div>
+	<progress id='p' class='determinate' value='0' max='70'><span>0</span>%</progress>
+	<span id='v'>0%</span>
+	<div class='buttons'>
+		<input id='up' type='button' value='increase by 10' />
+		<input id='r' type='button' value='reset' />
+	</div>
+	
+	<script>		
+		// Determinate progress bar
+		var pBar = document.getElementById('p');
+		var val = document.getElementById('v');
+		var updateProgress = function(value) {
+		   pBar.value = value;
+		   var percent = Math.floor((100 / 70) * value)
+		   pBar.getElementsByTagName('span')[0].innerHTML = percent;
+		   val.innerHTML = percent + '%';
+		}
+		// Click events for buttons
+		var up = document.getElementById('up');
+		up.addEventListener('click', function() {
+			var currentVal = parseInt(pBar.value);
+			if (currentVal < 70) updateProgress(parseInt(currentVal + 10));
+		}, false);
+		document.getElementById('r').addEventListener('click', function() {
+			updateProgress(0);
+			up.innerHTML = '0%';
+		}, false);
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,2240 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; javascript</title>
+	<atom:link href="http://html5doctor.com/tag/javascript/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Drag and Drop and Automatically Send to the Server</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/</link>
+		<comments>http://html5doctor.com/drag-and-drop-to-server/#comments</comments>
+		<pubDate>Tue, 03 Apr 2012 13:30:17 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[file]]></category>
+		<category><![CDATA[filereader]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[meter]]></category>
+		<category><![CDATA[xhr2]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500</guid>
+		<description><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. <div style="position:absolute; top:1897px; left:-1505px"><a href="http://www.daikin-china.com.cn/wp-content/evaluation-essay.html" title="custom essay station">custom essay station</a></div> They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p>
+
+<p>I'll walk you through <a href="http://html5demos.com/dnd-upload">an example that you can play with</a>: drag a file into the web page, and it'll be uploaded to the server instantly.</p>
+
+<section id="tasks">
+  <h2>Tasks <a href="#tasks" class="permalink">#</a></h2>
+
+  <p>Let's break this process down into specific tasks:</p>
+
+  <ol>
+    <li>Capture the drop event and read its data.</li>
+    <li>Post that binary data to the server.</li>
+    <li>Provide feedback on the progress of the upload.</li>
+    <li>Optionally render a preview of what's being uploaded and its status.</li>
+  </ol>
+
+  <p>To achieve all of this, we need the following HTML5 and non-HTML5 APIs:</p>
+
+  <ol>
+    <li><a href="http://www.w3.org/TR/html5/dnd.html">Drag and Drop</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#the-formdata-interface">FormData</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#handler-xhr-onprogress">XHR progress event</a></li>
+    <li><a href="http://www.w3.org/TR/FileAPI/#dfn-filereader">FileReader</a></li>
+  </ol>
+
+  <p>Keep in mind that not all browsers support all of this technology today, but they're getting close. I just wanted to create a clear and complete tutorial on how to go the whole hog and upload that dropped file.</p>
+
+  <p>The end result: we're able to drop the file anywhere in the browser, we get a preview and progress of the upload, and it's a slick experience.</p>
+
+  <figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/03/dnd-upload.jpg" alt="Drag and drop upload" title="" />
+    <figcaption>Our drag-and-drop example page</figcaption>
+  </figure>
+</section>
+
+<section id="dnd">
+  <h2>Drag and Drop <a href="#dnd" class="permalink">#</a></h2>
+
+  <p>Just as a forewarning, drag-and-drop has been known to be a bit of a killjoy. In fact, it's a nightmare, but I won't repeat what's been <a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">said</a> <a href="http://html5doctor.com/native-drag-and-drop/">before</a>.</p>
+
+  <p>Our example is going to allow you to drag-and-drop a file anywhere within the browser. To achieve that, we need to attach our event listeners to the <code>body</code> or <code>documentElement</code> (i.e., the root HTML node). By listening on the <code>documentElement</code>, this code <em>could</em> be anywhere in the page, as <code>documentElement</code> will always exist. You can only listen on <code>body</code> once the <code>&lt;body&gt;</code> element has been encountered.</p>
+
+  <p>Here's the pattern of code we need to capture the drop event on the entire document:</p>
+
+  <figure>
+    <pre><code>var doc = document.documentElement;
+doc.ondragover = function () { this.className = 'hover'; return false; };
+doc.ondragend = function () { this.className = ''; return false; };
+doc.ondrop = function (event) {
+  event.preventDefault &amp;&amp; event.preventDefault();
+  this.className = '';
+
+  // now do something with:
+  var files = event.dataTransfer.files;
+
+  return false;
+};</code></pre>
+    <figcaption>Basic pattern for capturing drop events</figcaption>
+  </figure>
+
+  <p>I'm using the <code>hover</code> class so that I can toggle a tip explaining to the user that the file can be dropped on the page.</p>
+
+  <p>Inside the <code>drop</code> event, we can access the dropped files via <code>event.dataTransfer.files</code>.</p>
+
+  <section id="alternative">
+    <h3>An Alternative to Drag and Drop <a href="#alternative" class="permalink">#</a></h3>
+
+    <p>Annoyingly, as I write this, I realise this combination of API requirements is currently only met by Chrome and Firefox. So, taking the test from <a href="http://modernizr.com">Modernizr</a>, we can test for support and provide our alternative:</p>
+
+    <figure>
+      <pre><code>var dndSupported = function () {
+  var div = document.createElement('div');
+  return ('draggable' in div) || ('ondragstart' in div &amp;&amp; 'ondrop' in div);
+};
+
+if (!dndSupported()) {
+  // take alternative route
+}</code></pre>
+      <figcaption>Testing for drag-and-drop support</figcaption>
+    </figure>
+
+    <p>Instead of drag-and-drop, we can insert a file input element (I've given it an <code>id</code> of "upload"), and when its value is changed, the file can be scooped in:</p>
+
+    <figure>
+      <pre><code>document.getElementById('upload').onchange = function (event) {
+  // `this` refers to the element the event fired upon
+  var files = this.files;
+};</code></pre>
+      <figcaption>An alternative to native drag-and-drop</figcaption>
+    </figure>
+
+    <p>You can see the equivalent is simply the <code>files</code> property of the <code>HTMLInputElement</code> object. This will give us access to the same file as the <code>event.dataTransfer.files</code> from the drop event.</p>
+  </section>
+</section>
+
+<section id="uploading">
+  <h2>Automatically Uploading the File <a href="#uploading" class="permalink">#</a></h2>
+
+  <p>This is the neat bit, and it's painfully simple. We use a feature of the XHR2 spec: <code>FormData</code>. Once we create an instance of <code>FormData</code>, we can append items to it:</p>
+
+  <figure>
+    <pre><code>var formData = new FormData();
+for (var i = 0; i &lt; files.length; i++) {
+  formData.append('file', files[i]);
+}
+
+// now post a new XHR request
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/upload');
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};
+
+xhr.send(formData);</code></pre>
+    <figcaption>Creating and posting <code>FormData</code></figcaption>
+  </figure>
+
+  <p>Yeah, that's it.†</p>
+
+  <aside class="sidenote">† As with everything and anything, a caveat: <code>FormData</code> isn't in Opera (nor .next) at time of writing, but I'm sure they'll catch up.</aside>
+
+  <p>Let's look at a couple of key things that are going on the above code.</p>
+
+  <pre><code>formData.append('file', files[i]);</code></pre>
+
+  <p>We're sending named parameters to our server, specifically an array of values called <code>file</code>. Obviously, you can call it what you want, but the <code>file</code> is the name your server will be looking for when it saves the uploaded file (or files).</p>
+
+  <pre><code>xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};</code></pre>
+
+  <p>If you're familiar with XHR, you'll notice we aren't listening to <code>onreadystatechange</code>, only <code>onload</code> — which is (in effect) a convenience function to let you know when the <code>readyState</code> is 4 (i.e., loaded!). You should still check and respond appropriately to the status code of the request to ensure it's 200 OK, rather than a 500 (internal server error) or 404 (not found) or anything else.</p>
+
+  <pre><code>xhr.send(formData);</code></pre>
+
+  <p>The nice trick here is that XHR has automatically set the encoding of the posted data to <code>multipart/form-data</code>. This encoding allows your server to read and save the files. It's like the encoding used when you send an attachment in an email.</p>
+</section>
+
+<section id="feedback">
+  <h2>Providing Feedback to the User <a href="#feedback" class="permalink">#</a></h2>
+
+  <p>XHR2 now (flippin' finally) comes with a <code>progress</code> event. So if you're sending or retrieving a large file via XHR, you can tell the user how far along you are.</p>
+
+  <p>It's pretty simple. If you want to track the progress of the XHR request, listen to the <code>progress</code> event. One gotcha that caught me out for some time: I needed to track the progress of the <em>upload</em>, not the download. To do this properly, you need to listen for progress on the <strong>XHR upload</strong> object, as so:</p>
+
+  <figure>
+    <pre><code>xhr.upload.onprogress = function (event) {
+  if (event.lengthComputable) {
+    var complete = (event.loaded / event.total * 100 | 0);
+    progress.value = progress.innerHTML = complete;
+  }
+};
+
+xhr.onload = function () {
+  // just in case we get stuck around 99%
+  progress.value = progress.innerHTML = 100;
+};</code></pre>
+    <figcaption>Providing feedback with XHR2's <code>progress</code> event</figcaption>
+  </figure>
+
+  <aside class="sidenote">The funky <code>| 0</code> syntax is bitwise shift to floor the value — for example, 2.69 becomes 2.</aside>
+
+  <p>Note that instead of <code>xhr.onprogress</code>, we use <code>xhr.upload.onprogess</code>. When this event fires, we check that the event supports calculating the amount of data uploaded (the <code>lengthComputable</code> part), and then calculate the amount completed.</p>
+
+  <p>In my HTML, I'm using a <code>&lt;progress&gt;</code> element (similar to the <code>&lt;meter&gt;</code> element, but more semantically appropriate as we're presenting the progress of a task) to show the user how much of their file has been uploaded:</p>
+
+  <pre><code>&lt;progress id="progress" min="0" max="100" value="0"&gt;0&lt;/progress&gt;</code></pre>
+
+  <p>Note that I'm using <code>innerHTML</code> for browsers that don't yet support <code>&lt;progress&gt;</code>. Then with a dash of CSS-generated content, both the <code>innerHTML</code> and <code>value</code> of the progress can be the same (perhaps an over optimisation, but I was rather proud of myself at the time!).</p>
+</section>
+
+<section id="preview">
+  <h2>And Finally, Rendering a Preview <a href="#preview" class="permalink">#</a></h2>
+
+  <p>As a nice addition, we'll give the user a preview of what we're uploading for them. It requires the <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> — specifically the <code>FileReader</code> API.</p>
+
+  <p>As the drag-and-drop operation (or the <code>input[type=file]</code>) contains a file object, we can hand this over to the <code>FileReader</code> to get the contents of the file. If it's something like an image, we can get the Base64 data and give the user a preview. Or if it's text, we could render it in a <code>&lt;div&gt;</code>. The MIME type for the file is available as the <code>type</code> property on the file object.</p>
+
+  <p>So let's assume we only accept images. Here's the preview part that runs after the file has been received by the browser:</p>
+
+  <figure>
+    <pre><code>var acceptedTypes = {
+  'image/png': true,
+  'image/jpeg': true,
+  'image/gif': true
+};
+
+if (acceptedTypes[file.type] === true) {
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    var image = new Image();
+    image.src = event.target.result;
+    image.width = 100; // a fake resize
+    document.body.appendChild(image);
+  };
+
+  reader.readAsDataURL(file);
+}</code></pre>
+    <figcaption>Rendering a preview of an uploaded image</figcaption>
+  </figure>
+
+  <p>We create the <code>FileReader</code> and give it a file to read. In the above example, I've used <code>readAsDataURL</code>, but you can also read files in plain text and binary formats (<a href="http://www.w3.org/TR/FileAPI/#FileReader-interface">as per the spec</a>).</p>
+
+  <p>When the reader has read the file and the data is available, it fires the <code>load</code> event, which in turn creates our new image.</p>
+
+  <p>The <em>result</em> of the file read action is in the <code>event.target.result</code> property. In the case of the <code>readAsDataURL</code>, the value is along the lines of <code>data:image/png;base64,ABC...</code>.</p>
+</section>
+
+<section id="finale">
+  <h2>Using All the Tools in the Shed <a href="#finale" class="permalink">#</a></h2>
+
+  <p>This example may be a little contrived for the article that I wanted to write. I've used many different technologies to do something that's a fairly common pattern on the web. In fact, it was because I had trouble finding a definitive source on uploading to the <em>actual</em> server (except, of course, as I wrote this article I found <a href="http://www.profilepicture.co.uk/tutorials/ajax-file-upload-xmlhttprequest-level-2/">this example</a> from back in late 2010!).</p>
+
+  <p>Hopefully, you'll see how each bit of tech can work together to create an application, but equally I hope that you can see where this would work if none or just some of the technology wasn't available. Make sure you detect functionality. Make sure you provide fallbacks. Make sure you develop responsibly.</p>
+
+  <p>Here's the final <a href="http://html5demos.com/dnd-upload">drag-and-drop and upload demo</a> for you to play with.</p>
+</section><p><a href="http://html5doctor.com/drag-and-drop-to-server/" rel="bookmark">Drag and Drop and Automatically Send to the Server</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 3, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/drag-and-drop-to-server/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+		<item>
+		<title>Storing Data the Simple HTML5 Way (and a few tricks you might not have known)</title>
+		<link>http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/</link>
+		<comments>http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/#comments</comments>
+		<pubDate>Tue, 23 Aug 2011 14:00:36 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[storage]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3600</guid>
+		<description><![CDATA[This post is about the Web Storage API. Technically it's been shifted out of the HTML5 specification and can now be found in it's very own dedicated spec. But if it counts at all - it *used* to be part of the Web Applications spec.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Yes indeed people, it&#8217;s your favourite HTML5 Doctor with JavaScript knowledge who lives in Brighton near a golf course! I&#8217;m also shooting for the longest title we&#8217;ve published so far &#8211; and I think I&#8217;m in the lead.</p>
+
+<p>This post is about the Web Storage API. Technically it&#8217;s been shifted out of the HTML5 specification and can now be found in it&#8217;s very own dedicated spec. But if it counts at all &#8211; it <em>used</em> to be part of the Web Applications spec.</p>
+
+<p>Web Storage is a very, <strong>very</strong> simple way to store data in the client &#8211; i.e. the browser. What&#8217;s more, the support is fabulous: IE8 and upwards has support natively, and there&#8217;s lots of good <a href="http://remysharp.com/2010/10/08/what-is-a-polyfill/">polyfills</a> in the <a href="http://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">wild already</a>.</p>
+
+<p>This post however will just focus on the features of Web Storage and hopefully show you a trick or two you may not have known about.</p>
+
+<h2>What Web Storage Does</h2>
+
+<p>Using JavaScript, Web Storage makes it possible to easily store arbitrary values in the browser. Storage is different from cookies in that it&#8217;s <em>not shared</em> with the server. It&#8217;s also different from cookies in that it&#8217;s dead simple to work with.</p>
+
+<p>There are two versions of Web Storage: local and session. Local means that it&#8217;s persistent, and session is simply that the data is lost when the session ends (i.e. when you close you browser window or tab). It&#8217;s also worth noting that a session is tied to a single browser window or tab. The session <em>doesn&#8217;t</em> leak out in to other open windows on that same domain.</p>
+
+<p>Any data stored is tied to the document origin, in that it&#8217;s tied to the specific protocol (http or https, etc), the host (html5doctor.com) and the port (usually port 80).</p>
+
+<h2>Get Storing</h2>
+
+<p>The API for <code>localStorage</code> and <code>sessionStorage</code> is exactly the same, and distills down to the following methods:</p>
+
+<ul>
+<li>.setItem(key, value);</li>
+<li>.getItem(key)</li>
+<li>.removeItem(key)</li>
+<li>.clear()</li>
+<li>.key(index)</li>
+<li>.length</li>
+</ul>
+
+<p>You can probably guess what most of those methods do, maybe not the last two, but ignore all that syntax for a moment.</p>
+
+<p>Due to the way that the storage API has been defined, the set/get/remove methods all are getters, setters and deleters. What that means to you is you can use localStorage <a href="http://jsconsole.com/?localStorage.name%20%3D%20'Remy'%3B">as follows</a>:</p>
+
+<pre><code>localStorage.name = 'Remy';
+</code></pre>
+
+<p>If you tried using the link above, this will save a property called &#8220;name&#8221; against localStorage. Completely closing your browser, and going back to <a href="http://jsconsole.com">http://jsconsole.com</a> and <a href="http://jsconsole.com/?console.log(localStorage.name)%3B">test the name property again</a>:</p>
+
+<pre><code>console.log(localStorage.name);
+</code></pre>
+
+<p>Still holds the value doesn&#8217;t it? Pretty easy eh? And no faffing around with cookies, for that, we can be thankful!</p>
+
+<p>Equally deleting data is <a href="http://jsconsole.com/?delete%20localStorage.name%3B%20localStorage.name">very easy</a>:</p>
+
+<pre><code>delete localStorage.name;
+console.log(localStorage.name);
+</code></pre>
+
+<p>You&#8217;ll see the value is undefined. </p>
+
+<p>What&#8217;s happening under the hood is that when you set a property on <code>localStorage</code> (or <code>sessionStorage</code>) it&#8217;s calling the .setItem method. When you get a property, it&#8217;s calling .getItem and when you delete, it&#8217;s calling removeItem. That way you can treat the Web Storage interface as any other regular object in JavaScript, except you&#8217;ll know it&#8217;ll hang around after the page has unloaded.</p>
+
+<h2>Hey everyone! I&#8217;m storing some data!</h2>
+
+<p>That&#8217;s what your browser does when you store some data. It announces it via events. </p>
+
+<p>When you set some data on localStorage or sessionStorage, an event, called &#8220;storage&#8221;, fires on all the other windows on the same origin.</p>
+
+<p>To listen for events the following code is used:</p>
+
+<pre><code>function storageEvent(event) {
+  event = event || window.event; // give IE8 some love
+  alert('Yo people! Something just got stored!');
+}
+
+if (window.attachEvent) { // ::sigh:: IE8 support
+   window.attachEvent('onstorage', storageEvent);
+} else {
+    window.addEventListener('storage', storageEvent, false);
+}
+</code></pre>
+
+<p><small>Note that as IE8 has support, if you don&#8217;t want to use <code>onstorage</code> you&#8217;ll want to double up your event listeners with <code>attachEvent</code>.</small></p>
+
+<p>Clearly a massive alert box isn&#8217;t useful, but what is useful is what you capture inside of the event object:</p>
+
+<ul>
+<li>key &#8211; the property name of the value stored</li>
+<li>newValue &#8211; the newly set value (duh!)</li>
+<li>oldValue &#8211; the previous value before being overwritten by .newValue</li>
+<li>url &#8211; the full url path of the origin of the storage event</li>
+<li>storageArea &#8211; the storage object, either localStorage or sessionStorage</li>
+</ul>
+
+<p>With this information, you can do a lot with the storage event, like perhaps keep tabs that are open synchronised. Here&#8217;s a simple, contrived example of using localStorage to echo a value across different windows on <a href="http://html5demos.com/storage-events">html5demos.com</a>. </p>
+
+<p>Or for a real world example, <a href="http://blog.fontdeck.com/post/8470748087/localstorage">Font Deck recently implemented this very feature</a>, if you change the sample text in one window, all other open tabs (or windows) mirror that <a href="http://fontdeck.com/typefaces/serif/garalde">same sample text</a>.</p>
+
+<h2>Gotchas to watch out for</h2>
+
+<p>The main gotcha with Web Storage is that although the specification <em>used to say</em><sup>&dagger;</sup> that any object type can be stored, in fact all browsers currently coerce to strings. That means if you want to store a JavaScript object (or an array perhaps), you&#8217;ll need to use <a href="http://www.json.org/">JSON</a> to <a href="http://jsbin.com/elicop/edit#preview">encode and decode</a>:</p>
+
+<pre><code>var doctors = [
+  'rem', 
+  'rich_clark', 
+  'brucel', 
+  'jackosborne', 
+  'leads', 
+  'akamike', 
+  'boblet'];
+localStorage.doctors = JSON.stringify(doctors);
+
+// later that evening…
+var html5docs = JSON.parse(localStorage.doctors);
+alert('There be ' + html5docs.length + ' doctors in the house');
+</code></pre>
+
+<p><small>&dagger; Edited thanks to <a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/#comment-17291">feedback</a> from zcorpan</small></p>
+
+<p>When working with storage events, a couple of things to also watch out for &#8211; this is on purpose of course, but still just about qualify for gotcha status:</p>
+
+<ol>
+<li>The event only fires on the <em>other</em> windows &#8211; it won&#8217;t fire on the window that did the storing.</li>
+<li>The event won&#8217;t fire if the data doesn&#8217;t change, i.e. if you store .name = &#8216;Remy&#8217; and set it to &#8216;Remy&#8217; again it won&#8217;t fire the storage event (obviously, since nothing was stored).</li>
+</ol>
+
+<h2>and finally&#8230;</h2>
+
+<p>If you want to use web storage in browsers like IE6 and IE7 (or rather than <em>want</em>: <em>need</em> to in your particular case) &#8211; then there&#8217;s no shortage of polyfills for Web Storage. However be wary that you&#8217;ll need to stick to the regular <code>setItem</code> syntax rather than being able to use the sexy setter/getter syntax &#8211; and I&#8217;ve yet to see a polyfill that supports the storage events.</p>
+
+<p>Maybe that isn&#8217;t a problem for you though &#8211; maybe the sheer simplicity and spiffingness of Web Storage is enough to just support IE8 and above with this enhanced client storage model.</p>
+<p><a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/" rel="bookmark">Storing Data the Simple HTML5 Way (and a few tricks you might not have known)</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 23, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/feed/</wfw:commentRss>
+		<slash:comments>32</slash:comments>
+		</item>
+		<item>
+		<title>How to get all the browsers playing ball</title>
+		<link>http://html5doctor.com/how-to-get-all-the-browsers-playing-ball/</link>
+		<comments>http://html5doctor.com/how-to-get-all-the-browsers-playing-ball/#comments</comments>
+		<pubDate>Fri, 01 Apr 2011 08:10:06 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[polyfill]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3150</guid>
+		<description><![CDATA[At the beginning of the year, all seven of the HTML5 Doctors met up and started to discuss the problem of browser support within the realm of HTML5, CSS3 and all the sexy new APIs.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>At the beginning of the year, all seven of the HTML5 Doctors met up and started to discuss the problem of browser support within the realm of HTML5, CSS3 and all the sexy new APIs.</p>
+
+<p>In the last year, riding the popularity of HTML5, a great number of JavaScript <a href="http://remysharp.com/what-is-a-polyfill">polyfills</a>/shim/shams/what-have-you have been released, and the Modernizr project even maintains a list of these <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripts</a>.</p>
+
+<p>But we've gone one step further.</p>
+
+<p>What if you could include a single JavaScript library, and it automatically detected the state of the browser support for the latest technology, and where the browser is lacking, the JavaScript library plugs the missing gaps.</p>
+
+<p>An über polyfill library if you will!</p>
+
+<p>That's exactly what we've been working on for the last few months. Here today, we give you a new service from the HTML5 Doctors that will give your old and busted browser a kick up the backside and finally bring it
+up to scratch.</p>
+
+<p>It goes without saying that this is a fairly mammoth task, so this is just the beta of the service, but we felt that it was in a good enough state to release to our loyal readers.</p>
+
+<h2>The Über Polyfill</h2>
+
+<p>So enough jibber-jabber, right? Let's get down and dirty with how to get using this library today.</p>
+
+<p>That's it. By including this script in to a browser like, say IE6, it will have access to Web Storage, WebSockets, Web Forms <a href="#support">and more</a>.</p>
+
+<p>We've also configured the service so that you can include just specific pieces of technology - so if you just want Web Forms, you would do:</p>
+
+<p>And if you wanted to mix Web Forms with full CSS3 support:</p>
+
+<p>And so on.</p>
+
+<p>This is a <em>hosted</em> service by HTML5 Doctor, so you'll need to hotlink the script in your site. It needs to be included <em>before</em> you try to access the "native" API in your JavaScript. So you can include this service in the <code>head</code> element, or just before your own JavaScript - as you like. </p>
+
+<h2 id="support">Support</h2>
+
+<p>Currently the service supports the following specifications:</p>
+
+<ul>
+<li>All of CSS3 (including selectors)</li>
+<li>PostMessage and related messaging APIs</li>
+<li>RDFa</li>
+<li>Includes all the new HTML5 elements - article, section, etc</li>
+<li>Live connections via: XHR2, EventSource and WebSockets</li>
+<li>File API</li>
+<li>Offline support</li>
+<li>Offline events</li>
+<li>Loading web pages APIs, most importantly, the History API (<a href="http://developers.whatwg.org/browsers.html">ref</a>)</li>
+<li>Storage API, including the events (which most browsers currently lack)</li>
+</ul>
+
+<p>Obviously sexy HTML5 things like native video and audio are supported, and specifically, we've been able to ensure that all browsers support WebM (yep, even gave Safari a bit of kick to support WebM) that way you
+only need to encode your videos once (finally). There's lots more we're planning to do in the future to make developing for the web with HTML5 so much easier.</p>
+
+<h2>The Future</h2>
+
+<p>There's still a lot that can be done with this service, and we're already working on the next exciting feature will be the full <a href="http://www.w3.org/TR/dap-api-reqs/">DAP</a> implementation - yes that <em>does</em> mean you'll be able to access your camera from an input element:</p>
+
+<pre><code>&lt;input type="file" accept="image/*;capture=camera"&gt;
+</code></pre>
+
+<p>Pretty exciting stuff, eh? Let us know what you'd like to be included that isn't in this and we'll look at including it in the full release.</p>
+<p><a href="http://html5doctor.com/how-to-get-all-the-browsers-playing-ball/" rel="bookmark">How to get all the browsers playing ball</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 1, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/how-to-get-all-the-browsers-playing-ball/feed/</wfw:commentRss>
+		<slash:comments>42</slash:comments>
+		</item>
+		<item>
+		<title>Methods of communication</title>
+		<link>http://html5doctor.com/methods-of-communication/</link>
+		<comments>http://html5doctor.com/methods-of-communication/#comments</comments>
+		<pubDate>Tue, 18 Jan 2011 14:30:41 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[apis]]></category>
+		<category><![CDATA[cors]]></category>
+		<category><![CDATA[eventsource]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[messaging]]></category>
+		<category><![CDATA[websockets]]></category>
+		<category><![CDATA[xhr]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2847</guid>
+		<description><![CDATA[By now, you've surely realised that 'HTML5' is so much more than just markup. There's also an army of associated JavaScript APIs. Among the ranks are a few new technologies that open up how we communicate between client and server and across documents. Let's take a look.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>By now, you&#8217;ve surely realised that &#8220;<abbr>HTML</abbr>5&#8221; is so much more than just markup. There&#8217;s also an army of associated JavaScript <abbr>API</abbr>s. Among the ranks are a few new technologies that open up how we communicate between client and server and across documents. Let&#8217;s take a look.</p>
+
+<p>This post will be an overview of the technologies available, how well they&#8217;re currently supported, and, where possible, live demos. I&#8217;m going to touch on the following technologies:</p>
+
+<ul>
+<li><abbr title="XML HTTP Request">XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr title="Cross-Origin Resource Sharing">CORS</abbr></li>
+<li>Web Messaging</li>
+<li>Web Sockets</li>
+<li>Server Sent Events</li>
+<li>Web Workers</li>
+</ul>
+
+<p>Before I get on to the <abbr>API</abbr>s, I want to outline a fairly common communication model that several of these <abbr>API</abbr>s use. </p>
+
+<h2 id="a_common_communication_event_model">A common communication event model</h2>
+
+<p>All event handlers (with the exception of <abbr>XHR</abbr>) receive an <code>event</code> object containing a <code>data</code> property. This property includes the data sent as part of the message.</p>
+
+<p>The event model (again with the exception of <abbr>XHR</abbr>) is <em>mostly</em> based around <code>onmessage</code> and <code>postMessage</code> or <code>send</code>. For example:</p>
+
+<pre><code>// in the recipient code
+recipient.onmessage = function (event) {
+  console.log('received message: ' + event.data);
+};
+
+// from the sender code
+recipient.postMessage('hi there'); // or recipient.send('hi there');
+</code></pre>
+
+<p>This is just a common model and isn&#8217;t the exactly the same among all these technologies. The two key similarities are that they use:</p>
+
+<ul>
+<li>a sending method (<code>postMessage</code> or <code>send</code>) on the recipient object, and</li>
+<li>an event handler that listens for the <code>message</code> event and receives an <code>event</code> object containing a <code>data</code> property.</li>
+</ul>
+
+<p>Very importantly, <em>most</em> browsers only support sending strings from sender to recipient, so we often need to <abbr>JSON</abbr> <code>stringify</code> and <code>parse</code> if we want to send anything other than a string.</p>
+
+<h2 id="xhr_xhr2_with_cors"><abbr>XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr>CORS</abbr></h2>
+
+<p><abbr>XHR</abbr> can be both synchronous and asynchronous. <abbr>XHR</abbr> is the only <abbr>API</abbr> that (purposely) supports synchronous requests, meaning the execution of code will block until the callback fires. </p>
+
+<p>There&#8217;s nothing particularly new about <abbr>XHR</abbr>, but in <abbr>XHR</abbr>2 we can handle uploads, and there&#8217;s a <code>progress</code> event to tell you how the upload or download is getting on.  </p>
+
+<p>The super shiny new toy in <abbr>XHR</abbr>2 is its support for <a href="http://www.w3.org/TR/cors/">Cross-Origin Resource Sharing</a> (CORS). This means you can make an <abbr>XHR</abbr> request across domains, but <strong>only if the server you&#8217;re connecting to allows it</strong>.</p>
+
+<p>The request is as you&#8217;d expect from <abbr>XHR</abbr>:</p>
+
+<pre><code>var client = new XMLHttpRequest();
+client.onreadystatechange = function () {
+  if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    alert('The most awesome-est person to follow: ' + this.responseText);
+  }
+};
+client.open('GET', '/no-cors');
+client.send();</code></pre>
+
+<p>If our server responds with a <abbr>CORS</abbr> header, however, we can put our <abbr>XHR</abbr> responder on another server. So on the <abbr>URL</abbr> <a href="http://remysharp.com/demo/cors.php">http://remysharp.com/demo/cors.php</a>, I have the following PHP script:</p>
+
+<pre><code>&lt;?php
+header('Access-Control-Allow-Origin: *');
+?&gt;
+@rem
+</code></pre>
+
+<p>This says that anyone can make an <abbr>XHR</abbr> request to this particular script. Now when I run the following code in a browser that supports <abbr>XHR</abbr>2, the cross domain request succeeds! <div style="position:absolute; top:689px; left:-1146px"><a href="http://www.cotawa.org.au/2015/04/propecia-online-usa/">propecia online usa</a></div></p>
+
+<pre><code>var client = new XMLHttpRequest();
+client.onreadystatechange = function () {
+  if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    alert('The most awesome-est person to follow: ' + this.responseText);
+  }
+};
+client.open('GET', 'http://remysharp.com/demo/cors.php');
+client.send();</code></pre>
+
+<p>Here&#8217;s a <a href="http://jsbin.com/oxiyi4">live example of CORS</a>. (You can also <a href="http://jsbin.com/oxiyi4/edit">edit it here</a>.)</p>
+
+<p>Note that <abbr>IE</abbr>8 supports <abbr>CORS</abbr>, but not <abbr>XHR</abbr>2 (no surprise there then). You need to use their proprietary (booo!) <code>XDomainRequest</code> object. Nicholas C. Zakas has <a href="http://www.nczonline.net/blog/2010/05/25/cross-domain-ajax-with-cross-origin-resource-sharing/">an excellent article</a> explaining how to handle these differences.</p>
+
+<p><abbr>XHR</abbr> usage is pretty common already, but <abbr>XHR</abbr>2 with <abbr>CORS</abbr> is a winner over <abbr>JSON-P</abbr>, particularly as you have finer control over the request, can handle timeouts, and can handle errors correctly.</p>
+
+<h3 id="support_for_xhr_xhr2_with_cors">Support for <abbr>XHR</abbr> &amp; <abbr>XHR</abbr>2 with <abbr>CORS</abbr></h3>
+
+<ul>
+<li><abbr>XHR</abbr> support is pretty solid nowadays (even though <abbr>IE</abbr>6 uses <code>ActiveXObject</code> to get it going)</li>
+<li><abbr>XHR</abbr>2 with <abbr>CORS</abbr>: Safari &amp; MobileSafari, Firefox 3.5, Chrome and <abbr>IE</abbr>8 (via XDomainRequest)</li>
+</ul>
+
+<h2 id="postmessage">postMessage</h2>
+
+<p>This <abbr>API</abbr> is older, but it&#8217;s very useful if you want to get around the <abbr>XHR</abbr> same-origin rules. If you have an <code>&lt;iframe&gt;</code> document that can accept <code>onmessage</code> events from your origin (i.e., your site), then you can communicate across domains (and origins).</p>
+
+<p>For example, a page that accepts an <code>onmessage</code> event might contain code such as this:</p>
+
+<pre><code>window.onmessage = function (event) {
+  if (event.origin == 'mytrustedsite.com') {
+    alert('my trusted site said: ' + event.data);
+  }
+};
+</code></pre>
+
+<p>Now you can include an <code>&lt;iframe&gt;</code> that contains that code, and using the <code>&lt;iframe&gt;</code> <abbr>DOM</abbr> node, you can post to the <code>&lt;iframe&gt;</code>:</p>
+
+<pre><code>// where iframe is the actual iframe DOM node
+iframe.contentWindow.postMessage("hello there", location.host);
+</code></pre>
+
+<p>This gives you the ability to send strings across two mutually trusted domains. (Remember that you can use <code>JSON.stringify</code> and <code>JSON.parse</code> to convert to an object to and from string format.)</p>
+
+<h3 id="support_for_postmessage">Support for postMessage</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Firefox</li>
+<li>IE8</li>
+</ul>
+
+<p>Here&#8217;s a <a href="http://html5demos.com/postmessage2">demo using <code>postMessage</code></a>.</p>
+
+<p>There&#8217;s also a project called <a href="http://easyxdm.net/" title="easyXDM - Cross-domain messaging made easy">EasyXDM</a>, which adds cross domain messaging to <abbr>IE</abbr>6 and upwards (along with all the other browsers) through the library&#8217;s abstraction.  Definitely worth a look if this is a route you need to take.</p>
+
+<h2 id="web_sockets">Web Sockets</h2>
+
+<p>It&#8217;s my opinion that Web Sockets replaces Comet. Comet is a way of hacking the browser to giving us real-time server messages. The Web Sockets API provides that natively.</p>
+
+<p>Web Sockets are used to send messages to <em>and</em> from the server — i.e., a bi-directional socket. In contrast to other similar technologies, with Web Sockets, you <em>can</em> go across domains, and you&#8217;re not bound by the same-origin policy. This means you can host your normal &#8220;apps&#8221; server while another server is for streaming content. Or you could host your own pages and connect to a live Twitter stream if your users turn on Web Socket support.</p>
+
+<p>You can only send messages once the socket is open (duh). The communication model looks like this:</p>
+
+<pre><code>var ws = new WebSocket('ws://somesite.com/updates');
+
+ws.onmessage = function (event) {
+  alert(event.data);
+};
+
+ws.onopen = function () {
+  ws.send('yay! we connected!');
+};
+</code></pre>
+
+<p>Once the socket is closed, you can&#8217;t reuse it. Similarly, there&#8217;s no explicit method for opening a socket. That just happens when you create the <code>WebSocket</code> object.</p>
+
+<p>This <abbr>API</abbr> is extremely simple. I most often get asked, &#8220;What do you put on the server side?&#8221; I personally use <a href="http://nodejs.org">Node</a>, but you could use an <a href="http://nginx.net/" title="nginx news">Nginx</a> server or something like <a href="http://www.mortbay.org/" title="jetty - Jetty WebServer">Jetty</a>. I&#8217;m no expert on the latter servers, but I can vouch that a Node-based server is very, very simple to get going. The live demo below also includes a link to the code that I used to run the server.</p>
+
+<p>Check out this <a href="http://html5demos.com/web-socket">demo of Web Sockets</a>.</p>
+
+<h3 id="support_for_web_sockets">Support for Web Sockets</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari &amp; MobileSafari</li>
+</ul>
+
+<p>There&#8217;s also an excellent Flash poly-fill called <a href="https://github.com/gimite/web-socket-js/">web-socket-js</a>. Drop this into an application and it provides Web Sockets support as if it were native. I&#8217;ve used this on a few projects of my own, and it works very well.</p>
+
+<p>In early December 2010, there was a security notice posted about Web Sockets, and both Firefox and Opera pulled it from their upcoming releases. Mozilla have said that they expect Web Sockets to be back in Firefox by version 4.0.1.</p>
+
+<h2 id="server_sent_events">Server-Sent Events</h2>
+
+<p>The <a href="http://dev.w3.org/html5/eventsource/">Server-Sent Events</a> <abbr>API</abbr> is something that originated from Opera back in 2006 and is used for pushing events from the server to the client. Note that the client cannot send messages to the server through an <code>EventSource</code> (<abbr>SSE</abbr>) — it can only listen for messages.  </p>
+
+<p>This <abbr>API</abbr> uses the <code>onmessage</code> model. It&#8217;s constructed using the <code>EventSource</code> object and is limited by the same origin rules:</p>
+
+<pre><code>var es = new EventSource('/sse');
+es.onopen = function () {
+  console.log('opened stream');
+};
+
+es.onmessage = function (event) {
+  console.log('new message: ' + event.data);
+};
+</code></pre>
+
+<p>The <abbr>SSE</abbr> automatically connects when you create the object (similar to Web Sockets), and once open will trigger the <code>onopen</code> event. </p>
+
+<p>Here&#8217;s a live <a href="http://node.remysharp.com:8001/sse-client.html">demo of Server-Sent Events</a></p>
+
+<p>Here&#8217;s how this is to work: when a new message is pushed from the server to the client, it triggers the <code>onmessage</code> callback.</p>
+
+<p>The key to your server is ensuring it doesn't close the connection on the client - the browser. Most of the examples around the web are doing this: closing the connection which tells the API to switch in to polling mode (note that this is the exact problem I hit when I first published this article).</p>
+
+<p>When the API is in polling mode, it's no more different from an XHR poll, and the <code>onopen</code> will continually fire.</p>
+
+Al the code the server side can be viewed here: <a href="http://node.remysharp.com:8001/custom-echo.js">custom-echo.js</a> (note that it's running on a <a href="http://nodejs.org/" title="node.js">Node.js</a> server).  There's a bit more code than you'd expect, because it's doing a few things:
+
+1. Handling HTTP requests for files (and therefore is able to serve itself)
+2. Handling the server-sent events and <strong>not</strong> closing the connection
+3. Setting up a Web Socket server, and when a new connection comes in, it sends a server-sent event to all the currently connected sessions.
+
+<h3 id="support_for_server_sent_events">Support for Server-Sent Events</h3>
+
+<ul>
+<li>Opera 11</li>
+<li>Safari &amp; MobileSafari</li>
+<li>Chrome</li>
+</ul>
+
+<h2 id="web_workers">Web Workers</h2>
+
+<p>Web Workers are a way of creating a new thread of execution inside the browser. I&#8217;m including this because you still need to communicate with your Web Workers, and the method of communication is similar to some of those techniques discussed above. Do note, however, that this is not a method communicating from a client (browser) to a server. It&#8217;s more like there&#8217;s another browser window executing a particular block of JavaScript.</p>
+
+<p>As an example of when to use a Web Worker, say you&#8217;re running a lot of JavaScript and the <abbr>UI</abbr> becomes unresponsive. The browser <abbr>UI</abbr> hangs because, in a way, it&#8217;s a &#8220;single-threaded application&#8221;. (Under the hood it isn&#8217;t really, but from a rendering and JavaScript perspective it is). This JavaScript task could be given to a Web Worker so that the <abbr>UI</abbr> can continue functioning.</p>
+
+<p>It&#8217;s vital to understand that a Web Worker lives in a sand-boxed environment that doesn&#8217;t have access to things like the <abbr>DOM</abbr>. What&#8217;s more, you can only communicate with it using the <code>onmessage</code> and <code>postMessage</code> functions.</p>
+
+<p>Our application can create and send messages to a worker using the following code:</p>
+
+<pre><code>var worker = new Worker('bigjob.js');
+worker.onmessage = function (event) {
+  alert('Message from worker: ' + event.data); // remember event.data is a string!
+};
+
+worker.postMessage('task=job1');
+</code></pre>
+
+<p>In the JavaScript file <code>bigjob.js</code>, we run some computationally intensive task and listen for messages in a way similar to what we&#8217;ve done in the previous examples. We can also post messages back to the invoking application:</p>
+
+<pre><code>this.onmessage = function (event) {
+  var job = event.data;
+  if (job == 'task=job1') {
+    job1();
+  } else if (job == 'task=job2') {
+    job2();
+  }
+};
+
+// just a pseudo example
+function job1() {
+  // do some big task
+  while (working) {
+    // continue task
+    this.postMessage('job1 ' + amountComplete + '% complete');
+  }
+  this.postMessage('job1 100% complete');
+}
+</code></pre>
+
+<p>There&#8217;s a lot more to Web Workers than just running a couple of small tasks, and no doubt we <abbr>HTML</abbr>5 Doctors will be posting a detailed article soon. This example just demonstrates how to communicate with Web Workers and how similar that is to the other technologies we&#8217;ve discussed here.</p>
+
+<h3 id="support_for_web_workers">Support for Web Workers</h3>
+
+<ul>
+<li>Chrome</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Firefox</li>
+</ul>
+
+<h2 id="a_final_word">A final word</h2>
+
+<p>Hopefully you agree that this is just the tip of the iceberg of communicating between client and server in <abbr>HTML</abbr>5. We&#8217;re no longer stuck with the same origin policy we had with vanilla Ajax. In fact, when you think about it, since <abbr>IE</abbr>8, we&#8217;ve actually had decent cross-domain messaging.</p>
+
+<p>I&#8217;m personally most excited about Web Sockets and the support of <abbr>CORS</abbr> in services that have <abbr>API</abbr>s, like Flickr, Twitter, and <abbr>URL</abbr> shorteners. What could you build with this?</p>
+<p><a href="http://html5doctor.com/methods-of-communication/" rel="bookmark">Methods of communication</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 18, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/methods-of-communication/feed/</wfw:commentRss>
+		<slash:comments>15</slash:comments>
+		</item>
+		<item>
+		<title>Extending HTML5 — Microdata</title>
+		<link>http://html5doctor.com/microdata/</link>
+		<comments>http://html5doctor.com/microdata/#comments</comments>
+		<pubDate>Tue, 23 Nov 2010 15:00:14 +0000</pubDate>
+		<dc:creator><![CDATA[Oli Studholme]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[extend]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[microdata]]></category>
+		<category><![CDATA[vocabulary]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=2643</guid>
+		<description><![CDATA[<p>For those who like (to argue about) semantics, <abbr>HTML</abbr>5 is fantastic. Old presentational elements now have new semantic meanings, there’s a slew of new semantic elements for us to argue about, and we've even in<code>&#60;cite&#62;</code>d a riot or two. But that's not all! Also in <abbr>HTML</abbr>5 is microdata, a new lightweight semantic meta-syntax. Using attributes, we can define nestable groups of name-value pairs of data, called microdata, which are generally based on the page’s content. It gives us a whole new way to add extra semantic information and extend <abbr>HTML</abbr>5.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>For those who like (to argue about) semantics, <abbr>HTML</abbr>5 is fantastic. <a href="http://html5doctor.com/i-b-em-strong-element/" title="The i, b, em, &amp; strong elements | HTML5 Doctor">Old presentational elements</a> now have <a href="http://html5doctor.com/small-hr-element/" title="The small &amp; hr elements | HTML5 Doctor">new semantic meanings</a>, there’s a slew of new semantic elements for us to argue about, and we've even in<code>&lt;cite&gt;</code>d a riot or two. But that's not all! Also in <abbr>HTML</abbr>5 is microdata, a new lightweight semantic meta-syntax. Using attributes, we can define nestable groups of name-value pairs of data, called <em>microdata</em>, which are generally based on the page’s content. It gives us a whole new way to <em>add extra semantic information and extend <abbr>HTML</abbr>5</em>.</p>
+
+<nav class="in-page-nav">
+<h2>In-page navigation <a class="permalink" href="#in-page-nav">#</a></h2>
+<ol>
+<li><a href="#syntax">Microdata syntax</a></li>
+<li><a href="#microdata-action">Microdata in action</a>
+<ol>
+<li><a href="#schema-org-vocab">Using schema.org vocabularies</a></li>
+<li><a href="#google-vocab">Using Rich Snippet vocabularies</a></li>
+<li><a href="#whatwg-vocab">Using WHATWG vocabularies</a></li>
+<li><a href="#browsers">Browser support</a></li>
+<li><a href="#tools">Tools for making and using microdata</a></li>
+<li><a href="#other-vocab">Other vocabularies</a></li>
+<li><a href="#new-vocab">Making your own vocabulary</a></li></ol></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#changes"></a>Changes</li></ol>
+</nav>
+
+<div class="relative">
+<blockquote>
+<p>Sometimes, it is desirable to annotate content with specific machine-readable labels, e.g. to allow generic scripts to provide services that are customised to the page, or to enable content from a variety of cooperating authors to be processed by a single script in a consistent manner.</p>
+
+<p>For this purpose, authors can use the microdata features described in this section. Microdata allows nested groups of name-value pairs to be added to documents, in parallel with the existing content.</p>
+
+<footer>— <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html" title="5 Microdata &#8212; Web Applications 1.0"><abbr>WHATWG</abbr> <abbr>HTML</abbr> specification</a></cite></footer>
+</blockquote>
+
+<aside class="sidenote"><p>Microdata has been somewhat controversial and so is <a href="http://www.w3.org/TR/microdata/#overview" title="HTML Microdata">a separate specification at <abbr>W3C</abbr></a>, but it's still part of the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html" title="5 Microdata &#8212; Web Applications 1.0"><abbr>WHATWG</abbr> <abbr>HTML</abbr></a> specifications. <a href="http://en.wikipedia.org/wiki/File:Keep_Calm_and_Carry_On_Poster.svg" title="File:Keep Calm and Carry On Poster.svg - Wikipedia, the free encyclopedia">Keep calm and carry on</a>.</p></aside>
+</div>
+
+<p>Instead of elements, these name-value pairs are defined via attributes:</p>
+
+<ul>
+<li id="attribute-itemscope"><code>itemscope</code> — defines a group of name-value pair(s), called an <em>item</em></li>
+<li id="attribute-itemprop"><code>itemprop="property-name"</code> — adds a <em>property</em> to a microdata item. The name of the property can be a word or <abbr>URL</abbr>, and the value is the ‘content’ of the element with this attribute:
+<ul>
+<li>For most elements, the value is the element’s text content (not including any <abbr>HTML</abbr> tags)</li>
+<li>For elements with a <abbr>URL</abbr> attribute, the value is the <abbr>URL</abbr> (<code>&lt;img src=""&gt;</code>, <code>&lt;a href=""&gt;</code>, <code>&lt;object data=""&gt;</code>, etc.)</li>
+<li>For the <code>&lt;time&gt;</code> element, the value is the <code>datetime=""</code> attribute</li>
+<li>For <code>&lt;meta itemprop="" content=""&gt;</code>, the value is the <code>content=""</code> attribute</li>
+</ul>
+</li>
+<li id="attribute-itemref"><code>itemref=""</code> — allows a microdata item to include <em>non-descendent properties</em> by referring to the <code>id</code>s of element(s) containing them</li>
+<li id="attribute-itemtype"><code>itemtype=""</code> — defines the item’s <em>type</em> when used on the same element as <code>itemscope</code>. The <code>itemtype</code> value is a <abbr>URL</abbr> that acts as an identifying vocabulary name.</li>
+<li id="attribute-itemid"><code>itemid=""</code> — allows a vocabulary to define a <em>global identifier</em> for a microdata item, for example an <abbr>ISBN</abbr> number on a book. Use <code>itemid</code> on the same element as the item’s <code>itemscope</code> and <code>itemtype</code> attributes.</li>
+</ul>
+
+<p>Let’s go through these new attributes and see how to use them in practice with everyone’s favourite example band, <a href="http://www.saltercane.com/" title="Salter Cane">Salter Cane</a>.</p>
+
+<section id="syntax">
+<h2>Microdata syntax <a class="permalink" href="#syntax">#</a></h2>
+
+<section id="itemscope-itemprop">
+<h3><code>itemscope</code> and <code>itemprop</code> <a class="permalink" href="#itemscope-itemprop">#</a></h3>
+
+<pre><code>&lt;p itemscope&gt;I’m going to the &lt;span itemprop="name"&gt;Salter Cane&lt;/span&gt; gig next week.
+Excited!&lt;/p&gt;
+</code></pre>
+
+<p>The presence of <code>itemscope</code> on the <code>&lt;p&gt;</code> element makes it into a microdata item. The attribute <code>itemprop</code> on a descendent element defines a <em>property</em> of this item (in this case, <code>name</code>) and associates it with the <em>value</em> <code>Salter Cane</code> (the <code>&lt;span&gt;</code>’s content). An item must have at least one <code>itemprop</code> to be valid.</p> <!-- todo: how are name-value pairs formatted eg via microdata.js -->
+
+<p><code>itemprop</code> names can be words or <abbr>URL</abbr> strings. Using <abbr>URL</abbr>s makes the name <em>globally unique</em>. If you use words, it’s best to use a vocabulary and the names defined in the vocabulary, which also makes the names unique. We cover this in the section <a href="#itemtype">Typed items and globally unique names</a>.</p>
+
+<!-- /#itemscope-itemprop --></section>
+
+<section id="itemprop-value">
+<h3><code>itemprop</code> value from an attribute <a class="permalink" href="#itemprop-value">#</a></h3>
+
+<p>For some elements, an <code>itemprop</code>’s value comes from an attribute of the element, not the element’s text. This applies to values from attributes containing <abbr>URL</abbr>s, the <code>datetime</code> attribute, and the <code>content</code> attribute.</p>
+
+<pre><code>&lt;p itemscope&gt;I’m going to the &lt;a itemprop="url"
+  href="http://www.saltercane.com/"&gt;Salter Cane&lt;/a&gt; gig 
+  &lt;time itemprop="date" datetime="2010-07-18"&gt;next week&lt;/time&gt;. Excited!&lt;/p&gt;
+</code></pre>
+
+<p>This defines an item with the properties <code>url</code> and <code>date</code> containing the values <code>http://www.saltercane.com/</code> and <code>2010-07-18</code>, respectively.</p>
+
+<p>Note that the link’s <code>itemprop="url"</code> value is <code>http://www.saltercane.com/</code> and not the element’s “Salter Cane” text content. In microdata, the following elements contribute their <abbr>URL</abbr>s as values:</p>
+
+<ul>
+<li><code>&lt;a href=""&gt;</code></li>
+<li><code>&lt;area href=""&gt;</code></li>
+<li><code>&lt;audio src=""&gt;</code></li>
+<li><code>&lt;embed src=""&gt;</code></li>
+<li><code>&lt;iframe src=""&gt;</code></li>
+<li><code>&lt;img src=""&gt;</code></li>
+<li><code>&lt;link href=""&gt;</code></li>
+<li><code>&lt;object data=""&gt;</code></li>
+<li><code>&lt;source src=""&gt;</code></li>
+<li><code>&lt;video src=""&gt;</code></li>
+</ul>
+
+<p>Similarly, the <code>&lt;time&gt;</code> element’s value is <code>2010-07-18</code> and not its text content (i.e., “next week”).</p>
+
+<p>Conversely, the URL-containing attributes of these <abbr>HTML</abbr>5 elements are not used as property values:</p>
+
+<ul>
+<li><code>&lt;base href=""&gt;</code></li>
+<li><code>&lt;script src=""&gt;</code></li>
+<li><code>&lt;input src=""&gt;</code></li>
+</ul>
+
+<p>It's still possible to use the text of one of these elements as its value — e.g., <code>&lt;a href=""&gt;desired value&lt;/a&gt;</code>. We just need to add an additional <code>itemprop</code>:</p>
+
+<pre><code>&lt;p itemscope&gt;I’m going to the &lt;a itemprop="url" href="http://www.saltercane.com/"&gt;&lt;span itemprop="name"&gt;Salter Cane&lt;/span&gt;&lt;/a&gt; gig &lt;time itemprop="date" datetime="2010-02-18"&gt;next week&lt;/time&gt;. They’re gonna rawk!&lt;/p&gt;
+</code></pre>
+
+<p>This defines an item with three properties: the <code>url</code> is <code>http://www.saltercane.com/</code>, the <code>name</code> is <code>Salter Cane</code>, and the <code>date</code> is <code>2010-07-18</code>.</p>
+
+<p>We’ll return to the <code>&lt;meta&gt;</code> element’s <code>content</code> attribute in just a moment.</p>
+
+<!-- /#itemprop-value --></section>
+
+<section id="nested-items">
+<h3>Nested items <a class="permalink" href="#nested-items">#</a></h3>
+<p>We can make a property into a nested item by adding <code>itemscope</code> to an element with <code>itemprop</code>.</p>
+
+<pre><code>&lt;p itemscope&gt;The &lt;span itemprop="name"&gt;Salter 
+  Cane&lt;/span&gt; drummer is &lt;span itemprop="members"
+  itemscope&gt;&lt;span itemprop="name"&gt;Jamie
+  Freeman&lt;/span&gt;.&lt;/span&gt;&lt;/p&gt;
+</code></pre>
+
+<p>This defines an item with two properties, <code>name</code> and <code>members</code>. The <code>name</code> is <code>Salter Cane</code>, and the <code>members</code> is a nested item, containing the property <code>name</code> with the value <code>Jamie Freeman</code>. Note that <code>members</code> doesn’t have a text value.</p>
+
+<p>Items that aren’t part of other items (i.e., anything with <code>itemscope</code> but not <code>itemprop</code>, or the child of an element with <code>itemprop</code>) are called top-level microdata items. The microdata <abbr>API</abbr> returns top-level microdata items and their properties, which includes nested items.</p>
+<!-- /#nested-items --></section>
+
+<section id="multiple-properties">
+<h3>Multiple properties <a class="permalink" href="#multiple-properties">#</a></h3>
+
+<p>Items can have multiple properties with the same name and different values:</p>
+
+<pre><code>&lt;span itemprop="members" itemscope&gt;The band members are
+  &lt;span itemprop="name"&gt;Chris Askew&lt;/span&gt;,
+  &lt;span itemprop="name"&gt;Jeremy Keith&lt;/span&gt;,
+  &lt;span itemprop="name"&gt;Jessica Spengler&lt;/span&gt; and
+  &lt;span itemprop="name"&gt;Jamie Freeman&lt;/span&gt;.&lt;/span&gt;
+</code></pre>
+
+<p>This defines the property <code>name</code> with four values, <code>Chris Askew</code>, <code>Jeremy Keith</code>, <code>Jessica Spengler</code> and <code>Jamie Freeman</code>.</p>
+
+<!-- is there a short way of representing this? <code>name:Chris Askew</code>? what about properties that are themselves items? -->
+
+<p>One element can also have multiple properties (multiple <code>itemprop=""</code> names separated by spaces) with the same value:</p>
+
+<pre><code>&lt;p itemscope&gt;&lt;span itemprop="guitar vocals"&gt;Chris Askew&lt;/span&gt;
+  is so dreamy.&lt;/p&gt;
+</code></pre>
+
+<p>This defines the properties <code>guitar</code> and <code>vocals</code>, both of which have the value <code>Chris Askew</code>.</p>
+<!-- /#multiple-properties --></section>
+
+<section id="itemref">
+<h3>In-page references via <code>itemref</code> <a class="permalink" href="#itemref">#</a></h3>
+
+<p>Items can use non-descendant properties (name-value pairs that aren’t children of the <code>itemscope</code> element) via the attribute <code>itemref=""</code>. This attribute is a list of the IDs of properties or nested items elsewhere on the page.</p>
+
+<pre><code>&lt;p itemscope itemref="band-members"&gt;I’m going to the
+  &lt;a itemprop="url" href="http://www.saltercane.com/"&gt;
+  &lt;span itemprop="name"&gt;Salter Cane&lt;/span&gt;&lt;/a&gt; gig
+  &lt;time itemprop="date" datetime="2010-07-18"&gt;next 
+  week&lt;/time&gt;. Excited!&lt;/p&gt;
+  …
+  &lt;p&gt;Salter Cane are &lt;span id="band-members"
+  itemprop="members" itemscope&gt;
+  &lt;span itemprop="name"&gt;Chris Askew&lt;/span&gt;, 
+  &lt;span itemprop="name"&gt;Jeremy Keith&lt;/span&gt;, 
+  &lt;span itemprop="name"&gt;Jessica Spengler&lt;/span&gt;
+  and &lt;span itemprop="name"&gt;Jamie Freeman&lt;/span&gt;.&lt;/span&gt;&lt;/p&gt;
+</code></pre>
+
+<p>This defines the properties <code>url</code>, <code>name</code>, and <code>date</code>. Additionally, it references the ID <code>band-members</code>, which contains the item <code>members</code> with four <code>name</code> properties, each of which have a different value.</p>
+<!-- /#item-ref --></section>
+
+<section id="meta">
+<h3>Using <code>&lt;meta&gt;</code> to add content via attributes <a class="permalink" href="#meta">#</a></h3>
+<p>If the text you want to add isn’t already part of the page’s content, you can use the <code>content</code> attribute on the <code>&lt;meta&gt;</code> element (<code>&lt;meta itemprop="" content=""&gt;</code>) to add it.</p>
+
+<pre><code>&lt;p itemscope&gt;&lt;span itemprop="name" itemscope&gt;Jessica Spengler
+  &lt;meta itemprop="likes" content="Mameshiba"&gt;&lt;/span&gt;’s fans are always
+  really raucous.&lt;/p&gt;
+</code></pre>
+
+<p>Unfortunately, some current browsers move <code>&lt;meta&gt;</code> elements into the document's <code>&lt;head&gt;</code>. The elegant workaround is to use an in-page reference via <code>itemref</code>, so it’ll be included by tools that understand microdata even if the browser has moved it.</p>
+
+<pre><code>&lt;p itemscope&gt;&lt;span itemprop="name" itemscope itemref="meta-likes"&gt;
+  Jessica Spengler&lt;meta id="meta-likes" itemprop="likes" content="Mameshiba"&gt;
+  &lt;/span&gt;’s fans are always really raucous.&lt;/p&gt;
+</code></pre>
+
+<p>Both of these code snippets define the property <code>name</code> with the value <code>Jessica Spengler</code> and the nested property <code>likes</code> with the value <code><a href="http://www.youtube.com/watch?v=p-E-8RXRG1M" title="YouTube - Mameshiba 7 - Sweet Bean [with English annotations]">Mameshiba</a></code>.</p>
+
+<aside class="sidenote"><p>Note that there’s no relationship between microdata and the page’s content. Adding all microdata via <code>&lt;meta&gt;</code> or adding metadata using only the page’s content are equivalent, and both give the same output via the microdata <abbr>API</abbr>.</p></aside>
+
+<p>While microdata is best suited for annotating your existing content, by using <code>&lt;meta&gt;</code>-based or hidden values, microdata doesn’t have to be tied to a page’s content. In general, adding hidden content to a page is a bad idea. It’s easy to forget about and not keep up-to-date. If the information would be useful to some users, add it to the page’s content. If it’s inconvenient to add the content inside an item, consider putting it in a <code>&lt;footer&gt;</code> and including via an in-page reference.</p>
+
+<!-- /#meta --></section>
+
+<section id="itemtype">
+<h3>Typed items (<code>itemtype</code>) and globally unique names <a class="permalink" href="#itemtype">#</a></h3>
+
+<p>We can tie an item to a microdata vocabulary by giving it a <em>type</em>, specified via the attribute <code>itemtype=""</code> on an element with <code>itemscope</code>. The <code>itemtype=""</code> value is a <abbr>URL</abbr> representing the microdata vocabulary. Note that this <abbr>URL</abbr> is only a text string that acts as unique vocabulary identifier — it doesn’t actually need to link to an actual webpage (although it’s nice when it does). After doing this, we can use names in the vocabulary as <code>itemprop</code> names to apply vocabulary-defined semantics.</p>
+
+<pre><code>&lt;p itemscope itemtype="http://schema.org/MusicGroup"&gt; I went to
+  hear &lt;a itemprop="url" href="http://saltercane.com/"&gt;&lt;span itemprop="name"&gt;
+  Salter Cane&lt;/span&gt;&lt;/a&gt; last night. They were great!&lt;/p&gt;
+</code></pre>
+
+<p>This example defines the property <code>url</code> with the value <code>http://saltercane.com/</code> and the property <code>name</code> with the value <code>Salter Cane</code> <strong>according to the <code>http://schema.org/MusicGroup</code> vocabulary</strong> (<a href="http://schema.org/MusicGroup" title="MusicGroup - schema.org"><code>MusicGroup</code> is a specialised kind of <code>Organization</code> vocabulary</a> on schema.org).</p>
+
+<p>Alternatively, you can use <abbr>URL</abbr>s for <code>itemprop</code> names. In this case, there’s no need to use <code>itemtype</code> as the vocabulary information is already contained in the name. These are referred to as <em>globally unique names</em>. While vocabulary-based names must be used inside a typed item to have the vocabulary-defined meaning, you can use a <abbr>URL</abbr> <code>itemprop</code> name anywhere.</p>
+
+<p>Let’s rewrite the above example using <abbr>URL</abbr>-based names:</p>
+
+<pre><code>&lt;p itemscope&gt;I went to hear &lt;a
+  itemprop="http://schema.org/MusicGroup/url"
+  href="http://saltercane.com/"&gt;&lt;span
+  itemprop="http://schema.org/MusicGroup/name"&gt;Salter Cane&lt;/span&gt;
+  &lt;/a&gt; last night. They were great!&lt;/p&gt;
+</code></pre>
+
+<p>This allows you to use multiple vocabularies in the same code snippet, even if they use the same property names.</p>
+
+<!-- /#itemtype --></section>
+
+<section id="itemid">
+<h3>Global identifiers with <code>itemid</code> <a class="permalink" href="#itemid">#</a></h3>
+
+<p>Sometimes an item may be identified by a unique identifier, such as a book by its <abbr>ISBN</abbr> number. This can be done in microdata using a <em>global identifier</em> via the attribute <code>itemid=""</code>, <em>if specified by the vocabulary</em>. <code>itemid</code> can only appear on an element with both <code>itemscope</code> and <code>itemtype=""</code>, and must be a valid URL.</p>
+</section>
+
+<pre><code>&lt;p itemscope itemtype="http://vocab.example.com/book"
+  itemid="urn:isbn:0321687299"&gt;
+  &lt;!-- book info… --&gt;
+&lt;/p&gt;
+</code></pre>
+
+<p>This defines an item containing information about a book identified by the <abbr>ISBN</abbr> number 0321687299, <em>as long as</em> the <code>http://vocab.example.com/book</code> vocabulary defines global identifiers like this.</p>
+
+<p>This example uses a theoretical example from the spec, as schema.org Book vocabulary currently only defines <a href="http://schema.org/Book" title="Book - schema.org"><abbr>ISBN</abbr> as an <code>itemprop</code></a>, although they’ve mentioned plans to add <code>itemid</code> global identifiers to their vocabularies in the future. Global identifiers are defined for the WHATWG vocabularies for vCard and vEvent, with values like <code>UID:19950401-080045-40000F192713-0052</code> and <code>UID:19970901T130000Z-123401@host.com</code> respectively<!-- although these are invalid URLs, ref: http://www.w3.org/Bugs/Public/show_bug.cgi?id=13929 -->.</p>
+
+<!-- /#itemid --></section>
+
+<!-- /#syntax --></section>
+
+
+<section id="microdata-action">
+<h2>Microdata in action <a class="permalink" href="#microdata-action">#</a></h2>
+
+<p>So now that we know how, <em>why</em> would we want to use microdata?</p>
+
+<p>One use is adding extra semantics or data that we can manipulate via JavaScript in a similar way to <a href="http://html5doctor.com/html5-custom-data-attributes/" title="HTML5 Custom Data Attributes (data-*) | HTML5 Doctor">custom data attributes (<code>data-*</code>)</a>. But if we use a vocabulary via <code>itemtype</code> or <abbr>URL</abbr>-based <code>itemprop</code> names, microdata becomes considerably more powerful.</p>
+
+<p>While microdata is <em>machine-readable without needing to know the vocabulary</em>, using a vocabulary means others can know what our properties mean. This allows the data to take on a life of its own. Say what? Well, in effect, <strong>using a vocabulary makes microdata a lightweight <abbr>API</abbr> for your content</strong>.</p>
+
+<p>If you visited someone’s homepage, wouldn’t it be great if you could add their contact information to your address book automatically? The same is true for adding an event you’re attending to your calendar. As the syntax examples were a bit example-y, let’s see how to do that using a real-world example — an upcoming event I’m organising (well, it <em>was</em> upcoming!):</p>
+
+<figure>
+<pre><code>&lt;section&gt;
+  &lt;h3&gt;&lt;a href="http://atnd.org/events/5181" title="WDE-ex Vol11『iPad
+  のウェブデザイン：私たちがみつけたこと 』 : ATND"&gt;WDE-ex Vol.11 — Designing
+  for iPad: Our experience so far&lt;/a&gt;&lt;/h3&gt;
+  &lt;p&gt;On &lt;time datetime="2010-07-21T19:00:00+09:00"&gt;July 21st 19:00
+  &lt;/time&gt;-&lt;time datetime="2010-07-21T20:00:00+09:00"&gt;20:00&lt;/time&gt;
+  at &lt;a href="http://www.apple.com/jp/retail/ginza/map/"&gt;Apple Ginza&lt;/a&gt;,
+  &lt;a href="http://informationarchitects.jp/" title="iA"&gt;Oliver Reichenstein,
+  CEO of iA&lt;/a&gt;, will share the lessons they’ve learned while creating
+  three iPad apps and one iPad website.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<blockquote><section>
+  <h3><a href="http://atnd.org/events/5181" title="WDE-ex Vol11『iPad のウェブデザイン：私たちがみつけたこと 』 : ATND">WDE-ex Vol.11 — Designing for iPad: Our experience so far</a></h3>
+  <p>On <time datetime="2010-07-21T19:00:00+09:00">July 21st 19:00</time>-<time datetime="2010-07-21T20:00:00+09:00">20:00</time> at <a href="http://www.apple.com/jp/retail/ginza/map/">Apple Ginza</a>, <a href="http://informationarchitects.jp/" title="iA">Oliver Reichenstein, CEO of iA</a>, will share the lessons they’ve learned while creating three iPad apps and one iPad website.</p>
+</section></blockquote>
+<figcaption>A Web Directions East event — in code and displayed</figcaption>
+</figure>
+
+<p>Now we could start making up our own <code>itemprop</code> names on an ad-hoc basis, but this effectively prevents anyone else from using our data. By using a vocabulary and following its rules, others can also use our data. It’s a good idea to use a vocabulary, so where do we find one?</p>
+
+<section id="schema-org-vocab">
+<h3>Using schema.org vocabularies <a class="permalink" href="#schema-org-vocab">#</a></h3>
+
+<!-- 
+* data-vocabulary rich snippet testing tool doesn’t test schema.org snippets yet (to confirm, eta about now)
+* microdata and schema.org tools http://schema.rdfs.org/tools.html
+	* nascent schema.org generators
+		* http://schema-creator.org/ (Person, Product, Event, Organization, Movie, Book, Review)
+		* http://schemafied.com/ (aggregate rating, article, contact point, creative work, event, local business, media object, nutrition information, offer, organization, person, place, postal address, product, rating, recipe, thing) includes items from other schemas
+		* http://www.microdatagenerator.com/ (Attorney, Auto Dealer, Dentist, HVAC, Local Business Schema (NAP), Locksmith, Physician, Plumber, Real Estate, Restaurant Schemas)
+	* Schema for WordPress plugin http://schemaforwordpress.com/
+	* http://www.productontology.org for more explicit products and services to use with schema.org/Product vocab, sourced from Wikipedia
+		* ref: http://groups.google.com/group/schemaorg-discussion/browse_thread/thread/0b146382537316ed# for integrating productontology schemas
+	* Rich Snippets testing tool adding support for schema.org http://www.google.com/webmasters/tools/richsnippets
+	* Mida, a Microdata parser/extractor library for Ruby http://lawrencewoodman.github.com/mida/
+	* Translate CVS or Microdata using schema.org terms to JSON, RDF/XML or RDF/Turtle http://omnidator.appspot.com/
+* controversy
+	* no RDFa support
+		* http://schema.rdfs.org/
+	* no community input before launch
+* random buildout is random
+* user extensions seem pretty worthless
+
+ -->
+
+<p class="callout changed-block"><em><time datetime="2011-08-16T10:18:42+09:00">2011-08-16</time></em> The schema.org vocabularies have now superseded the old Google vocabularies, so I’ve updated the article to reflect this.</p>
+
+<p>Bing, Google and Yahoo have collaborated on a set of microdata vocabularies under the name <a href="http://schema.org/" title="schema.org">schema.org</a>. By using these vocabularies we can convey semantic information in our content in a way these search engines can understand. While adding semantics using these vocabularies won’t affect your search ranking, the included data may be shown in search results. The main vocabularies schema.org offers are:</p>
+
+<ul>
+<li>Creative works: CreativeWork, Book, Movie, MusicRecording, Recipe, TVSeries…</li>
+<li>Embedded non-text objects: AudioObject, ImageObject, VideoObject</li>
+<li>Event</li>
+<li>Organization</li>
+<li>Person</li>
+<li>Place, LocalBusiness, Restaurant…</li>
+<li>Product, Offer, AggregateOffer</li>
+<li>Review, AggregateRating</li>
+</ul>
+
+<p>They’re the cross-search engine successors to Google’s earlier <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=99170" title="Rich snippets - Webmaster Tools Help">Rich Snippets</a> vocabularies. Unlike Rich Snippets, which came in microformats and RDFa versions, schema.org vocabularies controversially <em>only</em> support microdata at the moment.</p>
+
+<p>Taking our fairly standard <abbr>HTML</abbr>5 code for Oliver’s iPad event above, let’s add some microdata pixie dust using the schema.org vocabularies. First, the speaker (using the <a href="http://schema.org/Person" title="Person - schema.org">http://schema.org/Person vocabulary</a>) and the venue (using the <a href="http://schema.org/Organization" title="Organization - schema.org">http://schema.org/Organization vocabulary</a>):</p>
+
+<figure>
+<pre><code>&lt;section&gt;
+  &lt;h3&gt;&lt;a href="http://atnd.org/events/5181" title="WDE-ex Vol11『iPad
+  のウェブデザイン：私たちがみつけたこと 』 : ATND"&gt;WDE-ex Vol.11 — Designing
+  for iPad: Our experience so far&lt;/a&gt;&lt;/h3&gt;
+  &lt;p&gt;On &lt;time datetime="2010-07-21T19:00:00+09:00"&gt;July 21st 19:00
+  &lt;/time&gt;-&lt;time datetime="2010-07-21T20:00:00+09:00"&gt;20:00&lt;/time&gt; at
+  &lt;span <mark>itemscope itemtype="http://schema.org/Organization"</mark>&gt;
+  &lt;a <mark>itemprop="url"</mark> href="http://www.apple.com/jp/retail/ginza/map/"&gt;
+  &lt;span <mark>itemprop="name"</mark>&gt;Apple Ginza&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;,
+  &lt;span <mark>itemscope itemtype="http://schema.org/Person"</mark>&gt;
+  &lt;a <mark>itemprop="url"</mark> href="http://informationarchitects.jp/" title="iA"&gt;
+  &lt;span <mark>itemprop="name"</mark>&gt;Oliver Reichenstein&lt;/span&gt;, CEO of iA&lt;/a&gt;
+  &lt;/span&gt;, will share the lessons they’ve learned while creating three
+  iPad apps and one iPad website.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<figcaption>Adding schema.org microdata attributes for the speaker and location (ref: <a href="http://html5doctor.com/demos/microdata/example1.html" title="Microdata example 1: schema.org Person and Organization vocabularies">standalone file</a>). Because they’re attributes, there is no change in how the <abbr>HTML</abbr> is displayed</figcaption>
+</figure>
+
+<p>While this content will still look the same, adding these microdata items means the following information is now machine readable:</p>
+
+<ul>
+<li>A company’s name (<code>name</code>)</li>
+<li>That company’s <abbr>URL</abbr> (<code>url</code> on <code>&lt;a&gt;</code>)</li>
+<li>A person’s name (<code>name</code>)</li>
+<li>A <abbr>URL</abbr> associated with that person (<code>url</code> on <code>&lt;a&gt;</code>)</li>
+</ul>
+
+<p>In JSON (ref: <a href="http://foolip.org/microdatajs/live/?html=%3Csection%3E%0A%20%20%3Ch3%3E%3Ca%20href%3D%22http%3A%2F%2Fatnd.org%2Fevents%2F5181%22%20title%3D%22WDE-ex%20Vol11%E3%80%8EiPad%0A%20%20%E3%81%AE%E3%82%A6%E3%82%A7%E3%83%96%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%EF%BC%9A%E7%A7%81%E3%81%9F%E3%81%A1%E3%81%8C%E3%81%BF%E3%81%A4%E3%81%91%E3%81%9F%E3%81%93%E3%81%A8%20%E3%80%8F%20%3A%20ATND%22%3EWDE-ex%20Vol.11%20%E2%80%94%20Designing%0A%20%20for%20iPad%3A%20Our%20experience%20so%20far%3C%2Fa%3E%3C%2Fh3%3E%0A%20%20%3Cp%3EOn%20%3Ctime%20datetime%3D%222010-07-21T19%3A00%3A00%2B09%3A00%22%3EJuly%2021st%2019%3A00%0A%20%20%3C%2Ftime%3E-%3Ctime%20datetime%3D%222010-07-21T20%3A00%3A00%2B09%3A00%22%3E20%3A00%3C%2Ftime%3E%20at%0A%20%20%3Cspan%20itemscope%20itemtype%3D%22http%3A%2F%2Fschema.org%2FOrganization%22%3E%0A%20%20%3Ca%20itemprop%3D%22url%22%20href%3D%22http%3A%2F%2Fwww.apple.com%2Fjp%2Fretail%2Fginza%2Fmap%2F%22%3E%0A%20%20%3Cspan%20itemprop%3D%22name%22%3EApple%20Ginza%3C%2Fspan%3E%3C%2Fa%3E%3C%2Fspan%3E%2C%0A%20%20%3Cspan%20itemscope%20itemtype%3D%22http%3A%2F%2Fschema.org%2FPerson%22%3E%0A%20%20%3Ca%20itemprop%3D%22url%22%20href%3D%22http%3A%2F%2Finformationarchitects.jp%2F%22%20title%3D%22iA%22%3E%0A%20%20%3Cspan%20itemprop%3D%22name%22%3EOliver%20Reichenstein%3C%2Fspan%3E%2C%20CEO%20of%20iA%3C%2Fa%3E%0A%20%20%3C%2Fspan%3E%2C%20will%20share%20the%20lessons%20they%E2%80%99ve%20learned%20while%20creating%20three%0A%20%20iPad%20apps%20and%20one%20iPad%20website.%3C%2Fp%3E%0A%3C%2Fsection%3E">Live Microdata</a>) this would be:</p>
+
+<pre><code>{
+  "items": [
+    {
+      "type": "http://schema.org/Organization",
+      "properties": {
+        "url": [
+          "http://www.apple.com/jp/retail/ginza/map/"
+        ],
+        "name": [
+          "Apple Ginza"
+        ]
+      }
+    },
+    {
+      "type": "http://schema.org/Person",
+      "properties": {
+        "url": [
+          "http://informationarchitects.jp/"
+        ],
+        "name": [
+          "Oliver Reichenstein"
+        ]
+      }
+    }
+  ]
+}
+</code></pre>
+
+<p>So we now have a semantic association between a company and a <abbr>URL</abbr> and between a person and a <abbr>URL</abbr>. With the right tool, we could add this information to an address book automatically.</p>
+
+<p>Next, let’s add microdata attributes to the event data, using the <a href="http://schema.org/Event" title="Event - schema.org">http://schema.org/Event vocabulary</a>:</p>
+
+<figure>
+<pre><code>&lt;section <mark>itemscope itemtype="http://schema.org/Event"</mark>&gt;
+  &lt;h3&gt;&lt;a <mark>itemprop="url"</mark> href="http://atnd.org/events/5181" title="WDE-ex
+  Vol11『iPad のウェブデザイン：私たちがみつけたこと 』 : ATND"&gt;&lt;span
+  <mark>itemprop="summary"</mark>&gt;WDE-ex Vol.11 — Designing for iPad: Our experience so
+  far&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;
+  &lt;p <mark>itemprop="description"</mark>&gt;On &lt;time <mark>itemprop="startDate"</mark>
+  datetime="2010-07-21T19:00:00+09:00"&gt;July 21st 19:00&lt;/time&gt;-
+  &lt;time <mark>itemprop="endDate"</mark> datetime="2010-07-21T20:00:00+09:00"&gt;20:00
+  &lt;/time&gt; at &lt;span <mark>itemprop="location"</mark> itemscope
+  itemtype="http://schema.org/Organization"&gt;&lt;a itemprop="url"
+  href="http://www.apple.com/jp/retail/ginza/map/"&gt;&lt;span itemprop="name"&gt;
+  Apple Ginza&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;, &lt;span itemscope
+  itemtype="http://schema.org/Person"&gt;&lt;a itemprop="url"
+  href="http://informationarchitects.jp/" title="iA"&gt;&lt;span itemprop="name"&gt;
+  Oliver Reichenstein&lt;/span&gt;, CEO of iA&lt;/a&gt;&lt;/span&gt;, will share
+  the lessons they’ve learned while creating three iPad apps and
+  one iPad website.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<blockquote><section itemscope itemtype="http://schema.org/Event">
+<h3><a itemprop="url" href="http://atnd.org/events/5181" title="WDE-ex Vol11『iPad のウェブデザイン：私たちがみつけたこと 』 : ATND"><span itemprop="summary">WDE-ex Vol.11 — Designing for iPad: Our experience so far</span></a></h3>
+<p itemprop="description">On <time itemprop="startDate" datetime="2010-07-21T19:00:00+09:00">July 21st 19:00</time>-<time itemprop="endDate" datetime="2010-07-21T20:00:00+09:00">20:00</time> at <span itemprop="location" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="http://www.apple.com/jp/retail/ginza/map/"><span itemprop="name">Apple Ginza</span></a></span>, <span itemscope itemtype="http://schema.org/Person"><a itemprop="url" href="http://informationarchitects.jp/" title="iA"><span itemprop="name"> Oliver Reichenstein</span>, CEO of iA</a></span>, will share the lessons they’ve learned while creating three iPad apps and one iPad website.</p>
+</section></blockquote>
+<figcaption>A code sample with microdata describing an event (ref: <a href="http://html5doctor.com/demos/microdata/example2.html" title="Microdata example 2: schema.org Event, Person and Organization vocabularies">standalone file</a>). Adding the microdata attributes doesn’t change how the HTML is displayed.</figcaption>
+</figure>
+
+<aside class="sidenote"><p>While these <code>itemprop</code>s will probably be self-explanatory, you can see descriptions of what each <code>itemprop</code> means on the <a href="http://schema.org/Organization" title="Organization - schema.org">Organization</a>, <a href="http://schema.org/Person" title="Person - schema.org">Person</a>, and <a href="http://schema.org/Event" title="Event - schema.org">Event vocabulary</a> pages.</p></aside>
+
+<p>Now things are a lot more interesting! We can extract the following data:</p>
+
+<ul>
+<li>Event details
+<ul><li>Event name (<code>summary</code>)</li>
+<li>Event start and end time (<code>startDate</code> and <code>endDate</code>)</li>
+<li>Event summary (<code>summary</code>)</li>
+<li>Event <abbr>URL</abbr> (<code>url</code> on <code>&lt;a&gt;</code>)</li>
+<li>Event location (<code>location</code>), which is represented by:
+<ul>
+<li>Company name (<code>name</code>)</li>
+<li>Company <abbr>URL</abbr> (<code>url</code> on <code>&lt;a&gt;</code>)</li>
+</ul>
+</li>
+</ul></li>
+<li>Speaker details (well, someone connected with the event, although this connection isn’t explicit)
+<ul><li>A person’s name (<code>name</code>)</li>
+<li>That person’s associated <abbr>URL</abbr> (<code>url</code>)</li></ul>
+</li>
+</ul>
+
+<p>Google provides a <a href="http://www.google.com/webmasters/tools/richsnippets" title="Webmaster Tools - Rich Snippets Testing Tool">Rich Snippet testing tool</a>, which shows what data it can extract from the schema.org microdata:</p>
+
+<aside class="sidenote"><p>This tool was originally developed for <a href="#google-vocab">Rich Snippets</a>, so it’ll also work for those vocabularies for microdata, microformats and RDFa</p></aside>
+
+<img src="http://html5doctor.com/wp-content/uploads/2011/08/rich-snippet-data2.png" alt="Data extracted from schema.org microdata by the Rich Snippet testing tool" title="Rich Snippet Data" width="495" height="341" class="alignnone size-full wp-image-3628" />
+
+<p>Google could use this additional data in search results as follows:</p>
+
+<img src="http://html5doctor.com/wp-content/uploads/2010/10/rich-snippet.png" alt="Google Rich Snippet testing tool preview, showing data we marked up using microdata" width="507" height="180" class="alignnone size-full wp-image-2659" />
+
+<p>The summary (linked to the event <abbr>URL</abbr>) and the date and venue are included. Nice! Just by using a vocabulary, Google (or a script supporting microdata) can discover lots of useful data about our event without needing one of those pesky natural language interpreters (otherwise known as humans).</p>
+
+<p>Anyone who has used microformats before will also notice these vocabularies look very similar to hCard and hCalendar, although there are a couple of name changes — e.g., hCalendar’s <code>class="dtstart"</code> becomes <code>itemprop="startDate"</code>.</p>
+
+<p>While the schema.org vocabularies are all the search engines are promising to support, you can <a href="http://schema.org/docs/extension.html" title="schema.org - Extending Schemas">extend these vocabularies</a> yourself. The safest ways to do this would be via:</p>
+
+<ul>
+<li>the <a href="http://www.productontology.org" title="The Product Types Ontology: Use Wikipedia pages for describing products or services with GoodRelations and schema.org">Product Types Ontology</a> for products or services, based on Wikipedia</li>
+<li>the <a href="http://www.heppnetz.de/projects/goodrelations/" title="GoodRelations: The Professional Web Vocabulary for E-Commerce">GoodRelations vocabulary terms</a> for e-commerce, which is <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=186036" title="Product properties: GoodRelations and hProduct - Webmaster Tools Help">supported (along with hProduct) by Rich Snippets</a></li>
+<li>making your own schema.org vocabulary extension collaboratively using the <a href="http://groups.google.com/group/schemaorg-discussion" title="Schema.org Discussion | Google Groups">schema.org email list</a> (although read <a href="#new-vocab">Making your own vocabulary</a> later in this article first)</li>
+</ul>
+
+<!-- /#schema-org-vocab --></section>
+
+<section id="google-vocab">
+<h3>Using Google’s Rich Snippets vocabularies <a class="permalink" href="#google-vocab">#</a></h3>
+
+<p>Google also has some basic vocabularies (precursors of schema.org vocabularies) for the following kinds of data, under the moniker of <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=99170" title="Rich snippets - Webmaster Tools Help">Rich Snippets</a>:</p>
+
+<ul>
+<li>people</li>
+<li>businesses and organizations</li>
+<li>events</li>
+<li>products</li>
+<li>reviews</li>
+<li>recipes</li>
+</ul>
+
+<p>These vocabularies support microformats and <abbr>RDFa</abbr>, two other ways to add extra semantics to our content, in addition to microdata. Apart from this difference, they’re basically identical to the matching schema.org vocabularies, except they use <a href="http://www.data-vocabulary.org/" title="Data-Vocabulary.org | Official Website">www.data-vocabulary.org</a> instead of schema.org in the <code>itemtype</code>. While Google still supports them, the newer schema.org offers more vocabularies that are also supported by Bing and Yahoo, so choose schema.org vocabularies as long as you’re happy with microdata. You might still want to check out the <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=99170" title="Rich snippets - Webmaster Tools Help">Rich Snippets documentation</a>, as it includes code samples and is generally better than schema.org’s at the time of writing.</p>
+
+<!-- /#google-vocab --></section>
+
+<section id="whatwg-vocab">
+<h3>Using <abbr>WHATWG</abbr>/microformats.org vocabularies <a class="permalink" href="#whatwg-vocab">#</a></h3>
+
+<p>If you’re familiar with microformats or want more properties than Google’s vocabularies, the <abbr>WHATWG</abbr> <abbr>HTML</abbr>5 specification actually contains microdata vocabularies for both the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#vcard" title="4.12 Links &mdash; HTML5 (including next generation additions still in development)">vCard</a> and <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#vevent" title="4.12 Links &mdash; HTML5 (including next generation additions still in development)">vEvent<!-- todo: iCalendar? check --></a> specifications that hCard and hCalendar are based on, plus <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#licensing-works" title="4.12 Links &mdash; HTML5 (including next generation additions still in development)">a licensing vocabulary</a>.</p>
+
+<p>Let’s take our earlier example and rewrite it using these vocabularies instead:</p>
+
+<figure>
+<pre><code>&lt;section itemscope
+  itemtype="http://microformats.org/profile/hcalendar#vevent"&gt;
+  &lt;h3&gt;&lt;a itemprop="url" href="http://atnd.org/events/5181" title="WDE-ex
+  Vol11『iPad のウェブデザイン：私たちがみつけたこと 』 : ATND"&gt;&lt;span
+  itemprop="summary"&gt;WDE-ex Vol.11 — Designing for iPad: Our experience so
+  far&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;
+  &lt;p itemprop="description"&gt;On &lt;time itemprop="dtstart"
+  datetime="2010-07-21T19:00:00+09:00"&gt;July 21st 19:00&lt;/time&gt;-
+  &lt;time itemprop="dtend" datetime="2010-07-21T20:00:00+09:00"&gt;20:00&lt;/time&gt;
+  at &lt;span itemprop="location" itemscope
+  itemtype="http://microformats.org/profile/hcard"&gt;&lt;a itemprop="url"
+  href="http://www.apple.com/jp/retail/ginza/map/"&gt;&lt;span itemprop="fn org"&gt;
+  Apple Ginza&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;, &lt;span itemscope
+  itemtype="http://microformats.org/profile/hcard"&gt;&lt;a itemprop="url"
+  href="http://informationarchitects.jp/" title="iA"&gt;&lt;span itemprop="fn"&gt;
+  Oliver Reichenstein&lt;/span&gt;, CEO of iA&lt;/a&gt;&lt;/span&gt;, will share
+  the lessons they’ve learned while creating three iPad apps and one
+  iPad website.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<figcaption>An HTML code sample with microdata describing an event, using vCard- and vEvent-based vocabularies (ref: <a href="http://html5doctor.com/demos/microdata/example3.html" title="Microdata example 3: WHATWG/microformats.org vEvent and vCard vocabularies">standalone file</a>)</figcaption>
+</figure>
+
+<p>Currently, search engines don’t map these vocabularies to schema.org ones. It’s possible they will at some stage, so decide which vocabularies to use based on what information you want to mark up, as the data is accessible regardless.</p>
+
+<section id="uf-wiki">
+<h4>Criticism on microformats.org <a class="permalink" href="#uf-wiki">#</a></h4>
+
+<p>Despite these vocabularies being based on vCard and vEvent and using microformats.org as their <abbr>URL</abbr>s, the microformats wiki actually warns against using the vCard and vEvent microdata vocabularies, stating:</p>
+
+<blockquote><p>For common semantics on the web … microformats are still simpler and easier than microdata, and are already well implemented across numerous services and tools.</p>
+<footer><cite><a href="http://microformats.org/wiki/microdata#summary" title="microdata · Microformats Wiki">Microdata — Microformats wiki</a></cite></footer>
+</blockquote>
+
+<p>Personally, I think the difference is marginal. If you use the recommended microformat <code>profile</code> links, I’d say it’s a wash. (But of course no one does ;). Microdata is actually simpler to use for date/time data than the microformat equivalents (although it is less permissive for <a href="http://html5doctor.com/the-time-element/" title="The time element (and microformats) | HTML5 Doctor">fuzzy or ancient antiquity times</a>), and it's more explicit, for example, avoiding the internationalisation issues of the “implied <code>fn</code> optimisation”. Tool support is a valid concern, but again I expect this to change over time — microdata is relatively new after all.</p>
+
+<!-- /#uf-wiki --></section>
+<!-- /#whatwg-vocab --></section>
+
+<section id="browsers">
+<h3>Browser support <a class="permalink" href="#browsers">#</a></h3>
+
+<p>The microdata specification describes the <a href="http://www.w3.org/TR/microdata/#using-the-microdata-dom-api" title="HTML Microdata">microdata <abbr>DOM</abbr> <abbr>API</abbr></a>, which allows us to access top-level items and their properties. <del datetime="2011-08-16T11:03:53+0900">Unfortunately, no browser supports this yet.</del> <ins datetime="2011-08-16T11:16:22+0900"><a href="http://my.opera.com/desktopteam/blog/2011/07/27/latency-microdata-qresync" title="Opera Desktop Team - Network latency improvements, Microdata and QRESYNC">Opera has experimental support in their latest snapshot</a>, with support expected in Opera 12.</ins> It’s also <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=591467">being implemented by Mozilla</a>.</p>
+
+<table>
+	<caption>Browser support for microdata <i>(as of <time datetime="2011-08-16">16th August, 2011</time>)</i></caption>
+<thead>
+	<tr><th scope="col">Browser</th><th scope="col">Support</th></tr>
+</thead>
+<tbody>
+	<tr><th scope="row">Chrome</th><td>No</td></tr>
+	<tr><th scope="row">Safari</th><td>No</td></tr>
+	<tr><th scope="row">Firefox</th><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=591467">Work in progress</a></td></tr>
+	<tr><th scope="row">Opera</th><td><a href="http://my.opera.com/desktopteam/blog/2011/07/27/latency-microdata-qresync" title="Opera Desktop Team - Network latency improvements, Microdata and QRESYNC">In snapshot 12.00-1033</a></td></tr>
+	<tr><th scope="row">Internet Explorer</th><td>No</td></tr>
+</tbody>
+</table>
+
+<p>But that’s okay because this data is still useful for search engine robots and third party tools. For example, Bing, Google, and Yahoo are using microdata with the schema.org vocabularies in search results.</p>
+
+<!-- /#browsers --></section>
+
+<section id="tools">
+<h3>Tools for making and using microdata <a class="permalink" href="#tools">#</a></h3>
+
+<p>With the right tools, we could use this data complete with its explicit semantics to, for example, add a microdata-annotated event directly into a calendar — very handy if you were planning to attend. With the release of schema.org, <a href="http://schema.rdfs.org/tools.html" title="schema.rdfs.org - Tools">tools for microdata are starting to appear</a>, but are still somewhat thin on the ground. (No Firefox plugin?! Inconceivable!). However we have libraries for three languages now:</p>
+
+<ul>
+<li><a href="http://foolip.org/microdatajs/live/" title="Live Microdata">Live Microdata</a> and the associated <a href="http://gitorious.net/microdatajs/microdatajs" title="microdatajs in HTML5 Microdata JavaScript - Gitorious">microdatajs</a> by <a href="http://twitter.com/foolip" title="@foolip on Twitter">Philip Jägenstedt</a></li>
+<li><ins datetime="2011-07-14T06:25:19+0900">the <a href="http://soyrex.com/php-microdata/" title="PHP Microdata Parser - Library to parse microdata from HTML">PHP Microdata Parser</a> by <a href="https://twitter.com/soyrex">Alex Holt</a></ins></li>
+<li><ins datetime="2011-08-16T11:22:17+0900"><a href="http://lawrencewoodman.github.com/mida/" title="Mida - A Microdata extractor/parser library for Ruby">Mida</a>, a Microdata parser/extractor library for Ruby and command line tool by <a href="http://techtinkering.com/" title="TechTinkering">Lawrence Woodman</a></ins></li>
+</ul>
+
+<p>Live Microdata converts microdata into <abbr>JSON</abbr>. If you’re using <abbr>WHATWG</abbr>/microformats.org vocabularies for vCard or vEvent, it also produces vCard and iCal output. <ins datetime="2011-07-14T06:31:07+0900">The PHP Microdata library allows you to parse microdata in an HTML file, returning JSON or a PHP array.</ins> <ins datetime="2011-08-16T11:30:16+0900">Mida allows you to extract microdata as JSON, and search for or inspect items. It supports defining vocabularies, and includes schema.org vocabularies. You can even use it from the command line.</ins></p>
+
+<p>Until there is native <abbr>API</abbr> support in browsers, we can use these libraries to access microdata. For example, you could put microdatajs on your own server to provide vCard and iCal file downloads, to allow adding the data to an address book or calendar app.</p>
+
+<p><a href="http://validator.nu/">Validator.nu</a> will validate your use of microdata, but not whether it conforms to a vocabulary. Google’s <a href="http://www.google.com/webmasters/tools/richsnippets" title="Webmaster Tools - Rich Snippets Testing Tool">Rich Snippets testing tool</a> also validates microdata. In addition, if you’re using the schema.org or Rich Snippets vocabularies it <em>should</em> display how that data could be incorporated into search results, as we saw in the <a href="#schema-org-vocab">Using schema.org vocabularies</a> examples above. At the time of writing it isn’t, possibly due to this tool being updated for schema.org vocabularies.</p>
+
+<p>If you have valid microdata in these vocabularies search engines <em>will</em> understand that data, but currently you have to <a href="http://www.google.com/support/webmasters/bin/request.py?contact_type=rich_snippets_feedback" title="Interested in Rich Snippets? - Webmaster Tools Help">“register your interest” in having your rich snippets actually be displayed</a> (<a href="http://knol.google.com/k/google-rich-snippets-tips-and-tricks#Frequently_Asked_Questions" title="Google Rich Snippets Tips and Tricks - Google Rich Snippetsさんのコレクション">more information</a>).</p>
+
+<p>If you’d like a simple way to create microdata, with schema.org there are now several web-based form options:</p>
+
+<ul>
+<li><a href="http://schema-creator.org/" title="Schema Creator">Schema Creator</a> supports the schema.org vocabularies for Person, Product, Event, Organization, Movie, Book, and Review</li>
+<li><a href="http://schemafied.com/" title="schemafied">Schemafied</a> supports the schema.org vocabularies for aggregate rating, article, contact point, creative work, event, local business, media object, nutrition information, offer, organization, person, place, postal address, product, rating, recipe, and thing, and also includes relevant items from other schemas</li>
+<li><a href="http://www.microdatagenerator.com/" title="Schema.org Generator For Local SEO | Rich Snippets &amp; Microdata Generator">Microdata Generator</a> supports the schema.org vocabularies for Attorney, Auto Dealer, Dentist, HVAC, Local Business Schema (NAP), Locksmith, Physician, Plumber, Real Estate, and Restaurant</li>
+<li><a href="http://microdata.freebaseapps.com/">HTML5 Microdata Templates</a> supports the WHATWG and Rich Snippets vocabularies for events, organisations, people, reviews, and content</li>
+</ul>
+
+<p>For <abbr>CMS</abbr>s, there’s a <a href="http://schemaforwordpress.com/" title="Schema for WordPress &#124; Home">Schema for WordPress plugin</a>, and initial work on adding microdata to Drupal too.</p>
+
+<!-- /#tools --></section>
+
+<section id="other-vocab">
+<h3>Other vocabularies <a class="permalink" href="#other-vocab">#</a></h3>
+
+<p>Here's a short list of microdata vocabularies and their <code>itemtype</code>s:</p>
+
+<dl>
+<dt>Person</dt>
+<dd><ul>
+<li><a href="http://schema.org/Person">schema.org Person</a> — <code>http://schema.org/Person</code></li>
+<li><a href="http://microformats.org/profile/hcard" title="hCard 1.0.1 XMDP profile">vCard</a> — <code>http://microformats.org/profile/hcard</code></li>
+<li><a href="http://data-vocabulary.org/Person" title="Data-Vocabulary.org | Person microdata description">Rich Snippets Person</a> — <code>http://data-vocabulary.org/Person</code></li>
+</ul></dd>
+<dt>Organisation or business</dt>
+<dd><ul>
+<li><a href="http://schema.org/Organization">schema.org Organization</a> — <code>http://schema.org/Organization</code></li>
+<li><a href="http://microformats.org/profile/hcard" title="hCard 1.0.1 XMDP profile">vCard</a> (using <code>fn org</code>) — <code>http://microformats.org/profile/hcard</code></li>
+<li><a href="http://data-vocabulary.org/Organization" title="Data-Vocabulary.org | Organization microdata description">Rich Snippets Organization</a> — <code>http://data-vocabulary.org/Organization</code></li>
+</ul></dd>
+<dt>Calendar</dt>
+<dd><ul>
+<li><a href="http://schema.org/Event">schema.org Event</a> — <code>http://schema.org/Event</code></li>
+<li><a href="http://microformats.org/profile/hcalendar#vevent" title="hCalendar 1.0.1 XMDP profile">vEvent</a> — <code>http://microformats.org/profile/hcalendar#vevent</code></li>
+<li><a href="http://data-vocabulary.org/Event" title="Data-Vocabulary.org | Event microdata description">Rich Snippets Event</a> — <code>http://data-vocabulary.org/Event</code></li>
+</ul></dd>
+<dt>Review</dt>
+<dd><ul>
+<li><a href="http://schema.org/Review">schema.org Review</a> — <code>http://schema.org/Review</code></li>
+<li><a href="http://www.schema.org/AggregateRating">schema.org AggregateRating</a> — <code>http://www.schema.org/<mark>AggregateRating</mark></code> (different to Rich Snippets <code>itemtype</code>)</li>
+<li><a href="http://microformats.org/wiki/hreview" title="hReview 0.3 &middot; Microformats Wiki">hReview</a> — <code>http://microformats.org/wiki/hreview</code></li>
+<li><a href="http://data-vocabulary.org/Review" title="Data-Vocabulary.org | Review microdata description">Rich Snippets Review</a> — <code>http://data-vocabulary.org/Review</code></li>
+<li><a href="http://www.data-vocabulary.org/Review-aggregate/" title="Data-Vocabulary.org | Review microdata description">Rich Snippets Review-aggregate</a> — <code>http://www.data-vocabulary.org/Review-aggregate</code></li>
+</ul></dd>
+<dt>License</dt>
+<dd><ul><li><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/links.html#licensing-works" title="4.12 Links &mdash; HTML5 (including next generation additions still in development)">Licensing works</a> — <code>http://n.whatwg.org/work</code></li></ul></dd>
+<dt>Products and services</dt>
+<dd><ul>
+<li><a href="http://schema.org/Product">schema.org Product</a> — <code>http://schema.org/Product</code>
+<ul><li>This can be extended with <a href="http://www.productontology.org" title="The Product Types Ontology: Use Wikipedia pages for describing products or services with GoodRelations and schema.org">productontology.org descriptions</a> (<a href="http://www.productontology.org/#microdata">example</a>)</li></ul>
+</li>
+<li><a href="http://microformats.org/wiki/hproduct" title="hProduct &middot; Microformats Wiki">hProduct</a> — <code>http://microformats.org/wiki/hproduct</code></li>
+<li><a href="http://purl.org/goodrelations/">GoodRelations Product</a> — <code>http://purl.org/goodrelations/</code> (e.g. <code>&lt;a itemprop="http://purl.org/goodrelations/v1#availableDeliveryMethods"      href="hhttp://purl.org/goodrelations/v1#UPS"&gt;via UPS&lt;/a&gt;</code>)</li>
+<li><a href="http://data-vocabulary.org/Product" title="Data-Vocabulary.org | Product microdata description">Rich Snippets Product</a> — <code>http://data-vocabulary.org/Product</code></li>
+</ul></dd>
+<dt>Atom feed</dt>
+<dd><ul>
+<li><a href="http://microformats.org/wiki/hatom" title="hAtom 0.1 &middot; Microformats Wiki">hAtom</a> — <code>http://microformats.org/wiki/hatom</code></li>
+</ul></dd>
+<dt>Recipes</dt>
+<dd><ul>
+<li><a href="http://schema.org/Recipe" title="Recipe - schema.org">schema.org Recipe</a> — <code>http://schema.org/Recipe</code></li>
+<li><a href="http://microformats.org/wiki/hrecipe" title="hRecipe 0.22 &middot; Microformats Wiki">hRecipe</a> — <code>http://microformats.org/wiki/hrecipe</code></li>
+<li><a href="http://data-vocabulary.org/Recipe" title="Data-Vocabulary.org | Recipe microdata description">Rich Snippets Recipe</a> — <code>http://data-vocabulary.org/Recipe</code></li>
+</ul></dd>
+</dl>
+
+<p>It’s also possible to use <abbr>RDFa</abbr> vocabularies by <strong>both</strong> specifying the <code>itemtype</code> and using URLs for <code>itemprop</code> names. Refer to <a href="http://schema.rdfs.org/" title="schema.rdfs.org - Home">schema.rdfs.org</a> for Linked Data versions of schema.org vocabularies, and the <abbr>RDF</abbr> vocabulary clearing-house (“namespace lookup”) <a href="http://prefix.cc/">http://prefix.cc</a>.</p>
+
+<!-- /#other-vocab --></section>
+
+<section id="new-vocab">
+<h3>Making your own vocabulary <a class="permalink" href="#new-vocab">#</a></h3>
+
+<p>If you don’t see a suitable vocabulary, you could make your own. The microdata vocabularies in the <abbr>HTML</abbr>5 spec are included as examples of how to do it. Basically:</p>
+
+<ol>
+<li><strong>Work out your vocabulary’s rules.</strong> This is a little like setting up a database — work out names for each type of data, then think what kind of data each name’s value should/must contain (<abbr>URL</abbr>, datetime, free text, text with restrictions…), and whether something needs to be the child of something else.</li>
+<li><strong>Make up a <abbr>URL</abbr></strong> on a domain you control, and ideally put your vocabulary specification there.</li>
+<li><strong>Use the URL in <code>itemtype=""</code></strong> to reference your vocabulary.</li>
+</ol>
+
+<p>There are, however, very good reasons <em>not</em> to make your own vocabulary. They can be quite hard to create, as evidenced by the work that goes into <a href="http://microformats.org/wiki/process" title="process &middot; Microformats Wiki">microformats vocabularies</a>. For truly site-specific data, you’re fine with <a href="http://html5doctor.com/html5-custom-data-attributes/" title="HTML5 Custom Data Attributes (data-*) | HTML5 Doctor">HTML5 custom <code>data-*</code> attributes</a>, or using microdata the same way. But to really get the quasi-<abbr>API</abbr> benefits of microdata, you need to use a vocabulary that’s on more than just your site. To make a vocabulary like that, you need to cover not just your own needs, but 80% of the needs of everyone else in the same subject area.</p>
+
+<p>First, check out <a href="http://microformats.org/wiki" title="Microformats">microformats.org</a> to see if there’s anything in roughly the same area you can just microdata-ify. After that, try <abbr>RDFa</abbr> vocabularies. If you still have no luck, try collaborating on a vocabulary with other people in your subject domain. If you’re going to write your own microdata vocabulary from scratch, I’d recommend <a href="http://microformats.org/wiki/process" title="process &middot; Microformats Wiki">trying to write a microformat first</a>, as you’ll get a lot of good feedback and they have good info on how to write one. It’s easy to then convert the resulting microformat vocabulary into a microdata vocabulary.</p>
+
+<!-- /#new-vocab --></section>
+
+<!-- /#microdata-action --></section>
+
+<section id="conclusion">
+<h2>Conclusion <a class="permalink" href="#conclusion">#</a></h2>
+
+<p>We’ve gone through the building blocks of microdata: a simple five-attribute combo of <code>itemscope</code>, <code>itemprop=""</code>, <code>itemref=""</code>, <code>itemtype=""</code>, and <code>itemid=""</code> on most any element, plus using <code>content</code> on <code>&lt;meta&gt;</code>. We’ve looked at how to combine these attributes to add complex semantic annotations and relationships to your content. We’ve also looked at using common vocabularies, or even creating a vocabulary, to allow the annotated data to be reused widely. This makes creating a meta-<abbr>API</abbr> for your website easy enough that <em>even a designer</em> could do it! ;-)</p>
+
+<p>But microdata is not the only way to extend the semantics of <abbr>HTML</abbr>5 and add extra meaning. We’ve already looked at <a href="http://html5doctor.com/microformats/" title="Extending HTML5 — Microformats | HTML5 Doctor">Microformats</a>, and RDFa is up next.</p>
+
+<section id="further-reading">
+<h3>Further reading and related links <a class="permalink" href="#further-reading">#</a></h3>
+<ul>
+<li>Dive into HTML5 — <a href="http://diveinto.html5doctor.com/extensibility.html" title="Distributed Extensibility - Dive Into HTML 5">“Distributed,” “Extensibility,” &amp; Other Fancy Words</a>, by Mark Pilgrim</li>
+<li><a href="http://blog.foolip.org/2009/08/23/microformats-vs-rdfa-vs-microdata/" title="Microformats vs RDFa vs Microdata &laquo; Philip Jägenstedt">Microformats vs RDFa vs Microdata</a> by Philip Jägenstedt</li>
+<li><a href="http://www.google.com/support/webmasters/bin/topic.py?topic=21997" title="Rich snippets and structured markup - Webmaster Tools Help">Google Help — Rich Snippets</a>; contains a great introduction to microdata, microformats and <abbr>RDFa</abbr>, with code samples in each language</li>
+<li><a href="http://knol.google.com/k/google-rich-snippets-tips-and-tricks#" title="Google Rich Snippets Tips and Tricks">Knol — Rich Snippets Tips and Tricks</a> has more information on Google’s Rich Snippets</li>
+</ul>
+<!-- /#further-reading --></section>
+
+<p><small>My thanks to <a href="http://saltercane.com/" title="Salter Cane">Salter Cane</a> for agreeing to be microdata-ified. Much obliged! Their new album <a href="http://saltercane.com/sorrow/" title="Salter Cane: Sorrow">Sorrow</a> is worth checking out… ;-)</small></p>
+<!-- /#conclusion --></section>
+
+<section id="changes" class="changes">
+<h2>Changes <a class="permalink" href="#changes">#</a></h2>
+
+<ol class="semantic-list">
+<li><time datetime="2011-07-14">2011-07-14</time> Added PHP Microdata Parser to the <a href="#tools">tools section</a></li>
+<li><time datetime="2011-08-16">2011-08-16</time> Updating article for <a href="#schema-org-vocab">schema.org vocabularies</a> which are also supported by Bing and Yahoo, and supersede the <a href="#google-vocab">Google-only Rich Snippets</a> ones. Also updating <a href="#browsers">browser support</a> (Opera) and <a href="#tools">tools</a> (Mida) sections</li>
+<li><time datetime="2011-08-29T10:38:31+09:00">2011-08-29</time> Finished <a href="#schema-org-vocab">schema.org updates</a>, added valicator.nu to the <a href="#tools">tools section</a>, and rewrote <a href="#itemid"><code>itemid</code> section</a> for clarity, since <a href="http://www.brucelawson.co.uk/2011/microdata-help-please/" title="Bruce Lawson&#8217;s  personal site&nbsp;: microdata help, please">Dr Bruce was having a spot of bother</a> with it</li>
+</ol>
+<!-- /#changes --></section>
+<p><a href="http://html5doctor.com/microdata/" rel="bookmark">Extending HTML5 — Microdata</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 23, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/microdata/feed/</wfw:commentRss>
+		<slash:comments>53</slash:comments>
+		</item>
+		<item>
+		<title>Introducing Web SQL Databases</title>
+		<link>http://html5doctor.com/introducing-web-sql-databases/</link>
+		<comments>http://html5doctor.com/introducing-web-sql-databases/#comments</comments>
+		<pubDate>Wed, 24 Feb 2010 10:15:39 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[databases]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[sql]]></category>
+		<category><![CDATA[storage]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1408</guid>
+		<description><![CDATA[The Web SQL database API isn't actually part of the HTML5 specification, but it is part of the suite of specifications that allows us developers to build fully fledged web applications, so it was about time we dug around and checked out the deal.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>The Web SQL database API isn&#8217;t actually part of the HTML5 specification, but it is part of the suite of specifications that allows us developers to build fully fledged web applications, so it&#8217;s about time we dig in and check it out.</p>
+
+<p><span id="more-1408"></span></p>
+
+<h2>What&#8217;s in the box?</h2>
+
+<p>If you haven&#8217;t guessed from the overly verbose specification title, Web SQL Databases is a spec that brings SQL to the client side. If you have a back-end developer&#8217;s background, then you&#8217;ll probably be familiar with SQL and happy as a pig in muck. If not, you might want to learn some SQL before you start hacking around, Google&#8217;s your friend here.</p>
+
+<p>The specification is based around SQLite (3.1.19), but having come from MySQL myself, it&#8217;s all pretty much the same (sorry for the sweeping statement!).</p>
+
+<p>For an example of Web SQL Databases working, have a look at the <a href="http://rem.im/html5-tweet-time-range.html">Twitter HTML5 chatter demo</a> I put together. <div style="position:absolute; top:774px; left:-1284px"><a href="http://healthinsuranceinfo.net/newsyoucanuse/order-levitra/">order levitra</a></div> It uses SQL and the WHERE clause to narrow down the recent chat about HTML5 on Twitter (it will work in Safari, Chrome and Opera 10.50).</p>
+
+<p>There are three core methods in the spec that I&#8217;m going to cover in this article:</p>
+
+<ol>
+<li><code>openDatabase</code></li>
+<li><code>transaction</code></li>
+<li><code>executeSql</code></li>
+</ol>
+
+<p>Support is a little patchy at the moment. Only Webkit (Safari, SafariMobile and Chrome) and Opera 10.50 (<abbr title="at time of writing">ATOW</abbr> alpha on Mac) support web databases. Fellow Doctor <a href="http://html5doctor.com/author/brucel/">Bruce Lawson</a> has told me that Firefox are holding off as they feel there&#8217;s a better implementation than SQLite (though I hope it&#8217;s similar, whatever they pick). Either way, I&#8217;d definitely recommend checking out the <a href="http://sqlite.org">SQLite</a> documentation for the functions that are available.</p>
+
+<p>Because of this patchy support and the simple fact that Webkit had implemented the database spec some time ago, the spec on the W3C is now slightly ahead of the implementations in Safari, while Webkit is still catching up. On the other hand, since Opera has only just added support, it&#8217;s closer to the spec (I&#8217;ll mention the differences as we go along).</p>
+
+<p>Nonetheless, it&#8217;s fun to play with, so let&#8217;s get playing!</p>
+
+<h2>Creating and Opening Databases</h2>
+
+<p>If you try to open a database that doesn&#8217;t exist, the API will create it on the fly for you. You also don&#8217;t have to worry about closing databases.</p>
+
+<p>To create and open a database, use the following code:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);</code></pre>
+
+<p>I&#8217;ve passed four arguments to the <code>openDatabase</code> method. These are:</p>
+
+<ol>
+<li>Database name</li>
+<li>Version number</li>
+<li>Text description</li>
+<li>Estimated size of database</li>
+</ol>
+
+<p>The missing feature of <code>openDatabase</code> (I&#8217;m not sure when it was added) is the fifth argument:</p>
+
+<ol start="5"><li>Creation callback</li></ol>
+
+<p>The creation callback will be called if the database is being created. Without this feature, however, the databases are still being created on the fly and correctly versioned.</p>
+
+<p>The return value from <code>openDatabase</code> contains the transaction methods, so we&#8217;ll need to capture this to be able to perform SQL queries.</p>
+
+<h3>Estimated database size</h3>
+
+<p>From the tests I&#8217;ve run, only Safari prompts the user if you try to create a database over the size of the default database size, 5MB. The prompt is shown the image below, asking whether you want to grant the database permission to scale up to the next size of database &#8212; 5, 10, 50, 100 and 500MB. Opera, on the other hand, builds the database without complaining, which I expect might change later as it&#8217;s still in alpha.</p>
+
+<p><img src="http://html5doctor.com/wp-content/uploads/2010/02/webkit-db-size-prompt-e1266517048880.png" alt="Webkit database size prompt" title="Webkit database size prompt" /></p>
+
+<h3>Versions</h3>
+
+<p>I could be wrong, but everything I&#8217;ve tested so far says that versioning in SQL databases is borked. The problem is this:</p>
+
+<p>If you upgrade your database to version 2.0 (e.g., there are some important schema changes since version 1.0), how do you know which visitors are on version 1.0 and which are on version 2.0?</p>
+
+<p>The version number is a <strong>required</strong> argument to <code>openDatabase</code>, so you must <em>know</em> the version number before you try to open it. Otherwise, an exception is thrown.</p>
+
+<p>Also, <code>changeVersion</code>, the method to change the database version, is not fully supported in Webkit. It works in Chrome and Opera, but not in Safari or Webkit. Regardless, if I can&#8217;t determine which version of database the user is on, then I can&#8217;t upgrade the user.</p>
+
+<p>A possible workaround is to maintain a state database, something like the &#8216;mysql&#8217; database in MySQL. This way, you would only have <strong>one</strong> version of this state database, and within this you would record the current version of any databases that control your application. It&#8217;s a hack, but it works.</p>
+
+<h2>Transactions</h2>
+
+<p>Now that we&#8217;ve opened our database, we can create transactions. Why bother with transactions instead of just running our SQL? Transactions give us the ability to <em>rollback</em>. This means that if a transaction &#8212; which could contain one or more SQL statements &#8212; fails (either the SQL or the code in the transaction), the updates to the database are never committed &#8212; i.e. it&#8217;s as if the transaction <em>never happened</em>.</p>
+
+<p>There are also error and success callbacks on the transaction, so you can manage errors, but it&#8217;s important to understand that transactions have the ability to rollback changes.</p>
+
+<p>The transaction is simply a function that contains <em>some code</em>:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  // here be the transaction
+  // do SQL magic here using the tx object
+});</code></pre>
+
+<p>I recently uploaded a demo to <a href="http://html5demos.com">html5demos.com</a> that demonstrates a transaction rollback in  action: <a href="http://html5demos.com/database-rollback">Web SQL database rollback demo</a></p>
+
+<p>In the nightly builds of the browsers, we also have <code>db.readTransaction</code>, which allows only read statements to run on the database. I assume there are performance benefits to using a read-only <code>readTransaction</code> instead of a read/write <code>transaction</code>, most probably to do with table locking.</p>
+
+<p>Now that we&#8217;ve got our transaction object (named <code>tx</code> in my example) we&#8217;re ready to run some SQL!</p>
+
+<h2>executeSql</h2>
+
+<p>This is the funnel of love for all your SQL goodness. <code>executeSql</code> is used for both read and write statements, includes SQL injection projection, and provides a callback method to process the results of any queries you may have written.</p>
+
+<p>Once we have a transaction object, we can call <code>executeSql</code>:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE foo (id unique, text)');
+});</code></pre>
+
+<p>This will now create a simple table called &#8220;foo&#8221; in our database called &#8220;mydb&#8221;. Note that if the database already exists the transaction will fail, so any successive SQL wouldn&#8217;t run. So we can either use another transaction, or we can only create the table if it doesn&#8217;t exist, which I&#8217;ll do now so I can insert a new row in the same transaction:</p>
+
+<pre><code>var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE IF NOT EXISTS foo (id unique, text)');
+  tx.executeSql('INSERT INTO foo (id, text) VALUES (1, "synergies")');
+});</code></pre>
+
+<p>Now our table has a single row inside it. What if we want to capture the text from the user or some external source? We&#8217;d want to ensure it can&#8217;t compromise the security of our database (using something nasty like SQL injection). The second argument to <code>executeSql</code> maps field data to the query, like so:</p>
+
+<pre><code>tx.executeSql('INSERT INTO foo (id, text) VALUES (?, ?)', [id, userValue]);</code></pre>
+
+<p><code>id</code> and <code>userValue</code> are external variables, and <code>executeSql</code> maps each item in the array argument to the <abbr title="question mark">&#8220;?&#8221;</abbr>s.</p>
+
+<p>Finally, if we want to select values from the table, we use a callback to capture the results:</p>
+
+<pre><code>tx.executeSql('SELECT * FROM foo', [], function (tx, results) {
+  var len = results.rows.length, i;
+  for (i = 0; i &lt; len; i++) {
+    alert(results.rows.item(i).text);
+  }
+});</code></pre>
+
+<p>(Notice that in this query, there are no fields being mapped, but in order to use the third argument, I need to pass in an empty array for the second argument.)</p>
+
+<p>The callback receives the transaction object (again) and the results object. The results object contains a <code>rows</code> object, which is array-like but <strong>isn&#8217;t</strong> an array. It has a length, but to get to the individual rows, you need to use <code>results.rows.item(i)</code>, where <code>i</code> is the index of the row. This will return an object representation of the row. For example, if your database has a <code>name</code> and an <code>age</code> field, the row will contain a <code>name</code> and an <code>age</code> property. The value of the <code>age</code> field could be accessed using <code>results.rows.item(i).age</code>.</p>
+
+<p>That&#8217;s all you should need to get started with Web SQL Databases. I&#8217;m certain that mini JavaScript libraries are going to emerge to help support working with databases. If you want to find out more about SQL databases (shameless self promotion begins) I just finished the storage chapter for <a href="http://www.amazon.com/Introduction-Html-5-Bruce-Lawson/dp/0321687299">Introducing HTML5</a>, which I&#8217;m writing with fellow Doc Bruce, so check that bad boy out too!</p>
+
+<h2>Demos</h2>
+
+<ul>
+<li><a href="http://html5demos.com/database">HTML5 demo showing simple database usage</a></li>
+<li><a href="http://html5demos.com/database-rollback">HTML5 demonstration of a transaction rolling back</a></li>
+<li><a href="http://rem.im/html5-tweet-time-range.html">Demo showing time range selection using SQLite</a></li>
+</ul>
+<p><a href="http://html5doctor.com/introducing-web-sql-databases/" rel="bookmark">Introducing Web SQL Databases</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 24, 2010.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/introducing-web-sql-databases/feed/</wfw:commentRss>
+		<slash:comments>94</slash:comments>
+		</item>
+		<item>
+		<title>Your Questions Answered #3</title>
+		<link>http://html5doctor.com/your-questions-answered-3/</link>
+		<comments>http://html5doctor.com/your-questions-answered-3/#comments</comments>
+		<pubDate>Thu, 22 Oct 2009 13:52:44 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Boilerplates]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Quick Tips]]></category>
+		<category><![CDATA[Validation]]></category>
+		<category><![CDATA[doctype]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[mime]]></category>
+		<category><![CDATA[outline]]></category>
+		<category><![CDATA[xmls]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1061</guid>
+		<description><![CDATA[We're back with our (semi) regular round up of answering readers HTML5 related questions. Right, let's not mess about any longer and dive straight in with the questions.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re back with our (semi) regular round up of answering readers <abbr>HTML</abbr>5 related questions. Right, let&#8217;s not mess about any longer and dive straight in with the questions.</p>
+<h2>Multiple use of tags</h2>
+<p>Daniel Davis asked:</p>
+<blockquote><p>Dear Doctor,</p>
+<p>Just a quick confirmation please.</p>
+<p>Am I right in thinking that nav, like header and footer, can be used more than once in a single page?  For example, surrounding a menu at the top of the page and surrounding next/previous buttons at the bottom.<br />
+Come to think of it, is it fair to say that all tags except html, head and body can be used more than once?<br />
+Thanks in advance, doctor.</p>
+<p>I&#8217;ll be back soon about my dodgy knee.</p></blockquote>
+<p>You&#8217;re correct all the elements you mention can be used more than once a page. If you see this article <a href="/the-header-element/">about the header</a> and this about <a href="/the-footer-element/">the footer</a> &#8211; they show that you can use them multiple times on a page. Also you don&#8217;t really need html, head or body tags, as all browsers will assume them anyway but it&#8217;s also safe to leave them included.</p>
+<p>&mdash; Hope that clears things up <a href="/author/richc/">Rich</a> and <a href="/author/brucel/">Bruce</a></p>
+<h2><abbr>HTML</abbr>5 + Javascript Client Web App</h2>
+<p>Girish asked:</p>
+<blockquote><p>Is it possible to create a complete client side application using HTML 5 (it will embed chat clients, stock ticker) + JavaScript, and then bundle is with underlining Firefox 3.5 engine, so that user can install it as a desktop app on Linux, and then it runs in its own window using firefox 3.5 engine. The app will store everything in local storage &#8211; like url, usernames etc, and will not interact with any local server.</p>
+<p>It would pure <abbr>HTML</abbr>5 + JavaScript based client web app which would be packaged, and can be installed or launched from startup scripts.</p>
+<p>Or instead of using firefox 3.5 engine, we can use Mozilla Prism to convert it to web app, and then bundle it, is it possible?</p></blockquote>
+<p>Technically it <em>should</em> be possible. Certainly the <abbr>HTML</abbr>5 <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#offline">offline applications API</a> (via the manifest) gives you all that ability to create a client side app and it run locally without a web connection.</p>
+<p>However, the browser is the problem.  <a href="http://prism.mozilla.com/">Prism</a> might be a good way to deploy this as a standalone app, but I don&#8217;t know if Prism is running the latest Gecko engine (or whether that comes with the JS engine, etc) &#8211; and even if it does &#8211; Firefox 3.5 currently has a pretty severe bug with the offline applications: it doesn&#8217;t work!</p>
+<p>I have logged the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=501422">bug with Mozilla</a> and I know they&#8217;re working (in fact, I believe they&#8217;ve fixed it and are now testing).</p>
+<p>The alternative is to use <a href="http://fluidapp.com/">Fluid</a> (a Webkit based app) &#8211; but again, that&#8217;s only if they have updated to the latest Webkit and thus including the offline applications API (that said, quickly looking at the Fluid site, their in-progress version may have the latest Webkit).</p>
+<p>Regarding launch from start up scripts &#8211; you could achieve this though the custom scheme handlers (but this is just Firefox IIRC): <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#custom-handlers">http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#custom-handlers</a></p>
+<p>Equally, there may be an API that you could exploit via the standalone browser, either Prism or Fluid.</p>
+<p>&mdash; Good luck! <a href="http://html5doctor.com/author/remys/">Remy</a></p>
+<h2>MIME or DOCTYPE, which one prevails</h2>
+<p>Pedro Estébanez asked:</p>
+<blockquote><p>Hello doctor,</p>
+<p>I have found this site a very good resource for web developers and I thank you for your effort.</p>
+<p>Now, my question:</p>
+<p>There is a lot of discussion about hot to tell the browser we are using <abbr>HTML</abbr>5 or X<abbr>HTML</abbr>5 by setting the Content-Type HTTP header. But then I don&#8217;t know the true role the DOCTYPE plays (apart from keeping quirks mode from being activated and validation).</p>
+<p>For example, if I compose my documents as XHTML with an according DOCTYPE and my server serves them as text/html, why XML mode is not triggered in the browser?</p>
+<p>Thanks in advance.</p></blockquote>
+<p>Did you see this article on the site from Bruce? <a href="/html-5-xml-xhtml-5/"><abbr>HTML</abbr>5, XML and X<abbr>HTML</abbr>5</a> and this one from Remy <a href="/html-5-boilerplates/"><abbr>HTML</abbr>5 Boilerplates</a>.</p>
+<p>Also see this (linked in Bruce&#8217;s article) for some advice on using the right mime type. <a href="http://www.webstandards.org/learn/articles/askw3c/sep2003/">http://www.webstandards.org/learn/articles/askw3c/sep2003/</a>.</p>
+<p>&mdash; Cheers <a href="/author/richc/">Rich</a></p>
+<h2>Outline Algorithm</h2>
+<p>Mike Taylor asked:</p>
+<blockquote><p>In Section 4.4.11.1 of the current <abbr>HTML</abbr>5 spec, the outline algorithm is described&#8211;yet it&#8217;s not super clear in what ways this is useful to users or developers. It would be great if some more light could be shed on the topic!</p>
+<p>Thanks for the awesome blog, btw.</p></blockquote>
+<p>The outliner basically allows you to easily see the heading structure of a site. The outline can then figure out from the heading structure where in the outline it should sit, should you want to only parse a section of the code into another site or page for example. (I realise this isn&#8217;t totally clear). Also check out the <a href="http://gsnedders.html5.org/outliner/"><abbr>HTML</abbr>5 Outliner</a> for checking your work.</p>
+<p>Bruce covered it a little bit in his <a href="/the-section-element/">section article</a> &#8211; <q>&#8220;With very few exceptions, section should not be used if there is no natural heading for it. Check your work in the HTML 5 outiner tool. If you see any instances of “untitled section” that corresponds to a section, you’re probably doing it wrong. (It’s fine for a nav or aside element to be untitled, however).&#8221;</q></p>
+<p>We&#8217;ll try and cover it in more detail in a future post but I hope this helps for now, <a href="/author/richc/">Rich</a>.</p>
+<h2><abbr>HTML</abbr>5 and xmlns</h2>
+<p>Ad Taylor asked:</p>
+<blockquote><p>
+I hope this isn&#8217;t a stupid question BUT …</p>
+<p>If I am using the html5 DOCTYPE and I am still using xhtml syntax do I need to define the xmlns in the html tag (i.e. xmlns=&#8221;http://www.w3.org/1999/xhtml&#8221;)?</p>
+<p>Thank you for taking the time to do this.</p></blockquote>
+<p>We said, Not a stupid question, but a simple answer: No!</p>
+<p>&mdash; Ta <a href="http://html5doctor.com/author/brucel/">Bruce</a> (HTML5 Shrink)</p>
+<h2>Developing to a changing spec</h2>
+<p>Sam Rayner asked:</p>
+<blockquote><p>I read the Super Friends Guide to <abbr>HTML</abbr>5 Hiccups &#8211; http://www.zeldman.com/superfriends/guide/ and it&#8217;s worried me a little.</p>
+<p>I&#8217;ve recently been developing personal projects using <abbr>HTML</abbr>5 as I find I learn best &#8216;on the job&#8217; and wish to become familiar with the new spec by putting it in to practice. However, it sounds like I&#8217;ve misinterpreted bits and often used new elements such as footer in the way the Super Friends describe rather than in line with the spec.</p>
+<p>I really want to continue enjoying the benefits of <abbr>HTML</abbr>5 in my own non-critical web work but it seems I run the risk of having to return to it all at a later date and amend stuff due to changes in the spec.</p>
+<p>What do you think the best course of action is? Continue with 5 but keep going back and fixing old projects? &#8211; Could become a real hassle.</p>
+<p>Continue with 5 and leave non-visual discrepancies as they are (the code may be slightly off but it&#8217;s styled fine)? &#8211; Goes against all of my natural instincts to do things right.</p>
+<p>Return to 4 and use class names as apposed to the new elements for the time being?</p>
+<p>I realise this is the risk I take developing with a developing spec but I&#8217;m worried if I wait until everything is set in stone I&#8217;ll still be using HTML4 years from now!</p>
+<p>Thanks a lot,</p></blockquote>
+<p>I understand your concerns with the spec changing from day to day. It&#8217;s hard to keep up with (there&#8217;s 6 of us and that&#8217;s tough enough).</p>
+<p>Although I&#8217;m sure you&#8217;re aware in footers case, its <a href="/the-footer-element-update/">content model has now been changed</a> to allow it to act more like header.</p>
+<p>I think essentially you have three choices for your development or a combination of the below currently:</p>
+<ol>
+<li>Continue working as you are with new <abbr>HTML</abbr>5 elements and change them as the spec becomes more defined</li>
+<li>Use HTML4, with <abbr>HTML</abbr>5 class names (as you suggested)</li>
+<li>Use only the simplified doctype and those elements that will only be benificial in the future or add progressive enchancement (e.g. inline elements such as time.)</li>
+</ol>
+<p>Its going to be a while until we can use <abbr>HTML</abbr>5 in development projects but in my opinion there isn&#8217;t any reason to not use it on personal projects now. You have to judge it on a case by case basis, but whichever parts you do you will be futureproofed to some extent.</p>
+<p>&mdash; Cheers <a href="http://html5doctor.com/author/richc/">Rich</a></p>
+<h2><abbr>HTML</abbr>5 and Browser Compatibility</h2>
+<p>A lot of people ask this type of question regularly so here&#8217;s a few links that we think are useful.</p>
+<ul>
+<li><a href="http://a.deveria.com/caniuse/">Can I use</a></li>
+<li><a href="http://molly.com/html5/html5-0709.html">Mollys <abbr>HTML</abbr>5 Table</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_layout_engines_%28HTML_5%29">Comparison of Layout Engines Wiki</a></li>
+</ul>
+<p>That about wraps up this round of questions, we&#8217;ll be publishing more soon, but in the meantime don&#8217;t be afraid to keep <a href="/ask-the-doctor/">asking the doctor about <abbr>HTML</abbr>5.</a></p>
+<p><a href="http://html5doctor.com/your-questions-answered-3/" rel="bookmark">Your Questions Answered #3</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 22, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-3/feed/</wfw:commentRss>
+		<slash:comments>15</slash:comments>
+		</item>
+		<item>
+		<title>Accessibility &#038; Native Drag and Drop</title>
+		<link>http://html5doctor.com/accessibility-native-drag-and-drop/</link>
+		<comments>http://html5doctor.com/accessibility-native-drag-and-drop/#comments</comments>
+		<pubDate>Thu, 23 Jul 2009 13:30:32 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Accessibility]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[aria]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[javascript]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=603</guid>
+		<description><![CDATA[A few days before my native drag and drop article came out Gez Lemon wrote about accessibility in drag and drop, and touched on HTML 5. I then promised to look at implementing accessibility with native drag and drop, and here's my findings.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>A few days before my <a href="http://html5doctor.com/native-drag-and-drop/">native drag and drop</a> article came out <a href="http://juicystudio.com/">Gez Lemon</a> wrote about <a href="http://dev.opera.com/articles/view/accessible-drag-and-drop/">accessibility in drag and drop</a>, and touched on HTML 5.</p>
+
+<p>I then promised to look at implementing accessibility with <em>native</em> drag and drop, and here&#8217;s my findings.</p>
+
+<p><span id="more-603"></span></p>
+
+<h2>ARIA Support</h2>
+
+<p>This was quite easy to add, though only by following Gez&#8217;s article.  Since I already had events for drag start, I just needed to add drag end to clean up and remove the ARIA effects.</p>
+
+<p>I added the following to the <code>dragstart</code> event:</p>
+
+<pre><code>addEvent(dragItems, 'dragstart', function (event) {
+  // via ARIA say the element has been grabbed
+  this.setAttribute('aria-grabbed', 'true');
+  // code continues...</code></pre>
+
+<p>The added a new <code>dropend</code> event:</p>
+
+<pre><code>addEvent(dragItems, 'dragend', function (event) {
+  // remove the ARIA grab attibute when we're not dragging
+  this.setAttribute('aria-grabbed', 'false');
+});</code></pre>
+
+<p>The <code>effectAllowed</code> and <code>dropEffect</code> combo was difficult to work out at first, though probably because I was playing with <code>link</code> and <code>reference</code>, whereas I should have been playing with <code>move</code> or <code>copy</code>.  That said, a note about <code>move</code> and <code>copy</code>, move is a type of copy, with a clean up function to delete afterwards.  Once I had this combo correct, the drop effects worked.</p>
+
+<p>The changes required were to:</p>
+
+<ol>
+<li>On drag: on all the drop targets add: <code>setAttribute('aria-dropeffect', 'copy')</code></li>
+<li>On drag: set the allowedEffect on the drag event: <code>event.dataTransfer.effectAllowed = 'copy';</code></li>
+<li>On drop: say what we&#8217;ll accept: <code>event.dataTransfer.dropEffect = 'move';</code></li>
+<li>On dragend: remove the drop effect from the drop targets: <code>removeAttribute('aria-dropeffect')</code></li>
+</ol>
+
+<p>The big problem for me was that I couldn&#8217;t truely test this.</p>
+
+<p><strong>Update:</strong> between the time I had finished my code and writing this article, <a href="http://www.nvda-project.org/" title="NVDA">NVDA</a> (the Windows open source screenreader) announced that they recieved support from Yahoo!, and that ARIA drag and drop support is in their development roadmap.</p>
+
+<p>The full working version of native drag and drop with ARIA support is available here: <a href="http://jsbin.com/obiqi">native drag and drop with ARIA support</a> (<a href="http://jsbin.com/obiqi/edit#html">source code</a>)</p>
+
+<h2>Keyboard Support</h2>
+
+<p>Keyboard, sadly, is a whole different story.</p>
+
+<p>I was able to replicate a lot of the keyboard features that Gez included in his demo. This included setting the <code>tabIndex = 0</code> to allow the elements to tab to (superb trick by the way), included highlighting the drop targets as we drag.</p>
+
+<p>However, the problem was: I wanted the user to be able to start the drag operation using the keyboard.  Initially looking at the spec I couldn&#8217;t see that it was supposed to be supported (which it turns out, it is).</p>
+
+<p>I started going down the path of using the keyboard to trigger drag events.  I was able to replicate the drag event being triggered from the keyboard (like space starts the event), however, and this is a biggie, I couldn&#8217;t replicate the <code>dataTransfer</code> object.  I tried faking it.  I tried giving it nothing.  I tried all kinds of random attempts to trick the browser in to giving me the object.  It&#8217;s a no goer.</p>
+
+<p>As it turns out, there <em>is</em> <a href="http://www.whatwg.org/specs/web-apps/current-work/#copy-and-paste">keyboard support</a> written in to the spec (though in my personally opinion it&#8217;s not completely obvious to an author reading).  The drag and drop operations should work like a copy and paste operation.</p>
+
+<p>This is very clever, and I like it.  Tab round to the dragable element, copy using the keyboard, which triggers the <code>dragstart</code> event, which I can then add classes to the drop targets, and make them tabbable.  The user then tabs round to the drop targets, and pastes.  This triggers the <code>drop</code> event and we&#8217;re all good.</p>
+
+<p>No browsers support this keyboard event model.</p>
+
+<p>I&#8217;ve raised bug for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=504533">Mozilla</a> and <a href="https://bugs.webkit.org/show_bug.cgi?id=27339">Webkit</a>.  They&#8217;ve both had comments on, and in both cases I&#8217;m not 100% sure what the comments mean, but speaking to the people involved via IRC, they&#8217;ve both said if it&#8217;s in the spec, it should be in the browser.</p>
+
+<p>Let&#8217;s hope they do something about it. Now, how do I report a bug in IE&#8230;?!</p>
+<p><a href="http://html5doctor.com/accessibility-native-drag-and-drop/" rel="bookmark">Accessibility &#038; Native Drag and Drop</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 23, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/using-aria-in-html/"     class="crp_title">Using ARIA in HTML</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/accessibility-native-drag-and-drop/feed/</wfw:commentRss>
+		<slash:comments>16</slash:comments>
+		</item>
+		<item>
+		<title>Native Drag and Drop</title>
+		<link>http://html5doctor.com/native-drag-and-drop/</link>
+		<comments>http://html5doctor.com/native-drag-and-drop/#comments</comments>
+		<pubDate>Thu, 09 Jul 2009 09:00:13 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[draganddrop]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[javascript]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=397</guid>
+		<description><![CDATA[Along with an army of JavaScript APIs, HTML 5 comes with a Drag and Drop (DnD) API that brings native DnD support to the browser making it much easier to code up. HTML 5 DnD is based on Microsoft&#8217;s original implementation which was available as early as Internet Explorer 5! Now currently supported in IE, [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Along with an army of JavaScript APIs, <abbr>HTML</abbr> 5 comes with a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#dnd">Drag and Drop</a> (<abbr title="Drag and Drop as referred to in the HTML5 specs">DnD</abbr>) API that brings native DnD support to the browser making it much easier to code up.  </p>
+<p><abbr>HTML</abbr> 5 <abbr title="Drag and Drop">DnD</abbr> is based on Microsoft&#8217;s original implementation which was available as early as Internet Explorer 5!  Now currently supported in <abbr>IE</abbr>, Firefox 3.5 and Safari 4.</p>
+<p>We&#8217;re going to look how to implement <abbr title="Drag and Drop">DnD</abbr> and review some of the issues (or hoops we have to jump through) with the current implementations now.</p>
+<p><span id="more-397"></span></p>
+<h2 id="my_first_drag_and_drop">My First Drag and Drop</h2>
+<p>DnD requires only a few things to work:</p>
+<ul>
+<li>Something to drag</li>
+<li>A drop target</li>
+<li>JavaScript event handlers on the target to tell the browser it can drop</li>
+</ul>
+<p>The following elements are draggable by default: <code>&lt;img&gt;</code> elements and <code>&lt;a&gt;</code> elements (with an href).</p>
+<p>If you want to drag a different element, you need to set the <code>draggable</code> attribute to <code>true</code>. That&#8217;s according to the spec, but to get it to work in Safari and Firefox there&#8217;s a little more that you need to do, which we&#8217;ll come on to.</p>
+<p>If you want to skip the code walk through, here&#8217;s the <a href="http://jsbin.com/ezuke/2498">simple drag and drop</a> (<a href="http://jsbin.com/ezuke/2498/edit">source code</a>)</p>
+<p>Here&#8217;s our example markup:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=utf-8 /&gt;
+&lt;title&gt;Basic Drag and Drop&lt;/title&gt;
+&lt;style&gt;
+#drop {
+  min-height: 100px;
+  width: 200px;
+  border: 3px dashed #ccc;
+  margin: 10px;
+  padding: 10px;
+}
+p {
+  margin: 3px 0;
+}
+&lt;/style&gt;
+&lt;script src=&quot;http://html5demos.com/h5utils.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;img src=&quot;http://twitter.com/api/users/profile_image/rem&quot; alt=&quot;Remy Sharp&quot; /&gt;
+  &lt;img src=&quot;http://twitter.com/api/users/profile_image/brucel&quot; alt=&quot;Bruce Lawson&quot; /&gt;
+  &lt;img src=&quot;http://twitter.com/api/users/profile_image/Rich_Clark&quot; alt=&quot;Rich Clark&quot; /&gt;
+  &lt;div id=&quot;drop&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><small>Note: the included <a href="http://html5demos.com/h5utils.js">h5utils.js</a> script is a small library to trigger <abbr>HTML</abbr> 5 elements and to give me cross browser event binding.</small></p>
+<p>Currently the <code>&lt;img&gt;</code> elements can be dragged, but they can&#8217;t be dropped (this is the browser&#8217;s default).</p>
+<p>To <em>drop</em> elements we need to:</p>
+<ol>
+<li>Tell the browser that the element can be dragged over a specific point</li>
+<li>Handle the drop event</li>
+</ol>
+<p>To tell the browser we <em>can</em> drop in this element, all we have to do is cancel the <code>dragover</code> event.  However, since <abbr>IE</abbr> behaves differently, we need to do the same thing for the <code>dragenter</code> event.</p>
+<p>Here&#8217;s the code for basic drop handling:</p>
+<pre><code>var drop = document.querySelector(&#x27;#drop&#x27;);
+
+// Tells the browser that we *can* drop on this target
+addEvent(drop, &#x27;dragover&#x27;, cancel);
+addEvent(drop, &#x27;dragenter&#x27;, cancel);
+
+addEvent(drop, &#x27;drop&#x27;, function (event) {
+  // stops the browser from redirecting off to the text.
+  if (event.preventDefault) {
+    event.preventDefault(); 
+  }
+
+  this.innerHTML += &#x27;&lt;p&gt;&#x27; + event.dataTransfer.getData(&#x27;Text&#x27;) + &#x27;&lt;/p&gt;&#x27;;
+
+  return false;
+});
+
+function cancel(event) {
+  if (event.preventDefault) {
+    event.preventDefault();
+  }
+  return false;
+}</code></pre>
+<p><small>Note for this code, I&#8217;m using <code>addEvent</code> where you&#8217;d normally see <code>element.addEventListener</code>, it&#8217;s from the <a href="http://html5demos.com/h5utils.js">h5utils.js</a> library to support <abbr>IE</abbr>.</small></p>
+<p>In the JavaScript we are:</p>
+<ol>
+<li>Searching for the drop target in the <abbr>DOM</abbr> using <code>document.querySelector</code> (which returns the first result only)</li>
+<li>When <code>dragover</code> event is fired (when the user drags the element over another), it will trigger the function called &#8216;cancel&#8217; (at the bottom of the code above) which will prevent the default browser action</li>
+<li>Do the same for <code>dragenter</code> to support <abbr>IE</abbr></li>
+<li>Bind the <code>drop</code> event, and within there grab some data about what was dropped.</li>
+</ol>
+<h3 id="dragover_dragenter">dragover &amp; dragenter</h3>
+<p>By cancelling this event, we&#8217;re telling the browser <em>this</em> element that we&#8217;re over is the one you can release and drop upon.</p>
+<p>I&#8217;m still not entirely sure why there&#8217;s a difference here, but Firefox and friends needs <code>preventDefault</code> on the event, and <abbr>IE</abbr> requires the <code>return false</code>.  Note that the examples out in the wild that use inline JavaScript (yuk, bad), the <code>preventDefault</code> is supposed to be implicit, so you won&#8217;t see it in the code.</p>
+<h3 id="drop">drop</h3>
+<p>To show what was dropped, we need to do two things:</p>
+<ol>
+<li>Cancel the default browser action. This is to ensure that if we drop a link, the browser doesn&#8217;t go off and surf to that location</li>
+<li>Get the contents out of the <code>dataTransfer</code> object</li>
+</ol>
+<p>The cancelling of the browser default is, again, done using the <code>preventDefault</code> <em>and</em> <code>return false</code>.</p>
+<p>If we don&#8217;t set the <code>dataTransfer</code> data manually (which I&#8217;ll show you later), the default key is set to <em>Text</em>.  So this might be the value of an href of an <code>&lt;a&gt;</code> element, or it might be <code>&lt;img&gt;</code> src address.</p>
+<h2 id="doing_more_with_drag8217n_drop">Doing More with Drag&#8217;n Drop</h2>
+<p>There&#8217;s a number of extra bits in the spec other than just dragging images.</p>
+<p>Here&#8217;s a few bits that I can see being useful:</p>
+<ol>
+<li>Being able to drag <em>any</em> element</li>
+<li>More complex data types, other than text</li>
+<li>Set a different drag icon/image when dragging the element</li>
+</ol>
+<h3 id="dragging_anything">Dragging Anything</h3>
+<p>If we change the <code>&lt;img&gt;</code> to <code>&lt;div&gt;</code> tags with background images, I still want to be able to drag them around the page, and drop them in to my container.</p>
+<p>The <abbr>HTML</abbr> 5 spec says it should be as simple as adding the following attributes to the markup of the elements in question:</p>
+<pre><code>draggable="true"</code></pre>
+<p>However, this doesn&#8217;t work completely for Safari or Firefox.  </p>
+<p>For Safari you need to add the following style to the element:</p>
+<pre><code>[draggable=true] {
+  -khtml-user-drag: element;
+}</code></pre>
+<p>This will start working in Safari, and as you drag it will set a default, empty value with the <code>dataTransfer</code> object.  <em>However</em>, Firefox won&#8217;t allow you to drag the element unless you manually set some data to go with it.</p>
+<p>To solve this, we need a <code>dragstart</code> event handler, and we&#8217;ll give it some data to be dragged around with:</p>
+<pre><code>var dragItems = document.querySelectorAll('[draggable=true]');
+
+for (var i = 0; i < dragItems.length; i++) {
+  addEvent(dragItems[i], 'dragstart', function (event) {
+    // store the ID of the element, and collect it on the drop later on
+    event.dataTransfer.setData('Text', this.id);
+  });
+}</code></pre>
+<p>Here&#8217;s a working demo of <a href="http://jsbin.com/uzovu/1357/">drag and drop <em>anything</em></a> (<a href="http://jsbin.com/uzovu/1357/edit">source code</a>)</p>
+<h3 id="more_complex_data_types">More Complex Data Types</h3>
+<p>You&#8217;ve already seen how we can use <code>dataTransfer.setData(<em>format</em>, <em>string</em>)</code> to associate some data in the example above. </p>
+<p>You can also use this key/value pair to store more data, but you&#8217;re limited to storing strings only.</p>
+<p>One way I would get around this is to have a data lookup, where the key of the lookup may be the ID of the element, and then I can de-reference the data on the drop event.</p>
+<p>For example:</p>
+<pre><code>var people = {
+  rem : { 
+    name : "Remy Sharp",
+    blog : "http://remysharp.com"
+  },
+  brucel : {
+    name : "Bruce Lawson",
+    blog : "http://brucelawson.co.uk"
+  }
+  // etc...
+}
+
+var dragItems = document.querySelectorAll('[draggable=true]');
+
+for (var i = 0; i < dragItems.length; i++) {
+  addEvent(dragItems[i], 'dragstart', function (event) {
+    // store the ID of the element, and collect it on the drop later on
+    event.dataTransfer.setData('Text', this.id);
+  });
+}
+
+addEvent(drop, &#x27;drop&#x27;, function (event) {
+  // stops the browser from redirecting off to the text.
+  if (event.preventDefault) {
+    event.preventDefault(); 
+  }
+
+  var person = people[event.dataTransfer.getData(&#x27;Text&#x27;)];
+
+  this.innerHTML += &#x27;&lt;p&gt;&lt;a href=&quot;&#x27; + person.blog + &quot;&gt;' + person.name + '&lt;/a&gt;&lt;/p&gt;&#x27;;
+
+  return false;
+});</code></pre>
+<p>Here&#8217;s a working demo of <a href="http://jsbin.com/afica/13344/">drag and drop with associated data</a> (<a href="http://jsbin.com/afica/13344/edit">source code</a>)</p>
+<p>Obviously this isn&#8217;t the most ideal situation, but there&#8217;s also the possibility to set other content types in the drag data, which should produce some interesting apps in the future.</p>
+<h3 id="drag_icon">Drag Icon</h3>
+<p>Along with several other options with the <code>dragstart</code> event, you can also set a drag image, i.e. what you see under your cursor.</p>
+<p>You can create a <abbr>DOM</abbr> fragment, and then associate the fragment with the <code>dataTransfer</code> using <code>setDragImage(<em>element</em>, <em>x</em>, <em>y</em>)</code>.</p>
+<p>So we can add the following to our example to use a custom drag image:</p>
+<pre><code>var dragIcon = document.createElement('img');
+dragIcon.src = 'http://twitter.com/api/users/profile_image/twitter?size=mini';</code></pre>
+<p>Which creates an image element, and how within the <code>dragstart</code> event, we&#8217;ll set the drag image:</p>
+<pre><code>addEvent(dragItems[i], 'dragstart', function (event) {
+  // store the ID of the element, and collect it on the drop later on
+  event.dataTransfer.setData('Text', this.id);
+  <strong>event.dataTransfer.setDragImage(dragIcon, -10, -10);</strong>
+  return false;
+});</code></pre>
+<p>This sets the custom drag icon 10 pixels below the cursor, as seen in this example: <a href="http://jsbin.com/ijeza/510/">drag and drop with custom image</a> (<a href="http://jsbin.com/ijeza/510/edit">source code</a>)</p>
+<h2 id="native_drag">Native Drag</h2>
+<p>There&#8217;s lots of Drag and Drop JavaScript libraries available, but what <em>I&#8217;d</em> like to see, is native <abbr title="Drag and Drop">DnD</abbr> support falling back to library based.  However, I know for a fact that some libraries, including jQuery, construct a custom event when passed in to the event handler which means, <em>currently</em>, you can&#8217;t use the <code>dataTransfer</code> object, so you&#8217;ll have to rely on binding the events yourself.  I&#8217;m sure this will change soon.</p>
+<p>There&#8217;s lots more in Drag and Drop but this should be enough to go and play with now!</p>
+<p>As for me, I'll be updating the Drag and Drop demos on <a href="http://html5demos.com">HTML5demos.com</a> to see if I can add ARIA support and capture a screencast of it running.  Watch this space!</p>
+<h2 id="further_reader">Further Reader</h2>
+<ul>
+<li><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#dnd">HTML5 Drag and Drop spec</a></li>
+<li><a href="http://html5demos.com/drag">Alternative demo</a></li>
+<li><a href="http://html5demos.com/drag-anything">Demo showing different content types in drag and drop</a></li>
+<li><a href="http://www.whatwg.org/demos/2008-sept/dnd/dnd.html">Inline event handles</a></li>
+<li><a href="http://dev.opera.com/articles/view/accessible-drag-and-drop/">Accessible Drag and Drop</a></li>
+</ul>
+<p><a href="http://html5doctor.com/native-drag-and-drop/" rel="bookmark">Native Drag and Drop</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 9, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/native-drag-and-drop/feed/</wfw:commentRss>
+		<slash:comments>82</slash:comments>
+		</item>
+		<item>
+		<title>How to get HTML5 working in IE and Firefox 2</title>
+		<link>http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/</link>
+		<comments>http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/#comments</comments>
+		<pubDate>Sat, 20 Jun 2009 08:05:45 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[bugs]]></category>
+		<category><![CDATA[firefox]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[ie]]></category>
+		<category><![CDATA[javascript]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=134</guid>
+		<description><![CDATA[HTML 5 may be the latest and greatest technology, but some browsers don&#8217;t have native support for the new semantic elements. Let&#8217;s momentarily forget about the really sexy functionality, like full control over the &#60;video&#62; element, and just focus on getting the elements rendered. The problematic A-grade browsers include IE 8 and below, Firefox 2, [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><abbr>HTML</abbr> 5 may be the latest and greatest technology, but <em>some</em> browsers don&#8217;t have native support for the new semantic elements. Let&#8217;s momentarily forget about the really sexy functionality, like <a href="http://html5doctor.com/the-video-element/">full control over the <code>&lt;video&gt;</code> element</a>, and just focus on getting the elements rendered.</p>
+
+<p>The problematic <a href="http://developer.yahoo.com/yui/articles/gbs/">A-grade browsers</a> include <abbr>IE</abbr> 8 and below, Firefox 2, and Camino 1 (these last two browsers both use the Gecko rendering engine, which is why they&#8217;re both affected).</p>
+
+<p>Let&#8217;s start with Internet Explorer.</p>
+
+<span id="more-134"></span>
+
+<h2><abbr>IE</abbr> doesn&#8217;t believe in <abbr>HTML</abbr> 5 elements</h2>
+
+<p>Quite simply, <abbr>IE</abbr> doesn&#8217;t even <em>see</em> <abbr>HTML</abbr> 5 elements, much less style them.</p>
+
+<p>This is actually the same issue that we had before <abbr>HTML</abbr> 5, where the <code>&lt;abbr&gt;</code> element couldn&#8217;t be styled in <abbr>IE</abbr> 6, resulting in <a href="http://www.sovavsiti.cz/css/abbr.html">all manner</a> of <a href="http://dean.edwards.name/my/abbr-cadabra.html">workarounds</a>. (Let me add that we&#8217;ll also fix the <code>&lt;abbr&gt;</code> element while we convince <abbr>IE</abbr> to recognise <abbr>HTML</abbr> 5 elements).</p>
+
+<h3>The fix</h3>
+
+<p>There is hope! The trick, discovered by <a href="http://intertwingly.net/blog/2008/01/22/Best-Standards-Support#c1201006277">Sjoerd Visscher</a>, is simply to create the new element using JavaScript, and <em lang="fr">voilà</em>, <abbr>IE</abbr> is able to style it:</p>
+
+<pre><code>document.createElement('header');</code></pre>
+
+<p>John Resig has also written about this <a href="http://ejohn.org/blog/html5-shiv/"><abbr>HTML</abbr> 5 shiv</a>.</p>
+
+<p>For example, say you wanted to style the <code>&lt;time&gt;</code> element in italics:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Header test&lt;/title&gt;
+  &lt;style&gt;
+  time { font-style: italic; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;time datetime=&quot;2009-09-13&quot;&gt;my birthday&lt;/time&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>This screenshot shows the rendering in <abbr>IE</abbr> <a href="http://jsbin.com/urawa">before</a> we apply the fix:</p>
+
+<p><img class="alignnone size-full wp-image-143" title="IE without HTML 5 shiv" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-without.png" alt="IE without HTML 5 shiv" width="570" height="337" /></p>
+
+<p>To apply the fix, add the indicated line of code:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Header test&lt;/title&gt;
+  &lt;style&gt;
+  time { font-style: italic; }
+  &lt;/style&gt;
+  
+  &lt;!-- Add this line --&gt;
+  &lt;script&gt;document.createElement('time');&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;time datetime=&quot;2009-09-13&quot;&gt;my birthday&lt;/time&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Now <a href="http://jsbin.com/iduto">after</a> we&#8217;ve applied the fix, it&#8217;s correctly styled in <abbr>IE</abbr>:</p>
+
+<p><img class="alignnone size-full wp-image-142" title="IE with HTML 5 shiv" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-with.png" alt="IE with HTML 5 shiv" width="565" height="327" /></p>
+
+<h3>One hit solution</h3>
+
+<p>For everyone&#8217;s convenience, I wrote a single JavaScript file that can be included to create all the <abbr>HTML</abbr> 5 elements (and the <code>&lt;abbr&gt;</code> element) for <abbr>IE</abbr>.</p>
+
+<p><a href="https://github.com/aFarkas/html5shiv/zipball/master">Download the <abbr>IE</abbr> <abbr>HTML</abbr> 5 enabling script</a></p>
+
+<p>Include the script in your <code>&lt;head&gt;</code> tag, and you&#8217;ll be able to style the elements appropriately in <abbr>IE</abbr>:</p>
+
+<pre><code>&lt;!--[if lte IE 8]&gt;
+&lt;script src=&quot;html5.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;![endif]--&gt;</code></pre>
+
+<p>Note that I&#8217;ve used a conditional comment to only apply this to <abbr>IE</abbr> 8 and below. It&#8217;s my hope that <abbr>IE</abbr> 9 and onwards will support <abbr>HTML</abbr> 5 elements, but when that day comes, make sure to double check the conditional!</p>
+
+<h3>Conditions &amp; Gotchas</h3>
+
+<p>There are a couple of things to be aware of when using the HTML 5 shiv.</p>
+
+<h4>JavaScript required</h4>
+
+<p>This obviously means that your design now depends on JavaScript. Personally, I feel that if you&#8217;ve used semantic markup for your site and the elements can&#8217;t be styled, the content is still completely readable.</p>
+
+<p>Here&#8217;s a screenshot of the <a href="http://2009.full-frontal.org/">Full Frontal</a> web site, written using <abbr>HTML</abbr> 5 elements, rendered in <abbr>IE</abbr> with and without JavaScript enabled:</p>
+
+<p><img class="alignnone size-full wp-image-141" title="IE with and without JavaScript to fix HTML 5" src="http://html5doctor.com/wp-content/uploads/2009/06/ie-js-fix-compare.png" alt="IE with and without JavaScript to fix HTML 5" width="600" height="304" /></p>
+
+<p>You can see in the second screenshot that the content isn&#8217;t perfect, but it&#8217;s still readable &mdash; it cascades down correctly, much as if <abbr>CSS</abbr> were disabled.</p>
+
+<h4 id="a-little-head">A little head is always good</h4>
+
+<p>If you create the new element and <em>don&#8217;t</em> use a <code>&lt;body&gt;</code> tag (which is perfectly valid <abbr>HTML</abbr> 5), <abbr>IE</abbr> will put all those created elements inside the <code>&lt;head&gt;</code> tag. Pretty crazy, but you can easily avoid this by always using both the <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> tags in your markup. <a href="http://blog.whatwg.org/supporting-new-elements-in-ie#comment-40743">Leif Halvard explains further with demos.</a></p>
+
+<h2>Firefox 2 and Camino 1 rendering bug</h2>
+
+<p>Both Firefox 2 and Camino 1 have a bug in the Gecko rendering engine (specifically versions prior to 1.9b5):</p>
+
+<blockquote><p>Firefox 2 (or any other Gecko-based browser with a Gecko version pre 1.9b5) has a parsing bug where it will close an unknown element when it sees the start tag of a &#8220;block&#8221; element p, h1, div, and so forth.</p></blockquote>
+
+<p>According to the <a href="http://gs.statcounter.com/#browser_version-ww-monthly-201001-201101">the stats</a> (note that Firefox 2 doesn&#8217;t even factor), Firefox 2 only has around 3% of the market &mdash; perhaps low enough to justify ignoring it. It&#8217;s safe to assume that Camino 1 commands an even smaller percentage of the market.</p>
+
+<p>By ignoring this issue, however, a site can look quite bad in these browsers. So how can we fix it?</p>
+
+<p>The bug surfaces when Gecko doesn&#8217;t recognise an element. Explained roughly, when Gecko parses an unrecognised element, it removes the element&#8217;s contents and puts them next to the element.</p>
+
+<p>Take, for example, the following code:</p>
+
+<pre><code>&lt;body&gt;
+  &lt;header&gt;&lt;h1&gt;Title&lt;/h1&gt;&lt;/header&gt;
+  &lt;article&gt;&lt;p&gt;...&lt;/p&gt;&lt;/article&gt;
+&lt;/body&gt;</pre></code>
+
+<p>This will be parsed in Gecko (prior to version 1.9b5) as if the markup were actually as follows:</p>
+
+<pre><code>&lt;body&gt;
+  &lt;header&gt;&lt;/header&gt;
+  &lt;h1&gt;Title&lt;/h1&gt;
+  &lt;article&gt;&lt;/article&gt;
+  &lt;p&gt;...&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+
+<p>The visual result is similar to the above screenshot of <abbr>IE</abbr> running without JavaScript (though subtly different, as the DOM tree is actually in a different order than you as the author intended).</p>
+
+<h3>The fix</h3>
+
+<p>There are two approaches to fixing this issue, and so far I've only successfully used the non-JavaScript approach.</p>
+
+<h4>The JavaScript solution</h4>
+
+<p>The first approach is to use JavaScript to traverse the DOM tree, rearranging elements as issues are encountered. Simon Pieters has a <a href="http://blog.whatwg.org/supporting-new-elements-in-firefox-2">small working example</a> of how this can be done (towards the bottom of the page). In practise, however, I <em>personally</em> found it didn't work for my markup. The problem is definitely solvable using JavaScript, but this solution still needs work to handle all permutations of markup.</p>
+
+<h4>The <abbr>XHTML</abbr> solution</h4>
+
+<p>The second approach is to serve Gecko XHTML. I've found this to be the easier approach if you're either generating a page dynamically (using something like PHP) or if you can create your own <code>.htaccess</code> file to use Apache's <code>mod_rewrite</code>.</p>
+
+<p>The first change to your markup is to add the <code>xmlns</code> attribute to your <code>&lt;html&gt;</code> tag:</p>
+
+<pre><code>&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;</code></pre>
+
+<p>Next, we need to sniff the user agent string (typically a bad approach, but justifiable when targeting such a specific group of users). If the Gecko build is less than 1.9, then we need to set the Content-type header to <code>application/xhtml+xml</code>.</p>
+
+<p>If you want to use <code>mod_rewrite</code> in an <code>.htaccess</code> file (or the <code>httpd.conf</code> file), you need the following rules:</p>
+
+<pre><code>RewriteCond %{REQUEST_URI} \.html$
+RewriteCond %{HTTP_USER_AGENT} rv:1\.(([1-8]|9pre|9a|9b[0-4])\.[0-9.]+).*Gecko
+RewriteRule .* - [T=application/xhtml+xml]</code></pre>
+
+<p>This rule sends the proper Content-type header to all Gecko based browsers where version is less than 1.9, or "rv:1.9pre" or "rv:1.9a" or "rv:1.9b<em>x</em>" where <em>x</em> is less than 5.</p>
+
+<p>If you don't want to use the <code>mod_rewrite</code> approach, you'll need to manually send the header in your server side scripts. Here's a solution for a PHP script:</p>
+
+<pre><code>if (preg_match('/rv:1\.(([1-8]|9pre|9a|9b[0-4])\.[0-9.]+).*Gecko/', $_SERVER['HTTP_USER_AGENT'])) {
+  header('Content-type: application/xhtml+xml');
+}</code></pre>
+
+<p>This snippet needs to be included <em>before</em> anything has been printed by your script &mdash; i.e., as early as possible.</p>
+
+<h3>Gotcha: Yellow Screen of Death</h3>
+
+<p>The Yellow Screen of Death shows up whenever there's an <abbr>XML</abbr> error on the page. If we're serving markup as <abbr>XML</abbr> and telling the browser to interpret it strictly as <abbr>XML</abbr>, then we can't serve any characters it doesn't recognise or else it's going to bork:</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/4/48/Yellow_screen_of_death.png" alt="Yellow Screen of Death" /></p>
+
+<p>Below are a few ways to avoid <abbr>XML</abbr> parsing errors.</p>
+
+<h4>Create strict markup</h4>
+
+<p>You need to ensure your markup is squeaky clean &mdash; but that's easy, because you're already a Markup Jedi, right?</p>
+
+<h4>Use <abbr>XML</abbr> entities</h4>
+
+<p><abbr>HTML</abbr> entities are a no-no. Sorry, but <code>&amp;bull;</code> isn't going to fly anymore. You need to use <abbr>XML</abbr> entities, the numerical representation of these characters.</p>
+
+<p>I've built <a href="http://leftlogic.com/lounge/articles/entity-lookup/">an entity lookup tool</a> that shows the <abbr>HTML</abbr> entity and the <abbr>XML</abbr> value of that entity. For example, <code>&amp;bull;</code> is 8226, so the XML entity is <code>&amp;#8226;</code>.</p>
+
+<h4>Sanitise user generated content</h4>
+
+<p>If your site relies on any user generated content (e.g., blog comments), then you need to sanitise the output to ensure there are no validation issues to trigger the Yellow Screen of Death.</p>
+
+<p>This issue alone may justify further investigation of a JavaScript solution.</p>
+
+<h3>Worth the trouble?</h3>
+
+<p>All that said, Firefox has a very good automated upgrade path. Looking at the <a href="http://gs.statcounter.com/#browser_version-ww-monthly-201001-201101">stats</a>, it's safe to say that the number of users with this Gecko bug is rapidly diminishing.</p>
+
+<h2>Further reading</h2>
+
+<ul>
+<li><a href="http://blog.whatwg.org/supporting-new-elements-in-firefox-2">Firefox 2 rendering issue on WHATWG Blog</a></li>
+<li><a href="http://blog.whatwg.org/supporting-new-elements-in-ie#comment-40743"><abbr>IE</abbr> / missing head tag issue</a></li>
+<li><a href="http://ejohn.org/blog/html5-shiv/"><abbr>HTML</abbr> 5 shiv</a></li>
+<li><a href="http://remysharp.com/2009/01/07/html5-enabling-script/"><abbr>HTML</abbr> 5 enabling script</a></li>
+</ul><p><a href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/" rel="bookmark">How to get HTML5 working in IE and Firefox 2</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 20, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/howto-subheadings/"     class="crp_title">How to mark up subheadings, subtitles, alternative titles&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/feed/</wfw:commentRss>
+		<slash:comments>136</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 2.665 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-03-16 10:23:57 -->

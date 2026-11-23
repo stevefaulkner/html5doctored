@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Boilerplates &#8211; HTML5 Doctor</title>
+	<atom:link href="http://html5doctor.com/category/boilerplates/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Tue, 21 Jun 2016 09:50:49 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>Your Questions Answered #3</title>
+		<link>http://html5doctor.com/your-questions-answered-3/</link>
+		<comments>http://html5doctor.com/your-questions-answered-3/#comments</comments>
+		<pubDate>Thu, 22 Oct 2009 13:52:44 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Boilerplates]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Quick Tips]]></category>
+		<category><![CDATA[Validation]]></category>
+		<category><![CDATA[doctype]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[mime]]></category>
+		<category><![CDATA[outline]]></category>
+		<category><![CDATA[xmls]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1061</guid>
+		<description><![CDATA[We're back with our (semi) regular round up of answering readers HTML5 related questions. Right, let's not mess about any longer and dive straight in with the questions.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re back with our (semi) regular round up of answering readers <abbr>HTML</abbr>5 related questions. Right, let&#8217;s not mess about any longer and dive straight in with the questions.</p>
+<h2>Multiple use of tags</h2>
+<p>Daniel Davis asked:</p>
+<blockquote><p>Dear Doctor,</p>
+<p>Just a quick confirmation please.</p>
+<p>Am I right in thinking that nav, like header and footer, can be used more than once in a single page?  For example, surrounding a menu at the top of the page and surrounding next/previous buttons at the bottom.<br />
+Come to think of it, is it fair to say that all tags except html, head and body can be used more than once?<br />
+Thanks in advance, doctor.</p>
+<p>I&#8217;ll be back soon about my dodgy knee.</p></blockquote>
+<p>You&#8217;re correct all the elements you mention can be used more than once a page. If you see this article <a href="/the-header-element/">about the header</a> and this about <a href="/the-footer-element/">the footer</a> &#8211; they show that you can use them multiple times on a page. Also you don&#8217;t really need html, head or body tags, as all browsers will assume them anyway but it&#8217;s also safe to leave them included.</p>
+<p>&mdash; Hope that clears things up <a href="/author/richc/">Rich</a> and <a href="/author/brucel/">Bruce</a></p>
+<h2><abbr>HTML</abbr>5 + Javascript Client Web App</h2>
+<p>Girish asked:</p>
+<blockquote><p>Is it possible to create a complete client side application using HTML 5 (it will embed chat clients, stock ticker) + JavaScript, and then bundle is with underlining Firefox 3.5 engine, so that user can install it as a desktop app on Linux, and then it runs in its own window using firefox 3.5 engine. The app will store everything in local storage &#8211; like url, usernames etc, and will not interact with any local server.</p>
+<p>It would pure <abbr>HTML</abbr>5 + JavaScript based client web app which would be packaged, and can be installed or launched from startup scripts.</p>
+<p>Or instead of using firefox 3.5 engine, we can use Mozilla Prism to convert it to web app, and then bundle it, is it possible?</p></blockquote>
+<p>Technically it <em>should</em> be possible. Certainly the <abbr>HTML</abbr>5 <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#offline">offline applications API</a> (via the manifest) gives you all that ability to create a client side app and it run locally without a web connection.</p>
+<p>However, the browser is the problem.  <a href="http://prism.mozilla.com/">Prism</a> might be a good way to deploy this as a standalone app, but I don&#8217;t know if Prism is running the latest Gecko engine (or whether that comes with the JS engine, etc) &#8211; and even if it does &#8211; Firefox 3.5 currently has a pretty severe bug with the offline applications: it doesn&#8217;t work!</p>
+<p>I have logged the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=501422">bug with Mozilla</a> and I know they&#8217;re working (in fact, I believe they&#8217;ve fixed it and are now testing).</p>
+<p>The alternative is to use <a href="http://fluidapp.com/">Fluid</a> (a Webkit based app) &#8211; but again, that&#8217;s only if they have updated to the latest Webkit and thus including the offline applications API (that said, quickly looking at the Fluid site, their in-progress version may have the latest Webkit).</p>
+<p>Regarding launch from start up scripts &#8211; you could achieve this though the custom scheme handlers (but this is just Firefox IIRC): <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#custom-handlers">http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#custom-handlers</a></p>
+<p>Equally, there may be an API that you could exploit via the standalone browser, either Prism or Fluid.</p>
+<p>&mdash; Good luck! <a href="http://html5doctor.com/author/remys/">Remy</a></p>
+<h2>MIME or DOCTYPE, which one prevails</h2>
+<p>Pedro Estébanez asked:</p>
+<blockquote><p>Hello doctor,</p>
+<p>I have found this site a very good resource for web developers and I thank you for your effort.</p>
+<p>Now, my question:</p>
+<p>There is a lot of discussion about hot to tell the browser we are using <abbr>HTML</abbr>5 or X<abbr>HTML</abbr>5 by setting the Content-Type HTTP header. But then I don&#8217;t know the true role the DOCTYPE plays (apart from keeping quirks mode from being activated and validation).</p>
+<p>For example, if I compose my documents as XHTML with an according DOCTYPE and my server serves them as text/html, why XML mode is not triggered in the browser?</p>
+<p>Thanks in advance.</p></blockquote>
+<p>Did you see this article on the site from Bruce? <a href="/html-5-xml-xhtml-5/"><abbr>HTML</abbr>5, XML and X<abbr>HTML</abbr>5</a> and this one from Remy <a href="/html-5-boilerplates/"><abbr>HTML</abbr>5 Boilerplates</a>.</p>
+<p>Also see this (linked in Bruce&#8217;s article) for some advice on using the right mime type. <a href="http://www.webstandards.org/learn/articles/askw3c/sep2003/">http://www.webstandards.org/learn/articles/askw3c/sep2003/</a>.</p>
+<p>&mdash; Cheers <a href="/author/richc/">Rich</a></p>
+<h2>Outline Algorithm</h2>
+<p>Mike Taylor asked:</p>
+<blockquote><p>In Section 4.4.11.1 of the current <abbr>HTML</abbr>5 spec, the outline algorithm is described&#8211;yet it&#8217;s not super clear in what ways this is useful to users or developers. It would be great if some more light could be shed on the topic!</p>
+<p>Thanks for the awesome blog, btw.</p></blockquote>
+<p>The outliner basically allows you to easily see the heading structure of a site. The outline can then figure out from the heading structure where in the outline it should sit, should you want to only parse a section of the code into another site or page for example. (I realise this isn&#8217;t totally clear). Also check out the <a href="http://gsnedders.html5.org/outliner/"><abbr>HTML</abbr>5 Outliner</a> for checking your work.</p>
+<p>Bruce covered it a little bit in his <a href="/the-section-element/">section article</a> &#8211; <q>&#8220;With very few exceptions, section should not be used if there is no natural heading for it. Check your work in the HTML 5 outiner tool. If you see any instances of “untitled section” that corresponds to a section, you’re probably doing it wrong. (It’s fine for a nav or aside element to be untitled, however).&#8221;</q></p>
+<p>We&#8217;ll try and cover it in more detail in a future post but I hope this helps for now, <a href="/author/richc/">Rich</a>.</p>
+<h2><abbr>HTML</abbr>5 and xmlns</h2>
+<p>Ad Taylor asked:</p>
+<blockquote><p>
+I hope this isn&#8217;t a stupid question BUT …</p>
+<p>If I am using the html5 DOCTYPE and I am still using xhtml syntax do I need to define the xmlns in the html tag (i.e. xmlns=&#8221;http://www.w3.org/1999/xhtml&#8221;)?</p>
+<p>Thank you for taking the time to do this.</p></blockquote>
+<p>We said, Not a stupid question, but a simple answer: No!</p>
+<p>&mdash; Ta <a href="http://html5doctor.com/author/brucel/">Bruce</a> (HTML5 Shrink)</p>
+<h2>Developing to a changing spec</h2>
+<p>Sam Rayner asked:</p>
+<blockquote><p>I read the Super Friends Guide to <abbr>HTML</abbr>5 Hiccups &#8211; http://www.zeldman.com/superfriends/guide/ and it&#8217;s worried me a little.</p>
+<p>I&#8217;ve recently been developing personal projects using <abbr>HTML</abbr>5 as I find I learn best &#8216;on the job&#8217; and wish to become familiar with the new spec by putting it in to practice. However, it sounds like I&#8217;ve misinterpreted bits and often used new elements such as footer in the way the Super Friends describe rather than in line with the spec.</p>
+<p>I really want to continue enjoying the benefits of <abbr>HTML</abbr>5 in my own non-critical web work but it seems I run the risk of having to return to it all at a later date and amend stuff due to changes in the spec.</p>
+<p>What do you think the best course of action is? Continue with 5 but keep going back and fixing old projects? &#8211; Could become a real hassle.</p>
+<p>Continue with 5 and leave non-visual discrepancies as they are (the code may be slightly off but it&#8217;s styled fine)? &#8211; Goes against all of my natural instincts to do things right.</p>
+<p>Return to 4 and use class names as apposed to the new elements for the time being?</p>
+<p>I realise this is the risk I take developing with a developing spec but I&#8217;m worried if I wait until everything is set in stone I&#8217;ll still be using HTML4 years from now!</p>
+<p>Thanks a lot,</p></blockquote>
+<p>I understand your concerns with the spec changing from day to day. It&#8217;s hard to keep up with (there&#8217;s 6 of us and that&#8217;s tough enough).</p>
+<p>Although I&#8217;m sure you&#8217;re aware in footers case, its <a href="/the-footer-element-update/">content model has now been changed</a> to allow it to act more like header.</p>
+<p>I think essentially you have three choices for your development or a combination of the below currently:</p>
+<ol>
+<li>Continue working as you are with new <abbr>HTML</abbr>5 elements and change them as the spec becomes more defined</li>
+<li>Use HTML4, with <abbr>HTML</abbr>5 class names (as you suggested)</li>
+<li>Use only the simplified doctype and those elements that will only be benificial in the future or add progressive enchancement (e.g. inline elements such as time.)</li>
+</ol>
+<p>Its going to be a while until we can use <abbr>HTML</abbr>5 in development projects but in my opinion there isn&#8217;t any reason to not use it on personal projects now. You have to judge it on a case by case basis, but whichever parts you do you will be futureproofed to some extent.</p>
+<p>&mdash; Cheers <a href="http://html5doctor.com/author/richc/">Rich</a></p>
+<h2><abbr>HTML</abbr>5 and Browser Compatibility</h2>
+<p>A lot of people ask this type of question regularly so here&#8217;s a few links that we think are useful.</p>
+<ul>
+<li><a href="http://a.deveria.com/caniuse/">Can I use</a></li>
+<li><a href="http://molly.com/html5/html5-0709.html">Mollys <abbr>HTML</abbr>5 Table</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_layout_engines_%28HTML_5%29">Comparison of Layout Engines Wiki</a></li>
+</ul>
+<p>That about wraps up this round of questions, we&#8217;ll be publishing more soon, but in the meantime don&#8217;t be afraid to keep <a href="/ask-the-doctor/">asking the doctor about <abbr>HTML</abbr>5.</a></p>
+<p><a href="http://html5doctor.com/your-questions-answered-3/" rel="bookmark">Your Questions Answered #3</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 22, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-3/feed/</wfw:commentRss>
+		<slash:comments>15</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Reset Stylesheet</title>
+		<link>http://html5doctor.com/html-5-reset-stylesheet/</link>
+		<comments>http://html5doctor.com/html-5-reset-stylesheet/#comments</comments>
+		<pubDate>Mon, 27 Jul 2009 14:00:42 +0000</pubDate>
+		<dc:creator><![CDATA[Richard Clark]]></dc:creator>
+				<category><![CDATA[Boilerplates]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[reset]]></category>
+		<category><![CDATA[stylesheet]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=622</guid>
+		<description><![CDATA[We've had a number of people asking about templates, boilerplates and styling for <abbr>HTML</abbr> 5 so to give you all a helping hand and continue on from those basic building blocks that Remy talked about last week I've created a HTML 5 reset stylesheet for you to take away and use, edit, amend and update in your projects.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;ve had a number of people ask about templates, boilerplates, and styling for <abbr>HTML</abbr> 5. Last week, <a href="/author/remys/">Remy</a> introduced some <a href="/html-5-boilerplates/">basic boilerplates for HTML 5</a>, so to keep the momentum going, I&#8217;ve modified <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer&#8217;s <abbr>CSS</abbr> reset</a> for you to use in your HTML 5 projects.</p>
+
+<h2>The code</h2>
+
+<p>Let&#8217;s start with the complete <abbr>CSS</abbr> stylesheet:</p>
+
+<pre><code>/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}</code></pre>
+
+<h2>So what&#8217;s new?</h2>
+
+<p>Quite a bit! The next few sections explain what I changed and why I changed it.</p>
+
+<h3>The basics</h3>
+
+<p>I started by removing elements that have been deprecated from the <abbr>HTML</abbr> 5 specification, like <code>&lt;acronym&gt;</code>, <code>&lt;center&gt;</code> and <code>&lt;big&gt;</code>. (We&#8217;ll cover deprecated elements in more detail in another post). I also added new <abbr>HTML</abbr> 5 elements, like <code>and</code>, in order to remove any default padding, margin, and borders. I&#8217;ve also added an explicit <code>display:block</code> property for elements that are required to render as blocks.</p>
+
+<p>I also removed the explicit unstyling of the <code>:focus</code> pseudo-class. There are two reasons for this. First, by declaring <code>outline:0</code>, you remove the focus identifier for keyboard users. Second, Eric released his stylesheet in good faith that people would explicitly style <code>:focus</code>, but they generally don&#8217;t, so it&#8217;s safer to leave the default <code>:focus</code> styles in place. (I also set defaults for <code>&lt;ins&gt;</code>, since I don&#8217;t think that got updated very often either.)</p>
+
+<p>I&#8217;ve left the default list styles in place simply as a personal preference. I tend to add the list style back when using Eric&#8217;s reset anyway. I have, however, included <code>nav ul {list-style:none;}</code> to remove those pesky bullets from your navigation. </p>
+
+<h3>Using attribute selectors</h3>
+
+<p>You&#8217;ll notice that I&#8217;ve included attribute selectors for <code>&lt;abbr&gt;</code> and <code>&lt;dfn&gt;</code>. This way, the style will only appear <em>if</em> there is a title attribute on the element. This is primarily for accessibility. For example, we use <code>&lt;abbr&gt;</code> regularly on this site but don&#8217;t always include a title attribute. We think it&#8217;s safe to assume all of our readers (no matter what device they&#8217;re using) know what <abbr>HTML</abbr> stands for. We do still use the <code>&lt;abbr&gt;</code> element to make sure screen readers read the text as H-T-M-L rather than struggling to pronounce &#8220;HTML&#8221;.</p>
+
+<h3>What&#8217;s that bit about mark?</h3>
+
+<p><code>&lt;mark&gt;</code> is a new element introduced in <abbr>HTML</abbr> 5 used to (you guessed it) mark text in a document. According to the spec: <q>&#8220;The mark element represents a run of text in one document marked or highlighted for reference purposes, due to its relevance in another context.&#8221;</q>. I anticipate it will be used for highlighting phrases in search results and other similar purposes. We&#8217;ll post more on <code>&lt;mark&gt;</code> soon.</p>
+
+<h2>Where are all those application elements?</h2>
+
+<p>Application elements is a term I&#8217;ve loosely used to describe elements like menu, etc. These elements are more likely found in web <em>apps</em> than web <em>sites</em>. I left these out since, at the time of writing, browsers implement barely any of what was &#8220;Web Applications 1.0&#8221;. Also, this stylesheet is intended primarily for authors serving their pages as <code>text/html</code>, not <abbr>XML</abbr>.</p>
+
+<h2>Go grab it</h2>
+
+<p>The stylesheet is released <del datetime="2010-12-16T17:21:13+00:00">under a Creative Commons license</del> <del datetime="2015-07-13T12:06:33+00:00"><ins datetime="2010-12-16T17:21:13+00:00">in the public domain</ins></del> <ins datetime="2015-07-13T12:06:33+00:00">free of charge under a CC0 Public Domain Dedication and MIT License</ins>, so you can use it for both personal and commercial work. Go <a href="http://code.google.com/p/html5resetcss/downloads/list">grab it from Google Code</a> or the <a href="https://github.com/richclark/HTML5resetCSS">Github page</a> and let us know about any improvements you make!</p>
+
+<ul>
+<li><a href="http://code.google.com/p/html5resetcss/downloads/list">HTML 5 Reset Stylesheet</a></li>
+</ul>
+
+<p><small>Permission is hereby granted, free of charge, to any person obtaining a copy of any version of <a href="https://code.google.com/p/html5resetcss/downloads/list">this file on Google Code</a> or <a href="https://github.com/richclark/HTML5resetCSS">this file on Github</a> (the &#8220;Software”), to deal in the Software under the terms of the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>, or,alternatively, to deal in the Software under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</small></p>
+<p><a href="http://html5doctor.com/html-5-reset-stylesheet/" rel="bookmark">HTML5 Reset Stylesheet</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 27, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The W3C App Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html-5-reset-stylesheet/feed/</wfw:commentRss>
+		<slash:comments>251</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Boilerplates</title>
+		<link>http://html5doctor.com/html-5-boilerplates/</link>
+		<comments>http://html5doctor.com/html-5-boilerplates/#comments</comments>
+		<pubDate>Fri, 17 Jul 2009 13:30:45 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Boilerplates]]></category>
+		<category><![CDATA[Structure]]></category>
+		<category><![CDATA[boilerplate]]></category>
+		<category><![CDATA[doctype]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[template]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=526</guid>
+		<description><![CDATA[Without going into the discussion of why HTML 5 is available today and not 2022, this article is going to give you a series of HTML 5 boilerplates that you can use in your projects right now. HTML 5 in 5 seconds It&#8217;s &#252;ber easy to get your markup to validate as HTML 5 &#8212; [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Without going into the discussion of why <abbr>HTML</abbr> 5 is available <em>today</em> and not 2022, this article is going to give you a series of <abbr>HTML</abbr> 5 boilerplates that you can use in your projects <em>right now</em>.</p>
+<h2 id="html_5_in_5_seconds"><abbr>HTML</abbr> 5 in 5 seconds</h2>
+<p>It&#8217;s &uuml;ber easy to get your markup to validate as <abbr>HTML</abbr> 5 &mdash; just change your <code>DOCTYPE</code> from whatever it is now to this:</p>
+<pre><code>&lt;!DOCTYPE html&gt;</pre>
+<p></code></p>
+<p>That's it! It doesn't require anything more than that.</p>
+<p>Google are doing it already. Check out their homepage, written all in one line:</p>
+<pre><code>&lt;!doctype html&gt;&lt;head&gt;&lt;title&gt;HTML 5 - Google Search&lt;/title&gt;&lt;script&gt;...</code></pre>
+<p>Ironically, Google's search and results pages don't validate because of their use of invalid tags like <code>&lt;font&gt;</code> and a number of other errors, but that's okay. They can still take advantage of the <abbr>HTML</abbr> 5 parsing rules (e.g., no <code>type</code> attribute on the <code>&lt;script&gt;</code> element) by using the correct <code>DOCTYPE</code>.</p>
+<h2 id="html_5_minified"><abbr>HTML</abbr> 5 minified</h2>
+<p>If you like to knock out quick prototypes or experiments that don't require much styling, you might be interested in a miniature document in <abbr>HTML</abbr> 5:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;title&gt;Small HTML 5&lt;/title&gt;
+&lt;p&gt;Hello world&lt;/p&gt;</code></pre>
+<p>That's <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fjsbin.com%2Fowata&amp;ss=1">completely valid <abbr>HTML</abbr> 5</a> too.</p>
+<p>(Interestingly, there was some disagreement about this pattern's validity when I removed the <code>&lt;title&gt;</code> tag.  says it's fine, and so does the W3C validator as long as the markup is entered manually. But Henri Sivonen's validator says it's invalid without the <code>&lt;title&gt;</code> tag. The W3C validator also says it's invalid when you <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fjsbin.com%2Feyuqe&amp;ss=1">give it a url</a>. Hopefully, this will get sorted out soon.)</p>
+<h2 id="html_5_complete_compatible"><abbr>HTML</abbr> 5 complete &amp; compatible</h2>
+<p>This final, more complete boilerplate also indicates the character set. Without it, some characters will not render properly (and I've spent too much time in the past trying to work out why!).</p>
+<p>We're also including the <a href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/"><abbr>HTML</abbr> 5 shiv</a> so that we can style elements in IE. Note that <a href="http://html5doctor.com/how-to-get-html5-working-in-ie-and-firefox-2/#a-little-head">you <em>must</em> include this script in the <code>&lt;head&gt;</code> element</a>.</p>
+<p>Finally, we're adding a few <abbr>CSS</abbr> rules to cause the new block-level elements to render as such, since some browsers don't know about them natively.</p>
+<p>So here it is &mdash; a valid and complete HTML 5 document boilerplate:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot; /&gt;
+&lt;title&gt;HTML 5 complete&lt;/title&gt;
+&lt;!--[if IE]&gt;
+&lt;script src=&quot;http://html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+&lt;style&gt;
+  article, aside, details, figcaption, figure, footer, header,
+  hgroup, menu, nav, section { display: block; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Hello World&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>If you want to experiment with <abbr>HTML</abbr> 5, the <a href="http://jsbin.com/">default JS Bin template</a> is an HTML5 boilerplate for you to play with too.</p>
+<p>lt;body</p>
+<p><a href="http://html5doctor.com/html-5-boilerplates/" rel="bookmark">HTML5 Boilerplates</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 17, 2009.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/computer-says-no-to-html5-document-outline/"     class="crp_title">Computer says NO to HTML5 document outline</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html-5-boilerplates/feed/</wfw:commentRss>
+		<slash:comments>129</slash:comments>
+		</item>
+	</channel>
+</rss>

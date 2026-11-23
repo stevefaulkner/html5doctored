@@ -1,0 +1,2542 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; JavaScript APIs</title>
+	<atom:link href="http://html5doctor.com/category/javascript-apis/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 02 Mar 2016 08:08:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<item>
+		<title>The Web Manifest specification</title>
+		<link>http://html5doctor.com/web-manifest-specification/</link>
+		<comments>http://html5doctor.com/web-manifest-specification/#comments</comments>
+		<pubDate>Tue, 29 Jul 2014 09:51:22 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Attributes]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[Specification Changes]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5515</guid>
+		<description><![CDATA[By Marcos Cáceres and Bruce Lawson. Update 26 September 2014 The initial work for Manifest in Chromium M39 is done, and Marcos (more or less) finished coding the processor a few months ago. &#8220;I&#8217;m hoping to see it in fxos 2.2&#8220;, he said from the pool of his gorgeous Malibu home.) Update 11 November 2014 [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p><b>By <a href="http://twitter.com/marcosc">Marcos Cáceres</a> and Bruce Lawson.</b></p>
+<p><b>Update 26 September 2014</b> The initial work for <a href="https://code.google.com/p/chromium/issues/detail?id=366145">Manifest in Chromium M39</a> is done, and Marcos (more or less) finished  coding the processor a few months ago. &#8220;<a href="https://twitter.com/marcosc/status/515417766762143744">I&#8217;m hoping to see it in fxos 2.2</a>&#8220;, he said from the pool of his gorgeous Malibu home.)</p>
+<p><b>Update 11 November 2014</b> <a href="http://updates.html5rocks.com/2014/11/Support-for-installable-web-apps-with-webapp-manifest-in-chrome-38-for-Android">Web Application Manifest is in Chrome 38</a>.</p>
+<p><b>Update 9 April 2015</b> Updated implementation status to note App Install banners in Chrome, Opera Android implementation underway. Also show how to link to the manifest (thanks @mathias!) and remove some scary &#8220;this may all change&#8221; warnings.</p>
+<p><b>Update 18 August 2015</b> François Beaufort pointed out that &#8220;According to the spec https://w3c.github.io/manifest/#h-density-member, the density should actually be a number (not a string)&#8221; &#8211; amended accordingly.</p>
+<p><b>Update 7 December 2015</b> Link to my blogpost declaring Progressive Web Apps &#8220;ready for primetime&#8221;; remove stuff about <code>service_worker</code> manifest member, as it&#8217;s gone now because it was useless</p>
+<h2>Manifest? Eh? What? Why?</h2>
+<p>Many of us who work on the web are actively working to narrow “the gap” between native applications and web applications. (Disclosure: your humble authors, Marcos Caceres and Bruce Lawson work for browser vendors &#8211; Mozilla and Opera respectively &#8211; and therefore have mortgage-related reasons to convince you this stuff is a good idea.)</p>
+<p>But what is that gap? Just a few years ago, that gap was largely technological. If you wanted access to a device’s GPS, you had to write a native app. Nowadays, the situation is improving somewhat: we can now access devices sensors like GPS, camera, and orientation sensors &#8211; though we still have a long way to go. Thanks to recent advances in the web platform we now have a platform that can compete with native applications on a more equal footing. </p>
+<p>Nowadays, the primary gaps between native and web is not so much technological. It’s user experience. Users simply love installing apps, which live snugly on the homescreen (or the desktop) waiting to be tickled into life with the tap of a finger or the click of a mouse. </p>
+<p>Furthermore, native apps work offline by default, and integrate with the facilities provided by the underlying operating system: consider being able to see installed applications in the task switcher. Or being able to control an app’s privacy settings in the same place as apps installed from an app store. In browser land, we are still fumbling around trying to find opened tabs and having to type long and boring URLs to get anything done. </p>
+<p>What we need is a method of “installing” web apps so they are indistinguishable from any other app installed on a user’s device. But at the same time, we don’t want to lose the powerful features that are central to the web platform: linkability, view source, and the ability to host our own stuff.</p>
+<h2>What is “installation”?</h2>
+<p>At its most basic, “installation” of a web app means “bookmarking” the web application to the homescreen or adding it to an application launcher. There are some pretty obvious things that  you, as a developer, would need to provide to the browser so that it can treat your website as an app: the name, icons, etc. There are then more advanced features that you would need, like being able to indicate the preferred orientation and if you want your app to be fullscreen. </p>
+<p>The <a href="https://w3c.github.io/manifest/">Manifest specification</a> aims to give you a standardised way to do this using JSON. In the HTML page to be &#8220;installed&#8221;, simply link to a manifest file, thus:</p>
+<pre><code>&lt;link rel="manifest" href="/manifest.json"></code></pre>
+<p>But what&#8217;s in this mysterious manifest file? Glad you asked!</p>
+<h3 id="appname">Application name</h3>
+<p>The application needs a real name or set of names (which is usually not the same as the title element of a document). For this you use the name and the short_name properties.</p>
+<pre><code>{
+name: “My totally awesome photo app”
+short_name: “Photos”
+}</code></pre>
+<p>The short_name serves as the name for the application when displayed in contexts with constrained space (e.g., under an icon on the homescreen of a phone). The name can then be a bit longer, fully capturing the name of the application. This also provides an alternative way for users to search your app on their phone. So, typing ‘awesome’ or ‘photo’ would find the application on a user’s device. </p>
+<p>If you omit the name, the browser just falls back to using &lt;meta name=”application-name”>, and failing that, the &lt;title> element. </p>
+<h3>Icons</h3>
+<p>There needs to be an icon associated with a web app, rather than the browser’s icon. To handle this, the manifest has an icons property. This takes a list of icons and their sizes, format, and target screen density. Having these optional properties makes icon selection really powerful, because it provides a responsive image solution for icons &#8211; which can help avoid unnecessary downloads and helps to make sure your icons always look great across a range of devices and screen densities.  </p>
+<pre><code>{
+   "icons": [{
+        "src": "icon/lowres",
+        "sizes": "64x64",
+        "type": "image/webp"
+      }, {
+        "src": "icon/hd_small",
+        "sizes": "64x64"
+      }, {
+        "src": "icon/hd_hi",
+        "sizes": "128x128",
+        "density": 2
+      }]
+}</code></pre>
+<p>If you omit the icons, the browser just falls back to looking for &lt;link rel=”icon”>, the favicon.ico or, failing that, may even use a screenshot of your website. </p>
+<h3>Display modes and orientation</h3>
+<p>Apps need to be able to control how they are to be displayed when they starts-up. If it’s a game, it might need to be in full-screen and possibly in landscape mode. In order to do this, the manifest format provides you with two properties. </p>
+<pre><code>{
+ "display": "fullscreen",
+ "orientation": "landscape"
+}</code></pre>
+<p>For the display modes, the options that you have are:</p>
+<ul>
+<li><code>fullscreen</code>: take over the whole screen.
+<li><code>standalone</code>: opens the app with a status bar.
+<li><code>minimal-ui</code>: like on iOS, the app is fullscreen, but certain actions can cause the navigation bar and back/forward buttons to reappear.
+<li><code>browser</code>: opens your app with normal browser toolbars and buttons.
+</ul>
+<p>The nice thing with orientation is that it serves as the “default orientation” for the scope of the application. So, as you navigate from one page to another, your app stays in the correct orientation. You can override the default orientation using the Screen Lock API.  </p>
+<h3>Start URL</h3>
+<p>Sometimes you want to make sure that when the user starts up an app, they always go to a particular page first. The start_url property gives you a way of indicating this. </p>
+<pre><code>{
+ start_url: “/start_screen.html”
+}</code></pre>
+<h3>“Scope” of the app</h3>
+<p>Native applications have clear “boundaries”: as a user, you know when you open a native application that it won&#8217;t suddenly open a different application without you noticing. When switching from one native application to another is often pretty clear that you’ve switched applications. These visual cues are often provided by the underlying operating system (think of bringing up the task manager and picking a different application &#8211; or pressing “command/alt-tab” on your desktop machine).</p>
+<p>The web is very different: it’s a huge hypertextual system where web applications can span multiple domains: you can seamlessly jump from “gmail.com” to “docs.google.com” and as a  user have no idea that you’ve jumped form one “origin” to another. In fact, the whole idea that there are boundaries to an application is totally foreign on the Web as, in reality, a web application is just a series of HTML documents (think, “a series of tubes”&#8230; no, don’t think that!). </p>
+<p>On the web, the only reason we know that we’ve left the scope of one application and entered into another application is because the web designers have been kind enough to make their websites look uniquely different. In case where they haven’t, a lot of users have also been tricked by sites masquerading as another site (the ol’ “phishing attack”). </p>
+<p>The manifest format assist with this problem by allowing you to specify a “URL scope” for your application. This scope sets a boundary for an app. It can either be a domain or a directory within that domain.   </p>
+<pre><code>{
+    “scope”: “/myapp”
+}</code></pre>
+<h2>How can I detect if the user “installed” my app?</h2>
+<p>As a developer, you really should not have to worry about this &#8211; the browser will take care of it for you. Firstly, bugging users to install your app is annoying. We’ve all seen this happen in iOS with sites asking users to “add my app to the homescreen”. </p>
+<p>Instead, the approach that we take with the manifest is that “installing” is a progressive enhancement. Focus on creating the optimum experience based on what “display mode” the application is in. You will be able to detect and style this with CSS.</p>
+<pre><code>@media all and (display-mode: standalone){ ...}</code></pre>
+<p>You can use JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window.matchMedia">matchMedia</a> to test that media query in JavaScript.</p>
+<p>Addendum June 2015: In Chromium, you can <a href="https://developers.google.com/web/updates/2015/03/increasing-engagement-with-app-install-banners-in-chrome-for-android#action">detect whether a user accepted or dismissed</a> an install banner.</p>
+<h2>What’s wrong with &lt;meta> tags?</h2>
+<p>During the specification discussions, it was hotly debated whether to use &lt;meta> tags in HTML rather than make a new format. After all, the Chrome implementation of <a href="https://developer.chrome.com/multidevice/android/installtohomescreen">Add to Homescreen</a> uses &lt;meta> tags, and this has been the natural home for proprietary flimflam since the web began. </p>
+<p>The reasons for including a separate file are</p>
+<ul>
+<li>it saves loading every page of an installable app/site with tons of header info
+<li>once downloaded, the file sits in the browsers’s HTTP cache.
+<li>Marcos loves JSON because he’s totally rad
+</ul>
+<h2>Who is implementing this</h2>
+<p>The manifest, and Progressive Web Apps are implemented in Chrome and Opera for Android. Implementation is <a href="https://platform-status.mozilla.org/#app-manifest">underway in Firefox</a>. You can kinda-sorta do this is a <a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">non-standard way in Safari/iOS</a>, too. </p>
+<p><a href="http://www.brucelawson.co.uk/2015/progressive-web-apps-ready-for-primetime/">Progressive Web Apps are ready for primetime</a>, I believe. </p>
+<aside id="author-bio" style="margin-left:-165px;">
+<h4><a href="http://marcosc.com/" rel="author">Marcos Cáceres&#8217;</a></h4>
+<div class="author-blurb author">
+<p class="vcard">This article was co-written by <span class="fn">Marcos Cáceres</a></span>. Marcos is a web platform engineer and standardista at Mozilla. He writes technical specifications, prototypes ideas, and generally fiddles with Web related things. You can find him on <a href="https://github.com/marcoscaceres">GitHub</a> and <a href="https://twitter.com/marcosc">Twitter</a>.
+            </div>
+</aside>
+<p><a href="http://html5doctor.com/web-manifest-specification/" rel="bookmark">The Web Manifest specification</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 29, 2014.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/web-manifest-specification/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+		<item>
+		<title>The classList API</title>
+		<link>http://html5doctor.com/the-classlist-api/</link>
+		<comments>http://html5doctor.com/the-classlist-api/#comments</comments>
+		<pubDate>Tue, 30 Jul 2013 13:30:56 +0000</pubDate>
+		<dc:creator><![CDATA[Derek Johnson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[classList]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=5206</guid>
+		<description><![CDATA[<p>I have to be honest with you: I feel like a fraud writing about JavaScript for HTML5 Doctor. I would feel like a fraud writing about JavaScript for a click-driven ad-splattered content farm, never mind HTML5 Doctor. The thing is though, I'm writing about the <code>classList</code> API, and it's super easy. If your JavaScript-fu isn't great and you're wary of HTML5 APIs, this one is at the perfect temperature for toe-dipping, and it'll leave you pleasantly surprised at just how easy it is.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>I have to be honest with you: I feel like a fraud writing about JavaScript for HTML5 Doctor. I would feel like a fraud writing about JavaScript for a click-driven ad-splattered content farm, never mind HTML5 Doctor.</p>
+
+<p>The thing is though, I&#8217;m writing about the <code>classList</code> API, and it&#8217;s super easy. If your JavaScript-fu isn&#8217;t great and you&#8217;re wary of HTML5 APIs, this one is at the perfect temperature for toe-dipping, and it&#8217;ll leave you pleasantly surprised at just how easy it is.</p>
+
+<p>The <code>classList</code> API is a &#8220;does exactly what it says on the tin&#8221; API. It gets a list of the classes on an HTML element and uses JavaScript to manipulate it.</p>
+
+<p>Before this nugget of HTML5 came along, working with classes was a royal pain, but what was once a twisty overgrown cowpath with wolves lurking in thickets is now a bright sunlit path fit for rollerskating.</p>
+
+<section id="getting-the-classlist">
+<h2>Getting the classList <a class="permalink" href="#getting-the-classlist">#</a></h2>
+<p>Getting the <code>classList</code> is a simple matter of <code>element.classList</code>, like so:</p>
+
+<figure>
+<pre><code>&lt;p id="bad-joke" class="oh my giddy aunt"&gt;Two dogs are in the park. One says, "Nice day, isn't it?" The other says, "Holy crap, a talking dog!"&lt;/p&gt;
+
+&lt;script&gt;
+    var joke = document.getElementById('bad-joke');
+    console.log(joke.classList);
+&lt;/script&gt;</code></pre>
+</figure>
+
+<p>That will log something like <code>["oh", "my", "giddy", "aunt"]</code>. The output style varies between browsers, but it will be an object containing a list of the classes on the element.</p>
+
+<p>More accurately, it&#8217;s an object that stringifies to the value of the class attribute on the element in question. <a href="http://html5doctor.com/demos/classlist/classlist.html">Try it yourself with the console open.</a></p>
+
+<figure>
+<pre><code>{
+    0: "oh",
+    1: "my",
+    2: "giddy",
+    3: "aunt"
+}</code></pre>
+</figure>
+
+<p>There is no specification for <code>classList</code> per se (<a href="http://www.w3.org/TR/dom/#dom-element-classlist">it gets a sentence in the DOM4 spec</a>), but there is for <code>DOMTokenList</code>, which is <code>classList</code>&#8216;s type, so look at the <a href="http://dom.spec.whatwg.org/#domtokenlist"><code>DOMTokenList</code> specification</a> to find out how to work with lists of classes.</p>
+
+<section class="callout" id="classlist-type">
+<h3>The Type of classList <a class="permalink" href="#classlist-type">#</a></h3>
+
+<p>If you&#8217;re looking to confirm the type of <code>classList</code>, you&#8217;ll need to do <code>element.classList instanceof DOMTokenList</code>, which returns <code>true</code>. <code>typeof element.classList</code> returns &#8220;object&#8221;, which, given that everything in JavaScript is an object, isn&#8217;t particularly informative.</p>
+
+</section></section><section id="doing-things">
+<h2>Doing Things with our List of Classes <a class="permalink" href="#doing-things">#</a></h2>
+
+<p>The <code>DOMTokenList</code> spec provides a number of methods that can be used on the <code>classList</code>:</p>
+<ul>
+	<li><a href="#add"><code>add()</code></a> for adding a class to the list</li>
+	<li><a href="#remove"><code>remove()</code></a> for removing a class from the list</li>
+	<li><a href="#contains"><code>contains()</code></a> to check if a class is in the list</li>
+	<li><a href="#toggle"><code>toggle()</code></a> for toggling a class in and out of the list (with a twist)</li>
+	<li><a href="#item"><code>item()</code></a> to return the class at a specified position in the list</li>
+	<li><a href="#tostring"><code>toString()</code></a> for turning the list into a string</li>
+	<li><a href="#length"><code>length</code></a> to return the number of classes in the list</li>
+	<li><a href="#value"><code>value</code></a> to add custom properties and methods to the <code>classList</code> object</li>
+</ul>
+<section id="add">
+<h3>classList.add() <a class="permalink" href="#add">#</a></h3>
+
+<p>It couldn&#8217;t be easier to add a class to an element. Just supply the class you want to add as an argument to the <code>add()</code> method.</p>
+
+<figure>
+<pre><code>joke.classList.add('beryl');</code></pre>
+</figure>
+
+<p>If you <a href="http://html5doctor.com/demos/classlist/classlist.add.html">view the demo</a> and look at the opening <code>&lt;p&gt;</code> tag in your favourite inspector before and after pressing the button, you&#8217;ll see it change from <code>&lt;p id="bad-joke" class="oh my giddy aunt"&gt;</code> to <code>&lt;p id="bad-joke" class="oh my giddy aunt beryl"&gt;</code>.</p>
+
+<p>Adding a class to the <code>&lt;p&gt;</code> is all done with that one line. No need to inject inline styles or anything messy like that.</p>
+
+<p>The corresponding <code>classList</code> object is:</p>
+
+<figure>
+<pre><code>{
+    0: "oh",
+    1: "my",
+    2: "giddy",
+    3: "aunt",
+    4: "beryl"
+}</code></pre>
+</figure>
+</section>
+
+<section id="remove">
+<h3>classList.remove() <a class="permalink" href="#remove">#</a></h3>
+
+<p>Removing a class is just as easy. <code>joke.classList.remove('beryl')</code> brings us back to where we started.</p>
+
+<a href="http://html5doctor.com/demos/classlist/classlist.remove.html">View demo.</a></p>
+
+</section>
+
+<section id="multiple-classes">
+<h3>Adding and Removing Multiple Classes <a class="permalink" href="#multiple-classes">#</a></h3>
+
+<p>The <code>DOMTokenList</code> spec refers to &#8220;tokens&#8221;, plural when describing how the <code>add()</code> and <code>remove()</code> methods should be run.</p>
+
+<blockquote>The add(tokens…) method […] If one of <em>tokens</em> is the empty string […] If one of <em>tokens</em> contains any ASCII whitespace […] For each <em>token</em> in <em>tokens</em>
+
+<footer>— <cite><a href="http://dom.spec.whatwg.org/#dom-domtokenlist-add">The DOM Spec</a></cite></footer></blockquote>
+
+<p><del>No browser so far has implemented a native method of adding/removing more than one class at a time, but it&#8217;s trivial to extend the <code>DOMTokenList</code> object prototype with a hand rolled function:</del></p>
+
+<p><ins>It&#8217;s possible to add and remove multiple classes in the Blink powered browsers with <code>element.classList.add('oh','my')</code>, and it&#8217;s trivial to extend the <code>DOMTokenList</code> object prototype with a hand rolled function until support is more widespread:</ins></p>
+
+<p>Thanks to David and Kalley for pointing that out in the comments.</p>
+
+<figure>
+<pre><code>DOMTokenList.prototype.addmany = function(classes) {
+    var classes = classes.split(' '),
+        i = 0,
+        ii = classes.length;
+
+    for(i; i&lt;ii; i++) {
+        this.add(classes[i]);
+    }
+}</code></pre>
+</figure>
+
+<p>Same goes for remove:</p>
+
+<figure>
+<pre><code>DOMTokenList.prototype.removemany = function(classes) {
+    var classes = classes.split(' '),
+        i = 0,
+        ii = classes.length;
+
+    for(i; i&lt;ii; i++) {
+        this.remove(classes[i]);
+    }
+}</code></pre>
+</figure>
+
+<p><a href="http://html5doctor.com/demos/classlist/classlist.add-remove-many.html">Here&#8217;s a demo where you can add and remove multiple classes at once.</a></p>
+
+<p>A <a href="http://lists.w3.org/Archives/Public/public-html-bugzilla/2011Sep/0032.html">bug was filed</a> in 2011 (against a document that no longer exists) suggesting allowing a space separated list or an array in <code>classList.add()</code> and <code>classList.remove()</code>.</p>
+
+<p>The use of the plural &#8220;tokens&#8221; could be interpreted as allowing an array, but it doesn&#8217;t work. <code>InvalidCharacterError</code> is still specified as the exception to throw if there are any spaces in &#8220;tokens&#8221;, so that&#8217;s definitely not going to work.</p>
+
+<p>If you want to replace an entire <code>classList</code> with a completely different set of classes, you could use these two functions.</p>
+
+</section><section id="contains">
+<h3>classList.contains() <a class="permalink" href="#contains">#</a></h3>
+<p>This method returns a Boolean <code>true</code> or <code>false</code> when checking for the presence of a class in the list.</p>
+
+<p>In our example:</p>
+
+<figure>
+<pre><code>joke.classList.contains('aunt') === true;
+joke.classList.contains('uncle') === false;</code></pre>
+</figure>
+
+<p><code>contains()</code> is useful for checking if a class is in a list before performing an action that depends on its presence (or otherwise):</p>
+
+<figure>
+<pre><code>if(joke.classList.contains('beryl') {
+    joke.classList.remove('beryl');
+}</code></pre>
+</figure>
+
+<p>We can use <code>contains()</code> to make our previous functions for adding and removing multiple classes better by ensuring they do not try to add duplicate classes on the element or remove classes that don&#8217;t exist on it:</p>
+
+<figure>
+<pre><code>DOMTokenList.prototype.addmany = function(classes) {
+    var classes = classes.split(' '),
+        i = 0,
+        ii = classes.length;
+
+    for(i; i&lt;ii; i++) {
+        if(!this.contains(classes[i])) {
+            this.add(classes[i]);
+        }
+    }
+}</code></pre>
+</figure>
+
+<p>and:</p>
+
+<figure>
+<pre><code>DOMTokenList.prototype.removemany = function(classes) {
+    var classes = classes.split(' '),
+        i = 0,
+        ii = classes.length;
+
+    for(i; i&lt;ii; i++) {
+        if(this.contains(classes[i])) {
+            this.remove(classes[i]);
+        }
+    }
+}</code></pre>
+</figure>
+</section>
+<section id="toggle">
+
+<h3>classList.toggle() <a class="permalink" href="#toggle">#</a></h3>
+
+<p>For most use cases, <code>classList.toggle()</code> is very straightforward too. Typically, an action by the program or the user will trigger a function that adds or removes a class depending on whether it&#8217;s already in the list.</p>
+
+<p>A simple show/hide is a good example of this:</p>
+
+<figure>
+<pre><code>button.addEventListener('click', function() { element.classList.toggle('is-visible'); }, false);</code></pre>
+</figure>
+
+<p><a href="http://html5doctor.com/demos/classlist/classlist.toggle.html">View a demo of a two-level menu</a> that takes up a little less room in smaller viewports by using <code>classList.toggle()</code> to enhance sub-menus.</p>
+
+<section id="toggle-force">
+<h4>force <a class="permalink" href="#toggle-force">#</a></h4>
+
+<p>There&#8217;s a little twist to <code>toggle()</code>, though. It can take an optional second parameter, <code>force</code>.</p>
+
+<p>If <code>force</code> is set to <code>true</code>, the class will be added but not removed. If it&#8217;s <code>false</code>, the opposite will happen — the class will be removed but not added.</p>
+
+<p>Now that sounds a lot like <code>add()</code> and <code>remove()</code>, but there is a crucial difference: <code>toggle()</code> with <code>force</code> returns <code>true</code> when a class is added, and <code>false</code> when it&#8217;s removed — <code>add()</code> and <code>remove()</code> return <code>undefined</code>.</p>
+
+<p>At the time of writing, only the Blink powered browsers honour the <code>force</code> parameter, so view <a href="http://html5doctor.com/demos/classlist/classlist.toggle-true.html">the demo with true</a> and <a href="http://html5doctor.com/demos/classlist/classlist.toggle-false.html">the demo with false</a> in Opera 15, Opera for Android, or the latest Chrome to see it working.</p>
+
+<p>Browsers that don&#8217;t support <code>force</code> completely ignore it and merrily toggle the class name on and off without throwing exceptions.</p>
+
+<p>When it&#8217;s more widely supported, we can use a slightly leaner syntax for ensuring the presence or absence of a class in the list. Instead of:</p>
+
+<figure>
+<pre><code>var foo = function() {
+    joke.classList.add('beryl');
+}
+
+foo();
+
+if(joke.classList.contains('beryl')) {
+    // do stuff
+}</code></pre>
+</figure>
+
+<p>we could write:</p>
+
+<figure>
+<pre><code>var foo = function() {
+    return joke.classList.toggle('beryl', true);
+}
+
+if(foo()) {
+    // do stuff
+}</code></pre>
+</figure>
+</section>
+</section>
+<section id="item">
+<h3>classList.item() <a class="permalink" href="#item">#</a></h3>
+<p>The <code>item()</code> method can be found elsewhere in JavaScript, usually on NodeList objects. It returns the value of the item at <code>index</code> counting from zero.</p>
+
+<p>In our example:</p>
+
+<figure>
+<pre><code>&lt;div id="bad-joke" class="oh my giddy aunt"&gt;
+    &lt;p&gt;"Knock knock."&lt;/p&gt;
+    &lt;p&gt;"Come on in, the door's open."&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    var joke = document.getElementById('bad-joke'),
+
+        whats_item_0 = function() {
+            return joke.classList.item(0);
+        },
+
+        whats_item_2 = function() {
+            return joke.classList.item(2);
+        };
+
+    console.log(whats_item_0()); // logs "oh"
+    console.log(whats_item_2()); // logs "giddy"
+&lt;/script&gt;</code></pre>
+</figure>
+
+<p><a href="http://html5doctor.com/demos/classlist/classlist.item.html">View the demo.</a></p>
+
+<p><code>classList.item()</code> cannot be used for assignment, so <code>joke.classList.item(3) = 'uncle'</code> will throw an error.</p>
+
+<p>If you were hoping <code>classList.item()</code> could assign values to items at specific positions in the list, I&#8217;m afraid you&#8217;ll be disappointed. There&#8217;s no <code>DOMTokenList</code> method that gives that level of control over the list.</p>
+
+</section><section id="tostring">
+<h3>classList.toString() <a class="permalink" href="#tostring">#</a></h3>
+<p>If you ever need the <code>classList</code> turned into a string use this method. <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-9.8"><code>toString()</code></a> is another built in JavaScript method that isn&#8217;t specific to <code>DOMTokenList</code>.</p>
+
+<p>All the W3C spec says on the subject is that <q>DOMTokenList objects must stringify to the underlying string.</q> WHATWG leaves it at <q>The stringifier must return the result of the set serializer for the associated list of tokens.</q></p>
+
+<p>The only difference between the two is the amount of plain English used.</p>
+
+<p>It takes no parameters when used with <code>classList</code> and returns all the classes on the element as a space separated string:</p>
+
+<figure>
+<pre><code>joke.classList.toString();
+// returns "oh my giddy aunt";</code></pre>
+</figure>
+
+</section>
+<section id="length">
+<h3>classList.length <a class="permalink" href="#length">#</a></h3>
+<p><code>length</code> is also a built-in JavaScript property. It returns the number of characters in a string, the number of items in an array, the number of arguments expected in a function, or (in our case) the number of classes in <code>classList</code>. In our example using &#8220;oh my giddy aunt&#8221;, it&#8217;s <code>4</code>.</p>
+
+<figure>
+<pre><code>joke.classList.length
+// returns 4</code></pre>
+</figure>
+
+<p>Simple and obvious, hopefully.</p>
+
+</section><section id="value">
+<h3>classList.value <a class="permalink" href="#value">#</a></h3>
+<p>On their own, the <code>item()</code>, <code>toString()</code>, and <code>length</code> methods aren&#8217;t especially useful. They can, however, be used in conjunction with each other and the rest of the methods of <code>DOMTokenList</code> to solve some of the problems I mentioned earlier.</p>
+
+<p>Remember that <code>classList</code> is a regular JavaScript object, so we can add properties to it the same as any other object:</p>
+
+<figure>
+<pre><code>classList.use_in_production = false;
+classList.id = 5;
+classList.roof = 'thatch';</code></pre>
+</figure>
+
+<p>And of course we can add methods. Here&#8217;s a method that replaces the entire list with a new one using <code>length</code>, <code>toString()</code>, <code>add()</code>, and <code>remove()</code>:</p>
+
+<figure>
+<pre><code>element.classList.replace = function(classes) {
+    var i = 0,
+        ii = this.length,
+        old_string = this.toString(),
+        old_array = old_string.split(' '),
+        new_array = classes.split(' '),
+        j = 0,
+        jj = new_array.length;
+
+    // remove all the existing classes
+    for(i; i&lt;ii; i++) {
+        this.remove(old_array[i]);
+    }
+
+    // add the new ones
+    for(j; j&lt;jj; j++) {
+        this.add(new_array[j]);
+    }
+};</code></pre>
+</figure>
+
+<p>And here&#8217;s a method that inserts a class in any position in the list you want. It uses <code>contains()</code>, <code>item()</code>, <code>remove()</code>, <code>toString()</code>, and the <code>replace()</code> method we just made:</p>
+
+<figure>
+<pre><code>element.classList.insert = function(insert,position) {
+    // check if the class is already in classList
+    if(this.contains(insert)) {
+        if(this.item(position) === insert) {
+            // if it is already at the right position there's no need to continue
+            return;
+        } else {
+            // remove it, we don't want it here
+            this.remove(insert);
+        }
+    }
+
+    var classes = this.toString(),
+        classes_array = classes.split(' ');
+
+        classes_array.splice(position, 0, insert);
+
+        new_list = classes_array.join(' ');
+
+        // use the custom replace method to replace the current classList
+        this.replace(new_list);
+};</code></pre>
+</figure>
+
+<p>Being realistic, methods like these would probably be better used to extend <code>DOMTokenList</code> like we did with <code>addmany()</code> and <code>removemany()</code>, but if you ever need something specific to a particular <code>classList</code> you&#8217;re working on, you can use <code>value</code>.</p>
+
+</section>
+<section id="browser-support">
+<h2>Browser Support and Polyfills <a class="permalink" href="#browser-support">#</a></h2>
+
+<p>The <code>classList</code> API <a href="http://caniuse.com/#search=classlist">works in pretty much every up-to-date browser version</a>. Basic support at least has been in since Firefox 3.6, Opera 11.50, Chrome 8, and Safari 5.1.</p>
+
+<p>The big holes are IE9 and earlier and the <a href="http://developer.android.com/about/dashboards/index.html">still widely used Android 2.3</a> and earlier.</p>
+
+<p><a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills#classlist">There are at least two polyfills</a> available that can fill these holes.</p>
+
+<p><a href="https://gist.github.com/devongovett/1381839">Devon Govett&#8217;s</a> was written quickly to add support to IE9 only, and it&#8217;s worth reading the comments for some good cross-browser JavaScript info.</p>
+
+<p><a href="https://github.com/eligrey/classList.js">Eli Grey&#8217;s polyfill</a> has wider browser support. It works in IE8, and it provides basic <code>classList.add()</code>, <code>classList.remove()</code>, and <code>classList.toggle()</code> support to at least as far back as Android 2.1.</p>
+
+<p>There&#8217;s also a <a href="https://gist.github.com/termi/3952026">polyfill for adding <code>force</code> support</a> by <i>Егор Халимоненко</i> to browsers that support <code>classList</code> but not <code>force</code> on <code>toggle()</code>.</p>
+
+<p>If you only need a simple feature test you can use:</p>
+
+<figure>
+<pre><code>if('classList' in document.createElement('a')) {
+    // use classList API
+}</code></pre>
+</figure>
+</section>
+<section id="summary">
+
+<h2>Summary <a class="permalink" href="#summary">#</a></h2>
+<p>You can think of the <code>classList</code> API on two levels. For most uses, it&#8217;s a simple way to add, remove, toggle, and check for the presence of single classes in an HTML element. I use it in every project I work on now and very rarely need to stray beyond these basic methods. I can&#8217;t think of any use for <code>item()</code>, <code>length</code>, or <code>toString()</code> as stand-alone methods, so don&#8217;t fret about them.</p>
+
+<p>On another level, it&#8217;s about objects, it&#8217;s about finding powerful ways to manipulate the state of web pages, it&#8217;s about separation of concerns, it&#8217;s about progressive enhancement.</p>
+
+<p>How far you take it is up to you, but as I said at the start, it&#8217;s an easy one to get into and makes what was hard, easy. I encourage you to take what I&#8217;ve written here and experiment in your own projects if you&#8217;re new to it, and take to the comments to tell me where I could have said it better if you&#8217;re already familiar with it.</p>
+
+<p>Thank you!</p>
+
+</section></section><p><a href="http://html5doctor.com/the-classlist-api/" rel="bookmark">The classList API</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on July 30, 2013.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/the-classlist-api/feed/</wfw:commentRss>
+		<slash:comments>18</slash:comments>
+		</item>
+		<item>
+		<title>Taking Web Audio Offline in iOS 6 Safari</title>
+		<link>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/</link>
+		<comments>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/#comments</comments>
+		<pubDate>Tue, 27 Nov 2012 13:30:20 +0000</pubDate>
+		<dc:creator><![CDATA[Alex Gibson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[ios]]></category>
+		<category><![CDATA[offline]]></category>
+		<category><![CDATA[webkit]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4812</guid>
+		<description><![CDATA[Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be mission impossible. But with the advent of the WebKit-only, it is now finally achievable — although you still need to jump through a few hoops.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Playing cached audio for offline use on iOS Safari has long been a challenge that has proved to be <a href="http://happyworm.com/blog/2012/05/29/playing-web-audio-offline-on-mobile-safari-mission-impossible/">mission impossible</a>. But with the advent of the (WebKit-only) <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">Web Audio API</a>, it is now finally achievable — although you still need to jump through a few hoops.</p>
+
+<p>The bad news is that you still can&#8217;t cache an MP3 file using <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a> and then simply load it using an <code>XmlHttpRequest</code>. Safari on iOS 6 will cache the MP3 but then refuse to play it and fail silently (how useful!).</p>
+
+<p>But all is not lost…</p>
+
+<p><section id="base64">
+<h2>Base64 to the Rescue <a href="#base64" class="permalink">#</a></h2></p>
+
+<p>Because the Web Audio API offers developers direct control over the <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioBufferSourceNode">AudioBuffer</a>, you can now convert data formats on-the-fly and feed them directly to the Web Audio API for playback. For example, if you encode an MP3 file as a Base64 string, you can then decode it to an <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a> and convert the raw audio data.
+</section></p>
+
+<p><section id="encoding">
+<h2>Encoding an Audio File <a href="#encoding" class="permalink">#</a></h2></p>
+
+<p>You can easily convert an MP3 file to a Base64 string using <a href="http://www.openssl.org/">OpenSSL</a>. If you are on Mac OS X, it comes pre-installed, so just open up Terminal.app and type the following command:</p>
+
+<p><figure></p>
+
+<pre><code>openssl base64 -in [infile] -out [outfile]
+</code></pre>
+
+<p></figure></p>
+
+<p>Make sure to replace <code>[infile]</code> with the path to your MP3 and <code>[outfile]</code> with your chosen destination for the encoded data.</p>
+
+<p>This will output a Base64-encoded string representation of your sound file. You can then cache the string using any form of web storage you choose (e.g., <a href="http://html5doctor.com/go-offline-with-application-cache/">Application Cache</a>, <a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/">localStorage</a>, or <a href="http://html5doctor.com/introducing-web-sql-databases/">webSQL</a>).
+</section></p>
+
+<p><section id="decoding">
+<h2>Base64 to ArrayBuffer <a href="#decoding" class="permalink">#</a></h2></p>
+
+<p>In order to decode the Base64 string back into an <code>ArrayBuffer</code>, you&#8217;ll need to use a custom method. Check out Daniele Guerrero&#8217;s <a href="https://github.com/danguer/blog-examples/blob/master/js/base64-binary.js">base64-binary.js</a> as a good script that can be used exactly for this purpose. It decodes a Base64 string into a <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint8Array">Uint8Array</a> typed array and stores it in an <code>ArrayBuffer</code>.</p>
+
+<p>Once this is done, you can simply decode the audio data using the Web Audio API&#8217;s <code>decodeAudioData()</code> method:</p>
+
+<p><figure></p>
+
+<pre><code>var buff = Base64Binary.decodeArrayBuffer(sound);
+
+myAudioContext.decodeAudioData(buff, function(audioData) {
+  myBuffer = audioData;
+});
+</code></pre>
+
+<p></figure></p>
+
+<p>Once you have the audio data decoded, pass it to your audio buffer source and play the sound:</p>
+
+<p><figure></p>
+
+<pre><code>mySource = myAudioContext.createBufferSource();
+mySource.buffer = myBuffer;
+mySource.connect(myAudioContext.destination);
+mySource.noteOn(0);
+</code></pre>
+
+<p></figure></p>
+
+<p></section></p>
+
+<p><section id="demo">
+<h2>Full Demo and Source Code <a href="#demo" class="permalink">#</a></h2></p>
+
+<p>Check out the <a href="http://alxgbsn.co.uk/offlinewebaudio/">online demo</a> and <a href="https://github.com/alexgibson/offlinewebaudio">source code</a> for a complete example of the techniques discussed in this article.
+</section></p>
+
+<p><section id="support">
+<h2>Browser Support <a href="#support" class="permalink">#</a></h2></p>
+
+<p>Currently the demo works in Safari 6, Chrome Desktop, and iOS 6 Safari. The technique has potential to work in any browser that supports Web Audio API, so hopefully Chrome Mobile can soon add support as well.</p>
+
+<p>The W3C is currently pursuing the Web Audio API <a href="http://www.w3.org/2011/audio/wiki/W3C_Audio_Publications_and_Milestones">as a standard</a>.
+</section></p>
+<p><a href="http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/" rel="bookmark">Taking Web Audio Offline in iOS 6 Safari</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 27, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/feed/</wfw:commentRss>
+		<slash:comments>11</slash:comments>
+		</item>
+		<item>
+		<title>HTML5 Audio — The State of Play</title>
+		<link>http://html5doctor.com/html5-audio-the-state-of-play/</link>
+		<comments>http://html5doctor.com/html5-audio-the-state-of-play/#comments</comments>
+		<pubDate>Tue, 08 May 2012 14:00:24 +0000</pubDate>
+		<dc:creator><![CDATA[Mark Boas]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[audio]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[jplayer]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4628</guid>
+		<description><![CDATA[<p>Guest doctor Mark Boas returns with a follow up to his 2009 article <cite>Native Audio in the Browser</cite>, which covers the basics of HTML5 audio. Read the original if you want to get a feel for the <code>&#60;audio&#62;</code> element and associated API. If not, get comfortable and dive deep to learn about the current state of play for HTML5 audio.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>This is a follow up to my 2009 article <a href="http://html5doctor.com/native-audio-in-the-browser/"><cite>Native Audio in the Browser</cite></a>, which covers the basics of HTML5 audio. It may well be worth reading if you want to get a feel for the <code>&lt;audio&gt;</code> element and associated API.</p>
+<p>Now, two and a half years later, it&#8217;s time to see how things are progressing. With many new advanced audio APIs being actively worked on and plenty of improvements to the existing native audio we all know and love, it&#8217;s certainly an exciting time to revisit the heady world of <code>&lt;audio&gt;</code>.</p>
+<p>A good way of understanding how the land lies is by going through a few use cases. That&#8217;s what I&#8217;ll attempt to do in this post.</p>
+<p>So how do we get started? Well, there are a few things we need to do to prepare the ground. Let&#8217;s tackle MIME types first.</p>
+<section id="mime-types">
+<h2>MIME Types <a href="#mime-types" class="permalink">#</a></h2>
+<p>MIME types (also known as <a href="http://en.wikipedia.org/wiki/Internet_media_type">Internet Media Types</a>) are a way of defining file formats so that your system knows how to handle them.</p>
+<section id="mime-types-server-side">
+<h3>Server Side <a href="#mime-types-server-side" class="permalink">#</a></h3>
+<p>First things first: your media server should be configured to serve correct MIME types. In the case of the Apache web server, this means adding the following lines to your <code>.htaccess</code> file:</p>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Do not apply gzip compression to your media files on the server. Most formats are already compressed, and there&#8217;s limited support for those that aren&#8217;t. Further, in the case of a fallback solution, Flash does not support gzipped media.</p>
+</aside>
+<pre><code># AddType TYPE/SUBTYPE EXTENSION
+AddType audio/mpeg mp3
+AddType audio/mp4 m4a
+AddType audio/ogg ogg
+AddType audio/ogg oga
+AddType audio/webm webma
+AddType audio/wav wav</code></pre>
+</section>
+<section id="mime-types-client-side">
+<h3>Client Side <a href="#mime-types-client-side" class="permalink">#</a></h3>
+<p>When defining sources in your code or markup, you can also specify the MIME type, which will help the browser identify the media correctly.</p>
+<p>To set up HTML5 audio in the most robust manner, you could write something like this:</p>
+<pre><code>&lt;audio&gt;
+   &lt;source src="elvis.mp3" type='audio/mpeg; codecs="mp3"'&gt;
+   &lt;source src="elvis.oga" type='audio/ogg; codecs="vorbis"'&gt;
+   &lt;!-- add your fallback solution here --&gt;
+&lt;/audio&gt;</code></pre>
+<p>Here we define the element and the sources to use. The browser will only pick one. It won&#8217;t play both. In this code, we also place a fallback solution after the &lt;<code>source</code>&gt; elements.</p>
+<aside class="sidenote">
+<p>Note that you can omit the codecs portion of the <code>type</code> attribute, but for robustness and efficiency, I recommend you supply the browser with as much media information as possible.</p>
+</aside>
+<p>Along with the source, we specify a <code>type</code> attribute. Although not strictly necessary, this attribute allows the browser to know the MIME type and the codecs of the supplied media before it downloads it. If not, supplied the browser will guess and take a trial-and-error approach to detecting the media type.</p>
+<p>Cool. So now we know how to define our audio sources, and the browser will happily pick the first source that it supports. But what if we want to supply the correct source in a more dynamic manner?</p>
+</section>
+</section>
+<section id="canPlayType">
+<h2>Knowing in Advance: <code>canPlayType</code> Can Help, Probably <a href="#canPlayType" class="permalink">#</a></h2>
+<p>Fortunately the audio API provides us with a way to find out whether a certain format is supported by the browser. But first, here&#8217;s a quick recap on how we manipulate the audio element via the API.</p>
+<div class="callout highlight-block">
+<p>If you mark up your element in HTML as we did in our previous example, you can grab the <code>&lt;audio&gt;</code> element by doing the following:</p>
+<pre><code>var audio = document.getElementsByTagName('audio')[index];
+
+// or, if you gave it an id attribute
+var audio = document.getElementById('my-audio-id');</code></pre>
+<p>Alternatively, you can also create your element entirely in JavaScript:</p>
+<pre><code>var audio = new Audio();</code></pre>
+</p></div>
+<p>Once you have your audio element, you&#8217;re ready to access its methods and properties. To test format support, you can use the <code>canPlayType</code> method, which takes a MIME type as a parameter:</p>
+<pre><code>audio.canPlayType('audio/ogg');</code></pre>
+<p>You can even explicitly include the codec:</p>
+<pre><code>audio.canPlayType('audio/ogg; codecs="vorbis"');</code></pre>
+<p><code>canPlayType</code> returns one of three values:</p>
+<ol>
+<li><code>probably</code>,</li>
+<li><code>maybe</code>, or</li>
+<li>&#8220;&#8221; (the empty string).</li>
+</ol>
+<aside class="sidenote">
+<p>Previously, <code>canPlayType</code> returned &#8220;no&#8221; instead of the empty string. Worth knowing for use with early audio enabled browsers such as Firefox 3.5, Chrome 4, and Safari 4, although these make up a very small percentage of active browsers.</p>
+</aside>
+<p>The reason we have these odd return types is because of the general weirdness surrounding codecs. The browser can only guess at whether a certain codec is playable without actually trying to play it.</p>
+<p>So to test for support, you could do this:</p>
+<pre><code>var audio = new Audio();
+  var canPlayOgg = !!audio.canPlayType &amp;&amp; audio.canPlayType('audio/ogg; codecs="vorbis"') != "";</code></pre>
+<p>All we&#8217;re doing here is checking that <code>canPlayType</code> is supported (<code>!!</code> effectively casts to a boolean) and then checking that <code>canPlayType</code> of our chosen format doesn&#8217;t return an empty string.</p>
+</section>
+<section id="support">
+<h2>Current Browser Codec Support <a href="#support" class="permalink">#</a></h2>
+<p>Let&#8217;s check the codec support in the current crop of modern browsers.</p>
+<table>
+<caption>Desktop browser audio codec support</caption>
+<thead>
+<tr>
+<th>Desktop Browser</th>
+<th>Version</th>
+<th>Codec Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internet Explorer</td>
+<td>9.0+</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td>6.0+</td>
+<td>Ogg Vorbis, MP3, WAV†</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>3.6+</td>
+<td>Ogg Vorbis, WAV</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>5.0+</td>
+<td>MP3, AAC, WAV</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td>10.0+</td>
+<td>Ogg Vorbis, WAV</td>
+</tr>
+</tbody>
+</table>
+<p>  <small>† WAV since Chrome 9</small></p>
+<table>
+<caption>Mobile browser audio codec support</caption>
+<thead>
+<tr>
+<th>Mobile Browser</th>
+<th>Version</th>
+<th>Codec Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opera for Android</td>
+<td>14.0+</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Mobile Safari (iPhone, iPad, iPod Touch)</td>
+<td>iOS 3.0+</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Android Stock browser</td>
+<td>2.3+</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Chrome for Android</td>
+<td>all</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Firefox for Android</td>
+<td>all</td>
+<td>Device-dependent††</td>
+</tr>
+<tr>
+<td>Firefox OS</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>Windows Phone</td>
+<td>?</td>
+<td>MP3, AAC</td>
+</tr>
+<tr>
+<td>Blackberry</td>
+<td>6.0+</td>
+<td>MP3, AAC</td>
+</tr>
+</tbody>
+</table>
+<p>  <small>†† mobile browsers generally use codecs on the host operating system. Various versions of Android include different codecs. Generally, mp3 and Ogg Vorbis can be assumed. See <a href="https://developer.android.com/guide/appendix/media-formats.html#core">Supported Media Formats</a> in official Android documentation for more.</small></p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> Android 2.2 supports the <code>&lt;video&gt;</code> element but not its <code>&lt;audio&gt;</code> counterpart. In order to play audio, you need to use the video element.</p>
+</aside>
+<p>The good news is that at the time of writing, it&#8217;s estimated that around 80% of browsers now support HTML5 audio.</p>
+<p>The bad news is that there is still no consensus on which codec to support, so you&#8217;ll need to provide both MP3 <em>and</em> Ogg Vorbis sources in order to take full advantage of HTML5 audio.</p>
+<section id="containers">
+<h2>Containers, Formats, and File Extensions (oh, and MIME types again) <a href="#containers" class="permalink">#</a></h2>
+<p>Above, I&#8217;ve referred to the audio formats as they&#8217;re commonly known, but technically we should refer to their container format. (A container can contain more than one format — e.g., MP4 can contain AAC or AAC+.)</p>
+<aside class="sidenote">
+<p><strong>Tip:</strong> To check the codec support of your browser, you can visit <a href="http://jplayer.org/HTML5.Audio.Support/">the jPlayer audio support tester</a> or, more comprehensively (for audio and video), <a href="http://www.baccano.com/video/support.htm">baccano.com</a>.</p>
+</aside>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Format(s)</th>
+<th>File Extensions</th>
+<th>MIME Type</th>
+<th>Codec String</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP3</td>
+<td>MP3</td>
+<td>.mp3</td>
+<td>audio/mpeg</td>
+<td>mp3</td>
+</tr>
+<tr>
+<td>MP4</td>
+<td>AAC, AAC+</td>
+<td>.mp4, .m4a, .aac</td>
+<td>audio/mp4</td>
+<td>mp4a.40.5</td>
+</tr>
+<tr>
+<td>OGA/OGG</td>
+<td>Ogg Vorbis</td>
+<td>.oga, .ogg</td>
+<td>audio/ogg</td>
+<td>vorbis</td>
+</tr>
+<tr>
+<td>WAV</td>
+<td>PCM</td>
+<td>.wav</td>
+<td>audio/wav</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="properties">
+<h2>We have <code>&lt;audio&gt;</code> and we&#8217;re not afraid to use it! <a href="#properties" class="permalink">#</a></h2>
+<p>Okay, we&#8217;ve done the minimum amount of work to get our audio element set up and playable. What else can we do? At the moment, we&#8217;re relying on the browsers&#8217; default audio players, each of which looks and works a little bit differently than the rest. Perhaps we&#8217;d like to customise the experience and create our own. To help us do that, the <code>&lt;audio&gt;</code> element supports several different properties exposing its current state.</p>
+<p>Some of the more commonly used properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currentTime</td>
+<td>playhead position</td>
+<td>double (seconds)</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>media duration</td>
+<td>double (seconds); read-only</td>
+</tr>
+<tr>
+<td>muted</td>
+<td>is volume muted?</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>paused</td>
+<td>is media paused?</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>volume level</td>
+<td>double (between 0 and 1)</td>
+</tr>
+</tbody>
+</table>
+<aside class="sidenote">
+<p>You may need to check the <code>durationchange</code> event as some durations could change while media downloads. Also, depending on whether metadata is available, you might need to wait until the audio starts playing to check its duration. In short, keep an eye on the <code>durationchange</code> event, and watch out for <code>NaN</code> values when the duration isn&#8217;t yet known!</p>
+</aside>
+<p>Using these properties is pretty straightforward. For example:</p>
+<pre><code>var audio = new Audio();
+var duration = audio.duration;</code></pre>
+<p>The variable <code>duration</code> now holds the duration (in seconds) of the audio clip.</p>
+</section>
+</section>
+<section id="buffering-seeking-and-time-ranges">
+<h2>Buffering, Seeking, and Time Ranges <a href="#buffering-seeking-and-time-ranges" class="permalink">#</a></h2>
+<p>The situation is improving in this area, as browser makers start to implement key parts of the spec.</p>
+<p>The API provides attributes called <code>buffered</code> and <code>seekable</code> that can be used in situations where we want to ascertain which part of the media has been buffered, preloaded, or is ready to be played without delay.</p>
+<p>Let&#8217;s first take a look at the <code>buffered</code> and <code>seekable</code> attributes. Both return a <a href="http://www.w3.org/TR/html5/video.html#timeranges">TimeRanges</a> object. The <code>TimeRanges</code> object is a list of time periods containing start and end times that can be referenced by their indexes.</p>
+<section id="buffered-attribute">
+<h3>The <code>buffered</code> Attribute <a href="#buffered-attribute" class="permalink">#</a></h3>
+<p>The <code>buffered</code> attribute will return the time ranges that have been completely downloaded. A little bit of a code:</p>
+<pre><code>// returns TimeRanges object of buffered media
+var buffered = audio.buffered;
+
+// returns time in seconds of the last buffered TimeRange
+var bufferedEnd = audio.buffered.end();</code></pre>
+</section>
+<section id="time-ranges">
+<h3>The <code>TimeRanges</code> Object <a href="#time-ranges" class="permalink">#</a></h3>
+<p>The <code>TimeRanges</code> object contains data on the parts on buffered media in the form of one or more — you guessed it — time ranges. A <code>TimeRanges</code> object consists of these properties:</p>
+<ol>
+<li><code>length</code> — number of time ranges</li>
+<li><code>start(index)</code> — start time in seconds of a particular time range</li>
+<li><code>end(index)</code> — end time in seconds of a particular time range</li>
+</ol>
+<aside class="sidenote" style="clear: left; margin-top: 0.5em">
+<p><strong>Fun fact:</strong> The default unit of time used by the JavaScript Audio API is seconds, while many traditional JavaScript functions, such as <code>setInterval</code>, use milliseconds.</p>
+</aside>
+<p>You may be wondering in what situation the <code>TimeRanges</code> object would contain more than one time range. Imagine the user clicks forward to a portion of unbuffered media. The idea is that the media would then start buffering from that point, and you&#8217;d have two time ranges:</p>
+<pre>------------------------------------------------------
+|=============|                    |===========|     |
+------------------------------------------------------
+0             5                    15          19    21</pre>
+<p>So in this case:</p>
+<ul>
+<li><code>audio.buffered.length</code> returns 2</li>
+<li><code>audio.buffered.start(0)</code> returns 0</li>
+<li><code>audio.buffered.end(0)</code> returns 5</li>
+<li><code>audio.buffered.start(1)</code> returns 15</li>
+<li><code>audio.buffered.end(1)</code> returns 19</li>
+<li><code>audio.buffered.end()</code> returns 19</li>
+</ul>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Most audio-capable browsers enable seeking to new file positions during a download. To allow this, you must enable range requests on your server. Although enabled by default on web servers such as Apache, you can verify by checking that your server responds with the <code>Accept-Ranges</code> header.</p>
+</aside>
+<p>Note that if the user is actively seeking through the media throughout the buffering process, a contiguous buffered progress bar actually makes little sense. Also consider that some browsers will read part of the end of the file to establish duration and so create two time ranges almost immediately. Now you&#8217;re starting to appreciate why making an accurate buffered progress bar is a little tricky!</p>
+<p>You can check out <code>TimeRanges</code> in real-time using this handy <a href="http://jplayer.org/HTML5.Media.Event.Inspector/">HTML5 Media Event Inspector</a>.</p>
+</section>
+<section id="seeking-and-seekable">
+<h3>Seeking and Seekable <a href="#seeking-and-seekable" class="permalink">#</a></h3>
+<p>Seeking is the act of looking forward (or backward) in a media file. This usually happens when a section of media is requested before it&#8217;s finished loading.</p>
+<p>The <code>seeking</code> attribute can be used to determine whether that part of the media is being actively &#8220;seeked&#8221;. When it returns true, the portion of the media the user requested is still being loaded.</p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> All modern browsers, apart from Safari on Windows, enable the <code>seekable</code> attribute, which means the <code>seeking</code> event never seems to fire as the user can jump directly to the requested part. The <code>seeked</code> event does fire though, which annoys some people who think that <code>seeking</code> should always fire before <code>seeked</code>.</p>
+</aside>
+<p>To recap a little, the <code>buffered</code> property tells us what&#8217;s been downloaded and is often used as an indication of what part of the media can be directly played. If the browser supports it, however, it may make more sense to use the <code>seekable</code> attribute to determine which parts of the media can be jumped to and played immediately.</p>
+<p><code>seekable</code> returns a <code>TimeRanges</code> object of time ranges that can be played immediately. This uses a technology known as byte-range requests, which allows part of the content to be requested over HTTP. In short, we don&#8217;t have to load all the data prior to the desired part in order to play it.</p>
+<p>An example:</p>
+<pre><code>// Is the player currently seeking?
+var isSeeking = audio.seeking;
+
+// Is the media seekable?
+var isSeekable = audio.seekable &amp;&amp; audio.seekable.length &gt; 0;
+
+// Time in seconds within which the media is seekable.
+var seekableEnd = audio.seekable.end();</code></pre>
+<div class="callout highlight-block">
+<p>Time ranges can be confusing. <code>audio.seekable.end()</code> actually tells us the end point of the last time range (not the end point of all seekable media). In practice, though, this is good enough, as the browser either enables range requests or doesn&#8217;t. If it doesn&#8217;t, then <code>audio.seekable</code> will be equivalent to <code>audio.buffered</code>, which will give a valid indication of the end of seekable media.</p>
+</p></div>
+<p>Note that media being in a &#8220;seekable&#8221; state is different than media being in a &#8220;buffered&#8221; state. Media doesn&#8217;t have to be buffered to be seekable.</p>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> In practice only one seekable TimeRange object is created. Where browsers support range requests the TimeRange object spans zero to the media duration, where they don&#8217;t, the TimeRange object starts at zero and its end grows as the media downloads.</p>
+</aside>
+<p>Buffered and seekable data can be useful information, but it would be too easy if there weren&#8217;t a few gotchas.</p>
+<ol>
+<li>Preloading is not supported in all older audio-capable browsers (Opera 10/Firefox 3.6).</li>
+<li>The <code>buffered</code> attribute is not always supported (Blackberry PlayBook).</li>
+<li>Not all HTML5 browsers allow byte-range seeking — for example, Safari on Windows. In this case, you can still seek within the downloaded content. It downloads from the start until the end, as does Flash.</li>
+</ol>
+<p>If you want to deliver the best possible solution to your users, you&#8217;ll need to feature test.</p>
+</section>
+<section id="preloading">
+<h3>A Note about Preloading <a href="#preloading" class="permalink">#</a></h3>
+<p>I mentioned the <code>preload</code> attribute in the previous article. This attribute accepts three possible values:</p>
+<ol>
+<li><code>none</code> — Do not preload any media. Wait for a play event before downloading anything.</li>
+<li><code>metadata</code> — Preload just the metadata. Grab the start and the end of the file via range-request and determine the duration.</li>
+<li><code>auto</code> — Preload the whole file. Grab the start and the end of the file to determine duration, then seek back to the start again for the preload proper.</li>
+</ol>
+<aside class="sidenote">
+<p><strong>Fun fact:</strong> Mobile Safari ignores the <code>preload</code> attribute, effectively always using <code>preload="none"</code>.</p>
+</aside>
+<p>When it comes to preloading, remember that it&#8217;s a request or hint to tell the browser how you&#8217;d like to preload the media. The browser is not under any obligation to fulfill that request. For this reason, certain browsers may handle these requests differently.</p>
+</section>
+</section>
+<section id="played">
+<h2>Well-Played <a href="#played" class="permalink">#</a></h2>
+<aside class="sidenote">
+<p><strong>Tip:</strong> If you loop through <code>audio.played</code>, sum the time ranges between starts and ends, and then compare it with the duration, you can determine the percentage of the audio that the user has listened to. This may be a useful metric.</p>
+</aside>
+<p>It&#8217;s worth mentioning the <code>played</code> property in passing. This property tells us which time ranges have been played within the media. For example:</p>
+<pre><code>// returns a TimeRanges object
+var played = audio.played;</code></pre>
+</section>
+<section id="events">
+<h2>Media Events <a href="#events" class="permalink">#</a></h2>
+<p>Underpinning both the native audio and video APIs is a comprehensive set of events. A full list can be found at the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-video-element.html#mediaevents">WhatWG version of the spec</a>.</p>
+<p>Attaching handlers to media events allows you to easily react to changes in state. For example, it might be useful to update the time info in a custom-built player each time the <code>timeupdate</code> event occurs.</p>
+<p>A quick summary of the more commonly used media events:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>durationchange</td>
+<td>The <code>duration</code> attribute has been updated.</td>
+</tr>
+<tr>
+<td>ended</td>
+<td>Playback has stopped as the end of the media was reached.</td>
+</tr>
+<tr>
+<td>pause</td>
+<td>The media playback has been paused. Note there is no <code>stop</code> event.</td>
+</tr>
+<tr>
+<td>play</td>
+<td>The media has started playing.</td>
+</tr>
+<tr>
+<td>timeupdate</td>
+<td>The current playback position changed (usually every 250ms).</td>
+</tr>
+<tr>
+<td>volumechange</td>
+<td>The volume changed.</td>
+</tr>
+</tbody>
+</table>
+<aside class="sidenote">
+<p><strong>Tip:</strong> Android (at least 2.3) does not always fire the <code>ended</code> event. Well, it sometimes throws one out for good measure, but generally you need to create your own by capturing the <code>pause</code> event that is fired upon reaching the end of the media and comparing <code>audio.currentTime</code> with <code>audio.duration</code>. Alternatively, you can listen for the <code>pause</code> event and check that <code>audio.currentTime</code> is zero. To be absolutely certain, use a combination of both techniques.</p>
+</aside>
+<p>Other useful events:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canplay</td>
+<td>The media can be played but may need to pause while the file is downloaded.</td>
+</tr>
+<tr>
+<td>canplaythrough</td>
+<td>At current download rates, it is estimated that the media can be played from start to finish without pause.</td>
+</tr>
+<tr>
+<td>progress</td>
+<td>The browser is fetching the media data (usually every 250ms).</td>
+</tr>
+</tbody>
+</table>
+<p>Again, the <a href="http://jplayer.org/HTML5.Media.Event.Inspector/">HTML5 Media Event Inspector</a> is your friend.</p>
+<p>Additionally, you can test browser support by using <a href="http://areweplayingyet.org/">areweplayingyet.org</a>. It&#8217;s worth checking out the code behind the tests to understand the goings-on under the hood.</p>
+</section>
+<section id="streaming">
+<h2>Streaming <a href="#streaming" class="permalink">#</a></h2>
+<p>Streaming audio is a common requirement. This is an area that until recently has been dominated by Adobe&#8217;s Flash technology. Proprietary server technologies and protocols are well-established. One of the leading examples of this is Adobe&#8217;s <a href="http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol">Real Time Messaging Protocol</a> (RTMP). However, current browsers only support streaming over HTTP, and so something like Flash is required to process RTMP streams.</p>
+<p>Currently, audio-enabled browsers only support <a href="http://en.wikipedia.org/wiki/SHOUTcast">SHOUTcast</a> and <a href="http://en.wikipedia.org/wiki/Icecast">Icecast</a> servers that stream audio over HTTP. SHOUTcast is propriety and allows streaming of MP3 and AAC files only, while Icecast is non-propriety and supports Ogg Vorbis as well as MP3 and AAC.</p>
+<table>
+<thead>
+<tr>
+<th>Stream</th>
+<th>AAC</th>
+<th>MP3</th>
+<th>Ogg Vorbis</th>
+<th>Native Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Icecast</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>SHOUTCast</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>RTMP</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No (requires Flash)</td>
+</tr>
+</thead>
+</table>
+</section>
+<section id="spec">
+<h2>An Evolving Spec (Or, &#8220;Whoa, this thing is moving!&#8221;) <a href="#spec" class="permalink">#</a></h2>
+<p>As the audio spec is still evolving, there are a couple of inconsistencies in browser implementations to watch out for. These generally affect older browsers.</p>
+<section id="load">
+<h3>The <code>load</code> Method <a href="#load" class="permalink">#</a></h3>
+<p>Until fairly recently, the <code>load</code> method was required in order to tell the browser about a change in the media source and to get it to update appropriately. Now, <code>media.load()</code> causes the element to reset and to start selecting and loading a new media resource from scratch.</p>
+<p>So for older browsers, such as Firefox 3.6, in order to change the media source, you&#8217;ll not only need to change the source value but also issue a load command:</p>
+<pre><code>var audio = new Audio();
+audio.setAttribute("src","mynew.mp3");
+audio.load(); // required for 'older' browsers</code></pre>
+</section>
+<section id="hacks">
+<h3>When Browsers Go Off-Spec <a href="#hacks" class="permalink">#</a></h3>
+<p>When creating cross-browser solutions, it&#8217;s useful to know which browsers follow <a href="http://dev.w3.org/html5/spec/video.html#audio">the W3C spec</a> to what extent and how they deviate.</p>
+<section id="autoplay-and-volume">
+<h4>Autoplay and Volume <a href="#autoplay-and-volume" class="permalink">#</a></h4>
+<p>iOS and Blackberry devices ignore the <code>autoplay</code> attribute and media element volume changes, whereas Android supports <code>autoplay</code> but not volume changes.</p>
+<p>Effectively, on Blackberry and iOS devices, <code>autoplay</code> functionality is disabled as both require a user-initiated event to &#8220;kick it off&#8221;. This has the unfortunate side-effect that any audio suffers a delay between user interaction and playback.</p>
+<p>To mitigate against these issues, you may want to take a look at <a href="http://remysharp.com/2010/12/23/audio-sprites/">Doctor Remy Sharp&#8217;s excellent article on Audio Sprites and fixes for iOS</a>.</p>
+</section>
+<section id="multiaudio">
+<h4>Simultaneous Playback of Multiple Audio Elements <a href="#multiaudio" class="permalink">#</a></h4>
+<p>A particular annoyance for developers of anything but the most simple audio web apps: not all browsers will play multiple audio elements simultaneously. This is a particular problem for games developers. Again, we see this issue with iOS and Blackberry devices.</p>
+</section>
+<section id="oses">
+<h4>Operating System Dependence <a href="#oses" class="permalink">#</a></h4>
+<aside class="sidenote">
+<p>Although of limited use to developers, you could install other codecs such as Ogg Vorbis on the underlying operating system, and browsers that use OS codecs should be able to play them back.</p>
+</aside>
+<p><a href="http://happyworm.com/blog/2010/08/17/safari-requires-quicktime-for-html5-based-media/">Safari (5+) relies on Quicktime being installed.</a> This is rarely a problem unless you are running it on Windows.</p>
+<p>Internet Explorer (9+) relies on the codecs being present at the operating system level. As it only runs on Windows, this is fortunately almost always the case.</p>
+</section>
+</section>
+</section>
+<section id="whats-new">
+<h2>What&#8217;s New? <a href="#whats-new" class="permalink">#</a></h2>
+<p>There are a few new features and whole new APIs being specified for web-based audio, so let&#8217;s take a look at what&#8217;s around the corner.</p>
+<section id="playback-rate">
+<h3>A Change of Pace <a href="#playback-rate" class="permalink">#</a></h3>
+<p>A couple of noteworthy upcoming features are <code>playbackRate</code> and <code>defaultPlaybackRate</code>. As you can probably imagine, these fellas let us alter the speed and direction of playback. This functionality could be used for fast-forward and rewind functions or perhaps to allow users to tweak the playback speed so they can fit more podcasts into their day.</p>
+<ul>
+<li><code>audio.playbackRate</code> returns 1 at normal speed and acts as a multiple that is applied to the rate of playback. For example, setting <code>playbackRate</code> to 2 would double the speed, while setting it to -1 would play the media backwards.</li>
+<li><code>audio.defaultPlaybackRate</code> is the rate at which the audio will play after you pause and restart the media (or issue any event for that matter).</code></li>
+</ul>
+</section>
+<section id="media-fragments">
+<h3>Media Fragments <a href="#media-fragments" class="permalink">#</a></h3>
+<p>Currently, if we wish to reference some part of a media file, we often first have to download at least some of the media we don&#8217;t actually need. <a href="http://www.w3.org/TR/media-frags/">The W3C Media Fragments proposal</a> was created to address this issue <a href="http://www.w3.org/TR/2009/WD-media-frags-reqs-20091217/">and others</a>, such as the retrieval of an area of video or just the associated text track. In the case of audio, it will allow us to specify which parts we want to download using parameters on the source URI.</p>
+</section>
+</section>
+<section id="advanced-apis">
+<h2>Advanced Audio APIs: The Future Sound of Browsers </h2>
+<p>When it comes to more advanced audio functionality, Mozilla was first to enter the fray with <a href="https://wiki.mozilla.org/Audio_Data_API">an early experimental Audio Data API for Firefox</a>. This was intended to facilitate audio manipulation via JavaScript and created a platform for low-level tinkering.</p>
+<p>Not to be outdone, Google released <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">the Web Audio API for Chrome</a> and put it forward as a W3C proposal. The Web Audio API is a higher-level implementation that takes an audio-node based approach and provides many useful functions.</p>
+<p>Both implementations address the desire by developers to do more with audio — to create, manipulate, analyse, and mix audio on the fly. In effect, we may one day be able to do in a browser anything we can currently do with native applications.</p>
+<p>So what if we want to play with advanced audio in the browser? Well, two separate implementations currently exist. If you want to write applications that use both APIs in any reasonable way, you need third-party bridging libraries to abstract away the differences.</p>
+<p>Also fairly new on the scene is <a href="http://www.w3.org/TR/2011/WD-streamproc-20111215/">Mozilla&#8217;s MediaStream Processing API</a>, which takes another approach to audio and video streams to allow us to manipulate at both high and low levels.</p>
+<p>In fact, using advanced APIs and taking advantage of the speed of modern JavaScript engines, we can even write decoders for unsupported codecs. Currently, we have <a href="http://codecs.ofmlabs.org/">the JSMad MP3 decoder and the lossless Alac.js decoder</a>. Apparently, FLAC and AAC are in the pipeline. There is hope, then, that in the future, we may not have to worry about which browsers are supporting which formats.</p>
+<p>For those curious about advanced web audio, I wrote about the differences in approaches and the different libraries that allow us to write cross-browser solutions in <a href="http://happyworm.com/blog/2011/11/15/html5-audio-apis-how-low-can-we-go/"><cite>HTML5 Audio APIs: How Low can we Go?</cite></a></p>
+<p>The good news is that all relevant parties are talking, and things seem to be buzzing on <a href="http://www.w3.org/2011/audio/">the W3C Audio Working Group</a>. It looks like everyone is coming together to put their ideas into <a href="http://www.w3.org/TR/audioproc/">a unified Audio Processing API</a>, which is rapidly approaching publication as a Web Standard.</p>
+</section>
+<section id="summary">
+<h2>Summary <a href="#summary" class="permalink">#</a></h2>
+<p>Although browser implementations of the current HTML5 audio spec are improving, there are still a few issues to watch out for when creating comprehensive cross-browser solutions. You certainly need to be aware of browser limitations on platforms like iOS. Hopefully, as support matures, these issues will disappear.</p>
+<p>Positive news on the &#8220;advanced audio&#8221; front too: <a href="http://www.w3.org/TR/audioproc/">a new standard is being established</a>, and we&#8217;re close to get a unified spec for browser makers to work from. In the meantime, JavaScript libraries are available to help bridge the gaps between existing implementations.</p>
+<p>There are also signs that we may be seeing the end of the requirement for different browser-dependent codecs. Opera Mobile already supports MP3 where the underlying OS supports it, and <a href="http://groups.google.com/group/mozilla.dev.platform/browse_thread/thread/fb14de8b9ad84e15/4cfccdde2cb064d1?#4cfccdde2cb064d1">Mozilla look like they may enable this too</a>. If this option exists for mobile browsers, it&#8217;s not a huge stretch to imagine that desktop browsers will follow suit.</p>
+<p>So lots happening and lots already achieved. The rough edges of existing browser implementations are being smoothed, consensus and standards are being forged, and we can see the foundations of some very exciting new technologies being established.</p>
+<p>The future of web-based audio looks bright!</p>
+</section>
+<section id="links">
+<h2>Further Reading <a href="#links" class="permalink">#</a></h2>
+<ul>
+<li><a href="http://24ways.org/2010/the-state-of-html5-audio">&#8220;Probably, Maybe, No&#8221;: The State of HTML5 Audio</a></li>
+<li><a href="http://www.phoboslab.org/log/2011/03/the-state-of-html5-audio">The State of HTML5 Audio</a></li>
+<li><a href="http://www.catswhocode.com/blog/mastering-the-html5-audio-property">Mastering the HTML5 &lt;audio&gt; tag</a></li>
+<li><a href="http://blogs.msdn.com/b/ie/archive/2011/05/13/unlocking-the-power-of-html5-lt-audio-gt.aspx">Unlocking the power of HTML5 &lt;audio&gt;</a></li>
+<li><a href="http://my.opera.com/core/blog/2010/03/03/everything-you-need-to-know-about-html5-video-and-audio-2">Everything you need to know about HTML5 video and audio</a></li>
+</ul>
+</section>
+<p><a href="http://html5doctor.com/html5-audio-the-state-of-play/" rel="bookmark">HTML5 Audio — The State of Play</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on May 8, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/html5-audio-the-state-of-play/feed/</wfw:commentRss>
+		<slash:comments>32</slash:comments>
+		</item>
+		<item>
+		<title>Drag and Drop and Automatically Send to the Server</title>
+		<link>http://html5doctor.com/drag-and-drop-to-server/</link>
+		<comments>http://html5doctor.com/drag-and-drop-to-server/#comments</comments>
+		<pubDate>Tue, 03 Apr 2012 13:30:17 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[forms]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[drag and drop]]></category>
+		<category><![CDATA[file]]></category>
+		<category><![CDATA[filereader]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[meter]]></category>
+		<category><![CDATA[xhr2]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4500</guid>
+		<description><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>I realised (when looking myself) that there are a lot of demos and tutorials that show you how to drag-and-drop a file into the browser and then render it on the page. <div style="position:absolute; top:1897px; left:-1505px"><a href="http://www.daikin-china.com.cn/wp-content/evaluation-essay.html" title="custom essay station">custom essay station</a></div> They're often labelled as "drag-and-drop and upload", but they actually <em>don't upload</em>. This tutorial will take you that final step.</p>
+
+<p>I'll walk you through <a href="http://html5demos.com/dnd-upload">an example that you can play with</a>: drag a file into the web page, and it'll be uploaded to the server instantly.</p>
+
+<section id="tasks">
+  <h2>Tasks <a href="#tasks" class="permalink">#</a></h2>
+
+  <p>Let's break this process down into specific tasks:</p>
+
+  <ol>
+    <li>Capture the drop event and read its data.</li>
+    <li>Post that binary data to the server.</li>
+    <li>Provide feedback on the progress of the upload.</li>
+    <li>Optionally render a preview of what's being uploaded and its status.</li>
+  </ol>
+
+  <p>To achieve all of this, we need the following HTML5 and non-HTML5 APIs:</p>
+
+  <ol>
+    <li><a href="http://www.w3.org/TR/html5/dnd.html">Drag and Drop</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#the-formdata-interface">FormData</a></li>
+    <li><a href="http://www.w3.org/TR/2010/WD-XMLHttpRequest2-20100907/#handler-xhr-onprogress">XHR progress event</a></li>
+    <li><a href="http://www.w3.org/TR/FileAPI/#dfn-filereader">FileReader</a></li>
+  </ol>
+
+  <p>Keep in mind that not all browsers support all of this technology today, but they're getting close. I just wanted to create a clear and complete tutorial on how to go the whole hog and upload that dropped file.</p>
+
+  <p>The end result: we're able to drop the file anywhere in the browser, we get a preview and progress of the upload, and it's a slick experience.</p>
+
+  <figure>
+    <img src="http://html5doctor.com/wp-content/uploads/2012/03/dnd-upload.jpg" alt="Drag and drop upload" title="" />
+    <figcaption>Our drag-and-drop example page</figcaption>
+  </figure>
+</section>
+
+<section id="dnd">
+  <h2>Drag and Drop <a href="#dnd" class="permalink">#</a></h2>
+
+  <p>Just as a forewarning, drag-and-drop has been known to be a bit of a killjoy. In fact, it's a nightmare, but I won't repeat what's been <a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">said</a> <a href="http://html5doctor.com/native-drag-and-drop/">before</a>.</p>
+
+  <p>Our example is going to allow you to drag-and-drop a file anywhere within the browser. To achieve that, we need to attach our event listeners to the <code>body</code> or <code>documentElement</code> (i.e., the root HTML node). By listening on the <code>documentElement</code>, this code <em>could</em> be anywhere in the page, as <code>documentElement</code> will always exist. You can only listen on <code>body</code> once the <code>&lt;body&gt;</code> element has been encountered.</p>
+
+  <p>Here's the pattern of code we need to capture the drop event on the entire document:</p>
+
+  <figure>
+    <pre><code>var doc = document.documentElement;
+doc.ondragover = function () { this.className = 'hover'; return false; };
+doc.ondragend = function () { this.className = ''; return false; };
+doc.ondrop = function (event) {
+  event.preventDefault &amp;&amp; event.preventDefault();
+  this.className = '';
+
+  // now do something with:
+  var files = event.dataTransfer.files;
+
+  return false;
+};</code></pre>
+    <figcaption>Basic pattern for capturing drop events</figcaption>
+  </figure>
+
+  <p>I'm using the <code>hover</code> class so that I can toggle a tip explaining to the user that the file can be dropped on the page.</p>
+
+  <p>Inside the <code>drop</code> event, we can access the dropped files via <code>event.dataTransfer.files</code>.</p>
+
+  <section id="alternative">
+    <h3>An Alternative to Drag and Drop <a href="#alternative" class="permalink">#</a></h3>
+
+    <p>Annoyingly, as I write this, I realise this combination of API requirements is currently only met by Chrome and Firefox. So, taking the test from <a href="http://modernizr.com">Modernizr</a>, we can test for support and provide our alternative:</p>
+
+    <figure>
+      <pre><code>var dndSupported = function () {
+  var div = document.createElement('div');
+  return ('draggable' in div) || ('ondragstart' in div &amp;&amp; 'ondrop' in div);
+};
+
+if (!dndSupported()) {
+  // take alternative route
+}</code></pre>
+      <figcaption>Testing for drag-and-drop support</figcaption>
+    </figure>
+
+    <p>Instead of drag-and-drop, we can insert a file input element (I've given it an <code>id</code> of "upload"), and when its value is changed, the file can be scooped in:</p>
+
+    <figure>
+      <pre><code>document.getElementById('upload').onchange = function (event) {
+  // `this` refers to the element the event fired upon
+  var files = this.files;
+};</code></pre>
+      <figcaption>An alternative to native drag-and-drop</figcaption>
+    </figure>
+
+    <p>You can see the equivalent is simply the <code>files</code> property of the <code>HTMLInputElement</code> object. This will give us access to the same file as the <code>event.dataTransfer.files</code> from the drop event.</p>
+  </section>
+</section>
+
+<section id="uploading">
+  <h2>Automatically Uploading the File <a href="#uploading" class="permalink">#</a></h2>
+
+  <p>This is the neat bit, and it's painfully simple. We use a feature of the XHR2 spec: <code>FormData</code>. Once we create an instance of <code>FormData</code>, we can append items to it:</p>
+
+  <figure>
+    <pre><code>var formData = new FormData();
+for (var i = 0; i &lt; files.length; i++) {
+  formData.append('file', files[i]);
+}
+
+// now post a new XHR request
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/upload');
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};
+
+xhr.send(formData);</code></pre>
+    <figcaption>Creating and posting <code>FormData</code></figcaption>
+  </figure>
+
+  <p>Yeah, that's it.†</p>
+
+  <aside class="sidenote">† As with everything and anything, a caveat: <code>FormData</code> isn't in Opera (nor .next) at time of writing, but I'm sure they'll catch up.</aside>
+
+  <p>Let's look at a couple of key things that are going on the above code.</p>
+
+  <pre><code>formData.append('file', files[i]);</code></pre>
+
+  <p>We're sending named parameters to our server, specifically an array of values called <code>file</code>. Obviously, you can call it what you want, but the <code>file</code> is the name your server will be looking for when it saves the uploaded file (or files).</p>
+
+  <pre><code>xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log('all done: ' + xhr.status);
+  } else {
+    console.log('Something went terribly wrong...');
+  }
+};</code></pre>
+
+  <p>If you're familiar with XHR, you'll notice we aren't listening to <code>onreadystatechange</code>, only <code>onload</code> — which is (in effect) a convenience function to let you know when the <code>readyState</code> is 4 (i.e., loaded!). You should still check and respond appropriately to the status code of the request to ensure it's 200 OK, rather than a 500 (internal server error) or 404 (not found) or anything else.</p>
+
+  <pre><code>xhr.send(formData);</code></pre>
+
+  <p>The nice trick here is that XHR has automatically set the encoding of the posted data to <code>multipart/form-data</code>. This encoding allows your server to read and save the files. It's like the encoding used when you send an attachment in an email.</p>
+</section>
+
+<section id="feedback">
+  <h2>Providing Feedback to the User <a href="#feedback" class="permalink">#</a></h2>
+
+  <p>XHR2 now (flippin' finally) comes with a <code>progress</code> event. So if you're sending or retrieving a large file via XHR, you can tell the user how far along you are.</p>
+
+  <p>It's pretty simple. If you want to track the progress of the XHR request, listen to the <code>progress</code> event. One gotcha that caught me out for some time: I needed to track the progress of the <em>upload</em>, not the download. To do this properly, you need to listen for progress on the <strong>XHR upload</strong> object, as so:</p>
+
+  <figure>
+    <pre><code>xhr.upload.onprogress = function (event) {
+  if (event.lengthComputable) {
+    var complete = (event.loaded / event.total * 100 | 0);
+    progress.value = progress.innerHTML = complete;
+  }
+};
+
+xhr.onload = function () {
+  // just in case we get stuck around 99%
+  progress.value = progress.innerHTML = 100;
+};</code></pre>
+    <figcaption>Providing feedback with XHR2's <code>progress</code> event</figcaption>
+  </figure>
+
+  <aside class="sidenote">The funky <code>| 0</code> syntax is bitwise shift to floor the value — for example, 2.69 becomes 2.</aside>
+
+  <p>Note that instead of <code>xhr.onprogress</code>, we use <code>xhr.upload.onprogess</code>. When this event fires, we check that the event supports calculating the amount of data uploaded (the <code>lengthComputable</code> part), and then calculate the amount completed.</p>
+
+  <p>In my HTML, I'm using a <code>&lt;progress&gt;</code> element (similar to the <code>&lt;meter&gt;</code> element, but more semantically appropriate as we're presenting the progress of a task) to show the user how much of their file has been uploaded:</p>
+
+  <pre><code>&lt;progress id="progress" min="0" max="100" value="0"&gt;0&lt;/progress&gt;</code></pre>
+
+  <p>Note that I'm using <code>innerHTML</code> for browsers that don't yet support <code>&lt;progress&gt;</code>. Then with a dash of CSS-generated content, both the <code>innerHTML</code> and <code>value</code> of the progress can be the same (perhaps an over optimisation, but I was rather proud of myself at the time!).</p>
+</section>
+
+<section id="preview">
+  <h2>And Finally, Rendering a Preview <a href="#preview" class="permalink">#</a></h2>
+
+  <p>As a nice addition, we'll give the user a preview of what we're uploading for them. It requires the <a href="http://dev.w3.org/2006/webapi/FileAPI/">File API</a> — specifically the <code>FileReader</code> API.</p>
+
+  <p>As the drag-and-drop operation (or the <code>input[type=file]</code>) contains a file object, we can hand this over to the <code>FileReader</code> to get the contents of the file. If it's something like an image, we can get the Base64 data and give the user a preview. Or if it's text, we could render it in a <code>&lt;div&gt;</code>. The MIME type for the file is available as the <code>type</code> property on the file object.</p>
+
+  <p>So let's assume we only accept images. Here's the preview part that runs after the file has been received by the browser:</p>
+
+  <figure>
+    <pre><code>var acceptedTypes = {
+  'image/png': true,
+  'image/jpeg': true,
+  'image/gif': true
+};
+
+if (acceptedTypes[file.type] === true) {
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    var image = new Image();
+    image.src = event.target.result;
+    image.width = 100; // a fake resize
+    document.body.appendChild(image);
+  };
+
+  reader.readAsDataURL(file);
+}</code></pre>
+    <figcaption>Rendering a preview of an uploaded image</figcaption>
+  </figure>
+
+  <p>We create the <code>FileReader</code> and give it a file to read. In the above example, I've used <code>readAsDataURL</code>, but you can also read files in plain text and binary formats (<a href="http://www.w3.org/TR/FileAPI/#FileReader-interface">as per the spec</a>).</p>
+
+  <p>When the reader has read the file and the data is available, it fires the <code>load</code> event, which in turn creates our new image.</p>
+
+  <p>The <em>result</em> of the file read action is in the <code>event.target.result</code> property. In the case of the <code>readAsDataURL</code>, the value is along the lines of <code>data:image/png;base64,ABC...</code>.</p>
+</section>
+
+<section id="finale">
+  <h2>Using All the Tools in the Shed <a href="#finale" class="permalink">#</a></h2>
+
+  <p>This example may be a little contrived for the article that I wanted to write. I've used many different technologies to do something that's a fairly common pattern on the web. In fact, it was because I had trouble finding a definitive source on uploading to the <em>actual</em> server (except, of course, as I wrote this article I found <a href="http://www.profilepicture.co.uk/tutorials/ajax-file-upload-xmlhttprequest-level-2/">this example</a> from back in late 2010!).</p>
+
+  <p>Hopefully, you'll see how each bit of tech can work together to create an application, but equally I hope that you can see where this would work if none or just some of the technology wasn't available. Make sure you detect functionality. Make sure you provide fallbacks. Make sure you develop responsibly.</p>
+
+  <p>Here's the final <a href="http://html5demos.com/dnd-upload">drag-and-drop and upload demo</a> for you to play with.</p>
+</section><p><a href="http://html5doctor.com/drag-and-drop-to-server/" rel="bookmark">Drag and Drop and Automatically Send to the Server</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on April 3, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/html-developers-please-consider/"     class="crp_title">HTML Developers: Please Consider</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/drag-and-drop-to-server/feed/</wfw:commentRss>
+		<slash:comments>41</slash:comments>
+		</item>
+		<item>
+		<title>It&#039;s Curtains for Marital Strife Thanks to getUserMedia</title>
+		<link>http://html5doctor.com/getusermedia/</link>
+		<comments>http://html5doctor.com/getusermedia/#comments</comments>
+		<pubDate>Tue, 07 Feb 2012 14:56:03 +0000</pubDate>
+		<dc:creator><![CDATA[Bruce Lawson]]></dc:creator>
+				<category><![CDATA[Elements]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[multimedia]]></category>
+		<category><![CDATA[getusermedia]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[video]]></category>
+		<category><![CDATA[webrtc]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4335</guid>
+		<description><![CDATA[<p>HTML5 (or now, the WebRTC spec) gives us getUserMedia, a way for JavaScript to access streams from a device's camera and microphone. Find out how to use it and normalise the syntax differences between Opera and Chrome with the gUMshield.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>True story: I was tasked by the lovely Mrs Lawson to buy some curtains that match our carpet during the January sales. I dutifully did so — and had to return to the shop straight away because they didn&#8217;t match at all. Mrs Lawson accompanied me, and with a withering glance at her incompetent mate, immediately found some correctly hued fabric, and all was well.</p>
+
+<p>But what&#8217;s a middle-aged colour-blind bloke to do? I had early in the curtain procurement process decided against cutting a hole in the carpet in order that I may take a sample with me. (All other mistakes aside, this was a correct decision.)</p>
+
+<p>So, in order to ensure that I would never again repeat the mistake, I set out to make an app that would allow me to capture the colour of an image straight from my camera. Of course, it had to be a web app rather than a native app, because we&#8217;re web angels, not proprietary devils.</p>
+
+<section id="intro">
+  <h2><code>getUserMedia</code> <a href="#intro" class="permalink">#</a></h2>
+
+  <p><a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html"><code>getUserMedia</code></a> is an API that gives a web page access to a user&#8217;s camera and microphone via JavaScript. It&#8217;s supported in Opera 12 and Opera Mobile 12 for Android, and WebKit in <a href="http://tools.google.com/dlpage/chromesxs?platform=win">Chrome Canary</a> builds (<a href="https://sites.google.com/site/webrtc/running-the-demos">instructions</a>).</p>
+
+  <p>Like many other APIs, it&#8217;s not part of the &#8220;real&#8221; HTML5 spec. It started life as the HTML5 <code>&lt;device&gt;</code> element, then got moved into the W3C as part of the <a href="http://www.w3.org/TR/webrtc/">webRTC</a> specifications. But let&#8217;s not taxonomise when we could be having fun.</p>
+
+  <p>The first thing we need to do when using super-cool new UIs is detect whether it&#8217;s supported:</p>
+
+  <figure>
+    <pre><code> if (navigator.getUserMedia) {
+  // do something cool
+} else {
+  // fallback code
+}</code></pre>
+    <figcaption>Basic usage of <code>getUserMedia</code></figcaption>
+  </figure>
+
+  <p>For this article, our &#8220;do something cool&#8221; will be to grab the dominant colour of the current input stream from the camera. As a fallback, we have several options.</p>
+
+  <p>One option, if we&#8217;re using the default Android browser, is to show a form that automatically starts the camera when focussed:</p>
+
+  <figure>
+    <pre><code>&lt;form enctype="multipart/form-data" method="post"&gt;
+  &lt;input type="file" accept="video/*;capture=camera" /&gt;
+&lt;/form&gt;</code></pre>
+    <figcaption>Fallback code for Android</figcaption>
+  </figure>
+
+  <p>There&#8217;s also the <a href="http://www.w3.org/TR/2011/WD-html-media-capture-20110414/#captureparam"><code>capture</code> attribute</a>, a proposed extension from the <a href="http://www.w3.org/TR/html-media-capture/">W3C Device API Media Capture API</a> that tells a user agent where to get the input data. Android extends the <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#attr-input-accept"><code>accept</code> attribute</a>. See more in <a href="http://davidbcalhoun.com/2011/android-3-0-honeycomb-is-first-to-implement-the-device-api">David Calhoun&#8217;s Device API article</a>. Alternative capture arguments are <code>camcorder</code> (for video), <code>microphone</code>, and <code>filesystem</code>.</p>
+
+  <p>Browsers that don&#8217;t understand the still-draft Media Capture API will simply ignore the <code>capture</code> attrbute and prompt the user to browse to a file on their file system for uploading.</p>
+
+  <p>Users on iOS are out of luck, as their devices don&#8217;t allow access to the file system.</p>
+
+  <section id="differences-from-media-capture">
+    <h3>Differences Between the Media Capture API and <code>getUserMedia</code> <a href="#differences-from-media-capture" class="permalink">#</a></h3>
+
+    <p>Robin Berjon, co-chair of the Device API (DAP) Working Group explains: The markup-only Media Capture API is a simpler, low-hanging-fruit version that can work easily for a lot of use cases. It also has a very simple security model (just a file upload).</p>
+
+    <p>In fact, it works exactly like <code>&lt;input type=file&gt;</code>, except that it knows to allow the user to grab a pic from the camera by default instead of hitting the filesystem. But just like with <code>&lt;input type=file&gt;</code>, once a picture has been taken (i.e., a file selected), you can access it and read from it using the File API, which means you can stuff it in an <code>&lt;img&gt;</code> or a <code>&lt;canvas&gt;</code> and do nasty things to it without annoying any faraway server.</p>
+
+    <p>But of course, if it&#8217;s part of a form and you submit it, it gets submitted just like a regular file upload.</p>
+
+    <p>The thing is, though, it&#8217;s always a snapshot. Even if you use it to take a video (which you can), the page only gets it after you&#8217;ve finished shooting. With <code>getUserMedia</code> (<b>gUM</b>), you get the live stream, which you can modify, record, or stream elsewhere. The gUM approach is more powerful but more complex, and it has more severe security issues.</p>
+  </section>
+</section>
+
+<section id="api">
+  <h2><code>getUserMedia</code> API <a href="#api" class="permalink">#</a></h2>
+
+  <p>Let&#8217;s assume (because we&#8217;re optimists) that your user has a <code>getUserMedia</code>-enabled device. The API is nice and simple, as all Web APIs should be.</p>
+
+  <p><code>navigator.getUserMedia</code> accepts two required arguments and an optional third.</p>
+
+  <p>The first argument tells the device <b>which media you require access to</b>, and it&#8217;s passed as a JavaScript object. So, if you only require access to the microphone, the first argument would be <code>{audio: true}</code>; for video-chatting, you would use <code>{audio: true, video: true}</code>.</p>
+
+  <p>The device decides which camera to use: <q>User agents are encouraged to default to using the user&#8217;s primary or system default camera and/or microphone (as appropriate) to generate the media stream.</q></p>
+
+  <p>A previous version of the specification allowed hints to user agents about which camera to use. The API could specify &#8220;user&#8221; (the front camera on a phone) or &#8220;environment&#8221; (the rear camera on a phone). Debate continues about whether to reinstate this (<a href="http://lists.w3.org/Archives/Public/public-media-capture/2012Jan/0014.html">read the ongoing conversation</a>). One argument against is that letting sites know what cameras a device has could help Dr Malice of Evil Corp. fingerprint users after luring them to his site (which I find to be overly-cautious). <a href="http://lists.w3.org/Archives/Public/public-media-capture/2012Jan/0018.html">Harald Alvestrand poses a conundrum</a>: <q>conferencing units may have a room camera, a document camera and a lectern camera, neither of which is attached to the physical box; which one of these is <q>front</q>?</q></p>
+
+  <p>But let&#8217;s not worry at the moment. Devices with more than one camera generally have a mechanism that allow the user to choose which one is used, so this gives the user control. Note also that the spec says <q>User agents may allow users to use any media source, including pre-recorded media files.</q></p>
+
+  <p>The second argument is the <b>success callback</b>, the function to be executed on success, assuming that the user allows access and the device supports your request.</p>
+
+  <p>There is an optional third argument. This is the <b>failure callback</b>, the function to be executed if something went wrong. It&#8217;s optional, but only optional in the sense that washing your hands before you eat is optional: if you don&#8217;t do it, you leave yourself open to all sorts of bugs and your mum will shout at you.</p>
+
+  <p>Of course, it&#8217;s important to do feature detection before making an API call to ensure that the browser and device are capable, but even if feature detection succeeds, there is still much that can cause failure. For example, the user could deny permission or turn off the camera via a hardware switch, or the device itself could disable the camera.</p>
+
+  <p>So here&#8217;s how we recommend you use the API:</p>
+
+  <figure>
+    <pre><code>navigator.getUserMedia({audio: true, video: true}, success, error);
+
+function success(stream) { 
+  // ... use 'stream' ... 
+} 
+
+function error(){ 
+  // display fallback content 
+}</code></pre>
+    <figcaption>Using the gUM API</figcaption>
+  </figure>
+
+  <p>To check whether it&#8217;s working correctly, we can attach the output of the camera&#8217;s stream to the input of an HTML5 video on the page, like this:</p>
+
+  <figure>
+    <pre><code>&lt;video autoplay&gt;&lt;/video&gt;
+&lt;script&gt;
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({audio: true, video: true}, success, error);
+  function success(stream)
+  { 
+    // ... use 'stream' ...
+    var video = document.getElementsByTagName('video')[];
+    video.src = stream; 
+  }
+  // ...
+&lt;/script&gt;</code></pre>
+    <figcaption>Streaming captured video to an HTML5 <code>&lt;video&gt;</code> element</figcaption>
+  </figure>
+
+  <section id="differences-between-webkit-and-opera">
+    <h3>Differences Between Webkit and Opera <a href="#differences-between-webkit-and-opera" class="permalink">#</a></h3>
+
+    <p>The two rendering engines that implement getUserMedia do so in two different ways. Hopefully, they&#8217;ll harmonise when the features reach the released browsers.</p>
+
+    <p>The differences:</p>
+
+    <ul>
+      <li>WebKit uses a prefix — <code>navigator.webkitGetUserMedia</code> — while Opera doesn&#8217;t.</li>
+      <li>
+        WebKit implements the options according to an old version of the spec, in which audio and video were passed as strings:
+        <pre><code>navigator.webkitGetUserMedia("video, audio", /* ... */)</code></pre>
+        whereas Opera implements the most recent version of the specification which uses JavaScript objects:
+        <pre><code>navigator.getUserMedia({video: true, audio: true}, /* ... */)</code></pre> (Added June 2012: Chrome 20+ uses the ({video: true, audio: true} syntax.)
+      </li>
+      <li>
+        WebKit attaches the resulting stream like this:
+        <pre><code>video.src = window.webkitURL.createObjectURL(stream);</code></pre>
+        which is according to the current version of the spec. Opera uses:
+        <pre><code>video.src = stream;</code></pre>
+        and has proposed simplifying the spec (but discussion continues).
+      </li>
+    </ul>
+
+    <p>But this fragmentation, even though it&#8217;s only in experimental browser releases is, like, a total drag, man.</p>
+  </section>
+
+  <section id="gUM-shield">
+    <h3>Introducing The gUM Shield <a href="#gUM-shield" class="permalink">#</a></h3>
+
+    <p>Fortunately, we&#8217;ve got your back. Two of the finest minds I know — actually, two of the finest <em>Mikes</em>, Doctor <a href="http://twitter.com/akamike">Mike Robinson</a> and Opera&#8217;s <a href="http://twitter.com/miketaylr">Mike Taylor</a> — have created a snippet of script that you can copy to shield you from these annoying differences. We&#8217;ve named this <code>getUserMedia</code> syntax normalisation script snippet <a href="https://gist.github.com/f2ac64ed7fc467ccdfe3">The gUM Shield</a>.
+
+    <p>It assumes that there&#8217;s a variable called <var>video</var> to which you&#8217;ve assigned a reference to the <code>&lt;video&gt;</code> element you&#8217;ll stream to. Do this with some mechanism like:</p>
+
+    <pre><code>video = document.getElementById('video');</code></pre>
+
+    <p>Simply <a href="https://gist.github.com/f2ac64ed7fc467ccdfe3">hit the &#8216;Hub</a>, download it, plug it into your script, and <a href="http://jsbin.com/avaxaq/edit#preview">check it out</a>!</p>
+
+    <p>Note that it&#8217;s <em>experimental</em>. Who knows what&#8217;ll happen when Mozilla, Microsoft, and Apple implement it, but please, have a play. Fork it and improve it!</p>
+  </section>
+</section>
+
+<sectino id="exciting">
+  <h2>Doing Exciting Things with the Video Stream <a href="#exciting" class="permalink">#</a></h2>
+
+  <p>So far, we&#8217;re only echoing the video stream. But, as you&#8217;ll know from Tab Atkins&#8217; guest article <a href="http://html5doctor.com/video-canvas-magic/">video + canvas = magic</a>, if we copy the video into a canvas, we can manipulate it:</p>
+
+  <figure>
+    <pre><code>var video = document.querySelector('video');
+var canvas = document.querySelector('canvas');
+var ctx = canvas.getContext('2d');
+
+ctx.drawImage(video, 0, 0, video.width, video.height,
+  0, 0, canvas.width, canvas.height);</code></pre>
+    <figcaption>Canvas and video magic</figcaption>
+  </figure>
+
+  <p>A common mistake is assuming that this somehow establishes a &#8220;live connection&#8221; between the video stream and the canvas. It doesn&#8217;t. It only grabs the current frame. So you need to grab the current frame repeatedly in order to replicate a video. The magical number is 15 times a second (or every 67 milliseconds), but a slower frame rate would probably be okay for this demo:</p>
+
+  <figure>
+    <pre><code>setInterval(function () { 
+  ctx.drawImage(video, 0, 0, video.width, video.height,
+  0, 0, canvas.width, canvas.height);
+},  67);</code></pre>
+    <figcaption>Live updating of <code>&lt;canvas&gt;</code> from a <code>&lt;video&gt;</code></figcaption>
+  </figure>
+
+  <p>See the <a href="http://jsbin.com/ahozok/edit#html,live">working demo</a>.</p>
+
+  <p>What I want to do now is to grab the dominant colour from the canvas. I&#8217;m stealing <a href="http://experimenting.in/exp/real-life-color-picker/">a demo by Shwetank Dixit</a> (who borrowed from <a href="http://www.lokeshdhakar.com/">Lokesh Dhakar</a>&#8216;s <a href="http://www.lokeshdhakar.com/2011/11/03/color-thief/">Color Thief demo</a>). We won&#8217;t look at how it determines the dominant colour (because that&#8217;s nothing to do with getUserMedia).</p>
+
+  <p><a href="http://html5doctor.com/demos/getusermedia/dominantcolor/">Try this in Opera Labs and Chrome Canary</a>!</p>
+
+  <p>Unfortunately, this works splendidly in Opera but it occasionally fails in Chrome, and we&#8217;re not sure why. (We&#8217;ve emailed the Chrome team to ask them.) Apart from the rather anti-climactic end to an article, you shouldn&#8217;t be dismayed by this. <code>getUserMedia</code> is only available in experimental builds that have plenty of work to be done before they hit production.</p>
+
+  <p>Back to our demo. Once you&#8217;ve got the dominant colour, you could prompt the user for a name for that colour (&#8220;carpet&#8221;, for example) and store that in local storage using its name as a key. Then, when you find a pair of curtains in the shop, you can find their dominant colour and easily compare it with that stored against &#8220;carpet&#8221; from earlier.</p>
+
+  <p>And you can return home, confident of delighting the love of your life with your chromatically appropriate choice of soft furnishings. That&#8217;s HTML5: enriching marriages since 2004.</p>
+
+  <img src="http://html5doctor.com/wp-content/uploads/2012/01/getUserMedia1.jpg" alt="woman says &#039;hey daddy-o, the curtains really razz my berries, ya dig?&#039;. Man replies &#039;Baby, I totally dig. Early night?&#039;. A thought bubble shows him thinking &#039;Thank you, getUserMedia&#039;" width="570" height="390" class="aligncenter size-full wp-image-4336" />
+</section>
+
+<section id="harshing-your-mellow">
+  <h2>Harshing Your Mellow <a href="#harshing-your-mellow" class="permalink">#</a></h2>
+
+  <p>Things need refining before web apps with <code>getUserMedia</code> are on a par with native applications. At the moment, there is no way of controlling which camera is to be used (and no agreement that a developer should be able to). The camera&#8217;s <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2011-July/032471.html">flash mechanism isn&#8217;t programmatically controllable</a>, which could harm the user experience. Most importantly are the privacy implications of web pages being able to access your camera. Opera has an <a href="http://dev.opera.com/articles/view/getusermedia-access-camera-privacy-ui/">experimental privacy UI</a>, but Chrome has no UI yet.</p>
+</section>
+
+<section id="demos">
+  <h2>More Demos <a href="#demos" class="permalink">#</a></h2>
+
+  <p>See Paul Neave&#8217;s <a href="http://neave.com/webcam/html5/">HTML5 Webcam Toy</a> and the links at the foot of my <a href="http://dev.opera.com/articles/view/getusermedia-access-camera-privacy-ui/">Opera Labs article</a>.</p>
+</section>
+
+<section id="thanks">
+  <h2>Thanks <a href="#thanks" class="permalink">#</a></h2>
+
+  <p>Thank for help and code are due to <a href="http://twitter.com/robinberjon">Robin Berjon</a>, <a href="http://twitter.com/shwetank">Shwetank Dixit</a>, <a href="http://twitter.com/ourmaninjapan">Daniel Davis</a>, <a href="http://www.lokeshdhakar.com/">Lokesh Dhakar</a>, <a href="http://twitter.com/miketaylr">Mike Taylor</a>, <a href="http://twitter.com/akamike">Mike Robinson</a>, and .</p>
+</section>
+<section>
+<h2>Addy Osmani&#8217;s Polyfill</h2>
+<p>Added 13 March 2012: Addy Osmani has published a <a href="https://github.com/addyosmani/getUserMedia.js">getUserMedia polyfill</a> called getUserMedia.js, which uses Flash if gUM isn&#8217;t available. It&#8217;s not ready for production yet, as IE is still being tested. Forkers may hit the &#8216;hub.
+</section><p><a href="http://html5doctor.com/getusermedia/" rel="bookmark">It&#039;s Curtains for Marital Strife Thanks to getUserMedia</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on February 7, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/responsive-images-end-of-year-report/"     class="crp_title">Responsive images – end of year report</a></li><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/getusermedia/feed/</wfw:commentRss>
+		<slash:comments>28</slash:comments>
+		</item>
+		<item>
+		<title>Server-Sent Events</title>
+		<link>http://html5doctor.com/server-sent-events/</link>
+		<comments>http://html5doctor.com/server-sent-events/#comments</comments>
+		<pubDate>Tue, 24 Jan 2012 14:30:33 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[eventsource]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[realtime]]></category>
+		<category><![CDATA[serversentevents]]></category>
+		<category><![CDATA[websockets]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=4181</guid>
+		<description><![CDATA[We've already had a glimpse at Server-Sent Events (also known as EventSource, and I'll switch between the two to keep you on your toes) in my Methods of Communication article from last year. In this article, I want to delve in to more detail about the SSE API, demonstrate its features, and even show you how to polyfill browsers that lack EventSource support.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;ve already had a glimpse at <a href="http://dev.w3.org/html5/eventsource/">Server-Sent Events</a> (also known as EventSource<sup>†</sup>, and I&#8217;ll switch between the two to keep you on your toes) in my <a href="http://html5doctor.com/methods-of-communication/">Methods of Communication</a> article from last year. In this article, I want to delve in to more detail about the SSE API, demonstrate its features, and even show you how to polyfill browsers that lack EventSource support.</p>
+
+<p>Server-Sent Events are real-time events emitted by the server and received by the browser. They&#8217;re similar to WebSockets in that they happen in real time, but they&#8217;re very much a one-way communication method <em>from</em> the server.</p>
+
+<p>These events are similar to ordinary JavaScript events that occur in the browser — like <em>click</em> events — except we can control the name of the event and the data associated with it.</p>
+
+<p>All the code for this article is <a href="https://github.com/remy/eventsource-h5d">available on github</a>, and a <a href="http://node.remysharp.com:8004/">live demo is available online</a>.
+<span id="more-4181"></span></p>
+
+<p><small>† Is it Server-Sent Events or EventSource? Well, they both work. Server-Sent Events is the name of the API and specification. EventSource is the name of the JavaScript object you&#8217;re instantiating. It&#8217;s a bit like Ajax and XHR, where XHR refers to the XMLHttpRequest object…kinda.</small></p>
+
+<p><small>Two notes: a) the uptime for this example is, I&#8217;m afraid, usually rather low — good for my server, bad for you. If you test the demo locally it will give you more interesting figures. b) IE6 isn&#8217;t supported in any of this article.</small></p>
+
+<p><section id="applications"></p>
+
+<h2>Possible Applications <a href="#applications" class="permalink">#</a></h2>
+
+<p>A few simple examples of applications that could make use of Server-Sent Events:</p>
+
+<ul>
+<li>A real-time chart of streaming stock prices</li>
+<li>Real-time news coverage of an important event (posting links, tweets, and images)</li>
+<li>A live Twitter wall fed by Twitter&#8217;s streaming API</li>
+<li>A monitor for server statistics like uptime, health, and running processes</li>
+</ul>
+
+<p>We&#8217;ll use the server monitor for this article&#8217;s examples. If this application were to be used in the wild, we could also check the <code>EventSource</code>&#8216;s connection state to indicate when there&#8217;s a potential problem connecting to the server.</p>
+
+<p></section></p>
+
+<p><section id="api"></p>
+
+<h2>Overview of the API <a href="#api" class="permalink">#</a></h2>
+
+<p>The client-side API is rather simple, and it hands-down beats the insane hacks required to get real-time events to the browser back in the bad old days.</p>
+
+<p>The main points of interest:</p>
+
+<ul>
+<li><code>new EventSource(url)</code> — this creates our <code>EventSource</code> object, which immediately starts listening for events on the given URL.</li>
+<li><code>readyState</code> — as with XHR, we have a <code>readyState</code> for the <code>EventSource</code> that tells us if we&#8217;re connecting (0), open (1), or closed (2).</li>
+<li><code>onopen</code>, <code>onmessage</code> — two events that we can listen for on the new <code>EventSource</code> object. By default, the <code>message</code> event will fire when new messages are received, <em>unless</em> the server explicitly sets the event type.</li>
+<li><code>addEventListener</code> — not only can we listen for the default <code>message</code> event, but we can also listen for custom messages using the <code>addEventListener</code> on the <code>EventSource</code> object, just as if we were listening for a <code>click</code> event.</li>
+<li><code>event.data</code> — as with most messaging APIs, the contents of the message reside in the <code>data</code> property of the <code>event</code> object. This is a string, so if we want to pass around an object, we need to encode and decode it with JSON.</li>
+<li><code>close</code> — closes the connection from the client side.</li>
+</ul>
+
+<p>In the future, EventSource will also support <a href="http://www.w3.org/TR/cors/">CORS</a> using an <code>options</code> argument to the <code>EventSource</code> object: <code>{ withCredentials: true }</code>. But at the time of writing, no stable release includes this property.</p>
+
+<p></section></p>
+
+<p><section id="example"></p>
+
+<h2>Simple Example <a href="#example" class="permalink">#</a></h2>
+
+<p>Our simple web app will notify us of server status messages — things like the load average, number of currently connected users, and most CPU-intensive processes. If I were using this application in anger, I&#8217;d probably build server modules that emit specific event types when they cross specific thresholds, so that I&#8217;m only notified when something gets to warning level.</p>
+
+<p>This snippet of JavaScript connects to our server, listens for messages, and handles the data that comes with the messages:</p>
+
+<pre><code>var source = new EventSource('/stats');
+source.onopen = function () {
+  connectionOpen(true);
+};
+
+source.onerror = function () {
+  connectionOpen(false);
+};
+
+source.addEventListener('connections', updateConnections, false);
+source.addEventListener('requests', updateRequests, false);
+source.addEventListener('uptime', updateUptime, false);
+
+source.onmessage = function (event) {
+  // a message without a type was fired
+};
+</code></pre>
+
+<p></section></p>
+
+<p><section id="properties"></p>
+
+<h2>Properties of Server-Sent Events <a href="#properties" class="permalink">#</a></h2>
+
+<p>Server-Sent Events are more than just a one-way web socket. They have some unique features:</p>
+
+<ul>
+<li>The connection stream is <em>from</em> the server and read-only. This suits lots of applications, some examples of which I listed above.</li>
+<li>They use regular HTTP requests for the persistent connection, not a special protocol, which means we can polyfill using vanilla JavaScript.</li>
+<li>If the connection drops, the <code>EventSource</code> fires an error event and automatically tries to reconnect. The server can also control the timeout before the client tries to reconnect.</li>
+<li>Clients can send a unique ID with messages. When a client tries to reconnect after a dropped connection, it will send the last known ID. Then the server can see that the client missed <em>n</em> messages and send the backlog of missed messages on reconnect.</li>
+</ul>
+
+<p></section></p>
+
+<p><section id="message-format"></p>
+
+<h2>Message Format <a href="#message-format" class="permalink">#</a></h2>
+
+<p>A simple message doesn&#8217;t require much:</p>
+
+<pre><code>data: this is a simple message
+&lt;blank line&gt;
+</code></pre>
+
+<p>Note that the end of a message is indicated by a blank line (obviously not the literal characters <code>&lt;blank line&gt;</code>).</p>
+
+<p>For a message with multiple lines:</p>
+
+<pre><code>data: this is line one
+data: and this is line two
+</code></pre>
+
+<p>You can send message IDs to be used if the connection is dropped:</p>
+
+<pre><code>id: 33
+data: this is line one
+data: this is line two
+</code></pre>
+
+<p>You can even send multiple messages in a single response so long as you separate the messages by blank lines:</p>
+
+<pre><code>id: 34
+data: Remy is awesome
+
+id: 35
+data: Bruce is stinky
+</code></pre>
+
+<p>And you can specify your own event types (the above messages will all trigger the <code>message</code> event):</p>
+
+<pre><code>id: 36
+event: price
+data: 103.34
+
+id: 37
+event: news
+data: Bruce sells his collection of replica bananas
+</code></pre>
+
+<p>You don&#8217;t have to worry about this structure on the client side. It only applies to the server, which I&#8217;ll touch on next.</p>
+
+<p></section></p>
+
+<p><section id="server"></p>
+
+<h2>Typical Server <a href="#server" class="permalink">#</a></h2>
+
+<p>I&#8217;m not going to give a full walkthrough of the server-side code, since this is an HTML5 web site :) But there are a few important and simple features that you need to know to build the server (you&#8217;ll need this part anyway if you&#8217;re going to use EventSource).</p>
+
+<p>I&#8217;ve included <a href="https://github.com/remy/eventsource-h5d">all the files for this demo on GitHub</a> for you to peruse at your own leisure, and I&#8217;ve also deployed a <a href="http://node.remysharp.com:8004">live example of this code</a>.</p>
+
+<p>Ideally, you should use a server that has an <a href="http://en.wikipedia.org/wiki/Event_loop">event loop</a>. This means you should <em>not</em> use Apache, but instead use a platform such as <a href="http://nodejs.org">Node.js</a> (which I&#8217;ve used) or <a href="http://twistedmatrix.com/trac/">Twisted</a> for Python.</p>
+
+<p>Key properties:</p>
+
+<ol>
+<li>You can only accept EventSource requests if the HTTP request says it can accept the <code>event-stream</code> MIME type.</li>
+<li>You need to maintain a list of all the connected users in order to emit new events.</li>
+<li>You should listen for dropped connections and remove them from the list of connected users.</li>
+<li>You should optionally maintain a history of messages so that reconnecting clients can catch up on missed messages.</li>
+</ol>
+
+<p>Here&#8217;s a sample of my Node.js based server.  It&#8217;s using <a href="http://senchalabs.github.com/connect/">Connect</a> (a simple webby framework for Node). When it receives a request for <code>/stats</code>, it calls the following function. I&#8217;ve commented the code so you can follow along:</p>
+
+<pre><code>function stats(request, response) {
+  // only response to an event-stream if the request 
+  // actually accepts an event-stream
+  if (request.headers.accept == 'text/event-stream') {
+
+    // send the header to tell the client that we're going
+    // to be streaming content down the connection
+    response.writeHead(200, {
+      'content-type': 'text/event-stream',
+      'cache-control': 'no-cache',
+      'connection': 'keep-alive'
+    });
+
+    // support the polyfill - we'll come on to this later
+    if (request.headers['x-requested-with'] == 'XMLHttpRequest') {
+      response.xhr = null;
+    }
+
+    // if there was a lastEventId sent in the header, send
+    // the history of messages we've already stored up
+    if (request.headers['last-event-id']) {
+      var id = parseInt(request.headers['last-event-id']);
+      for (var i = 0; i &lt; history.length; i++) {
+        if (history[i].id &gt;= id) {
+          sendSSE(response, history[i].id, history[i].event, history[i].message);
+        }
+      }
+    } else {
+      // if the client didn't send a lastEventId, it's the
+      // first time they've come to our service, so send an
+      // initial empty message with no id - this will reset
+      // their id counter too.
+      response.write('id\n\n');
+    }
+
+    // cache their connection - the response is where we write
+    // to send messages
+    connections.push(response);
+
+    // send a broadcast message to all connected clients with
+    // the total number of connections we have.
+    broadcast('connections', connections.length);
+
+    // if the connection closes to the client, remove them
+    // from the connections array.
+    request.on('close', function () {
+      removeConnection(response);
+    });
+  } else {
+    // if the client doesn't accept event-stream mime type,
+    // send them the regular index.html page - you could do
+    // anything here, including sending the client an error.
+    response.writeHead(302, { location: "/index.html" });
+    response.end();
+  }
+}
+</code></pre>
+
+<p>The important trick on the server is to ensure you <em>don&#8217;t</em> close the connection to the <code>EventSource</code> object. If you do, it will of course handle the closed connection, fire an error event, and try to reconnect. So you&#8217;ll just want to maintain the persistent connection.</p>
+
+<p></section></p>
+
+<p><section id="polyfills"></p>
+
+<h2>Polyfills and Tweaks to the Server <a href="#polyfills" class="permalink">#</a></h2>
+
+<p>There are two good polyfills I know of, and though I prefer the one I wrote, I&#8217;ll still lay them both out for you.</p>
+
+<p><section id="yaffle"></p>
+
+<h3>Yaffle&#8217;s Polyfill <a href="#yaffle" class="permalink">#</a></h3>
+
+<p>The first is one by <a href="https://github.com/Yaffle">Yaffle</a> (on github), available on <a href="https://github.com/Yaffle/EventSource">github/Yaffle/eventsource</a>. </p>
+
+<p>The cons:</p>
+
+<ul>
+<li>It doesn&#8217;t send the <code>accepts</code> header, and</li>
+<li>It completely replaces the <code>EventSource</code> object, so even if your browser supports <code>EventSource</code> natively, this script will replace it. But there&#8217;s a good reason for that.</li>
+</ul>
+
+<p>The pros:</p>
+
+<ul>
+<li>It maintains a persistent connection (whereas the one we&#8217;re using doesn&#8217;t), and</li>
+<li>More interestingly, it supports CORS (which I imagine is why it replaces the native <code>EventSource</code>).</li>
+</ul>
+
+<p>These two pros are quite compelling. But when I was testing, I couldn&#8217;t get it working in IE7 (which was my minimum browser target), so that might be a blocker for you…or not.</p>
+
+<p></section></p>
+
+<p><section id="remy"></p>
+
+<h3>Remy&#8217;s Polyfill <a href="#remy" class="permalink">#</a></h3>
+
+<p>The second is my own, available on <a href="https://github.com/remy/polyfills/blob/master/EventSource.js">github.com/remy/polyfills</a>.</p>
+
+<p>The cons:</p>
+
+<ul>
+<li>It uses polling, so once a small group of messages come down, it re-establishes the connection, which could lead to significant overhead (though less so on a Node-based server). You have to add about 4 extra lines to your server code.</li>
+</ul>
+
+<p>The pros:</p>
+
+<ul>
+<li>It doesn&#8217;t replace the native <code>EventSource</code> object (but that also implies that, for now, it won&#8217;t support CORS), and</li>
+<li>It supports IE7.</li>
+</ul>
+
+<p><small>Retrospectively, I might choose Yaffle&#8217;s polyfill over mine in the future if I wasn&#8217;t bothered about IE7 support.</small></p>
+
+<p></section></p>
+
+<p><section id="using-the-polyfill"></p>
+
+<h3>Using the Polyfill <a href="#using-the-polyfill" class="permalink">#</a></h3>
+
+<p>By including the <code>EventSource.js</code> JavaScript library before my client-side code, I just need a couple of small changes to my server-side code. Other than that, everything on the client side works without any changes (as a polyfill <em>should</em> work).</p>
+
+<p>When posting the server&#8217;s reply to the client, instead of keeping the connection open, I include the following in my server when it&#8217;s finished writing the response:</p>
+
+<pre><code>// send the data (event type, id, message, etc)
+response.write(data);
+
+// if our response contains our custom xhr property, then...
+if (response.hasOwnProperty('xhr')) {
+  // clear any previous timers using the xhr prop as the value
+  clearTimeout(response.xhr);
+
+  // now set a timer for 1/4 second (abritrary number) that
+  // then closes the connection and removes itself from the
+  // connection array.
+  // The delay is in place so that a burst of messages can 
+  // go out on the same connection *before* it's closed.
+  response.xhr = setTimeout(function () {
+    response.end();
+    removeConnection(response);
+  }, 250);
+}
+</code></pre>
+
+<p></section>
+</section></p>
+
+<p><section id="bugs"></p>
+
+<h2>Bugs? <a href="#bugs" class="permalink">#</a></h2>
+
+<p>The <code>error</code> event should always fire when the <code>readyState</code> changes, assuming you didn&#8217;t explicitly call the <code>close</code> method. This works nearly all the time, but in writing this article, I found a few edge cases where it doesn&#8217;t fire. In Chrome, if I put my machine to sleep and then woke it back up, it would close the connection but not fire the event, therefore never triggering a reconnection. As I said, this is an edge case and I&#8217;ll file a bug against it, so I don&#8217;t expect it to hang around for long.</p>
+
+<p></section></p>
+
+<p><section id="why-not-websockets"></p>
+
+<h2>Why Not Use WebSockets? <a href="#why-not-websockets" class="permalink">#</a></h2>
+
+<p>There are two reasons I&#8217;d advocate using EventSource over WebSockets, as they&#8217;re currently the two contenders for sending real-time events to the browser.</p>
+
+<p>The first is that EventSource (as we saw earlier) works over regular HTTP and can therefore be replicated entirely using JavaScript if it&#8217;s not available natively. That means that we can polyfill browsers without support, like IE9.</p>
+
+<p>The second is probably more important: you should always use the right technology for the job. If your real-time data is sourced from your web site, <em>and</em> the user doesn&#8217;t interact in real-time, it&#8217;s likely you need Server-Sent Events. </p>
+
+<p>I recently saw a cool <a href="http://paynedigital.com/2011/12/nodeflakes">demo of snowflakes</a> drifting down a web site. Each snowflake is a tweet based around the Christmas theme — like if someone mentions a particular Christmas-y term, it&#8217;s sucked in to the snowflake. Don&#8217;t get me wrong, I know this is a demo, and it&#8217;s very cool (if you wrote it, this is me sending you hugs), but it&#8217;s based on WebSockets. I&#8217;d suggest this demo should be based on EventSource since all the data is read-only and the user doesn&#8217;t interact with it at all.</p>
+
+<p>The point: evaluate the technology against your problem, and aim to get good fit.</p>
+
+<p></section></p>
+<p><a href="http://html5doctor.com/server-sent-events/" rel="bookmark">Server-Sent Events</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on January 24, 2012.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/interview-steve-faulkner-html5-editor-new-doctor/"     class="crp_title">Interview with Steve Faulkner: HTML5 editor and new doctor</a></li><li><a href="http://html5doctor.com/cite-and-blockquote-reloaded/"     class="crp_title">cite and blockquote &#8211; reloaded</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/server-sent-events/feed/</wfw:commentRss>
+		<slash:comments>53</slash:comments>
+		</item>
+		<item>
+		<title>Pushing and Popping with the History API</title>
+		<link>http://html5doctor.com/history-api/</link>
+		<comments>http://html5doctor.com/history-api/#comments</comments>
+		<pubDate>Tue, 15 Nov 2011 13:09:47 +0000</pubDate>
+		<dc:creator><![CDATA[Mike Robinson]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[history]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3897</guid>
+		<description><![CDATA[Until recently, we developers couldn’t to do much with the state and history of the browser. We could check the number of items in the history and push users forwards and backwards, but this provides little benefit to the user. With the rise of more dynamic web pages, we need more control. Thankfully, HTML5 gives [&#8230;]<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Until recently, we developers couldn’t to do much with the state and history of the browser. We could check the number of items in the history and push users forwards and backwards, but this provides little benefit to the user. With the rise of more dynamic web pages, we need more control. Thankfully, HTML5 gives us that control by extending the JavaScript History API.</p>
+<section id="the-point">
+<h2>What’s the point? <a class="permalink" href="#the-point">#</a></h2>
+<p>It goes without saying that URLs are important. They’re <em>the</em> method of accessing the vast collections of information and resources on the web, and more recently, they’ve begun representing the intended state of a web application. You can copy these URLs and share them with your friends or use them to create links from any HTML document. They’re the veins of the web, and they need to be looked after.</p>
+<p>Previously, the JavaScript History API offered some very simple functionality:</p>
+<pre><code>// Check the length of the history stack
+console.log(history.length);
+
+// Send the user agent forward
+console.log(history.forward());
+
+// Send the user agent back
+console.log(history.back());
+
+// Send the user agent back (negative) or forward (positive)
+// by a given number of items
+console.log(history.go(-3));
+</code></pre>
+<p>With dynamic Ajax web applications, where the browser updates the page in parts instead of changing location entirely, it’s difficult to give the user a URL to bookmark or share the current application state. <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#the-id-attribute">Fragment identifiers</a>, like those used on this article’s headings via the <code>id</code> attribute, provide some state information, but they’re entirely dependent on client-side scripts.</p>
+<p>The changes to the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html">History API</a> are intended to give developers ways to push history items to the browser so the native back and forward actions can cycle through those items. These history items can also hold data that you can later extract to restore the page state.</p>
+<blockquote>
+<p>Pages can <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#dom-history-pushstate" title="dom-history-pushState">add</a> <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#state-object" title="state object">state objects</a> between their entry in the session history and the next (“forward”) entry. These are then <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#event-popstate" title="event-popstate">returned to the script</a> when the user (or script) goes back in the history, thus enabling authors to use the “navigation” metaphor even in one-page applications.</p>
+<footer>&#8211; <cite><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html" title="6.4 Session history and navigation">WHATWG</a></cite></footer>
+</blockquote>
+<p>If the user copies or bookmarks a stateful URL and visits it later, your back-end can be configured to interpret such a URL and jump the user right to the correct page and/or state.</p>
+<p>In this article, I’ll cover the client-side use of the History API, so make sure you set up your server to work with the new URLs. If you’ve already built an accessible website that provide these entry points, you’re laughing!</p>
+<section id="those-fking-hashbangs">
+<h4>Those <em>f#!king</em> hashbangs… <a class="permalink" href="#those-fking-hashbangs">#</a></h4>
+<p>You may have already seen articles fussing over the adoption of the “hashbang” (#!) pattern on sites like <a href="http://twitter.com">Twitter</a>. This technique updates the address bar with a fragment identifier that can then be used by JavaScript to determine which page and state should be displayed.</p>
+<p>This works as a method of creating a bookmarkable, shareable URL for a page’s state in the absense of a standard API. While the Twitter implementation accepts both <code>http://twitter.com/#!/akamike</code> and <code>http://twitter.com/akamike</code>, it has some disadvantages:</p>
+<ul>
+<li>The fragment identifier is only accessible on the client side. This means that only JavaScript can utilise it, so browsers without JavaScript enabled are out of luck.</li>
+<li>As the server does not receive the path following the hashbang, removing that JavaScript drops support for all those URLs. That’s a lot of broken links, so you’re stuck with that JavaScript <em>forever</em>.</li>
+<li>It’s ugly. It’s a hack and it looks like one.</li>
+</ul>
+<p>The hashbang was never intended to be a long-term solution, so don’t rely on it. If you do use hashbangs, be prepared to deal with the consequences (and possible backlash from web purists).</p>
+</section>
+</section>
+<section id="making-history">
+<h2>Making History <a class="permalink" href="#making-history">#</a></h2>
+<p>These examples will build on top of each other. We’ll start with a <a href="http://html5doctor.com/wp-content/uploads/2011/10/history_base.html">basic HTML document</a> with some inline styles and scripts for your convenience.</p>
+<aside class="sidenote">
+<p>For a simple HTTP server, open the command line, <code>cd</code> to the directory you would like to serve, run <code>python -m SimpleHTTPServer 8080</code>, then open <code>localhost:8080</code> in your browser. Alternatively, try a bundled setup like <a href="http://www.apachefriends.org/en/xampp.html">XAMPP</a> or <a href="http://www.mamp.info/en/index.html">MAMP</a>.</p>
+</aside>
+<p>Save this file and open it in your favourite editor. It must be accessed via HTTP, so that means you need either a local server (e.g. <code>http://localhost/</code>) or an online web server you can upload to. <strong>Viewing the file directly using your browser’s Open File function will not work</strong>, since it uses the <code>file://</code> protocol and not HTTP. Also be sure to update the <code>href</code> attributes on each of the navigation links to ensure the correct directory structure is used. Personally, I’m viewing the demo locally at <code>http://localhost/history</code>.</p>
+<p>We’ll be working exclusively within the <code>&lt;script&gt;</code> element at the end of the <code>&lt;body&gt;</code>. The code includes some simple styles and dynamically changes the content as you click the links. In reality, this could be loaded from your server via <code>XMLHttpRequest</code>, but for the purposes of this demonstration I’ve bundled it up into a self-contained file. The important part is that we have a quick-and-dirty dynamic page to work with, so let the fun begin!</p>
+<p>At the moment there, is no bookmarkable URL for the different states of this page. If you click around the navigation items, then click Back in your browser, you won’t be taken back to the previous state and may even be taken away from the page to whatever you viewed before (depending on your browser). It would be nice if you could share “Socks” with your friends, right? We can do that via <code>history.pushState()</code>.</p>
+<p>The <code>history.pushState()</code> method takes three parameters:</p>
+<dl>
+<dt><code>data</code></dt>
+<dd>Some structured data, such as settings or content, assigned to the history item.</dd>
+<dt><code>title</code></dt>
+<dd>The name of the item in the history drop-down shown by the browser’s back and forward buttons. (Note: this is not currently supported by any major browsers.)</dd>
+<dt><code>url</code> <em>(optional)</em></dt>
+<dd>The URL to this state that should be displayed in the address bar.</dd>
+</dl>
+<p>With these parameters, you can define the state of the page, give that state a name, and even provide a bookmarkable address, as if the page had reloaded entirely. Let’s dive right in and add this to the <code>clickHandler</code> function, right above the <code>return</code> statement:</p>
+<figure>
+<pre><code>function clickHandler(e) {
+  /* Snip... */
+
+  // Add an item to the history log
+  history.pushState(data, event.target.textContent, event.target.href);
+
+  return event.preventDefault();
+}
+</code></pre>
+</figure>
+<p>The single line of code we added informs the <code>history</code> object that:</p>
+<ul>
+<li>we want to add an item to the log,</li>
+<li>it should remember the data that we’ve already loaded,</li>
+<li>it should assign a name to this state based on the text of the link we clicked (even though this isn’t used — it’s good to get into the habit of recording a name for the state), and</li>
+<li>it should update the address bar with the <code>href</code> attribute of that link.</li>
+</ul>
+<p>Reload the page in your browser and click a few of the links, keeping an eye on the address bar. Notice how it changes on each click, despite the fact that you aren’t actually navigating away from this page. If you also have a look at your history log, you’ll see a long list of page titles (in this case ”Kittens!” over and over). Provided your server is set up to serve the correct page upon access, the user could copy that URL and paste it into a new browser window to jump straight to that kitten.</p>
+<p>At the moment, clicking the back button will pop you through the history items, but the page won’t react to these changes. That&#8217;s because so far, we’ve only created the history records. How can we allow active users to return to a previous state? We listen to the <code>popstate</code> event.</p>
+</section>
+<section id="historical-events">
+<h2>Historical Events in Navigation <a class="permalink" href="#historical-events">#</a></h2>
+<p>The user agent fires a <code>popstate</code> event when the user navigates through their history, whether backwards or forwards, provided it isn’t taking the user away from the current page. That is, all those <code>pushState</code>s we called will keep the user on the current page, so the <code>popstate</code> event will fire for each history item they pop through.</p>
+<p>Before the closing <code>&lt;/script&gt;</code> tag, add a new listener for the <code>popstate</code> event:</p>
+<figure>
+<pre><code>// Revert to a previously saved state
+window.addEventListener('popstate', function(event) {
+  console.log('popstate fired!');
+
+  updateContent(event.state);
+});
+</code></pre>
+</figure>
+<p>We attach the event listener to the <code>window</code>, which is responsible for firing the event, and pass this event into our handler. We log a message (so we can see when this event is firing), and then we update the content using the state we saved previously. The state is attached to the <code>event</code> object via the <code>state</code> property.</p>
+<p>Open up the page fresh in your browser, click around like before, and then click back. As before, the URL in the address bar changes as you cycle through states, but now the content is also restored back to what it should be. Click forward, and the content is likewise correctly restored.</p>
+<div class="callout warning-block">
+<p>If you look at the developer console in Chrome when you load the page for the first time, you’ll see the <code>popstate</code> event fired immediately, before you’ve even clicked a link. This is because Chrome considers the initial page load to be a change in state, and so it fires the event. In this instance, the <code>state</code> property is <code>null</code>, but thankfully the <code>updateContent</code> function deals with this. Keep this in mind when developing as it could catch you out, especially if other browsers assume this behavior.</p>
+</p></div>
+</section>
+<section id="rewriting-history">
+<h2>Rewriting history <a class="permalink" href="#rewriting-history">#</a></h2>
+<p>Unfortunately, as fantastic as HTML5 is, it doesn’t allow us actual time travel. If it did, I would be going back to my childhood and telling a younger me, “Yes, you should have a slice of cake”. Take that as you will.</p>
+<p>The History API does, however, allow us to make amends to our history log items. For example, we could update the current state in response to fresh user input in a form. We can do this with <code>history.replaceState</code>.</p>
+<p><code>replaceState</code> works just as <code>pushState</code> does, with the exact same parameters, except that it updates the current entry instead of adding a new one. I can think of one situation in our demo where this could be used: the initial page load. If you click back for long enough, you’ll find that going back to the original URL doesn’t provide you the original content. Let’s fix that by adding the following to the bottom of our script:</p>
+<figure>
+<pre><code>// Store the initial content so we can revisit it later
+history.replaceState({
+  content: contentEl.textContent,
+  photo: photoEl.src
+}, document.title, document.location.href);
+</code></pre>
+</figure>
+<p>As this runs when the page loads, it saves the initial page state. We can later load this state when the user browses back to this point via the event listener we set up previously. You can try it out by loading up the page, clicking a few links, and then hitting back until you return to the original URL. The initial content has returned!</p>
+</section>
+<section id="demo">
+<h2>Demo <a class="permalink" href="#demo">#</a></h2>
+<p>I’ve set up a demo of our completed code. I’ve also added a little back-end magic to make our <code>history.pushState</code> URLs work like a real site. Remember that the URLs you push should be live URLs that the user can bookmark and share as real entry points to your site.</p>
+<p class="btn half"><a href="http://html5doctor.com/demos/history/">View the History API demo</a></p>
+</section>
+<section id="browser-support">
+<h2>Browser support <a class="permalink" href="#browser-support">#</a></h2>
+<p>Up-to-date copies of Chrome (5+), Safari (5.0+), Firefox (4.0+), and Opera (11.50+) have support for the new History API. Even some mobile browsers work just fine, like Mobile Safari on iOS 4+. Unfortunately, IE 9 and below lack support, but it  when it arrives.</p>
+<p>Safari 5.0 sometimes exhibits one oddity: navigating between states causes the loading spinner to appear and stay even when the state has been loaded. This stops when you navigate away using a link or action that does not involve a state saved by the History API.</p>
+<section id="polyfill">
+<h3>Polyfill <a class="permalink" href="#polyfill">#</a></h3>
+<p>A polyfill does exist for the History API. The aptly named <a href="https://github.com/balupton/history.js">History.js</a> uses HTML4’s <code>hashchange</code> event with document fragment identifiers to mimic the history API in older browsers. If one of the hash URLs is used by a modern browser, it uses <code>replaceState</code> to quietly correct the URL.</p>
+<p>It sounds like magic, but make sure you’re aware of the consequences of using fragment identifiers, as mentioned previously in this article. As such, the author of History.js has put together a guide titled <a href="https://github.com/balupton/history.js/wiki/Intelligent-State-Handling">Intelligent State Handling</a>.</p>
+</section>
+</section>
+<section id="closing">
+<h2>Closing thoughts <a class="permalink" href="#closing">#</a></h2>
+<p>URLs go beyond just the browsing session of a user. They’re historically important markers for resources that could very well remain in use for many years to come. Before you embark on developing your site’s JavaScript, you should give thought to the <a href="http://warpspire.com/posts/url-design/">design of your URLs</a>. Make them meaningful and organised. Make sure you can directly access them without JavaScript. Only then should you add your JavaScript to enhance the browsing experience.</p>
+</section>
+<p><a href="http://html5doctor.com/history-api/" rel="bookmark">Pushing and Popping with the History API</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on November 15, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/the-main-element/"     class="crp_title">The main element</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/history-api/feed/</wfw:commentRss>
+		<slash:comments>26</slash:comments>
+		</item>
+		<item>
+		<title>Storing Data the Simple HTML5 Way (and a few tricks you might not have known)</title>
+		<link>http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/</link>
+		<comments>http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/#comments</comments>
+		<pubDate>Tue, 23 Aug 2011 14:00:36 +0000</pubDate>
+		<dc:creator><![CDATA[Remy Sharp]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[storage]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3600</guid>
+		<description><![CDATA[This post is about the Web Storage API. Technically it's been shifted out of the HTML5 specification and can now be found in it's very own dedicated spec. But if it counts at all - it *used* to be part of the Web Applications spec.<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[<p>Yes indeed people, it&#8217;s your favourite HTML5 Doctor with JavaScript knowledge who lives in Brighton near a golf course! I&#8217;m also shooting for the longest title we&#8217;ve published so far &#8211; and I think I&#8217;m in the lead.</p>
+
+<p>This post is about the Web Storage API. Technically it&#8217;s been shifted out of the HTML5 specification and can now be found in it&#8217;s very own dedicated spec. But if it counts at all &#8211; it <em>used</em> to be part of the Web Applications spec.</p>
+
+<p>Web Storage is a very, <strong>very</strong> simple way to store data in the client &#8211; i.e. the browser. What&#8217;s more, the support is fabulous: IE8 and upwards has support natively, and there&#8217;s lots of good <a href="http://remysharp.com/2010/10/08/what-is-a-polyfill/">polyfills</a> in the <a href="http://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">wild already</a>.</p>
+
+<p>This post however will just focus on the features of Web Storage and hopefully show you a trick or two you may not have known about.</p>
+
+<h2>What Web Storage Does</h2>
+
+<p>Using JavaScript, Web Storage makes it possible to easily store arbitrary values in the browser. Storage is different from cookies in that it&#8217;s <em>not shared</em> with the server. It&#8217;s also different from cookies in that it&#8217;s dead simple to work with.</p>
+
+<p>There are two versions of Web Storage: local and session. Local means that it&#8217;s persistent, and session is simply that the data is lost when the session ends (i.e. when you close you browser window or tab). It&#8217;s also worth noting that a session is tied to a single browser window or tab. The session <em>doesn&#8217;t</em> leak out in to other open windows on that same domain.</p>
+
+<p>Any data stored is tied to the document origin, in that it&#8217;s tied to the specific protocol (http or https, etc), the host (html5doctor.com) and the port (usually port 80).</p>
+
+<h2>Get Storing</h2>
+
+<p>The API for <code>localStorage</code> and <code>sessionStorage</code> is exactly the same, and distills down to the following methods:</p>
+
+<ul>
+<li>.setItem(key, value);</li>
+<li>.getItem(key)</li>
+<li>.removeItem(key)</li>
+<li>.clear()</li>
+<li>.key(index)</li>
+<li>.length</li>
+</ul>
+
+<p>You can probably guess what most of those methods do, maybe not the last two, but ignore all that syntax for a moment.</p>
+
+<p>Due to the way that the storage API has been defined, the set/get/remove methods all are getters, setters and deleters. What that means to you is you can use localStorage <a href="http://jsconsole.com/?localStorage.name%20%3D%20'Remy'%3B">as follows</a>:</p>
+
+<pre><code>localStorage.name = 'Remy';
+</code></pre>
+
+<p>If you tried using the link above, this will save a property called &#8220;name&#8221; against localStorage. Completely closing your browser, and going back to <a href="http://jsconsole.com">http://jsconsole.com</a> and <a href="http://jsconsole.com/?console.log(localStorage.name)%3B">test the name property again</a>:</p>
+
+<pre><code>console.log(localStorage.name);
+</code></pre>
+
+<p>Still holds the value doesn&#8217;t it? Pretty easy eh? And no faffing around with cookies, for that, we can be thankful!</p>
+
+<p>Equally deleting data is <a href="http://jsconsole.com/?delete%20localStorage.name%3B%20localStorage.name">very easy</a>:</p>
+
+<pre><code>delete localStorage.name;
+console.log(localStorage.name);
+</code></pre>
+
+<p>You&#8217;ll see the value is undefined. </p>
+
+<p>What&#8217;s happening under the hood is that when you set a property on <code>localStorage</code> (or <code>sessionStorage</code>) it&#8217;s calling the .setItem method. When you get a property, it&#8217;s calling .getItem and when you delete, it&#8217;s calling removeItem. That way you can treat the Web Storage interface as any other regular object in JavaScript, except you&#8217;ll know it&#8217;ll hang around after the page has unloaded.</p>
+
+<h2>Hey everyone! I&#8217;m storing some data!</h2>
+
+<p>That&#8217;s what your browser does when you store some data. It announces it via events. </p>
+
+<p>When you set some data on localStorage or sessionStorage, an event, called &#8220;storage&#8221;, fires on all the other windows on the same origin.</p>
+
+<p>To listen for events the following code is used:</p>
+
+<pre><code>function storageEvent(event) {
+  event = event || window.event; // give IE8 some love
+  alert('Yo people! Something just got stored!');
+}
+
+if (window.attachEvent) { // ::sigh:: IE8 support
+   window.attachEvent('onstorage', storageEvent);
+} else {
+    window.addEventListener('storage', storageEvent, false);
+}
+</code></pre>
+
+<p><small>Note that as IE8 has support, if you don&#8217;t want to use <code>onstorage</code> you&#8217;ll want to double up your event listeners with <code>attachEvent</code>.</small></p>
+
+<p>Clearly a massive alert box isn&#8217;t useful, but what is useful is what you capture inside of the event object:</p>
+
+<ul>
+<li>key &#8211; the property name of the value stored</li>
+<li>newValue &#8211; the newly set value (duh!)</li>
+<li>oldValue &#8211; the previous value before being overwritten by .newValue</li>
+<li>url &#8211; the full url path of the origin of the storage event</li>
+<li>storageArea &#8211; the storage object, either localStorage or sessionStorage</li>
+</ul>
+
+<p>With this information, you can do a lot with the storage event, like perhaps keep tabs that are open synchronised. Here&#8217;s a simple, contrived example of using localStorage to echo a value across different windows on <a href="http://html5demos.com/storage-events">html5demos.com</a>. </p>
+
+<p>Or for a real world example, <a href="http://blog.fontdeck.com/post/8470748087/localstorage">Font Deck recently implemented this very feature</a>, if you change the sample text in one window, all other open tabs (or windows) mirror that <a href="http://fontdeck.com/typefaces/serif/garalde">same sample text</a>.</p>
+
+<h2>Gotchas to watch out for</h2>
+
+<p>The main gotcha with Web Storage is that although the specification <em>used to say</em><sup>&dagger;</sup> that any object type can be stored, in fact all browsers currently coerce to strings. That means if you want to store a JavaScript object (or an array perhaps), you&#8217;ll need to use <a href="http://www.json.org/">JSON</a> to <a href="http://jsbin.com/elicop/edit#preview">encode and decode</a>:</p>
+
+<pre><code>var doctors = [
+  'rem', 
+  'rich_clark', 
+  'brucel', 
+  'jackosborne', 
+  'leads', 
+  'akamike', 
+  'boblet'];
+localStorage.doctors = JSON.stringify(doctors);
+
+// later that evening…
+var html5docs = JSON.parse(localStorage.doctors);
+alert('There be ' + html5docs.length + ' doctors in the house');
+</code></pre>
+
+<p><small>&dagger; Edited thanks to <a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/#comment-17291">feedback</a> from zcorpan</small></p>
+
+<p>When working with storage events, a couple of things to also watch out for &#8211; this is on purpose of course, but still just about qualify for gotcha status:</p>
+
+<ol>
+<li>The event only fires on the <em>other</em> windows &#8211; it won&#8217;t fire on the window that did the storing.</li>
+<li>The event won&#8217;t fire if the data doesn&#8217;t change, i.e. if you store .name = &#8216;Remy&#8217; and set it to &#8216;Remy&#8217; again it won&#8217;t fire the storage event (obviously, since nothing was stored).</li>
+</ol>
+
+<h2>and finally&#8230;</h2>
+
+<p>If you want to use web storage in browsers like IE6 and IE7 (or rather than <em>want</em>: <em>need</em> to in your particular case) &#8211; then there&#8217;s no shortage of polyfills for Web Storage. However be wary that you&#8217;ll need to stick to the regular <code>setItem</code> syntax rather than being able to use the sexy setter/getter syntax &#8211; and I&#8217;ve yet to see a polyfill that supports the storage events.</p>
+
+<p>Maybe that isn&#8217;t a problem for you though &#8211; maybe the sheer simplicity and spiffingness of Web Storage is enough to just support IE8 and above with this enhanced client storage model.</p>
+<p><a href="http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/" rel="bookmark">Storing Data the Simple HTML5 Way (and a few tricks you might not have known)</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on August 23, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li><li><a href="http://html5doctor.com/on-html-belts-and-aria-braces/"     class="crp_title">On HTML belts and ARIA braces (The Default Implicit ARIA&hellip;</a></li><li><a href="http://html5doctor.com/the-ride-to-5/"     class="crp_title">The ride to 5</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/storing-data-the-simple-html5-way-and-a-few-tricks-you-might-not-have-known/feed/</wfw:commentRss>
+		<slash:comments>32</slash:comments>
+		</item>
+		<item>
+		<title>Finding your position with Geolocation</title>
+		<link>http://html5doctor.com/finding-your-position-with-geolocation/</link>
+		<comments>http://html5doctor.com/finding-your-position-with-geolocation/#comments</comments>
+		<pubDate>Tue, 14 Jun 2011 14:35:07 +0000</pubDate>
+		<dc:creator><![CDATA[Ian Devlin]]></dc:creator>
+				<category><![CDATA[JavaScript APIs]]></category>
+		<category><![CDATA[api]]></category>
+		<category><![CDATA[geolocation]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=3324</guid>
+		<description><![CDATA[<p>The Geolocation API provides a method to locate the user's exact (more or less - see below) position. This is useful in a number of ways ranging from providing a user with location specific information to providing route navigation.</p><div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></description>
+				<content:encoded><![CDATA[		<p>The Geolocation API provides a method to locate the user&#8217;s exact (more or less &#8211; see below) position. This is useful in a number of ways ranging from providing a user with location specific information to providing route navigation.</p>
+		
+		<p>Although it&#8217;s not actually part of the HTML5 specification, as it was developed as a separate specification by the <a href="http://dev.w3.org/geo/api/spec-source.html">W3C</a>, rather than the <a href="http://www.whatwg.org/">WHATWG</a>, if the esteemed HTML5 Doctors <A href="http://html5doctor.com/author/remys/">Remy Sharp</a> and <a href="http://html5doctor.com/author/brucel/">Bruce Lawson</a> felt it was fitting enough to include in <a href="http://introducinghtml5.com/">their book</a>, then it&#8217;s perfectly ok to write about it here.</p>
+		<p>The API is actually remarkably simple to use and this article aims to introduce the API and show just how easy it is.</p>	
+	
+		<section>
+			<h2>Browser Compatibility</h2>		
+			<p>Currently the W3C Geolocation API is supported by the following desktop browsers:</p>
+			<ul>
+				<li>Firefox 3.5+</li>
+				<li>Chrome 5.0+</li>
+				<li>Safari 5.0+</li>
+				<li>Opera 10.60+</li>
+				<li>Internet Explorer 9.0+</li>
+			</ul>
+			<p>There is also support for the W3C Geolocation API on mobile devices:</p>
+			<ul>
+				<li>Android 2.0+</li>
+				<li>iPhone 3.0+</li>
+				<li>Opera Mobile 10.1+</li>
+				<li>Symbian (S60 3rd &#038; 5th generation)</li>
+				<li>Blackberry OS 6</li>			
+				<li>Maemo</li>
+			</ul>
+		</section>
+		
+		<section>
+			<h2>Data Protection</h2>
+			<p>The specification explicitly states that since the nature of the API also exposes the user&#8217;s location and therefore could compromise their privacy, the user&#8217;s permission to attempt to obtain the geolocation information must be sought before proceeding. The browser will take care of this, and a message will either appear as a popup box, or at the top of the browser (implementation is browser specific) requesting the user&#8217;s permission.</p>
+			<figure>
+				<img src="http://html5doctor.com/wp-content/uploads/2011/06/safari-geolocation-permission.jpg" alt="Screenshot of Safari's popup box asking for Geolocation permission" />
+				<figcaption>Safari asking the user for permission to obtain their Geolocation information</figcaption>
+			</figure>
+		</section>
+		
+		<section>
+			<h2>Geolocation sources</h2>
+			<p>A number of different sources are used to attempt to obtain the user&#8217;s location, and each has their own varying degree of accuracy. A desktop browser is likely to use WiFi (accurate to 20m) or IP Geolocation which is only accurate to the city level and can provide false positives. Mobile devices tend to use <em>triangulation</em> techniques such as <dfn title="Global Positioning System">GPS</dfn> (accurate to 10m and only works outside), WiFi and <dfn title="Global System for Mobile">GSM</dfn>/<dfn title="Code division multiple access">CDMA</dfn> cell IDs (accurate to 1000m).</p>
+		</section>		
+		
+		<section>
+			<h2>Using the API</h2>
+			<p>Before you actually attempt to use the Geolocation API, you first need to check if the browser actually supports it. The API usefully provides a function for this which can be called as follows:</p>
+			<pre><code>if (navigator.geolocation) {
+  // do fancy stuff
+}</code></pre>
+			<p>Obviously if this returns false, you should optionally inform the user of the inferiority of their browser and laugh in their face (not really).</p>
+			<p>Through the API, there are two functions available to obtain a user&#8217;s location:</p>
+			
+			<section>
+			<h3>getCurrentPosition and watchPosition</h3>
+			<p>Both of these methods return immediately, and then asynchronously attempt to obtain the current location. They take the same number of arguments, two of which are optional:</p>
+			<ol>
+				<li><code>successCallback</code> &ndash; called if the method returns successfully</li>
+				<li><code>[errorCallback]</code> &ndash; called if the method returns with an error</li>
+				<li>[options] &ndash; a number of options are available:
+					<ul>
+						<li><code>enableHighAccuracy</code> &ndash; provides a hint that the application would like the best possible results. This may cause a slower response time and in the case of a mobile device, greater power consumption as it may use GPS. Boolean with a default setting of false.</li>
+						<li><code>timeout</code> &ndash; indicates the maximum length of time to wait for a response. In milliseconds with a default of 0 &#8211; infinite.</li>
+						<li><code>maximumAge</code> &ndash; denotes the maximum age of a cached position that the application will be willing to accept. In milliseconds, with a default value of 0, which means that an attempt must be made to obtain a new position object immediately.</li>
+					</ul>
+				</li>
+			</ol>
+			<p>Before mentioning the differences between the two, another method needs to be introduced:</p>
+			</section>
+			
+			<section>
+			<h3>clearWatch</h3>
+			<p>This method takes one argument, the <code>watchID</code> of the watch process to clear (which is returned by <code>watchPosition</code>)</p>
+			<p>Now, the main difference between <code>getCurrentPosition</code> and <code>watchPosition</code> is that <code>watchPosition</code> keeps informing your code should the position change, so basically it keeps updating the user&#8217;s position. This is very useful if they&#8217;re on the move and you want to keep track of their position, whereas <code>getCurrentPosition</code> is a once off.	This method also returns a <code>watchID</code> which is required when you want to stop the position constantly being updated by calling <code>clearWatch</code> method is called.</p>			
+			<p>When the user&#8217;s position is returned, it is contained within a <code>Position</code> object which contains a number of properties:</p>
+			<table>
+			<thead>
+				<tr>
+					<th scope="col">Property</th>
+					<th scope="col">Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">coords.latitude</th>
+					<td>Decimal degrees of the latitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.longitude</th>
+					<td>Decimal degress of the longitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.altitude</th>
+					<td>Height in metres of the position above the <a href="http://en.wikipedia.org/wiki/Reference_ellipsoid">reference ellipsoid</a></td>
+				</tr>
+				<tr>
+					<th scope="row">coords.accuracy</th>
+					<td>The accuracy in metres of the returned result. The value of this setting informs the application how useful the returned latitude/longitude value actually is. This can help in determining if the returned result is accurate enough for the purpose it is intended for, e.g. values for streetview locations will need to be more accurate than those for a country based location</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.altitudeAccuracy</th>
+					<td>The accuracy in metres of the returned altitude</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.heading</th>
+					<td>Direction of travel of the hosting device, clockwise from true north</td>
+				</tr>
+				<tr>
+					<th scope="row">coords.speed</th>
+					<td>The current ground speed of the hosting device in metres per second</td>
+				</tr>
+				<tr>
+					<th scope="row">timestamp</th>
+					<td>Timestamp of when the position was acquired</td>
+				</tr>
+			</tbody>
+			</table>
+			
+			<p>Amongst these only which is <code>coords.latitude</code>, <code>coords.longitude</code> and <code>coords.accuracy</code> are guaranteed to be returned (all others may be <code>null</code>), and the first two are by and large the most relevant, as it is from these that a position can be plotted on a Google Map, for example.</p>
+			<p>You can read more about the <a href="http://www.w3.org/TR/geolocation-API/#position_interface"><code>Position</code> object</a> and the <a href="http://www.w3.org/TR/geolocation-API/#coordinates_interface">coordinates interface</a> on the W3 specification itself.</p>
+			</section>
+		</section>
+		
+		<section>
+			<h2>Putting it all together</h2>
+			
+			<p>Putting this altogether, the following code will attempt to obtain a user&#8217;s location, calling the method <code>displayPosition</code> on success which simply pops up an alert box with the captured latitude and longitude:</p>
+			<pre><code>if (navigator.geolocation) {
+  var timeoutVal = 10 * 1000 * 1000;
+  navigator.geolocation.getCurrentPosition(
+    displayPosition, 
+    displayError,
+    { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+  );
+}
+else {
+  alert("Geolocation is not supported by this browser");
+}
+
+function displayPosition(position) {
+  alert("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+}</code></pre>
+			<p>The code above also calls the <code>displayError</code> method when attempt to fetch the user&#8217;s location data. This function simple converts the returned error code to an appropriate message:</p>
+	<pre><code>function displayError(error) {
+  var errors = { 
+    1: 'Permission denied',
+    2: 'Position unavailable',
+    3: 'Request timeout'
+  };
+  alert("Error: " + errors[error.code]);
+}</code></pre>
+		<section>
+			<h3>A final word</h3>
+			<p>This is just a simple introduction to using the Geolocation API and one of it&#8217;s uses.</p>
+			<p>Of course the API can be used for more than simply plotting a position on a map (although that in itself is quite useful). The specification itself offers a list of potential
+			<a href="http://www.w3.org/TR/geolocation-API/#usecases_section">use cases</a> for the API such as:</p>
+			<ul>
+				<li>Finding and plotting points of interest in the user&#8217;s area</li>
+				<li>Annotating content with location information</li.
+				<li>Showing a user&#8217;s position on a map (helping with directions of course!)</li>
+				<li>Turn-by-turn route navigation &#8211; using <code>watchPosition</code></li>
+				<li>Up-to-date local information &#8211; updates as you move</li>
+			</ul>
+		</section>	
+		</section>
+		
+		
+		<section>
+			<h2>Examples</h2>
+			<p>To see geolocation in action, I&#8217;ve put together a couple of quick examples in which I encourage you to view source and then go and try it out for yourself.</p>
+			<ul>
+				<li><a href="http://html5doctor.com/demos/geolocation/geolocation-getcurrentposition-example.html">Plot a location on a Google Map using <code>getPosition</code></a></li>
+				<li><a href="http://html5doctor.com/demos/geolocation/geolocation-watchposition-example.html">Plot and update a location on a Google Map using <code>watchPosition</code></a> &ndash; this is best viewed on a moving device so you can see the position updating</li>
+			</ul>
+		</section><p><a href="http://html5doctor.com/finding-your-position-with-geolocation/" rel="bookmark">Finding your position with Geolocation</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on June 14, 2011.</p>
+<div class="crp_related"><h3>Related Posts:</h3><ul class="related"><li><a href="http://html5doctor.com/the-classlist-api/"     class="crp_title">The classList API</a></li><li><a href="http://html5doctor.com/the-woes-of-date-input/"     class="crp_title">The woes of date input</a></li><li><a href="http://html5doctor.com/ins-del-s/"     class="crp_title">Comparing and contrasting ins, del, and s</a></li><li><a href="http://html5doctor.com/html5-check-it-before-you-wreck-it-with-miketm-smith/"     class="crp_title">HTML5 &#8211; Check it Before you Wreck it with Mike[tm]&hellip;</a></li><li><a href="http://html5doctor.com/web-manifest-specification/"     class="crp_title">The Web Manifest specification</a></li></ul><div class="crp_clear"></div></div>]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/finding-your-position-with-geolocation/feed/</wfw:commentRss>
+		<slash:comments>43</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 3.044 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-03-16 10:54:26 -->

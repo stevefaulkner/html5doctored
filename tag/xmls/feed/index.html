@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>HTML5 Doctor &#187; xmls</title>
+	<atom:link href="http://html5doctor.com/tag/xmls/feed/" rel="self" type="application/rss+xml" />
+	<link>http://html5doctor.com</link>
+	<description>helping you implement HTML5 today</description>
+	<lastBuildDate>Wed, 28 Aug 2013 12:30:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=</generator>
+		<item>
+		<title>Your Questions Answered #3</title>
+		<link>http://html5doctor.com/your-questions-answered-3/</link>
+		<comments>http://html5doctor.com/your-questions-answered-3/#comments</comments>
+		<pubDate>Thu, 22 Oct 2009 13:52:44 +0000</pubDate>
+		<dc:creator>Richard Clark</dc:creator>
+				<category><![CDATA[Boilerplates]]></category>
+		<category><![CDATA[Browser Compatibility]]></category>
+		<category><![CDATA[Elements]]></category>
+		<category><![CDATA[Questions]]></category>
+		<category><![CDATA[Quick Tips]]></category>
+		<category><![CDATA[Validation]]></category>
+		<category><![CDATA[doctype]]></category>
+		<category><![CDATA[HTML 5]]></category>
+		<category><![CDATA[html5]]></category>
+		<category><![CDATA[javascript]]></category>
+		<category><![CDATA[mime]]></category>
+		<category><![CDATA[outline]]></category>
+		<category><![CDATA[xmls]]></category>
+
+		<guid isPermaLink="false">http://html5doctor.com/?p=1061</guid>
+		<description><![CDATA[We're back with our (semi) regular round up of answering readers HTML5 related questions. Right, let's not mess about any longer and dive straight in with the questions.]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re back with our (semi) regular round up of answering readers <abbr>HTML</abbr>5 related questions. Right, let&#8217;s not mess about any longer and dive straight in with the questions.</p>
+<h2>Multiple use of tags</h2>
+<p>Daniel Davis asked:</p>
+<blockquote><p>Dear Doctor,</p>
+<p>Just a quick confirmation please.</p>
+<p>Am I right in thinking that nav, like header and footer, can be used more than once in a single page?  For example, surrounding a menu at the top of the page and surrounding next/previous buttons at the bottom.<br />
+Come to think of it, is it fair to say that all tags except html, head and body can be used more than once?<br />
+Thanks in advance, doctor.</p>
+<p>I&#8217;ll be back soon about my dodgy knee.</p></blockquote>
+<p>You&#8217;re correct all the elements you mention can be used more than once a page. If you see this article <a href="/the-header-element/">about the header</a> and this about <a href="/the-footer-element/">the footer</a> &#8211; they show that you can use them multiple times on a page. Also you don&#8217;t really need html, head or body tags, as all browsers will assume them anyway but it&#8217;s also safe to leave them included.</p>
+<p>&mdash; Hope that clears things up <a href="/author/richc/">Rich</a> and <a href="/author/brucel/">Bruce</a></p>
+<h2><abbr>HTML</abbr>5 + Javascript Client Web App</h2>
+<p>Girish asked:</p>
+<blockquote><p>Is it possible to create a complete client side application using HTML 5 (it will embed chat clients, stock ticker) + JavaScript, and then bundle is with underlining Firefox 3.5 engine, so that user can install it as a desktop app on Linux, and then it runs in its own window using firefox 3.5 engine. The app will store everything in local storage &#8211; like url, usernames etc, and will not interact with any local server.</p>
+<p>It would pure <abbr>HTML</abbr>5 + JavaScript based client web app which would be packaged, and can be installed or launched from startup scripts.</p>
+<p>Or instead of using firefox 3.5 engine, we can use Mozilla Prism to convert it to web app, and then bundle it, is it possible?</p></blockquote>
+<p>Technically it <em>should</em> be possible. Certainly the <abbr>HTML</abbr>5 <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#offline">offline applications API</a> (via the manifest) gives you all that ability to create a client side app and it run locally without a web connection.</p>
+<p>However, the browser is the problem.  <a href="http://prism.mozilla.com/">Prism</a> might be a good way to deploy this as a standalone app, but I don&#8217;t know if Prism is running the latest Gecko engine (or whether that comes with the JS engine, etc) &#8211; and even if it does &#8211; Firefox 3.5 currently has a pretty severe bug with the offline applications: it doesn&#8217;t work!</p>
+<p>I have logged the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=501422">bug with Mozilla</a> and I know they&#8217;re working (in fact, I believe they&#8217;ve fixed it and are now testing).</p>
+<p>The alternative is to use <a href="http://fluidapp.com/">Fluid</a> (a Webkit based app) &#8211; but again, that&#8217;s only if they have updated to the latest Webkit and thus including the offline applications API (that said, quickly looking at the Fluid site, their in-progress version may have the latest Webkit).</p>
+<p>Regarding launch from start up scripts &#8211; you could achieve this though the custom scheme handlers (but this is just Firefox IIRC): <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#custom-handlers">http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#custom-handlers</a></p>
+<p>Equally, there may be an API that you could exploit via the standalone browser, either Prism or Fluid.</p>
+<p>&mdash; Good luck! <a href="http://html5doctor.com/author/remys/">Remy</a></p>
+<h2>MIME or DOCTYPE, which one prevails</h2>
+<p>Pedro Estébanez asked:</p>
+<blockquote><p>Hello doctor,</p>
+<p>I have found this site a very good resource for web developers and I thank you for your effort.</p>
+<p>Now, my question:</p>
+<p>There is a lot of discussion about hot to tell the browser we are using <abbr>HTML</abbr>5 or X<abbr>HTML</abbr>5 by setting the Content-Type HTTP header. But then I don&#8217;t know the true role the DOCTYPE plays (apart from keeping quirks mode from being activated and validation).</p>
+<p>For example, if I compose my documents as XHTML with an according DOCTYPE and my server serves them as text/html, why XML mode is not triggered in the browser?</p>
+<p>Thanks in advance.</p></blockquote>
+<p>Did you see this article on the site from Bruce? <a href="/html-5-xml-xhtml-5/"><abbr>HTML</abbr>5, XML and X<abbr>HTML</abbr>5</a> and this one from Remy <a href="/html-5-boilerplates/"><abbr>HTML</abbr>5 Boilerplates</a>.</p>
+<p>Also see this (linked in Bruce&#8217;s article) for some advice on using the right mime type. <a href="http://www.webstandards.org/learn/articles/askw3c/sep2003/">http://www.webstandards.org/learn/articles/askw3c/sep2003/</a>.</p>
+<p>&mdash; Cheers <a href="/author/richc/">Rich</a></p>
+<h2>Outline Algorithm</h2>
+<p>Mike Taylor asked:</p>
+<blockquote><p>In Section 4.4.11.1 of the current <abbr>HTML</abbr>5 spec, the outline algorithm is described&#8211;yet it&#8217;s not super clear in what ways this is useful to users or developers. It would be great if some more light could be shed on the topic!</p>
+<p>Thanks for the awesome blog, btw.</p></blockquote>
+<p>The outliner basically allows you to easily see the heading structure of a site. The outline can then figure out from the heading structure where in the outline it should sit, should you want to only parse a section of the code into another site or page for example. (I realise this isn&#8217;t totally clear). Also check out the <a href="http://gsnedders.html5.org/outliner/"><abbr>HTML</abbr>5 Outliner</a> for checking your work.</p>
+<p>Bruce covered it a little bit in his <a href="/the-section-element/">section article</a> &#8211; <q>&#8220;With very few exceptions, section should not be used if there is no natural heading for it. Check your work in the HTML 5 outiner tool. If you see any instances of “untitled section” that corresponds to a section, you’re probably doing it wrong. (It’s fine for a nav or aside element to be untitled, however).&#8221;</q></p>
+<p>We&#8217;ll try and cover it in more detail in a future post but I hope this helps for now, <a href="/author/richc/">Rich</a>.</p>
+<h2><abbr>HTML</abbr>5 and xmlns</h2>
+<p>Ad Taylor asked:</p>
+<blockquote><p>
+I hope this isn&#8217;t a stupid question BUT …</p>
+<p>If I am using the html5 DOCTYPE and I am still using xhtml syntax do I need to define the xmlns in the html tag (i.e. xmlns=&#8221;http://www.w3.org/1999/xhtml&#8221;)?</p>
+<p>Thank you for taking the time to do this.</p></blockquote>
+<p>We said, Not a stupid question, but a simple answer: No!</p>
+<p>&mdash; Ta <a href="http://html5doctor.com/author/brucel/">Bruce</a> (HTML5 Shrink)</p>
+<h2>Developing to a changing spec</h2>
+<p>Sam Rayner asked:</p>
+<blockquote><p>I read the Super Friends Guide to <abbr>HTML</abbr>5 Hiccups &#8211; http://www.zeldman.com/superfriends/guide/ and it&#8217;s worried me a little.</p>
+<p>I&#8217;ve recently been developing personal projects using <abbr>HTML</abbr>5 as I find I learn best &#8216;on the job&#8217; and wish to become familiar with the new spec by putting it in to practice. However, it sounds like I&#8217;ve misinterpreted bits and often used new elements such as footer in the way the Super Friends describe rather than in line with the spec.</p>
+<p>I really want to continue enjoying the benefits of <abbr>HTML</abbr>5 in my own non-critical web work but it seems I run the risk of having to return to it all at a later date and amend stuff due to changes in the spec.</p>
+<p>What do you think the best course of action is? Continue with 5 but keep going back and fixing old projects? &#8211; Could become a real hassle.</p>
+<p>Continue with 5 and leave non-visual discrepancies as they are (the code may be slightly off but it&#8217;s styled fine)? &#8211; Goes against all of my natural instincts to do things right.</p>
+<p>Return to 4 and use class names as apposed to the new elements for the time being?</p>
+<p>I realise this is the risk I take developing with a developing spec but I&#8217;m worried if I wait until everything is set in stone I&#8217;ll still be using HTML4 years from now!</p>
+<p>Thanks a lot,</p></blockquote>
+<p>I understand your concerns with the spec changing from day to day. It&#8217;s hard to keep up with (there&#8217;s 6 of us and that&#8217;s tough enough).</p>
+<p>Although I&#8217;m sure you&#8217;re aware in footers case, its <a href="/the-footer-element-update/">content model has now been changed</a> to allow it to act more like header.</p>
+<p>I think essentially you have three choices for your development or a combination of the below currently:</p>
+<ol>
+<li>Continue working as you are with new <abbr>HTML</abbr>5 elements and change them as the spec becomes more defined</li>
+<li>Use HTML4, with <abbr>HTML</abbr>5 class names (as you suggested)</li>
+<li>Use only the simplified doctype and those elements that will only be benificial in the future or add progressive enchancement (e.g. inline elements such as time.)</li>
+</ol>
+<p>Its going to be a while until we can use <abbr>HTML</abbr>5 in development projects but in my opinion there isn&#8217;t any reason to not use it on personal projects now. You have to judge it on a case by case basis, but whichever parts you do you will be futureproofed to some extent.</p>
+<p>&mdash; Cheers <a href="http://html5doctor.com/author/richc/">Rich</a></p>
+<h2><abbr>HTML</abbr>5 and Browser Compatibility</h2>
+<p>A lot of people ask this type of question regularly so here&#8217;s a few links that we think are useful.</p>
+<ul>
+<li><a href="http://a.deveria.com/caniuse/">Can I use</a></li>
+<li><a href="http://molly.com/html5/html5-0709.html">Mollys <abbr>HTML</abbr>5 Table</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_layout_engines_%28HTML_5%29">Comparison of Layout Engines Wiki</a></li>
+</ul>
+<p>That about wraps up this round of questions, we&#8217;ll be publishing more soon, but in the meantime don&#8217;t be afraid to keep <a href="/ask-the-doctor/">asking the doctor about <abbr>HTML</abbr>5.</a>
+<div class="crp_related">
+<h3>Related Posts:</h3>
+<ul class="related">
+<li><a href="http://html5doctor.com/your-questions-answered-2/" rel="bookmark" class="crp_title">Your questions answered #2</a></li>
+<li><a href="http://html5doctor.com/your-questions-answered-4/" rel="bookmark" class="crp_title">Your Questions Answered #4</a></li>
+<li><a href="http://html5doctor.com/your-questions-answered-9/" rel="bookmark" class="crp_title">Your Questions Answered 9</a></li>
+<li><a href="http://html5doctor.com/your-questions-answered-7/" rel="bookmark" class="crp_title">Your Questions Answered #7</a></li>
+<li><a href="http://html5doctor.com/your-questions-answered-10/" rel="bookmark" class="crp_title">Your Questions Answered #10</a></li>
+</ul>
+</div>
+<p><a href="http://html5doctor.com/your-questions-answered-3/" rel="bookmark">Your Questions Answered #3</a> originally appeared on <a href="http://html5doctor.com">HTML5 Doctor</a> on October 22, 2009.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://html5doctor.com/your-questions-answered-3/feed/</wfw:commentRss>
+		<slash:comments>15</slash:comments>
+		</item>
+	</channel>
+</rss>
